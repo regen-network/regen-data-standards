@@ -1,0 +1,20 @@
+---
+import {Image} from "astro:assets";
+import {getCollection} from 'astro:content';
+const {collection} = Astro.props;
+const impacts = await getCollection('impact');
+const ecosystems = await getCollection('ecosystem');
+---
+<ul>
+    <li>
+        <details>
+            <summary><a href="/impact">Impacts</a></summary>
+            <ul>
+                {impacts.map((impact) => (
+                        <li><a href={`/impact/${impact.slug}`}>{impact.data.title}</a></li>
+                ))}
+            </ul>
+        </details>
+    </li>
+    <li><a href="/ecosystems">Ecosystems</a></li>
+</ul>

@@ -1,0 +1,25 @@
+---
+import MainLayout from '../layouts/Main.astro';
+import {Image} from "astro:assets";
+import {getCollection} from 'astro:content';
+const {collection} = Astro.props;
+const entries = await getCollection(collection);
+---
+<MainLayout>
+    <table>
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+        </tr>
+        </thead>
+        {entries.map((entry) => (
+                <tr>
+                    <td class="p-10">
+                        <Image src={entry.data.image} alt={entry.data.title} width="60" height="60" />
+                    </td>
+                    <td class="p-10">{entry.data.title}</td>
+                </tr>
+        ))}
+    </table>
+</MainLayout>

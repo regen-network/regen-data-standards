@@ -1,0 +1,21 @@
+---
+import '../base.css'
+import Sidebar from '../components/sidebar/Sidebar.astro'
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Regen Data Standards</title>
+</head>
+<body>
+<div class="flex h-screen">
+    <nav class="w-screen hidden absolute md:h-full lg:static lg:w-64 lg:flex" id="menu">
+        <Sidebar/>
+    </nav>
+    <main class="flex-1">
+        <slot/>
+    </main>
+</div>
+</body>
+</html>
