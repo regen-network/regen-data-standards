@@ -1,0 +1,15 @@
+---
+const {collection, path, heading} = Astro.props
+---
+<li>
+    <details>
+        <summary><a class="text-lg font-bold" href={path}>{heading}</a></summary>
+        <ul class="flex flex-col gap-2 ml-4">
+            {collection.map((entry) => (
+                    <li>
+                        <a href={`${path}/${entry.slug}`}>{entry.data.title}</a>
+                    </li>
+            ))}
+        </ul>
+    </details>
+</li>

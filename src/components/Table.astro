@@ -3,31 +3,32 @@ import MainLayout from '../layouts/Main.astro';
 import {Image} from "astro:assets";
 import {getCollection} from 'astro:content';
 import fs from 'node:fs';
-const {collection} = Astro.props;
-const entries:any = await getCollection(collection);
-const svgContent:{[id:string]:string} = {}
-entries.forEach((entry:any) => {
+const {collection, title} = Astro.props;
+const entries: any = await getCollection(collection);
+const svgContent: { [id: string]: string } = {}
+entries.forEach((entry: any) => {
     const data = fs.readFileSync(entry.data.image.fsPath).toString();
-    console.log(data)
     svgContent[entry.id] = data;
 });
 ---
-<MainLayout>
-    <table>
-        <thead>
-        <tr>
-            <th>Image</th>
-            <th>Title</th>
-        </tr>
-        </thead>
-        {entries.map((entry:any) => (
-                <tr>
-                    <td class="p-10">
-                        <div set:html={svgContent[entry.id]} class="stroke-brand-400" />
-                        <!--<Image src={entry.data.image} alt={entry.data.title} width="60" height="60" />-->
-                    </td>
-                    <td class="p-10">{entry.data.title}</td>
-                </tr>
-        ))}
-    </table>
+<MainLayout title={`${title} | Regen Data Standards`}>
+    <main class="m-auto max-w-md">
+        <table class="w-96">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            {entries.map((entry: any) => (
+                    <tr>
+                        <td class="p-10">
+                            <div set:html={svgContent[entry.id]} class="stroke-brand-400"/>
+                            <!--<Image src={entry.data.image} alt={entry.data.title} width="60" height="60" />-->
+                        </td>
+                        <td class="p-10">{entry.data.title}</td>
+                    </tr>
+            ))}
+        </table>
+    </main>
 </MainLayout>

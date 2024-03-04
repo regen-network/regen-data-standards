@@ -2,22 +2,21 @@
 import '../base.css'
 import Sidebar from '../components/sidebar/Sidebar.astro'
 import Topbar from "../components/topbar/Topbar.astro";
+const {title} = Astro.props;
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Regen Data Standards</title>
+    <title>{title}</title>
 </head>
 <body>
 <Topbar/>
 <div class="flex h-screen">
-    <nav class="w-64" id="menu">
-        <Sidebar/>
-    </nav>
-    <main class="flex-1">
+    <Sidebar/>
+    <div class="py-4">
         <slot/>
-    </main>
+    </div>
 </div>
 </body>
 </html>
