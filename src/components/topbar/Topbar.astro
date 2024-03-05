@@ -4,9 +4,9 @@ import logo from "../../assets/regen.png";
 import Search from "astro-pagefind/components/Search";
 ---
 <header class="flex flex-row py-2 px-3 bg-brand-300 justify-between items-center">
-    <div class="flex flex-row gap-3 items-center">
+    <div class="flex flex-row gap-4 items-center">
         <Image src={logo} alt="Regen Network" width="20" height="20"/>
-        <h1>Regen Network Data Schemas</h1>
+        <a href="/"><h1 class="text-grey-100 font-semibold text-xl">Regen Network Data Standards</h1></a>
     </div>
     <Search id="search" className="" uiOptions={{showImages: false}}/>
 </header>

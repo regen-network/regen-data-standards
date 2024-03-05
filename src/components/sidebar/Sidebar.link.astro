@@ -1,0 +1,5 @@
+---
+const {href, className} = Astro.props
+const {pathname} = Astro.url
+---
+<a href={href} class={className} data-current={pathname == href}><slot /></a>

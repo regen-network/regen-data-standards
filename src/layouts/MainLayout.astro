@@ -2,21 +2,22 @@
 import '../base.css'
 import Sidebar from '../components/sidebar/Sidebar.astro'
 import Topbar from "../components/topbar/Topbar.astro";
-const {title} = Astro.props;
+let {title, frontmatter} = Astro.props;
+title = frontmatter ? frontmatter.title : title;
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{title}</title>
+    <title>{title} | Regen Data Standards</title>
 </head>
 <body>
 <Topbar/>
 <div class="flex h-screen">
     <Sidebar/>
-    <div class="py-4">
-        <slot/>
-    </div>
+    <main class="px-16 py-8 prose">
+        <slot />
+    </main>
 </div>
 </body>
 </html>
