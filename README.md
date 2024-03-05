@@ -3,8 +3,8 @@
 This repository contains data standards for Regen Network.
 
 Currently, there are two example taxonomies that can be managed in the following directories:
-* Ecosystems: [/src/conent/ecosystem](./src/content/ecosystem)
-* Impacts: [/src/conent/ecosystem](./src/content/ecosystem)
+* Ecosystems: [/src/content/ecosystem](./src/content/ecosystem)
+* Impacts: [/src/content/impact](./src/content/impact)
 
 To add new elements to the taxonomy please follow the example files in the respective directories
 making sure that each element has a `title` and `image` and some descriptive text written in [Markdown](https://www.markdownguide.org).
