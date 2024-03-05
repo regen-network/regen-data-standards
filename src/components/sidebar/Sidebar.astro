@@ -1,15 +1,19 @@
 ---
-import {Image} from "astro:assets";
 import List from './Sidebar.list.astro';
 import {getCollection} from 'astro:content';
 const impacts = await getCollection('impact');
 const ecosystems = await getCollection('ecosystem');
 const activities = await getCollection('activity');
 ---
-<nav class="w-60 border-grey-200 border-r-2 p-4">
-    <ul class="flex flex-col gap-4">
-        <List collection={impacts} path="/impact" heading="Impacts"/>
-        <List collection={activities} path="/activity" heading="Activities"/>
-        <List collection={ecosystems} path="/ecosystem" heading="Ecosystems"/>
-    </ul>
-</nav>
+<div id="menu"
+     class="w-60 border-grey-200 p-4 overflow-y-auto
+     hidden absolute lg:static lg:w-64 lg:flex lg:border-r-2
+">
+    <nav>
+        <ul class="flex flex-col gap-4">
+            <List collection={impacts} path="/impact" heading="Impacts"/>
+            <List collection={activities} path="/activity" heading="Activities"/>
+            <List collection={ecosystems} path="/ecosystem" heading="Ecosystems"/>
+        </ul>
+    </nav>
+</div>
