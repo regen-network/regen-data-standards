@@ -9,7 +9,14 @@ import Search from "astro-pagefind/components/Search";
         <Image src={logo} alt="Regen Network" width="20" height="20"/>
         <a href="/"><h1 class="text-grey-100 font-semibold text-xl">Regen Network Data Standards</h1></a>
     </div>
-    <Search id="search" className="pagefind-ui w-96" uiOptions={{showImages: false}}/>
+    <div class="flex flex-row gap-4 items-center">
+        <Search id="search" className="pagefind-ui w-80" uiOptions={{showImages: false}}/>
+        <a href="https://github.com/regen-network/regen-data-standards">
+            <span class="icon-[radix-icons--github-logo] text-grey-0 h-8 w-8"/>
+        </a>
+        <span class="icon-[radix-icons--hamburger-menu] text-grey-0 lg:hidden h-8 w-8"
+              id="btn-menu"/>
+    </div>
 </header>
 <style is:global>
     .pagefind-ui {
