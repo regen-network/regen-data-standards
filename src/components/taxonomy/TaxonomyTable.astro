@@ -7,17 +7,19 @@ const entries = await getCollection(collection);
 ---
 <table class="w-96">
     <thead>
-    <tr>
+    <tr class="flex flex-row gap-8 items-center">
         <th>Image</th>
         <th>Title</th>
     </tr>
     </thead>
     {entries.map((entry: any) => (
-            <tr>
-                <td class="p-10">
-                    <Image src={entry.data.image} alt={entry.data.title} width="60" height="60"/>
+            <tr class="flex flex-row gap-8 items-center">
+                <td>
+                    <a href={`/${collection}/${entry.slug}`}>
+                        <Image src={entry.data.image} alt={entry.data.title} width="60" height="60"/>
+                    </a>
                 </td>
-                <td class="p-10">{entry.data.title}</td>
+                <td><a href={`/${collection}/${entry.slug}`}>{entry.data.title}</a></td>
             </tr>
     ))}
 </table>

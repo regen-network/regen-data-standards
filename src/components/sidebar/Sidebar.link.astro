@@ -2,4 +2,6 @@
 const {href, className} = Astro.props
 const {pathname} = Astro.url
 ---
-<a href={href} class={className} data-current={pathname == href}><slot /></a>
+<a href={href} class={className} data-current={pathname == href} data-astro-prefetch>
+    <slot />
+</a>

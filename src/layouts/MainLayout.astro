@@ -2,6 +2,7 @@
 import '../base.css'
 import Sidebar from '../components/sidebar/Sidebar.astro'
 import Topbar from "../components/topbar/Topbar.astro";
+import { ViewTransitions } from 'astro:transitions';
 let {title, frontmatter} = Astro.props;
 title = frontmatter ? frontmatter.title : title;
 ---
@@ -10,6 +11,7 @@ title = frontmatter ? frontmatter.title : title;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{title} | Regen Data Standards</title>
+    <ViewTransitions />
 </head>
 <body>
 <Topbar/>

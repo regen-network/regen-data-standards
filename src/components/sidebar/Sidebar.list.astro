@@ -1,19 +1,20 @@
 ---
 import Link from './Sidebar.link.astro'
 const {collection, path, heading} = Astro.props
+const {pathname} = Astro.url
 ---
 <li>
     <details open>
-        <summary>
+        <summary data-current={path == pathname} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
-                  className="p-1 text-lg font-bold data-[current]:underline underline-offset-8 decoration-brand-300">{heading}
+                  className="p-1 text-lg font-bold">{heading}
             </Link>
         </summary>
         <ul class="flex flex-col ml-4">
             {collection.map((entry:any) => (
                     <li>
                         <Link href={`${path}/${entry.slug}`}
-                              className="p-2 data-[current]:bg-brand-300 block rounded-md">
+                              className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
                             {entry.data.title}
                         </Link>
                     </li>
@@ -21,3 +22,8 @@ const {collection, path, heading} = Astro.props
         </ul>
     </details>
 </li>
+<style>
+    summary > * [data-current] {
+        background-color: var(--brand-300);
+    }
+</style>
