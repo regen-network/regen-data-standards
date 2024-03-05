@@ -2,7 +2,7 @@
 import '../base.css'
 import Sidebar from '../components/sidebar/Sidebar.astro'
 import Topbar from "../components/topbar/Topbar.astro";
-import { ViewTransitions } from 'astro:transitions';
+import {ViewTransitions} from 'astro:transitions';
 let {title, frontmatter} = Astro.props;
 title = frontmatter ? frontmatter.title : title;
 ---
@@ -11,15 +11,18 @@ title = frontmatter ? frontmatter.title : title;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{title} | Regen Data Standards</title>
-    <ViewTransitions />
+    <ViewTransitions/>
 </head>
 <body>
 <Topbar/>
 <div class="flex h-screen">
     <Sidebar/>
-    <main class="px-16 py-8 prose">
-        <slot />
-    </main>
+    <div class="px-16 py-8 prose">
+        <p class="bg-warning-200 italic p-2 rounded-md">WARNING: this site is a work in progress. All data is fake!</p>
+        <main data-pagefind-body>
+            <slot/>
+        </main>
+    </div>
 </div>
 </body>
 </html>

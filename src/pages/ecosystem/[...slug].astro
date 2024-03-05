@@ -10,6 +10,7 @@ export async function getStaticPaths() {
 const {entry} = Astro.props;
 const {Content} = await entry.render();
 ---
-<MainLayout title={entry.data.title}>
+<MainLayout title={`${entry.data.title} | Ecosystem`}>
+    <h1 data-pagefind-meta="title">{entry.data.title}</h1>
     <Content/>
 </MainLayout>
