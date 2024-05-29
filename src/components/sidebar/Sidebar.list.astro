@@ -2,23 +2,48 @@
 import Link from './Sidebar.link.astro'
 const {collection, path, heading} = Astro.props
 const {pathname} = Astro.url
+const toplevelItems = collection.filter((entry: any) => entry.slug.split('/').length == 1)
 ---
 <li>
-    <details open>
+    <details open={pathname.split('/')[1] == path.split('/')[1]}>
         <summary data-current={path == pathname} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
                   className="p-1 text-lg font-bold">{heading}
             </Link>
         </summary>
         <ul class="flex flex-col ml-4">
-            {collection.map((entry:any) => (
-                    <li>
-                        <Link href={`${path}/${entry.slug}`}
-                              className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
-                            {entry.data.title}
-                        </Link>
-                    </li>
-            ))}
+            {toplevelItems.map((entry: any) => {
+                const subItems = collection.filter((subEntry: any) => subEntry.slug.startsWith(entry.slug + '/'))
+                if (subItems.length == 0) {
+                    return <li>
+                                <Link href={entry.slug}
+                                      className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
+                                    {entry.data.title}
+                                </Link>
+                            </li>
+                } else {
+                    return <li>
+                                <details>
+                                    <summary class="rounded-md px-2 py-1">
+                                        <Link href={entry.slug}
+                                              className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
+                                            {entry.data.title}
+                                        </Link>
+                                    </summary>
+                                    <!--<ul class="flex flex-col ml-8">-->
+                                    <!--    {subItems.map((subEntry: any) => {-->
+                                    <!--        return <li>-->
+                                    <!--            <Link href={subEntry.slug}-->
+                                    <!--                  className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">-->
+                                    <!--                {subEntry.data.title}-->
+                                    <!--            </Link>-->
+                                    <!--        </li>-->
+                                    <!--    })}-->
+                                    <!--</ul>-->
+                                </details>
+                            </li>
+                }
+            })}
         </ul>
     </details>
 </li>
