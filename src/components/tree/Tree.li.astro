@@ -2,9 +2,11 @@
 import A from './Tree.a.astro';
 interface Props {
     title: string
-    href: string
-    items: any[]
+    href?: string
+    items?: Props[]
 }
+
+export type Item = Props;
 
 const {title, href, items} = Astro.props;
 ---

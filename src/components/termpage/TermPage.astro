@@ -1,0 +1,15 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+interface Props {
+    termType: string
+    title: string
+    entry:any
+}
+const {termType, title, entry} = Astro.props;
+const {Content} = await entry.render();
+---
+<MainLayout title={`${entry.data.title} | ${termType}`}>
+    <h1 data-pagefind-meta="title">{entry.data.title}</h1>
+    <Content />
+</MainLayout>

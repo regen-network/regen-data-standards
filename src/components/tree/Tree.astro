@@ -1,7 +1,8 @@
 ---
 import LI from './Tree.li.astro';
+import type {Item} from './Tree.li.astro';
 interface Props {
-
+    items: Item[];
 }
 
 const {items} = Astro.props;
