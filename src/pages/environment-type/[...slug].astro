@@ -1,0 +1,16 @@
+---
+import {getCollection} from 'astro:content';
+import MainLayout from "../../layouts/MainLayout.astro";
+export async function getStaticPaths() {
+    const entries = await getCollection('environment-type');
+    return entries.map(entry => ({
+        params: {slug: entry.slug}, props: {entry},
+    }));
+}
+const {entry} = Astro.props;
+const {Content} = await entry.render();
+---
+<MainLayout title={`${entry.data.title} | Ecosystem`}>
+    <h1 data-pagefind-meta="title">{entry.data.title}</h1>
+    <Content/>
+</MainLayout>

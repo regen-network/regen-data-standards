@@ -11,5 +11,5 @@ const commonConfig = defineCollection({
 export const collections = {
     impact: commonConfig,
     activity: commonConfig,
-    ecosystem: commonConfig,
+    'environment-type': commonConfig,
 }

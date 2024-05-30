@@ -2,7 +2,7 @@
 import List from './Sidebar.list.astro';
 import {getCollection} from 'astro:content';
 const impacts = await getCollection('impact');
-const ecosystems = await getCollection('ecosystem');
+const ecosystems = await getCollection('environment-type');
 const activities = await getCollection('activity');
 ---
 <div id="menu"
@@ -13,7 +13,7 @@ const activities = await getCollection('activity');
         <ul class="flex flex-col gap-4">
             <List collection={impacts} path="/impact" heading="Impacts"/>
             <List collection={activities} path="/activity" heading="Activities"/>
-            <List collection={ecosystems} path="/ecosystem" heading="Ecosystems"/>
+            <List collection={ecosystems} path="/environment-type" heading="Environment Type"/>
         </ul>
     </nav>
 </div>
