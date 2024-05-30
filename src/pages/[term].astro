@@ -9,18 +9,18 @@ interface Props {
     entry: any
 }
 
-async function addCollectionPaths(ctx: { paths: any[], terms: {} }, termType: string, entries: any) {
-    entries.forEach(entry => {
-        const term = titleToSlug(entry.data.title);
-        if (ctx.terms[term]) {
-            throw new Error(`Duplicate term: ${term}`);
-        }
-        ctx.terms[term] = entry;
-        ctx.paths.push({params: {term}, props: {termType, entry}});
-    });
-}
-
 export async function getStaticPaths(collection: string, paramName: string) {
+    async function addCollectionPaths(ctx: { paths: any[], terms: {} }, termType: string, entries: any) {
+        entries.forEach(entry => {
+            const term = titleToSlug(entry.data.title);
+            if (ctx.terms[term]) {
+                console.log(`Duplicate term: ${term}`);
+            }
+            ctx.terms[term] = entry;
+            ctx.paths.push({params: {term}, props: {termType, entry}});
+        });
+    }
+
     const ctx = {paths: [], terms: {}};
     await addCollectionPaths(ctx, 'Environment Type', await getCollection('environment-type'));
     await addCollectionPaths(ctx, 'Activity', await getCollection('activity'));

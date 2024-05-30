@@ -1,9 +1,0 @@
----
-import TermPage from '../components/termpage/TermPage.astro';
-import {getTermStaticPaths} from '../components/termpage/staticPaths.ts';
-
-export async function getStaticPaths() {
-  return getTermStaticPaths('activity', 'activity');
-}
----
-<TermPage termType="Activity" entry={Astro.props.entry} />
