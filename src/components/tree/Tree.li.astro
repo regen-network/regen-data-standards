@@ -14,7 +14,7 @@ const {title, href, items} = Astro.props;
     <summary>
         <A href={href}>{title}</A>
     </summary>
-    <ul>
+    <ul class="pl-4">
         {items.map((child) => <Astro.self {...child} />)}
     </ul>
 </details>
