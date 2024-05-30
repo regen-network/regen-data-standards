@@ -1,5 +1,6 @@
 ---
 import '../base.css';
+import Tree from '../components/tree/Tree.astro'
 ---
 <html lang="en">
 <head>
@@ -8,17 +9,18 @@ import '../base.css';
     <title>Regen Data Standards</title>
 </head>
 <body>
-<details open class="pl-8">
-    <summary>Click to expand!</summary>
-    <p>Some hidden content...</p>
-    <details open class="pl-8">
-        <summary>Click to expand!</summary>
-        <p>Some hidden content...</p>
-        <details open class="pl-8">
-            <summary>Click to expand!</summary>
-            <p>Some hidden content...</p>
-        </details>
-    </details>
-</details>
+<Tree items={[
+    {title: "Foo", items: [
+        {title: "Foo 1"},
+        {title: "Foo 2",
+            items: [
+                {title: "Foo 2.1"},
+                {title: "Foo 2.2"},
+            ]
+        },
+        {title: "Foo 3"},
+    ]},
+    {title: "Bar"},
+]} />
 </body>
 </html>

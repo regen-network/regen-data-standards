@@ -3,21 +3,20 @@ import A from './Tree.a.astro';
 interface Props {
     title: string
     href: string
-    children: any[]
+    items: any[]
 }
 
-const {title, href, children} = Astro.props;
+const {title, href, items} = Astro.props;
 ---
-{children && children.length > 0 ? (
+<li>
+{items && items.length > 0 ? (
 <details>
     <summary>
         <A href={href}>{title}</A>
     </summary>
     <ul>
-        {children.map((child) => (
-
-        ))}
+        {items.map((child) => <Astro.self {...child} />)}
     </ul>
 </details>
     ) : (<A href={href}>{title}</A>)}
-
+</li>
