@@ -1,5 +1,5 @@
 ---
-title: Increased Carbon Sequestration and Storage
+title: Improved Biodiversity
 image: ./dummy.svg
 ---
 
