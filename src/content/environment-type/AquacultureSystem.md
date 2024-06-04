@@ -1,5 +1,5 @@
 ---
-title: Aquaculture
+title: Aquaculture System
 image: ./dummy.svg
 ---
 
