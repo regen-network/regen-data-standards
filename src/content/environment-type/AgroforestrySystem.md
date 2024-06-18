@@ -1,5 +1,5 @@
 ---
-title: Agroforestry
+title: Agroforestry System
 image: ./dummy.svg
 ---
 
