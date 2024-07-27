@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
+    "@astrojs/markdown-remark": "^5.2.0",
     "@astrojs/mdx": "^3.0.1",
     "@astrojs/tailwind": "^5.1.0",
     "@iconify-json/radix-icons": "^1.1.14",
@@ -19,6 +20,7 @@
     "astro": "^4.9.2",
     "astro-pagefind": "^1.5.0",
     "pagefind": "^1.1.0",
+    "rehype-mermaid": "^2.1.0",
     "sharp": "^0.33.4",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
