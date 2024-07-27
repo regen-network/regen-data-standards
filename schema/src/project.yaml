@@ -1,0 +1,80 @@
+id: https://framework.regen.network/schema/Project
+name: Project
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+imports:
+  - linkml:types
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  Project:
+    class_uri: rfs:Project
+    slots:
+      - name
+      - description
+      - project_size
+      - project_developer
+    attributes:
+      id:
+        range: uriorcurie
+        identifier: true
+      size:
+        range: integer
+      activity:
+      start_date:
+      end_date:
+      project_type:
+      project_verifier:
+  ProjectSize:
+    class_uri: rfs:ProjectSize
+    attributes:
+      unit:
+        slot_uri: qudt:unit
+        required: true
+      numericValue:
+        range: double
+        slot_uri: qudt:numericValue
+        required: true
+  ProjectRole:
+    slots:
+      - name
+      - description
+      - url
+    attributes:
+      type:
+        range: ProjectRoleTypes
+        slot_uri: rfs:ProjectRoleType
+        required: true
+      image:
+        slot_uri: schema:image
+
+slots:
+  name:
+    required: true
+    description: Name of the project.
+    slot_uri: schema:name
+  description:
+    description: Optional description of the project.
+    slot_uri: schema:description
+  url:
+  project_size:
+    range: ProjectSize
+    inlined: false
+  project_developer:
+    range: ProjectRole
+    inlined: false
+
+enums:
+  ProjectRoleTypes:
+    permissible_values:
+      individual:
+        meaning: rfs:Individual
+      organization:
+        meaning: rfs:Organization
