@@ -4,6 +4,10 @@ import {getCollection} from 'astro:content';
 const impacts = await getCollection('impact');
 const ecosystems = await getCollection('environment-type');
 const activities = await getCollection('activity');
+const schemas = [
+    { slug: 'Project.md', data: {title: 'Project'} },
+    { slug: 'ProjectPost.md', data: {title: 'Project Post'} },
+]
 ---
 <div id="menu"
      class="w-60 border-grey-200 p-4 overflow-y-auto
@@ -14,6 +18,7 @@ const activities = await getCollection('activity');
             <List collection={impacts} path="/impact" heading="Impacts"/>
             <List collection={activities} path="/activity" heading="Activities"/>
             <List collection={ecosystems} path="/environment-type" heading="Environment Type"/>
+            <List collection={schemas} path="/schema" heading="Schemas"/>
         </ul>
     </nav>
 </div>
