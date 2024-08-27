@@ -1,11 +1,12 @@
 ---
+import type {MarkdownInstance} from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 export async function getStaticPaths() {
-    const schemas = await Astro.glob('../../../schema/generated/*.md');
+    const schemas: MarkdownInstance<{}>[] = await Astro.glob('../../../schema/generated/*.md');
     return schemas.map((entry) => {
         const file = entry.file;
         let filename = file.split('/').pop();
-        let title = filename.slice(0, -3);
+        let title = filename?.slice(0, -3);
 
         // Make the generated index.md the root path.
         if (filename === 'index.md') {
