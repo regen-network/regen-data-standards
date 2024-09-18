@@ -11,4 +11,7 @@ export default defineConfig({
         pagefind(),
         mdx(),
     ],
+    redirects: {
+        '/schema/[...slug].md': '/schema/[...slug]',
+    }
 });
