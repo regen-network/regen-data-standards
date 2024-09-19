@@ -6,18 +6,11 @@ export async function getStaticPaths() {
     return schemas.map((entry) => {
         const file = entry.file;
         let filename = file.split('/').pop();
-        let title, slug = filename?.slice(0, -3);
+        let slug = filename?.slice(0, -3);
 
-        // Make the generated index.md the root path.
-        if (filename === 'index.md') {
-            slug = undefined;
-            title = 'Schemas';
-        }
-
-        // For now, this makes it easier to navigate while testing.
         return {
             params: {slug},
-            props: {entry, title},
+            props: {entry, title: slug},
         }
     })
 }
