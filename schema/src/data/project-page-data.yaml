@@ -1,0 +1,46 @@
+
+id: "http://dev.app.regen.com/projects/38"
+marketType: rfs:ComplianceMarket
+bioregion:
+  - "Amazon Basin"
+biomeType:
+  - "TropicalForest"
+watershed:
+  - "Amazon River"
+subWatershed:
+  - "Upper Amazon"
+ecosystemType:
+  - rfs:CloudForest
+offchainCreditsInfo:
+  creditsRegistered:
+    numericValue: 1000
+    unit: unit:HA
+  creditsAvailable:
+    numericValue: 800
+    unit: unit:HA
+  creditsRetired:
+    numericValue: 200
+    unit: unit:HA
+projectDuration: "P1Y"
+projectDurationMinimum: "P6M"
+projectDurationMaximum: "P2Y"
+ecologicalConnectivityIndex:
+  numericValue: 75.5
+  unit: unit:UNITLESS
+socialCulturalIndex:
+  numericValue: 85.0
+  unit: unit:UNITLESS
+environmentalAuthority:
+  name: "Corantioquia"
+  url: "http://corantioquia.gov.co/"
+managementAreas:
+  - activity: 
+      - rfs:Conservation
+    extent:
+      numericValue: 120
+      unit: unit:HA
+  - activity:
+      - rfs:EcosystemRestoration
+    extent:
+      numericValue: 220
+      unit: unit:HA
