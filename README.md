@@ -42,3 +42,7 @@ When the current set of terms does not meet the needs of new methods,  protocols
 To propose a new term, the proposer will complete a [New Taxonomy Term Proposal form](https://airtable.com/appzrw40tJdLBM2RS/shrssvqyirhVLP7bz). New term proposals must include the new term, its definition, an icon, the taxonomic group (Activities, Impact, Environment Type), and a brief justification for adding the new term. Content from the form will be evaluated by a Regen Registry staff member and if the information is complete and it conforms to the taxonomy standards the staff member will initiate the approval process of adding the new term, definition and icon  creating a pull request on this repository. 
 
 We are using GitHub as the governance platform to approve new taxonomy components. The person submitting the pull request will select at least two people from a pool of approvers who can approve merging taxonomy components into the repository by suggesting changes and then accepting proposed additions using pull requests. The approvers are accountable for adding new terms and are encouraged to follow a due diligence process and, when necessary, solicit comments from other people, inside and outside of Regen Network, before approving a pull request.
+
+## Schemas
+
+Schemas for the Regen Network Framework are documented. See [/schema/README.md](schema/README.md)

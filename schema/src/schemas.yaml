@@ -1,0 +1,16 @@
+id: https://framework.regen.network/schema/
+name: Schemas
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+imports:
+  - linkml:types
+  - project
+  - project-post
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string

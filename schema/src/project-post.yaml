@@ -1,0 +1,45 @@
+id: https://framework.regen.network/schema/project-post
+name: project-post
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dcterms: http://purl.org/dc/terms/
+  geo: http://www.opengis.net/ont/geosparql#
+  rfs: https://framework.regen.network/schema/
+imports:
+  - linkml:types
+default_range: string
+default_prefix: rfs
+
+classes:
+  ProjectPost:
+    attributes:
+      title:
+        required: true
+        slot_uri: dcterms:title
+      comment:
+        slot_uri: dcterms:description
+      files:
+        range: File
+        slot_uri: dcterms:references
+        multivalued: true
+        inlined_as_list: true
+        list_elements_ordered: true
+  File:
+    attributes:
+      iri:
+        identifier: true
+      name:
+        required: true
+        slot_uri: dcterms:title
+      description:
+        slot_uri: dcterms:description
+      location:
+        range: FileLocation
+        slot_uri: geo:hasGeometry
+      credit:
+        slot_uri: dcterms:creator
+  FileLocation:
+    class_uri: geo:Geometry
+    attributes:
+      wkt:
+        slot_uri: geo:asWKT

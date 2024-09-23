@@ -2,9 +2,10 @@
 import Link from './Sidebar.link.astro'
 const {collection, path, heading} = Astro.props
 const {pathname} = Astro.url
+const open = pathname.includes(path);
 ---
 <li>
-    <details open>
+    <details {...(open ? {open} : {})}>
         <summary data-current={path == pathname} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
                   className="p-1 text-lg font-bold">{heading}

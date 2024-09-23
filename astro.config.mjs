@@ -5,10 +5,16 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+    build: {
+        format: 'file',
+    },
     prefetch: true,
     integrations: [
         tailwind({}),
         pagefind(),
         mdx(),
     ],
+    redirects: {
+        '/schema/[...slug].md': '/schema/[...slug]',
+    }
 });

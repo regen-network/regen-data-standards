@@ -1,0 +1,21 @@
+---
+import type {MarkdownInstance} from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+export async function getStaticPaths() {
+    const schemas: MarkdownInstance<{}>[] = await Astro.glob('../../../schema/generated/*.md');
+    return schemas.map((entry) => {
+        const file = entry.file;
+        let filename = file.split('/').pop();
+        let slug = filename?.slice(0, -3);
+
+        return {
+            params: {slug},
+            props: {entry, title: slug},
+        }
+    })
+}
+const {entry, title} = Astro.props;
+---
+<MainLayout title={`${title} | Schema`}>
+    <entry.Content/>
+</MainLayout>
