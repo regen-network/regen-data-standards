@@ -1,0 +1,205 @@
+id: https://framework.regen.network/schema/ProjectPage
+name: ProjectPage
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+imports:
+  - linkml:types
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+enums:
+  MarketTypeTypes:
+    description: The type of marketplace
+    permissible_values:
+      rfs:ComplianceMarket:
+        description: a compliance market
+      rfs:VoluntaryMarket:
+        description: a voluntary market
+  # TODO: these should be imported from a shared vocubulary
+  EnvironmentTypeTypes:
+    description: The type of ecosystem
+    permissible_values:
+      rfs:CloudForest:
+        description: a cloud forest
+      rfs:TropicalSavannah:
+        description: a tropical savannah
+      rfs:TropicalDryForest:
+        description: a tropical dry forest
+      rfs:TropicalForest:
+        description: a tropical forest
+  ActivityType:
+    description: The type of activity
+    permissible_values:
+      rfs:Conservation:
+        description: conservation activity
+      rfs:EcosystemRestoration:
+        description: restoration activity
+
+classes:
+  ProjectPage:
+    tree_root: true
+    class_uri: rfs:ProjectPage
+    slots:
+      - id
+      - environmentalAuthority
+      - marketType
+      - bioregion
+      - biomeType
+      - watershed
+      - subWatershed
+      - ecosystemType
+      - offchainCreditsInfo
+      - projectDuration
+      - projectDurationMinimum
+      - projectDurationMaximum
+      - managementAreas
+      - ecologicalConnectivityIndex
+      - socialCulturalIndex
+      - administrativeArea
+  
+  OffchainCreditsInfo:
+    class_uri: rfs:OffchainCreditsInfo
+    attributes:
+      creditsRegistered:
+        range: QuantityValue
+        description: The number of credits registered
+      creditsAvailable:
+        range: QuantityValue
+        description: The number of credits available
+      creditsRetired:
+        range: QuantityValue
+        description: The number of credits retired
+
+
+  Organization:
+    class_uri: rfs:Organization
+    slots:
+      - name
+      - url
+      - showOnProjectPage
+
+  AdministrativeArea:
+    class_uri: schema:AdministrativeArea
+    slots:
+      - name
+      - url
+  
+  QuantityValue:
+    class_uri: qudt:QuantityValue
+    description: A value that represents a quantity, with a numeric value and a unit.
+    attributes:
+      numericValue:
+        slot_uri: qudt:numericValue
+        range: float
+        description: The numeric value of the quantity.
+      unit:
+        slot_uri: qudt:unit
+        range: string
+        description: The unit of measurement for the quantity.
+
+
+  ManagementArea:
+    class_uri: rfs:ManagementArea
+    slots:
+      - activity
+      - extent
+
+
+
+      
+      
+slots:
+  id:
+    range: uriorcurie
+    identifier: true
+  name:
+    slot_uri: schema:name
+  url:
+    slot_uri: schema:url
+  showOnProjectPage:
+    range: boolean
+    description: Whether to show this organization on the project page.
+  marketType:
+    slot_uri: rfs:marketType
+    range: MarketTypeTypes
+    description: The type of market for the associated credits.
+  bioregion:
+    range: string
+    slot_uri: rfs:bioregion
+    description: The bioregion associated with the project.
+    multivalued: true
+  biomeType:
+    range: string
+    slot_uri: rfs:biomeType
+    description: The type of biome associated with the project.
+    multivalued: true
+  watershed:
+    range: string
+    slot_uri: rfs:watershed
+    description: The watershed associated with the project.
+    multivalued: true
+  subWatershed:
+    range: string
+    slot_uri: rfs:subWatershed
+    description: The sub-watershed associated with the project.
+    multivalued: true
+  ecosystemType:
+    slot_uri: rfs:ecosystemType
+    range: EnvironmentTypeTypes
+    description: The type of ecosystem associated with the project.
+    multivalued: true
+  environmentalAuthority:
+    slot_uri: rfs:environmentalAuthority
+    range: Organization
+    description: The environmental authority associated with the project.
+  administrativeArea:
+    slot_uri: schema:AdministrativeArea
+    range: AdministrativeArea
+    description: The administrative area associated with the project.
+  offchainCreditsInfo:
+    slot_uri: rfs:offchainCreditsInfo
+    range: OffchainCreditsInfo
+    description: Information about offchain credits associated with the project.
+  projectDuration:
+    slot_uri: rfs:projectDuration
+    range: string
+    description: The duration of the project.
+  projectDurationMaximum:
+    slot_uri: rfs:projectDurationMaximum
+    range: string
+    description: The maximum possible duration for a project.
+  projectDurationMinimum:
+    slot_uri: rfs:projectDurationMinimum
+    range: string
+    description: The minimum possible duration for a project.
+  ecologicalConnectivityIndex:
+    slot_uri: rfs:ecologicalConnectivityIndex
+    range: QuantityValue
+    description: The ecological connectivity index of the project.
+  socialCulturalIndex:
+    slot_uri: rfs:socialCulturalIndex
+    range: QuantityValue
+    description: The social cultural index of the project.
+  managementAreas:
+    slot_uri: rfs:managementAreas
+    range: ManagementArea
+    description: The management areas associated with the project.
+    multivalued: true
+    inlined: true
+  activity:
+    # TODO: associate with regen data standards activities
+    range: ActivityType 
+    description: the activity.
+    multivalued: true
+  extent:
+    slot_uri: dcterms:extent
+    range: QuantityValue
+    description: the extent.
+  
+
