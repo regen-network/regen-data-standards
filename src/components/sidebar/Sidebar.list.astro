@@ -6,7 +6,7 @@ const open = pathname.includes(path);
 ---
 <li>
     <details {...(open ? {open} : {})}>
-        <summary data-current={path == pathname} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
+        <summary data-current={open} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
                   className="p-1 text-lg font-bold">{heading}
             </Link>
