@@ -1,10 +1,15 @@
 
 
-# Slot: id
+# Slot: ecosystemType
+
+
+_The type of ecosystem associated with the project._
 
 
 
-URI: [rfs:id](https://framework.regen.network/schema/id)
+
+
+URI: [rfs:ecosystemType](https://framework.regen.network/schema/ecosystemType)
 
 
 
@@ -18,7 +23,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ProjectPage](ProjectPage.md) |  |  no  |
 
 
@@ -29,9 +33,9 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 ## Properties
 
-* Range: [Uriorcurie](Uriorcurie.md)
+* Range: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
-* Required: True
+* Multivalued: True
 
 
 
@@ -57,8 +61,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:id |
-| native | rfs:id |
+| self | rfs:ecosystemType |
+| native | rfs:ecosystemType |
 
 
 
@@ -67,16 +71,16 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 <details>
 ```yaml
-name: id
+name: ecosystemType
+description: The type of ecosystem associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-identifier: true
-alias: id
+slot_uri: rfs:ecosystemType
+alias: ecosystemType
 domain_of:
-- Project
 - ProjectPage
-range: uriorcurie
-required: true
+range: EnvironmentTypeTypes
+multivalued: true
 
 ```
 </details>

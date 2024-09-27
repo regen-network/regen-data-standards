@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: showOnProjectPage
+
+
+_Whether to show this organization on the project page._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:showOnProjectPage](https://framework.regen.network/schema/showOnProjectPage)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -28,7 +33,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Boolean](Boolean.md)
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:showOnProjectPage |
+| native | rfs:showOnProjectPage |
 
 
 
@@ -64,14 +69,14 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: showOnProjectPage
+description: Whether to show this organization on the project page.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+alias: showOnProjectPage
 domain_of:
-- Project
-range: string
+- Organization
+range: boolean
 
 ```
 </details>

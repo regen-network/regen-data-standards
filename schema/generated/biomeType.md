@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: biomeType
+
+
+_The type of biome associated with the project._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -29,6 +34,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 ## Properties
 
 * Range: [String](String.md)
+
+* Multivalued: True
 
 
 
@@ -54,8 +61,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:biomeType |
+| native | rfs:biomeType |
 
 
 
@@ -64,14 +71,16 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: biomeType
+description: The type of biome associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: rfs:biomeType
+alias: biomeType
 domain_of:
-- Project
+- ProjectPage
 range: string
+multivalued: true
 
 ```
 </details>

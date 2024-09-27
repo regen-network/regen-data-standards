@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: address
+
+
+_an address._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [schema:address](http://schema.org/address)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | schema:address |
+| native | rfs:address |
 
 
 
@@ -64,13 +69,14 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: address
+description: an address.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: schema:address
+alias: address
 domain_of:
-- Project
+- Organization
 range: string
 
 ```

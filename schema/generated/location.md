@@ -2,6 +2,8 @@
 
 # Slot: location
 
+
+
 URI: [geo:hasGeometry](http://www.opengis.net/ont/geosparql#hasGeometry)
 
 

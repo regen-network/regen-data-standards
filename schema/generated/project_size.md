@@ -2,6 +2,8 @@
 
 # Slot: project_size
 
+
+
 URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
 
 

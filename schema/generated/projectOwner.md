@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: projectOwner
+
+
+_The organization responsible for owning the project._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -28,7 +33,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Organization](Organization.md)
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:projectOwner |
+| native | rfs:projectOwner |
 
 
 
@@ -64,14 +69,15 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: projectOwner
+description: The organization responsible for owning the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: rfs:projectOwner
+alias: projectOwner
 domain_of:
-- Project
-range: string
+- ProjectPage
+range: Organization
 
 ```
 </details>

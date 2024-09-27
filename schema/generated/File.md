@@ -110,6 +110,8 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
+    - AdministrativeArea
     required: true
   description:
     name: description
@@ -119,6 +121,7 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
   location:
     name: location
     from_schema: https://framework.regen.network/schema/
@@ -166,6 +169,8 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
+    - AdministrativeArea
     range: string
     required: true
   description:
@@ -178,6 +183,7 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
     range: string
   location:
     name: location

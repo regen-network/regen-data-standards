@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: creditsRetired
+
+
+_The number of credits retired_
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:creditsRetired](https://framework.regen.network/schema/creditsRetired)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [OffchainCreditsInfo](OffchainCreditsInfo.md) |  |  no  |
 
 
 
@@ -28,7 +33,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [QuantityValue](QuantityValue.md)
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:creditsRetired |
+| native | rfs:creditsRetired |
 
 
 
@@ -64,14 +69,15 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: creditsRetired
+description: The number of credits retired
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+alias: creditsRetired
+owner: OffchainCreditsInfo
 domain_of:
-- Project
-range: string
+- OffchainCreditsInfo
+range: QuantityValue
 
 ```
 </details>

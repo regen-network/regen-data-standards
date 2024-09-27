@@ -1,10 +1,15 @@
 
 
-# Slot: id
+# Slot: projectMonitor
+
+
+_The organization responsible for monitoring the project._
 
 
 
-URI: [rfs:id](https://framework.regen.network/schema/id)
+
+
+URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 
 
@@ -18,7 +23,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ProjectPage](ProjectPage.md) |  |  no  |
 
 
@@ -29,9 +33,7 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 ## Properties
 
-* Range: [Uriorcurie](Uriorcurie.md)
-
-* Required: True
+* Range: [Organization](Organization.md)
 
 
 
@@ -57,8 +59,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:id |
-| native | rfs:id |
+| self | rfs:projectMonitor |
+| native | rfs:projectMonitor |
 
 
 
@@ -67,16 +69,15 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 <details>
 ```yaml
-name: id
+name: projectMonitor
+description: The organization responsible for monitoring the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-identifier: true
-alias: id
+slot_uri: rfs:projectMonitor
+alias: projectMonitor
 domain_of:
-- Project
 - ProjectPage
-range: uriorcurie
-required: true
+range: Organization
 
 ```
 </details>

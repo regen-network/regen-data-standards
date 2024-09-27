@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: projectDuration
+
+
+_The duration of the project._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuration)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:projectDuration |
+| native | rfs:projectDuration |
 
 
 
@@ -64,13 +69,14 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: projectDuration
+description: The duration of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: rfs:projectDuration
+alias: projectDuration
 domain_of:
-- Project
+- ProjectPage
 range: string
 
 ```

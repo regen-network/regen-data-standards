@@ -2,7 +2,9 @@
 
 # Slot: numericValue
 
-URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
+
+
+URI: [rfs:numericValue](https://framework.regen.network/schema/numericValue)
 
 
 
@@ -16,6 +18,7 @@ URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit |  no  |
 | [ProjectSize](ProjectSize.md) |  |  no  |
 
 
@@ -26,9 +29,7 @@ URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 
 ## Properties
 
-* Range: [Double](Double.md)
-
-* Required: True
+* Range: [String](String.md)
 
 
 
@@ -42,19 +43,12 @@ URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 
 
 
-### Schema Source
-
-
-* from schema: https://framework.regen.network/schema/
-
-
-
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | qudt:numericValue |
+| self | rfs:numericValue |
 | native | rfs:numericValue |
 
 
@@ -65,15 +59,11 @@ URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 <details>
 ```yaml
 name: numericValue
-from_schema: https://framework.regen.network/schema/
-rank: 1000
-slot_uri: qudt:numericValue
 alias: numericValue
-owner: ProjectSize
 domain_of:
 - ProjectSize
-range: double
-required: true
+- QuantityValue
+range: string
 
 ```
 </details>

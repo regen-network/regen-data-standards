@@ -10,6 +10,7 @@ imports:
   - linkml:types
   - project
   - project-post
+  - project-page
 default_curi_maps:
   - semweb_context
 default_prefix: rfs

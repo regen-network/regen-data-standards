@@ -2,6 +2,8 @@
 
 # Slot: end_date
 
+
+
 URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
 
 

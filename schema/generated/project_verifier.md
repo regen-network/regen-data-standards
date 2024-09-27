@@ -2,6 +2,8 @@
 
 # Slot: project_verifier
 
+
+
 URI: [rfs:project_verifier](https://framework.regen.network/schema/project_verifier)
 
 

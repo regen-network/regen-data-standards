@@ -2,6 +2,8 @@
 
 # Slot: start_date
 
+
+
 URI: [rfs:start_date](https://framework.regen.network/schema/start_date)
 
 

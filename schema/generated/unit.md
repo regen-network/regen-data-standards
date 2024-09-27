@@ -2,7 +2,9 @@
 
 # Slot: unit
 
-URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
+
+
+URI: [rfs:unit](https://framework.regen.network/schema/unit)
 
 
 
@@ -16,6 +18,7 @@ URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit |  no  |
 | [ProjectSize](ProjectSize.md) |  |  no  |
 
 
@@ -27,8 +30,6 @@ URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 ## Properties
 
 * Range: [String](String.md)
-
-* Required: True
 
 
 
@@ -42,19 +43,12 @@ URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 
 
 
-### Schema Source
-
-
-* from schema: https://framework.regen.network/schema/
-
-
-
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | qudt:unit |
+| self | rfs:unit |
 | native | rfs:unit |
 
 
@@ -65,15 +59,11 @@ URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 <details>
 ```yaml
 name: unit
-from_schema: https://framework.regen.network/schema/
-rank: 1000
-slot_uri: qudt:unit
 alias: unit
-owner: ProjectSize
 domain_of:
 - ProjectSize
+- QuantityValue
 range: string
-required: true
 
 ```
 </details>

@@ -115,10 +115,10 @@ attributes:
   id:
     name: id
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     identifier: true
     domain_of:
     - Project
+    - ProjectPage
     range: uriorcurie
     required: true
   size:
@@ -131,9 +131,9 @@ attributes:
   activity:
     name: activity
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     domain_of:
     - Project
+    - ManagementArea
   start_date:
     name: start_date
     from_schema: https://framework.regen.network/schema/
@@ -173,12 +173,12 @@ attributes:
   id:
     name: id
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     identifier: true
     alias: id
     owner: Project
     domain_of:
     - Project
+    - ProjectPage
     range: uriorcurie
     required: true
   size:
@@ -193,11 +193,11 @@ attributes:
   activity:
     name: activity
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     alias: activity
     owner: Project
     domain_of:
     - Project
+    - ManagementArea
     range: string
   start_date:
     name: start_date
@@ -247,6 +247,8 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
+    - AdministrativeArea
     range: string
     required: true
   description:
@@ -261,6 +263,7 @@ attributes:
     - Project
     - ProjectRole
     - File
+    - Organization
     range: string
   project_size:
     name: project_size

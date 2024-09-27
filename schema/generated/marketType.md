@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: marketType
+
+
+_The type of market for the associated credits._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -28,7 +33,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [MarketTypeTypes](MarketTypeTypes.md)
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:marketType |
+| native | rfs:marketType |
 
 
 
@@ -64,14 +69,15 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: marketType
+description: The type of market for the associated credits.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: rfs:marketType
+alias: marketType
 domain_of:
-- Project
-range: string
+- ProjectPage
+range: MarketTypeTypes
 
 ```
 </details>

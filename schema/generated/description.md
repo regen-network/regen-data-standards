@@ -7,6 +7,8 @@ _Optional description of the project._
 
 
 
+
+
 URI: [schema:description](http://schema.org/description)
 
 
@@ -21,9 +23,10 @@ URI: [schema:description](http://schema.org/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [ProjectRole](ProjectRole.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
 | [File](File.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -79,6 +82,7 @@ domain_of:
 - Project
 - ProjectRole
 - File
+- Organization
 range: string
 
 ```

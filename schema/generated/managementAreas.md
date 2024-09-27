@@ -1,10 +1,15 @@
 
 
-# Slot: id
+# Slot: managementAreas
+
+
+_The management areas associated with the project._
 
 
 
-URI: [rfs:id](https://framework.regen.network/schema/id)
+
+
+URI: [rfs:managementAreas](https://framework.regen.network/schema/managementAreas)
 
 
 
@@ -18,7 +23,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ProjectPage](ProjectPage.md) |  |  no  |
 
 
@@ -29,9 +33,9 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 ## Properties
 
-* Range: [Uriorcurie](Uriorcurie.md)
+* Range: [ManagementArea](ManagementArea.md)
 
-* Required: True
+* Multivalued: True
 
 
 
@@ -57,8 +61,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:id |
-| native | rfs:id |
+| self | rfs:managementAreas |
+| native | rfs:managementAreas |
 
 
 
@@ -67,16 +71,17 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 <details>
 ```yaml
-name: id
+name: managementAreas
+description: The management areas associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-identifier: true
-alias: id
+slot_uri: rfs:managementAreas
+alias: managementAreas
 domain_of:
-- Project
 - ProjectPage
-range: uriorcurie
-required: true
+range: ManagementArea
+multivalued: true
+inlined: true
 
 ```
 </details>

@@ -2,6 +2,8 @@
 
 # Slot: wkt
 
+
+
 URI: [geo:asWKT](http://www.opengis.net/ont/geosparql#asWKT)
 
 

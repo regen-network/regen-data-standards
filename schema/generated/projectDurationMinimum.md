@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: projectDurationMinimum
+
+
+_The minimum possible duration for a project._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [rfs:projectDurationMinimum](https://framework.regen.network/schema/projectDurationMinimum)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:projectDurationMinimum |
+| native | rfs:projectDurationMinimum |
 
 
 
@@ -64,13 +69,14 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: projectDurationMinimum
+description: The minimum possible duration for a project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: rfs:projectDurationMinimum
+alias: projectDurationMinimum
 domain_of:
-- Project
+- ProjectPage
 range: string
 
 ```

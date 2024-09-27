@@ -1,10 +1,15 @@
 
 
-# Slot: id
+# Slot: administrativeArea
+
+
+_The administrative area associated with the project._
 
 
 
-URI: [rfs:id](https://framework.regen.network/schema/id)
+
+
+URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrativeArea)
 
 
 
@@ -18,7 +23,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ProjectPage](ProjectPage.md) |  |  no  |
 
 
@@ -29,9 +33,7 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 ## Properties
 
-* Range: [Uriorcurie](Uriorcurie.md)
-
-* Required: True
+* Range: [AdministrativeArea](AdministrativeArea.md)
 
 
 
@@ -57,8 +59,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:id |
-| native | rfs:id |
+| self | rfs:administrativeArea |
+| native | rfs:administrativeArea |
 
 
 
@@ -67,16 +69,14 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 <details>
 ```yaml
-name: id
+name: administrativeArea
+description: The administrative area associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-identifier: true
-alias: id
+alias: administrativeArea
 domain_of:
-- Project
 - ProjectPage
-range: uriorcurie
-required: true
+range: AdministrativeArea
 
 ```
 </details>
