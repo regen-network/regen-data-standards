@@ -62,6 +62,11 @@ classes:
       - ecologicalConnectivityIndex
       - socialCulturalIndex
       - administrativeArea
+      # - projectDeveloper
+      - projectOperator
+      # - projectVerifier
+      - projectMonitor
+      - projectOwner
   
   OffchainCreditsInfo:
     class_uri: rfs:OffchainCreditsInfo
@@ -83,6 +88,9 @@ classes:
       - name
       - url
       - showOnProjectPage
+      - description
+      - image
+      - address
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
@@ -120,6 +128,15 @@ slots:
     identifier: true
   name:
     slot_uri: schema:name
+  description:
+    slot_uri: schema:description
+    description: a description.
+  image:
+    slot_uri: schema:image
+    description: an image.
+  address:
+    slot_uri: schema:address
+    description: an address.
   url:
     slot_uri: schema:url
   showOnProjectPage:
@@ -159,7 +176,6 @@ slots:
     range: Organization
     description: The environmental authority associated with the project.
   administrativeArea:
-    slot_uri: schema:AdministrativeArea
     range: AdministrativeArea
     description: The administrative area associated with the project.
   offchainCreditsInfo:
@@ -201,5 +217,25 @@ slots:
     slot_uri: dcterms:extent
     range: QuantityValue
     description: the extent.
+  # projectDeveloper:
+  #   slot_uri: rfs:projectDeveloper
+  #   range: Organization
+  #   description: The organization responsible for developing the project.
+  projectOperator:
+    slot_uri: rfs:projectOperator
+    range: Organization
+    description: The organization responsible for operating the project.
+  # projectVerifier:
+  #   slot_uri: rfs:projectVerifier
+  #   range: Organization
+  #   description: The organization responsible for verifying the project.
+  projectMonitor:
+    slot_uri: rfs:projectMonitor
+    range: Organization
+    description: The organization responsible for monitoring the project.
+  projectOwner:
+    slot_uri: rfs:projectOwner
+    range: Organization
+    description: The organization responsible for owning the project.
   
 
