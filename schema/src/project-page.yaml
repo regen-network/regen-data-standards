@@ -21,7 +21,7 @@ enums:
         description: a compliance market
       rfs:VoluntaryMarket:
         description: a voluntary market
-  # TODO: these should be imported from a shared vocubulary
+  # TODO: these should be imported from a shared vocabulary
   EnvironmentTypeTypes:
     description: The type of ecosystem
     permissible_values:
