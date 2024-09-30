@@ -15,16 +15,32 @@ default_range: string
 
 classes:
   Project:
+    tree_root: true
     class_uri: rfs:Project
     slots:
       - name
       - description
       - project_size
       - project_developer
+      - id
+      - environmentalAuthority
+      - marketType
+      - bioregion
+      - biomeType
+      - watershed
+      - subWatershed
+      - ecosystemType
+      - offchainCreditsInfo
+      - projectDuration
+      - managementAreas
+      - ecologicalConnectivityIndex
+      - socialCulturalIndex
+      - administrativeArea
+      - projectOperator
+      - projectMonitor
+      - projectOwner
+      - creditClassVersion
     attributes:
-      id:
-        range: uriorcurie
-        identifier: true
       size:
         range: integer
       activity:
@@ -32,6 +48,7 @@ classes:
       end_date:
       project_type:
       project_verifier:
+
   ProjectSize:
     class_uri: rfs:ProjectSize
     attributes:
@@ -42,6 +59,7 @@ classes:
         range: double
         slot_uri: qudt:numericValue
         required: true
+
   ProjectRole:
     slots:
       - name
@@ -54,6 +72,55 @@ classes:
         required: true
       image:
         slot_uri: schema:image
+  
+  OffchainCreditsInfo:
+    class_uri: rfs:OffchainCreditsInfo
+    attributes:
+      creditsRegistered:
+        range: QuantityValue
+        description: The number of credits registered
+      creditsAvailable:
+        range: QuantityValue
+        description: The number of credits available
+      creditsRetired:
+        range: QuantityValue
+        description: The number of credits retired
+
+  Organization:
+    class_uri: rfs:Organization
+    slots:
+      - name
+      - url
+      - showOnProjectPage
+      - description
+      - image
+      - address
+
+  AdministrativeArea:
+    class_uri: schema:AdministrativeArea
+    slots:
+      - name
+      - url
+  
+  QuantityValue:
+    class_uri: qudt:QuantityValue
+    description: A value that represents a quantity, with a numeric value and a unit.
+    attributes:
+      numericValue:
+        slot_uri: qudt:numericValue
+        range: float
+        description: The numeric value of the quantity.
+      unit:
+        slot_uri: qudt:unit
+        range: string
+        description: The unit of measurement for the quantity.
+
+  ManagementArea:
+    class_uri: rfs:ManagementArea
+    slots:
+      - activity
+      - extent
+
 
 slots:
   name:
@@ -70,6 +137,99 @@ slots:
   project_developer:
     range: ProjectRole
     inlined: false
+  id:
+    range: uriorcurie
+    identifier: true
+  image:
+    slot_uri: schema:image
+    description: an image.
+  address:
+    slot_uri: schema:address
+    description: an address.
+  showOnProjectPage:
+    range: boolean
+    description: Whether to show this organization on the project page.
+  marketType:
+    slot_uri: rfs:marketType
+    range: MarketTypeTypes
+    description: The type of market for the associated credits.
+  bioregion:
+    range: string
+    slot_uri: rfs:bioregion
+    description: The bioregion associated with the project.
+  biomeType:
+    range: string
+    slot_uri: rfs:biomeType
+    description: The type of biome associated with the project.
+  watershed:
+    range: string
+    slot_uri: rfs:watershed
+    description: The watershed associated with the project.
+  subWatershed:
+    range: string
+    slot_uri: rfs:subWatershed
+    description: The sub-watershed associated with the project.
+  ecosystemType:
+    slot_uri: rfs:ecosystemType
+    range: EnvironmentTypeTypes
+    description: The type of ecosystem associated with the project.
+    multivalued: true
+  environmentalAuthority:
+    slot_uri: rfs:environmentalAuthority
+    range: Organization
+    description: The environmental authority associated with the project.
+  administrativeArea:
+    range: AdministrativeArea
+    description: The administrative area associated with the project.
+  offchainCreditsInfo:
+    slot_uri: rfs:offchainCreditsInfo
+    range: OffchainCreditsInfo
+    description: Information about offchain credits associated with the project.
+  projectDuration:
+    slot_uri: rfs:projectDuration
+    range: string
+    description: The duration of the project.
+  ecologicalConnectivityIndex:
+    slot_uri: rfs:ecologicalConnectivityIndex
+    range: float
+    description: The ecological connectivity index of the project.
+  socialCulturalIndex:
+    slot_uri: rfs:socialCulturalIndex
+    range: float
+    description: The social cultural index of the project.
+  managementAreas:
+    slot_uri: rfs:managementAreas
+    range: ManagementArea
+    description: The management areas associated with the project.
+    multivalued: true
+    inlined: true
+  activity:
+    # TODO: associate with regen data standards activities
+    range: ActivityType 
+    description: the activity.
+    multivalued: true
+  extent:
+    slot_uri: dcterms:extent
+    range: QuantityValue
+    description: the extent.
+  projectOperator:
+    slot_uri: rfs:projectOperator
+    range: Organization
+    description: The organization responsible for operating the project.
+  projectMonitor:
+    slot_uri: rfs:projectMonitor
+    range: Organization
+    description: The organization responsible for monitoring the project.
+  projectOwner:
+    slot_uri: rfs:projectOwner
+    range: Organization
+    description: The organization responsible for owning the project.
+  creditClassVersion:
+    slot_uri: rfs:creditClassVersion
+    range: string
+    description: The version of the credit class used for the project.
+  
+  
 
 enums:
   ProjectRoleTypes:
@@ -78,3 +238,34 @@ enums:
         meaning: rfs:Individual
       organization:
         meaning: rfs:Organization
+  MarketTypeTypes:
+    description: The type of marketplace
+    permissible_values:
+      rfs:ComplianceMarket:
+        description: a compliance market
+      rfs:VoluntaryMarket:
+        description: a voluntary market
+  # TODO: these should be imported from a shared vocabulary
+  EnvironmentTypeTypes:
+    description: The type of ecosystem
+    permissible_values:
+      rfs:CloudForest:
+        description: a cloud forest
+      rfs:TropicalSavannah:
+        description: a tropical savannah
+      rfs:TropicalDryForest:
+        description: a tropical dry forest
+      rfs:TropicalForest:
+        description: a tropical forest
+      rfs:TropicalVeryHumidForest:
+      rfs:TropicalHumidForest:
+      rfs:PremontaneHumidForest:
+      rfs:LowMontaneVeryHumidForest:
+  # TODO: these should be imported from a shared vocabulary
+  ActivityType:
+    description: The type of activity
+    permissible_values:
+      rfs:Conservation:
+        description: conservation activity
+      rfs:EcosystemRestoration:
+        description: restoration activity
