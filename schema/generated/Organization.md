@@ -47,10 +47,10 @@ Organization {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) | [environmentalAuthority](environmentalAuthority.md) | range | [Organization](Organization.md) |
-| [ProjectPage](ProjectPage.md) | [projectOperator](projectOperator.md) | range | [Organization](Organization.md) |
-| [ProjectPage](ProjectPage.md) | [projectMonitor](projectMonitor.md) | range | [Organization](Organization.md) |
-| [ProjectPage](ProjectPage.md) | [projectOwner](projectOwner.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [environmentalAuthority](environmentalAuthority.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [projectOperator](projectOperator.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [projectMonitor](projectMonitor.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [projectOwner](projectOwner.md) | range | [Organization](Organization.md) |
 
 
 
@@ -126,9 +126,9 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
-    - File
     - Organization
     - AdministrativeArea
+    - File
     range: string
     required: true
   url:
@@ -163,8 +163,8 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
-    - File
     - Organization
+    - File
     range: string
   image:
     name: image

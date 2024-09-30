@@ -155,9 +155,9 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
-    - File
     - Organization
     - AdministrativeArea
+    - File
     range: string
     required: true
   description:
@@ -171,8 +171,8 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
-    - File
     - Organization
+    - File
     range: string
   url:
     name: url

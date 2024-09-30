@@ -23,7 +23,7 @@ URI: [rfs:managementAreas](https://framework.regen.network/schema/managementArea
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -78,7 +78,7 @@ rank: 1000
 slot_uri: rfs:managementAreas
 alias: managementAreas
 domain_of:
-- ProjectPage
+- Project
 range: ManagementArea
 multivalued: true
 inlined: true

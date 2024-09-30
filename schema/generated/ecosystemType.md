@@ -23,7 +23,7 @@ URI: [rfs:ecosystemType](https://framework.regen.network/schema/ecosystemType)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -78,7 +78,7 @@ rank: 1000
 slot_uri: rfs:ecosystemType
 alias: ecosystemType
 domain_of:
-- ProjectPage
+- Project
 range: EnvironmentTypeTypes
 multivalued: true
 

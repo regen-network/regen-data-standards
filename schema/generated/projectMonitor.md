@@ -23,7 +23,7 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:projectMonitor
 alias: projectMonitor
 domain_of:
-- ProjectPage
+- Project
 range: Organization
 
 ```

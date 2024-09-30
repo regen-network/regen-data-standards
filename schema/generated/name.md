@@ -23,11 +23,11 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [File](File.md) |  |  no  |
-| [Organization](Organization.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [File](File.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -84,9 +84,9 @@ alias: name
 domain_of:
 - Project
 - ProjectRole
-- File
 - Organization
 - AdministrativeArea
+- File
 range: string
 required: true
 

@@ -23,7 +23,7 @@ URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuratio
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:projectDuration
 alias: projectDuration
 domain_of:
-- ProjectPage
+- Project
 range: string
 
 ```

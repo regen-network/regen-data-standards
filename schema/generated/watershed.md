@@ -23,7 +23,7 @@ URI: [rfs:watershed](https://framework.regen.network/schema/watershed)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:watershed
 alias: watershed
 domain_of:
-- ProjectPage
+- Project
 range: string
 
 ```

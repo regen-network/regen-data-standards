@@ -42,7 +42,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) | [managementAreas](managementAreas.md) | range | [ManagementArea](ManagementArea.md) |
+| [Project](Project.md) | [managementAreas](managementAreas.md) | range | [ManagementArea](ManagementArea.md) |
 
 
 

@@ -23,7 +23,7 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:projectOwner
 alias: projectOwner
 domain_of:
-- ProjectPage
+- Project
 range: Organization
 
 ```

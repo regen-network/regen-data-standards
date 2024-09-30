@@ -23,7 +23,7 @@ URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrat
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -75,7 +75,7 @@ from_schema: https://framework.regen.network/schema/
 rank: 1000
 alias: administrativeArea
 domain_of:
-- ProjectPage
+- Project
 range: AdministrativeArea
 
 ```

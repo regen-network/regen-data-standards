@@ -23,7 +23,7 @@ URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:marketType
 alias: marketType
 domain_of:
-- ProjectPage
+- Project
 range: MarketTypeTypes
 
 ```

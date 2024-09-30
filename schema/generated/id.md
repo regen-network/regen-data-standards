@@ -18,7 +18,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
 
 
@@ -74,7 +73,6 @@ identifier: true
 alias: id
 domain_of:
 - Project
-- ProjectPage
 range: uriorcurie
 required: true
 

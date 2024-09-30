@@ -19,7 +19,6 @@ Name: Schemas
 | [OffchainCreditsInfo](OffchainCreditsInfo.md) | None |
 | [Organization](Organization.md) | None |
 | [Project](Project.md) | None |
-| [ProjectPage](ProjectPage.md) | None |
 | [ProjectPost](ProjectPost.md) | None |
 | [ProjectRole](ProjectRole.md) | None |
 | [ProjectSize](ProjectSize.md) | None |

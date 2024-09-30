@@ -23,7 +23,7 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:environmentalAuthority
 alias: environmentalAuthority
 domain_of:
-- ProjectPage
+- Project
 range: Organization
 
 ```
