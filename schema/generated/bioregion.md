@@ -35,8 +35,6 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 * Range: [String](String.md)
 
-* Multivalued: True
-
 
 
 
@@ -80,7 +78,6 @@ alias: bioregion
 domain_of:
 - ProjectPage
 range: string
-multivalued: true
 
 ```
 </details>

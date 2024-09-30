@@ -150,22 +150,18 @@ slots:
     range: string
     slot_uri: rfs:bioregion
     description: The bioregion associated with the project.
-    multivalued: true
   biomeType:
     range: string
     slot_uri: rfs:biomeType
     description: The type of biome associated with the project.
-    multivalued: true
   watershed:
     range: string
     slot_uri: rfs:watershed
     description: The watershed associated with the project.
-    multivalued: true
   subWatershed:
     range: string
     slot_uri: rfs:subWatershed
     description: The sub-watershed associated with the project.
-    multivalued: true
   ecosystemType:
     slot_uri: rfs:ecosystemType
     range: EnvironmentTypeTypes

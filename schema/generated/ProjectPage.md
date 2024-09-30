@@ -13,10 +13,10 @@ erDiagram
 ProjectPage {
     uriorcurie id  
     MarketTypeTypes marketType  
-    stringList bioregion  
-    stringList biomeType  
-    stringList watershed  
-    stringList subWatershed  
+    string bioregion  
+    string biomeType  
+    string watershed  
+    string subWatershed  
     EnvironmentTypeTypesList ecosystemType  
     string projectDuration  
     string projectDurationMinimum  
@@ -73,10 +73,10 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [id](id.md) | 1 <br/> [Uriorcurie](Uriorcurie.md) |  | direct |
 | [environmentalAuthority](environmentalAuthority.md) | 0..1 <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
 | [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
-| [bioregion](bioregion.md) | * <br/> [String](String.md) | The bioregion associated with the project | direct |
-| [biomeType](biomeType.md) | * <br/> [String](String.md) | The type of biome associated with the project | direct |
-| [watershed](watershed.md) | * <br/> [String](String.md) | The watershed associated with the project | direct |
-| [subWatershed](subWatershed.md) | * <br/> [String](String.md) | The sub-watershed associated with the project | direct |
+| [bioregion](bioregion.md) | 0..1 <br/> [String](String.md) | The bioregion associated with the project | direct |
+| [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
+| [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
+| [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
 | [ecosystemType](ecosystemType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem associated with the project | direct |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
 | [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
@@ -215,7 +215,6 @@ attributes:
     domain_of:
     - ProjectPage
     range: string
-    multivalued: true
   biomeType:
     name: biomeType
     description: The type of biome associated with the project.
@@ -227,7 +226,6 @@ attributes:
     domain_of:
     - ProjectPage
     range: string
-    multivalued: true
   watershed:
     name: watershed
     description: The watershed associated with the project.
@@ -239,7 +237,6 @@ attributes:
     domain_of:
     - ProjectPage
     range: string
-    multivalued: true
   subWatershed:
     name: subWatershed
     description: The sub-watershed associated with the project.
@@ -251,7 +248,6 @@ attributes:
     domain_of:
     - ProjectPage
     range: string
-    multivalued: true
   ecosystemType:
     name: ecosystemType
     description: The type of ecosystem associated with the project.

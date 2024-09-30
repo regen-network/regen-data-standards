@@ -35,8 +35,6 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 * Range: [String](String.md)
 
-* Multivalued: True
-
 
 
 
@@ -80,7 +78,6 @@ alias: subWatershed
 domain_of:
 - ProjectPage
 range: string
-multivalued: true
 
 ```
 </details>
