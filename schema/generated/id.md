@@ -18,8 +18,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ProjectPage](ProjectPage.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 

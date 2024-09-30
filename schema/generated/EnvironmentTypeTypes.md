@@ -17,6 +17,10 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 | rfs:TropicalSavannah | None | a tropical savannah |
 | rfs:TropicalDryForest | None | a tropical dry forest |
 | rfs:TropicalForest | None | a tropical forest |
+| rfs:TropicalVeryHumidForest | None |  |
+| rfs:TropicalHumidForest | None |  |
+| rfs:PremontaneHumidForest | None |  |
+| rfs:LowMontaneVeryHumidForest | None |  |
 
 
 
@@ -71,6 +75,14 @@ permissible_values:
   rfs:TropicalForest:
     text: rfs:TropicalForest
     description: a tropical forest
+  rfs:TropicalVeryHumidForest:
+    text: rfs:TropicalVeryHumidForest
+  rfs:TropicalHumidForest:
+    text: rfs:TropicalHumidForest
+  rfs:PremontaneHumidForest:
+    text: rfs:PremontaneHumidForest
+  rfs:LowMontaneVeryHumidForest:
+    text: rfs:LowMontaneVeryHumidForest
 
 ```
 </details>

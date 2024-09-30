@@ -1,14 +1,10 @@
 
 id: "http://dev.app.regen.com/projects/38"
 marketType: rfs:ComplianceMarket
-bioregion:
-  - "Amazon Basin"
-biomeType:
-  - "TropicalForest"
-watershed:
-  - "Amazon River"
-subWatershed:
-  - "Upper Amazon"
+bioregion: "Amazon Basin"
+biomeType: "TropicalForest"
+watershed: "Amazon River"
+subWatershed: "Upper Amazon"
 ecosystemType:
   - rfs:CloudForest
 offchainCreditsInfo:
@@ -22,14 +18,9 @@ offchainCreditsInfo:
     numericValue: 200
     unit: unit:HA
 projectDuration: "P1Y"
-projectDurationMinimum: "P6M"
-projectDurationMaximum: "P2Y"
-ecologicalConnectivityIndex:
-  numericValue: 75.5
-  unit: unit:UNITLESS
-socialCulturalIndex:
-  numericValue: 85.0
-  unit: unit:UNITLESS
+creditClassVersion: "1.0"
+ecologicalConnectivityIndex: 75.5
+socialCulturalIndex: 85.0
 environmentalAuthority:
   name: "Corantioquia"
   url: "http://corantioquia.gov.co/"
@@ -49,26 +40,21 @@ managementAreas:
 # projectDeveloper:
 #   name: Terrasos
 #   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-#   showOnProjectPage: true
 #   image: https://via.placeholder.com/150
 projectOperator:
   name: El Globo
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  showOnProjectPage: true
   image: https://via.placeholder.com/150
 # projectVerifier:
 #   name: KPMG
 #   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-#   showOnProjectPage: true
 #   image: https://via.placeholder.com/150
 projectMonitor:
   name: EAFIT
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  showOnProjectPage: true
   image: https://via.placeholder.com/150
 projectOwner:
   name: Jose Gonzales
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  showOnProjectPage: true
   image: https://via.placeholder.com/150
 

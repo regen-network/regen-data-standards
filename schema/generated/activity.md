@@ -23,8 +23,8 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ManagementArea](ManagementArea.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 

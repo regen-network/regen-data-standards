@@ -19,8 +19,9 @@ ProjectPage {
     string subWatershed  
     EnvironmentTypeTypesList ecosystemType  
     string projectDuration  
-    string projectDurationMinimum  
-    string projectDurationMaximum  
+    float ecologicalConnectivityIndex  
+    float socialCulturalIndex  
+    string creditClassVersion  
 }
 Organization {
     string name  
@@ -34,12 +35,12 @@ AdministrativeArea {
     string name  
     string url  
 }
+ManagementArea {
+    ActivityTypeList activity  
+}
 QuantityValue {
     float numericValue  
     string unit  
-}
-ManagementArea {
-    ActivityTypeList activity  
 }
 OffchainCreditsInfo {
 
@@ -48,8 +49,6 @@ OffchainCreditsInfo {
 ProjectPage ||--|o Organization : "environmentalAuthority"
 ProjectPage ||--|o OffchainCreditsInfo : "offchainCreditsInfo"
 ProjectPage ||--}o ManagementArea : "managementAreas"
-ProjectPage ||--|o QuantityValue : "ecologicalConnectivityIndex"
-ProjectPage ||--|o QuantityValue : "socialCulturalIndex"
 ProjectPage ||--|o AdministrativeArea : "administrativeArea"
 ProjectPage ||--|o Organization : "projectOperator"
 ProjectPage ||--|o Organization : "projectMonitor"
@@ -80,15 +79,14 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [ecosystemType](ecosystemType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem associated with the project | direct |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
 | [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
-| [projectDurationMinimum](projectDurationMinimum.md) | 0..1 <br/> [String](String.md) | The minimum possible duration for a project | direct |
-| [projectDurationMaximum](projectDurationMaximum.md) | 0..1 <br/> [String](String.md) | The maximum possible duration for a project | direct |
 | [managementAreas](managementAreas.md) | * <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
-| [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | The ecological connectivity index of the project | direct |
-| [socialCulturalIndex](socialCulturalIndex.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | The social cultural index of the project | direct |
+| [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | 0..1 <br/> [Float](Float.md) | The ecological connectivity index of the project | direct |
+| [socialCulturalIndex](socialCulturalIndex.md) | 0..1 <br/> [Float](Float.md) | The social cultural index of the project | direct |
 | [administrativeArea](administrativeArea.md) | 0..1 <br/> [AdministrativeArea](AdministrativeArea.md) | The administrative area associated with the project | direct |
 | [projectOperator](projectOperator.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for operating the project | direct |
 | [projectMonitor](projectMonitor.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for monitoring the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
+| [creditClassVersion](creditClassVersion.md) | 0..1 <br/> [String](String.md) | The version of the credit class used for the project | direct |
 
 
 
@@ -148,8 +146,6 @@ slots:
 - ecosystemType
 - offchainCreditsInfo
 - projectDuration
-- projectDurationMinimum
-- projectDurationMaximum
 - managementAreas
 - ecologicalConnectivityIndex
 - socialCulturalIndex
@@ -157,6 +153,7 @@ slots:
 - projectOperator
 - projectMonitor
 - projectOwner
+- creditClassVersion
 class_uri: rfs:ProjectPage
 tree_root: true
 
@@ -282,28 +279,6 @@ attributes:
     domain_of:
     - ProjectPage
     range: string
-  projectDurationMinimum:
-    name: projectDurationMinimum
-    description: The minimum possible duration for a project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: rfs:projectDurationMinimum
-    alias: projectDurationMinimum
-    owner: ProjectPage
-    domain_of:
-    - ProjectPage
-    range: string
-  projectDurationMaximum:
-    name: projectDurationMaximum
-    description: The maximum possible duration for a project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: rfs:projectDurationMaximum
-    alias: projectDurationMaximum
-    owner: ProjectPage
-    domain_of:
-    - ProjectPage
-    range: string
   managementAreas:
     name: managementAreas
     description: The management areas associated with the project.
@@ -327,7 +302,7 @@ attributes:
     owner: ProjectPage
     domain_of:
     - ProjectPage
-    range: QuantityValue
+    range: float
   socialCulturalIndex:
     name: socialCulturalIndex
     description: The social cultural index of the project.
@@ -338,7 +313,7 @@ attributes:
     owner: ProjectPage
     domain_of:
     - ProjectPage
-    range: QuantityValue
+    range: float
   administrativeArea:
     name: administrativeArea
     description: The administrative area associated with the project.
@@ -382,6 +357,17 @@ attributes:
     domain_of:
     - ProjectPage
     range: Organization
+  creditClassVersion:
+    name: creditClassVersion
+    description: The version of the credit class used for the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:creditClassVersion
+    alias: creditClassVersion
+    owner: ProjectPage
+    domain_of:
+    - ProjectPage
+    range: string
 class_uri: rfs:ProjectPage
 tree_root: true
 

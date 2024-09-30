@@ -44,8 +44,6 @@ QuantityValue {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [ProjectPage](ProjectPage.md) | [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | range | [QuantityValue](QuantityValue.md) |
-| [ProjectPage](ProjectPage.md) | [socialCulturalIndex](socialCulturalIndex.md) | range | [QuantityValue](QuantityValue.md) |
 | [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRegistered](creditsRegistered.md) | range | [QuantityValue](QuantityValue.md) |
 | [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsAvailable](creditsAvailable.md) | range | [QuantityValue](QuantityValue.md) |
 | [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRetired](creditsRetired.md) | range | [QuantityValue](QuantityValue.md) |

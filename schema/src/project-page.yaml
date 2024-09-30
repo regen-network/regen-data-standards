@@ -33,6 +33,11 @@ enums:
         description: a tropical dry forest
       rfs:TropicalForest:
         description: a tropical forest
+      rfs:TropicalVeryHumidForest:
+      rfs:TropicalHumidForest:
+      rfs:PremontaneHumidForest:
+      rfs:LowMontaneVeryHumidForest:
+  # TODO: these should be imported from a shared vocabulary
   ActivityType:
     description: The type of activity
     permissible_values:
@@ -56,17 +61,14 @@ classes:
       - ecosystemType
       - offchainCreditsInfo
       - projectDuration
-      - projectDurationMinimum
-      - projectDurationMaximum
       - managementAreas
       - ecologicalConnectivityIndex
       - socialCulturalIndex
       - administrativeArea
-      # - projectDeveloper
       - projectOperator
-      # - projectVerifier
       - projectMonitor
       - projectOwner
+      - creditClassVersion
   
   OffchainCreditsInfo:
     class_uri: rfs:OffchainCreditsInfo
@@ -182,21 +184,13 @@ slots:
     slot_uri: rfs:projectDuration
     range: string
     description: The duration of the project.
-  projectDurationMaximum:
-    slot_uri: rfs:projectDurationMaximum
-    range: string
-    description: The maximum possible duration for a project.
-  projectDurationMinimum:
-    slot_uri: rfs:projectDurationMinimum
-    range: string
-    description: The minimum possible duration for a project.
   ecologicalConnectivityIndex:
     slot_uri: rfs:ecologicalConnectivityIndex
-    range: QuantityValue
+    range: float
     description: The ecological connectivity index of the project.
   socialCulturalIndex:
     slot_uri: rfs:socialCulturalIndex
-    range: QuantityValue
+    range: float
     description: The social cultural index of the project.
   managementAreas:
     slot_uri: rfs:managementAreas
@@ -213,18 +207,10 @@ slots:
     slot_uri: dcterms:extent
     range: QuantityValue
     description: the extent.
-  # projectDeveloper:
-  #   slot_uri: rfs:projectDeveloper
-  #   range: Organization
-  #   description: The organization responsible for developing the project.
   projectOperator:
     slot_uri: rfs:projectOperator
     range: Organization
     description: The organization responsible for operating the project.
-  # projectVerifier:
-  #   slot_uri: rfs:projectVerifier
-  #   range: Organization
-  #   description: The organization responsible for verifying the project.
   projectMonitor:
     slot_uri: rfs:projectMonitor
     range: Organization
@@ -233,5 +219,9 @@ slots:
     slot_uri: rfs:projectOwner
     range: Organization
     description: The organization responsible for owning the project.
+  creditClassVersion:
+    slot_uri: rfs:creditClassVersion
+    range: string
+    description: The version of the credit class used for the project.
   
 

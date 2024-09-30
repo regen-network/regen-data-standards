@@ -33,7 +33,7 @@ URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ec
 
 ## Properties
 
-* Range: [QuantityValue](QuantityValue.md)
+* Range: [Float](Float.md)
 
 
 
@@ -77,7 +77,7 @@ slot_uri: rfs:ecologicalConnectivityIndex
 alias: ecologicalConnectivityIndex
 domain_of:
 - ProjectPage
-range: QuantityValue
+range: float
 
 ```
 </details>

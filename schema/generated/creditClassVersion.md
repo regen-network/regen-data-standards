@@ -1,15 +1,15 @@
 
 
-# Slot: description
+# Slot: creditClassVersion
 
 
-_Optional description of the project._
+_The version of the credit class used for the project._
 
 
 
 
 
-URI: [schema:description](http://schema.org/description)
+URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClassVersion)
 
 
 
@@ -23,10 +23,7 @@ URI: [schema:description](http://schema.org/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
+| [ProjectPage](ProjectPage.md) |  |  no  |
 
 
 
@@ -62,8 +59,8 @@ URI: [schema:description](http://schema.org/description)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:description |
-| native | rfs:description |
+| self | rfs:creditClassVersion |
+| native | rfs:creditClassVersion |
 
 
 
@@ -72,17 +69,14 @@ URI: [schema:description](http://schema.org/description)
 
 <details>
 ```yaml
-name: description
-description: Optional description of the project.
+name: creditClassVersion
+description: The version of the credit class used for the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:description
-alias: description
+slot_uri: rfs:creditClassVersion
+alias: creditClassVersion
 domain_of:
-- Project
-- ProjectRole
-- File
-- Organization
+- ProjectPage
 range: string
 
 ```

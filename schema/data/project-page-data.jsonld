@@ -5,18 +5,10 @@
     "url": "http://corantioquia.gov.co/"
   },
   "marketType": "rfs:ComplianceMarket",
-  "bioregion": [
-    "Amazon Basin"
-  ],
-  "biomeType": [
-    "TropicalForest"
-  ],
-  "watershed": [
-    "Amazon River"
-  ],
-  "subWatershed": [
-    "Upper Amazon"
-  ],
+  "bioregion": "Amazon Basin",
+  "biomeType": "TropicalForest",
+  "watershed": "Amazon River",
+  "subWatershed": "Upper Amazon",
   "ecosystemType": [
     "rfs:CloudForest"
   ],
@@ -35,8 +27,6 @@
     }
   },
   "projectDuration": "P1Y",
-  "projectDurationMinimum": "P6M",
-  "projectDurationMaximum": "P2Y",
   "managementAreas": [
     {
       "activity": [
@@ -57,35 +47,27 @@
       }
     }
   ],
-  "ecologicalConnectivityIndex": {
-    "numericValue": 75.5,
-    "unit": "unit:UNITLESS"
-  },
-  "socialCulturalIndex": {
-    "numericValue": 85.0,
-    "unit": "unit:UNITLESS"
-  },
+  "ecologicalConnectivityIndex": 75.5,
+  "socialCulturalIndex": 85.0,
   "administrativeArea": {
     "name": "Antioquia"
   },
   "projectOperator": {
     "name": "El Globo",
-    "showOnProjectPage": true,
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
     "image": "https://via.placeholder.com/150"
   },
   "projectMonitor": {
     "name": "EAFIT",
-    "showOnProjectPage": true,
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
     "image": "https://via.placeholder.com/150"
   },
   "projectOwner": {
     "name": "Jose Gonzales",
-    "showOnProjectPage": true,
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
     "image": "https://via.placeholder.com/150"
   },
+  "creditClassVersion": "1.0",
   "@type": "ProjectPage",
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
@@ -120,11 +102,14 @@
     "bioregion": {
       "@id": "bioregion"
     },
+    "creditClassVersion": {
+      "@id": "creditClassVersion"
+    },
     "description": {
       "@id": "schema:description"
     },
     "ecologicalConnectivityIndex": {
-      "@type": "@id",
+      "@type": "xsd:float",
       "@id": "ecologicalConnectivityIndex"
     },
     "ecosystemType": {
@@ -181,12 +166,6 @@
     "projectDuration": {
       "@id": "projectDuration"
     },
-    "projectDurationMaximum": {
-      "@id": "projectDurationMaximum"
-    },
-    "projectDurationMinimum": {
-      "@id": "projectDurationMinimum"
-    },
     "projectMonitor": {
       "@type": "@id",
       "@id": "projectMonitor"
@@ -208,7 +187,7 @@
       "@id": "showOnProjectPage"
     },
     "socialCulturalIndex": {
-      "@type": "@id",
+      "@type": "xsd:float",
       "@id": "socialCulturalIndex"
     },
     "subWatershed": {

@@ -33,7 +33,7 @@ URI: [rfs:socialCulturalIndex](https://framework.regen.network/schema/socialCult
 
 ## Properties
 
-* Range: [QuantityValue](QuantityValue.md)
+* Range: [Float](Float.md)
 
 
 
@@ -77,7 +77,7 @@ slot_uri: rfs:socialCulturalIndex
 alias: socialCulturalIndex
 domain_of:
 - ProjectPage
-range: QuantityValue
+range: float
 
 ```
 </details>

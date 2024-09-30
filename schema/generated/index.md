@@ -38,6 +38,7 @@ Name: Schemas
 | [bioregion](bioregion.md) | The bioregion associated with the project |
 | [comment](comment.md) |  |
 | [credit](credit.md) |  |
+| [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
 | [creditsAvailable](creditsAvailable.md) | The number of credits available |
 | [creditsRegistered](creditsRegistered.md) | The number of credits registered |
 | [creditsRetired](creditsRetired.md) | The number of credits retired |
@@ -62,8 +63,6 @@ Name: Schemas
 | [project_type](project_type.md) |  |
 | [project_verifier](project_verifier.md) |  |
 | [projectDuration](projectDuration.md) | The duration of the project |
-| [projectDurationMaximum](projectDurationMaximum.md) | The maximum possible duration for a project |
-| [projectDurationMinimum](projectDurationMinimum.md) | The minimum possible duration for a project |
 | [projectMonitor](projectMonitor.md) | The organization responsible for monitoring the project |
 | [projectOperator](projectOperator.md) | The organization responsible for operating the project |
 | [projectOwner](projectOwner.md) | The organization responsible for owning the project |
