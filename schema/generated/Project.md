@@ -44,7 +44,7 @@ AdministrativeArea {
     string url  
 }
 ManagementArea {
-    ActivityTypeList activity  
+    ActivityTypesList activity  
 }
 QuantityValue {
     float numericValue  
@@ -234,7 +234,6 @@ attributes:
     domain_of:
     - Project
 class_uri: rfs:Project
-tree_root: true
 
 ```
 </details>
@@ -573,7 +572,6 @@ attributes:
     - Project
     range: string
 class_uri: rfs:Project
-tree_root: true
 
 ```
 </details>

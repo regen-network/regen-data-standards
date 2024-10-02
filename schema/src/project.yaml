@@ -15,7 +15,6 @@ default_range: string
 
 classes:
   Project:
-    tree_root: true
     class_uri: rfs:Project
     slots:
       - name
@@ -207,7 +206,8 @@ slots:
     inlined: true
   activity:
     # TODO: associate with regen data standards activities
-    range: ActivityType 
+    slot_uri: rfs:activity
+    range: ActivityTypes
     description: the activity.
     multivalued: true
   extent:
@@ -251,31 +251,39 @@ enums:
   MarketTypeTypes:
     description: The type of marketplace
     permissible_values:
-      rfs:ComplianceMarket:
+      compliance:
+        meaning: rfs:ComplianceMarket
         description: a compliance market
-      rfs:VoluntaryMarket:
+      voluntary:
+        meaning: rfs:VoluntaryMarket
         description: a voluntary market
   # TODO: these should be imported from a shared vocabulary
   EnvironmentTypeTypes:
     description: The type of ecosystem
     permissible_values:
-      rfs:CloudForest:
-        description: a cloud forest
-      rfs:TropicalSavannah:
-        description: a tropical savannah
-      rfs:TropicalDryForest:
-        description: a tropical dry forest
-      rfs:TropicalForest:
-        description: a tropical forest
-      rfs:TropicalVeryHumidForest:
-      rfs:TropicalHumidForest:
-      rfs:PremontaneHumidForest:
-      rfs:LowMontaneVeryHumidForest:
+      cloudForest:
+        meaning: rfs:CloudForest
+      tropicalSavannah:
+        meaning: rfs:TropicalSavannah
+      tropicalDryForest:
+        meaning: rfs:TropicalDryForest
+      tropicalForest:
+        meaning: rfs:TropicalForest
+      tropicalVeryHumidForest:
+        meaning: rfs:TropicalVeryHumidForest
+      tropicalHumidForest:
+        meaning: rfs:TropicalHumidForest
+      premontaneHumidForest:
+        meaning: rfs:PremontaneHumidForest
+      lowMontaneVeryHumidForest:
+        meaning: rfs:LowMontaneVeryHumidForest
   # TODO: these should be imported from a shared vocabulary
-  ActivityType:
+  ActivityTypes:
     description: The type of activity
     permissible_values:
-      rfs:Conservation:
-        description: conservation activity
-      rfs:EcosystemRestoration:
-        description: restoration activity
+      conservation:
+        meaning: rfs:Conservation
+        description: a conservation activity
+      ecosystemRestoration:
+        meaning: rfs:EcosystemRestoration
+        description: an ecosystem restoration activity

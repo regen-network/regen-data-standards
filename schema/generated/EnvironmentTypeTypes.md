@@ -13,14 +13,14 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| rfs:CloudForest | None | a cloud forest |
-| rfs:TropicalSavannah | None | a tropical savannah |
-| rfs:TropicalDryForest | None | a tropical dry forest |
-| rfs:TropicalForest | None | a tropical forest |
-| rfs:TropicalVeryHumidForest | None |  |
-| rfs:TropicalHumidForest | None |  |
-| rfs:PremontaneHumidForest | None |  |
-| rfs:LowMontaneVeryHumidForest | None |  |
+| cloudForest | rfs:CloudForest |  |
+| tropicalSavannah | rfs:TropicalSavannah |  |
+| tropicalDryForest | rfs:TropicalDryForest |  |
+| tropicalForest | rfs:TropicalForest |  |
+| tropicalVeryHumidForest | rfs:TropicalVeryHumidForest |  |
+| tropicalHumidForest | rfs:TropicalHumidForest |  |
+| premontaneHumidForest | rfs:PremontaneHumidForest |  |
+| lowMontaneVeryHumidForest | rfs:LowMontaneVeryHumidForest |  |
 
 
 
@@ -63,26 +63,30 @@ description: The type of ecosystem
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  rfs:CloudForest:
-    text: rfs:CloudForest
-    description: a cloud forest
-  rfs:TropicalSavannah:
-    text: rfs:TropicalSavannah
-    description: a tropical savannah
-  rfs:TropicalDryForest:
-    text: rfs:TropicalDryForest
-    description: a tropical dry forest
-  rfs:TropicalForest:
-    text: rfs:TropicalForest
-    description: a tropical forest
-  rfs:TropicalVeryHumidForest:
-    text: rfs:TropicalVeryHumidForest
-  rfs:TropicalHumidForest:
-    text: rfs:TropicalHumidForest
-  rfs:PremontaneHumidForest:
-    text: rfs:PremontaneHumidForest
-  rfs:LowMontaneVeryHumidForest:
-    text: rfs:LowMontaneVeryHumidForest
+  cloudForest:
+    text: cloudForest
+    meaning: rfs:CloudForest
+  tropicalSavannah:
+    text: tropicalSavannah
+    meaning: rfs:TropicalSavannah
+  tropicalDryForest:
+    text: tropicalDryForest
+    meaning: rfs:TropicalDryForest
+  tropicalForest:
+    text: tropicalForest
+    meaning: rfs:TropicalForest
+  tropicalVeryHumidForest:
+    text: tropicalVeryHumidForest
+    meaning: rfs:TropicalVeryHumidForest
+  tropicalHumidForest:
+    text: tropicalHumidForest
+    meaning: rfs:TropicalHumidForest
+  premontaneHumidForest:
+    text: premontaneHumidForest
+    meaning: rfs:PremontaneHumidForest
+  lowMontaneVeryHumidForest:
+    text: lowMontaneVeryHumidForest
+    meaning: rfs:LowMontaneVeryHumidForest
 
 ```
 </details>

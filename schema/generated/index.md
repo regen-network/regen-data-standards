@@ -84,7 +84,7 @@ Name: Schemas
 
 | Enumeration | Description |
 | --- | --- |
-| [ActivityType](ActivityType.md) | The type of activity |
+| [ActivityTypes](ActivityTypes.md) | The type of activity |
 | [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem |
 | [MarketTypeTypes](MarketTypeTypes.md) | The type of marketplace |
 | [ProjectRoleTypes](ProjectRoleTypes.md) |  |

@@ -5,13 +5,13 @@
     "name": "Corantioquia",
     "url": "http://corantioquia.gov.co/"
   },
-  "marketType": "rfs:ComplianceMarket",
+  "marketType": "compliance",
   "bioregion": "Amazon Basin",
   "biomeType": "TropicalForest",
   "watershed": "Amazon River",
   "subWatershed": "Upper Amazon",
   "ecosystemType": [
-    "rfs:CloudForest"
+    "cloudForest"
   ],
   "offchainCreditsInfo": {
     "creditsRegistered": {
@@ -31,7 +31,7 @@
   "managementAreas": [
     {
       "activity": [
-        "rfs:Conservation"
+        "conservation"
       ],
       "extent": {
         "numericValue": 120.0,
@@ -40,7 +40,7 @@
     },
     {
       "activity": [
-        "rfs:EcosystemRestoration"
+        "ecosystemRestoration"
       ],
       "extent": {
         "numericValue": 220.0,

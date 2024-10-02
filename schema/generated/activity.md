@@ -23,8 +23,8 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
 | [ManagementArea](ManagementArea.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -34,7 +34,7 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 ## Properties
 
-* Range: [ActivityType](ActivityType.md)
+* Range: [ActivityTypes](ActivityTypes.md)
 
 * Multivalued: True
 
@@ -76,11 +76,12 @@ name: activity
 description: the activity.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
+slot_uri: rfs:activity
 alias: activity
 domain_of:
 - Project
 - ManagementArea
-range: ActivityType
+range: ActivityTypes
 multivalued: true
 
 ```
