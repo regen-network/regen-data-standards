@@ -2,11 +2,12 @@
 import Link from './Sidebar.link.astro'
 const {path, heading, open} = Astro.props
 const {pathname} = Astro.url
+const pathSlug = pathname.replace(/\.html/, '');
 const isOpen  = typeof open === 'boolean' ? open : pathname.includes(path);
 ---
 <li>
     <details {...(isOpen ? {open: true} : {})}>
-        <summary data-current={open} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
+        <summary data-current={path == pathSlug} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
                   className="p-1 text-lg font-bold">{heading}
             </Link>

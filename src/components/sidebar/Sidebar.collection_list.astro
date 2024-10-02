@@ -4,8 +4,8 @@ import List from './Sidebar.list.astro'
 import {formatSlug} from '../../utils/slug'
 const {collection, path, heading, headingPath} = Astro.props
 const {pathname} = Astro.url
-const pathSlug = pathname.split('/').pop() ?? pathname;
-const entry = collection.find((entry:any) => formatSlug(entry.id).startsWith(pathSlug));
+const pathSlug = (pathname.split('/').pop() ?? pathname).replace(/\.html/, '');
+const entry = collection.find((entry:any) => formatSlug(entry.id) == pathSlug);
 const open = !!entry || pathname == headingPath;
 ---
 <List
