@@ -1,6 +1,7 @@
 ---
 import {Image} from "astro:assets";
 import {getCollection} from 'astro:content';
+import {formatSlug} from '../../utils/slug';
 const {collection} = Astro.props;
 const entries = await getCollection(collection);
 ---
@@ -14,11 +15,11 @@ const entries = await getCollection(collection);
     {entries.map((entry: any) => (
             <tr class="flex flex-row gap-8 items-center">
                 <td>
-                    <a href={`/${collection}/${entry.slug}`}>
+                    <a href={`/taxonomy/${formatSlug(entry.id)}`}>
                         <Image src={entry.data.image} alt={entry.data.title} width="60" height="60"/>
                     </a>
                 </td>
-                <td><a href={`/${collection}/${entry.slug}`}>{entry.data.title}</a></td>
+                <td><a href={`/taxonomy/${formatSlug(entry.id)}`}>{entry.data.title}</a></td>
             </tr>
     ))}
 </table>
