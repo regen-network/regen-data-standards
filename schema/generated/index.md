@@ -61,10 +61,12 @@ Name: Schemas
 | [project_size](project_size.md) |  |
 | [project_type](project_type.md) |  |
 | [project_verifier](project_verifier.md) |  |
+| [projectDeveloper](projectDeveloper.md) | The organization responsible for owning the project |
 | [projectDuration](projectDuration.md) | The duration of the project |
 | [projectMonitor](projectMonitor.md) | The organization responsible for monitoring the project |
 | [projectOperator](projectOperator.md) | The organization responsible for operating the project |
 | [projectOwner](projectOwner.md) | The organization responsible for owning the project |
+| [projectVerifier](projectVerifier.md) | The organization responsible for owning the project |
 | [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization on the project page |
 | [size](size.md) |  |
 | [socialCulturalIndex](socialCulturalIndex.md) | The social cultural index of the project |

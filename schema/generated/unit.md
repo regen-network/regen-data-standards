@@ -18,8 +18,8 @@ URI: [rfs:unit](https://framework.regen.network/schema/unit)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectSize](ProjectSize.md) |  |  no  |
 | [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit |  no  |
+| [ProjectSize](ProjectSize.md) |  |  no  |
 
 
 

@@ -74,6 +74,8 @@ Project ||--|o AdministrativeArea : "administrativeArea"
 Project ||--|o Organization : "projectOperator"
 Project ||--|o Organization : "projectMonitor"
 Project ||--|o Organization : "projectOwner"
+Project ||--|o Organization : "projectVerifier"
+Project ||--|o Organization : "projectDeveloper"
 ManagementArea ||--|o QuantityValue : "extent"
 OffchainCreditsInfo ||--|o QuantityValue : "creditsRegistered"
 OffchainCreditsInfo ||--|o QuantityValue : "creditsAvailable"
@@ -111,6 +113,8 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [projectOperator](projectOperator.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for operating the project | direct |
 | [projectMonitor](projectMonitor.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for monitoring the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
+| [projectVerifier](projectVerifier.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
+| [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [creditClassVersion](creditClassVersion.md) | 0..1 <br/> [String](String.md) | The version of the credit class used for the project | direct |
 | [size](size.md) | 0..1 <br/> [Integer](Integer.md) |  | direct |
 | [activity](activity.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -188,6 +192,8 @@ slots:
 - projectOperator
 - projectMonitor
 - projectOwner
+- projectVerifier
+- projectDeveloper
 - creditClassVersion
 attributes:
   size:
@@ -529,6 +535,28 @@ attributes:
     rank: 1000
     slot_uri: rfs:projectOwner
     alias: projectOwner
+    owner: Project
+    domain_of:
+    - Project
+    range: Organization
+  projectVerifier:
+    name: projectVerifier
+    description: The organization responsible for owning the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:projectVerifier
+    alias: projectVerifier
+    owner: Project
+    domain_of:
+    - Project
+    range: Organization
+  projectDeveloper:
+    name: projectDeveloper
+    description: The organization responsible for owning the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:projectDeveloper
+    alias: projectDeveloper
     owner: Project
     domain_of:
     - Project

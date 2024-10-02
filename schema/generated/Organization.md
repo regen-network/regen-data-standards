@@ -51,6 +51,8 @@ Organization {
 | [Project](Project.md) | [projectOperator](projectOperator.md) | range | [Organization](Organization.md) |
 | [Project](Project.md) | [projectMonitor](projectMonitor.md) | range | [Organization](Organization.md) |
 | [Project](Project.md) | [projectOwner](projectOwner.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [projectVerifier](projectVerifier.md) | range | [Organization](Organization.md) |
+| [Project](Project.md) | [projectDeveloper](projectDeveloper.md) | range | [Organization](Organization.md) |
 
 
 

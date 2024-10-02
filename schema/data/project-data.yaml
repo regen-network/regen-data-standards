@@ -38,18 +38,18 @@ managementAreas:
     extent:
       numericValue: 220
       unit: unit:HA
-# projectDeveloper:
-#   name: Terrasos
-#   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-#   image: https://via.placeholder.com/150
+projectDeveloper:
+  name: Terrasos
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  image: https://via.placeholder.com/150
 projectOperator:
   name: El Globo
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
   image: https://via.placeholder.com/150
-# projectVerifier:
-#   name: KPMG
-#   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-#   image: https://via.placeholder.com/150
+projectVerifier:
+  name: KPMG
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  image: https://via.placeholder.com/150
 projectMonitor:
   name: EAFIT
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 

@@ -39,6 +39,8 @@ classes:
       - projectOperator
       - projectMonitor
       - projectOwner
+      - projectVerifier
+      - projectDeveloper
       - creditClassVersion
     attributes:
       size:
@@ -222,6 +224,14 @@ slots:
     description: The organization responsible for monitoring the project.
   projectOwner:
     slot_uri: rfs:projectOwner
+    range: Organization
+    description: The organization responsible for owning the project.
+  projectDeveloper:
+    slot_uri: rfs:projectDeveloper
+    range: Organization
+    description: The organization responsible for owning the project.
+  projectVerifier:
+    slot_uri: rfs:projectVerifier
     range: Organization
     description: The organization responsible for owning the project.
   creditClassVersion:
