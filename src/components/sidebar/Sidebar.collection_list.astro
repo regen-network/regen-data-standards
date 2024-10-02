@@ -1,15 +1,21 @@
 ---
 import Link from './Sidebar.link.astro'
 import List from './Sidebar.list.astro'
-const {collection, path, heading} = Astro.props
+import {formatSlug} from '../../utils/slug'
+const {collection, path, heading, headingPath} = Astro.props
+const {pathname} = Astro.url
+const pathSlug = pathname.split('/').pop() ?? pathname;
+const entry = collection.find((entry:any) => formatSlug(entry.slug).startsWith(pathSlug));
+const open = !!entry || pathname == headingPath;
 ---
 <List
-        path={path}
+        path={headingPath}
         heading={heading}
+        open={open}
 >
     {collection.map((entry:any) => (
         <li>
-            <Link href={`${path}/${entry.slug}`}
+            <Link href={`${path}/${formatSlug(entry.slug)}`}
                   className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
                 {entry.data.title}
             </Link>

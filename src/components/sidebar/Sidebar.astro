@@ -21,9 +21,9 @@ const schemas = [
                     path="/taxonomy"
                     heading="Terminology"
             >
-                <CollectionList collection={impacts} path="/taxonomy/impact" heading="Impacts"/>
-                <CollectionList collection={activities} path="/taxonomy/activity" heading="Activities"/>
-                <CollectionList collection={ecosystems} path="/taxonomy/environment-type" heading="Environment Type"/>
+                <CollectionList collection={impacts} path="/taxonomy" heading="Impacts" headingPath="/taxonomy/impact"/>
+                <CollectionList collection={activities} path="/taxonomy" heading="Activities" headingPath="/taxonomy/activity"/>
+                <CollectionList collection={ecosystems} path="/taxonomy" heading="Environment Type" headingPath="/taxonomy/environment-type"/>
             </List>
             <List
                     path="/schema"
