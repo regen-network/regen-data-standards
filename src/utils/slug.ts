@@ -1,3 +1,3 @@
 export function formatSlug(slug: string): string {
-    return slug.split('/').pop() ?? slug;
+    return (slug.split('/').pop() ?? slug).replace(/\.md$/, '');
 }

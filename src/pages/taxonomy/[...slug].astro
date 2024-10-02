@@ -9,7 +9,7 @@ export async function getStaticPaths() {
         ...await getCollection('impact'),
     ];
     return entries.map(entry => ({
-        params: {slug: formatSlug(entry.slug)}, props: {entry},
+        params: {slug: formatSlug(entry.id)}, props: {entry},
     }));
 }
 const {entry} = Astro.props;
