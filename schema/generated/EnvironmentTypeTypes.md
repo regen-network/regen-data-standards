@@ -29,7 +29,7 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
 | Name | Description |
 | ---  | --- |
-| [ecosystemType](ecosystemType.md) | The type of ecosystem associated with the project |
+| [environmentType](environmentType.md) | The type of environment associated with the project |
 
 
 

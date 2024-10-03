@@ -28,7 +28,7 @@ classes:
       - biomeType
       - watershed
       - subWatershed
-      - ecosystemType
+      - environmentType
       - offchainCreditsInfo
       - projectDuration
       - managementAreas
@@ -170,10 +170,10 @@ slots:
     range: string
     slot_uri: rfs:subWatershed
     description: The sub-watershed associated with the project.
-  ecosystemType:
-    slot_uri: rfs:ecosystemType
+  environmentType:
+    slot_uri: rfs:environmentType
     range: EnvironmentTypeTypes
-    description: The type of ecosystem associated with the project.
+    description: The type of environment associated with the project.
     multivalued: true
   environmentalAuthority:
     slot_uri: rfs:environmentalAuthority

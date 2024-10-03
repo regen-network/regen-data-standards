@@ -5,7 +5,7 @@
   biomeType: "TropicalForest"
   watershed: "Amazon River"
   subWatershed: "Upper Amazon"
-  ecosystemType:
+  environmentType:
     - cloudForest
   offchainCreditsInfo:
     creditsRegistered:

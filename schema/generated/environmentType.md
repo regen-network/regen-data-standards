@@ -1,15 +1,15 @@
 
 
-# Slot: ecosystemType
+# Slot: environmentType
 
 
-_The type of ecosystem associated with the project._
+_The type of environment associated with the project._
 
 
 
 
 
-URI: [rfs:ecosystemType](https://framework.regen.network/schema/ecosystemType)
+URI: [rfs:environmentType](https://framework.regen.network/schema/environmentType)
 
 
 
@@ -61,8 +61,8 @@ URI: [rfs:ecosystemType](https://framework.regen.network/schema/ecosystemType)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:ecosystemType |
-| native | rfs:ecosystemType |
+| self | rfs:environmentType |
+| native | rfs:environmentType |
 
 
 
@@ -71,12 +71,12 @@ URI: [rfs:ecosystemType](https://framework.regen.network/schema/ecosystemType)
 
 <details>
 ```yaml
-name: ecosystemType
-description: The type of ecosystem associated with the project.
+name: environmentType
+description: The type of environment associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:ecosystemType
-alias: ecosystemType
+slot_uri: rfs:environmentType
+alias: environmentType
 domain_of:
 - Project
 range: EnvironmentTypeTypes

@@ -25,8 +25,8 @@ URI: [schema:description](http://schema.org/description)
 | --- | --- | --- |
 | [Project](Project.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [File](File.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 

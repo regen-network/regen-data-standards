@@ -10,7 +10,7 @@
   "biomeType": "TropicalForest",
   "watershed": "Amazon River",
   "subWatershed": "Upper Amazon",
-  "ecosystemType": [
+  "environmentType": [
     "cloudForest"
   ],
   "offchainCreditsInfo": {
@@ -118,17 +118,17 @@
       "@type": "xsd:float",
       "@id": "ecologicalConnectivityIndex"
     },
-    "ecosystemType": {
+    "environmentalAuthority": {
+      "@type": "@id",
+      "@id": "environmentalAuthority"
+    },
+    "environmentType": {
       "@context": {
         "text": "skos:notation",
         "description": "skos:prefLabel",
         "meaning": "@id"
       },
-      "@id": "ecosystemType"
-    },
-    "environmentalAuthority": {
-      "@type": "@id",
-      "@id": "environmentalAuthority"
+      "@id": "environmentType"
     },
     "extent": {
       "@type": "@id",

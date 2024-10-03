@@ -19,7 +19,7 @@ Project {
     string biomeType  
     string watershed  
     string subWatershed  
-    EnvironmentTypeTypesList ecosystemType  
+    EnvironmentTypeTypesList environmentType  
     string projectDuration  
     float ecologicalConnectivityIndex  
     float socialCulturalIndex  
@@ -103,7 +103,7 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
 | [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
 | [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
-| [ecosystemType](ecosystemType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem associated with the project | direct |
+| [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of environment associated with the project | direct |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
 | [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
 | [managementAreas](managementAreas.md) | * <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
@@ -182,7 +182,7 @@ slots:
 - biomeType
 - watershed
 - subWatershed
-- ecosystemType
+- environmentType
 - offchainCreditsInfo
 - projectDuration
 - managementAreas
@@ -426,13 +426,13 @@ attributes:
     domain_of:
     - Project
     range: string
-  ecosystemType:
-    name: ecosystemType
-    description: The type of ecosystem associated with the project.
+  environmentType:
+    name: environmentType
+    description: The type of environment associated with the project.
     from_schema: https://framework.regen.network/schema/
     rank: 1000
-    slot_uri: rfs:ecosystemType
-    alias: ecosystemType
+    slot_uri: rfs:environmentType
+    alias: environmentType
     owner: Project
     domain_of:
     - Project

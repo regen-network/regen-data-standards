@@ -43,9 +43,9 @@ Name: Schemas
 | [creditsRetired](creditsRetired.md) | The number of credits retired |
 | [description](description.md) | Optional description of the project |
 | [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | The ecological connectivity index of the project |
-| [ecosystemType](ecosystemType.md) | The type of ecosystem associated with the project |
 | [end_date](end_date.md) |  |
 | [environmentalAuthority](environmentalAuthority.md) | The environmental authority associated with the project |
+| [environmentType](environmentType.md) | The type of environment associated with the project |
 | [extent](extent.md) | the extent |
 | [files](files.md) |  |
 | [id](id.md) |  |
