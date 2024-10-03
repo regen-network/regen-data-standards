@@ -2,6 +2,8 @@
 
 # Slot: size
 
+
+
 URI: [rfs:size](https://framework.regen.network/schema/size)
 
 

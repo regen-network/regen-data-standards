@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: subWatershed
 
 
-_Name of the project._
+_The sub-watershed associated with the project._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 
 
@@ -23,11 +23,7 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -38,8 +34,6 @@ URI: [schema:name](http://schema.org/name)
 ## Properties
 
 * Range: [String](String.md)
-
-* Required: True
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:subWatershed |
+| native | rfs:subWatershed |
 
 
 
@@ -75,20 +69,15 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: subWatershed
+description: The sub-watershed associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+slot_uri: rfs:subWatershed
+alias: subWatershed
 domain_of:
 - Project
-- ProjectRole
-- Organization
-- AdministrativeArea
-- File
 range: string
-required: true
 
 ```
 </details>

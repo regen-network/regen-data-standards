@@ -1,0 +1,60 @@
+  id: "http://dev.app.regen.com/projects/38"
+  name: "Amazon Rainforest Conservation Project"
+  marketType: compliance
+  bioregion: "Amazon Basin"
+  biomeType: "TropicalForest"
+  watershed: "Amazon River"
+  subWatershed: "Upper Amazon"
+  environmentType:
+    - cloudForest
+  offchainCreditsInfo:
+    creditsRegistered:
+      numericValue: 1000
+      unit: unit:HA
+    creditsAvailable:
+      numericValue: 800
+      unit: unit:HA
+    creditsRetired:
+      numericValue: 200
+      unit: unit:HA
+  projectDuration: "P1Y"
+  creditClassVersion: "1.0"
+  ecologicalConnectivityIndex: 75.5
+  socialCulturalIndex: 85.0
+  environmentalAuthority:
+    name: "Corantioquia"
+    url: "http://corantioquia.gov.co/"
+  administrativeArea:
+    name: "Antioquia"
+  managementAreas:
+    - activity: 
+        - conservation
+      extent:
+        numericValue: 120
+        unit: unit:HA
+    - activity:
+        - ecosystemRestoration
+      extent:
+        numericValue: 220
+        unit: unit:HA
+  projectDeveloper:
+    name: Terrasos
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectOperator:
+    name: El Globo
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectVerifier:
+    name: KPMG
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectMonitor:
+    name: EAFIT
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectOwner:
+    name: Jose Gonzales
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+

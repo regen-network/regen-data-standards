@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: administrativeArea
 
 
-_Name of the project._
+_The administrative area associated with the project._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrativeArea)
 
 
 
@@ -23,11 +23,7 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -37,9 +33,7 @@ URI: [schema:name](http://schema.org/name)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Required: True
+* Range: [AdministrativeArea](AdministrativeArea.md)
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:administrativeArea |
+| native | rfs:administrativeArea |
 
 
 
@@ -75,20 +69,14 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: administrativeArea
+description: The administrative area associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+alias: administrativeArea
 domain_of:
 - Project
-- ProjectRole
-- Organization
-- AdministrativeArea
-- File
-range: string
-required: true
+range: AdministrativeArea
 
 ```
 </details>

@@ -109,6 +109,8 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
+    - AdministrativeArea
     - File
     required: true
   description:
@@ -118,6 +120,7 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
     - File
   location:
     name: location
@@ -165,6 +168,8 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
+    - AdministrativeArea
     - File
     range: string
     required: true
@@ -177,6 +182,7 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
     - File
     range: string
   location:

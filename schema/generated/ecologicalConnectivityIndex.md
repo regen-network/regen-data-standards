@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: ecologicalConnectivityIndex
 
 
-_Name of the project._
+_The ecological connectivity index of the project._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ecologicalConnectivityIndex)
 
 
 
@@ -23,11 +23,7 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -37,9 +33,7 @@ URI: [schema:name](http://schema.org/name)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Required: True
+* Range: [Float](Float.md)
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:ecologicalConnectivityIndex |
+| native | rfs:ecologicalConnectivityIndex |
 
 
 
@@ -75,20 +69,15 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: ecologicalConnectivityIndex
+description: The ecological connectivity index of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+slot_uri: rfs:ecologicalConnectivityIndex
+alias: ecologicalConnectivityIndex
 domain_of:
 - Project
-- ProjectRole
-- Organization
-- AdministrativeArea
-- File
-range: string
-required: true
+range: float
 
 ```
 </details>

@@ -1,15 +1,15 @@
 
 
-# Slot: image
+# Slot: creditsAvailable
 
 
-_an image._
+_The number of credits available_
 
 
 
 
 
-URI: [schema:image](http://schema.org/image)
+URI: [rfs:creditsAvailable](https://framework.regen.network/schema/creditsAvailable)
 
 
 
@@ -23,8 +23,7 @@ URI: [schema:image](http://schema.org/image)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
+| [OffchainCreditsInfo](OffchainCreditsInfo.md) |  |  no  |
 
 
 
@@ -34,7 +33,7 @@ URI: [schema:image](http://schema.org/image)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [QuantityValue](QuantityValue.md)
 
 
 
@@ -60,8 +59,8 @@ URI: [schema:image](http://schema.org/image)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:image |
-| native | rfs:image |
+| self | rfs:creditsAvailable |
+| native | rfs:creditsAvailable |
 
 
 
@@ -70,16 +69,15 @@ URI: [schema:image](http://schema.org/image)
 
 <details>
 ```yaml
-name: image
-description: an image.
+name: creditsAvailable
+description: The number of credits available
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:image
-alias: image
+alias: creditsAvailable
+owner: OffchainCreditsInfo
 domain_of:
-- ProjectRole
-- Organization
-range: string
+- OffchainCreditsInfo
+range: QuantityValue
 
 ```
 </details>

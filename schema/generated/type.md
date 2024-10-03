@@ -2,6 +2,8 @@
 
 # Slot: type
 
+
+
 URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleType)
 
 

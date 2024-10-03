@@ -108,10 +108,10 @@ attributes:
   image:
     name: image
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     slot_uri: schema:image
     domain_of:
     - ProjectRole
+    - Organization
 
 ```
 </details>
@@ -137,12 +137,12 @@ attributes:
   image:
     name: image
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     slot_uri: schema:image
     alias: image
     owner: ProjectRole
     domain_of:
     - ProjectRole
+    - Organization
     range: string
   name:
     name: name
@@ -155,6 +155,8 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
+    - AdministrativeArea
     - File
     range: string
     required: true
@@ -169,6 +171,7 @@ attributes:
     domain_of:
     - Project
     - ProjectRole
+    - Organization
     - File
     range: string
   url:
@@ -179,6 +182,8 @@ attributes:
     owner: ProjectRole
     domain_of:
     - ProjectRole
+    - Organization
+    - AdministrativeArea
     range: string
 
 ```

@@ -2,6 +2,8 @@
 
 # Slot: url
 
+
+
 URI: [rfs:url](https://framework.regen.network/schema/url)
 
 
@@ -16,6 +18,8 @@ URI: [rfs:url](https://framework.regen.network/schema/url)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
 
 
@@ -68,6 +72,8 @@ rank: 1000
 alias: url
 domain_of:
 - ProjectRole
+- Organization
+- AdministrativeArea
 range: string
 
 ```

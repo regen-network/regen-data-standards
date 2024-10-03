@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: marketType
 
 
-_Name of the project._
+_The type of market for the associated credits._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 
 
@@ -23,11 +23,7 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -37,9 +33,7 @@ URI: [schema:name](http://schema.org/name)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Required: True
+* Range: [MarketTypeTypes](MarketTypeTypes.md)
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:marketType |
+| native | rfs:marketType |
 
 
 
@@ -75,20 +69,15 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: marketType
+description: The type of market for the associated credits.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+slot_uri: rfs:marketType
+alias: marketType
 domain_of:
 - Project
-- ProjectRole
-- Organization
-- AdministrativeArea
-- File
-range: string
-required: true
+range: MarketTypeTypes
 
 ```
 </details>

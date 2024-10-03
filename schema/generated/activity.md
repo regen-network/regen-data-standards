@@ -2,6 +2,13 @@
 
 # Slot: activity
 
+
+_the activity._
+
+
+
+
+
 URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 
@@ -17,6 +24,7 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Project](Project.md) |  |  no  |
+| [ManagementArea](ManagementArea.md) |  |  no  |
 
 
 
@@ -26,7 +34,9 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [ActivityTypes](ActivityTypes.md)
+
+* Multivalued: True
 
 
 
@@ -63,13 +73,16 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 <details>
 ```yaml
 name: activity
+description: the activity.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
+slot_uri: rfs:activity
 alias: activity
-owner: Project
 domain_of:
 - Project
-range: string
+- ManagementArea
+range: ActivityTypes
+multivalued: true
 
 ```
 </details>

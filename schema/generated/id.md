@@ -2,6 +2,8 @@
 
 # Slot: id
 
+
+
 URI: [rfs:id](https://framework.regen.network/schema/id)
 
 
@@ -69,7 +71,6 @@ from_schema: https://framework.regen.network/schema/
 rank: 1000
 identifier: true
 alias: id
-owner: Project
 domain_of:
 - Project
 range: uriorcurie

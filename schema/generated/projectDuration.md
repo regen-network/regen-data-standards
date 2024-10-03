@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: projectDuration
 
 
-_Name of the project._
+_The duration of the project._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuration)
 
 
 
@@ -23,11 +23,7 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -38,8 +34,6 @@ URI: [schema:name](http://schema.org/name)
 ## Properties
 
 * Range: [String](String.md)
-
-* Required: True
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:projectDuration |
+| native | rfs:projectDuration |
 
 
 
@@ -75,20 +69,15 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: projectDuration
+description: The duration of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+slot_uri: rfs:projectDuration
+alias: projectDuration
 domain_of:
 - Project
-- ProjectRole
-- Organization
-- AdministrativeArea
-- File
 range: string
-required: true
 
 ```
 </details>

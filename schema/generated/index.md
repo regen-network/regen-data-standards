@@ -12,12 +12,17 @@ Name: Schemas
 
 | Class | Description |
 | --- | --- |
+| [AdministrativeArea](AdministrativeArea.md) | None |
 | [File](File.md) | None |
 | [FileLocation](FileLocation.md) | None |
+| [ManagementArea](ManagementArea.md) | None |
+| [OffchainCreditsInfo](OffchainCreditsInfo.md) | None |
+| [Organization](Organization.md) | None |
 | [Project](Project.md) | None |
 | [ProjectPost](ProjectPost.md) | None |
 | [ProjectRole](ProjectRole.md) | None |
 | [ProjectSize](ProjectSize.md) | None |
+| [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit. |
 
 
 
@@ -25,28 +30,53 @@ Name: Schemas
 
 | Slot | Description |
 | --- | --- |
-| [activity](activity.md) |  |
+| [activity](activity.md) | the activity |
+| [address](address.md) | an address |
+| [administrativeArea](administrativeArea.md) | The administrative area associated with the project |
+| [biomeType](biomeType.md) | The type of biome associated with the project |
+| [bioregion](bioregion.md) | The bioregion associated with the project |
 | [comment](comment.md) |  |
 | [credit](credit.md) |  |
+| [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
+| [creditsAvailable](creditsAvailable.md) | The number of credits available |
+| [creditsRegistered](creditsRegistered.md) | The number of credits registered |
+| [creditsRetired](creditsRetired.md) | The number of credits retired |
 | [description](description.md) | Optional description of the project |
+| [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | The ecological connectivity index of the project |
 | [end_date](end_date.md) |  |
+| [environmentalAuthority](environmentalAuthority.md) | The environmental authority associated with the project |
+| [environmentType](environmentType.md) | The type of environment associated with the project |
+| [extent](extent.md) | the extent |
 | [files](files.md) |  |
 | [id](id.md) |  |
-| [image](image.md) |  |
+| [image](image.md) | an image |
 | [iri](iri.md) |  |
 | [location](location.md) |  |
+| [managementAreas](managementAreas.md) | The management areas associated with the project |
+| [marketType](marketType.md) | The type of market for the associated credits |
 | [name](name.md) | Name of the project |
 | [numericValue](numericValue.md) |  |
+| [offchainCreditsInfo](offchainCreditsInfo.md) | Information about offchain credits associated with the project |
 | [project_developer](project_developer.md) |  |
 | [project_size](project_size.md) |  |
 | [project_type](project_type.md) |  |
 | [project_verifier](project_verifier.md) |  |
+| [projectDeveloper](projectDeveloper.md) | The organization responsible for owning the project |
+| [projectDuration](projectDuration.md) | The duration of the project |
+| [projectMonitor](projectMonitor.md) | The organization responsible for monitoring the project |
+| [projectOperator](projectOperator.md) | The organization responsible for operating the project |
+| [projectOwner](projectOwner.md) | The organization responsible for owning the project |
+| [projectVerifier](projectVerifier.md) | The organization responsible for owning the project |
+| [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization on the project page |
 | [size](size.md) |  |
+| [socialCulturalIndex](socialCulturalIndex.md) | The social cultural index of the project |
 | [start_date](start_date.md) |  |
+| [subWatershed](subWatershed.md) | The sub-watershed associated with the project |
 | [title](title.md) |  |
 | [type](type.md) |  |
 | [unit](unit.md) |  |
 | [url](url.md) |  |
+| [watershed](watershed.md) | The watershed associated with the project |
 | [wkt](wkt.md) |  |
 
 
@@ -54,6 +84,9 @@ Name: Schemas
 
 | Enumeration | Description |
 | --- | --- |
+| [ActivityTypes](ActivityTypes.md) | The type of activity |
+| [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem |
+| [MarketTypeTypes](MarketTypeTypes.md) | The type of marketplace |
 | [ProjectRoleTypes](ProjectRoleTypes.md) |  |
 
 

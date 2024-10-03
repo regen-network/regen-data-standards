@@ -1,15 +1,15 @@
 
 
-# Slot: name
+# Slot: showOnProjectPage
 
 
-_Name of the project._
+_Whether to show this organization on the project page._
 
 
 
 
 
-URI: [schema:name](http://schema.org/name)
+URI: [rfs:showOnProjectPage](https://framework.regen.network/schema/showOnProjectPage)
 
 
 
@@ -24,10 +24,6 @@ URI: [schema:name](http://schema.org/name)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -37,9 +33,7 @@ URI: [schema:name](http://schema.org/name)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Required: True
+* Range: [Boolean](Boolean.md)
 
 
 
@@ -65,8 +59,8 @@ URI: [schema:name](http://schema.org/name)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
+| self | rfs:showOnProjectPage |
+| native | rfs:showOnProjectPage |
 
 
 
@@ -75,20 +69,14 @@ URI: [schema:name](http://schema.org/name)
 
 <details>
 ```yaml
-name: name
-description: Name of the project.
+name: showOnProjectPage
+description: Whether to show this organization on the project page.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:name
-alias: name
+alias: showOnProjectPage
 domain_of:
-- Project
-- ProjectRole
 - Organization
-- AdministrativeArea
-- File
-range: string
-required: true
+range: boolean
 
 ```
 </details>

@@ -1,10 +1,15 @@
 
 
-# Slot: project_type
+# Slot: extent
+
+
+_the extent._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+
+
+URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 
 
@@ -18,7 +23,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ManagementArea](ManagementArea.md) |  |  no  |
 
 
 
@@ -28,7 +33,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [QuantityValue](QuantityValue.md)
 
 
 
@@ -54,8 +59,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | dcterms:extent |
+| native | rfs:extent |
 
 
 
@@ -64,14 +69,15 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: extent
+description: the extent.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: dcterms:extent
+alias: extent
 domain_of:
-- Project
-range: string
+- ManagementArea
+range: QuantityValue
 
 ```
 </details>

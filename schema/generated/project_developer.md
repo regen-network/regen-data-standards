@@ -2,6 +2,8 @@
 
 # Slot: project_developer
 
+
+
 URI: [rfs:project_developer](https://framework.regen.network/schema/project_developer)
 
 

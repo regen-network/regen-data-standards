@@ -93,6 +93,7 @@ attributes:
     slot_uri: qudt:unit
     domain_of:
     - ProjectSize
+    - QuantityValue
     required: true
   numericValue:
     name: numericValue
@@ -101,6 +102,7 @@ attributes:
     slot_uri: qudt:numericValue
     domain_of:
     - ProjectSize
+    - QuantityValue
     range: double
     required: true
 class_uri: rfs:ProjectSize
@@ -124,6 +126,7 @@ attributes:
     owner: ProjectSize
     domain_of:
     - ProjectSize
+    - QuantityValue
     range: string
     required: true
   numericValue:
@@ -135,6 +138,7 @@ attributes:
     owner: ProjectSize
     domain_of:
     - ProjectSize
+    - QuantityValue
     range: double
     required: true
 class_uri: rfs:ProjectSize
