@@ -19,8 +19,8 @@ URI: [rfs:url](https://framework.regen.network/schema/url)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [Organization](Organization.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 

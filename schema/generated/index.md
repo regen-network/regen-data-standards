@@ -30,7 +30,7 @@ Name: Schemas
 
 | Slot | Description |
 | --- | --- |
-| [activity](activity.md) | the activity |
+| [activity](activity.md) | The types of activities being implemented in projects |
 | [address](address.md) | an address |
 | [administrativeArea](administrativeArea.md) | The administrative area associated with the project |
 | [biomeType](biomeType.md) | The type of biome associated with the project |
@@ -45,11 +45,12 @@ Name: Schemas
 | [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | The ecological connectivity index of the project |
 | [end_date](end_date.md) |  |
 | [environmentalAuthority](environmentalAuthority.md) | The environmental authority associated with the project |
-| [environmentType](environmentType.md) | The type of environment associated with the project |
+| [environmentType](environmentType.md) | General classification of the project's environment type |
 | [extent](extent.md) | the extent |
 | [files](files.md) |  |
 | [id](id.md) |  |
 | [image](image.md) | an image |
+| [impact](impact.md) | A project or initiative’s current and potential impact |
 | [iri](iri.md) |  |
 | [location](location.md) |  |
 | [managementAreas](managementAreas.md) | The management areas associated with the project |
@@ -84,8 +85,9 @@ Name: Schemas
 
 | Enumeration | Description |
 | --- | --- |
-| [ActivityTypes](ActivityTypes.md) | The type of activity |
-| [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem |
+| [ActivityTypes](ActivityTypes.md) |  |
+| [EnvironmentTypeTypes](EnvironmentTypeTypes.md) |  |
+| [ImpactTypes](ImpactTypes.md) |  |
 | [MarketTypeTypes](MarketTypeTypes.md) | The type of marketplace |
 | [ProjectRoleTypes](ProjectRoleTypes.md) |  |
 

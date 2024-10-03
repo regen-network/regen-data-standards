@@ -1,15 +1,15 @@
 
 
-# Slot: activity
+# Slot: offchainCreditsInfo
 
 
-_The types of activities being implemented in projects_
+_Information about offchain credits associated with the project._
 
 
 
 
 
-URI: [rfs:activity](https://framework.regen.network/schema/activity)
+URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCreditsInfo)
 
 
 
@@ -23,7 +23,6 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ManagementArea](ManagementArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
 
 
@@ -34,9 +33,7 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 ## Properties
 
-* Range: [ActivityTypes](ActivityTypes.md)
-
-* Multivalued: True
+* Range: [OffchainCreditsInfo](OffchainCreditsInfo.md)
 
 
 
@@ -62,8 +59,8 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:activity |
-| native | rfs:activity |
+| self | rfs:offchainCreditsInfo |
+| native | rfs:offchainCreditsInfo |
 
 
 
@@ -72,17 +69,15 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 <details>
 ```yaml
-name: activity
-description: The types of activities being implemented in projects
+name: offchainCreditsInfo
+description: Information about offchain credits associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:activity
-alias: activity
+slot_uri: rfs:offchainCreditsInfo
+alias: offchainCreditsInfo
 domain_of:
 - Project
-- ManagementArea
-range: ActivityTypes
-multivalued: true
+range: OffchainCreditsInfo
 
 ```
 </details>
