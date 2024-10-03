@@ -1,7 +1,8 @@
 ---
 const {href, className} = Astro.props
 const {pathname} = Astro.url
+const pathSlug = pathname.replace(/\.html/, '');
 ---
-<a href={href} class={className} data-current={pathname == href} data-astro-prefetch>
+<a href={href} class={className} data-current={pathSlug == href} data-astro-prefetch>
     <slot />
 </a>

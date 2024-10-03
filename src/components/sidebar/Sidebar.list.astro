@@ -1,25 +1,19 @@
 ---
 import Link from './Sidebar.link.astro'
-const {collection, path, heading} = Astro.props
+const {path, heading, open} = Astro.props
 const {pathname} = Astro.url
-const open = pathname.includes(path);
+const pathSlug = pathname.replace(/\.html/, '');
+const isOpen  = typeof open === 'boolean' ? open : pathname.includes(path);
 ---
 <li>
-    <details {...(open ? {open} : {})}>
-        <summary data-current={path == pathname} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
+    <details {...(isOpen ? {open: true} : {})}>
+        <summary data-current={path == pathSlug} class="data-[current]:bg-brand-300 rounded-md px-2 py-1">
             <Link href={path}
                   className="p-1 text-lg font-bold">{heading}
             </Link>
         </summary>
         <ul class="flex flex-col ml-4">
-            {collection.map((entry:any) => (
-                    <li>
-                        <Link href={`${path}/${entry.slug}`}
-                              className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
-                            {entry.data.title}
-                        </Link>
-                    </li>
-            ))}
+            <slot />
         </ul>
     </details>
 </li>
