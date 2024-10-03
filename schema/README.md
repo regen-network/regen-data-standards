@@ -12,5 +12,9 @@
 - Create separate schema files for each logical schema class and `import` into the root `schemas.yaml` file.
 - Generated markdown from schemas:
     ```shell
-    gen-doc schema/src/schemas.yml --directory schema/generated --diagram-type er_diagram
+    gen-doc schema/src/schemas.yaml --directory schema/generated --diagram-type er_diagram
+    ```
+- Generate linkml enums for taxonomy terms:
+    ```shell
+    python populateSemanticEnums.py
     ```
