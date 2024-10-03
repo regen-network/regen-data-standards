@@ -1,15 +1,15 @@
 
 
-# Slot: image
+# Slot: impact
 
 
-_an image._
+_A project or initiative’s current and potential impact_
 
 
 
 
 
-URI: [schema:image](http://schema.org/image)
+URI: [rfs:impact](https://framework.regen.network/schema/impact)
 
 
 
@@ -23,8 +23,7 @@ URI: [schema:image](http://schema.org/image)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Organization](Organization.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
 
 
 
@@ -34,7 +33,9 @@ URI: [schema:image](http://schema.org/image)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [ImpactTypes](ImpactTypes.md)
+
+* Multivalued: True
 
 
 
@@ -60,8 +61,8 @@ URI: [schema:image](http://schema.org/image)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:image |
-| native | rfs:image |
+| self | rfs:impact |
+| native | rfs:impact |
 
 
 
@@ -70,16 +71,16 @@ URI: [schema:image](http://schema.org/image)
 
 <details>
 ```yaml
-name: image
-description: an image.
+name: impact
+description: A project or initiative’s current and potential impact
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:image
-alias: image
+slot_uri: rfs:impact
+alias: impact
 domain_of:
-- ProjectRole
-- Organization
-range: string
+- Project
+range: ImpactTypes
+multivalued: true
 
 ```
 </details>

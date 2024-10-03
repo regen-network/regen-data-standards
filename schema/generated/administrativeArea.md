@@ -1,15 +1,15 @@
 
 
-# Slot: activity
+# Slot: administrativeArea
 
 
-_The types of activities being implemented in projects_
+_The administrative area associated with the project._
 
 
 
 
 
-URI: [rfs:activity](https://framework.regen.network/schema/activity)
+URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrativeArea)
 
 
 
@@ -23,7 +23,6 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ManagementArea](ManagementArea.md) |  |  no  |
 | [Project](Project.md) |  |  no  |
 
 
@@ -34,9 +33,7 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 ## Properties
 
-* Range: [ActivityTypes](ActivityTypes.md)
-
-* Multivalued: True
+* Range: [AdministrativeArea](AdministrativeArea.md)
 
 
 
@@ -62,8 +59,8 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:activity |
-| native | rfs:activity |
+| self | rfs:administrativeArea |
+| native | rfs:administrativeArea |
 
 
 
@@ -72,17 +69,14 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 <details>
 ```yaml
-name: activity
-description: The types of activities being implemented in projects
+name: administrativeArea
+description: The administrative area associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:activity
-alias: activity
+alias: administrativeArea
 domain_of:
 - Project
-- ManagementArea
-range: ActivityTypes
-multivalued: true
+range: AdministrativeArea
 
 ```
 </details>

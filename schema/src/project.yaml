@@ -8,6 +8,7 @@ prefixes:
   unit: http://qudt.org/vocab/unit/
 imports:
   - linkml:types
+  - taxonomy
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -28,7 +29,6 @@ classes:
       - biomeType
       - watershed
       - subWatershed
-      - environmentType
       - offchainCreditsInfo
       - projectDuration
       - managementAreas
@@ -41,10 +41,12 @@ classes:
       - projectVerifier
       - projectDeveloper
       - creditClassVersion
+      - activity
+      - environmentType
+      - impact
     attributes:
       size:
         range: integer
-      activity:
       start_date:
       end_date:
       project_type:
@@ -170,11 +172,6 @@ slots:
     range: string
     slot_uri: rfs:subWatershed
     description: The sub-watershed associated with the project.
-  environmentType:
-    slot_uri: rfs:environmentType
-    range: EnvironmentTypeTypes
-    description: The type of environment associated with the project.
-    multivalued: true
   environmentalAuthority:
     slot_uri: rfs:environmentalAuthority
     range: Organization
@@ -204,12 +201,6 @@ slots:
     description: The management areas associated with the project.
     multivalued: true
     inlined: true
-  activity:
-    # TODO: associate with regen data standards activities
-    slot_uri: rfs:activity
-    range: ActivityTypes
-    description: the activity.
-    multivalued: true
   extent:
     slot_uri: dcterms:extent
     range: QuantityValue
@@ -257,33 +248,3 @@ enums:
       voluntary:
         meaning: rfs:VoluntaryMarket
         description: a voluntary market
-  # TODO: these should be imported from a shared vocabulary
-  EnvironmentTypeTypes:
-    description: The type of ecosystem
-    permissible_values:
-      cloudForest:
-        meaning: rfs:CloudForest
-      tropicalSavannah:
-        meaning: rfs:TropicalSavannah
-      tropicalDryForest:
-        meaning: rfs:TropicalDryForest
-      tropicalForest:
-        meaning: rfs:TropicalForest
-      tropicalVeryHumidForest:
-        meaning: rfs:TropicalVeryHumidForest
-      tropicalHumidForest:
-        meaning: rfs:TropicalHumidForest
-      premontaneHumidForest:
-        meaning: rfs:PremontaneHumidForest
-      lowMontaneVeryHumidForest:
-        meaning: rfs:LowMontaneVeryHumidForest
-  # TODO: these should be imported from a shared vocabulary
-  ActivityTypes:
-    description: The type of activity
-    permissible_values:
-      conservation:
-        meaning: rfs:Conservation
-        description: a conservation activity
-      ecosystemRestoration:
-        meaning: rfs:EcosystemRestoration
-        description: an ecosystem restoration activity

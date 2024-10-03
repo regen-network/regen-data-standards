@@ -1,39 +1,52 @@
 
 
-# Slot: offchainCreditsInfo
-
-
-_Information about offchain credits associated with the project._
+# Class: OffchainCreditsInfo
 
 
 
+URI: [rfs:OffchainCreditsInfo](https://framework.regen.network/schema/OffchainCreditsInfo)
 
 
-URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCreditsInfo)
+
+```mermaid
+erDiagram
+OffchainCreditsInfo {
+
+}
+QuantityValue {
+    float numericValue  
+    string unit  
+}
+
+OffchainCreditsInfo ||--|o QuantityValue : "creditsRegistered"
+OffchainCreditsInfo ||--|o QuantityValue : "creditsAvailable"
+OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
+
+```
 
 
 
 <!-- no inheritance hierarchy -->
 
 
+## Slots
 
-
-
-## Applicable Classes
-
-| Name | Description | Modifies Slot |
-| --- | --- | --- |
-| [Project](Project.md) |  |  no  |
-
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [creditsRegistered](creditsRegistered.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | The number of credits registered | direct |
+| [creditsAvailable](creditsAvailable.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | The number of credits available | direct |
+| [creditsRetired](creditsRetired.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | The number of credits retired | direct |
 
 
 
 
 
+## Usages
 
-## Properties
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Project](Project.md) | [offchainCreditsInfo](offchainCreditsInfo.md) | range | [OffchainCreditsInfo](OffchainCreditsInfo.md) |
 
-* Range: [OffchainCreditsInfo](OffchainCreditsInfo.md)
 
 
 
@@ -59,25 +72,93 @@ URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCr
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:offchainCreditsInfo |
-| native | rfs:offchainCreditsInfo |
+| self | rfs:OffchainCreditsInfo |
+| native | rfs:OffchainCreditsInfo |
+
+
+
 
 
 
 
 ## LinkML Source
 
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
 <details>
 ```yaml
-name: offchainCreditsInfo
-description: Information about offchain credits associated with the project.
+name: OffchainCreditsInfo
 from_schema: https://framework.regen.network/schema/
-rank: 1000
-slot_uri: rfs:offchainCreditsInfo
-alias: offchainCreditsInfo
-domain_of:
-- Project
-range: OffchainCreditsInfo
+attributes:
+  creditsRegistered:
+    name: creditsRegistered
+    description: The number of credits registered
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+  creditsAvailable:
+    name: creditsAvailable
+    description: The number of credits available
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+  creditsRetired:
+    name: creditsRetired
+    description: The number of credits retired
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+class_uri: rfs:OffchainCreditsInfo
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: OffchainCreditsInfo
+from_schema: https://framework.regen.network/schema/
+attributes:
+  creditsRegistered:
+    name: creditsRegistered
+    description: The number of credits registered
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    alias: creditsRegistered
+    owner: OffchainCreditsInfo
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+  creditsAvailable:
+    name: creditsAvailable
+    description: The number of credits available
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    alias: creditsAvailable
+    owner: OffchainCreditsInfo
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+  creditsRetired:
+    name: creditsRetired
+    description: The number of credits retired
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    alias: creditsRetired
+    owner: OffchainCreditsInfo
+    domain_of:
+    - OffchainCreditsInfo
+    range: QuantityValue
+class_uri: rfs:OffchainCreditsInfo
 
 ```
 </details>
