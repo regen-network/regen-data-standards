@@ -108,6 +108,9 @@
     "bioregion": {
       "@id": "bioregion"
     },
+    "conservationStatus": {
+      "@id": "conservationStatus"
+    },
     "creditClassVersion": {
       "@id": "creditClassVersion"
     },
