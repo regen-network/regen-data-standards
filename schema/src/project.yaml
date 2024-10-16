@@ -6,6 +6,7 @@ prefixes:
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
+  dcterms: http://purl.org/dc/terms/
 imports:
   - linkml:types
 default_curi_maps:
@@ -19,12 +20,12 @@ classes:
     slots:
       - name
       - description
-      - project_size
+      - project_size 
       - project_developer
       - id
       - environmentalAuthority
       - marketType
-      - bioregion
+      - bioregion 
       - biomeType
       - watershed
       - subWatershed
@@ -41,6 +42,7 @@ classes:
       - projectVerifier
       - projectDeveloper
       - creditClassVersion
+      - conservationStatus
     attributes:
       size:
         range: integer
@@ -238,6 +240,10 @@ slots:
     slot_uri: rfs:creditClassVersion
     range: string
     description: The version of the credit class used for the project.
+  conservationStatus:
+    slot_uri: rfs:conservationStatus
+    range: string
+    description: The conservation status of the project.
   
   
 
@@ -277,6 +283,31 @@ enums:
         meaning: rfs:PremontaneHumidForest
       lowMontaneVeryHumidForest:
         meaning: rfs:LowMontaneVeryHumidForest
+  # TODO: these should be imported from a shared vocabulary
+  ConservationStatusTypes:
+    description: The conservation status of the project
+    permissible_values:
+      collapsed:
+        meaning: rfs:IucnCollapsed
+        description: Collapsed
+      endangered:
+        meaning: rfs:IucnEndangered
+        description: Endangered
+      vulnerable:
+        meaning: rfs:IucnVulnerable
+        description: Vulnerable
+      nearThreatened:
+        meaning: rfs:IucnNearThreatened
+        description: Near Threatened
+      leastConcern:
+        meaning: rfs:IucnLeastConcern
+        description: Least Concern
+      dataDeficient:
+        meaning: rfs:IucnDataDeficient
+        description: Data Deficient
+      notEvaluated:
+        meaning: rfs:IucnNotEvaluated
+        description: Not Evaluated
   # TODO: these should be imported from a shared vocabulary
   ActivityTypes:
     description: The type of activity
