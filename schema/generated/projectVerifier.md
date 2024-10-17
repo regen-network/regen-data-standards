@@ -21,8 +21,8 @@ URI: [rfs:projectVerifier](https://framework.regen.network/schema/projectVerifie
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 

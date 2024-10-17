@@ -21,8 +21,8 @@ URI: [rfs:projectActivities](https://framework.regen.network/schema/projectActiv
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 

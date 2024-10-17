@@ -21,12 +21,12 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [File](File.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [File](File.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 
 
 
