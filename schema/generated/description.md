@@ -7,8 +7,6 @@ _Optional description of the project._
 
 
 
-
-
 URI: [schema:description](http://schema.org/description)
 
 
@@ -23,10 +21,11 @@ URI: [schema:description](http://schema.org/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
-| [Organization](Organization.md) |  |  no  |
 | [File](File.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -37,6 +36,8 @@ URI: [schema:description](http://schema.org/description)
 ## Properties
 
 * Range: [String](String.md)
+
+* Required: True
 
 
 
@@ -58,16 +59,6 @@ URI: [schema:description](http://schema.org/description)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | schema:description |
-| native | rfs:description |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -79,11 +70,12 @@ rank: 1000
 slot_uri: schema:description
 alias: description
 domain_of:
-- Project
+- ProjectInfo
 - ProjectRole
 - Organization
 - File
 range: string
+required: true
 
 ```
 </details>

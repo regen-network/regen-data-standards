@@ -7,8 +7,6 @@ _The version of the credit class used for the project._
 
 
 
-
-
 URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClassVersion)
 
 
@@ -23,7 +21,8 @@ URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClass
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +54,6 @@ URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClass
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:creditClassVersion |
-| native | rfs:creditClassVersion |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +65,7 @@ rank: 1000
 slot_uri: rfs:creditClassVersion
 alias: creditClassVersion
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

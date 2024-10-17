@@ -1,15 +1,13 @@
 
 
-# Slot: projectDuration
+# Slot: projectEndDate
 
 
-_The duration of the project._
-
-
+_The end date of the project._
 
 
 
-URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuration)
+URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 
@@ -23,7 +21,8 @@ URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuratio
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,28 +54,18 @@ URI: [rfs:projectDuration](https://framework.regen.network/schema/projectDuratio
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:projectDuration |
-| native | rfs:projectDuration |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
-name: projectDuration
-description: The duration of the project.
+name: projectEndDate
+description: The end date of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:projectDuration
-alias: projectDuration
+slot_uri: xsd:date
+alias: projectEndDate
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

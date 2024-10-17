@@ -3,9 +3,7 @@
 # Slot: environmentType
 
 
-_The type of environment associated with the project._
-
-
+_The environment type of the project._
 
 
 
@@ -23,7 +21,8 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -34,8 +33,6 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 ## Properties
 
 * Range: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
-
-* Multivalued: True
 
 
 
@@ -57,30 +54,19 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:environmentType |
-| native | rfs:environmentType |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
 name: environmentType
-description: The type of environment associated with the project.
+description: The environment type of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: rfs:environmentType
 alias: environmentType
 domain_of:
-- Project
+- ProjectInfo
 range: EnvironmentTypeTypes
-multivalued: true
 
 ```
 </details>

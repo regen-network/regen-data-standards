@@ -37,14 +37,3 @@ URI: [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime)
 
 
 
-
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | xsd:dateTime |
-| native | rfs:datetime |
-| exact | schema:DateTime |
-
-
-

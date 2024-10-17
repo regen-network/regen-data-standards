@@ -2,8 +2,6 @@
 
 # Slot: comment
 
-
-
 URI: [dcterms:description](http://purl.org/dc/terms/description)
 
 
@@ -46,16 +44,6 @@ URI: [dcterms:description](http://purl.org/dc/terms/description)
 
 
 * from schema: https://framework.regen.network/schema/
-
-
-
-
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | dcterms:description |
-| native | rfs:comment |
 
 
 

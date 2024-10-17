@@ -2,8 +2,6 @@
 
 # Slot: files
 
-
-
 URI: [dcterms:references](http://purl.org/dc/terms/references)
 
 
@@ -52,16 +50,6 @@ URI: [dcterms:references](http://purl.org/dc/terms/references)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | dcterms:references |
-| native | rfs:files |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -70,13 +58,13 @@ name: files
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: dcterms:references
+multivalued: true
 list_elements_ordered: true
 alias: files
 owner: ProjectPost
 domain_of:
 - ProjectPost
 range: File
-multivalued: true
 inlined: true
 inlined_as_list: true
 

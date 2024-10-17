@@ -7,8 +7,6 @@ _The watershed associated with the project._
 
 
 
-
-
 URI: [rfs:watershed](https://framework.regen.network/schema/watershed)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:watershed](https://framework.regen.network/schema/watershed)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:watershed](https://framework.regen.network/schema/watershed)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:watershed |
-| native | rfs:watershed |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:watershed
 alias: watershed
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 
 ```

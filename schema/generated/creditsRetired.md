@@ -7,8 +7,6 @@ _The number of credits retired_
 
 
 
-
-
 URI: [rfs:creditsRetired](https://framework.regen.network/schema/creditsRetired)
 
 
@@ -51,16 +49,6 @@ URI: [rfs:creditsRetired](https://framework.regen.network/schema/creditsRetired)
 
 
 * from schema: https://framework.regen.network/schema/
-
-
-
-
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:creditsRetired |
-| native | rfs:creditsRetired |
 
 
 

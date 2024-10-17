@@ -7,8 +7,6 @@ _The type of biome associated with the project._
 
 
 
-
-
 URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:biomeType |
-| native | rfs:biomeType |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:biomeType
 alias: biomeType
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 
 ```

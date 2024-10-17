@@ -3,8 +3,11 @@
 # Slot: location
 
 
+_The location of the project._
 
-URI: [geo:hasGeometry](http://www.opengis.net/ont/geosparql#hasGeometry)
+
+
+URI: [schema:location](http://schema.org/location)
 
 
 
@@ -18,7 +21,9 @@ URI: [geo:hasGeometry](http://www.opengis.net/ont/geosparql#hasGeometry)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [File](File.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -28,7 +33,9 @@ URI: [geo:hasGeometry](http://www.opengis.net/ont/geosparql#hasGeometry)
 
 ## Properties
 
-* Range: [FileLocation](FileLocation.md)
+* Range: [String](String.md)
+
+* Required: True
 
 
 
@@ -50,29 +57,21 @@ URI: [geo:hasGeometry](http://www.opengis.net/ont/geosparql#hasGeometry)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | geo:hasGeometry |
-| native | rfs:location |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
 name: location
+description: The location of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: geo:hasGeometry
+slot_uri: schema:location
 alias: location
-owner: File
 domain_of:
+- ProjectInfo
 - File
-range: FileLocation
+range: string
+required: true
 
 ```
 </details>

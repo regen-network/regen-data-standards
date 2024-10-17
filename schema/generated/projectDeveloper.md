@@ -7,8 +7,6 @@ _The organization responsible for owning the project._
 
 
 
-
-
 URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDeveloper)
 
 
@@ -23,7 +21,8 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +32,7 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -55,16 +54,6 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:projectDeveloper |
-| native | rfs:projectDeveloper |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,8 +65,8 @@ rank: 1000
 slot_uri: rfs:projectDeveloper
 alias: projectDeveloper
 domain_of:
-- Project
-range: Organization
+- ProjectInfo
+range: ProjectRole
 
 ```
 </details>

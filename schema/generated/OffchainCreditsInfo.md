@@ -7,8 +7,6 @@ _Information about offchain credits associated with the project._
 
 
 
-
-
 URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCreditsInfo)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCr
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCr
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:offchainCreditsInfo |
-| native | rfs:offchainCreditsInfo |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:offchainCreditsInfo
 alias: offchainCreditsInfo
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: OffchainCreditsInfo
 
 ```

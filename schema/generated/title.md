@@ -2,8 +2,6 @@
 
 # Slot: title
 
-
-
 URI: [dcterms:title](http://purl.org/dc/terms/title)
 
 
@@ -48,16 +46,6 @@ URI: [dcterms:title](http://purl.org/dc/terms/title)
 
 
 * from schema: https://framework.regen.network/schema/
-
-
-
-
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | dcterms:title |
-| native | rfs:title |
 
 
 

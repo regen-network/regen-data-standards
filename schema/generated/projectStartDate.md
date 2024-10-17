@@ -1,10 +1,13 @@
 
 
-# Slot: size
+# Slot: projectStartDate
+
+
+_The start date of the project._
 
 
 
-URI: [rfs:size](https://framework.regen.network/schema/size)
+URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 
@@ -18,7 +21,8 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -28,7 +32,7 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 ## Properties
 
-* Range: [Integer](Integer.md)
+* Range: [String](String.md)
 
 
 
@@ -50,28 +54,19 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:size |
-| native | rfs:size |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
-name: size
+name: projectStartDate
+description: The start date of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: size
-owner: Project
+slot_uri: xsd:date
+alias: projectStartDate
 domain_of:
-- Project
-range: integer
+- ProjectInfo
+range: string
 
 ```
 </details>

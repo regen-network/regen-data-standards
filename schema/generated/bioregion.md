@@ -7,8 +7,6 @@ _The bioregion associated with the project._
 
 
 
-
-
 URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:bioregion |
-| native | rfs:bioregion |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:bioregion
 alias: bioregion
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 
 ```

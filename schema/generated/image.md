@@ -2,13 +2,6 @@
 
 # Slot: image
 
-
-_an image._
-
-
-
-
-
 URI: [schema:image](http://schema.org/image)
 
 
@@ -23,8 +16,8 @@ URI: [schema:image](http://schema.org/image)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -56,22 +49,11 @@ URI: [schema:image](http://schema.org/image)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | schema:image |
-| native | rfs:image |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
 name: image
-description: an image.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: schema:image

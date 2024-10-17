@@ -2,8 +2,6 @@
 
 # Slot: type
 
-
-
 URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleType)
 
 
@@ -48,16 +46,6 @@ URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleTyp
 
 
 * from schema: https://framework.regen.network/schema/
-
-
-
-
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:ProjectRoleType |
-| native | rfs:type |
 
 
 

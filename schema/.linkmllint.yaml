@@ -1,6 +1,6 @@
-extends: recommended
 rules:
-  no_empty_title:
-    level: error
   standard_naming:
     level: error
+    slot_pattern: camel
+    class_pattern: uppercamel
+    permissible_values_upper_case: true

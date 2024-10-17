@@ -7,8 +7,6 @@ _Name of the project._
 
 
 
-
-
 URI: [schema:name](http://schema.org/name)
 
 
@@ -23,11 +21,12 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
 | [File](File.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
 
 
 
@@ -61,16 +60,6 @@ URI: [schema:name](http://schema.org/name)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | schema:name |
-| native | rfs:name |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -82,11 +71,11 @@ rank: 1000
 slot_uri: schema:name
 alias: name
 domain_of:
-- Project
+- ProjectInfo
 - ProjectRole
 - Organization
-- AdministrativeArea
 - File
+- AdministrativeArea
 range: string
 required: true
 

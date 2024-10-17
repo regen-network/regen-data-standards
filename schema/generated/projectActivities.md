@@ -1,15 +1,13 @@
 
 
-# Slot: activity
+# Slot: projectActivities
 
 
 _the activity._
 
 
 
-
-
-URI: [rfs:activity](https://framework.regen.network/schema/activity)
+URI: [rfs:projectActivities](https://framework.regen.network/schema/projectActivities)
 
 
 
@@ -23,8 +21,8 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
-| [ManagementArea](ManagementArea.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -58,31 +56,20 @@ URI: [rfs:activity](https://framework.regen.network/schema/activity)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:activity |
-| native | rfs:activity |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
-name: activity
+name: projectActivities
 description: the activity.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:activity
-alias: activity
-domain_of:
-- Project
-- ManagementArea
-range: ActivityTypes
+slot_uri: rfs:projectActivities
 multivalued: true
+alias: projectActivities
+domain_of:
+- ProjectInfo
+range: ActivityTypes
 
 ```
 </details>

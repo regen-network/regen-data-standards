@@ -7,8 +7,6 @@ _The organization responsible for monitoring the project._
 
 
 
-
-
 URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 
@@ -23,7 +21,8 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +32,7 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -55,16 +54,6 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:projectMonitor |
-| native | rfs:projectMonitor |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,8 +65,8 @@ rank: 1000
 slot_uri: rfs:projectMonitor
 alias: projectMonitor
 domain_of:
-- Project
-range: Organization
+- ProjectInfo
+range: ProjectRole
 
 ```
 </details>

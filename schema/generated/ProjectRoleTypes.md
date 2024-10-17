@@ -8,8 +8,8 @@ URI: [ProjectRoleTypes](ProjectRoleTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| individual | rfs:Individual |  |
-| organization | rfs:Organization |  |
+| INDIVIDUAL | rfs:Individual |  |
+| ORGANIZATION | rfs:Organization |  |
 
 
 
@@ -41,8 +41,6 @@ URI: [ProjectRoleTypes](ProjectRoleTypes.md)
 
 
 
-
-
 ## LinkML Source
 
 <details>
@@ -51,11 +49,11 @@ name: ProjectRoleTypes
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  individual:
-    text: individual
+  INDIVIDUAL:
+    text: INDIVIDUAL
     meaning: rfs:Individual
-  organization:
-    text: organization
+  ORGANIZATION:
+    text: ORGANIZATION
     meaning: rfs:Organization
 
 ```
