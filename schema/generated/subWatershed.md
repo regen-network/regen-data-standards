@@ -7,8 +7,6 @@ _The sub-watershed associated with the project._
 
 
 
-
-
 URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:subWatershed |
-| native | rfs:subWatershed |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:subWatershed
 alias: subWatershed
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 
 ```

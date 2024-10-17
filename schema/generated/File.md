@@ -33,8 +33,8 @@ File ||--|o FileLocation : "location"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [iri](iri.md) | 1 <br/> [String](String.md) |  | direct |
-| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
+| [iri](iri.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
 | [description](description.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [location](location.md) | 0..1 <br/> [FileLocation](FileLocation.md) |  | direct |
 | [credit](credit.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -70,14 +70,13 @@ File ||--|o FileLocation : "location"
 
 
 
+
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:File |
 | native | rfs:File |
-
-
 
 
 
@@ -107,27 +106,27 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     slot_uri: dcterms:title
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
-    - AdministrativeArea
     - File
+    - AdministrativeArea
     required: true
   description:
     name: description
     from_schema: https://framework.regen.network/schema/
     slot_uri: dcterms:description
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
     - File
   location:
     name: location
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     slot_uri: geo:hasGeometry
     domain_of:
+    - ProjectInfo
     - File
     range: FileLocation
   credit:
@@ -166,11 +165,11 @@ attributes:
     alias: name
     owner: File
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
-    - AdministrativeArea
     - File
+    - AdministrativeArea
     range: string
     required: true
   description:
@@ -180,7 +179,7 @@ attributes:
     alias: description
     owner: File
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
     - File
@@ -188,11 +187,11 @@ attributes:
   location:
     name: location
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     slot_uri: geo:hasGeometry
     alias: location
     owner: File
     domain_of:
+    - ProjectInfo
     - File
     range: FileLocation
   credit:

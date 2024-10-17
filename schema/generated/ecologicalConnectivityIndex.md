@@ -7,8 +7,6 @@ _The ecological connectivity index of the project._
 
 
 
-
-
 URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ecologicalConnectivityIndex)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ec
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ec
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:ecologicalConnectivityIndex |
-| native | rfs:ecologicalConnectivityIndex |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:ecologicalConnectivityIndex
 alias: ecologicalConnectivityIndex
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: float
 
 ```

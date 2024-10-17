@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/project-post
-name: project-post
+id: https://framework.regen.network/schema/ProjectPost
+name: ProjectPost
 prefixes:
   linkml: https://w3id.org/linkml/
   dcterms: http://purl.org/dc/terms/

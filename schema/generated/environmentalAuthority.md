@@ -7,8 +7,6 @@ _The environmental authority associated with the project._
 
 
 
-
-
 URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environmentalAuthority)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:environmentalAuthority |
-| native | rfs:environmentalAuthority |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,7 +64,7 @@ rank: 1000
 slot_uri: rfs:environmentalAuthority
 alias: environmentalAuthority
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: Organization
 
 ```

@@ -11,7 +11,7 @@ URI: [rfs:ManagementArea](https://framework.regen.network/schema/ManagementArea)
 ```mermaid
 erDiagram
 ManagementArea {
-    ActivityTypesList activity  
+    ActivityTypes projectActivity  
 }
 QuantityValue {
     float numericValue  
@@ -31,7 +31,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [activity](activity.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
+| [projectActivity](projectActivity.md) | 0..1 <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
 | [extent](extent.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | the extent | direct |
 
 
@@ -42,7 +42,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [Project](Project.md) | [managementAreas](managementAreas.md) | range | [ManagementArea](ManagementArea.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [managementAreas](managementAreas.md) | range | [ManagementArea](ManagementArea.md) |
 
 
 
@@ -65,14 +65,13 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 
 
+
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:ManagementArea |
 | native | rfs:ManagementArea |
-
-
 
 
 
@@ -88,9 +87,25 @@ ManagementArea ||--|o QuantityValue : "extent"
 ```yaml
 name: ManagementArea
 from_schema: https://framework.regen.network/schema/
-slots:
-- activity
-- extent
+attributes:
+  projectActivity:
+    name: projectActivity
+    description: the activity
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:projectActivity
+    domain_of:
+    - ManagementArea
+    range: ActivityTypes
+  extent:
+    name: extent
+    description: the extent
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: dcterms:extent
+    domain_of:
+    - ManagementArea
+    range: QuantityValue
 class_uri: rfs:ManagementArea
 
 ```
@@ -103,22 +118,20 @@ class_uri: rfs:ManagementArea
 name: ManagementArea
 from_schema: https://framework.regen.network/schema/
 attributes:
-  activity:
-    name: activity
-    description: the activity.
+  projectActivity:
+    name: projectActivity
+    description: the activity
     from_schema: https://framework.regen.network/schema/
     rank: 1000
-    slot_uri: rfs:activity
-    alias: activity
+    slot_uri: rfs:projectActivity
+    alias: projectActivity
     owner: ManagementArea
     domain_of:
-    - Project
     - ManagementArea
     range: ActivityTypes
-    multivalued: true
   extent:
     name: extent
-    description: the extent.
+    description: the extent
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: dcterms:extent

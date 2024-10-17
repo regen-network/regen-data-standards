@@ -7,8 +7,6 @@ _The organization responsible for operating the project._
 
 
 
-
-
 URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperator)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperato
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +31,7 @@ URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperato
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperato
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:projectOperator |
-| native | rfs:projectOperator |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,8 +64,8 @@ rank: 1000
 slot_uri: rfs:projectOperator
 alias: projectOperator
 domain_of:
-- Project
-range: Organization
+- TerrasosProjectInfo
+range: ProjectRole
 
 ```
 </details>

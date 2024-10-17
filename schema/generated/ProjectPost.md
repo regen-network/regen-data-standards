@@ -38,9 +38,9 @@ File ||--|o FileLocation : "location"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [title](title.md) | 1 <br/> [String](String.md) |  | direct |
+| [title](title.md) | 1..1 <br/> [String](String.md) |  | direct |
 | [comment](comment.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [files](files.md) | * <br/> [File](File.md) |  | direct |
+| [files](files.md) | 0..* <br/> [File](File.md) |  | direct |
 
 
 
@@ -66,14 +66,13 @@ File ||--|o FileLocation : "location"
 
 
 
+
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:ProjectPost |
 | native | rfs:ProjectPost |
-
-
 
 
 
@@ -110,11 +109,11 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: dcterms:references
+    multivalued: true
     list_elements_ordered: true
     domain_of:
     - ProjectPost
     range: File
-    multivalued: true
     inlined: true
     inlined_as_list: true
 
@@ -154,13 +153,13 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: dcterms:references
+    multivalued: true
     list_elements_ordered: true
     alias: files
     owner: ProjectPost
     domain_of:
     - ProjectPost
     range: File
-    multivalued: true
     inlined: true
     inlined_as_list: true
 

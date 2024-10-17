@@ -7,8 +7,6 @@ _The administrative area associated with the project._
 
 
 
-
-
 URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrativeArea)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrat
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrat
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:administrativeArea |
-| native | rfs:administrativeArea |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -75,7 +63,7 @@ from_schema: https://framework.regen.network/schema/
 rank: 1000
 alias: administrativeArea
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: AdministrativeArea
 
 ```

@@ -13,8 +13,8 @@ URI: [MarketTypeTypes](MarketTypeTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| compliance | rfs:ComplianceMarket | a compliance market |
-| voluntary | rfs:VoluntaryMarket | a voluntary market |
+| COMPLIANCE_MARKET | rfs:ComplianceMarket | a compliance market |
+| VOLUNTARY_MARKET | rfs:VoluntaryMarket | a voluntary market |
 
 
 
@@ -46,8 +46,6 @@ URI: [MarketTypeTypes](MarketTypeTypes.md)
 
 
 
-
-
 ## LinkML Source
 
 <details>
@@ -57,12 +55,12 @@ description: The type of marketplace
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  compliance:
-    text: compliance
+  COMPLIANCE_MARKET:
+    text: COMPLIANCE_MARKET
     description: a compliance market
     meaning: rfs:ComplianceMarket
-  voluntary:
-    text: voluntary
+  VOLUNTARY_MARKET:
+    text: VOLUNTARY_MARKET
     description: a voluntary market
     meaning: rfs:VoluntaryMarket
 

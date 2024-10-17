@@ -1,10 +1,13 @@
 
 
-# Slot: project_type
+# Slot: projectEndDate
+
+
+_The end date of the project._
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 
@@ -18,7 +21,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -50,27 +54,18 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
-name: project_type
+name: projectEndDate
+description: The end date of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+slot_uri: xsd:date
+alias: projectEndDate
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

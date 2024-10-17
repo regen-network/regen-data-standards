@@ -7,8 +7,6 @@ _The organization responsible for owning the project._
 
 
 
-
-
 URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 
@@ -23,7 +21,7 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +31,7 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -55,16 +53,6 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:projectOwner |
-| native | rfs:projectOwner |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -76,8 +64,8 @@ rank: 1000
 slot_uri: rfs:projectOwner
 alias: projectOwner
 domain_of:
-- Project
-range: Organization
+- TerrasosProjectInfo
+range: ProjectRole
 
 ```
 </details>

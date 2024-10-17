@@ -3,8 +3,11 @@
 # Slot: unit
 
 
+_The unit of measurement for the quantity._
 
-URI: [rfs:unit](https://framework.regen.network/schema/unit)
+
+
+URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 
 
 
@@ -18,7 +21,6 @@ URI: [rfs:unit](https://framework.regen.network/schema/unit)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectSize](ProjectSize.md) |  |  no  |
 | [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit |  no  |
 
 
@@ -43,13 +45,10 @@ URI: [rfs:unit](https://framework.regen.network/schema/unit)
 
 
 
+### Schema Source
 
-## Mappings
 
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:unit |
-| native | rfs:unit |
+* from schema: https://framework.regen.network/schema/
 
 
 
@@ -59,9 +58,13 @@ URI: [rfs:unit](https://framework.regen.network/schema/unit)
 <details>
 ```yaml
 name: unit
+description: The unit of measurement for the quantity.
+from_schema: https://framework.regen.network/schema/
+rank: 1000
+slot_uri: qudt:unit
 alias: unit
+owner: QuantityValue
 domain_of:
-- ProjectSize
 - QuantityValue
 range: string
 

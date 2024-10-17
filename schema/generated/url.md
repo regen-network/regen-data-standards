@@ -2,9 +2,7 @@
 
 # Slot: url
 
-
-
-URI: [rfs:url](https://framework.regen.network/schema/url)
+URI: [schema:URL](http://schema.org/URL)
 
 
 
@@ -18,9 +16,9 @@ URI: [rfs:url](https://framework.regen.network/schema/url)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [Organization](Organization.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [Organization](Organization.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 
 
 
@@ -52,16 +50,6 @@ URI: [rfs:url](https://framework.regen.network/schema/url)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | rfs:url |
-| native | rfs:url |
-
-
-
-
 ## LinkML Source
 
 <details>
@@ -69,6 +57,7 @@ URI: [rfs:url](https://framework.regen.network/schema/url)
 name: url
 from_schema: https://framework.regen.network/schema/
 rank: 1000
+slot_uri: schema:URL
 alias: url
 domain_of:
 - ProjectRole

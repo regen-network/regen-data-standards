@@ -3,9 +3,7 @@
 # Slot: extent
 
 
-_the extent._
-
-
+_the extent_
 
 
 
@@ -55,26 +53,17 @@ URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 
 
-## Mappings
-
-| Mapping Type | Mapped Value |
-| ---  | ---  |
-| self | dcterms:extent |
-| native | rfs:extent |
-
-
-
-
 ## LinkML Source
 
 <details>
 ```yaml
 name: extent
-description: the extent.
+description: the extent
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: dcterms:extent
 alias: extent
+owner: ManagementArea
 domain_of:
 - ManagementArea
 range: QuantityValue
