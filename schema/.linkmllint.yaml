@@ -1,0 +1,6 @@
+extends: recommended
+rules:
+  no_empty_title:
+    level: error
+  standard_naming:
+    level: error

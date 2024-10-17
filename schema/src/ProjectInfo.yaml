@@ -29,7 +29,6 @@ classes:
       - projectStartDate # optional
       - projectEndDate # optional
       - creditClassVersion # optional
-
   ProjectRole:
     slots:
       - name
@@ -45,7 +44,6 @@ classes:
         required: true
       image:
         slot_uri: schema:image
-
   QuantityValue:
     class_uri: qudt:QuantityValue
     description: A value that represents a quantity, with a numeric value and a unit.
@@ -69,7 +67,7 @@ slots:
     description: Optional description of the project.
     slot_uri: schema:description
   url:
-    class_uri: schema:URL
+    slot_uri: schema:URL
   projectSize:
     range: QuantityValue
     inlined: false
