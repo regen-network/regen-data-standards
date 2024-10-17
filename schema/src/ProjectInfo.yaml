@@ -1,0 +1,138 @@
+id: https://framework.regen.network/schema/ProjectInfo
+name: ProjectInfo
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+imports:
+  - linkml:types
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  Project:
+    class_uri: rfs:ProjectInfo
+    slots:
+      - name
+      - location 
+      - description
+      - projectActivities
+      - projectSize # optional
+      - projectDeveloper # optional
+      - environmentType # optional
+      - projectMonitor # optional
+      - projectVerifier # optional
+      - projectStartDate # optional
+      - projectEndDate # optional
+      - creditClassVersion # optional
+
+  ProjectRole:
+    slots:
+      - name
+      - description
+      - url
+    attributes:
+      showOnProjectPage:
+        range: boolean
+        description: Whether to show this organization on the project page.
+      type:
+        range: ProjectRoleTypes
+        slot_uri: rfs:ProjectRoleType
+        required: true
+      image:
+        slot_uri: schema:image
+
+  QuantityValue:
+    class_uri: qudt:QuantityValue
+    description: A value that represents a quantity, with a numeric value and a unit.
+    attributes:
+      numericValue:
+        slot_uri: qudt:numericValue
+        range: float
+        description: The numeric value of the quantity.
+      unit:
+        slot_uri: qudt:unit
+        range: string
+        description: The unit of measurement for the quantity.
+
+slots:
+  name:
+    required: true
+    description: Name of the project.
+    slot_uri: schema:name
+  description:
+    required: true
+    description: Optional description of the project.
+    slot_uri: schema:description
+  url:
+    class_uri: schema:URL
+  projectSize:
+    range: QuantityValue
+    inlined: false
+  projectDeveloper:
+    range: ProjectRole
+    inlined: false
+  projectActivities:
+    # TODO: associate with regen data standards activities
+    slot_uri: rfs:projectActivities
+    range: ActivityTypes
+    description: the activity.
+    multivalued: true
+  projectDeveloper:
+    slot_uri: rfs:projectDeveloper
+    range: ProjectRole
+    description: The organization responsible for owning the project.
+  projectMonitor:
+    slot_uri: rfs:projectMonitor
+    range: ProjectRole
+    description: The organization responsible for monitoring the project.
+  projectVerifier:
+    slot_uri: rfs:projectVerifier
+    range: ProjectRole
+    description: The organization responsible for owning the project.
+  creditClassVersion:
+    slot_uri: rfs:creditClassVersion
+    range: string
+    description: The version of the credit class used for the project.
+
+enums:
+  ProjectRoleTypes:
+    permissible_values:
+      individual:
+        meaning: rfs:Individual
+      organization:
+        meaning: rfs:Organization
+  # TODO: these should be imported from a shared vocabulary
+  EnvironmentTypeTypes:
+    description: The type of ecosystem
+    permissible_values:
+      cloudForest:
+        meaning: rfs:CloudForest
+      tropicalSavannah:
+        meaning: rfs:TropicalSavannah
+      tropicalDryForest:
+        meaning: rfs:TropicalDryForest
+      tropicalForest:
+        meaning: rfs:TropicalForest
+      tropicalVeryHumidForest:
+        meaning: rfs:TropicalVeryHumidForest
+      tropicalHumidForest:
+        meaning: rfs:TropicalHumidForest
+      premontaneHumidForest:
+        meaning: rfs:PremontaneHumidForest
+      lowMontaneVeryHumidForest:
+        meaning: rfs:LowMontaneVeryHumidForest
+  # TODO: these should be imported from a shared vocabulary
+  ActivityTypes:
+    description: The type of activity
+    permissible_values:
+      conservation:
+        meaning: rfs:Conservation
+        description: a conservation activity
+      ecosystemRestoration:
+        meaning: rfs:EcosystemRestoration
+        description: an ecosystem restoration activity

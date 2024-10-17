@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/Project
-name: Project
+id: https://framework.regen.network/schema/TerrasosProjectInfo
+name: TerrasosProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -15,65 +15,28 @@ default_range: string
 
 classes:
   Project:
-    class_uri: rfs:Project
+    is_a: ProjectInfo
+    class_uri: rfs:TerrasosProjectInfo
     slots:
-      - name
-      - description
-      - project_size
-      - project_developer
-      - id
-      - environmentalAuthority
+      # Tebu Factors
+      - ecologicalConnectivityIndex
+      - socialCulturalIndex
+      - administrativeArea
+      - managementAreas
+
+      # Terrasos specific roles
+      - projectOperator
+      - projectOwner
+
+      # Compliance Information
       - marketType
+      - offchainCreditsInfo
+      - environmentalAuthority
       - bioregion
       - biomeType
       - watershed
       - subWatershed
-      - environmentType
-      - offchainCreditsInfo
-      - projectDuration
-      - managementAreas
-      - ecologicalConnectivityIndex
-      - socialCulturalIndex
-      - administrativeArea
-      - projectOperator
-      - projectMonitor
-      - projectOwner
-      - projectVerifier
-      - projectDeveloper
-      - creditClassVersion
-    attributes:
-      size:
-        range: integer
-      activity:
-      start_date:
-      end_date:
-      project_type:
-      project_verifier:
 
-  ProjectSize:
-    class_uri: rfs:ProjectSize
-    attributes:
-      unit:
-        slot_uri: qudt:unit
-        required: true
-      numericValue:
-        range: double
-        slot_uri: qudt:numericValue
-        required: true
-
-  ProjectRole:
-    slots:
-      - name
-      - description
-      - url
-    attributes:
-      type:
-        range: ProjectRoleTypes
-        slot_uri: rfs:ProjectRoleType
-        required: true
-      image:
-        slot_uri: schema:image
-  
   OffchainCreditsInfo:
     class_uri: rfs:OffchainCreditsInfo
     attributes:
@@ -87,69 +50,26 @@ classes:
         range: QuantityValue
         description: The number of credits retired
 
-  Organization:
-    class_uri: rfs:Organization
-    slots:
-      - name
-      - url
-      - showOnProjectPage
-      - description
-      - image
-      - address
-
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
     slots:
       - name
       - url
-  
-  QuantityValue:
-    class_uri: qudt:QuantityValue
-    description: A value that represents a quantity, with a numeric value and a unit.
-    attributes:
-      numericValue:
-        slot_uri: qudt:numericValue
-        range: float
-        description: The numeric value of the quantity.
-      unit:
-        slot_uri: qudt:unit
-        range: string
-        description: The unit of measurement for the quantity.
 
   ManagementArea:
     class_uri: rfs:ManagementArea
-    slots:
-      - activity
-      - extent
-
+    attributes:
+      projectActivity:
+        # TODO: associate with regen data standards activities
+        slot_uri: rfs:projectActivity
+        range: ActivityTypes
+        description: the activity
+      extent:
+        slot_uri: dcterms:extent
+        range: QuantityValue
+        description: the extent
 
 slots:
-  name:
-    required: true
-    description: Name of the project.
-    slot_uri: schema:name
-  description:
-    description: Optional description of the project.
-    slot_uri: schema:description
-  url:
-  project_size:
-    range: ProjectSize
-    inlined: false
-  project_developer:
-    range: ProjectRole
-    inlined: false
-  id:
-    range: uriorcurie
-    identifier: true
-  image:
-    slot_uri: schema:image
-    description: an image.
-  address:
-    slot_uri: schema:address
-    description: an address.
-  showOnProjectPage:
-    range: boolean
-    description: Whether to show this organization on the project page.
   marketType:
     slot_uri: rfs:marketType
     range: MarketTypeTypes
@@ -186,10 +106,6 @@ slots:
     slot_uri: rfs:offchainCreditsInfo
     range: OffchainCreditsInfo
     description: Information about offchain credits associated with the project.
-  projectDuration:
-    slot_uri: rfs:projectDuration
-    range: string
-    description: The duration of the project.
   ecologicalConnectivityIndex:
     slot_uri: rfs:ecologicalConnectivityIndex
     range: float
@@ -204,42 +120,30 @@ slots:
     description: The management areas associated with the project.
     multivalued: true
     inlined: true
-  activity:
-    # TODO: associate with regen data standards activities
-    slot_uri: rfs:activity
-    range: ActivityTypes
-    description: the activity.
-    multivalued: true
-  extent:
-    slot_uri: dcterms:extent
-    range: QuantityValue
-    description: the extent.
   projectOperator:
     slot_uri: rfs:projectOperator
-    range: Organization
+    range: ProjectRole
     description: The organization responsible for operating the project.
   projectMonitor:
     slot_uri: rfs:projectMonitor
-    range: Organization
+    range: ProjectRole
     description: The organization responsible for monitoring the project.
   projectOwner:
     slot_uri: rfs:projectOwner
-    range: Organization
+    range: ProjectRole
     description: The organization responsible for owning the project.
   projectDeveloper:
     slot_uri: rfs:projectDeveloper
-    range: Organization
+    range: ProjectRole
     description: The organization responsible for owning the project.
   projectVerifier:
     slot_uri: rfs:projectVerifier
-    range: Organization
+    range: ProjectRole
     description: The organization responsible for owning the project.
   creditClassVersion:
     slot_uri: rfs:creditClassVersion
     range: string
     description: The version of the credit class used for the project.
-  
-  
 
 enums:
   ProjectRoleTypes:
