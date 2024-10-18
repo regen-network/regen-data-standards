@@ -1,0 +1,369 @@
+name: Taxonomy
+id: https://framework.regen.network/taxonomy/
+prefixes:
+  rfs:
+    prefix_prefix: rfs
+    prefix_reference: https://framework.regen.network/schema/
+  rft:
+    prefix_prefix: rft
+    prefix_reference: https://framework.regen.network/taxonomy/
+default_curi_maps:
+- semweb_context
+default_prefix: rfs
+default_range: string
+enums:
+  ActivityTypes:
+    name: ActivityTypes
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      ResidueTillageManagement:
+        text: ResidueTillageManagement
+        meaning: rft:ResidueTillageManagement
+        title: ResidueTillageManagement
+      BiocharProduction:
+        text: BiocharProduction
+        meaning: rft:BiocharProduction
+        title: BiocharProduction
+      ImprovedForestManagement:
+        text: ImprovedForestManagement
+        meaning: rft:ImprovedForestManagement
+        title: ImprovedForestManagement
+      Agroforestry:
+        text: Agroforestry
+        meaning: rft:Agroforestry
+        title: Agroforestry
+      PrescribedGrazing:
+        text: PrescribedGrazing
+        meaning: rft:PrescribedGrazing
+        title: PrescribedGrazing
+      RiparianForestBuffers:
+        text: RiparianForestBuffers
+        meaning: rft:RiparianForestBuffers
+        title: RiparianForestBuffers
+      SoilAmendments:
+        text: SoilAmendments
+        meaning: rft:SoilAmendments
+        title: SoilAmendments
+      Conservation:
+        text: Conservation
+        meaning: rft:Conservation
+        title: Conservation
+      Ecotourism:
+        text: Ecotourism
+        meaning: rft:Ecotourism
+        title: Ecotourism
+      CoverCropping:
+        text: CoverCropping
+        meaning: rft:CoverCropping
+        title: CoverCropping
+      TreePlanting:
+        text: TreePlanting
+        meaning: rft:TreePlanting
+        title: TreePlanting
+      PhotocatalystApplication:
+        text: PhotocatalystApplication
+        meaning: rft:PhotocatalystApplication
+        title: PhotocatalystApplication
+      EcosystemRestoration:
+        text: EcosystemRestoration
+        meaning: rft:EcosystemRestoration
+        title: EcosystemRestoration
+      IndustrialBiocharProduction:
+        text: IndustrialBiocharProduction
+        meaning: rft:IndustrialBiocharProduction
+        title: IndustrialBiocharProduction
+      ArtisanalBiocharProduction:
+        text: ArtisanalBiocharProduction
+        meaning: rft:ArtisanalBiocharProduction
+        title: ArtisanalBiocharProduction
+      Biochar:
+        text: Biochar
+        meaning: rft:Biochar
+        title: Biochar
+      EnhancedRockWeathering:
+        text: EnhancedRockWeathering
+        meaning: rft:EnhancedRockWeathering
+        title: EnhancedRockWeathering
+      CompostAmendments:
+        text: CompostAmendments
+        meaning: rft:CompostAmendments
+        title: CompostAmendments
+      KeystoneSpeciesConservation:
+        text: KeystoneSpeciesConservation
+        meaning: rft:KeystoneSpeciesConservation
+        title: KeystoneSpeciesConservation
+      UmbrellaSpeciesConservation:
+        text: UmbrellaSpeciesConservation
+        meaning: rft:UmbrellaSpeciesConservation
+        title: UmbrellaSpeciesConservation
+      Silvopasture:
+        text: Silvopasture
+        meaning: rft:Silvopasture
+        title: Silvopasture
+      ForestFarming:
+        text: ForestFarming
+        meaning: rft:ForestFarming
+        title: ForestFarming
+      NonUrbanForestImprovement:
+        text: NonUrbanForestImprovement
+        meaning: rft:NonUrbanForestImprovement
+        title: NonUrbanForestImprovement
+      UrbanForestImprovement:
+        text: UrbanForestImprovement
+        meaning: rft:UrbanForestImprovement
+        title: UrbanForestImprovement
+      Afforestation:
+        text: Afforestation
+        meaning: rft:Afforestation
+        title: Afforestation
+      Reforestation:
+        text: Reforestation
+        meaning: rft:Reforestation
+        title: Reforestation
+  EnvironmentTypeTypes:
+    name: EnvironmentTypeTypes
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      Marine:
+        text: Marine
+        meaning: rft:Marine
+        title: Marine
+      Cropland:
+        text: Cropland
+        meaning: rft:Cropland
+        title: Cropland
+      UrbanTrees:
+        text: UrbanTrees
+        meaning: rft:UrbanTrees
+        title: UrbanTrees
+      Shrubland:
+        text: Shrubland
+        meaning: rft:Shrubland
+        title: Shrubland
+      Pasture:
+        text: Pasture
+        meaning: rft:Pasture
+        title: Pasture
+      Savanna:
+        text: Savanna
+        meaning: rft:Savanna
+        title: Savanna
+      Grassland:
+        text: Grassland
+        meaning: rft:Grassland
+        title: Grassland
+      AgroforestrySystem:
+        text: AgroforestrySystem
+        meaning: rft:AgroforestrySystem
+        title: AgroforestrySystem
+      PermanentIce:
+        text: PermanentIce
+        meaning: rft:PermanentIce
+        title: PermanentIce
+      Wetland:
+        text: Wetland
+        meaning: rft:Wetland
+        title: Wetland
+      Freshwater:
+        text: Freshwater
+        meaning: rft:Freshwater
+        title: Freshwater
+      Orchard:
+        text: Orchard
+        meaning: rft:Orchard
+        title: Orchard
+      AquacultureSystem:
+        text: AquacultureSystem
+        meaning: rft:AquacultureSystem
+        title: AquacultureSystem
+      Vineyard:
+        text: Vineyard
+        meaning: rft:Vineyard
+        title: Vineyard
+      Desert:
+        text: Desert
+        meaning: rft:Desert
+        title: Desert
+      Forest:
+        text: Forest
+        meaning: rft:Forest
+        title: Forest
+      IrrigatedCropland:
+        text: IrrigatedCropland
+        meaning: rft:IrrigatedCropland
+        title: IrrigatedCropland
+      RainfedCropland:
+        text: RainfedCropland
+        meaning: rft:RainfedCropland
+        title: RainfedCropland
+      TemperateShrubland:
+        text: TemperateShrubland
+        meaning: rft:TemperateShrubland
+        title: TemperateShrubland
+      BorealShrubland:
+        text: BorealShrubland
+        meaning: rft:BorealShrubland
+        title: BorealShrubland
+      TropicalShrubland:
+        text: TropicalShrubland
+        meaning: rft:TropicalShrubland
+        title: TropicalShrubland
+      Marsh:
+        text: Marsh
+        meaning: rft:Marsh
+        title: Marsh
+      Bog:
+        text: Bog
+        meaning: rft:Bog
+        title: Bog
+      Swamp:
+        text: Swamp
+        meaning: rft:Swamp
+        title: Swamp
+      TropicalForest:
+        text: TropicalForest
+        meaning: rft:TropicalForest
+        title: TropicalForest
+      TemperateForest:
+        text: TemperateForest
+        meaning: rft:TemperateForest
+        title: TemperateForest
+      BorealForest:
+        text: BorealForest
+        meaning: rft:BorealForest
+        title: BorealForest
+      Coastal:
+        text: Coastal
+        meaning: rft:Coastal
+        title: Coastal
+      DeepWater:
+        text: DeepWater
+        meaning: rft:DeepWater
+        title: DeepWater
+      CoralReef:
+        text: CoralReef
+        meaning: rft:CoralReef
+        title: CoralReef
+      TemperateGrassland:
+        text: TemperateGrassland
+        meaning: rft:TemperateGrassland
+        title: TemperateGrassland
+      Tundra:
+        text: Tundra
+        meaning: rft:Tundra
+        title: Tundra
+      TropicalGrassland:
+        text: TropicalGrassland
+        meaning: rft:TropicalGrassland
+        title: TropicalGrassland
+      Lake:
+        text: Lake
+        meaning: rft:Lake
+        title: Lake
+      Watercourse:
+        text: Watercourse
+        meaning: rft:Watercourse
+        title: Watercourse
+  ImpactTypes:
+    name: ImpactTypes
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      ReducedFertilizerAmendments:
+        text: ReducedFertilizerAmendments
+        meaning: rft:ReducedFertilizerAmendments
+        title: ReducedFertilizerAmendments
+      AvoidedDeforestationDegradation:
+        text: AvoidedDeforestationDegradation
+        meaning: rft:AvoidedDeforestationDegradation
+        title: AvoidedDeforestationDegradation
+      ImprovedCulturalHeritageAwareness:
+        text: ImprovedCulturalHeritageAwareness
+        meaning: rft:ImprovedCulturalHeritageAwareness
+        title: ImprovedCulturalHeritageAwareness
+      ImprovedBiodiversity:
+        text: ImprovedBiodiversity
+        meaning: rft:ImprovedBiodiversity
+        title: ImprovedBiodiversity
+      ImprovedEnvironmentalEducationOutreach:
+        text: ImprovedEnvironmentalEducationOutreach
+        meaning: rft:ImprovedEnvironmentalEducationOutreach
+        title: ImprovedEnvironmentalEducationOutreach
+      ReducedSoilErosion:
+        text: ReducedSoilErosion
+        meaning: rft:ReducedSoilErosion
+        title: ReducedSoilErosion
+      ReducedHerbicideAmendments:
+        text: ReducedHerbicideAmendments
+        meaning: rft:ReducedHerbicideAmendments
+        title: ReducedHerbicideAmendments
+      ImprovedForestHealth:
+        text: ImprovedForestHealth
+        meaning: rft:ImprovedForestHealth
+        title: ImprovedForestHealth
+      ImprovedCommunityHealth:
+        text: ImprovedCommunityHealth
+        meaning: rft:ImprovedCommunityHealth
+        title: ImprovedCommunityHealth
+      ImprovedWildlifeHabitat:
+        text: ImprovedWildlifeHabitat
+        meaning: rft:ImprovedWildlifeHabitat
+        title: ImprovedWildlifeHabitat
+      ImprovedSoilHealth:
+        text: ImprovedSoilHealth
+        meaning: rft:ImprovedSoilHealth
+        title: ImprovedSoilHealth
+      IncreasedForestCover:
+        text: IncreasedForestCover
+        meaning: rft:IncreasedForestCover
+        title: IncreasedForestCover
+      ReducedPesticideAmendments:
+        text: ReducedPesticideAmendments
+        meaning: rft:ReducedPesticideAmendments
+        title: ReducedPesticideAmendments
+      ImprovedWaterInfiltration:
+        text: ImprovedWaterInfiltration
+        meaning: rft:ImprovedWaterInfiltration
+        title: ImprovedWaterInfiltration
+      ImprovedWaterHoldingCapacity:
+        text: ImprovedWaterHoldingCapacity
+        meaning: rft:ImprovedWaterHoldingCapacity
+        title: ImprovedWaterHoldingCapacity
+      IncreasedCarbonSequestrationStorage:
+        text: IncreasedCarbonSequestrationStorage
+        meaning: rft:IncreasedCarbonSequestrationStorage
+        title: IncreasedCarbonSequestrationStorage
+      ReducedIrrigation:
+        text: ReducedIrrigation
+        meaning: rft:ReducedIrrigation
+        title: ReducedIrrigation
+      ImprovedSoilStructure:
+        text: ImprovedSoilStructure
+        meaning: rft:ImprovedSoilStructure
+        title: ImprovedSoilStructure
+      ImprovedNutrientCycling:
+        text: ImprovedNutrientCycling
+        meaning: rft:ImprovedNutrientCycling
+        title: ImprovedNutrientCycling
+slots:
+  activity:
+    name: activity
+    description: The types of activities being implemented in projects
+    from_schema: https://framework.regen.network/taxonomy/
+    slot_uri: rfs:activity
+    range: ActivityTypes
+    multivalued: true
+  environmentType:
+    name: environmentType
+    description: General classification of the project's environment type.
+    from_schema: https://framework.regen.network/taxonomy/
+    slot_uri: rfs:environmentType
+    range: EnvironmentTypeTypes
+    multivalued: true
+  impact:
+    name: impact
+    description: A project or initiative’s current and potential impact
+    from_schema: https://framework.regen.network/taxonomy/
+    slot_uri: rfs:impact
+    range: ImpactTypes
+    multivalued: true
+source_file: ../src/taxonomy.yaml

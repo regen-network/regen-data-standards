@@ -31,7 +31,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [activity](activity.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
+| [activity](activity.md) | * <br/> [ActivityTypes](ActivityTypes.md) | The types of activities being implemented in projects | direct |
 | [extent](extent.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | the extent | direct |
 
 
@@ -105,7 +105,7 @@ from_schema: https://framework.regen.network/schema/
 attributes:
   activity:
     name: activity
-    description: the activity.
+    description: The types of activities being implemented in projects
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: rfs:activity

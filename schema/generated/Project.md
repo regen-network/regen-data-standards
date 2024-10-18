@@ -19,13 +19,14 @@ Project {
     string biomeType  
     string watershed  
     string subWatershed  
-    EnvironmentTypeTypesList environmentType  
     string projectDuration  
     float ecologicalConnectivityIndex  
     float socialCulturalIndex  
     string creditClassVersion  
+    ActivityTypesList activity  
+    EnvironmentTypeTypesList environmentType  
+    ImpactTypesList impact  
     integer size  
-    string activity  
     string start_date  
     string end_date  
     string project_type  
@@ -103,7 +104,6 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
 | [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
 | [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
-| [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of environment associated with the project | direct |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
 | [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
 | [managementAreas](managementAreas.md) | * <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
@@ -116,8 +116,10 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [projectVerifier](projectVerifier.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [creditClassVersion](creditClassVersion.md) | 0..1 <br/> [String](String.md) | The version of the credit class used for the project | direct |
+| [activity](activity.md) | * <br/> [ActivityTypes](ActivityTypes.md) | The types of activities being implemented in projects | direct |
+| [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | General classification of the project's environment type | direct |
+| [impact](impact.md) | * <br/> [ImpactTypes](ImpactTypes.md) | A project or initiative’s current and potential impact | direct |
 | [size](size.md) | 0..1 <br/> [Integer](Integer.md) |  | direct |
-| [activity](activity.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [start_date](start_date.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [end_date](end_date.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [project_type](project_type.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -157,6 +159,73 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 
 
 
+## Examples
+### Example: Project-Terassos
+
+```yaml
+  id: "http://dev.app.regen.com/projects/38"
+  name: "Amazon Rainforest Conservation Project"
+  marketType: compliance
+  bioregion: "Amazon Basin"
+  biomeType: "TropicalForest"
+  watershed: "Amazon River"
+  subWatershed: "Upper Amazon"
+  environmentType:
+    - cloudForest
+  offchainCreditsInfo:
+    creditsRegistered:
+      numericValue: 1000
+      unit: unit:HA
+    creditsAvailable:
+      numericValue: 800
+      unit: unit:HA
+    creditsRetired:
+      numericValue: 200
+      unit: unit:HA
+  projectDuration: "P1Y"
+  creditClassVersion: "1.0"
+  ecologicalConnectivityIndex: 75.5
+  socialCulturalIndex: 85.0
+  environmentalAuthority:
+    name: "Corantioquia"
+    url: "http://corantioquia.gov.co/"
+  administrativeArea:
+    name: "Antioquia"
+  managementAreas:
+    - activity: 
+        - conservation
+      extent:
+        numericValue: 120
+        unit: unit:HA
+    - activity:
+        - ecosystemRestoration
+      extent:
+        numericValue: 220
+        unit: unit:HA
+  projectDeveloper:
+    name: Terrasos
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectOperator:
+    name: El Globo
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectVerifier:
+    name: KPMG
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectMonitor:
+    name: EAFIT
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+  projectOwner:
+    name: Jose Gonzales
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    image: https://via.placeholder.com/150
+
+
+```
+
 
 
 
@@ -182,7 +251,6 @@ slots:
 - biomeType
 - watershed
 - subWatershed
-- environmentType
 - offchainCreditsInfo
 - projectDuration
 - managementAreas
@@ -195,6 +263,9 @@ slots:
 - projectVerifier
 - projectDeveloper
 - creditClassVersion
+- activity
+- environmentType
+- impact
 attributes:
   size:
     name: size
@@ -203,12 +274,6 @@ attributes:
     domain_of:
     - Project
     range: integer
-  activity:
-    name: activity
-    from_schema: https://framework.regen.network/schema/
-    domain_of:
-    - Project
-    - ManagementArea
   start_date:
     name: start_date
     from_schema: https://framework.regen.network/schema/
@@ -254,15 +319,6 @@ attributes:
     domain_of:
     - Project
     range: integer
-  activity:
-    name: activity
-    from_schema: https://framework.regen.network/schema/
-    alias: activity
-    owner: Project
-    domain_of:
-    - Project
-    - ManagementArea
-    range: string
   start_date:
     name: start_date
     from_schema: https://framework.regen.network/schema/
@@ -426,18 +482,6 @@ attributes:
     domain_of:
     - Project
     range: string
-  environmentType:
-    name: environmentType
-    description: The type of environment associated with the project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: rfs:environmentType
-    alias: environmentType
-    owner: Project
-    domain_of:
-    - Project
-    range: EnvironmentTypeTypes
-    multivalued: true
   offchainCreditsInfo:
     name: offchainCreditsInfo
     description: Information about offchain credits associated with the project.
@@ -571,6 +615,43 @@ attributes:
     domain_of:
     - Project
     range: string
+  activity:
+    name: activity
+    description: The types of activities being implemented in projects
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:activity
+    alias: activity
+    owner: Project
+    domain_of:
+    - Project
+    - ManagementArea
+    range: ActivityTypes
+    multivalued: true
+  environmentType:
+    name: environmentType
+    description: General classification of the project's environment type.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:environmentType
+    alias: environmentType
+    owner: Project
+    domain_of:
+    - Project
+    range: EnvironmentTypeTypes
+    multivalued: true
+  impact:
+    name: impact
+    description: A project or initiative’s current and potential impact
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:impact
+    alias: impact
+    owner: Project
+    domain_of:
+    - Project
+    range: ImpactTypes
+    multivalued: true
 class_uri: rfs:Project
 
 ```

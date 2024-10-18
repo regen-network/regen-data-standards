@@ -3,7 +3,7 @@
 # Slot: environmentType
 
 
-_The type of environment associated with the project._
+_General classification of the project's environment type._
 
 
 
@@ -72,7 +72,7 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 <details>
 ```yaml
 name: environmentType
-description: The type of environment associated with the project.
+description: General classification of the project's environment type.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: rfs:environmentType
