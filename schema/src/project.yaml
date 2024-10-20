@@ -92,12 +92,15 @@ classes:
   Organization:
     class_uri: rfs:Organization
     slots:
-      - name
       - url
       - showOnProjectPage
       - description
       - image
       - address
+    attributes:
+      name:
+        range: string
+        slot_uri: schema:name
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
@@ -160,10 +163,12 @@ slots:
     range: string
     slot_uri: rfs:bioregion
     description: The bioregion associated with the project.
+    multivalued: true
   biomeType:
     range: string
     slot_uri: rfs:biomeType
     description: The type of biome associated with the project.
+    multivalued: true
   watershed:
     range: string
     slot_uri: rfs:watershed
@@ -181,6 +186,8 @@ slots:
     slot_uri: rfs:environmentalAuthority
     range: Organization
     description: The environmental authority associated with the project.
+    multivalued: true
+    inlined: true
   administrativeArea:
     range: AdministrativeArea
     description: The administrative area associated with the project.

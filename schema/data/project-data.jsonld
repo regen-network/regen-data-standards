@@ -1,13 +1,19 @@
 {
   "id": "http://dev.app.regen.com/projects/38",
   "name": "Amazon Rainforest Conservation Project",
-  "environmentalAuthority": {
-    "name": "Corantioquia",
-    "url": "http://corantioquia.gov.co/"
-  },
+  "environmentalAuthority": [
+    {
+      "url": "http://corantioquia.gov.co/",
+      "name": "Corantioquia"
+    }
+  ],
   "marketType": "compliance",
-  "bioregion": "Amazon Basin",
-  "biomeType": "TropicalForest",
+  "bioregion": [
+    "Amazon Basin"
+  ],
+  "biomeType": [
+    "TropicalForest"
+  ],
   "watershed": "Amazon River",
   "subWatershed": "Upper Amazon",
   "environmentType": [
@@ -54,29 +60,29 @@
     "name": "Antioquia"
   },
   "projectOperator": {
-    "name": "El Globo",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "name": "El Globo"
   },
   "projectMonitor": {
-    "name": "EAFIT",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "name": "EAFIT"
   },
   "projectOwner": {
-    "name": "Jose Gonzales",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "name": "Jose Gonzales"
   },
   "projectVerifier": {
-    "name": "KPMG",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "name": "KPMG"
   },
   "projectDeveloper": {
-    "name": "Terrasos",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "name": "Terrasos"
   },
   "creditClassVersion": "1.0",
   "@type": "Project",
