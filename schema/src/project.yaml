@@ -294,9 +294,15 @@ enums:
   ConservationStatusTypes:
     description: The conservation status of the project
     permissible_values:
-      collapsed:
-        meaning: rfs:IucnCollapsed
-        description: Collapsed
+      extinct:
+        meaning: rfs:IucnExtinct
+        description: Extinct
+      extinctInWild:
+        meaning: rfs:IucnExtinctInWild
+        description: Extinct in the Wild
+      criticallyEndangered:
+        meaning: rfs:IucnCriticallyEndangered
+        description: Critically Endangered
       endangered:
         meaning: rfs:IucnEndangered
         description: Endangered

@@ -13,7 +13,9 @@ URI: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| collapsed | rfs:IucnCollapsed | Collapsed |
+| extinct | rfs:IucnExtinct | Extinct |
+| extinctInWild | rfs:IucnExtinctInWild | Extinct in the Wild |
+| criticallyEndangered | rfs:IucnCriticallyEndangered | Critically Endangered |
 | endangered | rfs:IucnEndangered | Endangered |
 | vulnerable | rfs:IucnVulnerable | Vulnerable |
 | nearThreatened | rfs:IucnNearThreatened | Near Threatened |
@@ -62,10 +64,18 @@ description: The conservation status of the project
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  collapsed:
-    text: collapsed
-    description: Collapsed
-    meaning: rfs:IucnCollapsed
+  extinct:
+    text: extinct
+    description: Extinct
+    meaning: rfs:IucnExtinct
+  extinctInWild:
+    text: extinctInWild
+    description: Extinct in the Wild
+    meaning: rfs:IucnExtinctInWild
+  criticallyEndangered:
+    text: criticallyEndangered
+    description: Critically Endangered
+    meaning: rfs:IucnCriticallyEndangered
   endangered:
     text: endangered
     description: Endangered
