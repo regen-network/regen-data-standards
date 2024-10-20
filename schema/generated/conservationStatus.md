@@ -33,7 +33,7 @@ URI: [rfs:conservationStatus](https://framework.regen.network/schema/conservatio
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 
 
@@ -77,7 +77,7 @@ slot_uri: rfs:conservationStatus
 alias: conservationStatus
 domain_of:
 - Project
-range: string
+range: ConservationStatusTypes
 
 ```
 </details>

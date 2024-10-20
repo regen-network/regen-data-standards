@@ -24,7 +24,7 @@ Project {
     float ecologicalConnectivityIndex  
     float socialCulturalIndex  
     string creditClassVersion  
-    string conservationStatus  
+    ConservationStatusTypes conservationStatus  
     integer size  
     string activity  
     string start_date  
@@ -117,7 +117,7 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [projectVerifier](projectVerifier.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [creditClassVersion](creditClassVersion.md) | 0..1 <br/> [String](String.md) | The version of the credit class used for the project | direct |
-| [conservationStatus](conservationStatus.md) | 0..1 <br/> [String](String.md) | The conservation status of the project | direct |
+| [conservationStatus](conservationStatus.md) | 0..1 <br/> [ConservationStatusTypes](ConservationStatusTypes.md) | The conservation status of the project | direct |
 | [size](size.md) | 0..1 <br/> [Integer](Integer.md) |  | direct |
 | [activity](activity.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [start_date](start_date.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -588,7 +588,7 @@ attributes:
     owner: Project
     domain_of:
     - Project
-    range: string
+    range: ConservationStatusTypes
 class_uri: rfs:Project
 
 ```

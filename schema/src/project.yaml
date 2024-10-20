@@ -249,7 +249,7 @@ slots:
     description: The version of the credit class used for the project.
   conservationStatus:
     slot_uri: rfs:conservationStatus
-    range: string
+    range: ConservationStatusTypes
     description: The conservation status of the project.
   
   

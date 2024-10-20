@@ -115,6 +115,11 @@
       "@id": "bioregion"
     },
     "conservationStatus": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
       "@id": "conservationStatus"
     },
     "creditClassVersion": {

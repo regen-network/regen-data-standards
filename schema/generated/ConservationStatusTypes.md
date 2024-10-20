@@ -24,6 +24,12 @@ URI: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 
 
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [conservationStatus](conservationStatus.md) | The conservation status of the project |
+
 
 
 
