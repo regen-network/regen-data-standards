@@ -274,14 +274,13 @@ enums:
   EnvironmentTypeTypes:
     description: The type of ecosystem
     permissible_values:
+      # Terrasos values
       cloudForest:
         meaning: rfs:CloudForest
       tropicalSavannah:
         meaning: rfs:TropicalSavannah
       tropicalDryForest:
         meaning: rfs:TropicalDryForest
-      tropicalForest:
-        meaning: rfs:TropicalForest
       tropicalVeryHumidForest:
         meaning: rfs:TropicalVeryHumidForest
       tropicalHumidForest:
@@ -290,6 +289,79 @@ enums:
         meaning: rfs:PremontaneHumidForest
       lowMontaneVeryHumidForest:
         meaning: rfs:LowMontaneVeryHumidForest
+      riparianForest:
+        meaning: rfs:RiparianForest
+      # values in the regen data standards md files
+      agroforestrySystem:
+        meaning: rfs:AgroforestrySystem
+      aquacultureSystem:
+        meaning: rfs:AquacultureSystem
+      cropland:
+        meaning: rfs:Cropland
+      irrigatedCropland:
+        meaning: rfs:IrrigatedCropland
+      rainfedCropland:
+        meaning: rfs:RainfedCropland
+      desert:
+        meaning: rfs:Desert
+      forest:
+        meaning: rfs:Forest
+      borealForest:
+        meaning: rfs:BorealForest
+      temperateForest:
+        meaning: rfs:TemperateForest
+      tropicalForest:
+        meaning: rfs:TropicalForest
+      freshwater:
+        meaning: rfs:Freshwater
+      lake:
+        meaning: rfs:Lake
+      watercourse:
+        meaning: rfs:Watercourse
+      grassland:
+        meaning: rfs:Grassland
+      temperateGrassland:
+        meaning: rfs:TemperateGrassland
+      tropicalGrassland:
+        meaning: rfs:TropicalGrassland
+      tundra:
+        meaning: rfs:Tundra
+      marine:
+        meaning: rfs:Marine
+      coastal:
+        meaning: rfs:Coastal
+      coralReef:
+        meaning: rfs:CoralReef
+      deepWater:
+        meaning: rfs:DeepWater
+      orchard:
+        meaning: rfs:Orchard
+      pasture:
+        meaning: rfs:Pasture
+      permanentIce:
+        meaning: rfs:PermanentIce
+      savanna:
+        meaning: rfs:Savanna
+      shrubland:
+        meaning: rfs:Shrubland
+      borealShrubland:
+        meaning: rfs:BorealShrubland
+      temperateShrubland:
+        meaning: rfs:TemperateShrubland
+      tropicalShrubland:
+        meaning: rfs:TropicalShrubland
+      urbanTrees:
+        meaning: rfs:UrbanTrees
+      vineyard:
+        meaning: rfs:Vineyard
+      wetland:
+        meaning: rfs:Wetland
+      bog:
+        meaning: rfs:Bog
+      marsh:
+        meaning: rfs:Marsh
+      swamp:
+        meaning: rfs:Swamp
   # TODO: these should be imported from a shared vocabulary
   ConservationStatusTypes:
     description: The conservation status of the project
