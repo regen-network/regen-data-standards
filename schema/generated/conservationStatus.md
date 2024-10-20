@@ -1,15 +1,15 @@
 
 
-# Slot: biomeType
+# Slot: conservationStatus
 
 
-_The type of biome associated with the project._
+_The conservation status of the project._
 
 
 
 
 
-URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
+URI: [rfs:conservationStatus](https://framework.regen.network/schema/conservationStatus)
 
 
 
@@ -33,9 +33,7 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Multivalued: True
+* Range: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 
 
@@ -61,8 +59,8 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:biomeType |
-| native | rfs:biomeType |
+| self | rfs:conservationStatus |
+| native | rfs:conservationStatus |
 
 
 
@@ -71,16 +69,15 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 <details>
 ```yaml
-name: biomeType
-description: The type of biome associated with the project.
+name: conservationStatus
+description: The conservation status of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:biomeType
-alias: biomeType
+slot_uri: rfs:conservationStatus
+alias: conservationStatus
 domain_of:
 - Project
-range: string
-multivalued: true
+range: ConservationStatusTypes
 
 ```
 </details>

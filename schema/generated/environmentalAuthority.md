@@ -35,6 +35,8 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 * Range: [Organization](Organization.md)
 
+* Multivalued: True
+
 
 
 
@@ -78,6 +80,8 @@ alias: environmentalAuthority
 domain_of:
 - Project
 range: Organization
+multivalued: true
+inlined: true
 
 ```
 </details>

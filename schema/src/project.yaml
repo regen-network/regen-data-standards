@@ -6,6 +6,7 @@ prefixes:
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
+  dcterms: http://purl.org/dc/terms/
 imports:
   - linkml:types
 default_curi_maps:
@@ -41,6 +42,7 @@ classes:
       - projectVerifier
       - projectDeveloper
       - creditClassVersion
+      - conservationStatus
     attributes:
       size:
         range: integer
@@ -90,12 +92,15 @@ classes:
   Organization:
     class_uri: rfs:Organization
     slots:
-      - name
       - url
       - showOnProjectPage
       - description
       - image
       - address
+    attributes:
+      name:
+        range: string
+        slot_uri: schema:name
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
@@ -158,10 +163,12 @@ slots:
     range: string
     slot_uri: rfs:bioregion
     description: The bioregion associated with the project.
+    multivalued: true
   biomeType:
     range: string
     slot_uri: rfs:biomeType
     description: The type of biome associated with the project.
+    multivalued: true
   watershed:
     range: string
     slot_uri: rfs:watershed
@@ -179,6 +186,8 @@ slots:
     slot_uri: rfs:environmentalAuthority
     range: Organization
     description: The environmental authority associated with the project.
+    multivalued: true
+    inlined: true
   administrativeArea:
     range: AdministrativeArea
     description: The administrative area associated with the project.
@@ -238,6 +247,10 @@ slots:
     slot_uri: rfs:creditClassVersion
     range: string
     description: The version of the credit class used for the project.
+  conservationStatus:
+    slot_uri: rfs:conservationStatus
+    range: ConservationStatusTypes
+    description: The conservation status of the project.
   
   
 
@@ -261,14 +274,13 @@ enums:
   EnvironmentTypeTypes:
     description: The type of ecosystem
     permissible_values:
+      # Terrasos values
       cloudForest:
         meaning: rfs:CloudForest
       tropicalSavannah:
         meaning: rfs:TropicalSavannah
       tropicalDryForest:
         meaning: rfs:TropicalDryForest
-      tropicalForest:
-        meaning: rfs:TropicalForest
       tropicalVeryHumidForest:
         meaning: rfs:TropicalVeryHumidForest
       tropicalHumidForest:
@@ -277,6 +289,110 @@ enums:
         meaning: rfs:PremontaneHumidForest
       lowMontaneVeryHumidForest:
         meaning: rfs:LowMontaneVeryHumidForest
+      riparianForest:
+        meaning: rfs:RiparianForest
+      # values in the regen data standards md files
+      agroforestrySystem:
+        meaning: rfs:AgroforestrySystem
+      aquacultureSystem:
+        meaning: rfs:AquacultureSystem
+      cropland:
+        meaning: rfs:Cropland
+      irrigatedCropland:
+        meaning: rfs:IrrigatedCropland
+      rainfedCropland:
+        meaning: rfs:RainfedCropland
+      desert:
+        meaning: rfs:Desert
+      forest:
+        meaning: rfs:Forest
+      borealForest:
+        meaning: rfs:BorealForest
+      temperateForest:
+        meaning: rfs:TemperateForest
+      tropicalForest:
+        meaning: rfs:TropicalForest
+      freshwater:
+        meaning: rfs:Freshwater
+      lake:
+        meaning: rfs:Lake
+      watercourse:
+        meaning: rfs:Watercourse
+      grassland:
+        meaning: rfs:Grassland
+      temperateGrassland:
+        meaning: rfs:TemperateGrassland
+      tropicalGrassland:
+        meaning: rfs:TropicalGrassland
+      tundra:
+        meaning: rfs:Tundra
+      marine:
+        meaning: rfs:Marine
+      coastal:
+        meaning: rfs:Coastal
+      coralReef:
+        meaning: rfs:CoralReef
+      deepWater:
+        meaning: rfs:DeepWater
+      orchard:
+        meaning: rfs:Orchard
+      pasture:
+        meaning: rfs:Pasture
+      permanentIce:
+        meaning: rfs:PermanentIce
+      savanna:
+        meaning: rfs:Savanna
+      shrubland:
+        meaning: rfs:Shrubland
+      borealShrubland:
+        meaning: rfs:BorealShrubland
+      temperateShrubland:
+        meaning: rfs:TemperateShrubland
+      tropicalShrubland:
+        meaning: rfs:TropicalShrubland
+      urbanTrees:
+        meaning: rfs:UrbanTrees
+      vineyard:
+        meaning: rfs:Vineyard
+      wetland:
+        meaning: rfs:Wetland
+      bog:
+        meaning: rfs:Bog
+      marsh:
+        meaning: rfs:Marsh
+      swamp:
+        meaning: rfs:Swamp
+  # TODO: these should be imported from a shared vocabulary
+  ConservationStatusTypes:
+    description: The conservation status of the project
+    permissible_values:
+      extinct:
+        meaning: rfs:IucnExtinct
+        description: Extinct
+      extinctInWild:
+        meaning: rfs:IucnExtinctInWild
+        description: Extinct in the Wild
+      criticallyEndangered:
+        meaning: rfs:IucnCriticallyEndangered
+        description: Critically Endangered
+      endangered:
+        meaning: rfs:IucnEndangered
+        description: Endangered
+      vulnerable:
+        meaning: rfs:IucnVulnerable
+        description: Vulnerable
+      nearThreatened:
+        meaning: rfs:IucnNearThreatened
+        description: Near Threatened
+      leastConcern:
+        meaning: rfs:IucnLeastConcern
+        description: Least Concern
+      dataDeficient:
+        meaning: rfs:IucnDataDeficient
+        description: Data Deficient
+      notEvaluated:
+        meaning: rfs:IucnNotEvaluated
+        description: Not Evaluated
   # TODO: these should be imported from a shared vocabulary
   ActivityTypes:
     description: The type of activity
