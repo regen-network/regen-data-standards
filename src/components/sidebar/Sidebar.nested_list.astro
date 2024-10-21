@@ -1,0 +1,43 @@
+---
+import Item from './Sidebar.item.astro';
+import Link from './Sidebar.link.astro'
+import List from './Sidebar.list.astro';
+
+const { category, subCategories, entries, path } = Astro.props;
+
+// Log the data being passed to NestedList
+console.log("Category:", category);
+console.log("SubCategories:", subCategories);
+console.log("Entries:", entries);
+---
+
+
+
+<List 
+    path={path} 
+    heading={category} 
+    open={true}
+>
+    <!-- Render entries (end files) if they exist -->
+    {entries && entries.length > 0 && (
+        entries.map((entry: any) => (
+            <li>
+                <Link href={`${path}/${entry.slug}`} class="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
+                    {entry.title}
+                </Link>
+            </li>
+        ))
+    )}
+
+    <!-- Render subcategories if they exist -->
+    {subCategories && subCategories.length > 0 && (
+        subCategories.map((subCategory: any) => (
+            <Astro.self
+                category={subCategory.category}
+                subCategories={subCategory.subCategories}
+                entries={subCategory.entries}
+                path={path} 
+            />
+        ))
+    )}
+</List>

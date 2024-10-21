@@ -1,42 +1,55 @@
 ---
-import CollectionList from './Sidebar.collection_list.astro';
-import Link from "./Sidebar.link.astro";
-import List from './Sidebar.list.astro';
-import {getCollection} from 'astro:content';
-const impacts = await getCollection('impact');
-const ecosystems = await getCollection('environment-type');
-const activities = await getCollection('activity');
-const schemas = [
-    { slug: 'ProjectPost', title: 'ProjectPost'},
-    { slug: 'ProjectInfo', title: 'ProjectInfo'},
-    { slug: 'TerrasosProjectInfo', title: 'TerrasosProjectInfo'},
-]
+import CollectionList from "./Sidebar.collection_list.astro";
+import NestedList from "./Sidebar.nested_list.astro"
+import List from "./Sidebar.list.astro";
+import { getCollection } from "astro:content";
+import { schemaCategories } from "../../data/schemaCategories";
+const impacts = await getCollection("impact");
+const ecosystems = await getCollection("environment-type");
+const activities = await getCollection("activity");
+
+// Log static data
+console.log("Schema Categories:", schemaCategories);
 ---
-<div id="menu"
-     class="w-60 border-grey-200 p-4 overflow-y-auto
-     hidden absolute lg:static lg:w-64 lg:flex lg:border-r-2
-">
+
+<div
+    id="menu"
+    class="w-60 border-grey-200 p-4 overflow-y-auto
+     hidden absolute lg:static lg:w-64 lg:flex lg:border-r-2"
+>
     <nav>
         <ul class="flex flex-col gap-4">
-            <List
+            <!-- Taxonomy Section -->
+            <List path="/taxonomy" heading="Terminology">
+                <CollectionList
+                    collection={impacts}
                     path="/taxonomy"
-                    heading="Terminology"
-            >
-                <CollectionList collection={impacts} path="/taxonomy" heading="Impacts" headingPath="/taxonomy/impact"/>
-                <CollectionList collection={activities} path="/taxonomy" heading="Activities" headingPath="/taxonomy/activity"/>
-                <CollectionList collection={ecosystems} path="/taxonomy" heading="Environment Type" headingPath="/taxonomy/environment-type"/>
+                    heading="Impacts"
+                    headingPath="/taxonomy/impact"
+                />
+                <CollectionList
+                    collection={activities}
+                    path="/taxonomy"
+                    heading="Activities"
+                    headingPath="/taxonomy/activity"
+                />
+                <CollectionList
+                    collection={ecosystems}
+                    path="/taxonomy"
+                    heading="Environment Type"
+                    headingPath="/taxonomy/environment-type"
+                />
             </List>
-            <List
-                    path="/schema"
-                    heading="Schemas"
-            >
-                {schemas.map((schema:any) => (
-                    <li>
-                        <Link href={`/schema/${schema.slug}`}
-                              className="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
-                            {schema.title}
-                        </Link>
-                    </li>
+
+            <!-- Schema Categories Section -->
+            <List path="/schema" heading="Schemas">
+                {schemaCategories.map((category: any) => (
+                    <NestedList 
+                        category={category.category}
+                        subCategories={category.subCategories}
+                        entries={category.entries} 
+                        path="/schema"
+                    />
                 ))}
             </List>
         </ul>

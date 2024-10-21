@@ -1,0 +1,17 @@
+---
+import Link from './Sidebar.link.astro';
+import { formatSlug } from '../../utils/slug';
+
+const { entry, path } = Astro.props;
+
+// Log the entry and path being passed to Item
+console.log("Entry:", entry);
+console.log("Path:", path);
+---
+
+<li>
+    <Link href={`${path}/${entry.slug ?? formatSlug(entry.id)}`}
+          class="px-2 py-1 data-[current]:bg-brand-300 block rounded-md">
+        {entry.title ?? entry.data.title}
+    </Link>
+</li>
