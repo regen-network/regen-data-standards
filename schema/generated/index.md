@@ -41,6 +41,7 @@ Name: Schemas
 | [bioregion](bioregion.md) | The bioregion associated with the project |
 | [center](center.md) |  |
 | [comment](comment.md) |  |
+| [conservationStatus](conservationStatus.md) | The conservation status of the project |
 | [context](context.md) |  |
 | [coordinates](coordinates.md) |  |
 | [credit](credit.md) |  |
@@ -101,6 +102,7 @@ Name: Schemas
 | Enumeration | Description |
 | --- | --- |
 | [ActivityTypes](ActivityTypes.md) | The type of activity |
+| [ConservationStatusTypes](ConservationStatusTypes.md) | The conservation status of the project |
 | [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem |
 | [MarketTypeTypes](MarketTypeTypes.md) | The type of marketplace |
 | [ProjectRoleTypes](ProjectRoleTypes.md) |  |

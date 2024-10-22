@@ -160,6 +160,7 @@ slots:
     slot_uri: rfs:environmentType
     range: EnvironmentTypeTypes
     description: The environment type of the project.
+    multivalued: true
   projectStartDate:
     slot_uri: xsd:date
     description: The start date of the project.
@@ -205,8 +206,6 @@ enums:
         meaning: rfs:TropicalSavannah
       TROPICAL_DRY_FOREST:
         meaning: rfs:TropicalDryForest
-      TROPICAL_FOREST:
-        meaning: rfs:TropicalForest
       TROPICAL_VERY_HUMID_FOREST:
         meaning: rfs:TropicalVeryHumidForest
       TROPICAL_HUMID_FOREST:
@@ -215,6 +214,78 @@ enums:
         meaning: rfs:PremontaneHumidForest
       LOW_MONTANE_VERY_HUMID_FOREST:
         meaning: rfs:LowMontaneVeryHumidForest
+      RIPARIAN_FOREST:
+        meaning: rfs:RiparianForest
+      AGROFORESTRY_SYSTEM:
+        meaning: rfs:AgroforestrySystem
+      AQUACULTURE_SYSTEM:
+        meaning: rfs:AquacultureSystem
+      CROPLAND:
+        meaning: rfs:Cropland
+      IRRIGATED_CROPLAND:
+        meaning: rfs:IrrigatedCropland
+      RAINFED_CROPLAND:
+        meaning: rfs:RainfedCropland
+      DESERT:
+        meaning: rfs:Desert
+      FOREST:
+        meaning: rfs:Forest
+      BOREAL_FOREST:
+        meaning: rfs:BorealForest
+      TEMPERATE_FOREST:
+        meaning: rfs:TemperateForest
+      TROPICAL_FOREST:
+        meaning: rfs:TropicalForest
+      FRESHWATER:
+        meaning: rfs:Freshwater
+      LAKE:
+        meaning: rfs:Lake
+      WATERCOURSE:
+        meaning: rfs:Watercourse
+      GRASSLAND:
+        meaning: rfs:Grassland
+      TEMPERATE_GRASSLAND:
+        meaning: rfs:TemperateGrassland
+      TROPICAL_GRASSLAND:
+        meaning: rfs:TropicalGrassland
+      TUNDRA:
+        meaning: rfs:Tundra
+      MARINE:
+        meaning: rfs:Marine
+      COASTAL:
+        meaning: rfs:Coastal
+      CORAL_REEF:
+        meaning: rfs:CoralReef
+      DEEP_WATER:
+        meaning: rfs:DeepWater
+      ORCHARD:
+        meaning: rfs:Orchard
+      PASTURE:
+        meaning: rfs:Pasture
+      PERMANENT_ICE:
+        meaning: rfs:PermanentIce
+      SAVANNA:
+        meaning: rfs:Savanna
+      SHRUBLAND:
+        meaning: rfs:Shrubland
+      BOREAL_SHRUBLAND:
+        meaning: rfs:BorealShrubland
+      TEMPERATE_SHRUBLAND:
+        meaning: rfs:TemperateShrubland
+      TROPICAL_SHRUBLAND:
+        meaning: rfs:TropicalShrubland
+      URBAN_TREES:
+        meaning: rfs:UrbanTrees
+      VINEYARD:
+        meaning: rfs:Vineyard
+      WETLAND:
+        meaning: rfs:Wetland
+      BOG:
+        meaning: rfs:Bog
+      MARSH:
+        meaning: rfs:Marsh
+      SWAMP:
+        meaning: rfs:Swamp
   # TODO: these should be imported from a shared vocabulary
   ActivityTypes:
     description: The type of activity

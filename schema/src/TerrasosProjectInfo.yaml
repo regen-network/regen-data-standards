@@ -6,6 +6,7 @@ prefixes:
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
+  dcterms: http://purl.org/dc/terms/
 imports:
   - linkml:types
   - ProjectInfo
@@ -24,6 +25,8 @@ classes:
       - socialCulturalIndex
       - administrativeArea
       - managementAreas
+      - conservationStatus
+      - projectDuration
 
       # Terrasos specific roles
       - projectOperator
@@ -37,8 +40,6 @@ classes:
       - biomeType
       - watershed
       - subWatershed
-
-      - projectDuration
 
   OffchainCreditsInfo:
     class_uri: rfs:OffchainCreditsInfo
@@ -82,10 +83,12 @@ slots:
     range: string
     slot_uri: rfs:bioregion
     description: The bioregion associated with the project.
+    multivalued: true
   biomeType:
     range: string
     slot_uri: rfs:biomeType
     description: The type of biome associated with the project.
+    multivalued: true
   watershed:
     range: string
     slot_uri: rfs:watershed
@@ -98,6 +101,9 @@ slots:
     slot_uri: rfs:environmentalAuthority
     range: Organization
     description: The environmental authority associated with the project.
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   administrativeArea:
     range: AdministrativeArea
     description: The administrative area associated with the project.
@@ -131,6 +137,10 @@ slots:
     slot_uri: rfs:projectDuration
     range: string
     description: The duration of the project.
+  conservationStatus:
+    slot_uri: rfs:conservationStatus
+    range: ConservationStatusTypes
+    description: The conservation status of the project.
 
 enums:
   MarketTypeTypes:
@@ -142,3 +152,34 @@ enums:
       VOLUNTARY_MARKET:
         meaning: rfs:VoluntaryMarket
         description: a voluntary market
+  # TODO: these should be imported from a shared vocabulary
+  ConservationStatusTypes:
+    description: The conservation status of the project
+    permissible_values:
+      EXTINCT:
+        meaning: rfs:IucnExtinct
+        description: Extinct
+      EXTINCT_IN_WILD:
+        meaning: rfs:IucnExtinctInWild
+        description: Extinct in the Wild
+      CRITICALLY_ENDANGERED:
+        meaning: rfs:IucnCriticallyEndangered
+        description: Critically Endangered
+      ENDANGERED:
+        meaning: rfs:IucnEndangered
+        description: Endangered
+      VULNERABLE:
+        meaning: rfs:IucnVulnerable
+        description: Vulnerable
+      NEAR_THREATENED:
+        meaning: rfs:IucnNearThreatened
+        description: Near Threatened
+      LEAST_CONCERN:
+        meaning: rfs:IucnLeastConcern
+        description: Least Concern
+      DATA_DEFICIENT:
+        meaning: rfs:IucnDataDeficient
+        description: Data Deficient
+      NOT_EVALUATED:
+        meaning: rfs:IucnNotEvaluated
+        description: Not Evaluated

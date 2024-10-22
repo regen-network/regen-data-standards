@@ -1,15 +1,15 @@
 
 
-# Slot: bioregion
+# Slot: conservationStatus
 
 
-_The bioregion associated with the project._
+_The conservation status of the project._
 
 
 
 
 
-URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
+URI: [rfs:conservationStatus](https://framework.regen.network/schema/conservationStatus)
 
 
 
@@ -33,9 +33,7 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 ## Properties
 
-* Range: [String](String.md)
-
-* Multivalued: True
+* Range: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 
 
@@ -61,8 +59,8 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:bioregion |
-| native | rfs:bioregion |
+| self | rfs:conservationStatus |
+| native | rfs:conservationStatus |
 
 
 
@@ -71,16 +69,15 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 <details>
 ```yaml
-name: bioregion
-description: The bioregion associated with the project.
+name: conservationStatus
+description: The conservation status of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:bioregion
-alias: bioregion
+slot_uri: rfs:conservationStatus
+alias: conservationStatus
 domain_of:
 - TerrasosProjectInfo
-range: string
-multivalued: true
+range: ConservationStatusTypes
 
 ```
 </details>

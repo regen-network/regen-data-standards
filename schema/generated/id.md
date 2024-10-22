@@ -18,8 +18,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [LocationContext](LocationContext.md) |  |  no  |
 | [Location](Location.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 

@@ -14,7 +14,7 @@ ProjectInfo {
     string name  
     string description  
     ActivityTypesList projectActivities  
-    EnvironmentTypeTypes environmentType  
+    EnvironmentTypeTypesList environmentType  
     string projectStartDate  
     string projectEndDate  
     string creditClassVersion  
@@ -86,7 +86,7 @@ LocationProperties ||--|o Any : "value"
 | [projectActivities](projectActivities.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
 | [projectSize](projectSize.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) |  | direct |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
-| [environmentType](environmentType.md) | 0..1 <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | direct |
+| [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | direct |
 | [projectMonitor](projectMonitor.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for monitoring the project | direct |
 | [projectVerifier](projectVerifier.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
 | [projectStartDate](projectStartDate.md) | 0..1 <br/> [String](String.md) | The start date of the project | direct |
@@ -254,6 +254,7 @@ attributes:
     domain_of:
     - ProjectInfo
     range: EnvironmentTypeTypes
+    multivalued: true
   projectMonitor:
     name: projectMonitor
     description: The organization responsible for monitoring the project.

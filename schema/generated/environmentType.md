@@ -36,6 +36,8 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 
 * Range: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
+* Multivalued: True
+
 
 
 
@@ -79,6 +81,7 @@ alias: environmentType
 domain_of:
 - ProjectInfo
 range: EnvironmentTypeTypes
+multivalued: true
 
 ```
 </details>

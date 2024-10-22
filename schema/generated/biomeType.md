@@ -35,6 +35,8 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 * Range: [String](String.md)
 
+* Multivalued: True
+
 
 
 
@@ -78,6 +80,7 @@ alias: biomeType
 domain_of:
 - TerrasosProjectInfo
 range: string
+multivalued: true
 
 ```
 </details>

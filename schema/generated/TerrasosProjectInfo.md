@@ -13,16 +13,17 @@ erDiagram
 TerrasosProjectInfo {
     float ecologicalConnectivityIndex  
     float socialCulturalIndex  
+    ConservationStatusTypes conservationStatus  
+    string projectDuration  
     MarketTypeTypes marketType  
-    string bioregion  
-    string biomeType  
+    stringList bioregion  
+    stringList biomeType  
     string watershed  
     string subWatershed  
-    string projectDuration  
     string name  
     string description  
     ActivityTypesList projectActivities  
-    EnvironmentTypeTypes environmentType  
+    EnvironmentTypeTypesList environmentType  
     string projectStartDate  
     string projectEndDate  
     string creditClassVersion  
@@ -85,7 +86,7 @@ TerrasosProjectInfo ||--}o ManagementArea : "managementAreas"
 TerrasosProjectInfo ||--|o ProjectRole : "projectOperator"
 TerrasosProjectInfo ||--|o ProjectRole : "projectOwner"
 TerrasosProjectInfo ||--|o OffchainCreditsInfo : "offchainCreditsInfo"
-TerrasosProjectInfo ||--|o Organization : "environmentalAuthority"
+TerrasosProjectInfo ||--}o Organization : "environmentalAuthority"
 TerrasosProjectInfo ||--|| Location : "location"
 TerrasosProjectInfo ||--|o QuantityValue : "projectSize"
 TerrasosProjectInfo ||--|o ProjectRole : "projectDeveloper"
@@ -119,23 +120,24 @@ ManagementArea ||--|o QuantityValue : "extent"
 | [socialCulturalIndex](socialCulturalIndex.md) | 0..1 <br/> [Float](Float.md) | The social cultural index of the project | direct |
 | [administrativeArea](administrativeArea.md) | 0..1 <br/> [AdministrativeArea](AdministrativeArea.md) | The administrative area associated with the project | direct |
 | [managementAreas](managementAreas.md) | * <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
+| [conservationStatus](conservationStatus.md) | 0..1 <br/> [ConservationStatusTypes](ConservationStatusTypes.md) | The conservation status of the project | direct |
+| [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
 | [projectOperator](projectOperator.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for operating the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
 | [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
-| [environmentalAuthority](environmentalAuthority.md) | 0..1 <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
-| [bioregion](bioregion.md) | 0..1 <br/> [String](String.md) | The bioregion associated with the project | direct |
-| [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
+| [environmentalAuthority](environmentalAuthority.md) | * <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
+| [bioregion](bioregion.md) | * <br/> [String](String.md) | The bioregion associated with the project | direct |
+| [biomeType](biomeType.md) | * <br/> [String](String.md) | The type of biome associated with the project | direct |
 | [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
 | [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
-| [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
 | [name](name.md) | 1 <br/> [String](String.md) | Name of the project | [ProjectInfo](ProjectInfo.md) |
 | [location](location.md) | 1 <br/> [Location](Location.md) | The location of the project | [ProjectInfo](ProjectInfo.md) |
 | [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | [ProjectInfo](ProjectInfo.md) |
 | [projectActivities](projectActivities.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | [ProjectInfo](ProjectInfo.md) |
 | [projectSize](projectSize.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) |  | [ProjectInfo](ProjectInfo.md) |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | [ProjectInfo](ProjectInfo.md) |
-| [environmentType](environmentType.md) | 0..1 <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | [ProjectInfo](ProjectInfo.md) |
+| [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | [ProjectInfo](ProjectInfo.md) |
 | [projectMonitor](projectMonitor.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for monitoring the project | [ProjectInfo](ProjectInfo.md) |
 | [projectVerifier](projectVerifier.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | [ProjectInfo](ProjectInfo.md) |
 | [projectStartDate](projectStartDate.md) | 0..1 <br/> [String](String.md) | The start date of the project | [ProjectInfo](ProjectInfo.md) |
@@ -195,6 +197,8 @@ slots:
 - socialCulturalIndex
 - administrativeArea
 - managementAreas
+- conservationStatus
+- projectDuration
 - projectOperator
 - projectOwner
 - marketType
@@ -204,7 +208,6 @@ slots:
 - biomeType
 - watershed
 - subWatershed
-- projectDuration
 class_uri: rfs:TerrasosProjectInfo
 
 ```
@@ -263,6 +266,28 @@ attributes:
     range: ManagementArea
     multivalued: true
     inlined: true
+  conservationStatus:
+    name: conservationStatus
+    description: The conservation status of the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:conservationStatus
+    alias: conservationStatus
+    owner: TerrasosProjectInfo
+    domain_of:
+    - TerrasosProjectInfo
+    range: ConservationStatusTypes
+  projectDuration:
+    name: projectDuration
+    description: The duration of the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:projectDuration
+    alias: projectDuration
+    owner: TerrasosProjectInfo
+    domain_of:
+    - TerrasosProjectInfo
+    range: string
   projectOperator:
     name: projectOperator
     description: The organization responsible for operating the project.
@@ -318,6 +343,9 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: Organization
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   bioregion:
     name: bioregion
     description: The bioregion associated with the project.
@@ -329,6 +357,7 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: string
+    multivalued: true
   biomeType:
     name: biomeType
     description: The type of biome associated with the project.
@@ -340,6 +369,7 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: string
+    multivalued: true
   watershed:
     name: watershed
     description: The watershed associated with the project.
@@ -358,17 +388,6 @@ attributes:
     rank: 1000
     slot_uri: rfs:subWatershed
     alias: subWatershed
-    owner: TerrasosProjectInfo
-    domain_of:
-    - TerrasosProjectInfo
-    range: string
-  projectDuration:
-    name: projectDuration
-    description: The duration of the project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: rfs:projectDuration
-    alias: projectDuration
     owner: TerrasosProjectInfo
     domain_of:
     - TerrasosProjectInfo
@@ -462,6 +481,7 @@ attributes:
     domain_of:
     - ProjectInfo
     range: EnvironmentTypeTypes
+    multivalued: true
   projectMonitor:
     name: projectMonitor
     description: The organization responsible for monitoring the project.

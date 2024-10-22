@@ -1,5 +1,8 @@
 name: "Amazon Rainforest Conservation Project"
 description: "This project aims to conserve the Amazon Rainforest by implementing sustainable land management practices."
+environmentalAuthority:
+  - name: "Corantioquia"
+    url: "http://corantioquia.gov.co/"
 location: 
   bbox:
     - -75.0
@@ -16,11 +19,14 @@ location:
       - -72.5
       - -2.5
 marketType: COMPLIANCE_MARKET
-bioregion: "Amazon Basin"
-biomeType: "TropicalForest"
+bioregion: 
+  - "Amazon Basin"
+biomeType: 
+  - "TropicalForest"
 watershed: "Amazon River"
 subWatershed: "Upper Amazon"
-environmentType: CLOUD_FOREST
+environmentType: 
+  - CLOUD_FOREST
 offchainCreditsInfo:
   creditsRegistered:
     numericValue: 1000
@@ -34,10 +40,8 @@ offchainCreditsInfo:
 projectDuration: "P1Y"
 creditClassVersion: "1.0"
 ecologicalConnectivityIndex: 75.5
+conservationStatus: CRITICALLY_ENDANGERED
 socialCulturalIndex: 85.0
-environmentalAuthority:
-  name: "Corantioquia"
-  url: "http://corantioquia.gov.co/"
 administrativeArea:
   name: "Antioquia"
 managementAreas:

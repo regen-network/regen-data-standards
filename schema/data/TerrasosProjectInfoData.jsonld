@@ -27,7 +27,9 @@
     "type": "ORGANIZATION",
     "image": "https://via.placeholder.com/150"
   },
-  "environmentType": "CLOUD_FOREST",
+  "environmentType": [
+    "CLOUD_FOREST"
+  ],
   "projectMonitor": {
     "name": "EAFIT",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -66,6 +68,7 @@
       }
     }
   ],
+  "conservationStatus": "CRITICALLY_ENDANGERED",
   "projectOperator": {
     "name": "El Globo",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -93,12 +96,18 @@
       "unit": "unit:HA"
     }
   },
-  "environmentalAuthority": {
-    "name": "Corantioquia",
-    "url": "http://corantioquia.gov.co/"
-  },
-  "bioregion": "Amazon Basin",
-  "biomeType": "TropicalForest",
+  "environmentalAuthority": [
+    {
+      "name": "Corantioquia",
+      "url": "http://corantioquia.gov.co/"
+    }
+  ],
+  "bioregion": [
+    "Amazon Basin"
+  ],
+  "biomeType": [
+    "TropicalForest"
+  ],
   "watershed": "Amazon River",
   "subWatershed": "Upper Amazon",
   "projectDuration": "P1Y",
@@ -124,6 +133,14 @@
     },
     "bioregion": {
       "@id": "bioregion"
+    },
+    "conservationStatus": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "conservationStatus"
     },
     "creditClassVersion": {
       "@id": "creditClassVersion"
@@ -344,6 +361,9 @@
     },
     "OffchainCreditsInfo": {
       "@id": "OffchainCreditsInfo"
+    },
+    "Org": {
+      "@id": "Org"
     },
     "Organization": {
       "@id": "Organization"
