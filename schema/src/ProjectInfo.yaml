@@ -16,7 +16,6 @@ default_range: string
 
 classes:
   ProjectInfo:
-    tree_root: true
     class_uri: rfs:ProjectInfo
     slots:
       - name
@@ -58,10 +57,78 @@ classes:
     class_uri: rfs:Organization
     slots:
       - name
-      - description
       - url
       - showOnProjectPage
       - image
+    attributes:
+      description:
+        range: string
+        description: A description of the organization.
+  Location:
+    class_uri: rfs:Location
+    attributes:
+      id:
+        range: string
+      bbox:
+        range: float
+        multivalued: true
+      text:
+        range: string
+      type:
+        range: string
+      center:
+        range: float
+        multivalued: true
+      context:
+        range: LocationContext
+        multivalued: true
+      geometry:
+        range: Geometry
+      relevance:
+        range: float
+      placeName:
+        range: string
+        alias: place_name
+      placeType:
+        range: string
+        alias: place_type
+      properties:
+        range: LocationProperties
+  Geometry:
+    attributes:
+      type:
+        range: string
+      coordinates:
+        range: float
+        multivalued: true
+  LocationContext:
+    attributes:
+      id:
+        identifier: true
+        range: string
+      text:
+        range: string
+      wikidata:
+        range: string
+        required: false
+      mapboxId:
+        range: string
+        required: false
+        alias: mapbox_id
+      shortCode:
+        range: string
+        required: false
+        alias: short_code
+  LocationProperties:
+    attributes:
+      key:
+        range: string
+      value:
+        range: Any
+
+  Any:
+    class_uri: linkml:Any
+      
 
 slots:
   name:
@@ -70,8 +137,10 @@ slots:
     slot_uri: schema:name
   location:
     required: true
+    range: Location
     description: The location of the project.
     slot_uri: schema:location
+    inlined: true
   description:
     required: true
     description: Optional description of the project.

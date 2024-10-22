@@ -1,11 +1,26 @@
 name: "Amazon Rainforest Conservation Project"
-marketType: compliance
+description: "This project aims to conserve the Amazon Rainforest by implementing sustainable land management practices."
+location: 
+  bbox:
+    - -75.0
+    - -5.0
+    - -70.0
+    - 0.0
+  center:
+    - -72.5
+    - -2.5
+  type: Feature
+  geometry:
+    type: Point
+    coordinates:
+      - -72.5
+      - -2.5
+marketType: COMPLIANCE_MARKET
 bioregion: "Amazon Basin"
 biomeType: "TropicalForest"
 watershed: "Amazon River"
 subWatershed: "Upper Amazon"
-environmentType:
-  - cloudForest
+environmentType: CLOUD_FOREST
 offchainCreditsInfo:
   creditsRegistered:
     numericValue: 1000
@@ -26,33 +41,38 @@ environmentalAuthority:
 administrativeArea:
   name: "Antioquia"
 managementAreas:
-  - activity:
-      - conservation
+  - projectActivity:
+      - CONSERVATION
     extent:
       numericValue: 120
       unit: unit:HA
-  - activity:
-      - ecosystemRestoration
+  - projectActivity:
+      - ECOSYSTEM_RESTORATION
     extent:
       numericValue: 220
       unit: unit:HA
 projectDeveloper:
+  type: ORGANIZATION
   name: Terrasos
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   image: https://via.placeholder.com/150
 projectOperator:
+  type: ORGANIZATION
   name: El Globo
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   image: https://via.placeholder.com/150
 projectVerifier:
+  type: ORGANIZATION
   name: KPMG
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   image: https://via.placeholder.com/150
 projectMonitor:
+  type: ORGANIZATION
   name: EAFIT
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   image: https://via.placeholder.com/150
 projectOwner:
+  type: INDIVIDUAL
   name: Jose Gonzales
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   image: https://via.placeholder.com/150

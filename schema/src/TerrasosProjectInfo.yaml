@@ -8,6 +8,7 @@ prefixes:
   unit: http://qudt.org/vocab/unit/
 imports:
   - linkml:types
+  - ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -37,6 +38,8 @@ classes:
       - watershed
       - subWatershed
 
+      - projectDuration
+
   OffchainCreditsInfo:
     class_uri: rfs:OffchainCreditsInfo
     attributes:
@@ -64,6 +67,7 @@ classes:
         slot_uri: rfs:projectActivity
         range: ActivityTypes
         description: the activity
+        multivalued: true
       extent:
         slot_uri: dcterms:extent
         range: QuantityValue
@@ -123,6 +127,10 @@ slots:
     slot_uri: rfs:projectOwner
     range: ProjectRole
     description: The organization responsible for owning the project.
+  projectDuration:
+    slot_uri: rfs:projectDuration
+    range: string
+    description: The duration of the project.
 
 enums:
   MarketTypeTypes:
