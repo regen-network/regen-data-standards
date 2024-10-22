@@ -15,7 +15,7 @@ TerrasosProjectInfo {
     float socialCulturalIndex  
     ConservationStatusTypes conservationStatus  
     string projectDuration  
-    MarketTypeTypes marketType  
+    MarketTypeTypesList marketType  
     stringList bioregion  
     stringList biomeType  
     string watershed  
@@ -42,8 +42,12 @@ QuantityValue {
 Location {
     string type  
     string placeName  
+    string id  
     floatList bbox  
+    string text  
     floatList center  
+    float relevance  
+    string placeType  
 }
 Any {
 
@@ -77,7 +81,8 @@ TerrasosProjectInfo ||--|o QuantityValue : "projectSize"
 TerrasosProjectInfo ||--|o ProjectRole : "projectDeveloper"
 TerrasosProjectInfo ||--|o ProjectRole : "projectMonitor"
 TerrasosProjectInfo ||--|o ProjectRole : "projectVerifier"
-Location ||--|o Geometry : "geometry"
+Location ||--|| Geometry : "geometry"
+Location ||--|o Any : "context"
 Location ||--|o Any : "properties"
 ManagementArea ||--|o QuantityValue : "extent"
 
@@ -104,7 +109,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 | [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
 | [projectOperator](projectOperator.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for operating the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
-| [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
+| [marketType](marketType.md) | * <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
 | [environmentalAuthority](environmentalAuthority.md) | * <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
 | [bioregion](bioregion.md) | * <br/> [String](String.md) | The bioregion associated with the project | direct |
 | [biomeType](biomeType.md) | * <br/> [String](String.md) | The type of biome associated with the project | direct |
@@ -299,6 +304,7 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: MarketTypeTypes
+    multivalued: true
   environmentalAuthority:
     name: environmentalAuthority
     description: The environmental authority associated with the project.

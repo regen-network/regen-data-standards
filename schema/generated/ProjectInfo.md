@@ -33,8 +33,12 @@ QuantityValue {
 Location {
     string type  
     string placeName  
+    string id  
     floatList bbox  
+    string text  
     floatList center  
+    float relevance  
+    string placeType  
 }
 Any {
 
@@ -49,7 +53,8 @@ ProjectInfo ||--|o QuantityValue : "projectSize"
 ProjectInfo ||--|o ProjectRole : "projectDeveloper"
 ProjectInfo ||--|o ProjectRole : "projectMonitor"
 ProjectInfo ||--|o ProjectRole : "projectVerifier"
-Location ||--|o Geometry : "geometry"
+Location ||--|| Geometry : "geometry"
+Location ||--|o Any : "context"
 Location ||--|o Any : "properties"
 
 ```

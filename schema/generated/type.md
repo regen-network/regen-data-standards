@@ -19,8 +19,8 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Geometry](Geometry.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 

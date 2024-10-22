@@ -19,8 +19,8 @@ URI: [schema:URL](http://schema.org/URL)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 

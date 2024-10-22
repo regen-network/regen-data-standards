@@ -83,7 +83,9 @@
     "type": "INDIVIDUAL",
     "image": "https://via.placeholder.com/150"
   },
-  "marketType": "COMPLIANCE_MARKET",
+  "marketType": [
+    "COMPLIANCE_MARKET"
+  ],
   "environmentalAuthority": [
     {
       "name": "Corantioquia",
@@ -178,16 +180,33 @@
       "@type": "xsd:float",
       "@id": "center"
     },
+    "context": {
+      "@type": "@id",
+      "@id": "context"
+    },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
     },
+    "id": {
+      "@id": "id"
+    },
     "place_name": {
       "@id": "place_name"
+    },
+    "place_type": {
+      "@id": "place_type"
     },
     "properties": {
       "@type": "@id",
       "@id": "properties"
+    },
+    "relevance": {
+      "@type": "xsd:float",
+      "@id": "relevance"
+    },
+    "text": {
+      "@id": "text"
     },
     "extent": {
       "@type": "@id",

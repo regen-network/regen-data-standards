@@ -18,8 +18,8 @@ URI: [rfs:projectSize](https://framework.regen.network/schema/projectSize)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 

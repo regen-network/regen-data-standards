@@ -19,7 +19,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -43,6 +42,13 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 
 
+### Schema Source
+
+
+* from schema: https://framework.regen.network/schema/
+
+
+
 
 ## Mappings
 
@@ -59,10 +65,12 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 <details>
 ```yaml
 name: id
+from_schema: https://framework.regen.network/schema/
+rank: 1000
 alias: id
+owner: Location
 domain_of:
 - Location
-- LocationContext
 range: string
 
 ```

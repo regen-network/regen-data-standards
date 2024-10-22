@@ -23,8 +23,8 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
