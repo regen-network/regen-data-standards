@@ -2,6 +2,8 @@
 
 # Slot: projectSize
 
+
+
 URI: [rfs:projectSize](https://framework.regen.network/schema/projectSize)
 
 
@@ -45,6 +47,16 @@ URI: [rfs:projectSize](https://framework.regen.network/schema/projectSize)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectSize |
+| native | rfs:projectSize |
 
 
 

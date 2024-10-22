@@ -7,6 +7,8 @@ _the activity_
 
 
 
+
+
 URI: [rfs:projectActivity](https://framework.regen.network/schema/projectActivity)
 
 
@@ -33,6 +35,8 @@ URI: [rfs:projectActivity](https://framework.regen.network/schema/projectActivit
 
 * Range: [ActivityTypes](ActivityTypes.md)
 
+* Multivalued: True
+
 
 
 
@@ -53,6 +57,16 @@ URI: [rfs:projectActivity](https://framework.regen.network/schema/projectActivit
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectActivity |
+| native | rfs:projectActivity |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -67,6 +81,7 @@ owner: ManagementArea
 domain_of:
 - ManagementArea
 range: ActivityTypes
+multivalued: true
 
 ```
 </details>

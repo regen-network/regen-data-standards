@@ -12,7 +12,6 @@ URI: [rfs:ProjectInfo](https://framework.regen.network/schema/ProjectInfo)
 erDiagram
 ProjectInfo {
     string name  
-    string location  
     string description  
     ActivityTypesList projectActivities  
     EnvironmentTypeTypes environmentType  
@@ -31,11 +30,40 @@ QuantityValue {
     float numericValue  
     string unit  
 }
+Location {
+    string id  
+    floatList bbox  
+    string text  
+    string type  
+    floatList center  
+    float relevance  
+    string placeName  
+    string placeType  
+}
+LocationProperties {
+    string key  
+}
+Geometry {
+    string type  
+    floatList coordinates  
+}
+LocationContext {
+    string id  
+    string text  
+    string wikidata  
+    string mapboxId  
+    string shortCode  
+}
 
+ProjectInfo ||--|| Location : "location"
 ProjectInfo ||--|o QuantityValue : "projectSize"
 ProjectInfo ||--|o ProjectRole : "projectDeveloper"
 ProjectInfo ||--|o ProjectRole : "projectMonitor"
 ProjectInfo ||--|o ProjectRole : "projectVerifier"
+Location ||--}o LocationContext : "context"
+Location ||--|o Geometry : "geometry"
+Location ||--|o LocationProperties : "properties"
+LocationProperties ||--|o Any : "value"
 
 ```
 
@@ -52,10 +80,10 @@ ProjectInfo ||--|o ProjectRole : "projectVerifier"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [name](name.md) | 1..1 <br/> [String](String.md) | Name of the project | direct |
-| [location](location.md) | 1..1 <br/> [String](String.md) | The location of the project | direct |
-| [description](description.md) | 1..1 <br/> [String](String.md) | Optional description of the project | direct |
-| [projectActivities](projectActivities.md) | 0..* <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
+| [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
+| [location](location.md) | 1 <br/> [Location](Location.md) | The location of the project | direct |
+| [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | direct |
+| [projectActivities](projectActivities.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
 | [projectSize](projectSize.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) |  | direct |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
 | [environmentType](environmentType.md) | 0..1 <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | direct |
@@ -89,13 +117,14 @@ ProjectInfo ||--|o ProjectRole : "projectVerifier"
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:ProjectInfo |
 | native | rfs:ProjectInfo |
+
+
 
 
 
@@ -125,7 +154,6 @@ slots:
 - projectEndDate
 - creditClassVersion
 class_uri: rfs:ProjectInfo
-tree_root: true
 
 ```
 </details>
@@ -164,8 +192,9 @@ attributes:
     domain_of:
     - ProjectInfo
     - File
-    range: string
+    range: Location
     required: true
+    inlined: true
   description:
     name: description
     description: Optional description of the project.
@@ -187,12 +216,12 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: rfs:projectActivities
-    multivalued: true
     alias: projectActivities
     owner: ProjectInfo
     domain_of:
     - ProjectInfo
     range: ActivityTypes
+    multivalued: true
   projectSize:
     name: projectSize
     from_schema: https://framework.regen.network/schema/
@@ -281,7 +310,6 @@ attributes:
     - ProjectInfo
     range: string
 class_uri: rfs:ProjectInfo
-tree_root: true
 
 ```
 </details>

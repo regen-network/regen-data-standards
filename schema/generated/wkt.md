@@ -2,6 +2,8 @@
 
 # Slot: wkt
 
+
+
 URI: [geo:asWKT](http://www.opengis.net/ont/geosparql#asWKT)
 
 
@@ -44,6 +46,16 @@ URI: [geo:asWKT](http://www.opengis.net/ont/geosparql#asWKT)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | geo:asWKT |
+| native | rfs:wkt |
 
 
 

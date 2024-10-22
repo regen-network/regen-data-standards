@@ -7,6 +7,8 @@ _Optional description of the project._
 
 
 
+
+
 URI: [schema:description](http://schema.org/description)
 
 
@@ -23,9 +25,9 @@ URI: [schema:description](http://schema.org/description)
 | --- | --- | --- |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [File](File.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
 | [ProjectInfo](ProjectInfo.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -55,6 +57,16 @@ URI: [schema:description](http://schema.org/description)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:description |
+| native | rfs:description |
 
 
 

@@ -7,6 +7,8 @@ _The unit of measurement for the quantity._
 
 
 
+
+
 URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 
 
@@ -49,6 +51,16 @@ URI: [qudt:unit](http://qudt.org/schema/qudt/unit)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | qudt:unit |
+| native | rfs:unit |
 
 
 

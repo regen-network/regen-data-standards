@@ -7,6 +7,8 @@ _the activity._
 
 
 
+
+
 URI: [rfs:projectActivities](https://framework.regen.network/schema/projectActivities)
 
 
@@ -56,6 +58,16 @@ URI: [rfs:projectActivities](https://framework.regen.network/schema/projectActiv
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectActivities |
+| native | rfs:projectActivities |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -65,11 +77,11 @@ description: the activity.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: rfs:projectActivities
-multivalued: true
 alias: projectActivities
 domain_of:
 - ProjectInfo
 range: ActivityTypes
+multivalued: true
 
 ```
 </details>

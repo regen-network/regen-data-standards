@@ -11,7 +11,7 @@ URI: [rfs:ManagementArea](https://framework.regen.network/schema/ManagementArea)
 ```mermaid
 erDiagram
 ManagementArea {
-    ActivityTypes projectActivity  
+    ActivityTypesList projectActivity  
 }
 QuantityValue {
     float numericValue  
@@ -31,7 +31,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [projectActivity](projectActivity.md) | 0..1 <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
+| [projectActivity](projectActivity.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | direct |
 | [extent](extent.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) | the extent | direct |
 
 
@@ -65,13 +65,14 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:ManagementArea |
 | native | rfs:ManagementArea |
+
+
 
 
 
@@ -97,6 +98,7 @@ attributes:
     domain_of:
     - ManagementArea
     range: ActivityTypes
+    multivalued: true
   extent:
     name: extent
     description: the extent
@@ -129,6 +131,7 @@ attributes:
     domain_of:
     - ManagementArea
     range: ActivityTypes
+    multivalued: true
   extent:
     name: extent
     description: the extent

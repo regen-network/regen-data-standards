@@ -7,6 +7,8 @@ _The type of market for the associated credits._
 
 
 
+
+
 URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:marketType |
+| native | rfs:marketType |
 
 
 

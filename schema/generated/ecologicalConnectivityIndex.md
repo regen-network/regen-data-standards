@@ -7,6 +7,8 @@ _The ecological connectivity index of the project._
 
 
 
+
+
 URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ecologicalConnectivityIndex)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:ecologicalConnectivityIndex](https://framework.regen.network/schema/ec
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:ecologicalConnectivityIndex |
+| native | rfs:ecologicalConnectivityIndex |
 
 
 

@@ -18,8 +18,8 @@ TerrasosProjectInfo {
     string biomeType  
     string watershed  
     string subWatershed  
+    string projectDuration  
     string name  
-    string location  
     string description  
     ActivityTypesList projectActivities  
     EnvironmentTypeTypes environmentType  
@@ -38,18 +38,42 @@ QuantityValue {
     float numericValue  
     string unit  
 }
+Location {
+    string id  
+    floatList bbox  
+    string text  
+    string type  
+    floatList center  
+    float relevance  
+    string placeName  
+    string placeType  
+}
+LocationProperties {
+    string key  
+}
+Geometry {
+    string type  
+    floatList coordinates  
+}
+LocationContext {
+    string id  
+    string text  
+    string wikidata  
+    string mapboxId  
+    string shortCode  
+}
 Organization {
     string name  
-    string description  
     string url  
     boolean showOnProjectPage  
     string image  
+    string description  
 }
 OffchainCreditsInfo {
 
 }
 ManagementArea {
-    ActivityTypes projectActivity  
+    ActivityTypesList projectActivity  
 }
 AdministrativeArea {
     string name  
@@ -62,10 +86,15 @@ TerrasosProjectInfo ||--|o ProjectRole : "projectOperator"
 TerrasosProjectInfo ||--|o ProjectRole : "projectOwner"
 TerrasosProjectInfo ||--|o OffchainCreditsInfo : "offchainCreditsInfo"
 TerrasosProjectInfo ||--|o Organization : "environmentalAuthority"
+TerrasosProjectInfo ||--|| Location : "location"
 TerrasosProjectInfo ||--|o QuantityValue : "projectSize"
 TerrasosProjectInfo ||--|o ProjectRole : "projectDeveloper"
 TerrasosProjectInfo ||--|o ProjectRole : "projectMonitor"
 TerrasosProjectInfo ||--|o ProjectRole : "projectVerifier"
+Location ||--}o LocationContext : "context"
+Location ||--|o Geometry : "geometry"
+Location ||--|o LocationProperties : "properties"
+LocationProperties ||--|o Any : "value"
 OffchainCreditsInfo ||--|o QuantityValue : "creditsRegistered"
 OffchainCreditsInfo ||--|o QuantityValue : "creditsAvailable"
 OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
@@ -89,7 +118,7 @@ ManagementArea ||--|o QuantityValue : "extent"
 | [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | 0..1 <br/> [Float](Float.md) | The ecological connectivity index of the project | direct |
 | [socialCulturalIndex](socialCulturalIndex.md) | 0..1 <br/> [Float](Float.md) | The social cultural index of the project | direct |
 | [administrativeArea](administrativeArea.md) | 0..1 <br/> [AdministrativeArea](AdministrativeArea.md) | The administrative area associated with the project | direct |
-| [managementAreas](managementAreas.md) | 0..* <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
+| [managementAreas](managementAreas.md) | * <br/> [ManagementArea](ManagementArea.md) | The management areas associated with the project | direct |
 | [projectOperator](projectOperator.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for operating the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
 | [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
@@ -99,10 +128,11 @@ ManagementArea ||--|o QuantityValue : "extent"
 | [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
 | [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
 | [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
-| [name](name.md) | 1..1 <br/> [String](String.md) | Name of the project | [ProjectInfo](ProjectInfo.md) |
-| [location](location.md) | 1..1 <br/> [String](String.md) | The location of the project | [ProjectInfo](ProjectInfo.md) |
-| [description](description.md) | 1..1 <br/> [String](String.md) | Optional description of the project | [ProjectInfo](ProjectInfo.md) |
-| [projectActivities](projectActivities.md) | 0..* <br/> [ActivityTypes](ActivityTypes.md) | the activity | [ProjectInfo](ProjectInfo.md) |
+| [projectDuration](projectDuration.md) | 0..1 <br/> [String](String.md) | The duration of the project | direct |
+| [name](name.md) | 1 <br/> [String](String.md) | Name of the project | [ProjectInfo](ProjectInfo.md) |
+| [location](location.md) | 1 <br/> [Location](Location.md) | The location of the project | [ProjectInfo](ProjectInfo.md) |
+| [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | [ProjectInfo](ProjectInfo.md) |
+| [projectActivities](projectActivities.md) | * <br/> [ActivityTypes](ActivityTypes.md) | the activity | [ProjectInfo](ProjectInfo.md) |
 | [projectSize](projectSize.md) | 0..1 <br/> [QuantityValue](QuantityValue.md) |  | [ProjectInfo](ProjectInfo.md) |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | [ProjectInfo](ProjectInfo.md) |
 | [environmentType](environmentType.md) | 0..1 <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The environment type of the project | [ProjectInfo](ProjectInfo.md) |
@@ -136,13 +166,14 @@ ManagementArea ||--|o QuantityValue : "extent"
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:TerrasosProjectInfo |
 | native | rfs:TerrasosProjectInfo |
+
+
 
 
 
@@ -173,6 +204,7 @@ slots:
 - biomeType
 - watershed
 - subWatershed
+- projectDuration
 class_uri: rfs:TerrasosProjectInfo
 
 ```
@@ -224,12 +256,12 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: rfs:managementAreas
-    multivalued: true
     alias: managementAreas
     owner: TerrasosProjectInfo
     domain_of:
     - TerrasosProjectInfo
     range: ManagementArea
+    multivalued: true
     inlined: true
   projectOperator:
     name: projectOperator
@@ -330,6 +362,17 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: string
+  projectDuration:
+    name: projectDuration
+    description: The duration of the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:projectDuration
+    alias: projectDuration
+    owner: TerrasosProjectInfo
+    domain_of:
+    - TerrasosProjectInfo
+    range: string
   name:
     name: name
     description: Name of the project.
@@ -357,8 +400,9 @@ attributes:
     domain_of:
     - ProjectInfo
     - File
-    range: string
+    range: Location
     required: true
+    inlined: true
   description:
     name: description
     description: Optional description of the project.
@@ -380,12 +424,12 @@ attributes:
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: rfs:projectActivities
-    multivalued: true
     alias: projectActivities
     owner: TerrasosProjectInfo
     domain_of:
     - ProjectInfo
     range: ActivityTypes
+    multivalued: true
   projectSize:
     name: projectSize
     from_schema: https://framework.regen.network/schema/

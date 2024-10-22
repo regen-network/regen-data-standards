@@ -72,13 +72,14 @@ QuantityValue {
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | qudt:QuantityValue |
 | native | rfs:QuantityValue |
+
+
 
 
 

@@ -7,6 +7,8 @@ _The organization responsible for owning the project._
 
 
 
+
+
 URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDeveloper)
 
 
@@ -50,6 +52,16 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectDeveloper |
+| native | rfs:projectDeveloper |
 
 
 

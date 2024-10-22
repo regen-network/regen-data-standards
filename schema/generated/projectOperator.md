@@ -7,6 +7,8 @@ _The organization responsible for operating the project._
 
 
 
+
+
 URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperator)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:projectOperator](https://framework.regen.network/schema/projectOperato
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectOperator |
+| native | rfs:projectOperator |
 
 
 

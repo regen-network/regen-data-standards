@@ -60,13 +60,14 @@ FileLocation {
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | geo:Geometry |
 | native | rfs:FileLocation |
+
+
 
 
 

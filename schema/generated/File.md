@@ -33,8 +33,8 @@ File ||--|o FileLocation : "location"
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [iri](iri.md) | 1..1 <br/> [String](String.md) |  | direct |
-| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [iri](iri.md) | 1 <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
 | [description](description.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [location](location.md) | 0..1 <br/> [FileLocation](FileLocation.md) |  | direct |
 | [credit](credit.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -70,13 +70,14 @@ File ||--|o FileLocation : "location"
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:File |
 | native | rfs:File |
+
+
 
 
 

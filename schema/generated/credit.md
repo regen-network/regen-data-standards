@@ -2,6 +2,8 @@
 
 # Slot: credit
 
+
+
 URI: [dcterms:creator](http://purl.org/dc/terms/creator)
 
 
@@ -44,6 +46,16 @@ URI: [dcterms:creator](http://purl.org/dc/terms/creator)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | dcterms:creator |
+| native | rfs:credit |
 
 
 

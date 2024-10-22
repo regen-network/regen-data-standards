@@ -7,6 +7,8 @@ _The bioregion associated with the project._
 
 
 
+
+
 URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:bioregion |
+| native | rfs:bioregion |
 
 
 

@@ -7,6 +7,8 @@ _The management areas associated with the project._
 
 
 
+
+
 URI: [rfs:managementAreas](https://framework.regen.network/schema/managementAreas)
 
 
@@ -55,6 +57,16 @@ URI: [rfs:managementAreas](https://framework.regen.network/schema/managementArea
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:managementAreas |
+| native | rfs:managementAreas |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -64,11 +76,11 @@ description: The management areas associated with the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: rfs:managementAreas
-multivalued: true
 alias: managementAreas
 domain_of:
 - TerrasosProjectInfo
 range: ManagementArea
+multivalued: true
 inlined: true
 
 ```

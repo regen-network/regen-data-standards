@@ -7,6 +7,8 @@ _The start date of the project._
 
 
 
+
+
 URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
@@ -50,6 +52,16 @@ URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:date |
+| native | rfs:projectStartDate |
 
 
 

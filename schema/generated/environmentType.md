@@ -7,6 +7,8 @@ _The environment type of the project._
 
 
 
+
+
 URI: [rfs:environmentType](https://framework.regen.network/schema/environmentType)
 
 
@@ -50,6 +52,16 @@ URI: [rfs:environmentType](https://framework.regen.network/schema/environmentTyp
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:environmentType |
+| native | rfs:environmentType |
 
 
 

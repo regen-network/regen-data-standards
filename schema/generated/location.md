@@ -7,6 +7,8 @@ _The location of the project._
 
 
 
+
+
 URI: [schema:location](http://schema.org/location)
 
 
@@ -22,8 +24,8 @@ URI: [schema:location](http://schema.org/location)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
-| [File](File.md) |  |  no  |
 | [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [File](File.md) |  |  no  |
 
 
 
@@ -33,7 +35,7 @@ URI: [schema:location](http://schema.org/location)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Location](Location.md)
 
 * Required: True
 
@@ -57,6 +59,16 @@ URI: [schema:location](http://schema.org/location)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:location |
+| native | rfs:location |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -70,8 +82,9 @@ alias: location
 domain_of:
 - ProjectInfo
 - File
-range: string
+range: Location
 required: true
+inlined: true
 
 ```
 </details>

@@ -7,6 +7,8 @@ _The numeric value of the quantity._
 
 
 
+
+
 URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 
 
@@ -49,6 +51,16 @@ URI: [qudt:numericValue](http://qudt.org/schema/qudt/numericValue)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | qudt:numericValue |
+| native | rfs:numericValue |
 
 
 

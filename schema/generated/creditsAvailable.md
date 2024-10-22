@@ -7,6 +7,8 @@ _The number of credits available_
 
 
 
+
+
 URI: [rfs:creditsAvailable](https://framework.regen.network/schema/creditsAvailable)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:creditsAvailable](https://framework.regen.network/schema/creditsAvaila
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:creditsAvailable |
+| native | rfs:creditsAvailable |
 
 
 

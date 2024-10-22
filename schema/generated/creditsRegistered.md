@@ -7,6 +7,8 @@ _The number of credits registered_
 
 
 
+
+
 URI: [rfs:creditsRegistered](https://framework.regen.network/schema/creditsRegistered)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:creditsRegistered](https://framework.regen.network/schema/creditsRegis
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:creditsRegistered |
+| native | rfs:creditsRegistered |
 
 
 

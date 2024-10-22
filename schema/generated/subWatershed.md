@@ -7,6 +7,8 @@ _The sub-watershed associated with the project._
 
 
 
+
+
 URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:subWatershed |
+| native | rfs:subWatershed |
 
 
 

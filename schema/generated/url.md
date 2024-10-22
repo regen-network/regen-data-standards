@@ -2,6 +2,8 @@
 
 # Slot: url
 
+
+
 URI: [schema:URL](http://schema.org/URL)
 
 
@@ -16,8 +18,8 @@ URI: [schema:URL](http://schema.org/URL)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 | [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 
 
@@ -46,6 +48,16 @@ URI: [schema:URL](http://schema.org/URL)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:URL |
+| native | rfs:url |
 
 
 

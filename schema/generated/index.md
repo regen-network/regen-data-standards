@@ -13,8 +13,13 @@ Name: Schemas
 | Class | Description |
 | --- | --- |
 | [AdministrativeArea](AdministrativeArea.md) | None |
+| [Any](Any.md) | None |
 | [File](File.md) | None |
 | [FileLocation](FileLocation.md) | None |
+| [Geometry](Geometry.md) | None |
+| [Location](Location.md) | None |
+| [LocationContext](LocationContext.md) | None |
+| [LocationProperties](LocationProperties.md) | None |
 | [ManagementArea](ManagementArea.md) | None |
 | [OffchainCreditsInfo](OffchainCreditsInfo.md) | None |
 | [Organization](Organization.md) | None |
@@ -31,9 +36,13 @@ Name: Schemas
 | Slot | Description |
 | --- | --- |
 | [administrativeArea](administrativeArea.md) | The administrative area associated with the project |
+| [bbox](bbox.md) |  |
 | [biomeType](biomeType.md) | The type of biome associated with the project |
 | [bioregion](bioregion.md) | The bioregion associated with the project |
+| [center](center.md) |  |
 | [comment](comment.md) |  |
+| [context](context.md) |  |
+| [coordinates](coordinates.md) |  |
 | [credit](credit.md) |  |
 | [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
 | [creditsAvailable](creditsAvailable.md) | The number of credits available |
@@ -45,17 +54,24 @@ Name: Schemas
 | [environmentType](environmentType.md) | The environment type of the project |
 | [extent](extent.md) | the extent |
 | [files](files.md) |  |
+| [geometry](geometry.md) |  |
+| [id](id.md) |  |
 | [image](image.md) |  |
 | [iri](iri.md) |  |
+| [key](key.md) |  |
 | [location](location.md) | The location of the project |
 | [managementAreas](managementAreas.md) | The management areas associated with the project |
+| [mapboxId](mapboxId.md) |  |
 | [marketType](marketType.md) | The type of market for the associated credits |
 | [name](name.md) | Name of the project |
 | [numericValue](numericValue.md) | The numeric value of the quantity |
 | [offchainCreditsInfo](offchainCreditsInfo.md) | Information about offchain credits associated with the project |
+| [placeName](placeName.md) |  |
+| [placeType](placeType.md) |  |
 | [projectActivities](projectActivities.md) | the activity |
 | [projectActivity](projectActivity.md) | the activity |
 | [projectDeveloper](projectDeveloper.md) | The organization responsible for owning the project |
+| [projectDuration](projectDuration.md) | The duration of the project |
 | [projectEndDate](projectEndDate.md) | The end date of the project |
 | [projectMonitor](projectMonitor.md) | The organization responsible for monitoring the project |
 | [projectOperator](projectOperator.md) | The organization responsible for operating the project |
@@ -63,14 +79,20 @@ Name: Schemas
 | [projectSize](projectSize.md) |  |
 | [projectStartDate](projectStartDate.md) | The start date of the project |
 | [projectVerifier](projectVerifier.md) | The organization responsible for owning the project |
+| [properties](properties.md) |  |
+| [relevance](relevance.md) |  |
+| [shortCode](shortCode.md) |  |
 | [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization or individual on the project page |
 | [socialCulturalIndex](socialCulturalIndex.md) | The social cultural index of the project |
 | [subWatershed](subWatershed.md) | The sub-watershed associated with the project |
+| [text](text.md) |  |
 | [title](title.md) |  |
 | [type](type.md) |  |
 | [unit](unit.md) | The unit of measurement for the quantity |
 | [url](url.md) |  |
+| [value](value.md) |  |
 | [watershed](watershed.md) | The watershed associated with the project |
+| [wikidata](wikidata.md) |  |
 | [wkt](wkt.md) |  |
 
 

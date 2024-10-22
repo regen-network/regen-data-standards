@@ -52,6 +52,8 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
 
 
+
+
 ## LinkML Source
 
 <details>

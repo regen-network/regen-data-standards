@@ -7,6 +7,8 @@ _The environmental authority associated with the project._
 
 
 
+
+
 URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environmentalAuthority)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:environmentalAuthority |
+| native | rfs:environmentalAuthority |
 
 
 

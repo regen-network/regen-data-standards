@@ -7,6 +7,8 @@ _The version of the credit class used for the project._
 
 
 
+
+
 URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClassVersion)
 
 
@@ -50,6 +52,16 @@ URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClass
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:creditClassVersion |
+| native | rfs:creditClassVersion |
 
 
 

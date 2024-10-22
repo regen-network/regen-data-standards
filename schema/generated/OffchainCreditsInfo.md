@@ -7,6 +7,8 @@ _Information about offchain credits associated with the project._
 
 
 
+
+
 URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCreditsInfo)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCr
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:offchainCreditsInfo |
+| native | rfs:offchainCreditsInfo |
 
 
 

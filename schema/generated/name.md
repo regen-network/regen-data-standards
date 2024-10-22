@@ -7,6 +7,8 @@ _Name of the project._
 
 
 
+
+
 URI: [schema:name](http://schema.org/name)
 
 
@@ -22,11 +24,11 @@ URI: [schema:name](http://schema.org/name)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [File](File.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
 | [ProjectInfo](ProjectInfo.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 
 
 
@@ -56,6 +58,16 @@ URI: [schema:name](http://schema.org/name)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:name |
+| native | rfs:name |
 
 
 

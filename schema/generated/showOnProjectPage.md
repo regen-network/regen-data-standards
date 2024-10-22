@@ -7,6 +7,8 @@ _Whether to show this organization or individual on the project page._
 
 
 
+
+
 URI: [rfs:showOnProjectPage](https://framework.regen.network/schema/showOnProjectPage)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:showOnProjectPage](https://framework.regen.network/schema/showOnProjec
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:showOnProjectPage |
+| native | rfs:showOnProjectPage |
 
 
 

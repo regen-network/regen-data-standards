@@ -2,6 +2,8 @@
 
 # Slot: image
 
+
+
 URI: [schema:image](http://schema.org/image)
 
 
@@ -16,8 +18,8 @@ URI: [schema:image](http://schema.org/image)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 
@@ -45,6 +47,16 @@ URI: [schema:image](http://schema.org/image)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | schema:image |
+| native | rfs:image |
 
 
 

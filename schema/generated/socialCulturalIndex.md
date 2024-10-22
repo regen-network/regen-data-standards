@@ -7,6 +7,8 @@ _The social cultural index of the project._
 
 
 
+
+
 URI: [rfs:socialCulturalIndex](https://framework.regen.network/schema/socialCulturalIndex)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:socialCulturalIndex](https://framework.regen.network/schema/socialCult
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:socialCulturalIndex |
+| native | rfs:socialCulturalIndex |
 
 
 

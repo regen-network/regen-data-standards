@@ -7,6 +7,8 @@ _The organization responsible for owning the project._
 
 
 
+
+
 URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectOwner |
+| native | rfs:projectOwner |
 
 
 

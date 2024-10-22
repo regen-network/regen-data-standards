@@ -2,6 +2,8 @@
 
 # Slot: iri
 
+
+
 URI: [rfs:iri](https://framework.regen.network/schema/iri)
 
 
@@ -46,6 +48,16 @@ URI: [rfs:iri](https://framework.regen.network/schema/iri)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:iri |
+| native | rfs:iri |
 
 
 

@@ -7,6 +7,8 @@ _The administrative area associated with the project._
 
 
 
+
+
 URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrativeArea)
 
 
@@ -49,6 +51,16 @@ URI: [rfs:administrativeArea](https://framework.regen.network/schema/administrat
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:administrativeArea |
+| native | rfs:administrativeArea |
 
 
 

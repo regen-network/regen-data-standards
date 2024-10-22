@@ -31,11 +31,11 @@ ProjectRole {
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [name](name.md) | 1..1 <br/> [String](String.md) | Name of the project | direct |
-| [description](description.md) | 1..1 <br/> [String](String.md) | Optional description of the project | direct |
+| [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
+| [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | direct |
 | [url](url.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [image](image.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [type](type.md) | 1..1 <br/> [ProjectRoleTypes](ProjectRoleTypes.md) |  | direct |
+| [type](type.md) | 1 <br/> [ProjectRoleTypes](ProjectRoleTypes.md) |  | direct |
 
 
 
@@ -75,13 +75,14 @@ ProjectRole {
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | rfs:ProjectRole |
 | native | rfs:ProjectRole |
+
+
 
 
 
@@ -110,6 +111,8 @@ attributes:
     slot_uri: rfs:ProjectRoleType
     domain_of:
     - ProjectRole
+    - Location
+    - Geometry
     range: ProjectRoleTypes
     required: true
 
@@ -132,6 +135,8 @@ attributes:
     owner: ProjectRole
     domain_of:
     - ProjectRole
+    - Location
+    - Geometry
     range: ProjectRoleTypes
     required: true
   name:

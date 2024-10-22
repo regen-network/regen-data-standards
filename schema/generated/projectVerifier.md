@@ -7,6 +7,8 @@ _The organization responsible for owning the project._
 
 
 
+
+
 URI: [rfs:projectVerifier](https://framework.regen.network/schema/projectVerifier)
 
 
@@ -50,6 +52,16 @@ URI: [rfs:projectVerifier](https://framework.regen.network/schema/projectVerifie
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectVerifier |
+| native | rfs:projectVerifier |
 
 
 

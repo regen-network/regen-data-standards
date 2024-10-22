@@ -7,6 +7,8 @@ _the extent_
 
 
 
+
+
 URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 
@@ -49,6 +51,16 @@ URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | dcterms:extent |
+| native | rfs:extent |
 
 
 

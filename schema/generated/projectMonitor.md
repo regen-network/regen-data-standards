@@ -7,6 +7,8 @@ _The organization responsible for monitoring the project._
 
 
 
+
+
 URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 
@@ -50,6 +52,16 @@ URI: [rfs:projectMonitor](https://framework.regen.network/schema/projectMonitor)
 
 
 * from schema: https://framework.regen.network/schema/
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:projectMonitor |
+| native | rfs:projectMonitor |
 
 
 

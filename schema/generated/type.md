@@ -2,7 +2,9 @@
 
 # Slot: type
 
-URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleType)
+
+
+URI: [rfs:type](https://framework.regen.network/schema/type)
 
 
 
@@ -17,6 +19,8 @@ URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleTyp
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [Geometry](Geometry.md) |  |  no  |
+| [Location](Location.md) |  |  no  |
 
 
 
@@ -26,9 +30,7 @@ URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleTyp
 
 ## Properties
 
-* Range: [ProjectRoleTypes](ProjectRoleTypes.md)
-
-* Required: True
+* Range: [String](String.md)
 
 
 
@@ -42,10 +44,13 @@ URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleTyp
 
 
 
-### Schema Source
 
+## Mappings
 
-* from schema: https://framework.regen.network/schema/
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | rfs:type |
+| native | rfs:type |
 
 
 
@@ -55,15 +60,12 @@ URI: [rfs:ProjectRoleType](https://framework.regen.network/schema/ProjectRoleTyp
 <details>
 ```yaml
 name: type
-from_schema: https://framework.regen.network/schema/
-rank: 1000
-slot_uri: rfs:ProjectRoleType
 alias: type
-owner: ProjectRole
 domain_of:
 - ProjectRole
-range: ProjectRoleTypes
-required: true
+- Location
+- Geometry
+range: string
 
 ```
 </details>
