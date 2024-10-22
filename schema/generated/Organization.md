@@ -11,12 +11,12 @@ URI: [rfs:Organization](https://framework.regen.network/schema/Organization)
 ```mermaid
 erDiagram
 Organization {
-    string name  
     string url  
     boolean showOnProjectPage  
     string description  
     string image  
     string address  
+    string name  
 }
 
 
@@ -32,12 +32,12 @@ Organization {
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
 | [url](url.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [showOnProjectPage](showOnProjectPage.md) | 0..1 <br/> [Boolean](Boolean.md) | Whether to show this organization on the project page | direct |
 | [description](description.md) | 0..1 <br/> [String](String.md) | Optional description of the project | direct |
 | [image](image.md) | 0..1 <br/> [String](String.md) | an image | direct |
 | [address](address.md) | 0..1 <br/> [String](String.md) | an address | direct |
+| [name](name.md) | 0..1 <br/> [String](String.md) |  | direct |
 
 
 
@@ -99,12 +99,23 @@ Organization {
 name: Organization
 from_schema: https://framework.regen.network/schema/
 slots:
-- name
 - url
 - showOnProjectPage
 - description
 - image
 - address
+attributes:
+  name:
+    name: name
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: schema:name
+    domain_of:
+    - Project
+    - ProjectRole
+    - Organization
+    - AdministrativeArea
+    - File
+    range: string
 class_uri: rfs:Organization
 
 ```
@@ -119,9 +130,7 @@ from_schema: https://framework.regen.network/schema/
 attributes:
   name:
     name: name
-    description: Name of the project.
     from_schema: https://framework.regen.network/schema/
-    rank: 1000
     slot_uri: schema:name
     alias: name
     owner: Organization
@@ -132,7 +141,6 @@ attributes:
     - AdministrativeArea
     - File
     range: string
-    required: true
   url:
     name: url
     from_schema: https://framework.regen.network/schema/

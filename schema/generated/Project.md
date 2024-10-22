@@ -15,8 +15,8 @@ Project {
     string description  
     uriorcurie id  
     MarketTypeTypes marketType  
-    string bioregion  
-    string biomeType  
+    stringList bioregion  
+    stringList biomeType  
     string watershed  
     string subWatershed  
     EnvironmentTypeTypesList environmentType  
@@ -24,6 +24,7 @@ Project {
     float ecologicalConnectivityIndex  
     float socialCulturalIndex  
     string creditClassVersion  
+    ConservationStatusTypes conservationStatus  
     integer size  
     string activity  
     string start_date  
@@ -32,12 +33,12 @@ Project {
     string project_verifier  
 }
 Organization {
-    string name  
     string url  
     boolean showOnProjectPage  
     string description  
     string image  
     string address  
+    string name  
 }
 AdministrativeArea {
     string name  
@@ -67,7 +68,7 @@ ProjectSize {
 
 Project ||--|o ProjectSize : "project_size"
 Project ||--|o ProjectRole : "project_developer"
-Project ||--|o Organization : "environmentalAuthority"
+Project ||--}o Organization : "environmentalAuthority"
 Project ||--|o OffchainCreditsInfo : "offchainCreditsInfo"
 Project ||--}o ManagementArea : "managementAreas"
 Project ||--|o AdministrativeArea : "administrativeArea"
@@ -97,10 +98,10 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [project_size](project_size.md) | 0..1 <br/> [ProjectSize](ProjectSize.md) |  | direct |
 | [project_developer](project_developer.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) |  | direct |
 | [id](id.md) | 1 <br/> [Uriorcurie](Uriorcurie.md) |  | direct |
-| [environmentalAuthority](environmentalAuthority.md) | 0..1 <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
+| [environmentalAuthority](environmentalAuthority.md) | * <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
 | [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
-| [bioregion](bioregion.md) | 0..1 <br/> [String](String.md) | The bioregion associated with the project | direct |
-| [biomeType](biomeType.md) | 0..1 <br/> [String](String.md) | The type of biome associated with the project | direct |
+| [bioregion](bioregion.md) | * <br/> [String](String.md) | The bioregion associated with the project | direct |
+| [biomeType](biomeType.md) | * <br/> [String](String.md) | The type of biome associated with the project | direct |
 | [watershed](watershed.md) | 0..1 <br/> [String](String.md) | The watershed associated with the project | direct |
 | [subWatershed](subWatershed.md) | 0..1 <br/> [String](String.md) | The sub-watershed associated with the project | direct |
 | [environmentType](environmentType.md) | * <br/> [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of environment associated with the project | direct |
@@ -116,6 +117,7 @@ OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
 | [projectVerifier](projectVerifier.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [projectDeveloper](projectDeveloper.md) | 0..1 <br/> [Organization](Organization.md) | The organization responsible for owning the project | direct |
 | [creditClassVersion](creditClassVersion.md) | 0..1 <br/> [String](String.md) | The version of the credit class used for the project | direct |
+| [conservationStatus](conservationStatus.md) | 0..1 <br/> [ConservationStatusTypes](ConservationStatusTypes.md) | The conservation status of the project | direct |
 | [size](size.md) | 0..1 <br/> [Integer](Integer.md) |  | direct |
 | [activity](activity.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [start_date](start_date.md) | 0..1 <br/> [String](String.md) |  | direct |
@@ -195,6 +197,7 @@ slots:
 - projectVerifier
 - projectDeveloper
 - creditClassVersion
+- conservationStatus
 attributes:
   size:
     name: size
@@ -371,6 +374,8 @@ attributes:
     domain_of:
     - Project
     range: Organization
+    multivalued: true
+    inlined: true
   marketType:
     name: marketType
     description: The type of market for the associated credits.
@@ -393,6 +398,7 @@ attributes:
     domain_of:
     - Project
     range: string
+    multivalued: true
   biomeType:
     name: biomeType
     description: The type of biome associated with the project.
@@ -404,6 +410,7 @@ attributes:
     domain_of:
     - Project
     range: string
+    multivalued: true
   watershed:
     name: watershed
     description: The watershed associated with the project.
@@ -571,6 +578,17 @@ attributes:
     domain_of:
     - Project
     range: string
+  conservationStatus:
+    name: conservationStatus
+    description: The conservation status of the project.
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: rfs:conservationStatus
+    alias: conservationStatus
+    owner: Project
+    domain_of:
+    - Project
+    range: ConservationStatusTypes
 class_uri: rfs:Project
 
 ```

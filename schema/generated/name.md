@@ -24,10 +24,10 @@ URI: [schema:name](http://schema.org/name)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Organization](Organization.md) |  |  no  |
-| [File](File.md) |  |  no  |
 | [AdministrativeArea](AdministrativeArea.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
+| [Project](Project.md) |  |  no  |
+| [File](File.md) |  |  no  |
 
 
 

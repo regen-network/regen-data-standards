@@ -36,6 +36,7 @@ Name: Schemas
 | [biomeType](biomeType.md) | The type of biome associated with the project |
 | [bioregion](bioregion.md) | The bioregion associated with the project |
 | [comment](comment.md) |  |
+| [conservationStatus](conservationStatus.md) | The conservation status of the project |
 | [credit](credit.md) |  |
 | [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
 | [creditsAvailable](creditsAvailable.md) | The number of credits available |
@@ -85,6 +86,7 @@ Name: Schemas
 | Enumeration | Description |
 | --- | --- |
 | [ActivityTypes](ActivityTypes.md) | The type of activity |
+| [ConservationStatusTypes](ConservationStatusTypes.md) | The conservation status of the project |
 | [EnvironmentTypeTypes](EnvironmentTypeTypes.md) | The type of ecosystem |
 | [MarketTypeTypes](MarketTypeTypes.md) | The type of marketplace |
 | [ProjectRoleTypes](ProjectRoleTypes.md) |  |

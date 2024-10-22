@@ -1,8 +1,10 @@
   id: "http://dev.app.regen.com/projects/38"
   name: "Amazon Rainforest Conservation Project"
   marketType: compliance
-  bioregion: "Amazon Basin"
-  biomeType: "TropicalForest"
+  bioregion: 
+    - "Amazon Basin"
+  biomeType: 
+    - "TropicalForest"
   watershed: "Amazon River"
   subWatershed: "Upper Amazon"
   environmentType:
@@ -22,8 +24,8 @@
   ecologicalConnectivityIndex: 75.5
   socialCulturalIndex: 85.0
   environmentalAuthority:
-    name: "Corantioquia"
-    url: "http://corantioquia.gov.co/"
+    - url: "http://corantioquia.gov.co/"
+      name: "Corantioquia"
   administrativeArea:
     name: "Antioquia"
   managementAreas:
