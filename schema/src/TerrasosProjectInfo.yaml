@@ -34,25 +34,11 @@ classes:
 
       # Compliance Information
       - marketType
-      - offchainCreditsInfo
       - environmentalAuthority
       - bioregion
       - biomeType
       - watershed
       - subWatershed
-
-  OffchainCreditsInfo:
-    class_uri: rfs:OffchainCreditsInfo
-    attributes:
-      creditsRegistered:
-        range: QuantityValue
-        description: The number of credits registered
-      creditsAvailable:
-        range: QuantityValue
-        description: The number of credits available
-      creditsRetired:
-        range: QuantityValue
-        description: The number of credits retired
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
@@ -107,10 +93,6 @@ slots:
   administrativeArea:
     range: AdministrativeArea
     description: The administrative area associated with the project.
-  offchainCreditsInfo:
-    slot_uri: rfs:offchainCreditsInfo
-    range: OffchainCreditsInfo
-    description: Information about offchain credits associated with the project.
   ecologicalConnectivityIndex:
     slot_uri: rfs:ecologicalConnectivityIndex
     range: float

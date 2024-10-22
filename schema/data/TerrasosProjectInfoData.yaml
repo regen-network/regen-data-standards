@@ -18,6 +18,7 @@ location:
     coordinates:
       - -72.5
       - -2.5
+  place_name: "Antioquia"
 marketType: COMPLIANCE_MARKET
 bioregion: 
   - "Amazon Basin"
@@ -27,16 +28,6 @@ watershed: "Amazon River"
 subWatershed: "Upper Amazon"
 environmentType: 
   - CLOUD_FOREST
-offchainCreditsInfo:
-  creditsRegistered:
-    numericValue: 1000
-    unit: unit:HA
-  creditsAvailable:
-    numericValue: 800
-    unit: unit:HA
-  creditsRetired:
-    numericValue: 200
-    unit: unit:HA
 projectDuration: "P1Y"
 creditClassVersion: "1.0"
 ecologicalConnectivityIndex: 75.5

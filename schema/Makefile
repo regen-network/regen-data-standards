@@ -9,3 +9,5 @@ gen-jsonld:
 
 validate:
 	linkml-validate -s src/TerrasosProjectInfo.yaml --target-class TerrasosProjectInfo data/TerrasosProjectInfoData.yaml
+
+all: lint gen-doc gen-jsonld validate

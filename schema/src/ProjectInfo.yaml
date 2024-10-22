@@ -67,6 +67,17 @@ classes:
   Location:
     class_uri: rfs:Location
     attributes:
+      type:
+        range: string
+        required: true
+      geometry:
+        range: Geometry
+        required: true
+      placeName:
+        range: string
+        alias: place_name
+        required: true
+      # unused by frontend, but linkml doesn't support arbitrary additional attributes
       id:
         range: string
       bbox:
@@ -74,26 +85,18 @@ classes:
         multivalued: true
       text:
         range: string
-      type:
-        range: string
       center:
         range: float
         multivalued: true
       context:
-        range: LocationContext
-        multivalued: true
-      geometry:
-        range: Geometry
+        range: Any
       relevance:
         range: float
-      placeName:
-        range: string
-        alias: place_name
       placeType:
         range: string
         alias: place_type
       properties:
-        range: LocationProperties
+        range: Any
   Geometry:
     attributes:
       type:
@@ -101,30 +104,6 @@ classes:
       coordinates:
         range: float
         multivalued: true
-  LocationContext:
-    attributes:
-      id:
-        identifier: true
-        range: string
-      text:
-        range: string
-      wikidata:
-        range: string
-        required: false
-      mapboxId:
-        range: string
-        required: false
-        alias: mapbox_id
-      shortCode:
-        range: string
-        required: false
-        alias: short_code
-  LocationProperties:
-    attributes:
-      key:
-        range: string
-      value:
-        range: Any
 
   Any:
     class_uri: linkml:Any
