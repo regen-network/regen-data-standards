@@ -23,8 +23,8 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 

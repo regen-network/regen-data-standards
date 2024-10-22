@@ -23,8 +23,8 @@ URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClass
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 

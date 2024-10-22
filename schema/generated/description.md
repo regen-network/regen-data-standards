@@ -23,11 +23,11 @@ URI: [schema:description](http://schema.org/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [ProjectRole](ProjectRole.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [File](File.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
 
 
 

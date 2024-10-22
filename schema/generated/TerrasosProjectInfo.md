@@ -30,9 +30,9 @@ TerrasosProjectInfo {
 }
 ProjectRole {
     string name  
-    string description  
     string url  
     string image  
+    string description  
     ProjectRoleTypes type  
 }
 QuantityValue {

@@ -12,9 +12,9 @@ URI: [rfs:ProjectRole](https://framework.regen.network/schema/ProjectRole)
 erDiagram
 ProjectRole {
     string name  
-    string description  
     string url  
     string image  
+    string description  
     ProjectRoleTypes type  
 }
 
@@ -32,9 +32,9 @@ ProjectRole {
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
-| [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | direct |
 | [url](url.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [image](image.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [description](description.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [type](type.md) | 1 <br/> [ProjectRoleTypes](ProjectRoleTypes.md) |  | direct |
 
 
@@ -100,10 +100,18 @@ name: ProjectRole
 from_schema: https://framework.regen.network/schema/
 slots:
 - name
-- description
 - url
 - image
 attributes:
+  description:
+    name: description
+    from_schema: https://framework.regen.network/schema/
+    domain_of:
+    - ProjectInfo
+    - ProjectRole
+    - Organization
+    - File
+    range: string
   type:
     name: type
     from_schema: https://framework.regen.network/schema/
@@ -126,6 +134,17 @@ attributes:
 name: ProjectRole
 from_schema: https://framework.regen.network/schema/
 attributes:
+  description:
+    name: description
+    from_schema: https://framework.regen.network/schema/
+    alias: description
+    owner: ProjectRole
+    domain_of:
+    - ProjectInfo
+    - ProjectRole
+    - Organization
+    - File
+    range: string
   type:
     name: type
     from_schema: https://framework.regen.network/schema/
@@ -153,21 +172,6 @@ attributes:
     - Organization
     - File
     - AdministrativeArea
-    range: string
-    required: true
-  description:
-    name: description
-    description: Optional description of the project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: schema:description
-    alias: description
-    owner: ProjectRole
-    domain_of:
-    - ProjectInfo
-    - ProjectRole
-    - Organization
-    - File
     range: string
     required: true
   url:
