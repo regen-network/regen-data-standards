@@ -36,7 +36,7 @@ Any {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [LocationProperties](LocationProperties.md) | [value](value.md) | range | [Any](Any.md) |
+| [Location](Location.md) | [properties](properties.md) | range | [Any](Any.md) |
 
 
 

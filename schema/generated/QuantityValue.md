@@ -46,9 +46,6 @@ QuantityValue {
 | ---  | --- | --- | --- |
 | [ProjectInfo](ProjectInfo.md) | [projectSize](projectSize.md) | range | [QuantityValue](QuantityValue.md) |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectSize](projectSize.md) | range | [QuantityValue](QuantityValue.md) |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRegistered](creditsRegistered.md) | range | [QuantityValue](QuantityValue.md) |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsAvailable](creditsAvailable.md) | range | [QuantityValue](QuantityValue.md) |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRetired](creditsRetired.md) | range | [QuantityValue](QuantityValue.md) |
 | [ManagementArea](ManagementArea.md) | [extent](extent.md) | range | [QuantityValue](QuantityValue.md) |
 
 

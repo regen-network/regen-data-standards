@@ -28,7 +28,7 @@ URI: [rfs:properties](https://framework.regen.network/schema/properties)
 
 ## Properties
 
-* Range: [LocationProperties](LocationProperties.md)
+* Range: [Any](Any.md)
 
 
 
@@ -71,7 +71,7 @@ alias: properties
 owner: Location
 domain_of:
 - Location
-range: LocationProperties
+range: Any
 
 ```
 </details>

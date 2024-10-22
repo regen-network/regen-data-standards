@@ -1,24 +1,25 @@
 {
   "name": "Amazon Rainforest Conservation Project",
   "location": {
-    "bbox": [
-      -75.0,
-      -5.0,
-      -70.0,
-      0.0
-    ],
     "type": "Feature",
-    "center": [
-      -72.5,
-      -2.5
-    ],
     "geometry": {
       "type": "Point",
       "coordinates": [
         -72.5,
         -2.5
       ]
-    }
+    },
+    "place_name": "Antioquia",
+    "bbox": [
+      -75.0,
+      -5.0,
+      -70.0,
+      0.0
+    ],
+    "center": [
+      -72.5,
+      -2.5
+    ]
   },
   "description": "This project aims to conserve the Amazon Rainforest by implementing sustainable land management practices.",
   "projectDeveloper": {
@@ -69,6 +70,7 @@
     }
   ],
   "conservationStatus": "CRITICALLY_ENDANGERED",
+  "projectDuration": "P1Y",
   "projectOperator": {
     "name": "El Globo",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -82,20 +84,6 @@
     "image": "https://via.placeholder.com/150"
   },
   "marketType": "COMPLIANCE_MARKET",
-  "offchainCreditsInfo": {
-    "creditsRegistered": {
-      "numericValue": 1000.0,
-      "unit": "unit:HA"
-    },
-    "creditsAvailable": {
-      "numericValue": 800.0,
-      "unit": "unit:HA"
-    },
-    "creditsRetired": {
-      "numericValue": 200.0,
-      "unit": "unit:HA"
-    }
-  },
   "environmentalAuthority": [
     {
       "name": "Corantioquia",
@@ -110,7 +98,6 @@
   ],
   "watershed": "Amazon River",
   "subWatershed": "Upper Amazon",
-  "projectDuration": "P1Y",
   "@type": "TerrasosProjectInfo",
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
@@ -191,47 +178,16 @@
       "@type": "xsd:float",
       "@id": "center"
     },
-    "context": {
-      "@type": "@id",
-      "@id": "context"
-    },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
     },
-    "id": "@id",
     "place_name": {
       "@id": "place_name"
-    },
-    "place_type": {
-      "@id": "place_type"
     },
     "properties": {
       "@type": "@id",
       "@id": "properties"
-    },
-    "relevance": {
-      "@type": "xsd:float",
-      "@id": "relevance"
-    },
-    "text": {
-      "@id": "text"
-    },
-    "mapbox_id": {
-      "@id": "mapbox_id"
-    },
-    "short_code": {
-      "@id": "short_code"
-    },
-    "wikidata": {
-      "@id": "wikidata"
-    },
-    "key": {
-      "@id": "key"
-    },
-    "value": {
-      "@type": "@id",
-      "@id": "value"
     },
     "extent": {
       "@type": "@id",
@@ -259,22 +215,6 @@
     },
     "name": {
       "@id": "schema:name"
-    },
-    "offchainCreditsInfo": {
-      "@type": "@id",
-      "@id": "offchainCreditsInfo"
-    },
-    "creditsAvailable": {
-      "@type": "@id",
-      "@id": "creditsAvailable"
-    },
-    "creditsRegistered": {
-      "@type": "@id",
-      "@id": "creditsRegistered"
-    },
-    "creditsRetired": {
-      "@type": "@id",
-      "@id": "creditsRetired"
     },
     "projectActivities": {
       "@context": {
@@ -350,20 +290,8 @@
     "Location": {
       "@id": "Location"
     },
-    "LocationContext": {
-      "@id": "LocationContext"
-    },
-    "LocationProperties": {
-      "@id": "LocationProperties"
-    },
     "ManagementArea": {
       "@id": "ManagementArea"
-    },
-    "OffchainCreditsInfo": {
-      "@id": "OffchainCreditsInfo"
-    },
-    "Org": {
-      "@id": "Org"
     },
     "Organization": {
       "@id": "Organization"

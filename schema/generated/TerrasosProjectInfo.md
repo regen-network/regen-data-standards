@@ -40,28 +40,17 @@ QuantityValue {
     string unit  
 }
 Location {
-    string id  
-    floatList bbox  
-    string text  
     string type  
-    floatList center  
-    float relevance  
     string placeName  
-    string placeType  
+    floatList bbox  
+    floatList center  
 }
-LocationProperties {
-    string key  
+Any {
+
 }
 Geometry {
     string type  
     floatList coordinates  
-}
-LocationContext {
-    string id  
-    string text  
-    string wikidata  
-    string mapboxId  
-    string shortCode  
 }
 Organization {
     string name  
@@ -69,9 +58,6 @@ Organization {
     boolean showOnProjectPage  
     string image  
     string description  
-}
-OffchainCreditsInfo {
-
 }
 ManagementArea {
     ActivityTypesList projectActivity  
@@ -85,20 +71,14 @@ TerrasosProjectInfo ||--|o AdministrativeArea : "administrativeArea"
 TerrasosProjectInfo ||--}o ManagementArea : "managementAreas"
 TerrasosProjectInfo ||--|o ProjectRole : "projectOperator"
 TerrasosProjectInfo ||--|o ProjectRole : "projectOwner"
-TerrasosProjectInfo ||--|o OffchainCreditsInfo : "offchainCreditsInfo"
 TerrasosProjectInfo ||--}o Organization : "environmentalAuthority"
 TerrasosProjectInfo ||--|| Location : "location"
 TerrasosProjectInfo ||--|o QuantityValue : "projectSize"
 TerrasosProjectInfo ||--|o ProjectRole : "projectDeveloper"
 TerrasosProjectInfo ||--|o ProjectRole : "projectMonitor"
 TerrasosProjectInfo ||--|o ProjectRole : "projectVerifier"
-Location ||--}o LocationContext : "context"
 Location ||--|o Geometry : "geometry"
-Location ||--|o LocationProperties : "properties"
-LocationProperties ||--|o Any : "value"
-OffchainCreditsInfo ||--|o QuantityValue : "creditsRegistered"
-OffchainCreditsInfo ||--|o QuantityValue : "creditsAvailable"
-OffchainCreditsInfo ||--|o QuantityValue : "creditsRetired"
+Location ||--|o Any : "properties"
 ManagementArea ||--|o QuantityValue : "extent"
 
 ```
@@ -125,7 +105,6 @@ ManagementArea ||--|o QuantityValue : "extent"
 | [projectOperator](projectOperator.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for operating the project | direct |
 | [projectOwner](projectOwner.md) | 0..1 <br/> [ProjectRole](ProjectRole.md) | The organization responsible for owning the project | direct |
 | [marketType](marketType.md) | 0..1 <br/> [MarketTypeTypes](MarketTypeTypes.md) | The type of market for the associated credits | direct |
-| [offchainCreditsInfo](offchainCreditsInfo.md) | 0..1 <br/> [OffchainCreditsInfo](OffchainCreditsInfo.md) | Information about offchain credits associated with the project | direct |
 | [environmentalAuthority](environmentalAuthority.md) | * <br/> [Organization](Organization.md) | The environmental authority associated with the project | direct |
 | [bioregion](bioregion.md) | * <br/> [String](String.md) | The bioregion associated with the project | direct |
 | [biomeType](biomeType.md) | * <br/> [String](String.md) | The type of biome associated with the project | direct |
@@ -202,7 +181,6 @@ slots:
 - projectOperator
 - projectOwner
 - marketType
-- offchainCreditsInfo
 - environmentalAuthority
 - bioregion
 - biomeType
@@ -321,17 +299,6 @@ attributes:
     domain_of:
     - TerrasosProjectInfo
     range: MarketTypeTypes
-  offchainCreditsInfo:
-    name: offchainCreditsInfo
-    description: Information about offchain credits associated with the project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: rfs:offchainCreditsInfo
-    alias: offchainCreditsInfo
-    owner: TerrasosProjectInfo
-    domain_of:
-    - TerrasosProjectInfo
-    range: OffchainCreditsInfo
   environmentalAuthority:
     name: environmentalAuthority
     description: The environmental authority associated with the project.

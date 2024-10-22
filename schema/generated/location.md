@@ -24,8 +24,8 @@ URI: [schema:location](http://schema.org/location)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
-| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [File](File.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 

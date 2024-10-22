@@ -31,28 +31,17 @@ QuantityValue {
     string unit  
 }
 Location {
-    string id  
-    floatList bbox  
-    string text  
     string type  
-    floatList center  
-    float relevance  
     string placeName  
-    string placeType  
+    floatList bbox  
+    floatList center  
 }
-LocationProperties {
-    string key  
+Any {
+
 }
 Geometry {
     string type  
     floatList coordinates  
-}
-LocationContext {
-    string id  
-    string text  
-    string wikidata  
-    string mapboxId  
-    string shortCode  
 }
 
 ProjectInfo ||--|| Location : "location"
@@ -60,10 +49,8 @@ ProjectInfo ||--|o QuantityValue : "projectSize"
 ProjectInfo ||--|o ProjectRole : "projectDeveloper"
 ProjectInfo ||--|o ProjectRole : "projectMonitor"
 ProjectInfo ||--|o ProjectRole : "projectVerifier"
-Location ||--}o LocationContext : "context"
 Location ||--|o Geometry : "geometry"
-Location ||--|o LocationProperties : "properties"
-LocationProperties ||--|o Any : "value"
+Location ||--|o Any : "properties"
 
 ```
 
