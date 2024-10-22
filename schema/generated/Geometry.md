@@ -30,6 +30,8 @@ URI: [rfs:geometry](https://framework.regen.network/schema/geometry)
 
 * Range: [Geometry](Geometry.md)
 
+* Required: True
+
 
 
 
@@ -72,6 +74,7 @@ owner: Location
 domain_of:
 - Location
 range: Geometry
+required: true
 
 ```
 </details>

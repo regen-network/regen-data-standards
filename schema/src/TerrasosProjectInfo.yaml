@@ -65,6 +65,7 @@ slots:
     slot_uri: rfs:marketType
     range: MarketTypeTypes
     description: The type of market for the associated credits.
+    multivalued: true
   bioregion:
     range: string
     slot_uri: rfs:bioregion
