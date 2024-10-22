@@ -1,0 +1,312 @@
+{
+  "name": "Amazon Rainforest Conservation Project",
+  "location": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -72.5,
+        -2.5
+      ]
+    },
+    "place_name": "Antioquia",
+    "bbox": [
+      -75.0,
+      -5.0,
+      -70.0,
+      0.0
+    ],
+    "center": [
+      -72.5,
+      -2.5
+    ]
+  },
+  "description": "This project aims to conserve the Amazon Rainforest by implementing sustainable land management practices.",
+  "projectDeveloper": {
+    "name": "Terrasos",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "type": "ORGANIZATION",
+    "image": "https://via.placeholder.com/150"
+  },
+  "environmentType": [
+    "CLOUD_FOREST"
+  ],
+  "projectMonitor": {
+    "name": "EAFIT",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "type": "ORGANIZATION",
+    "image": "https://via.placeholder.com/150"
+  },
+  "projectVerifier": {
+    "name": "KPMG",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "type": "ORGANIZATION",
+    "image": "https://via.placeholder.com/150"
+  },
+  "creditClassVersion": "1.0",
+  "ecologicalConnectivityIndex": 75.5,
+  "socialCulturalIndex": 85.0,
+  "administrativeArea": {
+    "name": "Antioquia"
+  },
+  "managementAreas": [
+    {
+      "projectActivity": [
+        "CONSERVATION"
+      ],
+      "extent": {
+        "numericValue": 120.0,
+        "unit": "unit:HA"
+      }
+    },
+    {
+      "projectActivity": [
+        "ECOSYSTEM_RESTORATION"
+      ],
+      "extent": {
+        "numericValue": 220.0,
+        "unit": "unit:HA"
+      }
+    }
+  ],
+  "conservationStatus": "CRITICALLY_ENDANGERED",
+  "projectDuration": "P1Y",
+  "projectOperator": {
+    "name": "El Globo",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "type": "ORGANIZATION",
+    "image": "https://via.placeholder.com/150"
+  },
+  "projectOwner": {
+    "name": "Jose Gonzales",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "type": "INDIVIDUAL",
+    "image": "https://via.placeholder.com/150"
+  },
+  "marketType": "COMPLIANCE_MARKET",
+  "environmentalAuthority": [
+    {
+      "name": "Corantioquia",
+      "url": "http://corantioquia.gov.co/"
+    }
+  ],
+  "bioregion": [
+    "Amazon Basin"
+  ],
+  "biomeType": [
+    "TropicalForest"
+  ],
+  "watershed": "Amazon River",
+  "subWatershed": "Upper Amazon",
+  "@type": "TerrasosProjectInfo",
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "unit": {
+      "@id": "qudt:unit"
+    },
+    "@vocab": "https://framework.regen.network/schema/",
+    "administrativeArea": {
+      "@type": "@id",
+      "@id": "administrativeArea"
+    },
+    "biomeType": {
+      "@id": "biomeType"
+    },
+    "bioregion": {
+      "@id": "bioregion"
+    },
+    "conservationStatus": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "conservationStatus"
+    },
+    "creditClassVersion": {
+      "@id": "creditClassVersion"
+    },
+    "description": {
+      "@id": "description"
+    },
+    "ecologicalConnectivityIndex": {
+      "@type": "xsd:float",
+      "@id": "ecologicalConnectivityIndex"
+    },
+    "environmentalAuthority": {
+      "@type": "@id",
+      "@id": "environmentalAuthority"
+    },
+    "environmentType": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "environmentType"
+    },
+    "coordinates": {
+      "@type": "xsd:float",
+      "@id": "coordinates"
+    },
+    "type": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "ProjectRoleType"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "location": {
+      "@type": "@id",
+      "@id": "schema:location"
+    },
+    "bbox": {
+      "@type": "xsd:float",
+      "@id": "bbox"
+    },
+    "center": {
+      "@type": "xsd:float",
+      "@id": "center"
+    },
+    "geometry": {
+      "@type": "@id",
+      "@id": "geometry"
+    },
+    "place_name": {
+      "@id": "place_name"
+    },
+    "properties": {
+      "@type": "@id",
+      "@id": "properties"
+    },
+    "extent": {
+      "@type": "@id",
+      "@id": "dcterms:extent"
+    },
+    "projectActivity": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "projectActivity"
+    },
+    "managementAreas": {
+      "@type": "@id",
+      "@id": "managementAreas"
+    },
+    "marketType": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "marketType"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "projectActivities": {
+      "@context": {
+        "text": "skos:notation",
+        "description": "skos:prefLabel",
+        "meaning": "@id"
+      },
+      "@id": "projectActivities"
+    },
+    "projectDeveloper": {
+      "@type": "@id",
+      "@id": "projectDeveloper"
+    },
+    "projectDuration": {
+      "@id": "projectDuration"
+    },
+    "projectEndDate": {
+      "@id": "xsd:date"
+    },
+    "projectMonitor": {
+      "@type": "@id",
+      "@id": "projectMonitor"
+    },
+    "projectOperator": {
+      "@type": "@id",
+      "@id": "projectOperator"
+    },
+    "projectOwner": {
+      "@type": "@id",
+      "@id": "projectOwner"
+    },
+    "projectSize": {
+      "@type": "@id",
+      "@id": "projectSize"
+    },
+    "projectStartDate": {
+      "@id": "xsd:date"
+    },
+    "projectVerifier": {
+      "@type": "@id",
+      "@id": "projectVerifier"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:numericValue"
+    },
+    "showOnProjectPage": {
+      "@type": "xsd:boolean",
+      "@id": "showOnProjectPage"
+    },
+    "socialCulturalIndex": {
+      "@type": "xsd:float",
+      "@id": "socialCulturalIndex"
+    },
+    "subWatershed": {
+      "@id": "subWatershed"
+    },
+    "url": {
+      "@id": "schema:URL"
+    },
+    "watershed": {
+      "@id": "watershed"
+    },
+    "AdministrativeArea": {
+      "@id": "schema:AdministrativeArea"
+    },
+    "Any": {
+      "@id": "linkml:Any"
+    },
+    "Geometry": {
+      "@id": "Geometry"
+    },
+    "Location": {
+      "@id": "Location"
+    },
+    "ManagementArea": {
+      "@id": "ManagementArea"
+    },
+    "Organization": {
+      "@id": "Organization"
+    },
+    "ProjectInfo": {
+      "@id": "ProjectInfo"
+    },
+    "ProjectRole": {
+      "@id": "ProjectRole"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "TerrasosProjectInfo": {
+      "@id": "TerrasosProjectInfo"
+    }
+  }
+}

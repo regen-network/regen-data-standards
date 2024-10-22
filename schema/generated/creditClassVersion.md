@@ -23,7 +23,8 @@ URI: [rfs:creditClassVersion](https://framework.regen.network/schema/creditClass
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -76,7 +77,7 @@ rank: 1000
 slot_uri: rfs:creditClassVersion
 alias: creditClassVersion
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

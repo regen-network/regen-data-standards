@@ -44,9 +44,8 @@ QuantityValue {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRegistered](creditsRegistered.md) | range | [QuantityValue](QuantityValue.md) |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsAvailable](creditsAvailable.md) | range | [QuantityValue](QuantityValue.md) |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | [creditsRetired](creditsRetired.md) | range | [QuantityValue](QuantityValue.md) |
+| [ProjectInfo](ProjectInfo.md) | [projectSize](projectSize.md) | range | [QuantityValue](QuantityValue.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectSize](projectSize.md) | range | [QuantityValue](QuantityValue.md) |
 | [ManagementArea](ManagementArea.md) | [extent](extent.md) | range | [QuantityValue](QuantityValue.md) |
 
 
@@ -99,18 +98,18 @@ attributes:
     name: numericValue
     description: The numeric value of the quantity.
     from_schema: https://framework.regen.network/schema/
+    rank: 1000
     slot_uri: qudt:numericValue
     domain_of:
-    - ProjectSize
     - QuantityValue
     range: float
   unit:
     name: unit
     description: The unit of measurement for the quantity.
     from_schema: https://framework.regen.network/schema/
+    rank: 1000
     slot_uri: qudt:unit
     domain_of:
-    - ProjectSize
     - QuantityValue
     range: string
 class_uri: qudt:QuantityValue
@@ -130,22 +129,22 @@ attributes:
     name: numericValue
     description: The numeric value of the quantity.
     from_schema: https://framework.regen.network/schema/
+    rank: 1000
     slot_uri: qudt:numericValue
     alias: numericValue
     owner: QuantityValue
     domain_of:
-    - ProjectSize
     - QuantityValue
     range: float
   unit:
     name: unit
     description: The unit of measurement for the quantity.
     from_schema: https://framework.regen.network/schema/
+    rank: 1000
     slot_uri: qudt:unit
     alias: unit
     owner: QuantityValue
     domain_of:
-    - ProjectSize
     - QuantityValue
     range: string
 class_uri: qudt:QuantityValue

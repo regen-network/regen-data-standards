@@ -1,10 +1,10 @@
 
 
-# Slot: project_size
+# Slot: context
 
 
 
-URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
+URI: [rfs:context](https://framework.regen.network/schema/context)
 
 
 
@@ -18,7 +18,7 @@ URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Location](Location.md) |  |  no  |
 
 
 
@@ -28,7 +28,9 @@ URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
 
 ## Properties
 
-* Range: [ProjectSize](ProjectSize.md)
+* Range: [LocationContext](LocationContext.md)
+
+* Multivalued: True
 
 
 
@@ -54,8 +56,8 @@ URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_size |
-| native | rfs:project_size |
+| self | rfs:context |
+| native | rfs:context |
 
 
 
@@ -64,14 +66,15 @@ URI: [rfs:project_size](https://framework.regen.network/schema/project_size)
 
 <details>
 ```yaml
-name: project_size
+name: context
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_size
+alias: context
+owner: Location
 domain_of:
-- Project
-range: ProjectSize
-inlined: false
+- Location
+range: LocationContext
+multivalued: true
 
 ```
 </details>

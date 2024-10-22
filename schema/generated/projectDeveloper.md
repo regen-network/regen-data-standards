@@ -23,7 +23,8 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +34,7 @@ URI: [rfs:projectDeveloper](https://framework.regen.network/schema/projectDevelo
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -76,8 +77,8 @@ rank: 1000
 slot_uri: rfs:projectDeveloper
 alias: projectDeveloper
 domain_of:
-- Project
-range: Organization
+- ProjectInfo
+range: ProjectRole
 
 ```
 </details>

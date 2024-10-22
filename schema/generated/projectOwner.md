@@ -23,7 +23,7 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +33,7 @@ URI: [rfs:projectOwner](https://framework.regen.network/schema/projectOwner)
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -76,8 +76,8 @@ rank: 1000
 slot_uri: rfs:projectOwner
 alias: projectOwner
 domain_of:
-- Project
-range: Organization
+- TerrasosProjectInfo
+range: ProjectRole
 
 ```
 </details>

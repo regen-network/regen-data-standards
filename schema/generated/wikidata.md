@@ -1,10 +1,10 @@
 
 
-# Slot: project_type
+# Slot: wikidata
 
 
 
-URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
+URI: [rfs:wikidata](https://framework.regen.network/schema/wikidata)
 
 
 
@@ -18,7 +18,7 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -54,8 +54,8 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_type |
-| native | rfs:project_type |
+| self | rfs:wikidata |
+| native | rfs:wikidata |
 
 
 
@@ -64,14 +64,15 @@ URI: [rfs:project_type](https://framework.regen.network/schema/project_type)
 
 <details>
 ```yaml
-name: project_type
+name: wikidata
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_type
-owner: Project
+alias: wikidata
+owner: LocationContext
 domain_of:
-- Project
+- LocationContext
 range: string
+required: false
 
 ```
 </details>

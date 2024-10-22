@@ -1,10 +1,10 @@
 
 
-# Slot: type
+# Slot: text
 
 
 
-URI: [rfs:type](https://framework.regen.network/schema/type)
+URI: [rfs:text](https://framework.regen.network/schema/text)
 
 
 
@@ -19,8 +19,7 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Geometry](Geometry.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -49,8 +48,8 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:type |
-| native | rfs:type |
+| self | rfs:text |
+| native | rfs:text |
 
 
 
@@ -59,12 +58,11 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 <details>
 ```yaml
-name: type
-alias: type
+name: text
+alias: text
 domain_of:
-- ProjectRole
 - Location
-- Geometry
+- LocationContext
 range: string
 
 ```

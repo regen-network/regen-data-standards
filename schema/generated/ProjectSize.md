@@ -1,46 +1,35 @@
 
 
-# Class: ProjectSize
+# Slot: projectSize
 
 
 
-URI: [rfs:ProjectSize](https://framework.regen.network/schema/ProjectSize)
-
-
-
-```mermaid
-erDiagram
-ProjectSize {
-    string unit  
-    double numericValue  
-}
-
-
-
-```
+URI: [rfs:projectSize](https://framework.regen.network/schema/projectSize)
 
 
 
 <!-- no inheritance hierarchy -->
 
 
-## Slots
-
-| Name | Cardinality and Range | Description | Inheritance |
-| ---  | --- | --- | --- |
-| [unit](unit.md) | 1 <br/> [String](String.md) |  | direct |
-| [numericValue](numericValue.md) | 1 <br/> [Double](Double.md) |  | direct |
 
 
 
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
-## Usages
 
-| used by | used in | type | used |
-| ---  | --- | --- | --- |
-| [Project](Project.md) | [project_size](project_size.md) | range | [ProjectSize](ProjectSize.md) |
 
+
+
+
+## Properties
+
+* Range: [QuantityValue](QuantityValue.md)
 
 
 
@@ -66,82 +55,24 @@ ProjectSize {
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:ProjectSize |
-| native | rfs:ProjectSize |
-
-
-
+| self | rfs:projectSize |
+| native | rfs:projectSize |
 
 
 
 
 ## LinkML Source
 
-<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
-
-### Direct
-
 <details>
 ```yaml
-name: ProjectSize
+name: projectSize
 from_schema: https://framework.regen.network/schema/
-attributes:
-  unit:
-    name: unit
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: qudt:unit
-    domain_of:
-    - ProjectSize
-    - QuantityValue
-    required: true
-  numericValue:
-    name: numericValue
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: qudt:numericValue
-    domain_of:
-    - ProjectSize
-    - QuantityValue
-    range: double
-    required: true
-class_uri: rfs:ProjectSize
-
-```
-</details>
-
-### Induced
-
-<details>
-```yaml
-name: ProjectSize
-from_schema: https://framework.regen.network/schema/
-attributes:
-  unit:
-    name: unit
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: qudt:unit
-    alias: unit
-    owner: ProjectSize
-    domain_of:
-    - ProjectSize
-    - QuantityValue
-    range: string
-    required: true
-  numericValue:
-    name: numericValue
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: qudt:numericValue
-    alias: numericValue
-    owner: ProjectSize
-    domain_of:
-    - ProjectSize
-    - QuantityValue
-    range: double
-    required: true
-class_uri: rfs:ProjectSize
+rank: 1000
+alias: projectSize
+domain_of:
+- ProjectInfo
+range: QuantityValue
+inlined: false
 
 ```
 </details>

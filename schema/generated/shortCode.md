@@ -1,15 +1,10 @@
 
 
-# Slot: subWatershed
-
-
-_The sub-watershed associated with the project._
+# Slot: shortCode
 
 
 
-
-
-URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
+URI: [rfs:shortCode](https://framework.regen.network/schema/shortCode)
 
 
 
@@ -23,7 +18,7 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -59,8 +54,8 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:subWatershed |
-| native | rfs:subWatershed |
+| self | rfs:shortCode |
+| native | rfs:shortCode |
 
 
 
@@ -69,15 +64,15 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 <details>
 ```yaml
-name: subWatershed
-description: The sub-watershed associated with the project.
+name: shortCode
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:subWatershed
-alias: subWatershed
+alias: short_code
+owner: LocationContext
 domain_of:
-- TerrasosProjectInfo
+- LocationContext
 range: string
+required: false
 
 ```
 </details>

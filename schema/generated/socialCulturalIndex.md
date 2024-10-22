@@ -23,7 +23,7 @@ URI: [rfs:socialCulturalIndex](https://framework.regen.network/schema/socialCult
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:socialCulturalIndex
 alias: socialCulturalIndex
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: float
 
 ```

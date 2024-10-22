@@ -1,10 +1,15 @@
 
 
-# Slot: project_verifier
+# Slot: projectStartDate
+
+
+_The start date of the project._
 
 
 
-URI: [rfs:project_verifier](https://framework.regen.network/schema/project_verifier)
+
+
+URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 
@@ -18,7 +23,8 @@ URI: [rfs:project_verifier](https://framework.regen.network/schema/project_verif
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -54,8 +60,8 @@ URI: [rfs:project_verifier](https://framework.regen.network/schema/project_verif
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_verifier |
-| native | rfs:project_verifier |
+| self | xsd:date |
+| native | rfs:projectStartDate |
 
 
 
@@ -64,13 +70,14 @@ URI: [rfs:project_verifier](https://framework.regen.network/schema/project_verif
 
 <details>
 ```yaml
-name: project_verifier
+name: projectStartDate
+description: The start date of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_verifier
-owner: Project
+slot_uri: xsd:date
+alias: projectStartDate
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

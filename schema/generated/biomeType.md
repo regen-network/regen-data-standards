@@ -23,7 +23,7 @@ URI: [rfs:biomeType](https://framework.regen.network/schema/biomeType)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -78,7 +78,7 @@ rank: 1000
 slot_uri: rfs:biomeType
 alias: biomeType
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 multivalued: true
 

@@ -1,10 +1,10 @@
 
 
-# Slot: project_developer
+# Slot: mapboxId
 
 
 
-URI: [rfs:project_developer](https://framework.regen.network/schema/project_developer)
+URI: [rfs:mapboxId](https://framework.regen.network/schema/mapboxId)
 
 
 
@@ -18,7 +18,7 @@ URI: [rfs:project_developer](https://framework.regen.network/schema/project_deve
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -28,7 +28,7 @@ URI: [rfs:project_developer](https://framework.regen.network/schema/project_deve
 
 ## Properties
 
-* Range: [ProjectRole](ProjectRole.md)
+* Range: [String](String.md)
 
 
 
@@ -54,8 +54,8 @@ URI: [rfs:project_developer](https://framework.regen.network/schema/project_deve
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:project_developer |
-| native | rfs:project_developer |
+| self | rfs:mapboxId |
+| native | rfs:mapboxId |
 
 
 
@@ -64,14 +64,15 @@ URI: [rfs:project_developer](https://framework.regen.network/schema/project_deve
 
 <details>
 ```yaml
-name: project_developer
+name: mapboxId
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: project_developer
+alias: mapbox_id
+owner: LocationContext
 domain_of:
-- Project
-range: ProjectRole
-inlined: false
+- LocationContext
+range: string
+required: false
 
 ```
 </details>

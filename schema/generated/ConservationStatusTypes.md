@@ -13,15 +13,15 @@ URI: [ConservationStatusTypes](ConservationStatusTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| extinct | rfs:IucnExtinct | Extinct |
-| extinctInWild | rfs:IucnExtinctInWild | Extinct in the Wild |
-| criticallyEndangered | rfs:IucnCriticallyEndangered | Critically Endangered |
-| endangered | rfs:IucnEndangered | Endangered |
-| vulnerable | rfs:IucnVulnerable | Vulnerable |
-| nearThreatened | rfs:IucnNearThreatened | Near Threatened |
-| leastConcern | rfs:IucnLeastConcern | Least Concern |
-| dataDeficient | rfs:IucnDataDeficient | Data Deficient |
-| notEvaluated | rfs:IucnNotEvaluated | Not Evaluated |
+| EXTINCT | rfs:IucnExtinct | Extinct |
+| EXTINCT_IN_WILD | rfs:IucnExtinctInWild | Extinct in the Wild |
+| CRITICALLY_ENDANGERED | rfs:IucnCriticallyEndangered | Critically Endangered |
+| ENDANGERED | rfs:IucnEndangered | Endangered |
+| VULNERABLE | rfs:IucnVulnerable | Vulnerable |
+| NEAR_THREATENED | rfs:IucnNearThreatened | Near Threatened |
+| LEAST_CONCERN | rfs:IucnLeastConcern | Least Concern |
+| DATA_DEFICIENT | rfs:IucnDataDeficient | Data Deficient |
+| NOT_EVALUATED | rfs:IucnNotEvaluated | Not Evaluated |
 
 
 
@@ -64,40 +64,40 @@ description: The conservation status of the project
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  extinct:
-    text: extinct
+  EXTINCT:
+    text: EXTINCT
     description: Extinct
     meaning: rfs:IucnExtinct
-  extinctInWild:
-    text: extinctInWild
+  EXTINCT_IN_WILD:
+    text: EXTINCT_IN_WILD
     description: Extinct in the Wild
     meaning: rfs:IucnExtinctInWild
-  criticallyEndangered:
-    text: criticallyEndangered
+  CRITICALLY_ENDANGERED:
+    text: CRITICALLY_ENDANGERED
     description: Critically Endangered
     meaning: rfs:IucnCriticallyEndangered
-  endangered:
-    text: endangered
+  ENDANGERED:
+    text: ENDANGERED
     description: Endangered
     meaning: rfs:IucnEndangered
-  vulnerable:
-    text: vulnerable
+  VULNERABLE:
+    text: VULNERABLE
     description: Vulnerable
     meaning: rfs:IucnVulnerable
-  nearThreatened:
-    text: nearThreatened
+  NEAR_THREATENED:
+    text: NEAR_THREATENED
     description: Near Threatened
     meaning: rfs:IucnNearThreatened
-  leastConcern:
-    text: leastConcern
+  LEAST_CONCERN:
+    text: LEAST_CONCERN
     description: Least Concern
     meaning: rfs:IucnLeastConcern
-  dataDeficient:
-    text: dataDeficient
+  DATA_DEFICIENT:
+    text: DATA_DEFICIENT
     description: Data Deficient
     meaning: rfs:IucnDataDeficient
-  notEvaluated:
-    text: notEvaluated
+  NOT_EVALUATED:
+    text: NOT_EVALUATED
     description: Not Evaluated
     meaning: rfs:IucnNotEvaluated
 

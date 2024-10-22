@@ -1,10 +1,10 @@
 
 
-# Slot: type
+# Slot: properties
 
 
 
-URI: [rfs:type](https://framework.regen.network/schema/type)
+URI: [rfs:properties](https://framework.regen.network/schema/properties)
 
 
 
@@ -19,8 +19,6 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Geometry](Geometry.md) |  |  no  |
 
 
 
@@ -30,7 +28,7 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Any](Any.md)
 
 
 
@@ -44,13 +42,20 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 
 
+### Schema Source
+
+
+* from schema: https://framework.regen.network/schema/
+
+
+
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:type |
-| native | rfs:type |
+| self | rfs:properties |
+| native | rfs:properties |
 
 
 
@@ -59,13 +64,14 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 <details>
 ```yaml
-name: type
-alias: type
+name: properties
+from_schema: https://framework.regen.network/schema/
+rank: 1000
+alias: properties
+owner: Location
 domain_of:
-- ProjectRole
 - Location
-- Geometry
-range: string
+range: Any
 
 ```
 </details>

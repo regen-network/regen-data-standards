@@ -23,7 +23,7 @@ URI: [rfs:bioregion](https://framework.regen.network/schema/bioregion)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -78,7 +78,7 @@ rank: 1000
 slot_uri: rfs:bioregion
 alias: bioregion
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: string
 multivalued: true
 

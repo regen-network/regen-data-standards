@@ -23,10 +23,11 @@ URI: [schema:description](http://schema.org/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
-| [File](File.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
+| [ProjectRole](ProjectRole.md) |  |  no  |
+| [File](File.md) |  |  no  |
 
 
 
@@ -37,6 +38,8 @@ URI: [schema:description](http://schema.org/description)
 ## Properties
 
 * Range: [String](String.md)
+
+* Required: True
 
 
 
@@ -79,11 +82,12 @@ rank: 1000
 slot_uri: schema:description
 alias: description
 domain_of:
-- Project
+- ProjectInfo
 - ProjectRole
 - Organization
 - File
 range: string
+required: true
 
 ```
 </details>

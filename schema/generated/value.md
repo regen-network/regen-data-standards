@@ -1,15 +1,10 @@
 
 
-# Slot: subWatershed
-
-
-_The sub-watershed associated with the project._
+# Slot: value
 
 
 
-
-
-URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
+URI: [rfs:value](https://framework.regen.network/schema/value)
 
 
 
@@ -23,7 +18,7 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [LocationProperties](LocationProperties.md) |  |  no  |
 
 
 
@@ -33,7 +28,7 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Any](Any.md)
 
 
 
@@ -59,8 +54,8 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:subWatershed |
-| native | rfs:subWatershed |
+| self | rfs:value |
+| native | rfs:value |
 
 
 
@@ -69,15 +64,14 @@ URI: [rfs:subWatershed](https://framework.regen.network/schema/subWatershed)
 
 <details>
 ```yaml
-name: subWatershed
-description: The sub-watershed associated with the project.
+name: value
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: rfs:subWatershed
-alias: subWatershed
+alias: value
+owner: LocationProperties
 domain_of:
-- TerrasosProjectInfo
-range: string
+- LocationProperties
+range: Any
 
 ```
 </details>

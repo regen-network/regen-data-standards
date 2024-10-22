@@ -1,10 +1,10 @@
 
 
-# Slot: type
+# Slot: placeType
 
 
 
-URI: [rfs:type](https://framework.regen.network/schema/type)
+URI: [rfs:placeType](https://framework.regen.network/schema/placeType)
 
 
 
@@ -19,8 +19,6 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Geometry](Geometry.md) |  |  no  |
 
 
 
@@ -44,13 +42,20 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 
 
+### Schema Source
+
+
+* from schema: https://framework.regen.network/schema/
+
+
+
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:type |
-| native | rfs:type |
+| self | rfs:placeType |
+| native | rfs:placeType |
 
 
 
@@ -59,12 +64,13 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 <details>
 ```yaml
-name: type
-alias: type
+name: placeType
+from_schema: https://framework.regen.network/schema/
+rank: 1000
+alias: place_type
+owner: Location
 domain_of:
-- ProjectRole
 - Location
-- Geometry
 range: string
 
 ```

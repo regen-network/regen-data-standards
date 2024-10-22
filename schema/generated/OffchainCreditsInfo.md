@@ -23,7 +23,7 @@ URI: [rfs:offchainCreditsInfo](https://framework.regen.network/schema/offchainCr
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:offchainCreditsInfo
 alias: offchainCreditsInfo
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: OffchainCreditsInfo
 
 ```

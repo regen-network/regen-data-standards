@@ -23,7 +23,8 @@ URI: [rfs:projectVerifier](https://framework.regen.network/schema/projectVerifie
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -33,7 +34,7 @@ URI: [rfs:projectVerifier](https://framework.regen.network/schema/projectVerifie
 
 ## Properties
 
-* Range: [Organization](Organization.md)
+* Range: [ProjectRole](ProjectRole.md)
 
 
 
@@ -76,8 +77,8 @@ rank: 1000
 slot_uri: rfs:projectVerifier
 alias: projectVerifier
 domain_of:
-- Project
-range: Organization
+- ProjectInfo
+range: ProjectRole
 
 ```
 </details>

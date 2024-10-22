@@ -13,15 +13,17 @@ Name: Schemas
 | Class | Description |
 | --- | --- |
 | [AdministrativeArea](AdministrativeArea.md) | None |
+| [Any](Any.md) | None |
 | [File](File.md) | None |
 | [FileLocation](FileLocation.md) | None |
+| [Geometry](Geometry.md) | None |
+| [Location](Location.md) | None |
 | [ManagementArea](ManagementArea.md) | None |
-| [OffchainCreditsInfo](OffchainCreditsInfo.md) | None |
 | [Organization](Organization.md) | None |
-| [Project](Project.md) | None |
+| [ProjectInfo](ProjectInfo.md) | None |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[TerrasosProjectInfo](TerrasosProjectInfo.md) | None |
 | [ProjectPost](ProjectPost.md) | None |
 | [ProjectRole](ProjectRole.md) | None |
-| [ProjectSize](ProjectSize.md) | None |
 | [QuantityValue](QuantityValue.md) | A value that represents a quantity, with a numeric value and a unit. |
 
 
@@ -30,52 +32,49 @@ Name: Schemas
 
 | Slot | Description |
 | --- | --- |
-| [activity](activity.md) | the activity |
-| [address](address.md) | an address |
 | [administrativeArea](administrativeArea.md) | The administrative area associated with the project |
+| [bbox](bbox.md) |  |
 | [biomeType](biomeType.md) | The type of biome associated with the project |
 | [bioregion](bioregion.md) | The bioregion associated with the project |
+| [center](center.md) |  |
 | [comment](comment.md) |  |
 | [conservationStatus](conservationStatus.md) | The conservation status of the project |
+| [coordinates](coordinates.md) |  |
 | [credit](credit.md) |  |
 | [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
-| [creditsAvailable](creditsAvailable.md) | The number of credits available |
-| [creditsRegistered](creditsRegistered.md) | The number of credits registered |
-| [creditsRetired](creditsRetired.md) | The number of credits retired |
 | [description](description.md) | Optional description of the project |
 | [ecologicalConnectivityIndex](ecologicalConnectivityIndex.md) | The ecological connectivity index of the project |
-| [end_date](end_date.md) |  |
 | [environmentalAuthority](environmentalAuthority.md) | The environmental authority associated with the project |
-| [environmentType](environmentType.md) | The type of environment associated with the project |
+| [environmentType](environmentType.md) | The environment type of the project |
 | [extent](extent.md) | the extent |
 | [files](files.md) |  |
-| [id](id.md) |  |
-| [image](image.md) | an image |
+| [geometry](geometry.md) |  |
+| [image](image.md) |  |
 | [iri](iri.md) |  |
-| [location](location.md) |  |
+| [location](location.md) | The location of the project |
 | [managementAreas](managementAreas.md) | The management areas associated with the project |
 | [marketType](marketType.md) | The type of market for the associated credits |
 | [name](name.md) | Name of the project |
-| [numericValue](numericValue.md) |  |
-| [offchainCreditsInfo](offchainCreditsInfo.md) | Information about offchain credits associated with the project |
-| [project_developer](project_developer.md) |  |
-| [project_size](project_size.md) |  |
-| [project_type](project_type.md) |  |
-| [project_verifier](project_verifier.md) |  |
+| [numericValue](numericValue.md) | The numeric value of the quantity |
+| [placeName](placeName.md) |  |
+| [projectActivities](projectActivities.md) | the activity |
+| [projectActivity](projectActivity.md) | the activity |
 | [projectDeveloper](projectDeveloper.md) | The organization responsible for owning the project |
 | [projectDuration](projectDuration.md) | The duration of the project |
+| [projectEndDate](projectEndDate.md) | The end date of the project |
 | [projectMonitor](projectMonitor.md) | The organization responsible for monitoring the project |
 | [projectOperator](projectOperator.md) | The organization responsible for operating the project |
 | [projectOwner](projectOwner.md) | The organization responsible for owning the project |
+| [projectSize](projectSize.md) |  |
+| [projectStartDate](projectStartDate.md) | The start date of the project |
 | [projectVerifier](projectVerifier.md) | The organization responsible for owning the project |
-| [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization on the project page |
-| [size](size.md) |  |
+| [properties](properties.md) |  |
+| [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization or individual on the project page |
 | [socialCulturalIndex](socialCulturalIndex.md) | The social cultural index of the project |
-| [start_date](start_date.md) |  |
 | [subWatershed](subWatershed.md) | The sub-watershed associated with the project |
 | [title](title.md) |  |
 | [type](type.md) |  |
-| [unit](unit.md) |  |
+| [unit](unit.md) | The unit of measurement for the quantity |
 | [url](url.md) |  |
 | [watershed](watershed.md) | The watershed associated with the project |
 | [wkt](wkt.md) |  |

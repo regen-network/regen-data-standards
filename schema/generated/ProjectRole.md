@@ -14,8 +14,8 @@ ProjectRole {
     string name  
     string description  
     string url  
-    ProjectRoleTypes type  
     string image  
+    ProjectRoleTypes type  
 }
 
 
@@ -32,10 +32,10 @@ ProjectRole {
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
-| [description](description.md) | 0..1 <br/> [String](String.md) | Optional description of the project | direct |
+| [description](description.md) | 1 <br/> [String](String.md) | Optional description of the project | direct |
 | [url](url.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [type](type.md) | 1 <br/> [ProjectRoleTypes](ProjectRoleTypes.md) |  | direct |
 | [image](image.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [type](type.md) | 1 <br/> [ProjectRoleTypes](ProjectRoleTypes.md) |  | direct |
 
 
 
@@ -45,7 +45,14 @@ ProjectRole {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [Project](Project.md) | [project_developer](project_developer.md) | range | [ProjectRole](ProjectRole.md) |
+| [ProjectInfo](ProjectInfo.md) | [projectDeveloper](projectDeveloper.md) | range | [ProjectRole](ProjectRole.md) |
+| [ProjectInfo](ProjectInfo.md) | [projectMonitor](projectMonitor.md) | range | [ProjectRole](ProjectRole.md) |
+| [ProjectInfo](ProjectInfo.md) | [projectVerifier](projectVerifier.md) | range | [ProjectRole](ProjectRole.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectOperator](projectOperator.md) | range | [ProjectRole](ProjectRole.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectOwner](projectOwner.md) | range | [ProjectRole](ProjectRole.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectDeveloper](projectDeveloper.md) | range | [ProjectRole](ProjectRole.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectMonitor](projectMonitor.md) | range | [ProjectRole](ProjectRole.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [projectVerifier](projectVerifier.md) | range | [ProjectRole](ProjectRole.md) |
 
 
 
@@ -95,6 +102,7 @@ slots:
 - name
 - description
 - url
+- image
 attributes:
   type:
     name: type
@@ -103,15 +111,10 @@ attributes:
     slot_uri: rfs:ProjectRoleType
     domain_of:
     - ProjectRole
+    - Location
+    - Geometry
     range: ProjectRoleTypes
     required: true
-  image:
-    name: image
-    from_schema: https://framework.regen.network/schema/
-    slot_uri: schema:image
-    domain_of:
-    - ProjectRole
-    - Organization
 
 ```
 </details>
@@ -132,18 +135,10 @@ attributes:
     owner: ProjectRole
     domain_of:
     - ProjectRole
+    - Location
+    - Geometry
     range: ProjectRoleTypes
     required: true
-  image:
-    name: image
-    from_schema: https://framework.regen.network/schema/
-    slot_uri: schema:image
-    alias: image
-    owner: ProjectRole
-    domain_of:
-    - ProjectRole
-    - Organization
-    range: string
   name:
     name: name
     description: Name of the project.
@@ -153,11 +148,11 @@ attributes:
     alias: name
     owner: ProjectRole
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
-    - AdministrativeArea
     - File
+    - AdministrativeArea
     range: string
     required: true
   description:
@@ -169,21 +164,34 @@ attributes:
     alias: description
     owner: ProjectRole
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
     - File
     range: string
+    required: true
   url:
     name: url
     from_schema: https://framework.regen.network/schema/
     rank: 1000
+    slot_uri: schema:URL
     alias: url
     owner: ProjectRole
     domain_of:
     - ProjectRole
     - Organization
     - AdministrativeArea
+    range: string
+  image:
+    name: image
+    from_schema: https://framework.regen.network/schema/
+    rank: 1000
+    slot_uri: schema:image
+    alias: image
+    owner: ProjectRole
+    domain_of:
+    - ProjectRole
+    - Organization
     range: string
 
 ```

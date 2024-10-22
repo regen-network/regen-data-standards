@@ -23,7 +23,7 @@ URI: [rfs:environmentalAuthority](https://framework.regen.network/schema/environ
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -78,10 +78,11 @@ rank: 1000
 slot_uri: rfs:environmentalAuthority
 alias: environmentalAuthority
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: Organization
 multivalued: true
 inlined: true
+inlined_as_list: true
 
 ```
 </details>

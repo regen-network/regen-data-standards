@@ -11,12 +11,11 @@ URI: [rfs:Organization](https://framework.regen.network/schema/Organization)
 ```mermaid
 erDiagram
 Organization {
+    string name  
     string url  
     boolean showOnProjectPage  
-    string description  
     string image  
-    string address  
-    string name  
+    string description  
 }
 
 
@@ -32,12 +31,11 @@ Organization {
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
+| [name](name.md) | 1 <br/> [String](String.md) | Name of the project | direct |
 | [url](url.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [showOnProjectPage](showOnProjectPage.md) | 0..1 <br/> [Boolean](Boolean.md) | Whether to show this organization on the project page | direct |
-| [description](description.md) | 0..1 <br/> [String](String.md) | Optional description of the project | direct |
-| [image](image.md) | 0..1 <br/> [String](String.md) | an image | direct |
-| [address](address.md) | 0..1 <br/> [String](String.md) | an address | direct |
-| [name](name.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [showOnProjectPage](showOnProjectPage.md) | 0..1 <br/> [Boolean](Boolean.md) | Whether to show this organization or individual on the project page | direct |
+| [image](image.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [description](description.md) | 0..1 <br/> [String](String.md) | A description of the organization | direct |
 
 
 
@@ -47,12 +45,7 @@ Organization {
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [Project](Project.md) | [environmentalAuthority](environmentalAuthority.md) | range | [Organization](Organization.md) |
-| [Project](Project.md) | [projectOperator](projectOperator.md) | range | [Organization](Organization.md) |
-| [Project](Project.md) | [projectMonitor](projectMonitor.md) | range | [Organization](Organization.md) |
-| [Project](Project.md) | [projectOwner](projectOwner.md) | range | [Organization](Organization.md) |
-| [Project](Project.md) | [projectVerifier](projectVerifier.md) | range | [Organization](Organization.md) |
-| [Project](Project.md) | [projectDeveloper](projectDeveloper.md) | range | [Organization](Organization.md) |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) | [environmentalAuthority](environmentalAuthority.md) | range | [Organization](Organization.md) |
 
 
 
@@ -99,21 +92,19 @@ Organization {
 name: Organization
 from_schema: https://framework.regen.network/schema/
 slots:
+- name
 - url
 - showOnProjectPage
-- description
 - image
-- address
 attributes:
-  name:
-    name: name
+  description:
+    name: description
+    description: A description of the organization.
     from_schema: https://framework.regen.network/schema/
-    slot_uri: schema:name
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
-    - AdministrativeArea
     - File
     range: string
 class_uri: rfs:Organization
@@ -128,23 +119,39 @@ class_uri: rfs:Organization
 name: Organization
 from_schema: https://framework.regen.network/schema/
 attributes:
+  description:
+    name: description
+    description: A description of the organization.
+    from_schema: https://framework.regen.network/schema/
+    alias: description
+    owner: Organization
+    domain_of:
+    - ProjectInfo
+    - ProjectRole
+    - Organization
+    - File
+    range: string
   name:
     name: name
+    description: Name of the project.
     from_schema: https://framework.regen.network/schema/
+    rank: 1000
     slot_uri: schema:name
     alias: name
     owner: Organization
     domain_of:
-    - Project
+    - ProjectInfo
     - ProjectRole
     - Organization
-    - AdministrativeArea
     - File
+    - AdministrativeArea
     range: string
+    required: true
   url:
     name: url
     from_schema: https://framework.regen.network/schema/
     rank: 1000
+    slot_uri: schema:URL
     alias: url
     owner: Organization
     domain_of:
@@ -154,7 +161,7 @@ attributes:
     range: string
   showOnProjectPage:
     name: showOnProjectPage
-    description: Whether to show this organization on the project page.
+    description: Whether to show this organization or individual on the project page.
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     alias: showOnProjectPage
@@ -162,23 +169,8 @@ attributes:
     domain_of:
     - Organization
     range: boolean
-  description:
-    name: description
-    description: Optional description of the project.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: schema:description
-    alias: description
-    owner: Organization
-    domain_of:
-    - Project
-    - ProjectRole
-    - Organization
-    - File
-    range: string
   image:
     name: image
-    description: an image.
     from_schema: https://framework.regen.network/schema/
     rank: 1000
     slot_uri: schema:image
@@ -186,17 +178,6 @@ attributes:
     owner: Organization
     domain_of:
     - ProjectRole
-    - Organization
-    range: string
-  address:
-    name: address
-    description: an address.
-    from_schema: https://framework.regen.network/schema/
-    rank: 1000
-    slot_uri: schema:address
-    alias: address
-    owner: Organization
-    domain_of:
     - Organization
     range: string
 class_uri: rfs:Organization

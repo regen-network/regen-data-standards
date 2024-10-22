@@ -1,15 +1,10 @@
 
 
-# Slot: address
-
-
-_an address._
+# Slot: key
 
 
 
-
-
-URI: [schema:address](http://schema.org/address)
+URI: [rfs:key](https://framework.regen.network/schema/key)
 
 
 
@@ -23,7 +18,7 @@ URI: [schema:address](http://schema.org/address)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Organization](Organization.md) |  |  no  |
+| [LocationProperties](LocationProperties.md) |  |  no  |
 
 
 
@@ -59,8 +54,8 @@ URI: [schema:address](http://schema.org/address)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | schema:address |
-| native | rfs:address |
+| self | rfs:key |
+| native | rfs:key |
 
 
 
@@ -69,14 +64,13 @@ URI: [schema:address](http://schema.org/address)
 
 <details>
 ```yaml
-name: address
-description: an address.
+name: key
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: schema:address
-alias: address
+alias: key
+owner: LocationProperties
 domain_of:
-- Organization
+- LocationProperties
 range: string
 
 ```

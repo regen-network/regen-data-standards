@@ -1,10 +1,10 @@
 
 
-# Slot: size
+# Slot: geometry
 
 
 
-URI: [rfs:size](https://framework.regen.network/schema/size)
+URI: [rfs:geometry](https://framework.regen.network/schema/geometry)
 
 
 
@@ -18,7 +18,7 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Location](Location.md) |  |  no  |
 
 
 
@@ -28,7 +28,7 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 ## Properties
 
-* Range: [Integer](Integer.md)
+* Range: [Geometry](Geometry.md)
 
 
 
@@ -54,8 +54,8 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:size |
-| native | rfs:size |
+| self | rfs:geometry |
+| native | rfs:geometry |
 
 
 
@@ -64,14 +64,14 @@ URI: [rfs:size](https://framework.regen.network/schema/size)
 
 <details>
 ```yaml
-name: size
+name: geometry
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: size
-owner: Project
+alias: geometry
+owner: Location
 domain_of:
-- Project
-range: integer
+- Location
+range: Geometry
 
 ```
 </details>

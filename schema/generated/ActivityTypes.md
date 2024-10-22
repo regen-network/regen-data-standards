@@ -13,8 +13,8 @@ URI: [ActivityTypes](ActivityTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| conservation | rfs:Conservation | a conservation activity |
-| ecosystemRestoration | rfs:EcosystemRestoration | an ecosystem restoration activity |
+| CONSERVATION | rfs:Conservation | a conservation activity |
+| ECOSYSTEM_RESTORATION | rfs:EcosystemRestoration | an ecosystem restoration activity |
 
 
 
@@ -23,7 +23,8 @@ URI: [ActivityTypes](ActivityTypes.md)
 
 | Name | Description |
 | ---  | --- |
-| [activity](activity.md) | the activity |
+| [projectActivities](projectActivities.md) | the activity |
+| [projectActivity](projectActivity.md) | the activity |
 
 
 
@@ -57,12 +58,12 @@ description: The type of activity
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  conservation:
-    text: conservation
+  CONSERVATION:
+    text: CONSERVATION
     description: a conservation activity
     meaning: rfs:Conservation
-  ecosystemRestoration:
-    text: ecosystemRestoration
+  ECOSYSTEM_RESTORATION:
+    text: ECOSYSTEM_RESTORATION
     description: an ecosystem restoration activity
     meaning: rfs:EcosystemRestoration
 

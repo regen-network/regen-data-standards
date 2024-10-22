@@ -1,15 +1,15 @@
 
 
-# Slot: extent
+# Slot: projectActivity
 
 
-_the extent_
+_the activity_
 
 
 
 
 
-URI: [dcterms:extent](http://purl.org/dc/terms/extent)
+URI: [rfs:projectActivity](https://framework.regen.network/schema/projectActivity)
 
 
 
@@ -33,7 +33,9 @@ URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 ## Properties
 
-* Range: [QuantityValue](QuantityValue.md)
+* Range: [ActivityTypes](ActivityTypes.md)
+
+* Multivalued: True
 
 
 
@@ -59,8 +61,8 @@ URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | dcterms:extent |
-| native | rfs:extent |
+| self | rfs:projectActivity |
+| native | rfs:projectActivity |
 
 
 
@@ -69,16 +71,17 @@ URI: [dcterms:extent](http://purl.org/dc/terms/extent)
 
 <details>
 ```yaml
-name: extent
-description: the extent
+name: projectActivity
+description: the activity
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-slot_uri: dcterms:extent
-alias: extent
+slot_uri: rfs:projectActivity
+alias: projectActivity
 owner: ManagementArea
 domain_of:
 - ManagementArea
-range: QuantityValue
+range: ActivityTypes
+multivalued: true
 
 ```
 </details>

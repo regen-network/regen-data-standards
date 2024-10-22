@@ -18,7 +18,8 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Location](Location.md) |  |  no  |
+| [LocationContext](LocationContext.md) |  |  no  |
 
 
 
@@ -28,9 +29,7 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 ## Properties
 
-* Range: [Uriorcurie](Uriorcurie.md)
-
-* Required: True
+* Range: [String](String.md)
 
 
 
@@ -41,13 +40,6 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 
 
 
-
-
-
-### Schema Source
-
-
-* from schema: https://framework.regen.network/schema/
 
 
 
@@ -67,14 +59,11 @@ URI: [rfs:id](https://framework.regen.network/schema/id)
 <details>
 ```yaml
 name: id
-from_schema: https://framework.regen.network/schema/
-rank: 1000
-identifier: true
 alias: id
 domain_of:
-- Project
-range: uriorcurie
-required: true
+- Location
+- LocationContext
+range: string
 
 ```
 </details>

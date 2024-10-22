@@ -1,10 +1,15 @@
 
 
-# Slot: start_date
+# Slot: projectEndDate
+
+
+_The end date of the project._
 
 
 
-URI: [rfs:start_date](https://framework.regen.network/schema/start_date)
+
+
+URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 
@@ -18,7 +23,8 @@ URI: [rfs:start_date](https://framework.regen.network/schema/start_date)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 
 
 
@@ -54,8 +60,8 @@ URI: [rfs:start_date](https://framework.regen.network/schema/start_date)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:start_date |
-| native | rfs:start_date |
+| self | xsd:date |
+| native | rfs:projectEndDate |
 
 
 
@@ -64,13 +70,14 @@ URI: [rfs:start_date](https://framework.regen.network/schema/start_date)
 
 <details>
 ```yaml
-name: start_date
+name: projectEndDate
+description: The end date of the project.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: start_date
-owner: Project
+slot_uri: xsd:date
+alias: projectEndDate
 domain_of:
-- Project
+- ProjectInfo
 range: string
 
 ```

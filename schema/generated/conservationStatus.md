@@ -23,7 +23,7 @@ URI: [rfs:conservationStatus](https://framework.regen.network/schema/conservatio
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 
 
 
@@ -76,7 +76,7 @@ rank: 1000
 slot_uri: rfs:conservationStatus
 alias: conservationStatus
 domain_of:
-- Project
+- TerrasosProjectInfo
 range: ConservationStatusTypes
 
 ```

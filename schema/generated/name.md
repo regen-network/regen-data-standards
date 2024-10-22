@@ -23,10 +23,11 @@ URI: [schema:name](http://schema.org/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [TerrasosProjectInfo](TerrasosProjectInfo.md) |  |  no  |
 | [Organization](Organization.md) |  |  no  |
-| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
+| [ProjectInfo](ProjectInfo.md) |  |  no  |
 | [ProjectRole](ProjectRole.md) |  |  no  |
-| [Project](Project.md) |  |  no  |
+| [AdministrativeArea](AdministrativeArea.md) |  |  no  |
 | [File](File.md) |  |  no  |
 
 
@@ -82,11 +83,11 @@ rank: 1000
 slot_uri: schema:name
 alias: name
 domain_of:
-- Project
+- ProjectInfo
 - ProjectRole
 - Organization
-- AdministrativeArea
 - File
+- AdministrativeArea
 range: string
 required: true
 

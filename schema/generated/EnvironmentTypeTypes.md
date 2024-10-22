@@ -13,49 +13,49 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
 | Value | Meaning | Description |
 | --- | --- | --- |
-| cloudForest | rfs:CloudForest |  |
-| tropicalSavannah | rfs:TropicalSavannah |  |
-| tropicalDryForest | rfs:TropicalDryForest |  |
-| tropicalVeryHumidForest | rfs:TropicalVeryHumidForest |  |
-| tropicalHumidForest | rfs:TropicalHumidForest |  |
-| premontaneHumidForest | rfs:PremontaneHumidForest |  |
-| lowMontaneVeryHumidForest | rfs:LowMontaneVeryHumidForest |  |
-| riparianForest | rfs:RiparianForest |  |
-| agroforestrySystem | rfs:AgroforestrySystem |  |
-| aquacultureSystem | rfs:AquacultureSystem |  |
-| cropland | rfs:Cropland |  |
-| irrigatedCropland | rfs:IrrigatedCropland |  |
-| rainfedCropland | rfs:RainfedCropland |  |
-| desert | rfs:Desert |  |
-| forest | rfs:Forest |  |
-| borealForest | rfs:BorealForest |  |
-| temperateForest | rfs:TemperateForest |  |
-| tropicalForest | rfs:TropicalForest |  |
-| freshwater | rfs:Freshwater |  |
-| lake | rfs:Lake |  |
-| watercourse | rfs:Watercourse |  |
-| grassland | rfs:Grassland |  |
-| temperateGrassland | rfs:TemperateGrassland |  |
-| tropicalGrassland | rfs:TropicalGrassland |  |
-| tundra | rfs:Tundra |  |
-| marine | rfs:Marine |  |
-| coastal | rfs:Coastal |  |
-| coralReef | rfs:CoralReef |  |
-| deepWater | rfs:DeepWater |  |
-| orchard | rfs:Orchard |  |
-| pasture | rfs:Pasture |  |
-| permanentIce | rfs:PermanentIce |  |
-| savanna | rfs:Savanna |  |
-| shrubland | rfs:Shrubland |  |
-| borealShrubland | rfs:BorealShrubland |  |
-| temperateShrubland | rfs:TemperateShrubland |  |
-| tropicalShrubland | rfs:TropicalShrubland |  |
-| urbanTrees | rfs:UrbanTrees |  |
-| vineyard | rfs:Vineyard |  |
-| wetland | rfs:Wetland |  |
-| bog | rfs:Bog |  |
-| marsh | rfs:Marsh |  |
-| swamp | rfs:Swamp |  |
+| CLOUD_FOREST | rfs:CloudForest |  |
+| TROPICAL_SAVANNAH | rfs:TropicalSavannah |  |
+| TROPICAL_DRY_FOREST | rfs:TropicalDryForest |  |
+| TROPICAL_VERY_HUMID_FOREST | rfs:TropicalVeryHumidForest |  |
+| TROPICAL_HUMID_FOREST | rfs:TropicalHumidForest |  |
+| PREMONTANE_HUMID_FOREST | rfs:PremontaneHumidForest |  |
+| LOW_MONTANE_VERY_HUMID_FOREST | rfs:LowMontaneVeryHumidForest |  |
+| RIPARIAN_FOREST | rfs:RiparianForest |  |
+| AGROFORESTRY_SYSTEM | rfs:AgroforestrySystem |  |
+| AQUACULTURE_SYSTEM | rfs:AquacultureSystem |  |
+| CROPLAND | rfs:Cropland |  |
+| IRRIGATED_CROPLAND | rfs:IrrigatedCropland |  |
+| RAINFED_CROPLAND | rfs:RainfedCropland |  |
+| DESERT | rfs:Desert |  |
+| FOREST | rfs:Forest |  |
+| BOREAL_FOREST | rfs:BorealForest |  |
+| TEMPERATE_FOREST | rfs:TemperateForest |  |
+| TROPICAL_FOREST | rfs:TropicalForest |  |
+| FRESHWATER | rfs:Freshwater |  |
+| LAKE | rfs:Lake |  |
+| WATERCOURSE | rfs:Watercourse |  |
+| GRASSLAND | rfs:Grassland |  |
+| TEMPERATE_GRASSLAND | rfs:TemperateGrassland |  |
+| TROPICAL_GRASSLAND | rfs:TropicalGrassland |  |
+| TUNDRA | rfs:Tundra |  |
+| MARINE | rfs:Marine |  |
+| COASTAL | rfs:Coastal |  |
+| CORAL_REEF | rfs:CoralReef |  |
+| DEEP_WATER | rfs:DeepWater |  |
+| ORCHARD | rfs:Orchard |  |
+| PASTURE | rfs:Pasture |  |
+| PERMANENT_ICE | rfs:PermanentIce |  |
+| SAVANNA | rfs:Savanna |  |
+| SHRUBLAND | rfs:Shrubland |  |
+| BOREAL_SHRUBLAND | rfs:BorealShrubland |  |
+| TEMPERATE_SHRUBLAND | rfs:TemperateShrubland |  |
+| TROPICAL_SHRUBLAND | rfs:TropicalShrubland |  |
+| URBAN_TREES | rfs:UrbanTrees |  |
+| VINEYARD | rfs:Vineyard |  |
+| WETLAND | rfs:Wetland |  |
+| BOG | rfs:Bog |  |
+| MARSH | rfs:Marsh |  |
+| SWAMP | rfs:Swamp |  |
 
 
 
@@ -64,7 +64,7 @@ URI: [EnvironmentTypeTypes](EnvironmentTypeTypes.md)
 
 | Name | Description |
 | ---  | --- |
-| [environmentType](environmentType.md) | The type of environment associated with the project |
+| [environmentType](environmentType.md) | The environment type of the project |
 
 
 
@@ -98,134 +98,134 @@ description: The type of ecosystem
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 permissible_values:
-  cloudForest:
-    text: cloudForest
+  CLOUD_FOREST:
+    text: CLOUD_FOREST
     meaning: rfs:CloudForest
-  tropicalSavannah:
-    text: tropicalSavannah
+  TROPICAL_SAVANNAH:
+    text: TROPICAL_SAVANNAH
     meaning: rfs:TropicalSavannah
-  tropicalDryForest:
-    text: tropicalDryForest
+  TROPICAL_DRY_FOREST:
+    text: TROPICAL_DRY_FOREST
     meaning: rfs:TropicalDryForest
-  tropicalVeryHumidForest:
-    text: tropicalVeryHumidForest
+  TROPICAL_VERY_HUMID_FOREST:
+    text: TROPICAL_VERY_HUMID_FOREST
     meaning: rfs:TropicalVeryHumidForest
-  tropicalHumidForest:
-    text: tropicalHumidForest
+  TROPICAL_HUMID_FOREST:
+    text: TROPICAL_HUMID_FOREST
     meaning: rfs:TropicalHumidForest
-  premontaneHumidForest:
-    text: premontaneHumidForest
+  PREMONTANE_HUMID_FOREST:
+    text: PREMONTANE_HUMID_FOREST
     meaning: rfs:PremontaneHumidForest
-  lowMontaneVeryHumidForest:
-    text: lowMontaneVeryHumidForest
+  LOW_MONTANE_VERY_HUMID_FOREST:
+    text: LOW_MONTANE_VERY_HUMID_FOREST
     meaning: rfs:LowMontaneVeryHumidForest
-  riparianForest:
-    text: riparianForest
+  RIPARIAN_FOREST:
+    text: RIPARIAN_FOREST
     meaning: rfs:RiparianForest
-  agroforestrySystem:
-    text: agroforestrySystem
+  AGROFORESTRY_SYSTEM:
+    text: AGROFORESTRY_SYSTEM
     meaning: rfs:AgroforestrySystem
-  aquacultureSystem:
-    text: aquacultureSystem
+  AQUACULTURE_SYSTEM:
+    text: AQUACULTURE_SYSTEM
     meaning: rfs:AquacultureSystem
-  cropland:
-    text: cropland
+  CROPLAND:
+    text: CROPLAND
     meaning: rfs:Cropland
-  irrigatedCropland:
-    text: irrigatedCropland
+  IRRIGATED_CROPLAND:
+    text: IRRIGATED_CROPLAND
     meaning: rfs:IrrigatedCropland
-  rainfedCropland:
-    text: rainfedCropland
+  RAINFED_CROPLAND:
+    text: RAINFED_CROPLAND
     meaning: rfs:RainfedCropland
-  desert:
-    text: desert
+  DESERT:
+    text: DESERT
     meaning: rfs:Desert
-  forest:
-    text: forest
+  FOREST:
+    text: FOREST
     meaning: rfs:Forest
-  borealForest:
-    text: borealForest
+  BOREAL_FOREST:
+    text: BOREAL_FOREST
     meaning: rfs:BorealForest
-  temperateForest:
-    text: temperateForest
+  TEMPERATE_FOREST:
+    text: TEMPERATE_FOREST
     meaning: rfs:TemperateForest
-  tropicalForest:
-    text: tropicalForest
+  TROPICAL_FOREST:
+    text: TROPICAL_FOREST
     meaning: rfs:TropicalForest
-  freshwater:
-    text: freshwater
+  FRESHWATER:
+    text: FRESHWATER
     meaning: rfs:Freshwater
-  lake:
-    text: lake
+  LAKE:
+    text: LAKE
     meaning: rfs:Lake
-  watercourse:
-    text: watercourse
+  WATERCOURSE:
+    text: WATERCOURSE
     meaning: rfs:Watercourse
-  grassland:
-    text: grassland
+  GRASSLAND:
+    text: GRASSLAND
     meaning: rfs:Grassland
-  temperateGrassland:
-    text: temperateGrassland
+  TEMPERATE_GRASSLAND:
+    text: TEMPERATE_GRASSLAND
     meaning: rfs:TemperateGrassland
-  tropicalGrassland:
-    text: tropicalGrassland
+  TROPICAL_GRASSLAND:
+    text: TROPICAL_GRASSLAND
     meaning: rfs:TropicalGrassland
-  tundra:
-    text: tundra
+  TUNDRA:
+    text: TUNDRA
     meaning: rfs:Tundra
-  marine:
-    text: marine
+  MARINE:
+    text: MARINE
     meaning: rfs:Marine
-  coastal:
-    text: coastal
+  COASTAL:
+    text: COASTAL
     meaning: rfs:Coastal
-  coralReef:
-    text: coralReef
+  CORAL_REEF:
+    text: CORAL_REEF
     meaning: rfs:CoralReef
-  deepWater:
-    text: deepWater
+  DEEP_WATER:
+    text: DEEP_WATER
     meaning: rfs:DeepWater
-  orchard:
-    text: orchard
+  ORCHARD:
+    text: ORCHARD
     meaning: rfs:Orchard
-  pasture:
-    text: pasture
+  PASTURE:
+    text: PASTURE
     meaning: rfs:Pasture
-  permanentIce:
-    text: permanentIce
+  PERMANENT_ICE:
+    text: PERMANENT_ICE
     meaning: rfs:PermanentIce
-  savanna:
-    text: savanna
+  SAVANNA:
+    text: SAVANNA
     meaning: rfs:Savanna
-  shrubland:
-    text: shrubland
+  SHRUBLAND:
+    text: SHRUBLAND
     meaning: rfs:Shrubland
-  borealShrubland:
-    text: borealShrubland
+  BOREAL_SHRUBLAND:
+    text: BOREAL_SHRUBLAND
     meaning: rfs:BorealShrubland
-  temperateShrubland:
-    text: temperateShrubland
+  TEMPERATE_SHRUBLAND:
+    text: TEMPERATE_SHRUBLAND
     meaning: rfs:TemperateShrubland
-  tropicalShrubland:
-    text: tropicalShrubland
+  TROPICAL_SHRUBLAND:
+    text: TROPICAL_SHRUBLAND
     meaning: rfs:TropicalShrubland
-  urbanTrees:
-    text: urbanTrees
+  URBAN_TREES:
+    text: URBAN_TREES
     meaning: rfs:UrbanTrees
-  vineyard:
-    text: vineyard
+  VINEYARD:
+    text: VINEYARD
     meaning: rfs:Vineyard
-  wetland:
-    text: wetland
+  WETLAND:
+    text: WETLAND
     meaning: rfs:Wetland
-  bog:
-    text: bog
+  BOG:
+    text: BOG
     meaning: rfs:Bog
-  marsh:
-    text: marsh
+  MARSH:
+    text: MARSH
     meaning: rfs:Marsh
-  swamp:
-    text: swamp
+  SWAMP:
+    text: SWAMP
     meaning: rfs:Swamp
 
 ```

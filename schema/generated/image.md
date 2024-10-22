@@ -3,11 +3,6 @@
 # Slot: image
 
 
-_an image._
-
-
-
-
 
 URI: [schema:image](http://schema.org/image)
 
@@ -71,7 +66,6 @@ URI: [schema:image](http://schema.org/image)
 <details>
 ```yaml
 name: image
-description: an image.
 from_schema: https://framework.regen.network/schema/
 rank: 1000
 slot_uri: schema:image

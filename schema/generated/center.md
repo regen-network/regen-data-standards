@@ -1,10 +1,10 @@
 
 
-# Slot: end_date
+# Slot: center
 
 
 
-URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
+URI: [rfs:center](https://framework.regen.network/schema/center)
 
 
 
@@ -18,7 +18,7 @@ URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Project](Project.md) |  |  no  |
+| [Location](Location.md) |  |  no  |
 
 
 
@@ -28,7 +28,9 @@ URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Float](Float.md)
+
+* Multivalued: True
 
 
 
@@ -54,8 +56,8 @@ URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:end_date |
-| native | rfs:end_date |
+| self | rfs:center |
+| native | rfs:center |
 
 
 
@@ -64,14 +66,15 @@ URI: [rfs:end_date](https://framework.regen.network/schema/end_date)
 
 <details>
 ```yaml
-name: end_date
+name: center
 from_schema: https://framework.regen.network/schema/
 rank: 1000
-alias: end_date
-owner: Project
+alias: center
+owner: Location
 domain_of:
-- Project
-range: string
+- Location
+range: float
+multivalued: true
 
 ```
 </details>

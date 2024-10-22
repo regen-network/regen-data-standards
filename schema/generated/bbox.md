@@ -1,10 +1,10 @@
 
 
-# Slot: type
+# Slot: bbox
 
 
 
-URI: [rfs:type](https://framework.regen.network/schema/type)
+URI: [rfs:bbox](https://framework.regen.network/schema/bbox)
 
 
 
@@ -19,8 +19,6 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Location](Location.md) |  |  no  |
-| [ProjectRole](ProjectRole.md) |  |  no  |
-| [Geometry](Geometry.md) |  |  no  |
 
 
 
@@ -30,7 +28,9 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 ## Properties
 
-* Range: [String](String.md)
+* Range: [Float](Float.md)
+
+* Multivalued: True
 
 
 
@@ -44,13 +44,20 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 
 
+### Schema Source
+
+
+* from schema: https://framework.regen.network/schema/
+
+
+
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | rfs:type |
-| native | rfs:type |
+| self | rfs:bbox |
+| native | rfs:bbox |
 
 
 
@@ -59,13 +66,15 @@ URI: [rfs:type](https://framework.regen.network/schema/type)
 
 <details>
 ```yaml
-name: type
-alias: type
+name: bbox
+from_schema: https://framework.regen.network/schema/
+rank: 1000
+alias: bbox
+owner: Location
 domain_of:
-- ProjectRole
 - Location
-- Geometry
-range: string
+range: float
+multivalued: true
 
 ```
 </details>

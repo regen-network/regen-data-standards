@@ -1,0 +1,73 @@
+name: "Amazon Rainforest Conservation Project"
+description: "This project aims to conserve the Amazon Rainforest by implementing sustainable land management practices."
+environmentalAuthority:
+  - name: "Corantioquia"
+    url: "http://corantioquia.gov.co/"
+location: 
+  bbox:
+    - -75.0
+    - -5.0
+    - -70.0
+    - 0.0
+  center:
+    - -72.5
+    - -2.5
+  type: Feature
+  geometry:
+    type: Point
+    coordinates:
+      - -72.5
+      - -2.5
+  place_name: "Antioquia"
+marketType: COMPLIANCE_MARKET
+bioregion: 
+  - "Amazon Basin"
+biomeType: 
+  - "TropicalForest"
+watershed: "Amazon River"
+subWatershed: "Upper Amazon"
+environmentType: 
+  - CLOUD_FOREST
+projectDuration: "P1Y"
+creditClassVersion: "1.0"
+ecologicalConnectivityIndex: 75.5
+conservationStatus: CRITICALLY_ENDANGERED
+socialCulturalIndex: 85.0
+administrativeArea:
+  name: "Antioquia"
+managementAreas:
+  - projectActivity:
+      - CONSERVATION
+    extent:
+      numericValue: 120
+      unit: unit:HA
+  - projectActivity:
+      - ECOSYSTEM_RESTORATION
+    extent:
+      numericValue: 220
+      unit: unit:HA
+projectDeveloper:
+  type: ORGANIZATION
+  name: Terrasos
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  image: https://via.placeholder.com/150
+projectOperator:
+  type: ORGANIZATION
+  name: El Globo
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  image: https://via.placeholder.com/150
+projectVerifier:
+  type: ORGANIZATION
+  name: KPMG
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  image: https://via.placeholder.com/150
+projectMonitor:
+  type: ORGANIZATION
+  name: EAFIT
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  image: https://via.placeholder.com/150
+projectOwner:
+  type: INDIVIDUAL
+  name: Jose Gonzales
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  image: https://via.placeholder.com/150
