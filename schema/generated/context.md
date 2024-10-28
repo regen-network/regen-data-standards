@@ -28,9 +28,7 @@ URI: [rfs:context](https://framework.regen.network/schema/context)
 
 ## Properties
 
-* Range: [LocationContext](LocationContext.md)
-
-* Multivalued: True
+* Range: [Any](Any.md)
 
 
 
@@ -73,8 +71,7 @@ alias: context
 owner: Location
 domain_of:
 - Location
-range: LocationContext
-multivalued: true
+range: Any
 
 ```
 </details>

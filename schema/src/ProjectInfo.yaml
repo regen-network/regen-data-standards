@@ -33,10 +33,11 @@ classes:
   ProjectRole:
     slots:
       - name
-      - description
       - url
       - image
     attributes:
+      description:
+        range: string
       type:
         range: ProjectRoleTypes
         slot_uri: rfs:ProjectRoleType

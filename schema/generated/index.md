@@ -39,6 +39,7 @@ Name: Schemas
 | [center](center.md) |  |
 | [comment](comment.md) |  |
 | [conservationStatus](conservationStatus.md) | The conservation status of the project |
+| [context](context.md) |  |
 | [coordinates](coordinates.md) |  |
 | [credit](credit.md) |  |
 | [creditClassVersion](creditClassVersion.md) | The version of the credit class used for the project |
@@ -49,6 +50,7 @@ Name: Schemas
 | [extent](extent.md) | the extent |
 | [files](files.md) |  |
 | [geometry](geometry.md) |  |
+| [id](id.md) |  |
 | [image](image.md) |  |
 | [iri](iri.md) |  |
 | [location](location.md) | The location of the project |
@@ -57,6 +59,7 @@ Name: Schemas
 | [name](name.md) | Name of the project |
 | [numericValue](numericValue.md) | The numeric value of the quantity |
 | [placeName](placeName.md) |  |
+| [placeType](placeType.md) |  |
 | [projectActivities](projectActivities.md) | the activity |
 | [projectActivity](projectActivity.md) | the activity |
 | [projectDeveloper](projectDeveloper.md) | The organization responsible for owning the project |
@@ -69,9 +72,11 @@ Name: Schemas
 | [projectStartDate](projectStartDate.md) | The start date of the project |
 | [projectVerifier](projectVerifier.md) | The organization responsible for owning the project |
 | [properties](properties.md) |  |
+| [relevance](relevance.md) |  |
 | [showOnProjectPage](showOnProjectPage.md) | Whether to show this organization or individual on the project page |
 | [socialCulturalIndex](socialCulturalIndex.md) | The social cultural index of the project |
 | [subWatershed](subWatershed.md) | The sub-watershed associated with the project |
+| [text](text.md) |  |
 | [title](title.md) |  |
 | [type](type.md) |  |
 | [unit](unit.md) | The unit of measurement for the quantity |

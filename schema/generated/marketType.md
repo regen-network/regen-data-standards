@@ -35,6 +35,8 @@ URI: [rfs:marketType](https://framework.regen.network/schema/marketType)
 
 * Range: [MarketTypeTypes](MarketTypeTypes.md)
 
+* Multivalued: True
+
 
 
 
@@ -78,6 +80,7 @@ alias: marketType
 domain_of:
 - TerrasosProjectInfo
 range: MarketTypeTypes
+multivalued: true
 
 ```
 </details>

@@ -30,6 +30,8 @@ URI: [rfs:placeName](https://framework.regen.network/schema/placeName)
 
 * Range: [String](String.md)
 
+* Required: True
+
 
 
 
@@ -72,6 +74,7 @@ owner: Location
 domain_of:
 - Location
 range: string
+required: true
 
 ```
 </details>
