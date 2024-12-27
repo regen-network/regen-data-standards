@@ -28,7 +28,7 @@ biomeType:
 watershed: "Amazon River"
 subWatershed: "Upper Amazon"
 environmentType: 
-  - CLOUD_FOREST
+  - BOG
 projectDuration: "P1Y"
 creditClassVersion: "1.0"
 ecologicalConnectivityIndex: 75.5
