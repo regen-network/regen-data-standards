@@ -46,4 +46,4 @@ slots:
     slot_uri: rfs:impact
     range: ImpactTypes
     multivalued: true
-source_file: ../src/taxonomy.yaml
+source_file: src/taxonomy.yaml
