@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/BTCreditClass
-name: BTCreditClass
+id: https://framework.regen.network/schema/BTCreditClassInfo
+name: BTCreditClassInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -12,7 +12,7 @@ default_prefix: rfs
 default_range: string
 
 classes:
-  BT01CreditClass:
+  BT01CreditClassInfo:
     class_uri: rfs:BT01CreditClass
     slots:
       - approvedMethodologies
