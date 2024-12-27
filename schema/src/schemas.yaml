@@ -12,6 +12,7 @@ imports:
   - ProjectPost
   - TerrasosProjectInfo
   - taxonomy
+  - BT01/BT01CreditClass
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
