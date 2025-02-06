@@ -19,6 +19,8 @@ jobs:
           cache: 'pip'
       - name: Install python dependencies
         run: pip install -r requirements.txt
+      - name: linkml gen-taxonomy
+        run: make -C schema gen-taxonomy
       - name: linkml lint
         run:  make -C schema lint
       - name: linkml gen-doc
