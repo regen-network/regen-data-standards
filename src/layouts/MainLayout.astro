@@ -17,7 +17,7 @@ title = frontmatter ? frontmatter.title : title;
 <Topbar/>
 <div class="flex h-[calc(100vh-64px)]">
     <Sidebar/>
-    <div id="main" class="px-16 py-8 prose overflow-y-auto">
+    <div id="main" class="grow px-16 py-8 prose max-w-none overflow-y-auto">
         <p class="bg-warning-200 italic p-2 rounded-md">WARNING: This site is a work in progress.<p>
         <main data-pagefind-body>
             <slot/>
