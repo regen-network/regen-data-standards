@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
       - name: Install dependencies
         run: pnpm install
       - name: Build
