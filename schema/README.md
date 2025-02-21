@@ -13,8 +13,9 @@
 - Generated markdown from schemas:
     ```shell
     gen-doc schema/src/schemas.yaml --directory schema/generated --diagram-type er_diagram
+    make gen-doc
     ```
 - Generate linkml enums for taxonomy terms:
     ```shell
-    python populateSemanticEnums.py
+    make gen-taxonomy 
     ```
