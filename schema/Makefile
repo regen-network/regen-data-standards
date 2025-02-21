@@ -1,3 +1,6 @@
+gen-taxonomy:
+	python3 scripts/populateSemanticEnums.py
+
 lint:
 	linkml-lint --validate src/ -a
 
@@ -10,4 +13,4 @@ gen-jsonld:
 validate:
 	linkml-validate -s src/TerrasosProjectInfo.yaml --target-class TerrasosProjectInfo data/TerrasosProjectInfoData.yaml
 
-all: lint gen-doc gen-jsonld validate
+all: gen-taxonomy lint gen-doc gen-jsonld validate
