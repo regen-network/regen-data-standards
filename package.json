@@ -20,7 +20,8 @@
     "astro": "^4.9.2",
     "astro-pagefind": "^1.5.0",
     "pagefind": "^1.1.0",
-    "rehype-mermaid": "^2.1.0",
+    "playwright": "^1.50.1",
+    "rehype-mermaid": "^3.0.0",
     "sharp": "^0.33.4",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
