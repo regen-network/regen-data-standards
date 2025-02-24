@@ -1,0 +1,34 @@
+id: https://framework.regen.network/schema/PrimaryImpact
+name: PrimaryImpact
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+  - SDG
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  PrimaryImpact:
+    class_uri: rfs:PrimaryImpact
+    title: Primary Impact
+    description: Primary impact of the biodiversity project.
+    slots:
+      - sdg
+    attributes:
+      id:
+        identifier: true
+      name:
+        slot_uri: schema:name
+
+slots:
+  primaryImpact:
+    slot_uri: rfs:primaryImpact
+    description: Primary impact of the project.
+    range: PrimaryImpact

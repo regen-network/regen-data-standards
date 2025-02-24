@@ -6,6 +6,7 @@ prefixes:
   schema: http://schema.org/
 imports:
   - linkml:types
+  - CreditClassInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -13,109 +14,20 @@ default_range: string
 
 classes:
   BT01CreditClassInfo:
+    is_a: CreditClassInfo
     class_uri: rfs:BT01CreditClass
     slots:
-      - approvedMethodologies
-      - coBenefits
       - creditGenerationMethod
-      - creditingTerm
-      - description
       - ecosystemType
       - eligibleActivities
       - geographicApplicability
-      - name
       - permanencePeriod
-      - primaryImpact
-      - sourceRegistry
-      - url
-  Methodology:
-    class_uri: rfs:Methodology
-    description: Details about a specific methodology.
-    attributes:
-      identifier:
-        description: Unique identifier for the methodology.
-      name:
-        description: Name of the methodology.
-      url:
-        description: URL to the methodology document.
-      version:
-        description: Version number of the methodology.
-  MethodologyList:
-    class_uri: rfs:MethodologyList
-    description: List of methodologies for credit generation.
-    attributes:
-      itemListElement:
-        range: Methodology
-        multivalued: true
-        description: "List of methodology items."
-  PrimaryImpact:
-    class_uri: rfs:PrimaryImpact
-    description: Primary impact of the biodiversity project.
-    attributes:
-      id:
-        slot_uri: rfs:id
-      name:
-        slot_uri: schema:name
-      SDGs:
-        description: List of relevant Sustainable Development Goals for this impact.
-        range: SDG
-        multivalued: true
-  ProjectBenefit:
-    class_uri: rfs:ProjectBenefit
-    description: Benefits delivered by the biodiversity project.
-    attributes:
-      id:
-        description: Unique identifier for the project benefit.
-        required: true
-      name:
-        description: Name of the project benefit.
-        required: true
-      SDGs:
-        description: List of relevant Sustainable Development Goals.
-        range: SDG
-        multivalued: true
-  SDG:
-    class_uri: rfs:SDG
-    description: Represents a Sustainable Development Goal (SDG).
-    attributes:
-      id:
-        description: Unique identifier for the SDG.
-        required: true
-      name:
-        description: Name of the SDG.
-        required: true
-      description:
-        description: Detailed description of the SDG.
-  SourceRegistry:
-    class_uri: rfs:SourceRegistry
-    description: Details of the registry where the credits are tracked.
-    attributes:
-      name:
-        description: Name of the source registry.
-      url:
-        description: URL of the source registry.
 
 slots:
-  approvedMethodologies:
-    description: Approved methodologies list for credit generation.
-    range: MethodologyList
-    slot_uri: rfs:approvedMethodologies
-  coBenefits:
-    description: List of co-benefits associated with the project.
-    multivalued: true
-    range: ProjectBenefit
-    slot_uri: rfs:coBenefits
   creditGenerationMethod:
     description: Method for generating biodiversity credits.
     multivalued: true
     slot_uri: rfs:creditGenerationMethod
-  creditingTerm:
-    description: Crediting term duration for the project. An ISO 8601 duration.
-    slot_uri: rfs:creditingTerm
-  description:
-    description: Description of the credit class.
-    required: true
-    slot_uri: schema:description
   ecosystemType:
     description: Type of ecosystem the project focuses on.
     multivalued: true
@@ -127,29 +39,3 @@ slots:
   geographicApplicability:
     description: Geographic applicability of the credit class.
     slot_uri: rfs:geographicApplicability
-  itemListElement:
-    description: List of methodologies in the methodology list.
-    multivalued: true
-    range: Methodology
-  name:
-    description: Name of the entity.
-    slot_uri: schema:name
-  permanencePeriod:
-    description: Permanence period of the credits. An ISO 8601 duration.
-    slot_uri: rfs:permanencePeriod
-  primaryImpact:
-    description: Primary impact of the project.
-    range: PrimaryImpact
-    slot_uri: rfs:primaryImpact
-  SDGs:
-    description: List of relevant Sustainable Development Goals.
-    multivalued: true
-    range: SDG
-    slot_uri: rfs:SDGs
-  sourceRegistry:
-    description: Source registry details including name and URL.
-    range: SourceRegistry
-    slot_uri: rfs:sourceRegistry
-  url:
-    description: Link to the Terrasos Biodiversity Credit documentation.
-    slot_uri: schema:url
