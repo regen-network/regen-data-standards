@@ -11,8 +11,8 @@ imports:
   - ProjectInfo
   - ProjectPost
   - taxonomy
-  - BT01/BT01CreditClassInfo
-  - BT01/BT01ProjectInfo
+  - BT01CreditClassInfo
+  - BT01ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
