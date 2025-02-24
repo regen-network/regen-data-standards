@@ -9,7 +9,7 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
 imports:
   - linkml:types
-  - ProjectInfo
+  - ../ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
