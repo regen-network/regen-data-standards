@@ -1,0 +1,40 @@
+id: https://framework.regen.network/schema/ProjectBenefit
+name: ProjectBenefit
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+  - taxonomy
+  - SDG
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  ProjectBenefit:
+    class_uri: rfs:ProjectBenefit
+    title: Project Benefit
+    description: Benefits delivered by the biodiversity project.
+    slots:
+      - sdg
+    attributes:
+      id:
+        identifier: true
+        description: Unique identifier for the project benefit.
+        required: true
+      name:
+        slot_uri: schema:name
+        description: Name of the project benefit.
+        required: true
+
+slots:
+  coBenefits:
+    slot_uri: rfs:coBenefits
+    description: List of associated co-benefits.
+    multivalued: true
+    range: ProjectBenefit

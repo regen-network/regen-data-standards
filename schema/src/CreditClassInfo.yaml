@@ -1,0 +1,90 @@
+id: https://framework.regen.network/schema/CreditClassInfo
+name: CreditClassInfo
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+  - taxonomy
+  - SDG
+  - ProjectBenefit
+  - PrimaryImpact
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  CreditClassInfo:
+    class_uri: rfs:CreditClassInfo
+    abstract: true
+    title: Credit Class info
+    description: Base class with common fields used to define credit class info.
+    slots:
+      - name
+      - description
+      - url
+      - sourceRegistry
+      - approvedMethodologies
+      - creditingTerm
+      - permanencePeriod
+      - primaryImpact
+      - coBenefits
+  SourceRegistry:
+    class_uri: rfs:SourceRegistry
+    description: Details of the registry where the credits are tracked.
+    attributes:
+      name:
+        description: Name of the source registry.
+      url:
+        description: URL of the source registry.
+  Methodology:
+    class_uri: rfs:Methodology
+    description: Details about a specific methodology.
+    attributes:
+      identifier:
+        description: Unique identifier for the methodology.
+      name:
+        slot_uri: schema:test
+        description: Name of the methodology.
+      url:
+        description: URL to the methodology document.
+      version:
+        description: Version number of the methodology.
+
+slots:
+  name:
+    slot_uri: schema:name
+    required: true
+    description: Name of the credit class.
+    rank: 1
+  description:
+    slot_uri: schema:description
+    required: true
+    description: Description of the credit class.
+    rank: 1
+  url:
+    slot_uri: schema:url
+    description: Link to the credit class documentation.
+    rank: 1
+  sourceRegistry:
+    slot_uri: rfs:SourceRegistry
+    description: Source registry details including name and URL.
+    range: SourceRegistry
+  approvedMethodologies:
+    slot_uri: rfs:approvedMethodologies
+    description: Approved methodologies list for credit generation.
+    range: Methodology
+    multivalued: true
+  creditingTerm:
+    slot_uri: rfs:creditingTerm
+    description: Crediting term duration for the project. An ISO 8601 duration.
+  permanencePeriod:
+    slot_uri: rfs:permanencePeriod
+    title: Permanence Period
+    description: Permanence period of the credits.
+    comments:
+      - This should be an ISO 8601 duration.

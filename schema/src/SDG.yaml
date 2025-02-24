@@ -1,0 +1,41 @@
+id: https://framework.regen.network/schema/SDG
+name: SDG
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+  - taxonomy
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  SDG:
+    class_uri: rfs:SDG
+    title: Sustainable Development Goal
+    description: Represents a Sustainable Development Goal (SDG).
+    attributes:
+      id:
+        identifier: true
+        description: Unique identifier for the SDG.
+        required: true
+      name:
+        slot_uri: schema:name
+        description: Name of the SDG.
+        required: true
+      description:
+        slot_uri: schema:description
+        description: Detailed description of the SDG.
+        recommended: true
+
+slots:
+  sdg:
+    slot_uri: rfs:sdg
+    description: List of relevant Sustainable Development Goals.
+    range: SDG
+    multivalued: true

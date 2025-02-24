@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/TerrasosProjectInfo
-name: TerrasosProjectInfo
+id: https://framework.regen.network/schema/BT01ProjectInfo
+name: BT01ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -16,9 +16,9 @@ default_prefix: rfs
 default_range: string
 
 classes:
-  TerrasosProjectInfo:
+  BT01ProjectInfo:
     is_a: ProjectInfo
-    class_uri: rfs:TerrasosProjectInfo
+    class_uri: rfs:BT01ProjectInfo
     slots:
       # Tebu Factors
       - ecologicalConnectivityIndex

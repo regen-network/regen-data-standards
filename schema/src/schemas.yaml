@@ -10,8 +10,9 @@ imports:
   - linkml:types
   - ProjectInfo
   - ProjectPost
-  - TerrasosProjectInfo
   - taxonomy
+  - BT01CreditClassInfo
+  - BT01ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
