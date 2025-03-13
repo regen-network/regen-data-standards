@@ -11,6 +11,6 @@ gen-jsonld:
 	linkml-convert --input-format yaml --output-format json-ld --schema src/TerrasosProjectInfo.yaml data/TerrasosProjectInfoData.yaml	--output data/TerrasosProjectInfoData.jsonld --target-class TerrasosProjectInfo
 
 validate:
-	linkml-validate -s src/TerrasosProjectInfo.yaml --target-class TerrasosProjectInfo data/TerrasosProjectInfoData.yaml
+	linkml-validate -s src/BT01ProjectInfo.yaml --target-class BT01ProjectInfo data/BT01ProjectInfoData.yaml
 
 all: gen-taxonomy lint gen-doc gen-jsonld validate

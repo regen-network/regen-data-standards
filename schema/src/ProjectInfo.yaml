@@ -17,7 +17,6 @@ default_range: string
 
 classes:
   ProjectInfo:
-    class_uri: rfs:ProjectInfo
     slots:
       - name
       - location
@@ -44,7 +43,6 @@ classes:
         range: string
       type:
         range: ProjectRoleTypes
-        slot_uri: rfs:ProjectRoleType
         required: true
   QuantityValue:
     class_uri: qudt:QuantityValue
@@ -59,7 +57,6 @@ classes:
         range: string
         description: The unit of measurement for the quantity.
   Organization:
-    class_uri: rfs:Organization
     slots:
       - name
       - url
@@ -70,7 +67,6 @@ classes:
         range: string
         description: A description of the organization.
   Location:
-    class_uri: rfs:Location
     attributes:
       type:
         range: string
@@ -112,7 +108,6 @@ classes:
 
   Any:
     class_uri: linkml:Any
-      
 
 slots:
   name:
@@ -136,12 +131,10 @@ slots:
     inlined: false
   projectActivities:
     # TODO: associate with regen data standards activities
-    slot_uri: rfs:projectActivities
     range: ActivityTypes
     description: the activity.
     multivalued: true
   environmentType:
-    slot_uri: rfs:environmentType
     range: EnvironmentTypeTypes
     description: The environment type of the project.
     multivalued: true
@@ -152,19 +145,15 @@ slots:
     slot_uri: xsd:date
     description: The end date of the project.
   projectDeveloper:
-    slot_uri: rfs:projectDeveloper
     range: ProjectRole
     description: The organization responsible for owning the project.
   projectMonitor:
-    slot_uri: rfs:projectMonitor
     range: ProjectRole
     description: The organization responsible for monitoring the project.
   projectVerifier:
-    slot_uri: rfs:projectVerifier
     range: ProjectRole
     description: The organization responsible for owning the project.
   creditClassVersion:
-    slot_uri: rfs:creditClassVersion
     range: string
     description: The version of the credit class used for the project.
   image:

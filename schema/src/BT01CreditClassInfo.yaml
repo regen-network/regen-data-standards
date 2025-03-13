@@ -15,27 +15,21 @@ default_range: string
 classes:
   BT01CreditClassInfo:
     is_a: CreditClassInfo
-    class_uri: rfs:BT01CreditClass
     slots:
       - creditGenerationMethod
       - ecosystemType
       - eligibleActivities
       - geographicApplicability
-      - permanencePeriod
 
 slots:
   creditGenerationMethod:
     description: Method for generating biodiversity credits.
     multivalued: true
-    slot_uri: rfs:creditGenerationMethod
   ecosystemType:
     description: Type of ecosystem the project focuses on.
     multivalued: true
-    slot_uri: rfs:ecosystemType
   eligibleActivities:
     description: Eligible activities for registered projects.
     multivalued: true
-    slot_uri: rfs:eligibleActivities
   geographicApplicability:
     description: Geographic applicability of the credit class.
-    slot_uri: rfs:geographicApplicability

@@ -16,19 +16,16 @@ default_range: string
 
 classes:
   PrimaryImpact:
-    class_uri: rfs:PrimaryImpact
     title: Primary Impact
     description: Primary impact of the biodiversity project.
     slots:
       - sdg
+      - name
     attributes:
       id:
         identifier: true
-      name:
-        slot_uri: schema:name
 
 slots:
   primaryImpact:
-    slot_uri: rfs:primaryImpact
     description: Primary impact of the project.
     range: PrimaryImpact

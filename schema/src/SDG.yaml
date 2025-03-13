@@ -16,7 +16,6 @@ default_range: string
 
 classes:
   SDG:
-    class_uri: rfs:SDG
     title: Sustainable Development Goal
     description: Represents a Sustainable Development Goal (SDG).
     attributes:
@@ -35,7 +34,6 @@ classes:
 
 slots:
   sdg:
-    slot_uri: rfs:sdg
     description: List of relevant Sustainable Development Goals.
     range: SDG
     multivalued: true

@@ -8,7 +8,7 @@ prefixes:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/
 default_curi_maps:
-- semweb_context
+  - semweb_context
 default_prefix: rfs
 default_range: string
 enums:
@@ -349,21 +349,18 @@ slots:
     name: activity
     description: The types of activities being implemented in projects
     from_schema: https://framework.regen.network/taxonomy/
-    slot_uri: rfs:activity
     range: ActivityTypes
     multivalued: true
   environmentType:
     name: environmentType
     description: General classification of the project's environment type.
     from_schema: https://framework.regen.network/taxonomy/
-    slot_uri: rfs:environmentType
     range: EnvironmentTypeTypes
     multivalued: true
   impact:
     name: impact
     description: A project or initiative’s current and potential impact
     from_schema: https://framework.regen.network/taxonomy/
-    slot_uri: rfs:impact
     range: ImpactTypes
     multivalued: true
 source_file: src/taxonomy.yaml
