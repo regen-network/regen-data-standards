@@ -59,13 +59,13 @@ classes:
   Organization:
     slots:
       - name
+      - description
       - url
-      - showOnProjectPage
       - image
     attributes:
-      description:
-        range: string
-        description: A description of the organization.
+      showOnProjectPage:
+        range: boolean
+        description: Whether to show this organization or individual on the project page.
   Location:
     attributes:
       type:
@@ -110,22 +110,12 @@ classes:
     class_uri: linkml:Any
 
 slots:
-  name:
-    required: true
-    description: Name of the project.
-    slot_uri: schema:name
   location:
     required: true
     range: Location
     description: The location of the project.
     slot_uri: schema:location
     inlined: true
-  description:
-    required: true
-    description: Optional description of the project.
-    slot_uri: schema:description
-  url:
-    slot_uri: schema:URL
   projectSize:
     range: QuantityValue
     inlined: false
@@ -156,11 +146,6 @@ slots:
   creditClassVersion:
     range: string
     description: The version of the credit class used for the project.
-  image:
-    slot_uri: schema:image
-  showOnProjectPage:
-    range: boolean
-    description: Whether to show this organization or individual on the project page.
 
 enums:
   ProjectRoleTypes:

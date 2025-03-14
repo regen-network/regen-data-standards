@@ -8,10 +8,11 @@ prefixes:
   unit: http://qudt.org/vocab/unit/
 imports:
   - linkml:types
+  - core
   - ProjectInfo
   - ProjectPost
+  - CreditClassInfo
   - taxonomy
-  - BT01CreditClassInfo
   - BT01ProjectInfo
 default_curi_maps:
   - semweb_context

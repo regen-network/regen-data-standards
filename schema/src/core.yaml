@@ -1,0 +1,37 @@
+id: core
+name: Core
+
+prefixes:
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+slots:
+  name:
+    slot_uri: schema:name
+    description: Name of the entity / resource.
+    rank: 1
+  description:
+    slot_uri: schema:description
+    description: Description of the entity / resource.
+    rank: 1
+  url:
+    slot_uri: schema:url
+    description: Link to a valid URL where more information can be found about the entity / resource.
+    rank: 1
+  identifier:
+    slot_uri: schema:identifier
+    description: Unique identifier for the resource / entity.
+  version:
+    slot_uri: schema:version
+    description: Version number of the resource / entity.
+  image:
+    slot_uri: schema:image
+
+types:
+  duration:
+    uri: xsd:duration
+    base: str
+    description: "ISO 8601 duration format (e.g., P1Y2M, PT15M, P30D)"
+    exact_mappings:
+      - schema:Duration
