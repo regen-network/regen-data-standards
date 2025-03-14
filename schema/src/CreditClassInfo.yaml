@@ -26,7 +26,7 @@ classes:
       - description
       - url
       - sourceRegistry
-      - approvedMethodology
+      - approvedMethodologies
       - creditingTerm
       - permanencePeriod
       - primaryImpact
@@ -52,12 +52,10 @@ classes:
 slots:
   name:
     slot_uri: schema:name
-    required: true
     description: Name of the entity / resource.
     rank: 1
   description:
     slot_uri: schema:description
-    required: true
     description: Description of the entity / resource.
     rank: 1
   url:
@@ -67,7 +65,7 @@ slots:
   sourceRegistry:
     description: The registry where the credits are issued and tracked.
     range: Registry
-  approvedMethodology:
+  approvedMethodologies:
     description: Approved methodology for credit generation, can be multiple per credit class.
     range: Methodology
     multivalued: true
