@@ -9,10 +9,11 @@ prefixes:
 imports:
   - linkml:types
   - core
+  - taxonomy
   - ProjectInfo
   - ProjectPost
+  - ProjectImpact
   - CreditClassInfo
-  - taxonomy
   - BT01ProjectInfo
 default_curi_maps:
   - semweb_context

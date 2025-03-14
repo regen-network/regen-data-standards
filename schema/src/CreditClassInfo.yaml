@@ -7,11 +7,7 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   xsd: http://www.w3.org/2001/XMLSchema#
-imports:
-  - taxonomy
-  - SDG
-  - ProjectBenefit
-  - PrimaryImpact
+
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -24,9 +20,15 @@ classes:
       - name
       - description
       - url
-      - primaryImpact
-      - coBenefits
     attributes:
+      primaryImpact:
+        description: Primary impact of the credit class.
+        range: ProjectImpact
+        required: true
+      coBenefits:
+        description: Co-benefits of the credit class.
+        range: ProjectImpact
+        multivalued: true
       sourceRegistry:
         description: The registry where the credits are issued and tracked.
         range: Registry
