@@ -34,13 +34,13 @@ const schemas = [
                 <CollectionList collection={ecosystems} path="/taxonomy" heading="Environment Type" headingPath="/taxonomy/environment-type"/>
             </List>
             <List
-                    path="/schema"
+                    path="/schema/"
                     heading="Schemas"
             >
                 {schemas.map((schema:any) => (
                     schema.schemas ? (
                         <List
-                            path={`/schema`}
+                            path={`/schema/`}
                             heading={schema.title}
                         >
                         {schema.schemas.map((subSchema:any) => (
