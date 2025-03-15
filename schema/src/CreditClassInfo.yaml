@@ -20,6 +20,9 @@ classes:
       - name
       - description
       - url
+    slot_usage:
+      name:
+        required: true
     attributes:
       primaryImpact:
         description: Primary impact of the credit class.
@@ -32,9 +35,14 @@ classes:
       sourceRegistry:
         description: The registry where the credits are issued and tracked.
         range: Registry
-        required: true
+      program:
+        description: The program that the credit class is associated with.
+        range: CreditingProgram
+      creditProtocol:
+        description: The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.
+        range: CreditProtocol
       approvedMethodologies:
-        description: Approved methodology for credit generation, can be multiple per credit class.
+        description: If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.
         range: Methodology
         multivalued: true
       creditingTerm:
@@ -46,6 +54,14 @@ classes:
       eligibleActivities:
         description: Eligible activities for registered projects.
         multivalued: true
+    todos:
+      - What's the relationship between creditProtocol and approvedMethodologies, in terms of which is required and not? Should one be folded into the other, or atleast align on a single class for the fields' ranges?
+      - what's hte relationship between sourceRegistry and program?
+      - Should creditProtocol have a field for "program" instead of program living in the CreditClassInfo?
+      - are the correct slots required?
+      - is the inheritiance setup with Biodiv & Carbon correct?
+      - clarificaiton on naming for primaryImpact & coBenefits?
+      - should fields in general be switched to snake_case, and use verbs like has_, is_, or part_of_? (https://linkml.io/linkml/schemas/linter.html#standard-naming)
 
   BiodiversityCreditClassInfo:
     is_a: CreditClassInfo
@@ -60,7 +76,6 @@ classes:
         description: Geographic applicability of the credit class.
         todos:
           - Can this be a controlled vocabulary / enum?
-
   CarbonCreditClassInfo:
     is_a: CreditClassInfo
     description: Off-chain metadata representation for credit classes where the credit type is Carbon (C)
@@ -74,6 +89,23 @@ classes:
     slots:
       - name
       - url
+  CreditingProgram:
+    description: Details of the program that oversees the crediting protocol associated with this credit class.
+    slots:
+      - name
+      - url
+  CreditProtocol:
+    description: Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.
+    slots:
+      - name
+      - url
+      - version
+      - identifier
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true
   Methodology:
     description: Details about a specific methodology.
     slots:
