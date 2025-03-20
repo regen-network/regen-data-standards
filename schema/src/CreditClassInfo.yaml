@@ -3,13 +3,17 @@ name: CreditClassInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
-  schema: http://schema.org/
-  qudt: http://qudt.org/schema/qudt/
-  unit: http://qudt.org/vocab/unit/
-  xsd: http://www.w3.org/2001/XMLSchema#
 
-default_curi_maps:
-  - semweb_context
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Registry
+  - Impact
+  - Methodology
+  - CreditProtocol
+  - CreditingProgram
+
 default_prefix: rfs
 default_range: string
 
@@ -57,7 +61,6 @@ classes:
         range: ActivityTypes
         multivalued: true
     todos:
-      - remove unused prefixes
       - make sure imports explicitly written in each schema file
       - remove BT01 Credit Class from sidebar, and update sidebar folder structure
       - is "hasSDG" the appropriate name for the attribute in the Impact class?

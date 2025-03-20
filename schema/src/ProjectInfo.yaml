@@ -1,4 +1,4 @@
-id: https://framework.regen.network/schema/ProjectInfo
+id: ProjectInfo
 name: ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -7,7 +7,6 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   xsd: http://www.w3.org/2001/XMLSchema#
-# TODO: remove unused prefixes
 imports:
   - linkml:types
   - taxonomy
@@ -128,6 +127,18 @@ slots:
   environmentType:
     range: EnvironmentTypeTypes
     description: The environment type of the project.
+    multivalued: true
+  activity:
+    name: activity
+    description: The types of activities being implemented in projects
+    from_schema: https://framework.regen.network/taxonomy/
+    range: ActivityTypes
+    multivalued: true
+  impact:
+    name: impact
+    description: A project or initiative’s current and potential impact
+    from_schema: https://framework.regen.network/taxonomy/
+    range: ImpactTypes
     multivalued: true
   projectStartDate:
     slot_uri: xsd:date

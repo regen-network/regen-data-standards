@@ -1,16 +1,11 @@
+id: taxonomy
 name: Taxonomy
-id: https://framework.regen.network/taxonomy/
+
 prefixes:
-  rfs:
-    prefix_prefix: rfs
-    prefix_reference: https://framework.regen.network/schema/
   rft:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/
-default_curi_maps:
-- semweb_context
-default_prefix: rfs
-default_range: string
+
 enums:
   ActivityTypes:
     name: ActivityTypes
@@ -344,23 +339,3 @@ enums:
         text: IMPROVED_NUTRIENT_CYCLING
         meaning: rft:ImprovedNutrientCycling
         title: ImprovedNutrientCycling
-slots:
-  activity:
-    name: activity
-    description: The types of activities being implemented in projects
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ActivityTypes
-    multivalued: true
-  environmentType:
-    name: environmentType
-    description: General classification of the project's environment type.
-    from_schema: https://framework.regen.network/taxonomy/
-    range: EnvironmentTypeTypes
-    multivalued: true
-  impact:
-    name: impact
-    description: A project or initiative’s current and potential impact
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ImpactTypes
-    multivalued: true
-source_file: src/taxonomy.yaml

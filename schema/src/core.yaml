@@ -2,9 +2,13 @@ id: core
 name: Core
 
 prefixes:
+  linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
 
 default_prefix: rfs
+
+imports:
+  - linkml:types
 
 slots:
   name:

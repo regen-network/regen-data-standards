@@ -1,17 +1,15 @@
-id: https://framework.regen.network/schema/CreditClassInfo
-name: CreditClassInfo
+id: Registry
+name: Registry
+
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
-  schema: http://schema.org/
-  qudt: http://qudt.org/schema/qudt/
-  unit: http://qudt.org/vocab/unit/
-  xsd: http://www.w3.org/2001/XMLSchema#
 
-default_curi_maps:
-  - semweb_context
 default_prefix: rfs
-default_range: string
+
+imports:
+  - linkml:types
+  - core
 
 classes:
   Registry:
