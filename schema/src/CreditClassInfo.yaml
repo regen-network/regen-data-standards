@@ -54,10 +54,6 @@ classes:
       eligibleActivities:
         description: Eligible activities for registered projects.
         multivalued: true
-      geographicApplicability:
-        description: Geographic applicability of the credit class.
-        todos:
-          - Can this be a controlled vocabulary / enum?
     todos:
       - What's the relationship between creditProtocol and approvedMethodologies, in terms of which is required and not? Should one be folded into the other, or atleast align on a single class for the fields' ranges?
       - what's hte relationship between sourceRegistry and program?
