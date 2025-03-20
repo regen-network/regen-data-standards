@@ -8,7 +8,7 @@ prefixes:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/
 default_curi_maps:
-  - semweb_context
+- semweb_context
 default_prefix: rfs
 default_range: string
 enums:

@@ -24,13 +24,13 @@ classes:
       name:
         required: true
     attributes:
-      primaryImpact:
-        description: Primary impact of the credit class.
-        range: ProjectImpact
+      hasPrimaryImpact:
+        description: The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc).
+        range: Impact
         required: true
-      coBenefits:
-        description: Co-benefits of the credit class.
-        range: ProjectImpact
+      hasCoBenefits:
+        description: Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.
+        range: Impact
         multivalued: true
       sourceRegistry:
         description: The registry where the credits are issued and tracked.

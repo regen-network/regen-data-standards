@@ -7,6 +7,7 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   xsd: http://www.w3.org/2001/XMLSchema#
+# TODO: remove unused prefixes
 imports:
   - linkml:types
   - taxonomy
