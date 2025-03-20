@@ -1,0 +1,28 @@
+id: https://framework.regen.network/schema/CreditClassInfo
+name: CreditClassInfo
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+  xsd: http://www.w3.org/2001/XMLSchema#
+
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  CreditProtocol:
+    description: Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.
+    slots:
+      - name
+      - url
+      - version
+      - identifier
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true

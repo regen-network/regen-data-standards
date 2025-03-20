@@ -45,7 +45,7 @@ classes:
         description: If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.
         range: Methodology
         multivalued: true
-      creditingTerm:
+      hasCreditingTerm:
         description: The total duration of the crediting term for the project.
         range: duration
       eligibleEnvironmentTypes:
@@ -57,69 +57,23 @@ classes:
         range: ActivityTypes
         multivalued: true
     todos:
-      - What's the relationship between creditProtocol and approvedMethodologies, in terms of which is required and not? Should one be folded into the other, or atleast align on a single class for the fields' ranges?
-      - what's hte relationship between sourceRegistry and program?
-      - Should creditProtocol have a field for "program" instead of program living in the CreditClassInfo?
-      - are the correct slots required?
-      - is the inheritiance setup with Biodiv & Carbon correct?
-      - clarificaiton on naming for primaryImpact & coBenefits?
-      - should fields in general be switched to snake_case, and use verbs like has_, is_, or part_of_? (https://linkml.io/linkml/schemas/linter.html#standard-naming)
+      - remove unused prefixes
+      - make sure imports explicitly written in each schema file
+      - remove BT01 Credit Class from sidebar, and update sidebar folder structure
+      - is "hasSDG" the appropriate name for the attribute in the Impact class?
+      - how do we reconcile "Impact" class with the taxonomic enum?
+      - cleanup usage of "EnvironmentTypeTypes" and "ActivityTypes" in the schema. Types should be singular, and we should align on either using Type suffix in enums or not.
 
   CarbonCreditClassInfo:
     is_a: CreditClassInfo
     description: Off-chain metadata representation for credit classes where the credit type is Carbon (C)
     attributes:
-      permanencePeriod:
-        title: Permanence Period
+      hasPermanencePeriod:
         description: Permanence period of the credits.
         range: duration
       hasCreditGenerationMethod:
         description: Method for generating credits.
         range: CreditGenerationMethod
-  Registry:
-    description: Details of the registry where the credits are tracked.
-    slots:
-      - name
-      - url
-    slot_usage:
-      name:
-        required: true
-  CreditingProgram:
-    description: Details of the program that oversees the crediting protocol associated with this credit class.
-    slots:
-      - name
-      - url
-      - version
-      - identifier
-    slot_usage:
-      name:
-        required: true
-  CreditProtocol:
-    description: Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.
-    slots:
-      - name
-      - url
-      - version
-      - identifier
-    slot_usage:
-      name:
-        required: true
-      url:
-        required: true
-  Methodology:
-    description: Details about a specific methodology.
-    slots:
-      - name
-      - url
-      - version
-      - identifier
-    slot_usage:
-      name:
-        required: true
-      url:
-        required: true
-    todos:
-      - Should these be required?
 
 enums:
   CreditGenerationMethod:
