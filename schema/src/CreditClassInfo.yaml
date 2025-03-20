@@ -32,27 +32,29 @@ classes:
         description: Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.
         range: Impact
         multivalued: true
-      sourceRegistry:
+      hasSourceRegistry:
         description: The registry where the credits are originally issued and tracked if somewhere other than Regen Network.
         range: Registry
-      program:
+      managedUnderProgram:
         description: The higher-level rules and requirements under which the given credit protocol operates, sometimes referred to as the "Standard".
         range: CreditingProgram
       creditProtocol:
         description: The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.
         range: CreditProtocol
-      approvedMethodologies:
+      hasApprovedMethodologies:
         description: If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.
         range: Methodology
         multivalued: true
       creditingTerm:
         description: The total duration of the crediting term for the project.
         range: duration
-      eligibleEcosystemTypes:
-        description: Types of ecosystems that a project in this credit class may focuses on.
+      eligibleEnvironmentTypes:
+        description: Types of environments that a project registered under this credit class may focuses on.
+        range: EnvironmentTypeTypes
         multivalued: true
       eligibleActivities:
-        description: Eligible activities for registered projects.
+        description: Eligible activities for projects registered under this credit class.
+        range: ActivityTypes
         multivalued: true
     todos:
       - What's the relationship between creditProtocol and approvedMethodologies, in terms of which is required and not? Should one be folded into the other, or atleast align on a single class for the fields' ranges?

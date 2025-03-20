@@ -26,3 +26,4 @@ todos:
   - remove BT01 Credit Class from sidebar, and update sidebar folder structure
   - is "hasSDG" the appropriate name for the attribute in the Impact class?
   - how do we reconcile "Impact" class with the taxonomic enum?
+  - cleanup usage of "EnvironmentTypeTypes" and "ActivityTypes" in the schema. Types should be singular, and we should align on either using Type suffix in enums or not.
