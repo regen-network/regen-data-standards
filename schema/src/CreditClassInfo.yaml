@@ -33,10 +33,10 @@ classes:
         range: Impact
         multivalued: true
       sourceRegistry:
-        description: The registry where the credits are issued and tracked.
+        description: The registry where the credits are originally issued and tracked if somewhere other than Regen Network.
         range: Registry
       program:
-        description: The program that the credit class is associated with.
+        description: The higher-level rules and requirements under which the given credit protocol operates, sometimes referred to as the "Standard".
         range: CreditingProgram
       creditProtocol:
         description: The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.
@@ -94,6 +94,11 @@ classes:
     slots:
       - name
       - url
+      - version
+      - identifier
+    slot_usage:
+      name:
+        required: true
   CreditProtocol:
     description: Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.
     slots:
