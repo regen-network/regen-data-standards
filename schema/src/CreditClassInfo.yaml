@@ -89,6 +89,9 @@ classes:
     slots:
       - name
       - url
+    slot_usage:
+      name:
+        required: true
   CreditingProgram:
     description: Details of the program that oversees the crediting protocol associated with this credit class.
     slots:
