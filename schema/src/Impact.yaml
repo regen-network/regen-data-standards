@@ -20,7 +20,7 @@ classes:
       id:
         identifier: true
         required: true
-      hasSDG:
-        description: List of relevant Sustainable Development Goals.
+      supportsSDG:
+        description: List of relevant Sustainable Development Goals that this impact supports.
         range: SDG
         multivalued: true

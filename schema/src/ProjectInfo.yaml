@@ -21,7 +21,6 @@ classes:
       - name
       - location
       - description
-      - projectActivities
       - projectSize # optional
       - projectDeveloper # optional
       - environmentType # optional
@@ -119,26 +118,21 @@ slots:
   projectSize:
     range: QuantityValue
     inlined: false
-  projectActivities:
-    # TODO: associate with regen data standards activities
-    range: ActivityTypes
-    description: the activity.
-    multivalued: true
   environmentType:
-    range: EnvironmentTypeTypes
+    range: EnvironmentType
     description: The environment type of the project.
     multivalued: true
   activity:
     name: activity
     description: The types of activities being implemented in projects
     from_schema: https://framework.regen.network/taxonomy/
-    range: ActivityTypes
+    range: ActivityType
     multivalued: true
   impact:
     name: impact
     description: A project or initiative’s current and potential impact
     from_schema: https://framework.regen.network/taxonomy/
-    range: ImpactTypes
+    range: ImpactType
     multivalued: true
   projectStartDate:
     slot_uri: xsd:date

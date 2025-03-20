@@ -54,18 +54,15 @@ classes:
         range: duration
       eligibleEnvironmentTypes:
         description: Types of environments that a project registered under this credit class may focuses on.
-        range: EnvironmentTypeTypes
+        range: EnvironmentType
         multivalued: true
       eligibleActivities:
         description: Eligible activities for projects registered under this credit class.
-        range: ActivityTypes
+        range: ActivityType
         multivalued: true
     todos:
-      - make sure imports explicitly written in each schema file
       - remove BT01 Credit Class from sidebar, and update sidebar folder structure
-      - is "hasSDG" the appropriate name for the attribute in the Impact class?
-      - how do we reconcile "Impact" class with the taxonomic enum?
-      - cleanup usage of "EnvironmentTypeTypes" and "ActivityTypes" in the schema. Types should be singular, and we should align on either using Type suffix in enums or not.
+      - how do we reconcile "Impact" class with the taxonomic enum? Same question for activityType and eligibleActivities
 
   CarbonCreditClassInfo:
     is_a: CreditClassInfo

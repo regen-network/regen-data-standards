@@ -49,7 +49,7 @@ classes:
     attributes:
       projectActivity:
         # TODO: associate with regen data standards activities
-        range: ActivityTypes
+        range: ActivityType
         description: the activity
         multivalued: true
       extent:

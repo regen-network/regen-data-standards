@@ -7,8 +7,8 @@ prefixes:
     prefix_reference: https://framework.regen.network/taxonomy/
 
 enums:
-  ActivityTypes:
-    name: ActivityTypes
+  ActivityType:
+    name: ActivityType
     from_schema: https://framework.regen.network/taxonomy/
     permissible_values:
       RESIDUE_TILLAGE_MANAGEMENT:
@@ -115,8 +115,8 @@ enums:
         text: REFORESTATION
         meaning: rft:Reforestation
         title: Reforestation
-  EnvironmentTypeTypes:
-    name: EnvironmentTypeTypes
+  EnvironmentType:
+    name: EnvironmentType
     from_schema: https://framework.regen.network/taxonomy/
     permissible_values:
       MARINE:
@@ -259,8 +259,8 @@ enums:
         text: WATERCOURSE
         meaning: rft:Watercourse
         title: Watercourse
-  ImpactTypes:
-    name: ImpactTypes
+  ImpactType:
+    name: ImpactType
     from_schema: https://framework.regen.network/taxonomy/
     permissible_values:
       REDUCED_FERTILIZER_AMENDMENTS:
