@@ -60,9 +60,6 @@ classes:
         description: Eligible activities for projects registered under this credit class.
         range: ActivityType
         multivalued: true
-    todos:
-      - remove BT01 Credit Class from sidebar, and update sidebar folder structure
-      - how do we reconcile "Impact" class with the taxonomic enum? Same question for activityType and eligibleActivities
 
   CarbonCreditClassInfo:
     is_a: CreditClassInfo

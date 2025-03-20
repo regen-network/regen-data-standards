@@ -9,14 +9,7 @@ const activities = await getCollection('activity');
 const schemas = [
     { slug: 'CreditClassInfo', title: 'Credit Class'},
     { slug: 'ProjectInfo', title: 'Project'},
-    { slug: 'ProjectPost', title: 'ProjectPost'},
-    {
-        title: 'BT01',
-        schemas: [
-            { slug: 'BT01CreditClassInfo', title: 'BT01 Credit Class'},
-            { slug: 'BT01ProjectInfo', title: 'BT01 Project'},
-        ]
-    }
+    { slug: 'ProjectPost', title: 'Project Post'}
 ]
 ---
 <div id="menu"
