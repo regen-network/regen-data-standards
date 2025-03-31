@@ -11,9 +11,9 @@ view = SchemaView(taxonomy_schema_path)
 
 # Map each taxonomy to the linkml enum.
 taxonomies = {
-    "activity": "ActivityTypes",
-    "environment-type": "EnvironmentTypeTypes",
-    "impact": "ImpactTypes",
+    "activity": "ActivityType",
+    "environment-type": "EnvironmentType",
+    "impact": "ImpactType",
 }
 
 # Load all taxonomy terms and add to the enums.

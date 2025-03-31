@@ -1,0 +1,26 @@
+id: Impact
+name: Impact
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - core
+  - SDG
+
+classes:
+  Impact:
+    description: Represents an ecological, social, or broader impact or benefit usually in the context of a project's activities. Impacts can be measurable or qualitative.
+    slots:
+      - name
+    attributes:
+      id:
+        identifier: true
+        required: true
+      supportsSDG:
+        description: List of relevant Sustainable Development Goals that this impact supports.
+        range: SDG
+        multivalued: true

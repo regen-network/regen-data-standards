@@ -1,0 +1,24 @@
+id: Methodology
+name: Methodology
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - core
+
+classes:
+  Methodology:
+    description: Details about a specific methodology.
+    slots:
+      - name
+      - url
+      - version
+      - identifier
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true

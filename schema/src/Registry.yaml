@@ -1,0 +1,22 @@
+id: Registry
+name: Registry
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - linkml:types
+  - core
+
+classes:
+  Registry:
+    description: Details of the registry where the credits are tracked.
+    slots:
+      - name
+      - url
+    slot_usage:
+      name:
+        required: true

@@ -1,0 +1,67 @@
+id: SDG
+name: SDG
+
+prefixes:
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - linkml:types
+  - core
+
+enums:
+  SDG:
+    description: Enumeration of all 17 Sustainable Development Goals
+    permissible_values:
+      SDG_1:
+        meaning: "https://sdgs.un.org/goals/goal1"
+        description: "No Poverty"
+      SDG_2:
+        meaning: "https://sdgs.un.org/goals/goal2"
+        description: "Zero Hunger"
+      SDG_3:
+        meaning: "https://sdgs.un.org/goals/goal3"
+        description: "Good Health and Well-being"
+      SDG_4:
+        meaning: "https://sdgs.un.org/goals/goal4"
+        description: "Quality Education"
+      SDG_5:
+        meaning: "https://sdgs.un.org/goals/goal5"
+        description: "Gender Equality"
+      SDG_6:
+        meaning: "https://sdgs.un.org/goals/goal6"
+        description: "Clean Water and Sanitation"
+      SDG_7:
+        meaning: "https://sdgs.un.org/goals/goal7"
+        description: "Affordable and Clean Energy"
+      SDG_8:
+        meaning: "https://sdgs.un.org/goals/goal8"
+        description: "Decent Work and Economic Growth"
+      SDG_9:
+        meaning: "https://sdgs.un.org/goals/goal9"
+        description: "Industry, Innovation and Infrastructure"
+      SDG_10:
+        meaning: "https://sdgs.un.org/goals/goal10"
+        description: "Reduced Inequalities"
+      SDG_11:
+        meaning: "https://sdgs.un.org/goals/goal11"
+        description: "Sustainable Cities and Communities"
+      SDG_12:
+        meaning: "https://sdgs.un.org/goals/goal12"
+        description: "Responsible Consumption and Production"
+      SDG_13:
+        meaning: "https://sdgs.un.org/goals/goal13"
+        description: "Climate Action"
+      SDG_14:
+        meaning: "https://sdgs.un.org/goals/goal14"
+        description: "Life Below Water"
+      SDG_15:
+        meaning: "https://sdgs.un.org/goals/goal15"
+        description: "Life on Land"
+      SDG_16:
+        meaning: "https://sdgs.un.org/goals/goal16"
+        description: "Peace, Justice and Strong Institutions"
+      SDG_17:
+        meaning: "https://sdgs.un.org/goals/goal17"
+        description: "Partnerships for the Goals"

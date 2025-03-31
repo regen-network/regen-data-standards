@@ -6,7 +6,12 @@ export async function getStaticPaths() {
     return schemas.map((entry) => {
         const file = entry.file;
         let filename = file.split('/').pop();
-        let slug = filename?.slice(0, -3);
+        let slug;
+        if (filename == 'index.md') {
+            slug = '';
+        } else {
+            slug = filename?.slice(0, -3);
+        }
 
         return {
             params: {slug},

@@ -1,0 +1,24 @@
+id: CreditProtocol
+name: CreditProtocol
+
+prefixes:
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - core
+
+classes:
+  CreditProtocol:
+    description: Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.
+    slots:
+      - name
+      - url
+      - version
+      - identifier
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true

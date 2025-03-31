@@ -8,10 +8,18 @@ prefixes:
   unit: http://qudt.org/vocab/unit/
 imports:
   - linkml:types
+  - core
+  - taxonomy
   - ProjectInfo
   - ProjectPost
-  - TerrasosProjectInfo
-  - taxonomy
+  - SDG
+  - Impact
+  - CreditingProgram
+  - CreditProtocol
+  - Methodology
+  - Registry
+  - CreditClassInfo
+  - BT01ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs

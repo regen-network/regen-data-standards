@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/TerrasosProjectInfo
-name: TerrasosProjectInfo
+id: https://framework.regen.network/schema/BT01ProjectInfo
+name: BT01ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -16,9 +16,8 @@ default_prefix: rfs
 default_range: string
 
 classes:
-  TerrasosProjectInfo:
+  BT01ProjectInfo:
     is_a: ProjectInfo
-    class_uri: rfs:TerrasosProjectInfo
     slots:
       # Tebu Factors
       - ecologicalConnectivityIndex
@@ -47,12 +46,10 @@ classes:
       - url
 
   ManagementArea:
-    class_uri: rfs:ManagementArea
     attributes:
       projectActivity:
         # TODO: associate with regen data standards activities
-        slot_uri: rfs:projectActivity
-        range: ActivityTypes
+        range: ActivityType
         description: the activity
         multivalued: true
       extent:
@@ -62,30 +59,24 @@ classes:
 
 slots:
   marketType:
-    slot_uri: rfs:marketType
     range: MarketTypeTypes
     description: The type of market for the associated credits.
     multivalued: true
   bioregion:
     range: string
-    slot_uri: rfs:bioregion
     description: The bioregion associated with the project.
     multivalued: true
   biomeType:
     range: string
-    slot_uri: rfs:biomeType
     description: The type of biome associated with the project.
     multivalued: true
   watershed:
     range: string
-    slot_uri: rfs:watershed
     description: The watershed associated with the project.
   subWatershed:
     range: string
-    slot_uri: rfs:subWatershed
     description: The sub-watershed associated with the project.
   environmentalAuthority:
-    slot_uri: rfs:environmentalAuthority
     range: Organization
     description: The environmental authority associated with the project.
     multivalued: true
@@ -95,33 +86,26 @@ slots:
     range: AdministrativeArea
     description: The administrative area associated with the project.
   ecologicalConnectivityIndex:
-    slot_uri: rfs:ecologicalConnectivityIndex
     range: float
     description: The ecological connectivity index of the project.
   socialCulturalIndex:
-    slot_uri: rfs:socialCulturalIndex
     range: float
     description: The social cultural index of the project.
   managementAreas:
-    slot_uri: rfs:managementAreas
     range: ManagementArea
     description: The management areas associated with the project.
     multivalued: true
     inlined: true
   projectOperator:
-    slot_uri: rfs:projectOperator
     range: ProjectRole
     description: The organization responsible for operating the project.
   projectOwner:
-    slot_uri: rfs:projectOwner
     range: ProjectRole
     description: The organization responsible for owning the project.
   projectDuration:
-    slot_uri: rfs:projectDuration
     range: string
     description: The duration of the project.
   conservationStatus:
-    slot_uri: rfs:conservationStatus
     range: ConservationStatusTypes
     description: The conservation status of the project.
 

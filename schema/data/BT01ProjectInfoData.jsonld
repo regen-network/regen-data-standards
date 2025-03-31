@@ -11,10 +11,10 @@
     },
     "place_name": "Antioquia",
     "bbox": [
-      -75.0,
-      -5.0,
-      -70.0,
-      0.0
+      -75,
+      -5,
+      -70,
+      0
     ],
     "center": [
       -72.5,
@@ -45,7 +45,7 @@
   },
   "creditClassVersion": "1.0",
   "ecologicalConnectivityIndex": 75.5,
-  "socialCulturalIndex": 85.0,
+  "socialCulturalIndex": 85,
   "administrativeArea": {
     "name": "Antioquia"
   },
@@ -55,7 +55,7 @@
         "CONSERVATION"
       ],
       "extent": {
-        "numericValue": 120.0,
+        "numericValue": 120,
         "unit": "unit:HA"
       }
     },
@@ -64,7 +64,7 @@
         "ECOSYSTEM_RESTORATION"
       ],
       "extent": {
-        "numericValue": 220.0,
+        "numericValue": 220,
         "unit": "unit:HA"
       }
     }

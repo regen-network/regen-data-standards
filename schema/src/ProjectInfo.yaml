@@ -1,4 +1,4 @@
-id: https://framework.regen.network/schema/ProjectInfo
+id: ProjectInfo
 name: ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -17,12 +17,10 @@ default_range: string
 
 classes:
   ProjectInfo:
-    class_uri: rfs:ProjectInfo
     slots:
       - name
       - location
       - description
-      - projectActivities
       - projectSize # optional
       - projectDeveloper # optional
       - environmentType # optional
@@ -44,7 +42,6 @@ classes:
         range: string
       type:
         range: ProjectRoleTypes
-        slot_uri: rfs:ProjectRoleType
         required: true
   QuantityValue:
     class_uri: qudt:QuantityValue
@@ -59,18 +56,16 @@ classes:
         range: string
         description: The unit of measurement for the quantity.
   Organization:
-    class_uri: rfs:Organization
     slots:
       - name
+      - description
       - url
-      - showOnProjectPage
       - image
     attributes:
-      description:
-        range: string
-        description: A description of the organization.
+      showOnProjectPage:
+        range: boolean
+        description: Whether to show this organization or individual on the project page.
   Location:
-    class_uri: rfs:Location
     attributes:
       type:
         range: string
@@ -112,38 +107,32 @@ classes:
 
   Any:
     class_uri: linkml:Any
-      
 
 slots:
-  name:
-    required: true
-    description: Name of the project.
-    slot_uri: schema:name
   location:
     required: true
     range: Location
     description: The location of the project.
     slot_uri: schema:location
     inlined: true
-  description:
-    required: true
-    description: Optional description of the project.
-    slot_uri: schema:description
-  url:
-    slot_uri: schema:URL
   projectSize:
     range: QuantityValue
     inlined: false
-  projectActivities:
-    # TODO: associate with regen data standards activities
-    slot_uri: rfs:projectActivities
-    range: ActivityTypes
-    description: the activity.
-    multivalued: true
   environmentType:
-    slot_uri: rfs:environmentType
-    range: EnvironmentTypeTypes
+    range: EnvironmentType
     description: The environment type of the project.
+    multivalued: true
+  activity:
+    name: activity
+    description: The types of activities being implemented in projects
+    from_schema: https://framework.regen.network/taxonomy/
+    range: ActivityType
+    multivalued: true
+  impact:
+    name: impact
+    description: A project or initiative’s current and potential impact
+    from_schema: https://framework.regen.network/taxonomy/
+    range: ImpactType
     multivalued: true
   projectStartDate:
     slot_uri: xsd:date
@@ -152,26 +141,17 @@ slots:
     slot_uri: xsd:date
     description: The end date of the project.
   projectDeveloper:
-    slot_uri: rfs:projectDeveloper
     range: ProjectRole
     description: The organization responsible for owning the project.
   projectMonitor:
-    slot_uri: rfs:projectMonitor
     range: ProjectRole
     description: The organization responsible for monitoring the project.
   projectVerifier:
-    slot_uri: rfs:projectVerifier
     range: ProjectRole
     description: The organization responsible for owning the project.
   creditClassVersion:
-    slot_uri: rfs:creditClassVersion
     range: string
     description: The version of the credit class used for the project.
-  image:
-    slot_uri: schema:image
-  showOnProjectPage:
-    range: boolean
-    description: Whether to show this organization or individual on the project page.
 
 enums:
   ProjectRoleTypes:
