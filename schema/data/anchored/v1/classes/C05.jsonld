@@ -1,0 +1,120 @@
+{
+  "@type": "rfs:CarbonCreditClassInfo",
+  "@context": {
+    "regen": "https://schema.regen.network#",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "regen:creditingTerm": {
+      "@type": "schema:Duration"
+    },
+    "regen:lookbackPeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:permanencePeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:monitoringFrequency": {
+      "@type": "schema:Duration"
+    },
+    "regen:verificationFrequency": {
+      "@type": "schema:Duration"
+    }
+  },
+  "schema:url": "https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar",
+  "schema:name": "Credit Class for Carbon Removal through Biochar Production",
+  "regen:measuredGHGs": [
+    "Carbon Dioxide (CO2)",
+    "Methane (CH4)"
+  ],
+  "note_1": "^ should add?",
+  "schema:description": "The Biochar Carbon credit focuses on carbon removal and avoiding emissions that would have resulted from the decomposition of waste biomass. Carbon removal is the approved benefit that is monitored, quantified, and determines the number of credits issued. The approved benefit of atmospheric regulation through carbon sequestration is driven by carbon removals and reductions through the production and application of biochar to soils.",
+  "rfs:hasCreditingTerm": "P2Y",
+  "rfs:eligibleEnvironmentTypes": [
+    "FOREST",
+    "CROPLAND",
+    "GRASSLAND"
+  ],
+  "regen:sectoralScope": [
+    "Waste Handling and Disposal"
+  ],
+  "note_2": "^ should add?",
+  "regen:baselineMethod": [
+    "Project Method"
+  ],
+  "note_3": "^ should add?",
+  "regen:lookbackPeriod": "-P1Y",
+  "note_4": "^ should add?",
+  "rfs:hasSourceRegistry": {
+    "schema:url": "https://registry.regen.network/",
+    "schema:name": "Regen Registry"
+  },
+  "rfs:hasPermanencePeriod": "P100Y",
+  "regen:landOwnershipType": [
+    "Public",
+    "Private",
+    "Tribal"
+  ],
+  "note_5": "^ should add?",
+  "regen:leakageAssessment": [
+    "Transport Emissions"
+  ],
+  "note_6": "^ should add?",
+  "regen:bufferPoolAccounts": [
+    {
+      "schema:name": "Carbon Removal through Biochar Production Credit Class Buffer Pool",
+      "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
+      "regen:poolAllocation": "10%"
+    }
+  ],
+  "note_7": "^ should add?",
+  "rfs:eligibleActivities": [
+    "BIOCHAR_PRODUCTION"
+  ],
+  "regen:monitoringFrequency": "P1Y",
+  "note_8": "^ should add?",
+  "regen:verificationMethods": [
+    "Third-Party Verification"
+  ],
+  "note_9": "^ should add?",
+  "rfs:hasApprovedMethodologies": [
+    {
+      "schema:url": "https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf",
+      "schema:name": "Methodology for Biochar Utilization in Soil and Non-Soil Applications (VM0044)",
+      "schema:version": "V1.1",
+      "schema:identifier": "VM0044"
+    },
+    {
+      "schema:url": "https://www.registry.regen.network/methodology/appendix-in-stand-surface-application-of-biochar-in-forestlands-methodology",
+      "schema:name": "Appendix: In-Stand Surface Application of Biochar in Forestlands Methodology",
+      "schema:version": "V1.0"
+    }
+  ],
+  "regen:verificationFrequency": "P1Y",
+  "note_10": "^ should add?",
+  "regen:biocharApplicationType": [
+    "Surface",
+    "Subsurface"
+  ],
+  "note_11": "^ should add?",
+  "rfs:hasCreditGenerationMethod": [
+    "CARBON_DIOXIDE_REMOVAL",
+    "EMISSIONS_REDUCTION"
+  ],
+  "regen:additionalityAssessment": [
+    "Regulatory Surplus",
+    "Positive List"
+  ],
+  "note_12": "^ should add?",
+  "regen:allowsAggregatedProjects": true,
+  "note_13": "^ should add?",
+  "regen:biocharFeedstockMaterial": [
+    "Agricultural waste biomass",
+    "Food processing resedues",
+    "Woody biomass",
+    "Industrial waste",
+    "Aquaculture plants"
+  ],
+  "note_14": "^ should add?"
+}

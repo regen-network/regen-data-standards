@@ -1,0 +1,95 @@
+{
+  "@type": "rfs:CarbonCreditClassInfo",
+  "@context": {
+    "regen": "https://schema.regen.network#",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "regen:creditingTerm": {
+      "@type": "schema:Duration"
+    },
+    "regen:lookbackPeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:permanencePeriod": {
+      "@type": "schema:Duration"
+    }
+  },
+  "schema:url": "https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class",
+  "schema:name": "GHG Benefits in Managed Crop and Grassland Systems Credit Class",
+  "rfs:hasCoBenefits": [
+    {
+      "@id": "rft:ImprovedSoilStructure",
+      "@type": "rfs:Impact",
+      "schema:name": "Improved Soil Structure & Hydrological Properties"
+    },
+    {
+      "@id": "regen:ReductionsInExternalInputs -- not found in taxonomy",
+      "@type": "regen:ProjectBenefit",
+      "schema:name": "Reduced Fertilizer Usage"
+    }
+  ],
+  "regen:measuredGHGs": [
+    "Carbon Dioxide (CO2)"
+  ],
+  "note_1": "should add ?",
+  "schema:description": "This Credit Class and its supporting measuring and monitoring methodology, focuses on quantifying increases in soil organic carbon sequestration and storage in regenerative cropping and managed grassland agricultural systems.",
+  "rfs:hasCreditingTerm": "P10Y",
+  "rfs:eligibleEnvironmetTypes": [
+    "CROPLAND",
+    "GRASSLAND",
+    "PASTURE",
+    "SHRUBLAND"
+  ],
+  "regen:hasPrimaryImpact": {
+    "@id": "regen:SoilOrganicCarbon -- not found in taxonomy",
+    "schema:name": "Soil Organic Carbon"
+  },
+  "regen:sectoralScope": [
+    "Agriculture, Forestry, and Other Land Use (AFOLU)"
+  ],
+  "note_2": "should add ?",
+  "regen:lookbackPeriod": "-P10Y",
+  "note_3": "should add ?",
+  "rfs:hasPermanencePeriod": "P10Y",
+  "regen:landOwnershipType": [
+    "Public",
+    "Private",
+    "Tribal"
+  ],
+  "note_4": "should add ?",
+  "regen:bufferPoolAccounts": [
+    {
+      "schema:name": "Blaston Estate Project Specific Buffer Pool",
+      "regen:walletAddress": "",
+      "regen:poolAllocation": "20%"
+    }
+  ],
+  "note_5": "should add ?",
+  "rfs:eligibleActivities": [
+    "Regenerative crop management -- not found in taxonomy",
+    "PERSCRIBED_GRAZING"
+  ],
+  "regen:verificationMethods": [
+    "Third-Party Verification",
+    "ISO 14066"
+  ],
+  "note_6": "should add ?",
+  "rfs:creditProtocol": {
+    "schema:url": "https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems",
+    "schema:name": "Methodology Proposal for Soil Organic Carbon Estimation in Regenerative Cropping and Managed Grassland Ecosystems",
+    "schema:version": "V1.1",
+    "schema:identifier": "ecometric-0044",
+    "note": "should this be required to be a URI?"
+  },
+  "rfs:hasCreditGenerationMethod": [
+    "CARBON_DIOXIDE_REMOVAL"
+  ],
+  "regen:additionalityAssessment": [
+    "Regulatory Surplus"
+  ],
+  "note_7": "should add ?",
+  "regen:allowsAggregatedProjects": true,
+  "note_8": "should add ?"
+}

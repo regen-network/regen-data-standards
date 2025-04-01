@@ -1,0 +1,87 @@
+{
+  "@type": "rfs:CreditClassInfo",
+  "@context": {
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "regen:lookbackPeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:creditingPeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:monitoringFrequency": {
+      "@type": "schema:Duration"
+    },
+    "regen:verificationFrequency": {
+      "@type": "schema:Duration"
+    }
+  },
+  "schema:url": "https://registry.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/credit-class-for-grazing-in-vineyard-systems-v1.0",
+  "schema:name": "Credit Class for Sheep Grazing in Vineyard Systems",
+  "rfs:hasCoBenefits": [
+    {
+      "@id": "rft:ImprovedNutrientCycling",
+      "@type": "rfs:Impact",
+      "schema:name": "Improved rates of nutrient cycling"
+    },
+    {
+      "@id": "regen:ImprovedNutrientRetention -- cannot find",
+      "@type": "regen:ProjectBenefit",
+      "schema:name": "Improved nutrient retention"
+    },
+    {
+      "@id": "regen:ReductionsInExternalInputs -- cannot find",
+      "@type": "regen:ProjectBenefit",
+      "schema:name": "Reductions in external inputs"
+    },
+    {
+      "@id": "regen:IncreasedSoilMicrobialBiomass -- cannot find",
+      "@type": "regen:ProjectBenefit",
+      "schema:name": "Increased soil microbial biomass"
+    },
+    {
+      "@id": "rft:ImprovedSoilStructure",
+      "@type": "rfs:Impact",
+      "schema:name": "Improved soil structure and hydrological properties"
+    },
+    {
+      "@id": "regen:IncreasedSoilCarbonStorage -- cannot find",
+      "@type": "regen:ProjectBenefit",
+      "schema:name": "Increased soil carbon storage"
+    }
+  ],
+  "schema:description": "This Credit Class and its accompanying methodology are designed to support the use of high-density, short-duration rotational targeted sheep grazing in vineyard systems to improve ecosystem functioning through active management of the soil and herbaceous cover in the vineyard understory. As with other Environmental Stewardship methodologies, the environmental benefits are implicit in the practice. Projects being developed under the Methodology for Grazing in Vineyard Systems are expected, based on prior research, to result in positive ecological outcomes. This methodology is new and innovative, and will be improved as new projects are created and lessons are learned.",
+  "rfs:eligibleEnvironmentTypes": [
+    "VINEYARD"
+  ],
+  "regen:lookbackPeriod": "-P3Y",
+  "note_1": "should we add?",
+  "rfs:hasCreditingPeriod": "P1Y",
+  "regen:landOwnershipType": [
+    "Private"
+  ],
+  "note_2": "should we add?",
+  "rfs:eligibleActivities": [
+    "PERSCRIBED_GRAZING"
+  ],
+  "regen:monitoringFrequency": "P1D",
+  "note_3": "should we add?",
+  "regen:verificationMethods": [
+    "Regen Network Development Science Team Quality Assurance"
+  ],
+  "note_4": "should we add?",
+  "rfs:creditProtocol": {
+    "schema:url": "https://registry.regen.network/v/methodology-library/published-methodologies/methodology-for-grazing-in-vineyard-systems-v1.0",
+    "schema:name": "Methodology for Grazing in Vineyard Systems",
+    "schema:version": "1.0"
+  },
+  "regen:verificationFrequency": "P1Y",
+  "note_5": "should we add?",
+  "regen:geographicApplicability": "California",
+  "note_6": "should we add back? lots of others had it, but thought we were removing it",
+  "regen:allowsAggregatedProjects": false,
+  "note_7": "should we add?"
+}

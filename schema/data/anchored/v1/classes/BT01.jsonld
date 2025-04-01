@@ -1,0 +1,67 @@
+{
+  "@type": "rfs:CreditClassInfo",
+  "@context": {
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "rfs:creditingTerm": {
+      "@type": "schema:Duration"
+    },
+    "rfs:permanencePeriod": {
+      "@type": "schema:Duration"
+    }
+  },
+  "schema:url": "https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit",
+  "schema:name": "Terrasos Biodiversity Unit",
+  "rfs:hasCoBenefits": [
+    {
+      "@id": "rft:Climate-Terrasos",
+      "@type": "rfs:Impact",
+      "rfs:supportsSDG": [
+        "SDG_13"
+      ],
+      "schema:name": "Climate"
+    },
+    {
+      "@id": "rft:ImprovedWildlifeHabitat",
+      "@type": "rfs:Impact",
+      "schema:name": "Improved Wildlife Habitat"
+    }
+  ],
+  "schema:description": "The Biodioversity Credits protocol outlines a strategic framework for the development of projects that guarantee quantifiable gains in biodiversity, all while providing robust financial and legal assurances to secure their sustainability and enduring impact. This pioneering approach to biodiversity conservation and resource management emphasizes the selection of projects distinguished by their significant ecological value within a performance-based model. \n This protocol streamlines the process of registration, quantification, and issuance of Biodiversity Credits (VBC) for conservation projects that meet the eligibility criteria. It is designed to resonate with both individuals and organizations committed to contributing to the preservation of threatened ecosystems and biodiversity, ultimately delivering long-term sustainability and socio-economic benefits.",
+  "rfs:hasCreditingTerm": "P30Y",
+  "rfs:hasEcosystemType": [
+    "Terrestrial"
+  ],
+  "rfs:hasPrimaryImpact": {
+    "@id": "rfs:ImprovedBiodiversity",
+    "rfs:SDGs": [
+      "SDG_15"
+    ],
+    "schema:name": "Improved Biodiversity"
+  },
+  "rfs:hasSourceRegistry": {
+    "schema:url": "https://en.terrasos.co/",
+    "schema:name": "Terrasos"
+  },
+  "rfs:hasPermanencePeriod": "P20Y",
+  "rfs:eligibleActivities": [
+    "Ecosystem Preservation -- Can't find this in the schema",
+    "Forest Enhancement -- rft:Afforestation ??",
+    "Ecological Restoration -- rft:EcosystemRestoration ??"
+  ],
+  "rfs:hasApprovedMethodologies": [
+    {
+      "schema:url": "https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit",
+      "schema:name": "Terrasos Protocol for Issuing Voluntary Biodiversity Credits",
+      "schema:version": "V3.0"
+    },
+    {
+      "schema:url": "https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit",
+      "schema:name": "Terrasos Protocol for Issuing Voluntary Biodiversity Credits",
+      "schema:version": "V4.0"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "@type": "rfs:CarbonCreditClassInfo",
+  "@context": {
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "regen:creditingTerm": {
+      "@type": "schema:Duration"
+    },
+    "regen:lookbackPeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:permanencePeriod": {
+      "@type": "schema:Duration"
+    },
+    "regen:monitoringFrequency": {
+      "@type": "schema:Duration"
+    },
+    "regen:verificationFrequency": {
+      "@type": "schema:Duration"
+    }
+  },
+  "schema:url": "https://registry.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/carbonplus-grasslands-credit-class",
+  "schema:name": "CarbonPlus Grasslands Credit Class",
+  "regen:measuredGHGs": [
+    "Carbon Dioxide (CO2)",
+    "Methane (CH4)"
+  ],
+  "note_1": "^ should add?",
+  "schema:description": "This Credit Class provide incentive and a structure to significantly increase the amount of hectares/acres under managed grazing worldwide by providing land stewards with the necessary incentives to make this important work possible. The CarbonPlus credit focuses on soil carbon sequestration in grassland ecosystems. The Plus indicates that co-benefits (or secondary ecological benefits) allow for a credit that accounts for more than just carbon.",
+  "rfs:hasCreditingTerm": "P10Y",
+  "rfs:eligibleEnvironmentTypes": [
+    "GRASSLAND",
+    "PASTURE",
+    "SHRUBLAND"
+  ],
+  "regen:sectoralScope": [
+    "Waste Handling and Disposal"
+  ],
+  "note_2": "^ should add?",
+  "regen:lookbackPeriod": "-P5Y",
+  "note_3": "^ should add?",
+  "rfs:hasPermanencePeriod": "P10Y",
+  "regen:landOwnershipType": [
+    "Public",
+    "Private",
+    "Tribal"
+  ],
+  "note_4": "^ should we add?",
+  "regen:leakageAssessment": [
+    "Livestock Displacement"
+  ],
+  "note_5": "^ should we add?",
+  "regen:bufferPoolAccounts": [
+    {
+      "schema:name": "Credit Class Buffer Pool",
+      "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
+      "regen:poolAllocation": "20%"
+    },
+    {
+      "schema:name": "Credit Class Permanence Pool",
+      "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
+      "regen:poolAllocation": "5%"
+    }
+  ],
+  "note_6": "^ should we add?",
+  "rfs:eligibleActivities": [
+    "PERSCRIBED_GRAZING -- note should add one for rotational?",
+    "High Density Grazing -- none found",
+    "Residue Grazing -- none found"
+  ],
+  "regen:monitoringFrequency": "P5Y",
+  "note_7": "^ should we add?",
+  "regen:verificationMethods": [
+    "Third-Party Verification"
+  ],
+  "note_8": "^ should we add?",
+  "rfs:creditProtocol": {
+    "schema:url": "https://registry.regen.network/v/methodology-library/published-methodologies/methodology-for-ghg-and-co-benefits-in-grazing-systems",
+    "schema:name": "Methodology for GHG & Co-Benefits in Grazing Systems",
+    "schema:version": "V1.0"
+  },
+  "regen:verificationFrequency": "P5Y",
+  "rfs:hasCreditGenerationMethod": [
+    "CARBON_DIOXIDE_REMOVAL"
+  ],
+  "regen:additionalityAssessment": [
+    "Regulatory Surplus"
+  ],
+  "note_9": "^ should we add?",
+  "regen:allowsAggregatedProjects": true,
+  "note_10": "^ should we add?"
+}
