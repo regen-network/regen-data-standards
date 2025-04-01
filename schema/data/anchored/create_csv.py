@@ -26,9 +26,9 @@ for filename in os.listdir(folder_path):
                 if key.startswith("xxx:"):
                     # If the value is not a string, replace it with a placeholder
                     if isinstance(value, list):
-                        filtered[key] = "[..]"
+                        filtered[key] = str(value)[:15]
                     elif isinstance(value, dict):
-                        filtered[key] = "{..}"
+                        filtered[key] = str(value)[:15]
                     else:
                         filtered[key] = value
             data[file_id] = filtered

@@ -1,12 +1,12 @@
 ,xxx:additionalityApproach,xxx:additionalityAssessment,xxx:aggregatedProjects,xxx:allowsAggregatedProjects,xxx:baselineMethod,xxx:biocharApplicationType,xxx:biocharFeedstockMaterial,xxx:bufferPoolAccounts,xxx:certifications,xxx:geographicApplicability,xxx:landOwnershipType,xxx:leakageApproach,xxx:leakageAssessment,xxx:lookbackPeriod,xxx:measuredGHGs,xxx:monitoringFrequency,xxx:sectoralScope,xxx:tokenizationSource,xxx:verificationFrequency,xxx:verificationMethod,xxx:verificationMethods
-C06,,[..],,True,,,,[..],,,[..],,,-P10Y,[..],,[..],,,,[..]
-C04,[..],,True,,,,,{..},,,[..],[..],,P-14Y,[..],Annual,[..],,Five year,,[..]
-KSH01,,,,False,,,,,,California,[..],,,-P3Y,,P1D,,,P1Y,,[..]
+C06,,['Regulatory Su,,True,,,,[{'schema:name',,,"['Public', 'Pri",,,-P10Y,['Carbon Dioxid,,"['Agriculture, ",,,,['Third-Party V
+C04,['Common Practi,,True,,,,,{'@type': 'sche,,,"['Public', 'Pri",['Activity Shif,,P-14Y,['Carbon Dioxid,Annual,['Livestock & M,,Five year,,['Ruuts Interna
+KSH01,,,,False,,,,,,California,['Private'],,,-P3Y,,P1D,,,P1Y,,['Regen Network
 BT01,,,,,,,,,,,,,,,,,,,,,
-C02,,,,,,,,,[..],,,,,,,,[..],,,Third-party verified,
-C07,,[..],,True,,,,[..],,,[..],,[..],-P5Y,[..],P5Y,[..],,P5Y,,[..]
+C02,,,,,,,,,[{'schema:url':,,,,,,,,['Agriculture F,,,Third-party verified,
+C07,,['Regulatory Su,,True,,,,[{'schema:name',,,"['Public', 'Pri",,['Livestock Dis,-P5Y,['Carbon Dioxid,P5Y,['Waste Handlin,,P5Y,,['Third-Party V
 USS01,,,,,,,,,,,,,,,,,,,,,
-C05,,[..],,True,[..],[..],[..],[..],,,[..],,[..],-P1Y,[..],P1Y,[..],,P1Y,,[..]
+C05,,['Regulatory Su,,True,['Project Metho,"['Surface', 'Su",['Agricultural ,[{'schema:name',,,"['Public', 'Pri",,['Transport Emi,-P1Y,['Carbon Dioxid,P1Y,['Waste Handlin,,P1Y,,['Third-Party V
 MBS01,,,,True,,,,,,,,,,,,,,,,,
-C01,,,,,,,,,[..],,,,,,,,[..],,,Third-party verified,
-C03,,,,,,,,,[..],,,,,,,,[..],Toucan,,Third-Party Verified,
+C01,,,,,,,,,[{'schema:url':,,,,,,,,['Agriculture F,,,Third-party verified,
+C03,,,,,,,,,[{'schema:url':,,,,,,,,['Agriculture F,Toucan,,Third-Party Verified,
