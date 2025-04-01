@@ -6,16 +6,16 @@
     "schema:url": {
       "@type": "schema:URL"
     },
-    "regen:creditingTerm": {
+    "rfs:hasCreditingTerm": {
       "@type": "schema:Duration"
     },
-    "regen:permanencePeriod": {
+    "rfs:hasPermanencePeriod": {
       "@type": "schema:Duration"
     }
   },
   "schema:url": "https://www.registry.regen.network/crediting-protocols/era-brazil",
   "schema:name": "Biodiversity Credit Protocol for Umbrella Species Stewardship",
-  "regen:hasCoBenefits": [
+  "rfs:hasCoBenefits": [
     {
       "@id": "rft:ImprovedWildlifeHabitat",
       "@type": "rfs:Impact",
@@ -26,7 +26,7 @@
     {
       "@id": "rft:ImprovedEnvironmentalEducationAndOutreach",
       "@type": "rfs:Impact",
-      "regen:supportsSDG": [
+      "rfs:supportsSDG": [
         "SDG_4",
         "SDG_17",
         "SDG_8"
@@ -40,13 +40,13 @@
   ],
   "rfs:hasPrimaryImpact": {
     "@id": "rfs:ImprovedBiodivesity",
-    "regen:supportsSDG": [
+    "rfs:supportsSDG": [
       "SDG_15",
       "SDG_13"
     ],
     "schema:name": "Improved Biodiversity"
   },
-  "regen:eligibleActivities": [
+  "rfs:eligibleActivities": [
     "UMBRELLA_SPECIES_CONSERVATION",
     "ECOSYSTEM_RESTORATION",
     "ECOTOURISM"

@@ -6,13 +6,13 @@
     "schema:url": {
       "@type": "schema:URL"
     },
-    "regen:creditingTerm": {
+    "rfs:hasCreditingTerm": {
       "@type": "schema:Duration"
     }
   },
   "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
   "schema:name": "SeaTrees Crediting Protocol for Marine Restoration",
-  "regen:coBenefits": [
+  "rfs:hasCoBenefits": [
     {
       "@id": "rft:IncreasedCarbonSequestrationStorage",
       "@type": "rfs:Impact",
@@ -59,6 +59,5 @@
     "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
     "schema:name": "Methodology Proposal for SeaTrees Crediting Protocol for Marine Restoration"
   },
-  "regen:allowsAggregatedProjects": true,
-  "note": "should add?"
+  "xxx:allowsAggregatedProjects": true
 }

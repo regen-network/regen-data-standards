@@ -1,34 +1,33 @@
 {
   "@type": "rfs:CarbonCreditClassInfo",
   "@context": {
-    "regen": "https://schema.regen.network#",
+    "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
     "schema:url": {
       "@type": "schema:URL"
     },
-    "regen:creditingTerm": {
+    "rfs:hasCreditingTerm": {
       "@type": "schema:Duration"
     },
-    "regen:lookbackPeriod": {
+    "xxx:lookbackPeriod": {
       "@type": "schema:Duration"
     },
-    "regen:permanencePeriod": {
+    "rfs:hasPermanencePeriod": {
       "@type": "schema:Duration"
     },
-    "regen:monitoringFrequency": {
+    "xxx:monitoringFrequency": {
       "@type": "schema:Duration"
     },
-    "regen:verificationFrequency": {
+    "xxx:verificationFrequency": {
       "@type": "schema:Duration"
     }
   },
   "schema:url": "https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar",
   "schema:name": "Credit Class for Carbon Removal through Biochar Production",
-  "regen:measuredGHGs": [
+  "xxx:measuredGHGs": [
     "Carbon Dioxide (CO2)",
     "Methane (CH4)"
   ],
-  "note_1": "^ should add?",
   "schema:description": "The Biochar Carbon credit focuses on carbon removal and avoiding emissions that would have resulted from the decomposition of waste biomass. Carbon removal is the approved benefit that is monitored, quantified, and determines the number of credits issued. The approved benefit of atmospheric regulation through carbon sequestration is driven by carbon removals and reductions through the production and application of biochar to soils.",
   "rfs:hasCreditingTerm": "P2Y",
   "rfs:eligibleEnvironmentTypes": [
@@ -36,48 +35,42 @@
     "CROPLAND",
     "GRASSLAND"
   ],
-  "regen:sectoralScope": [
+  "xxx:sectoralScope": [
     "Waste Handling and Disposal"
   ],
-  "note_2": "^ should add?",
-  "regen:baselineMethod": [
+  "xxx:baselineMethod": [
     "Project Method"
   ],
-  "note_3": "^ should add?",
-  "regen:lookbackPeriod": "-P1Y",
-  "note_4": "^ should add?",
+  "xxx:lookbackPeriod": "-P1Y",
   "rfs:hasSourceRegistry": {
     "schema:url": "https://registry.regen.network/",
     "schema:name": "Regen Registry"
   },
   "rfs:hasPermanencePeriod": "P100Y",
-  "regen:landOwnershipType": [
+  "xxx:landOwnershipType": [
     "Public",
     "Private",
     "Tribal"
   ],
-  "note_5": "^ should add?",
-  "regen:leakageAssessment": [
+  "xxx:leakageAssessment": [
     "Transport Emissions"
   ],
   "note_6": "^ should add?",
-  "regen:bufferPoolAccounts": [
+  "xxx:bufferPoolAccounts": [
     {
       "schema:name": "Carbon Removal through Biochar Production Credit Class Buffer Pool",
       "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
       "regen:poolAllocation": "10%"
     }
   ],
-  "note_7": "^ should add?",
   "rfs:eligibleActivities": [
     "BIOCHAR_PRODUCTION"
   ],
-  "regen:monitoringFrequency": "P1Y",
+  "xxx:monitoringFrequency": "P1Y",
   "note_8": "^ should add?",
-  "regen:verificationMethods": [
+  "xxx:verificationMethods": [
     "Third-Party Verification"
   ],
-  "note_9": "^ should add?",
   "rfs:hasApprovedMethodologies": [
     {
       "schema:url": "https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf",
@@ -91,30 +84,25 @@
       "schema:version": "V1.0"
     }
   ],
-  "regen:verificationFrequency": "P1Y",
-  "note_10": "^ should add?",
-  "regen:biocharApplicationType": [
+  "xxx:verificationFrequency": "P1Y",
+  "xxx:biocharApplicationType": [
     "Surface",
     "Subsurface"
   ],
-  "note_11": "^ should add?",
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL",
     "EMISSIONS_REDUCTION"
   ],
-  "regen:additionalityAssessment": [
+  "xxx:additionalityAssessment": [
     "Regulatory Surplus",
     "Positive List"
   ],
-  "note_12": "^ should add?",
-  "regen:allowsAggregatedProjects": true,
-  "note_13": "^ should add?",
-  "regen:biocharFeedstockMaterial": [
+  "xxx:allowsAggregatedProjects": true,
+  "xxx:biocharFeedstockMaterial": [
     "Agricultural waste biomass",
     "Food processing resedues",
     "Woody biomass",
     "Industrial waste",
     "Aquaculture plants"
-  ],
-  "note_14": "^ should add?"
+  ]
 }

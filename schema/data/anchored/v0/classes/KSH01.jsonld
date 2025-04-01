@@ -6,16 +6,16 @@
     "schema:url": {
       "@type": "schema:URL"
     },
-    "regen:lookbackPeriod": {
+    "xxx:lookbackPeriod": {
       "@type": "schema:Duration"
     },
-    "regen:creditingPeriod": {
+    "rfs:hasCreditingPeriod": {
       "@type": "schema:Duration"
     },
-    "regen:monitoringFrequency": {
+    "xxx:monitoringFrequency": {
       "@type": "schema:Duration"
     },
-    "regen:verificationFrequency": {
+    "xxx:verificationFrequency": {
       "@type": "schema:Duration"
     }
   },
@@ -57,31 +57,25 @@
   "rfs:eligibleEnvironmentTypes": [
     "VINEYARD"
   ],
-  "regen:lookbackPeriod": "-P3Y",
-  "note_1": "should we add?",
+  "xxx:lookbackPeriod": "-P3Y",
   "rfs:hasCreditingPeriod": "P1Y",
-  "regen:landOwnershipType": [
+  "xxx:landOwnershipType": [
     "Private"
   ],
-  "note_2": "should we add?",
   "rfs:eligibleActivities": [
     "PERSCRIBED_GRAZING"
   ],
-  "regen:monitoringFrequency": "P1D",
+  "xxx:monitoringFrequency": "P1D",
   "note_3": "should we add?",
-  "regen:verificationMethods": [
+  "xxx:verificationMethods": [
     "Regen Network Development Science Team Quality Assurance"
   ],
-  "note_4": "should we add?",
   "rfs:creditProtocol": {
     "schema:url": "https://registry.regen.network/v/methodology-library/published-methodologies/methodology-for-grazing-in-vineyard-systems-v1.0",
     "schema:name": "Methodology for Grazing in Vineyard Systems",
     "schema:version": "1.0"
   },
-  "regen:verificationFrequency": "P1Y",
-  "note_5": "should we add?",
-  "regen:geographicApplicability": "California",
-  "note_6": "should we add back? lots of others had it, but thought we were removing it",
-  "regen:allowsAggregatedProjects": false,
-  "note_7": "should we add?"
+  "xxx:verificationFrequency": "P1Y",
+  "xxx:geographicApplicability": "California",
+  "xxx:allowsAggregatedProjects": false
 }
