@@ -25,7 +25,7 @@
     "schema:name": "Verra"
   },
   "regen:verificationMethod": "Third-party verified",
-  "rfs:approvedMethodologies": [
+  "rfs:hasApprovedMethodologies": [
     {
       "schema:url": "https://cdm.unfccc.int/methodologies/DB/X4VOLW3Y7IJCH9WXSBXBC2Q0JKG9UZ",
       "schema:name": "Afforestation and reforestation of degraded land",
@@ -312,6 +312,5 @@
   "rfs:hasCreditGenerationMethod": [
     "EMISSIONS_REDUCTION",
     "CARBON_DIOXIDE_REMOVAL"
-  ],
-  "note": "what's the diff btw emissions reduction and avoided emissions? Should all 3 be in Verra credit class?"
+  ]
 }
