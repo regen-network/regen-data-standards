@@ -74,8 +74,7 @@
     "schema:url": "https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems",
     "schema:name": "Methodology Proposal for Soil Organic Carbon Estimation in Regenerative Cropping and Managed Grassland Ecosystems",
     "schema:version": "V1.1",
-    "schema:identifier": "ecometric-0044",
-    "note": "should this be required to be a URI?"
+    "schema:identifier": "ecometric-0044 -- should this be required to be a URI / CURIE ?"
   },
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL"
