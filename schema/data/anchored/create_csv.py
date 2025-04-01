@@ -25,8 +25,10 @@ for filename in os.listdir(folder_path):
             for key, value in json_data.items():
                 if key.startswith("xxx:"):
                     # If the value is not a string, replace it with a placeholder
-                    if not isinstance(value, str):
-                        filtered[key] = "{...}" if isinstance(value, dict) else "[...]"
+                    if isinstance(value, list):
+                        filtered[key] = "[..]"
+                    elif isinstance(value, dict):
+                        filtered[key] = "{..}"
                     else:
                         filtered[key] = value
             data[file_id] = filtered
@@ -44,6 +46,8 @@ for file_id, kv in data.items():
     s = pd.Series(kv)
     df[file_id] = s
 
+# Transpose the DataFrame
+df = df.T
 # Save the DataFrame to CSV
 output_csv = 'output.csv'
 df.to_csv(output_csv)

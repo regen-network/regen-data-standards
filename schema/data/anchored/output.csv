@@ -1,22 +1,12 @@
-,C06,C04,KSH01,BT01,C02,C07,USS01,C05,MBS01,C01,C03
-xxx:additionalityApproach,,[...],,,,,,,,,
-xxx:additionalityAssessment,[...],,,,,[...],,[...],,,
-xxx:aggregatedProjects,,[...],,,,,,,,,
-xxx:allowsAggregatedProjects,[...],,[...],,,[...],,[...],[...],,
-xxx:baselineMethod,,,,,,,,[...],,,
-xxx:biocharApplicationType,,,,,,,,[...],,,
-xxx:biocharFeedstockMaterial,,,,,,,,[...],,,
-xxx:bufferPoolAccounts,[...],{...},,,,[...],,[...],,,
-xxx:certifications,,,,,[...],,,,,[...],[...]
-xxx:geographicApplicability,,,California,,,,,,,,
-xxx:landOwnershipType,[...],[...],[...],,,[...],,[...],,,
-xxx:leakageApproach,,[...],,,,,,,,,
-xxx:leakageAssessment,,,,,,[...],,[...],,,
-xxx:lookbackPeriod,-P10Y,P-14Y,-P3Y,,,-P5Y,,-P1Y,,,
-xxx:measuredGHGs,[...],[...],,,,[...],,[...],,,
-xxx:monitoringFrequency,,Annual,P1D,,,P5Y,,P1Y,,,
-xxx:sectoralScope,[...],[...],,,[...],[...],,[...],,[...],[...]
-xxx:tokenizationSource,,,,,,,,,,,Toucan
-xxx:verificationFrequency,,Five year,P1Y,,,P5Y,,P1Y,,,
-xxx:verificationMethod,,,,,Third-party verified,,,,,Third-party verified,Third-Party Verified
-xxx:verificationMethods,[...],[...],[...],,,[...],,[...],,,
+,xxx:additionalityApproach,xxx:additionalityAssessment,xxx:aggregatedProjects,xxx:allowsAggregatedProjects,xxx:baselineMethod,xxx:biocharApplicationType,xxx:biocharFeedstockMaterial,xxx:bufferPoolAccounts,xxx:certifications,xxx:geographicApplicability,xxx:landOwnershipType,xxx:leakageApproach,xxx:leakageAssessment,xxx:lookbackPeriod,xxx:measuredGHGs,xxx:monitoringFrequency,xxx:sectoralScope,xxx:tokenizationSource,xxx:verificationFrequency,xxx:verificationMethod,xxx:verificationMethods
+C06,,[..],,True,,,,[..],,,[..],,,-P10Y,[..],,[..],,,,[..]
+C04,[..],,True,,,,,{..},,,[..],[..],,P-14Y,[..],Annual,[..],,Five year,,[..]
+KSH01,,,,False,,,,,,California,[..],,,-P3Y,,P1D,,,P1Y,,[..]
+BT01,,,,,,,,,,,,,,,,,,,,,
+C02,,,,,,,,,[..],,,,,,,,[..],,,Third-party verified,
+C07,,[..],,True,,,,[..],,,[..],,[..],-P5Y,[..],P5Y,[..],,P5Y,,[..]
+USS01,,,,,,,,,,,,,,,,,,,,,
+C05,,[..],,True,[..],[..],[..],[..],,,[..],,[..],-P1Y,[..],P1Y,[..],,P1Y,,[..]
+MBS01,,,,True,,,,,,,,,,,,,,,,,
+C01,,,,,,,,,[..],,,,,,,,[..],,,Third-party verified,
+C03,,,,,,,,,[..],,,,,,,,[..],Toucan,,Third-Party Verified,
