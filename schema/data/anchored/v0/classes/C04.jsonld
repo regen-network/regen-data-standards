@@ -1,0 +1,134 @@
+{
+  "@type": "regen:C04-CreditClass",
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "regen": "https://schema.regen.network#",
+    "schema": "http://schema.org/",
+    "schema:url": {
+      "@type": "schema:URL"
+    },
+    "regen:coBenefits": {
+      "@container": "@list"
+    },
+    "regen:measuredGHGs": {
+      "@container": "@list"
+    },
+    "regen:creditingTerm": {
+      "@type": "schema:activityDuration"
+    },
+    "regen:ecosystemType": {
+      "@container": "@list"
+    },
+    "regen:sectoralScope": {
+      "@container": "@list"
+    },
+    "regen:lookbackPeriod": {
+      "@type": "schema:activityDuration"
+    },
+    "regen:leakageApproach": {
+      "@container": "@list"
+    },
+    "regen:permanencePeriod": {
+      "@type": "schema:activityDuration"
+    },
+    "schema:itemListElement": {
+      "@container": "@list"
+    },
+    "regen:landOwnershipType": {
+      "@container": "@list"
+    },
+    "regen:eligibleActivities": {
+      "@container": "@list"
+    },
+    "regen:monitoringFrequency": {
+      "@type": "schema:frequency"
+    },
+    "regen:verificationMethods": {
+      "@container": "@list"
+    },
+    "regen:additionalityApproach": {
+      "@container": "@list"
+    },
+    "regen:verificationFrequency": {
+      "@type": "schema:frequency"
+    },
+    "regen:offsetGenerationMethod": {
+      "@container": "@list"
+    }
+  },
+  "schema:url": "https://library.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/ruuts-credit-class-for-soil-carbon-sequestration-through-regenerative-grazing",
+  "schema:name": "Ruuts Credit Class for Soil Carbon Sequestration through Regenerative Grazing",
+  "regen:coBenefits": [
+    "Water Infultration",
+    "Biodiversity"
+  ],
+  "regen:measuredGHGs": [
+    "Carbon Dioxide (CO2)",
+    "Nitrous Oxide (NO2)",
+    "Methane (CH4)"
+  ],
+  "schema:description": "The Credit Class and its accompanying methodology provide farmers with a measuring and monitoring process for soil organic carbon sequestration in regenerative grazing systems, enabling them to generate carbon credits that also include robust ecological co-benefits such as water infiltration and biodiversity.",
+  "regen:creditingTerm": "P10Y",
+  "regen:ecosystemType": [
+    "Pasture",
+    "Native Grasslands",
+    "Integrated Cro-Livestock (ICL)"
+  ],
+  "regen:sectoralScope": [
+    "Livestock & Manure Management"
+  ],
+  "regen:lookbackPeriod": "P-14Y",
+  "regen:sourceRegistry": {
+    "schema:url": "https://library.regen.network/v/regen-registry-guide/",
+    "schema:name": "Regen Registry"
+  },
+  "regen:leakageApproach": [
+    "Activity Shifting Leakage"
+  ],
+  "regen:permanencePeriod": "P20Y",
+  "regen:landOwnershipType": [
+    "Public",
+    "Private"
+  ],
+  "regen:aggregatedProjects": true,
+  "regen:bufferPoolAccounts": {
+    "@type": "schema:ItemList",
+    "schema:itemListElement": [
+      {
+        "schema:name": "Credit Class (Pooled) Buffer Pool",
+        "regen:walletAddress": "regen17pmq7hp4upvmmveqexzuhzu64v36re3w3447n7dt46uwp594wtpsuuh7f6",
+        "regen:poolAllocation": "5%"
+      }
+    ]
+  },
+  "regen:eligibleActivities": [
+    "Improved Grazing",
+    "Rotational Grazing"
+  ],
+  "regen:monitoringFrequency": "Annual",
+  "regen:verificationMethods": [
+    "Ruuts Internal Quality Assurance",
+    "Third-Party ISO 14064-3 Verification"
+  ],
+  "regen:additionalityApproach": [
+    "Common Practice Analysis",
+    "Regulatory Additionality"
+  ],
+  "regen:approvedMethodologies": {
+    "@type": "schema:ItemList",
+    "schema:url": "",
+    "schema:itemListElement": [
+      {
+        "schema:url": "https://library.regen.network/v/methodology-library/published-methodologies/ruuts-methodology-for-soil-carbon-sequestration",
+        "schema:name": "Ruuts Protocol Soil Carbon Sequestration Methodology v1",
+        "schema:version": "V1.0",
+        "schema:identifier": ""
+      }
+    ]
+  },
+  "regen:verificationFrequency": "Five year",
+  "regen:offsetGenerationMethod": [
+    "Carbon Removal"
+  ],
+  "regen:geographicApplicability": "Global"
+}
