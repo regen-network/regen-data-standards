@@ -13,10 +13,10 @@
   "rfs:eligibleEnvironmentTypes": [
     "URBAN_TREES"
   ],
-  "regen:sectoralScope": [
+  "xxx:sectoralScope": [
     "Agriculture Forestry and Other Land Use (AFOLU)"
   ],
-  "regen:certifications": [
+  "xxx:certifications": [
     {
       "schema:url": "https://icroa.org/",
       "schema:name": "ICROA approved"
@@ -29,7 +29,7 @@
   "rfs:eligibleActivities": [
     "Tree Preservation -- CANNOT FIND. CLOSEST IS TREE_PLANTING"
   ],
-  "regen:verificationMethod": "Third-party verified",
+  "xxx:verificationMethod": "Third-party verified",
   "rfs:managedUnderProgram": {
     "comment": "or should this be rfs:creditProtocol ?",
     "schema:url": "https://www.cityforestcredits.org/wp-content/uploads/2022/03/City-Forest-Credits-Standard-V2.pdf",
@@ -47,7 +47,7 @@
       "schema:version": "11.100"
     }
   ],
-  "regen:hasCreditGenerationMethod": [
+  "rfs:hasCreditGenerationMethod": [
     "AVOIDED_EMISSIONS"
   ]
 }

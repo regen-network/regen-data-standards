@@ -10,11 +10,11 @@
   "schema:url": "https://docs.toucan.earth/toucan/bridge/tco2-toucan-carbon-tokens",
   "schema:name": "TCO2: Toucan Carbon Tokens Credit Class",
   "schema:description": "This credit class provides a vehicle for Toucan Protocol Toucan Carbon Tokens (TCO2s) to enter the Cosmos ecosystem via issuance on Regen Ledger. Each TCO2 represents a unique carbon offset brought on-chain from the Verra registry using the Toucan Carbon Bridge. Currently, only TCO2 credits that fall under the NCT criteria are eligible to be issued under this credit class. Eligible credits can be bridged directly from Polygon using the Regen Network <> Toucan Bridge.",
-  "regen:sectoralScope": [
+  "xxx:sectoralScope": [
     "Agriculture Forestry and Other Land Use (AFOLU)",
     "Livestock and Manure Management"
   ],
-  "regen:certifications": [
+  "xxx:certifications": [
     {
       "schema:url": "https://icroa.org/",
       "schema:name": "ICROA approved"
@@ -34,10 +34,8 @@
     "Avoided Conversion of Grasslands and Shrublands (ACoGS) -- not found",
     "Wetlands Restoration and Conservation (WRC) -- not found"
   ],
-  "regen:tokenizationSource": "Toucan",
-  "note_1": "^ should we add?",
-  "regen:verificationMethod": "Third-Party Verified",
-  "note_2": "^ should we add?",
+  "xxx:tokenizationSource": "Toucan",
+  "xxx:verificationMethod": "Third-Party Verified",
   "rfs:hasApprovedMethodologies": [
     {
       "schema:url": "https://cdm.unfccc.int/methodologies/DB/X4VOLW3Y7IJCH9WXSBXBC2Q0JKG9UZ",
