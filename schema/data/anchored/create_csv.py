@@ -24,13 +24,14 @@ for filename in os.listdir(folder_path):
             filtered = {}
             for key, value in json_data.items():
                 if key.startswith("xxx:"):
-                    # If the value is not a string, replace it with a placeholder
-                    if isinstance(value, list):
-                        filtered[key] = str(value)[:15]
-                    elif isinstance(value, dict):
-                        filtered[key] = str(value)[:15]
-                    else:
-                        filtered[key] = value
+                    # # If the value is not a string, replace it with a placeholder
+                    # if isinstance(value, list):
+                    #     filtered[key] = str(value)[:15]
+                    # elif isinstance(value, dict):
+                    #     filtered[key] = str(value)[:15]
+                    # else:
+                    #     filtered[key] = value
+                    filtered[key] = value
             data[file_id] = filtered
 
 # Create a set of all keys found across all files
@@ -46,8 +47,6 @@ for file_id, kv in data.items():
     s = pd.Series(kv)
     df[file_id] = s
 
-# Transpose the DataFrame
-df = df.T
 # Save the DataFrame to CSV
 output_csv = 'output.csv'
 df.to_csv(output_csv)
