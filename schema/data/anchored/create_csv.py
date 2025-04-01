@@ -21,7 +21,14 @@ for filename in os.listdir(folder_path):
                 continue
 
             # Filter out key-value pairs that start with 'xxx:'
-            filtered = {key: value for key, value in json_data.items() if key.startswith("xxx:")}
+            filtered = {}
+            for key, value in json_data.items():
+                if key.startswith("xxx:"):
+                    # If the value is not a string, replace it with a placeholder
+                    if not isinstance(value, str):
+                        filtered[key] = "{...}" if isinstance(value, dict) else "[...]"
+                    else:
+                        filtered[key] = value
             data[file_id] = filtered
 
 # Create a set of all keys found across all files
@@ -29,7 +36,7 @@ all_keys = set()
 for file_dict in data.values():
     all_keys.update(file_dict.keys())
 
-# Build a DataFrame where index is the keys and columns are file identifiers
+# Build a DataFrame where index is the keys (row names) and columns are file identifiers
 df = pd.DataFrame(index=sorted(all_keys))
 
 for file_id, kv in data.items():
@@ -42,4 +49,3 @@ output_csv = 'output.csv'
 df.to_csv(output_csv)
 
 print(f"CSV output written to {output_csv}")
-
