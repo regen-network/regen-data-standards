@@ -31,7 +31,6 @@
   ],
   "xxx:verificationMethod": "Third-party verified",
   "rfs:managedUnderProgram": {
-    "comment": "or should this be rfs:creditProtocol ?",
     "schema:url": "https://www.cityforestcredits.org/wp-content/uploads/2022/03/City-Forest-Credits-Standard-V2.pdf",
     "schema:name": "City Forest Credits Standard"
   },
