@@ -55,7 +55,6 @@
   "xxx:leakageAssessment": [
     "Transport Emissions"
   ],
-  "note_6": "^ should add?",
   "xxx:bufferPoolAccounts": [
     {
       "schema:name": "Carbon Removal through Biochar Production Credit Class Buffer Pool",
@@ -67,7 +66,6 @@
     "BIOCHAR_PRODUCTION"
   ],
   "xxx:monitoringFrequency": "P1Y",
-  "note_8": "^ should add?",
   "xxx:verificationMethods": [
     "Third-Party Verification"
   ],
