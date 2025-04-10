@@ -7,20 +7,23 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   xsd: http://www.w3.org/2001/XMLSchema#
+
 imports:
   - linkml:types
+  - core
   - taxonomy
-default_curi_maps:
-  - semweb_context
+
 default_prefix: rfs
 default_range: string
 
 classes:
   ProjectInfo:
+    description: Base class with common fields used to define project info.
     slots:
       - name
-      - location
       - description
+      - url
+      - location
       - projectSize # optional
       - projectDeveloper # optional
       - environmentType # optional
@@ -32,14 +35,19 @@ classes:
       - activity # optional
       - environmentType # optional
       - impact # optional
+    slot_usage:
+      name:
+        required: true
   ProjectRole:
     slots:
       - name
+      - description
       - url
       - image
+    slot_usage:
+      name:
+        required: true
     attributes:
-      description:
-        range: string
       type:
         range: ProjectRoleTypes
         required: true
@@ -61,6 +69,9 @@ classes:
       - description
       - url
       - image
+    slot_usage:
+      name:
+        required: true
     attributes:
       showOnProjectPage:
         range: boolean
