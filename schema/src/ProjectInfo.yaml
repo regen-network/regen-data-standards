@@ -61,6 +61,12 @@ classes:
       projectDeveloper:
         range: ProjectRole
         description: The organization responsible for owning the project.
+
+  CreditProjectInfo:
+    is_a: ProjectInfo
+    title: Credit Project Info
+    description: Base class with additional fields for projects that issue credits.
+    attributes:
       projectMonitor:
         range: ProjectRole
         description: The organization responsible for monitoring the project.
