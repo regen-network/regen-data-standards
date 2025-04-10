@@ -23,21 +23,54 @@ classes:
       - name
       - description
       - url
-      - location
-      - projectSize # optional
-      - projectDeveloper # optional
-      - environmentType # optional
-      - projectMonitor # optional
-      - projectVerifier # optional
-      - projectStartDate # optional
-      - projectEndDate # optional
-      - creditClassVersion # optional
-      - activity # optional
-      - environmentType # optional
-      - impact # optional
     slot_usage:
       name:
         required: true
+    attributes:
+      location:
+        required: true
+        range: Location
+        description: The location of the project.
+        slot_uri: schema:location
+        inlined: true
+      projectSize:
+        range: QuantityValue
+        inlined: false
+      environmentType:
+        range: EnvironmentType
+        description: The environment type of the project.
+        multivalued: true
+      activity:
+        name: activity
+        description: The types of activities being implemented in projects
+        from_schema: https://framework.regen.network/taxonomy/
+        range: ActivityType
+        multivalued: true
+      impact:
+        name: impact
+        description: A project or initiative’s current and potential impact
+        from_schema: https://framework.regen.network/taxonomy/
+        range: ImpactType
+        multivalued: true
+      projectStartDate:
+        slot_uri: xsd:date
+        description: The start date of the project.
+      projectEndDate:
+        slot_uri: xsd:date
+        description: The end date of the project.
+      projectDeveloper:
+        range: ProjectRole
+        description: The organization responsible for owning the project.
+      projectMonitor:
+        range: ProjectRole
+        description: The organization responsible for monitoring the project.
+      projectVerifier:
+        range: ProjectRole
+        description: The organization responsible for owning the project.
+      creditClassVersion:
+        range: string
+        description: The version of the credit class used for the project.
+
   ProjectRole:
     slots:
       - name
@@ -118,51 +151,6 @@ classes:
 
   Any:
     class_uri: linkml:Any
-
-slots:
-  location:
-    required: true
-    range: Location
-    description: The location of the project.
-    slot_uri: schema:location
-    inlined: true
-  projectSize:
-    range: QuantityValue
-    inlined: false
-  environmentType:
-    range: EnvironmentType
-    description: The environment type of the project.
-    multivalued: true
-  activity:
-    name: activity
-    description: The types of activities being implemented in projects
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ActivityType
-    multivalued: true
-  impact:
-    name: impact
-    description: A project or initiative’s current and potential impact
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ImpactType
-    multivalued: true
-  projectStartDate:
-    slot_uri: xsd:date
-    description: The start date of the project.
-  projectEndDate:
-    slot_uri: xsd:date
-    description: The end date of the project.
-  projectDeveloper:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
-  projectMonitor:
-    range: ProjectRole
-    description: The organization responsible for monitoring the project.
-  projectVerifier:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
-  creditClassVersion:
-    range: string
-    description: The version of the credit class used for the project.
 
 enums:
   ProjectRoleTypes:
