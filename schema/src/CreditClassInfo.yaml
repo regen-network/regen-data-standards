@@ -13,6 +13,7 @@ imports:
   - Methodology
   - CreditProtocol
   - CreditingProgram
+  - BufferPoolAccount
 
 default_prefix: rfs
 default_range: string
@@ -26,6 +27,8 @@ classes:
       - url
     slot_usage:
       name:
+        required: true
+      url:
         required: true
     attributes:
       hasPrimaryImpact:
@@ -41,32 +44,44 @@ classes:
       hasSourceRegistry:
         description: The registry where the credits are originally issued and tracked if somewhere other than Regen Network.
         range: Registry
+        inlined: true
       managedUnderProgram:
         description: The higher-level rules and requirements under which the given credit protocol operates, sometimes referred to as the "Standard".
         range: CreditingProgram
-      creditProtocol:
+        recommended: true
+        inlined: true
+      hasCreditProtocol:
         description: The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.
         range: CreditProtocol
+        recommended: true
+        multivalued: true
+        inlined_as_list: true
       hasApprovedMethodologies:
         description: If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.
         range: Methodology
         multivalued: true
-        inlined: true
         inlined_as_list: true
-      hasCreditingTerm:
+      hasCreditingPeriod:
         description: The total duration of the crediting term for the project.
         range: duration
       eligibleEnvironmentTypes:
         description: Types of environments that a project registered under this credit class may focuses on.
         range: string
-        exactly_one_of:
+        any_of:
           - range: uriorcurie
           - range: EnvironmentType
+        required: true
         multivalued: true
       eligibleActivities:
         description: Eligible activities for projects registered under this credit class.
         range: ActivityType
+        required: true
         multivalued: true
+      hasBufferPoolAccounts:
+        description: Buffer pool accounts associated with the credit class.
+        range: BufferPoolAccount
+        multivalued: true
+        inlined_as_list: true
 
   CarbonCreditClassInfo:
     is_a: CreditClassInfo
@@ -75,9 +90,11 @@ classes:
       hasPermanencePeriod:
         description: Permanence period of the credits.
         range: duration
+        required: true
       hasCreditGenerationMethod:
         description: Method for generating credits.
         range: CreditGenerationMethod
+        required: true
 
 enums:
   CreditGenerationMethod:

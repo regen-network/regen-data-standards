@@ -34,7 +34,7 @@
     "schema:url": "https://www.cityforestcredits.org/wp-content/uploads/2022/03/City-Forest-Credits-Standard-V2.pdf",
     "schema:name": "City Forest Credits Standard"
   },
-  "rfs:hasApprovedMethodologies": [
+  "rfs:hasCreditProtocol": [
     {
       "schema:url": "https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf",
       "schema:name": "Preservation Protocol — 40 years",

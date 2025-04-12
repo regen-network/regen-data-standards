@@ -27,7 +27,7 @@
     "Methane (CH4)"
   ],
   "schema:description": "The Credit Class and its accompanying methodology provide farmers with a measuring and monitoring process for soil organic carbon sequestration in regenerative grazing systems, enabling them to generate carbon credits that also include robust ecological co-benefits such as water infiltration and biodiversity.",
-  "rfs:hasCreditingTerm": "P10Y",
+  "rfs:hasCreditingPeriod": "P10Y",
   "rfs:eligibleEnvironmentTypes": [
     "PASTURE",
     "GRASSLAND",
@@ -37,10 +37,6 @@
     "Livestock & Manure Management"
   ],
   "xxx:lookbackPeriod": "P-14Y",
-  "rfs:hasSourceRegistry": {
-    "schema:url": "https://library.regen.network/v/regen-registry-guide/",
-    "schema:name": "Regen Registry"
-  },
   "xxx:leakageApproach": [
     "Activity Shifting Leakage"
   ],
