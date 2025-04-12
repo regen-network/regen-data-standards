@@ -31,20 +31,17 @@ def validate_file(jsonld_file):
     prefix_dict = {"rfs": "https://framework.regen.network/schema/","rft": "https://framework.regen.network/taxonomy/","schema": "http://schema.org/"}
 
     rdf_loader = get_loader("rdf")
-    json_dumper = get_dumper("json")
     obj = rdf_loader.load(source=str(jsonld_file), target_class=target_class, schemaview=schemaview, fmt="json-ld", prefix_map=prefix_dict)
 
-    json_instance = json_dumper.
-    print("Loaded JSON-LD object:")
 
     print("Loaded object, now performing validation")
     # Validate the YAML object using LinkML
+    # SOMETHING IS STRANGE HERE -- not sure what's going on but getting errors when running the Jsonscheam validation plugin
     validator = Validator(schema_path,
                           validation_plugins=[JsonschemaValidationPlugin(), RecommendedSlotsPlugin()])
     validation_result = validator.validate(obj, target_class=target_class_name)
 
     if validation_result:
-        
         for result in validation_result.results:
             if result.severity == "ERROR":
                 print(f"Error: {result.message}")
