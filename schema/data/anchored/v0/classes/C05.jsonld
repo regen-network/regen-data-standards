@@ -14,10 +14,7 @@
     "GRASSLAND"
   ],
   "rfs:hasPermanencePeriod": "P100Y",
-  "xxx:leakageAssessment": [
-    "Transport Emissions"
-  ],
-  "xxx:bufferPoolAccounts": [
+  "rfs:bufferPoolAccounts": [
     {
       "schema:name": "Carbon Removal through Biochar Production Credit Class Buffer Pool",
       "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
@@ -26,10 +23,6 @@
   ],
   "rfs:eligibleActivities": [
     "BIOCHAR_PRODUCTION"
-  ],
-  "xxx:monitoringFrequency": "P1Y",
-  "xxx:verificationMethods": [
-    "Third-Party Verification"
   ],
   "rfs:hasApprovedMethodologies": [
     {
@@ -44,25 +37,8 @@
       "schema:version": "V1.0"
     }
   ],
-  "xxx:verificationFrequency": "P1Y",
-  "xxx:biocharApplicationType": [
-    "Surface",
-    "Subsurface"
-  ],
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL",
     "EMISSIONS_REDUCTION"
-  ],
-  "xxx:additionalityAssessment": [
-    "Regulatory Surplus",
-    "Positive List"
-  ],
-  "xxx:allowsAggregatedProjects": true,
-  "xxx:biocharFeedstockMaterial": [
-    "Agricultural waste biomass",
-    "Food processing resedues",
-    "Woody biomass",
-    "Industrial waste",
-    "Aquaculture plants"
   ]
 }
