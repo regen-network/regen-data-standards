@@ -6,6 +6,16 @@
       "name": "Development server",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["data/anchored/v0/classes/BT01.jsonld"],
+      "cwd": "${workspaceFolder}/schema",
+      "justMyCode": false
     }
   ]
 }

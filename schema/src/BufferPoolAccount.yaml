@@ -1,0 +1,30 @@
+id: BufferPoolAccount
+name: BufferPoolAccount
+
+prefixes:
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - core
+
+classes:
+  BufferPoolAccount:
+    description: Details of the buffer pool account associated with a credit class.
+    slots:
+      - name
+    slot_usage:
+      name:
+        required: true
+    attributes:
+      walletAddress:
+        description: The wallet address of the buffer pool account.
+        range: string
+        pattern: "^regen1[0-9a-zA-Z]+$"
+        required: true
+      poolAllocation:
+        description: The allocation of the buffer pool.
+        range: string
+        pattern: "^\\d+(\\.\\d+)?%$"
+        recommended: true
