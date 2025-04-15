@@ -2,10 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "./node_modules/.bin/astro dev",
-      "name": "Development server",
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
       "request": "launch",
-      "type": "node-terminal"
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["data/anchored/v0/classes/BT01.jsonld"],
+      "cwd": "${workspaceFolder}/schema",
+      "justMyCode": false
     }
   ]
 }
