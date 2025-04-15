@@ -2,30 +2,24 @@
   "@type": "rfs:CarbonCreditClassInfo",
   "@context": {
     "rfs": "https://framework.regen.network/schema/",
-    "schema": "http://schema.org/",
-    "schema:url": {
-      "@type": "schema:URL"
-    }
+    "schema": "http://schema.org/"
   },
   "schema:url": "https://library.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/ruuts-credit-class-for-soil-carbon-sequestration-through-regenerative-grazing",
   "schema:name": "Ruuts Credit Class for Soil Carbon Sequestration through Regenerative Grazing",
   "rfs:hasCoBenefits": [
     {
-      "@id": "rft:ImprovedBiodiversity",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "IMPROVED_BIODIVERSITY",
       "schema:name": "Improved Biodiversity"
     },
     {
-      "@id": "rft:ImprovedWaterInfiltration",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "IMPROVED_WATER_INFILTRATION",
       "schema:name": "Improved Water Infiltration"
     }
   ],
-  "xxx:measuredGHGs": [
-    "Carbon Dioxide (CO2)",
-    "Nitrous Oxide (NO2)",
-    "Methane (CH4)"
-  ],
+  "rfs:hasPrimaryImpact": {
+    "rfs:impactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
+    "schema:name": "????"
+  },
   "schema:description": "The Credit Class and its accompanying methodology provide farmers with a measuring and monitoring process for soil organic carbon sequestration in regenerative grazing systems, enabling them to generate carbon credits that also include robust ecological co-benefits such as water infiltration and biodiversity.",
   "rfs:hasCreditingPeriod": "P10Y",
   "rfs:eligibleEnvironmentTypes": [
@@ -33,48 +27,22 @@
     "GRASSLAND",
     "Integrated Cro-Livestock (ICL) -- cannot find in taxonomy"
   ],
-  "xxx:sectoralScope": [
-    "Livestock & Manure Management"
-  ],
-  "xxx:lookbackPeriod": "P-14Y",
-  "xxx:leakageApproach": [
-    "Activity Shifting Leakage"
-  ],
   "rfs:hasPermanencePeriod": "P20Y",
-  "xxx:landOwnershipType": [
-    "Public",
-    "Private"
+  "rfs:hasBufferPoolAccounts": [
+    {
+      "schema:name": "Credit Class (Pooled) Buffer Pool",
+      "rfs:walletAddress": "regen17pmq7hp4upvmmveqexzuhzu64v36re3w3447n7dt46uwp594wtpsuuh7f6",
+      "rfs:poolAllocation": "5%"
+    }
   ],
-  "xxx:aggregatedProjects": true,
-  "xxx:bufferPoolAccounts": {
-    "@type": "schema:ItemList",
-    "schema:itemListElement": [
-      {
-        "schema:name": "Credit Class (Pooled) Buffer Pool",
-        "regen:walletAddress": "regen17pmq7hp4upvmmveqexzuhzu64v36re3w3447n7dt46uwp594wtpsuuh7f6",
-        "regen:poolAllocation": "5%"
-      }
-    ]
-  },
   "rfs:eligibleActivities": [
-    "PERSCRIBED_GRAZING",
-    "Rotational Grazing -- should we add a specific one for this?"
+    "PRESCRIBED_GRAZING"
   ],
-  "xxx:monitoringFrequency": "Annual",
-  "xxx:verificationMethods": [
-    "Ruuts Internal Quality Assurance",
-    "Third-Party ISO 14064-3 Verification"
-  ],
-  "xxx:additionalityApproach": [
-    "Common Practice Analysis",
-    "Regulatory Additionality"
-  ],
-  "rfs:creditProtocol": {
+  "rfs:hasCreditProtocol": {
     "schema:url": "https://library.regen.network/v/methodology-library/published-methodologies/ruuts-methodology-for-soil-carbon-sequestration",
     "schema:name": "Ruuts Protocol Soil Carbon Sequestration Methodology v1",
     "schema:version": "V1.0"
   },
-  "xxx:verificationFrequency": "Five year",
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL"
   ]

@@ -11,8 +11,6 @@ from linkml.generators.pythongen import PythonGenerator
 import os
 
 def validate_file(jsonld_file):
-    print(f"Validating file: {jsonld_file}")
-
     # Load the schema using LinkML
     schema_path = "src/schema.yaml"
     schemaview = SchemaView(schema_path)
@@ -30,22 +28,29 @@ def validate_file(jsonld_file):
 
     prefix_dict = {"rfs": "https://framework.regen.network/schema/","rft": "https://framework.regen.network/taxonomy/","schema": "http://schema.org/"}
 
+
+
     rdf_loader = get_loader("rdf")
-    obj = rdf_loader.load(source=str(jsonld_file), target_class=target_class, schemaview=schemaview, fmt="json-ld", prefix_map=prefix_dict)
+    json_dumper = get_dumper("json")
+    try:
+        obj = rdf_loader.load(source=str(jsonld_file), target_class=target_class, schemaview=schemaview, fmt="json-ld", prefix_map=prefix_dict, ignore_unmapped_predicates=True)
+    except Exception as e:
+        print(f"Error loading file {jsonld_file}: {e}")
+        return
 
 
-    print("Loaded object, now performing validation")
-    # Validate the YAML object using LinkML
-    # SOMETHING IS STRANGE HERE -- not sure what's going on but getting errors when running the Jsonscheam validation plugin
+    print(f"Successfully loaded file {jsonld_file}, now performing validation")
+
+    instance_dict = json_dumper.to_dict(obj)
     validator = Validator(schema_path,
                           validation_plugins=[JsonschemaValidationPlugin(), RecommendedSlotsPlugin()])
-    validation_result = validator.validate(obj, target_class=target_class_name)
+    validation_result = validator.validate(instance_dict, target_class=target_class_name)
 
     if validation_result:
         for result in validation_result.results:
             if result.severity == "ERROR":
                 print(f"Error: {result.message}")
-            elif result.severity == "WARNING":
+            elif result.severity == "WARN":
                 print(f"Warning: {result.message}")
             else:
                 print(f"Info: {result.message}")

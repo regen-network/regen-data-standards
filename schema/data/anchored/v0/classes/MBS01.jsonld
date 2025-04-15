@@ -1,38 +1,30 @@
 {
   "@type": "rfs:CreditClassInfo",
   "@context": {
-    "regen": "https://schema.regen.network#",
-    "schema": "http://schema.org/",
-    "schema:url": {
-      "@type": "schema:URL"
-    }
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/"
   },
   "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
   "schema:name": "SeaTrees Crediting Protocol for Marine Restoration",
   "rfs:hasCoBenefits": [
     {
-      "@id": "rft:IncreasedCarbonSequestrationStorage",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
       "schema:name": "Increased Carbon Sequestration and Storage"
     },
     {
-      "@id": "rft:IncreasedForestCover",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "INCREASED_FOREST_COVER",
       "schema:name": "Increased Forest Cover"
     },
     {
-      "@id": "rft:ImprovedForestHealth",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "IMPROVED_FOREST_HEALTH",
       "schema:name": "Improved Forest Health"
     },
     {
-      "@id": "rft:ImprovedCommunityHealth",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "IMPROVED_COMMUNITY_HEALTH",
       "schema:name": "Improved Community Health"
     },
     {
-      "@id": "rft:ImprovedWildlifeHabitat",
-      "@type": "rfs:Impact",
+      "rfs:impactType": "IMPROVED_WILDLIFE_HABITAT",
       "schema:name": "Improved Wildlife Habitat"
     }
   ],
@@ -44,7 +36,7 @@
     "COASTAL"
   ],
   "rfs:hasPrimaryImpact": {
-    "@id": "rft:ImprovedBiodiversity",
+    "rfs:impactType": "IMPROVED_BIODIVERSITY",
     "schema:name": "Improved Biodiversity"
   },
   "rfs:eligibleActivities": [
@@ -52,9 +44,8 @@
     "TREE_PLANTING",
     "CONSERVATION"
   ],
-  "rfs:creditProtocol": {
+  "rfs:hasCreditProtocol": {
     "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
     "schema:name": "Methodology Proposal for SeaTrees Crediting Protocol for Marine Restoration"
-  },
-  "xxx:allowsAggregatedProjects": true
+  }
 }

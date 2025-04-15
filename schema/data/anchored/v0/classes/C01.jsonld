@@ -2,29 +2,15 @@
   "@type": "rfs:CarbonCreditClassInfo",
   "@context": {
     "rfs": "https://framework.regen.network/schema/",
-    "schema": "http://schema.org/",
-    "schema:url": {
-      "@type": "schema:URL"
-    }
+    "schema": "http://schema.org/"
   },
   "schema:url": "https://library.regen.network/v/regen-registry-credit-classes/credits-from-other-registries/verified-carbon-standard-credit-class",
   "schema:name": "Verified Carbon Standard",
   "schema:description": "This credit class provides a vehicle for nature based Verified Carbon Units (VCUs) to enter the blockchain space via issuance on Regen Ledger. It can be used by project developers, credit brokers, and other stakeholders interested in digitizing carbon credits issued by the VCS program to make them available in the emerging world of decentralized finance.",
-  "xxx:sectoralScope": [
-    "Agriculture Forestry and Other Land Use (AFOLU)",
-    "Livestock and Manure Management"
-  ],
-  "xxx:certifications": [
-    {
-      "schema:url": "https://icroa.org/",
-      "schema:name": "ICROA approved"
-    }
-  ],
   "rfs:hasSourceRegistry": {
     "schema:url": "https://verra.org",
     "schema:name": "Verra"
   },
-  "xxx:verificationMethod": "Third-party verified",
   "rfs:hasApprovedMethodologies": [
     {
       "schema:url": "https://cdm.unfccc.int/methodologies/DB/X4VOLW3Y7IJCH9WXSBXBC2Q0JKG9UZ",

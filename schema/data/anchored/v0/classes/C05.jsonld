@@ -2,32 +2,10 @@
   "@type": "rfs:CarbonCreditClassInfo",
   "@context": {
     "rfs": "https://framework.regen.network/schema/",
-    "schema": "http://schema.org/",
-    "schema:url": {
-      "@type": "schema:URL"
-    },
-    "rfs:hasCreditingTerm": {
-      "@type": "schema:Duration"
-    },
-    "xxx:lookbackPeriod": {
-      "@type": "schema:Duration"
-    },
-    "rfs:hasPermanencePeriod": {
-      "@type": "schema:Duration"
-    },
-    "xxx:monitoringFrequency": {
-      "@type": "schema:Duration"
-    },
-    "xxx:verificationFrequency": {
-      "@type": "schema:Duration"
-    }
+    "schema": "http://schema.org/"
   },
   "schema:url": "https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar",
   "schema:name": "Credit Class for Carbon Removal through Biochar Production",
-  "xxx:measuredGHGs": [
-    "Carbon Dioxide (CO2)",
-    "Methane (CH4)"
-  ],
   "schema:description": "The Biochar Carbon credit focuses on carbon removal and avoiding emissions that would have resulted from the decomposition of waste biomass. Carbon removal is the approved benefit that is monitored, quantified, and determines the number of credits issued. The approved benefit of atmospheric regulation through carbon sequestration is driven by carbon removals and reductions through the production and application of biochar to soils.",
   "rfs:hasCreditingPeriod": "P2Y",
   "rfs:eligibleEnvironmentTypes": [
@@ -35,19 +13,7 @@
     "CROPLAND",
     "GRASSLAND"
   ],
-  "xxx:sectoralScope": [
-    "Waste Handling and Disposal"
-  ],
-  "xxx:baselineMethod": [
-    "Project Method"
-  ],
-  "xxx:lookbackPeriod": "-P1Y",
   "rfs:hasPermanencePeriod": "P100Y",
-  "xxx:landOwnershipType": [
-    "Public",
-    "Private",
-    "Tribal"
-  ],
   "xxx:leakageAssessment": [
     "Transport Emissions"
   ],

@@ -33,7 +33,7 @@
     {
       "schema:name": "Blaston Estate Project Specific Buffer Pool",
       "rfs:walletAddress": "",
-      "rfs:poolAllocation": "2s0%"
+      "rfs:poolAllocation": "20%"
     }
   ],
   "rfs:eligibleActivities": [
