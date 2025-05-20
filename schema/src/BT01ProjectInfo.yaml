@@ -17,7 +17,7 @@ default_range: string
 
 classes:
   BT01ProjectInfo:
-    is_a: ProjectInfo
+    is_a: CreditProjectInfo
     slots:
       # Tebu Factors
       - ecologicalConnectivityIndex
