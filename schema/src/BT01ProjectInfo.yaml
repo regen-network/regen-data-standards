@@ -27,10 +27,6 @@ classes:
       - conservationStatus
       - projectDuration
 
-      # Terrasos specific roles
-      - projectOperator
-      - projectOwner
-
       # Compliance Information
       - marketType
       - environmentalAuthority
@@ -96,12 +92,6 @@ slots:
     description: The management areas associated with the project.
     multivalued: true
     inlined: true
-  projectOperator:
-    range: ProjectRole
-    description: The organization responsible for operating the project.
-  projectOwner:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
   projectDuration:
     range: string
     description: The duration of the project.
