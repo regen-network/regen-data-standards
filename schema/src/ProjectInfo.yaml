@@ -85,6 +85,10 @@ classes:
       creditClassVersion:
         range: string
         description: The version of the credit class used for the project.
+      marketType:
+        range: MarketTypeTypes
+        description: The type of market for the associated credits.
+        multivalued: true
 
   ProjectRole:
     slots:
@@ -174,3 +178,12 @@ enums:
         meaning: rfs:Individual
       ORGANIZATION:
         meaning: rfs:Organization
+  MarketTypeTypes:
+    description: The type of marketplace
+    permissible_values:
+      COMPLIANCE_MARKET:
+        meaning: rfs:ComplianceMarket
+        description: a compliance market
+      VOLUNTARY_MARKET:
+        meaning: rfs:VoluntaryMarket
+        description: a voluntary market
