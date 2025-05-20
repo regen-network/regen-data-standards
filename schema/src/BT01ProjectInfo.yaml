@@ -88,7 +88,7 @@ slots:
     multivalued: true
     inlined: true
   projectDuration:
-    range: string
+    range: duration
     description: The duration of the project.
   conservationStatus:
     range: ConservationStatusTypes
