@@ -22,13 +22,13 @@ classes:
       # Tebu Factors
       - ecologicalConnectivityIndex
       - socialCulturalIndex
-      - administrativeArea
-      - managementAreas
+      - hasAdministrativeArea
+      - hasManagementAreas
       - conservationStatus
       - projectDuration
 
       # Compliance Information
-      - environmentalAuthority
+      - hasEnvironmentalAuthority
       - bioregion
       - biomeType
       - watershed
@@ -67,13 +67,13 @@ slots:
   subWatershed:
     range: string
     description: The sub-watershed associated with the project.
-  environmentalAuthority:
+  hasEnvironmentalAuthority:
     range: Entity
     description: The environmental authority associated with the project.
     multivalued: true
     inlined: true
     inlined_as_list: true
-  administrativeArea:
+  hasAdministrativeArea:
     range: AdministrativeArea
     description: The administrative area associated with the project.
   ecologicalConnectivityIndex:
@@ -82,7 +82,7 @@ slots:
   socialCulturalIndex:
     range: float
     description: The social cultural index of the project.
-  managementAreas:
+  hasManagementAreas:
     range: ManagementArea
     description: The management areas associated with the project.
     multivalued: true

@@ -64,19 +64,19 @@ classes:
       projectEndDate:
         slot_uri: xsd:date
         description: The end date of the project.
-      projectDeveloper:
+      hasProjectDeveloper:
         range: Entity
         description: The organization responsible for owning the project.
-      projectMonitor:
+      hasProjectMonitor:
         range: Entity
         description: The organization responsible for monitoring the project.
-      projectOperator:
+      hasProjectOperator:
         range: Entity
         description: The organization responsible for operating the project.
-      projectOwner:
+      hasProjectOwner:
         range: Entity
         description: The organization that owns the project.
-      projectPartner:
+      hasProjectPartner:
         range: Entity
         description: The organization that is a partner for the project.
 
@@ -90,7 +90,7 @@ classes:
       projectEndDate:
         required: true
     attributes:
-      projectVerifier:
+      hasProjectVerifier:
         range: Entity
         description: The organization responsible for owning the project.
       creditClassVersion:
