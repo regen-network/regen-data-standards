@@ -136,6 +136,13 @@ classes:
         required: true
       url:
         required: true
+  VersionedLink:
+    is_a: Link
+    slots:
+      - version
+    slot_usage:
+      name:
+        required: true
   Location:
     attributes:
       type:
