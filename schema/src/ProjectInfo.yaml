@@ -59,19 +59,19 @@ classes:
         slot_uri: xsd:date
         description: The end date of the project.
       projectDeveloper:
-        range: ProjectRole
+        range: Entity
         description: The organization responsible for owning the project.
       projectMonitor:
-        range: ProjectRole
+        range: Entity
         description: The organization responsible for monitoring the project.
       projectOperator:
-        range: ProjectRole
+        range: Entity
         description: The organization responsible for operating the project.
       projectOwner:
-        range: ProjectRole
+        range: Entity
         description: The organization that owns the project.
       projectPartner:
-        range: ProjectRole
+        range: Entity
         description: The organization that is a partner for the project.
 
   CreditProjectInfo:
@@ -80,7 +80,7 @@ classes:
     description: Base class with additional fields for projects that issue credits.
     attributes:
       projectVerifier:
-        range: ProjectRole
+        range: Entity
         description: The organization responsible for owning the project.
       creditClassVersion:
         range: string
@@ -90,7 +90,7 @@ classes:
         description: The type of market for the associated credits.
         multivalued: true
 
-  ProjectRole:
+  Entity:
     slots:
       - name
       - description
@@ -101,7 +101,7 @@ classes:
         required: true
     attributes:
       type:
-        range: ProjectRoleTypes
+        range: EntityTypes
         required: true
   QuantityValue:
     class_uri: qudt:QuantityValue
@@ -115,19 +115,6 @@ classes:
         slot_uri: qudt:unit
         range: string
         description: The unit of measurement for the quantity.
-  Organization:
-    slots:
-      - name
-      - description
-      - url
-      - image
-    slot_usage:
-      name:
-        required: true
-    attributes:
-      showOnProjectPage:
-        range: boolean
-        description: Whether to show this organization or individual on the project page.
   Location:
     attributes:
       type:
@@ -172,7 +159,7 @@ classes:
     class_uri: linkml:Any
 
 enums:
-  ProjectRoleTypes:
+  EntityTypes:
     permissible_values:
       INDIVIDUAL:
         meaning: rfs:Individual

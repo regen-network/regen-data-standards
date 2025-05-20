@@ -68,7 +68,7 @@ slots:
     range: string
     description: The sub-watershed associated with the project.
   environmentalAuthority:
-    range: Organization
+    range: Entity
     description: The environmental authority associated with the project.
     multivalued: true
     inlined: true
