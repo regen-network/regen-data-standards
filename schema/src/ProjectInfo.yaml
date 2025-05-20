@@ -78,6 +78,11 @@ classes:
     is_a: ProjectInfo
     title: Credit Project Info
     description: Base class with additional fields for projects that issue credits.
+    slot_usage:
+      projectStartDate:
+        required: true
+      projectEndDate:
+        required: true
     attributes:
       projectVerifier:
         range: Entity
