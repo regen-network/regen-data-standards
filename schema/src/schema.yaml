@@ -20,6 +20,7 @@ imports:
   - Registry
   - CreditClassInfo
   - BT01ProjectInfo
+  - C01ProjectInfo
   - C02ProjectInfo
   - C03ProjectInfo
 default_curi_maps:

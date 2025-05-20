@@ -1,5 +1,5 @@
-id: https://framework.regen.network/schema/C03ProjectInfo
-name: C03ProjectInfo
+id: https://framework.regen.network/schema/C01ProjectInfo
+name: C01ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -12,16 +12,16 @@ default_prefix: rfs
 default_range: string
 
 classes:
-  C03ProjectInfo:
+  C01ProjectInfo:
     is_a: CreditProjectInfo
-    title: C03 Project Info
-    description: Project info for Toucan Carbon Token projects.
+    title: C01 Project Info
+    description: Project info for Verra Verified Carbon Standard projects.
     attributes:
-      toucanProjectTokenId:
-        description: The Toucan project token ID.
-        range: string
-        required: true
       vcsProjectId:
         description: The VCS project ID.
         range: string
+        required: true
+      vcsMethodology:
+        description: The VCS methodology.
+        range: Link
         required: true
