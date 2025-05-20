@@ -27,6 +27,12 @@ classes:
       name:
         required: true
     attributes:
+      hasLinks:
+        description: A list of links associated with the project.
+        range: Link
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
       location:
         required: true
         range: Location
@@ -120,6 +126,15 @@ classes:
         slot_uri: qudt:unit
         range: string
         description: The unit of measurement for the quantity.
+  Link:
+    slots:
+      - name
+      - url
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true
   Location:
     attributes:
       type:
@@ -159,7 +174,6 @@ classes:
       coordinates:
         range: float
         multivalued: true
-
   Any:
     class_uri: linkml:Any
 
