@@ -18,6 +18,7 @@ default_range: string
 
 classes:
   ProjectInfo:
+    title: Project Info
     description: Base class with common fields used to define project info.
     slots:
       - name

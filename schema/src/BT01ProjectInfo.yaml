@@ -18,6 +18,8 @@ default_range: string
 classes:
   BT01ProjectInfo:
     is_a: CreditProjectInfo
+    title: BT01 Project Info
+    description: Project info for BioTerra projects.
     attributes:
       # Tebu Factors
       ecologicalConnectivityIndex:

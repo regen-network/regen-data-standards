@@ -14,6 +14,8 @@ default_range: string
 classes:
   C03ProjectInfo:
     is_a: CreditProjectInfo
+    title: C03 Project Info
+    description: Project info for Toucan Carbon Token projects.
     attributes:
       toucanProjectTokenId:
         description: The Toucan project token ID.
