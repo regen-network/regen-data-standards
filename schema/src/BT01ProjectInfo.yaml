@@ -24,7 +24,7 @@ classes:
       - socialCulturalIndex
       - hasAdministrativeArea
       - hasManagementAreas
-      - conservationStatus
+      - iucnConservationStatus
       - projectDuration
 
       # Compliance Information
@@ -90,7 +90,7 @@ slots:
   projectDuration:
     range: duration
     description: The duration of the project.
-  conservationStatus:
+  iucnConservationStatus:
     range: ConservationStatusTypes
     description: The conservation status of the project.
 
