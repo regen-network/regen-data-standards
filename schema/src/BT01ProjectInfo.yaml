@@ -18,21 +18,50 @@ default_range: string
 classes:
   BT01ProjectInfo:
     is_a: CreditProjectInfo
-    slots:
+    attributes:
       # Tebu Factors
-      - ecologicalConnectivityIndex
-      - socialCulturalIndex
-      - hasAdministrativeArea
-      - hasManagementAreas
-      - iucnConservationStatus
-      - projectDuration
+      ecologicalConnectivityIndex:
+        range: float
+        description: The ecological connectivity index of the project.
+      hasAdministrativeArea:
+        range: AdministrativeArea
+        description: The administrative area associated with the project.
+      hasManagementAreas:
+        range: ManagementArea
+        description: The management areas associated with the project.
+        multivalued: true
+        inlined: true
+      iucnConservationStatus:
+        range: ConservationStatusTypes
+        description: The conservation status of the project.
+      projectDuration:
+        range: duration
+        description: The duration of the project.
+      socialCulturalIndex:
+        range: float
+        description: The social cultural index of the project.
 
       # Compliance Information
-      - hasEnvironmentalAuthority
-      - bioregion
-      - biomeType
-      - watershed
-      - subWatershed
+      bioregion:
+        range: string
+        description: The bioregion associated with the project.
+        multivalued: true
+      biomeType:
+        range: string
+        description: The type of biome associated with the project.
+        multivalued: true
+      watershed:
+        range: string
+        description: The watershed associated with the project.
+      subWatershed:
+        range: string
+        description: The sub-watershed associated with the project.
+      hasEnvironmentalAuthority:
+        range: Entity
+        description: The environmental authority associated with the project.
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
@@ -51,48 +80,6 @@ classes:
         slot_uri: dcterms:extent
         range: QuantityValue
         description: the extent
-
-slots:
-  bioregion:
-    range: string
-    description: The bioregion associated with the project.
-    multivalued: true
-  biomeType:
-    range: string
-    description: The type of biome associated with the project.
-    multivalued: true
-  watershed:
-    range: string
-    description: The watershed associated with the project.
-  subWatershed:
-    range: string
-    description: The sub-watershed associated with the project.
-  hasEnvironmentalAuthority:
-    range: Entity
-    description: The environmental authority associated with the project.
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  hasAdministrativeArea:
-    range: AdministrativeArea
-    description: The administrative area associated with the project.
-  ecologicalConnectivityIndex:
-    range: float
-    description: The ecological connectivity index of the project.
-  socialCulturalIndex:
-    range: float
-    description: The social cultural index of the project.
-  hasManagementAreas:
-    range: ManagementArea
-    description: The management areas associated with the project.
-    multivalued: true
-    inlined: true
-  projectDuration:
-    range: duration
-    description: The duration of the project.
-  iucnConservationStatus:
-    range: ConservationStatusTypes
-    description: The conservation status of the project.
 
 enums:
   # TODO: these should be imported from a shared vocabulary
