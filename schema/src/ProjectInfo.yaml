@@ -47,6 +47,20 @@ classes:
         range: EnvironmentType
         description: The environment type of the project.
         multivalued: true
+      bioregion:
+        range: string
+        description: The bioregion associated with the project.
+        multivalued: true
+      biomeType:
+        range: string
+        description: The type of biome associated with the project.
+        multivalued: true
+      watershed:
+        range: string
+        description: The watershed associated with the project.
+      subWatershed:
+        range: string
+        description: The sub-watershed associated with the project.
       activity:
         name: activity
         description: The types of activities being implemented in projects

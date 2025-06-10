@@ -42,28 +42,22 @@ classes:
       socialCulturalIndex:
         range: float
         description: The social cultural index of the project.
-
       # Compliance Information
-      bioregion:
-        range: string
-        description: The bioregion associated with the project.
-        multivalued: true
-      biomeType:
-        range: string
-        description: The type of biome associated with the project.
-        multivalued: true
-      watershed:
-        range: string
-        description: The watershed associated with the project.
-      subWatershed:
-        range: string
-        description: The sub-watershed associated with the project.
       hasEnvironmentalAuthority:
         range: Entity
         description: The environmental authority associated with the project.
         multivalued: true
         inlined: true
         inlined_as_list: true
+    slot_usage:
+      bioregion:
+        required: true
+      biomeType:
+        required: true
+      watershed:
+        required: true
+      subWatershed:
+        required: true
 
   AdministrativeArea:
     class_uri: schema:AdministrativeArea
