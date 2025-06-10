@@ -26,7 +26,7 @@ classes:
         range: float
         description: The ecological connectivity index of the project.
       hasAdministrativeArea:
-        range: AdministrativeArea
+        range: AdministrativeAreaTypes
         description: The administrative area associated with the project.
       hasManagementAreas:
         range: ManagementArea
@@ -65,12 +65,6 @@ classes:
       subWatershed:
         range: BT01SubWatershedTypes
         required: true
-
-  AdministrativeArea:
-    class_uri: schema:AdministrativeArea
-    slots:
-      - name
-      - url
 
   ManagementArea:
     attributes:
@@ -138,6 +132,13 @@ enums:
         description: Río Frío y otros Directos al Cauca
       RIO_SUMAPAZ:
         description: Río Sumapaz
+  AdministrativeAreaTypes:
+    description: The administrative area types for the project
+    permissible_values:
+        ANTIOQUIA:
+          description: Antioquia
+        CUNDINAMARCA:
+          description: Cundinamarca
   ConservationStatusTypes:
     description: The conservation status of the project
     permissible_values:
