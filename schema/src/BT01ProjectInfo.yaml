@@ -40,7 +40,7 @@ classes:
         range: duration
         description: The duration of the project.
       socialCulturalIndex:
-        range: float
+        range: SocialCulturalIndexTypes
         description: The social cultural index of the project.
       # Compliance Information
       hasEnvironmentalAuthority:
@@ -168,3 +168,14 @@ enums:
       NOT_EVALUATED:
         meaning: rfs:IucnNotEvaluated
         description: Not Evaluated
+  SocialCulturalIndexTypes:
+    description: The social cultural indices for BT01 projects.
+    permissible_values:
+      VERY_HIGH:
+        description: Very high
+      HIGH:
+        description: High
+      MEDIUM:
+        description: Medium
+      LOW:
+        description: Low
