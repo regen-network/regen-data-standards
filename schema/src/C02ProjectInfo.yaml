@@ -17,11 +17,10 @@ classes:
     title: C02 Project Info
     description: Project info for City Forest Carbon Credit projects.
     attributes:
-      cfcProjectId:
-        description: The City Forest Credit project ID.
-        range: string
-        required: true
       offsetProtocol:
         description: The offset protocol.
         range: VersionedLink
+        required: true
+    slot_usage:
+      hasReferenceId:
         required: true

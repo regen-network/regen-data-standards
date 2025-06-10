@@ -34,6 +34,12 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      hasReferenceId:
+        description: External reference IDs associated with the project.
+        range: ReferenceId
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
       location:
         required: true
         range: Location
@@ -160,6 +166,15 @@ classes:
     slot_usage:
       name:
         required: true
+  ReferenceId:
+    attributes:
+      identifier:
+        range: string
+        required: true
+        description: The identifier value
+      referenceType:
+        range: string
+        description: An optional label that describes the identifier.
   Location:
     attributes:
       type:
