@@ -1,1 +1,1 @@
-linkml==1.8.6
+linkml==1.9.3-rc1
