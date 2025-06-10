@@ -51,14 +51,19 @@ classes:
         inlined_as_list: true
     slot_usage:
       region:
+        range: BT01RegionTypes
         required: true
       bioregion:
+        range: BT01BioregionTypes
         required: true
       biomeType:
+        range: BT01BiomeTypes
         required: true
       watershed:
+        range: BT01WatershedTypes
         required: true
       subWatershed:
+        range: BT01SubWatershedTypes
         required: true
 
   AdministrativeArea:
@@ -80,7 +85,59 @@ classes:
         description: the extent
 
 enums:
-  # TODO: these should be imported from a shared vocabulary
+  BT01RegionTypes:
+    description: The regions for BT01 projects.
+    permissible_values:
+      ANDEAN:
+        description: Andean
+      CARIBBEAN:
+        description: Caribbean
+      ORINOCO:
+        description: Orinoco
+      PACIFIC:
+        description: Pacific
+  BT01BioregionTypes:
+    description: The bioregions for BT01 projects.
+    permissible_values:
+      LOW_MONTANE_VERY_HUMID_FOREST:
+        description: Low Montane Very Humid Forest
+      ORINOCO_SAVANNA:
+        description: Orinoco Savanna
+      PREMONTANE_HUMID_FOREST:
+        description: Premontane Humid Forest
+      RIPARIAN_FOREST:
+        description: Riparian Forest
+      SAVANNA:
+        description: Savanna
+      TROPICAL_HUMID_FOREST:
+        description: Tropical Humid Forest
+      TROPICAL_DRY_FOREST:
+        description: Tropical Dry Forest
+  BT01BiomeTypes:
+    description: The biome types for BT01 projects.
+    permissible_values:
+      ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS:
+        description: Andean Orobiome North Pacific Foothills
+      LARGE_TOLIMA_HYDROBIOME:
+        description: Large Tolima hydrobiome
+      LARGE_TOLIMA_SUBANDEAN_OROBIOME:
+        description: Large Tolima Subandean Orobiome
+      TROPICAL_HUMID_ZONOBIOME_TOLIMA_GRANDE:
+        description: Tropical Humid Zonobiome Tolima Grande
+  BT01WatershedTypes:
+    description: The watersheds for BT01 projects.
+    permissible_values:
+      FRIO_RIVER:
+        description: Frío river
+      SUMAPAZ_RIVER_LOWER_WATERSHED:
+        description: Sumapaz river - lower watershed
+  BT01SubWatershedTypes:
+    description: The watersheds for BT01 projects.
+    permissible_values:
+      RIO_FRIO_Y_OTROS_DIRECTOS_AL_CAUCA:
+        description: Río Frío y otros Directos al Cauca
+      RIO_SUMAPAZ:
+        description: Río Sumapaz
   ConservationStatusTypes:
     description: The conservation status of the project
     permissible_values:
