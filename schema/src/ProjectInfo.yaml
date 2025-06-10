@@ -47,6 +47,9 @@ classes:
         range: EnvironmentType
         description: The environment type of the project.
         multivalued: true
+      region:
+        range: string
+        description: The region associated with the project.
       bioregion:
         range: string
         description: The bioregion associated with the project.

@@ -50,6 +50,8 @@ classes:
         inlined: true
         inlined_as_list: true
     slot_usage:
+      region:
+        required: true
       bioregion:
         required: true
       biomeType:
