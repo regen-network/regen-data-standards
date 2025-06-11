@@ -136,22 +136,6 @@ classes:
         slot_uri: qudt:unit
         range: string
         description: The unit of measurement for the quantity.
-  Link:
-    slots:
-      - name
-      - url
-    slot_usage:
-      name:
-        required: true
-      url:
-        required: true
-  VersionedLink:
-    is_a: Link
-    slots:
-      - version
-    slot_usage:
-      name:
-        required: true
   ReferenceId:
     attributes:
       identifier:
