@@ -16,11 +16,8 @@ classes:
     is_a: CreditProjectInfo
     title: C01 Project Info
     description: Project info for Verra Verified Carbon Standard projects.
-    attributes:
-      vcsMethodology:
-        description: The VCS methodology.
-        range: Link
-        required: true
     slot_usage:
       hasReferenceId:
+        required: true
+      usesMethodology:
         required: true

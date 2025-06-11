@@ -11,6 +11,7 @@ prefixes:
 imports:
   - linkml:types
   - core
+  - Methodology
   - taxonomy
 
 default_prefix: rfs
@@ -103,6 +104,9 @@ classes:
       hasProjectPartner:
         range: Entity
         description: The organization that is a partner for the project.
+      usesMethodology:
+        range: Methodology
+        description: The methodology that the project uses.
 
   CreditProjectInfo:
     is_a: ProjectInfo

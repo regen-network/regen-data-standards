@@ -16,11 +16,8 @@ classes:
     is_a: CreditProjectInfo
     title: C02 Project Info
     description: Project info for City Forest Carbon Credit projects.
-    attributes:
-      offsetProtocol:
-        description: The offset protocol.
-        range: VersionedLink
-        required: true
     slot_usage:
       hasReferenceId:
+        required: true
+      usesMethodology:
         required: true
