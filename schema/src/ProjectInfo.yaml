@@ -124,20 +124,6 @@ classes:
         range: MarketTypeTypes
         description: The type of market for the associated credits.
         multivalued: true
-
-  Entity:
-    slots:
-      - name
-      - description
-      - url
-      - image
-    slot_usage:
-      name:
-        required: true
-    attributes:
-      type:
-        range: EntityTypes
-        required: true
   QuantityValue:
     class_uri: qudt:QuantityValue
     description: A value that represents a quantity, with a numeric value and a unit.
@@ -218,12 +204,6 @@ classes:
     class_uri: linkml:Any
 
 enums:
-  EntityTypes:
-    permissible_values:
-      INDIVIDUAL:
-        meaning: rfs:Individual
-      ORGANIZATION:
-        meaning: rfs:Organization
   MarketTypeTypes:
     description: The type of marketplace
     permissible_values:

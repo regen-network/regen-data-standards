@@ -10,6 +10,7 @@ prefixes:
 imports:
   - linkml:types
   - ProjectInfo
+  - Entity
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
