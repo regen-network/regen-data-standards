@@ -10,6 +10,7 @@ prefixes:
 imports:
   - linkml:types
   - ProjectInfo
+  - Entity
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -17,33 +18,54 @@ default_range: string
 
 classes:
   BT01ProjectInfo:
-    is_a: ProjectInfo
-    slots:
+    is_a: CreditProjectInfo
+    title: BT01 Project Info
+    description: Project info for Tebu projects.
+    attributes:
       # Tebu Factors
-      - ecologicalConnectivityIndex
-      - socialCulturalIndex
-      - administrativeArea
-      - managementAreas
-      - conservationStatus
-      - projectDuration
-
-      # Terrasos specific roles
-      - projectOperator
-      - projectOwner
-
+      ecologicalConnectivityIndex:
+        range: float
+        description: The ecological connectivity index of the project.
+      hasAdministrativeArea:
+        range: AdministrativeAreaTypes
+        description: The administrative area associated with the project.
+      hasManagementAreas:
+        range: ManagementArea
+        description: The management areas associated with the project.
+        multivalued: true
+        inlined: true
+      iucnConservationStatus:
+        range: ConservationStatusTypes
+        description: The conservation status of the project.
+      projectDuration:
+        range: duration
+        description: The duration of the project.
+      socialCulturalIndex:
+        range: SocialCulturalIndexTypes
+        description: The social cultural index of the project.
       # Compliance Information
-      - marketType
-      - environmentalAuthority
-      - bioregion
-      - biomeType
-      - watershed
-      - subWatershed
-
-  AdministrativeArea:
-    class_uri: schema:AdministrativeArea
-    slots:
-      - name
-      - url
+      hasEnvironmentalAuthority:
+        range: Entity
+        description: The environmental authority associated with the project.
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+    slot_usage:
+      region:
+        range: BT01RegionTypes
+        required: true
+      bioregion:
+        range: BT01BioregionTypes
+        required: true
+      biomeType:
+        range: BT01BiomeTypes
+        required: true
+      watershed:
+        range: BT01WatershedTypes
+        required: true
+      subWatershed:
+        range: BT01SubWatershedTypes
+        required: true
 
   ManagementArea:
     attributes:
@@ -57,69 +79,67 @@ classes:
         range: QuantityValue
         description: the extent
 
-slots:
-  marketType:
-    range: MarketTypeTypes
-    description: The type of market for the associated credits.
-    multivalued: true
-  bioregion:
-    range: string
-    description: The bioregion associated with the project.
-    multivalued: true
-  biomeType:
-    range: string
-    description: The type of biome associated with the project.
-    multivalued: true
-  watershed:
-    range: string
-    description: The watershed associated with the project.
-  subWatershed:
-    range: string
-    description: The sub-watershed associated with the project.
-  environmentalAuthority:
-    range: Organization
-    description: The environmental authority associated with the project.
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  administrativeArea:
-    range: AdministrativeArea
-    description: The administrative area associated with the project.
-  ecologicalConnectivityIndex:
-    range: float
-    description: The ecological connectivity index of the project.
-  socialCulturalIndex:
-    range: float
-    description: The social cultural index of the project.
-  managementAreas:
-    range: ManagementArea
-    description: The management areas associated with the project.
-    multivalued: true
-    inlined: true
-  projectOperator:
-    range: ProjectRole
-    description: The organization responsible for operating the project.
-  projectOwner:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
-  projectDuration:
-    range: string
-    description: The duration of the project.
-  conservationStatus:
-    range: ConservationStatusTypes
-    description: The conservation status of the project.
-
 enums:
-  MarketTypeTypes:
-    description: The type of marketplace
+  BT01RegionTypes:
+    description: The regions for BT01 projects.
     permissible_values:
-      COMPLIANCE_MARKET:
-        meaning: rfs:ComplianceMarket
-        description: a compliance market
-      VOLUNTARY_MARKET:
-        meaning: rfs:VoluntaryMarket
-        description: a voluntary market
-  # TODO: these should be imported from a shared vocabulary
+      ANDEAN:
+        description: Andean
+      CARIBBEAN:
+        description: Caribbean
+      ORINOCO:
+        description: Orinoco
+      PACIFIC:
+        description: Pacific
+  BT01BioregionTypes:
+    description: The bioregions for BT01 projects.
+    permissible_values:
+      LOW_MONTANE_VERY_HUMID_FOREST:
+        description: Low Montane Very Humid Forest
+      ORINOCO_SAVANNA:
+        description: Orinoco Savanna
+      PREMONTANE_HUMID_FOREST:
+        description: Premontane Humid Forest
+      RIPARIAN_FOREST:
+        description: Riparian Forest
+      SAVANNA:
+        description: Savanna
+      TROPICAL_HUMID_FOREST:
+        description: Tropical Humid Forest
+      TROPICAL_DRY_FOREST:
+        description: Tropical Dry Forest
+  BT01BiomeTypes:
+    description: The biome types for BT01 projects.
+    permissible_values:
+      ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS:
+        description: Andean Orobiome North Pacific Foothills
+      LARGE_TOLIMA_HYDROBIOME:
+        description: Large Tolima hydrobiome
+      LARGE_TOLIMA_SUBANDEAN_OROBIOME:
+        description: Large Tolima Subandean Orobiome
+      TROPICAL_HUMID_ZONOBIOME_TOLIMA_GRANDE:
+        description: Tropical Humid Zonobiome Tolima Grande
+  BT01WatershedTypes:
+    description: The watersheds for BT01 projects.
+    permissible_values:
+      FRIO_RIVER:
+        description: Frío river
+      SUMAPAZ_RIVER_LOWER_WATERSHED:
+        description: Sumapaz river - lower watershed
+  BT01SubWatershedTypes:
+    description: The watersheds for BT01 projects.
+    permissible_values:
+      RIO_FRIO_Y_OTROS_DIRECTOS_AL_CAUCA:
+        description: Río Frío y otros Directos al Cauca
+      RIO_SUMAPAZ:
+        description: Río Sumapaz
+  AdministrativeAreaTypes:
+    description: The administrative area types for the project
+    permissible_values:
+        ANTIOQUIA:
+          description: Antioquia
+        CUNDINAMARCA:
+          description: Cundinamarca
   ConservationStatusTypes:
     description: The conservation status of the project
     permissible_values:
@@ -150,3 +170,14 @@ enums:
       NOT_EVALUATED:
         meaning: rfs:IucnNotEvaluated
         description: Not Evaluated
+  SocialCulturalIndexTypes:
+    description: The social cultural indices for BT01 projects.
+    permissible_values:
+      VERY_HIGH:
+        description: Very high
+      HIGH:
+        description: High
+      MEDIUM:
+        description: Medium
+      LOW:
+        description: Low

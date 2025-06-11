@@ -1,0 +1,23 @@
+id: https://framework.regen.network/schema/C01ProjectInfo
+name: C01ProjectInfo
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+imports:
+  - linkml:types
+  - ProjectInfo
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  C01ProjectInfo:
+    is_a: CreditProjectInfo
+    title: C01 Project Info
+    description: Project info for Verra Verified Carbon Standard projects.
+    slot_usage:
+      hasReferenceId:
+        required: true
+      usesMethodology:
+        required: true

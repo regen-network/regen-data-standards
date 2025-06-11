@@ -1,0 +1,35 @@
+id: Entity
+name: Entity
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Entity:
+    slots:
+      - name
+      - description
+      - url
+      - image
+    slot_usage:
+      name:
+        required: true
+    attributes:
+      type:
+        range: EntityTypes
+        required: true
+
+enums:
+  EntityTypes:
+    permissible_values:
+      INDIVIDUAL:
+        meaning: rfs:Individual
+      ORGANIZATION:
+        meaning: rfs:Organization

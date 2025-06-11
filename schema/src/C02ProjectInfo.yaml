@@ -1,0 +1,23 @@
+id: https://framework.regen.network/schema/C02ProjectInfo
+name: C02ProjectInfo
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+imports:
+  - linkml:types
+  - ProjectInfo
+default_curi_maps:
+  - semweb_context
+default_prefix: rfs
+default_range: string
+
+classes:
+  C02ProjectInfo:
+    is_a: CreditProjectInfo
+    title: C02 Project Info
+    description: Project info for City Forest Carbon Credit projects.
+    slot_usage:
+      hasReferenceId:
+        required: true
+      usesMethodology:
+        required: true

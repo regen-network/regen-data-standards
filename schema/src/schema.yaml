@@ -20,6 +20,8 @@ imports:
   - Registry
   - CreditClassInfo
   - BT01ProjectInfo
+  - C01ProjectInfo
+  - C02ProjectInfo
 default_curi_maps:
   - semweb_context
 default_prefix: rfs

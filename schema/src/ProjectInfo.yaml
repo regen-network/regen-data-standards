@@ -7,42 +7,127 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   xsd: http://www.w3.org/2001/XMLSchema#
+
 imports:
   - linkml:types
+  - core
+  - Methodology
   - taxonomy
-default_curi_maps:
-  - semweb_context
+
 default_prefix: rfs
 default_range: string
 
 classes:
   ProjectInfo:
+    title: Project Info
+    description: Base class with common fields used to define project info.
     slots:
       - name
-      - location
       - description
-      - projectSize # optional
-      - projectDeveloper # optional
-      - environmentType # optional
-      - projectMonitor # optional
-      - projectVerifier # optional
-      - projectStartDate # optional
-      - projectEndDate # optional
-      - creditClassVersion # optional
-      - activity # optional
-      - environmentType # optional
-      - impact # optional
-  ProjectRole:
-    slots:
-      - name
       - url
-      - image
-    attributes:
-      description:
-        range: string
-      type:
-        range: ProjectRoleTypes
+    slot_usage:
+      name:
         required: true
+    attributes:
+      hasLinks:
+        description: A list of links associated with the project.
+        range: Link
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      hasReferenceId:
+        description: External reference IDs associated with the project.
+        range: ReferenceId
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      location:
+        required: true
+        range: Location
+        description: The location of the project.
+        slot_uri: schema:location
+        inlined: true
+      projectSize:
+        range: QuantityValue
+        inlined: false
+      environmentType:
+        range: EnvironmentType
+        description: The environment type of the project.
+        multivalued: true
+      region:
+        range: string
+        description: The region associated with the project.
+      bioregion:
+        range: string
+        description: The bioregion associated with the project.
+        multivalued: true
+      biomeType:
+        range: string
+        description: The type of biome associated with the project.
+        multivalued: true
+      watershed:
+        range: string
+        description: The watershed associated with the project.
+      subWatershed:
+        range: string
+        description: The sub-watershed associated with the project.
+      activity:
+        name: activity
+        description: The types of activities being implemented in projects
+        from_schema: https://framework.regen.network/taxonomy/
+        range: ActivityType
+        multivalued: true
+      impact:
+        name: impact
+        description: A project or initiative’s current and potential impact
+        from_schema: https://framework.regen.network/taxonomy/
+        range: ImpactType
+        multivalued: true
+      projectStartDate:
+        slot_uri: xsd:date
+        description: The start date of the project.
+      projectEndDate:
+        slot_uri: xsd:date
+        description: The end date of the project.
+      hasProjectDeveloper:
+        range: Entity
+        description: The organization responsible for owning the project.
+      hasProjectMonitor:
+        range: Entity
+        description: The organization responsible for monitoring the project.
+      hasProjectOperator:
+        range: Entity
+        description: The organization responsible for operating the project.
+      hasProjectOwner:
+        range: Entity
+        description: The organization that owns the project.
+      hasProjectPartner:
+        range: Entity
+        description: The organization that is a partner for the project.
+      usesMethodology:
+        range: Methodology
+        description: The methodology that the project uses.
+
+  CreditProjectInfo:
+    is_a: ProjectInfo
+    title: Credit Project Info
+    description: Base class with additional fields for projects that issue credits.
+    slot_usage:
+      projectStartDate:
+        required: true
+      projectEndDate:
+        required: true
+    attributes:
+      hasProjectVerifier:
+        range: Entity
+        description: The organization responsible for owning the project.
+      creditClassVersion:
+        range: string
+        description: The version of the credit class used for the project.
+      marketType:
+        range: MarketTypeTypes
+        description: The type of market for the associated credits.
+        multivalued: true
   QuantityValue:
     class_uri: qudt:QuantityValue
     description: A value that represents a quantity, with a numeric value and a unit.
@@ -55,16 +140,15 @@ classes:
         slot_uri: qudt:unit
         range: string
         description: The unit of measurement for the quantity.
-  Organization:
-    slots:
-      - name
-      - description
-      - url
-      - image
+  ReferenceId:
     attributes:
-      showOnProjectPage:
-        range: boolean
-        description: Whether to show this organization or individual on the project page.
+      identifier:
+        range: string
+        required: true
+        description: The identifier value
+      referenceType:
+        range: string
+        description: An optional label that describes the identifier.
   Location:
     attributes:
       type:
@@ -104,59 +188,16 @@ classes:
       coordinates:
         range: float
         multivalued: true
-
   Any:
     class_uri: linkml:Any
 
-slots:
-  location:
-    required: true
-    range: Location
-    description: The location of the project.
-    slot_uri: schema:location
-    inlined: true
-  projectSize:
-    range: QuantityValue
-    inlined: false
-  environmentType:
-    range: EnvironmentType
-    description: The environment type of the project.
-    multivalued: true
-  activity:
-    name: activity
-    description: The types of activities being implemented in projects
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ActivityType
-    multivalued: true
-  impact:
-    name: impact
-    description: A project or initiative’s current and potential impact
-    from_schema: https://framework.regen.network/taxonomy/
-    range: ImpactType
-    multivalued: true
-  projectStartDate:
-    slot_uri: xsd:date
-    description: The start date of the project.
-  projectEndDate:
-    slot_uri: xsd:date
-    description: The end date of the project.
-  projectDeveloper:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
-  projectMonitor:
-    range: ProjectRole
-    description: The organization responsible for monitoring the project.
-  projectVerifier:
-    range: ProjectRole
-    description: The organization responsible for owning the project.
-  creditClassVersion:
-    range: string
-    description: The version of the credit class used for the project.
-
 enums:
-  ProjectRoleTypes:
+  MarketTypeTypes:
+    description: The type of marketplace
     permissible_values:
-      INDIVIDUAL:
-        meaning: rfs:Individual
-      ORGANIZATION:
-        meaning: rfs:Organization
+      COMPLIANCE_MARKET:
+        meaning: rfs:ComplianceMarket
+        description: a compliance market
+      VOLUNTARY_MARKET:
+        meaning: rfs:VoluntaryMarket
+        description: a voluntary market
