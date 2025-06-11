@@ -19,7 +19,7 @@ classes:
   BT01ProjectInfo:
     is_a: CreditProjectInfo
     title: BT01 Project Info
-    description: Project info for BioTerra projects.
+    description: Project info for Tebu projects.
     attributes:
       # Tebu Factors
       ecologicalConnectivityIndex:
