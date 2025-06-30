@@ -1,0 +1,20 @@
+id: Geometry
+name: Geometry
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dcterms: http://purl.org/dc/terms/
+  geo: http://www.opengis.net/ont/geosparql#
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+classes:
+  Geometry:
+    description: A shape or location defined by points in space, using a standard coordinate system.
+    class_uri: geo:Geometry
+    attributes:
+      title:
+        slot_uri: dcterms:title
+      wkt:
+        slot_uri: geo:asWKT

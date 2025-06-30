@@ -2,6 +2,7 @@ id: ProjectInfo
 name: ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
+  geo: http://www.opengis.net/ont/geosparql#
   rfs: https://framework.regen.network/schema/
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
@@ -11,6 +12,7 @@ prefixes:
 imports:
   - linkml:types
   - core
+  - Geometry
   - Methodology
   - taxonomy
 
@@ -41,12 +43,11 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
-      location:
+      hasGeometry:
+        slot_uri: geo:hasGeometry
+        range: Geometry
         required: true
-        range: Location
         description: The location of the project.
-        slot_uri: schema:location
-        inlined: true
       projectSize:
         range: QuantityValue
         inlined: false
@@ -84,9 +85,11 @@ classes:
         range: ImpactType
         multivalued: true
       projectStartDate:
+#        range: Date
         slot_uri: xsd:date
         description: The start date of the project.
       projectEndDate:
+#        range: Date
         slot_uri: xsd:date
         description: The end date of the project.
       hasProjectDeveloper:
@@ -149,38 +152,6 @@ classes:
       referenceType:
         range: string
         description: An optional label that describes the identifier.
-  Location:
-    attributes:
-      type:
-        range: string
-        required: true
-      geometry:
-        range: Geometry
-        required: true
-      placeName:
-        range: string
-        alias: place_name
-        required: true
-      # unused by frontend, but linkml doesn't support arbitrary additional attributes
-      id:
-        range: string
-      bbox:
-        range: float
-        multivalued: true
-      text:
-        range: string
-      center:
-        range: float
-        multivalued: true
-      context:
-        range: Any
-      relevance:
-        range: float
-      placeType:
-        range: string
-        alias: place_type
-      properties:
-        range: Any
   Geometry:
     attributes:
       type:
