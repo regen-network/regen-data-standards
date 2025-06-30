@@ -7,6 +7,7 @@ prefixes:
   rfs: https://framework.regen.network/schema/
 imports:
   - linkml:types
+  - Geometry
 default_range: string
 default_prefix: rfs
 
@@ -34,12 +35,7 @@ classes:
       description:
         slot_uri: dcterms:description
       location:
-        range: FileLocation
+        range: Geometry
         slot_uri: geo:hasGeometry
       credit:
         slot_uri: dcterms:creator
-  FileLocation:
-    class_uri: geo:Geometry
-    attributes:
-      wkt:
-        slot_uri: geo:asWKT
