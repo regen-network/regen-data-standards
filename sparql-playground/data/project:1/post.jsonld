@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "iri": "@id",
+    "wkt": {
+      "@id": "geo:asWKT"
+    },
+    "name": {
+      "@id": "dcterms:title"
+    },
+    "files": {
+      "@id": "dcterms:references",
+      "@type": "@id"
+    },
+    "title": {
+      "@id": "dcterms:title"
+    },
+    "@vocab": "https://schema.regen.network/",
+    "credit": {
+      "@id": "dcterms:creator"
+    },
+    "linkml": "https://w3id.org/linkml/",
+    "comment": {
+      "@id": "dcterms:description"
+    },
+    "dcterms": "http://purl.org/dc/terms/",
+    "location": {
+      "@id": "geo:hasGeometry",
+      "@type": "@id"
+    },
+    "description": {
+      "@id": "dcterms:description"
+    },
+    "regenschema": "https://schema.regen.network/",
+    "FileLocation": {
+      "@id": "geo:Geometry"
+    }
+  },
+  "@type": "ProjectPost",
+  "comment": "Regen Registry is pleased to announce that the Pimlico Farm (C06-002) project has been successfully registered and approved for credit issuance under the Regen Registry Program.\n\nAs Registry Agents, we conducted compliance to the Regen Registry Program Guide v1.1 and the GHG Benefits in Managed Crop and Grassland Systems Credit Protocol.\n\nKey Points Reviewed for Compliance:\n\nProject Registration Review:\n\n- Land Tenure & Project Boundaries: Required legal and geospatial documentation was provided.\n- Baseline & Monitoring Assessments: Historical land use records, remote sensing data, and soil sampling evidence were included.\n- GHG Accounting & Additionality Documentation: The project followed the approved methodology to demonstrate eligibility.\n\nCredit Issuance Review:\n\n- SOC Measurement & Reporting: The project submitted required reports on soil sampling, SOC calculations, and AI-based carbon analysis.\n- Monitoring & GHG Accounting: The necessary reports on GHG emissions, carbon balance, and risk management were included.\n\nFollowing this comprehensive review, Pimlico Farm is now fully registered on Regen Ledger and has successfully issued carbon credits.\n\nThis milestone highlights Pimlico Farm’s contribution to carbon sequestration, regenerative agriculture, and climate action.",
+  "files": [
+    {
+      "iri": "regen:113nryxWhD42gBs1AnPFpcM9sNywaYhCJjJ5eRgM9U1pnU1Pccjb.pdf",
+      "comment": "",
+      "name": "Pimlico Project Registration Registry Agent Review 3:10:2025.pdf",
+      "location": {
+        "wkt": "POINT(-1.194975 51.97922)"
+      },
+      "locationType": "none"
+    },
+    {
+      "iri": "regen:114Eb9ZNN6nky3xoJ9fdpCkBDm7HDapS3kc9XEt56JtySrofhs8p.pdf",
+      "comment": "",
+      "name": "Pimlico Credit Issuance Registry Agent Review 3:10:2025.pdf",
+      "location": {
+        "wkt": "POINT(-1.194975 51.97922)"
+      },
+      "locationType": "none"
+    }
+  ],
+  "name": "Pimlico Farm – Project Registration & Credit Issuance Approved"
+}
