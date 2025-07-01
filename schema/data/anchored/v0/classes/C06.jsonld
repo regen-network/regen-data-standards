@@ -31,9 +31,14 @@
   "rfs:hasPermanencePeriod": "P10Y",
   "rfs:hasBufferPoolAccounts": [
     {
-      "schema:name": "Blaston Estate Project Specific Buffer Pool",
-      "rfs:walletAddress": "",
-      "rfs:poolAllocation": "20%"
+      "schema:name": "Crediting Term Buffer Pool",
+      "rfs:walletAddress": "regen19rrgcsw8gu8c3rthucqnf6nyyg6q9pq79tt60pvahfsnfu4p5hrs9z2n3j",
+      "rfs:poolAllocation": "10%"
+    },
+    {
+      "schema:name": "Permanence Reversal Buffer",
+      "rfs:walletAddress": "regen15lch5glk7deu9tk8wrcfcup4tdpz2l8zhhqn4r2zzsr46dfv849qqfpu9m",
+      "rfs:poolAllocation": "10%"
     }
   ],
   "rfs:eligibleActivities": [

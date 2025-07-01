@@ -7,8 +7,8 @@
   "schema:url": "https://registry.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/credit-class-for-grazing-in-vineyard-systems-v1.0",
   "schema:name": "Credit Class for Sheep Grazing in Vineyard Systems",
   "rfs:hasPrimaryImpact": {
-    "rfs:impactType": "UNKNOWN",
-    "schema:name": "????"
+    "rfs:impactType": "IMPROVED_SOIL_HEALTH",
+    "schema:name": "Improved Soil Health"
   },
   "rfs:hasCoBenefits": [
     {
@@ -24,17 +24,12 @@
       "schema:name": "Reductions in external inputs"
     },
     {
-      "rfs:impactType": "UNKNOWN",
-      "schema:name": "Increased soil microbial biomass"
-    },
-    {
       "rfs:impactType": "IMPROVED_SOIL_STRUCTURE",
       "schema:name": "Improved soil structure and hydrological properties"
     },
     {
-      "@id": "regen:IncreasedSoilCarbonStorage -- cannot find",
-      "@type": "regen:ProjectBenefit",
-      "schema:name": "Increased soil carbon storage"
+      "rfs:impactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
+      "schema:name": "Increased Carbon Sequestration and Storage"
     }
   ],
   "schema:description": "This Credit Class and its accompanying methodology are designed to support the use of high-density, short-duration rotational targeted sheep grazing in vineyard systems to improve ecosystem functioning through active management of the soil and herbaceous cover in the vineyard understory. As with other Environmental Stewardship methodologies, the environmental benefits are implicit in the practice. Projects being developed under the Methodology for Grazing in Vineyard Systems are expected, based on prior research, to result in positive ecological outcomes. This methodology is new and innovative, and will be improved as new projects are created and lessons are learned.",
