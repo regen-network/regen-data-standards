@@ -21,8 +21,8 @@
   "rfs:bufferPoolAccounts": [
     {
       "schema:name": "Carbon Removal through Biochar Production Credit Class Buffer Pool",
-      "regen:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
-      "regen:poolAllocation": "10%"
+      "rfs:walletAddress": "regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa",
+      "rfs:poolAllocation": "10%"
     }
   ],
   "rfs:eligibleActivities": [
