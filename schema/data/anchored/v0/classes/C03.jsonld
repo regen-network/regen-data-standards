@@ -2,14 +2,21 @@
   "@type": "rfs:CarbonCreditClassInfo",
   "@context": {
     "rfs": "https://framework.regen.network/schema/",
-    "schema": "http://schema.org/",
-    "schema:url": {
-      "@type": "schema:URL"
-    }
+    "schema": "http://schema.org/"
   },
   "schema:name": "TCO2: Toucan Carbon Tokens Credit Class",
   "schema:url": "https://docs.toucan.earth/toucan/bridge/tco2-toucan-carbon-tokens",
   "schema:description": "This credit class provides a vehicle for Toucan Protocol Toucan Carbon Tokens (TCO2s) to enter the Cosmos ecosystem via issuance on Regen Ledger. Each TCO2 represents a unique carbon offset brought on-chain from the Verra registry using the Toucan Carbon Bridge. Currently, only TCO2 credits that fall under the NCT criteria are eligible to be issued under this credit class. Eligible credits can be bridged directly from Polygon using the Regen Network <> Toucan Bridge.",
+  "rfs:hasPrimaryImpact": {
+    "rfs:impactType": "AVOIDED_DEFORESTATION_DEGRADATION",
+    "schema:name": "Avoided Deforestation"
+  },
+  "rfs:hasCoBenefits": [
+    {
+      "rfs:impactType": "IMPROVED_BIODIVERSITY",
+      "schema:name": "Improved Biodiversity"
+    }
+  ],
   "rfs:hasSourceRegistry": {
     "schema:url": "https://verra.org",
     "schema:name": "Verra"
