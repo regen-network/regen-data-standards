@@ -23,7 +23,7 @@
   "schema:description": "The Biodioversity Credits protocol outlines a strategic framework for the development of projects that guarantee quantifiable gains in biodiversity, all while providing robust financial and legal assurances to secure their sustainability and enduring impact. This pioneering approach to biodiversity conservation and resource management emphasizes the selection of projects distinguished by their significant ecological value within a performance-based model. \n This protocol streamlines the process of registration, quantification, and issuance of Biodiversity Credits (VBC) for conservation projects that meet the eligibility criteria. It is designed to resonate with both individuals and organizations committed to contributing to the preservation of threatened ecosystems and biodiversity, ultimately delivering long-term sustainability and socio-economic benefits.",
   "rfs:hasCreditingPeriod": "P30Y",
   "rfs:eligibleEnvironmentTypes": [
-    "rft:Terrestrial"
+    "rft:Terrestrial -- cannot find in taxonomy"
   ],
   "rfs:hasPrimaryImpact": {
     "rfs:impactType": "IMPROVED_BIODIVERSITY",
