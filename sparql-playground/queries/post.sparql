@@ -1,0 +1,10 @@
+PREFIX rfs: <https://framework.regen.network/schema/>
+PREFIX rs: <https://schema.regen.network/>
+
+SELECT ?graph ?subject ?predicate ?object ?dataType ?blah
+
+WHERE {
+    GRAPH ?graph {
+        ?subject a rs:ProjectPost ;
+    }
+}

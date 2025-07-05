@@ -1,0 +1,15 @@
+PREFIX rfs: <https://framework.regen.network/schema/>
+
+### Keep ?blah because we need a space
+SELECT ?graph ?subject ?predicate ?startDate ?object
+WHERE {
+  GRAPH ?graph {
+      ?subject a rfs:C01ProjectInfo ;
+
+              # Display the start date for each project.
+              # rfs:projectStartDate ?startDate;
+
+              ### Include all pred and object values for projects.
+              # ?predicate ?object ;
+  }
+}
