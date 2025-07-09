@@ -32,6 +32,24 @@ slots:
   image:
     slot_uri: schema:image
 
+classes:
+  Link:
+    slots:
+      - name
+      - url
+    slot_usage:
+      name:
+        required: true
+      url:
+        required: true
+  VersionedLink:
+    is_a: Link
+    slots:
+      - version
+    slot_usage:
+      name:
+        required: true
+
 types:
   duration:
     uri: xsd:duration
