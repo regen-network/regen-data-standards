@@ -6,17 +6,25 @@
   },
   "schema:url": "https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class",
   "schema:name": "GHG Benefits in Managed Crop and Grassland Systems Credit Class",
+  "schema:description": "This Credit Class and its supporting measuring and monitoring methodology, focuses on quantifying increases in soil organic carbon sequestration and storage in regenerative cropping and managed grassland agricultural systems.",
+  "rfs:hasPrimaryImpact": {
+    "rfs:hasImpactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
+    "schema:name": "Soil Organic Carbon"
+  },
   "rfs:hasCoBenefits": [
     {
-      "rfs:impactType": "IMPROVED_SOIL_STRUCTURE",
+      "rfs:hasImpactType": "IMPROVED_SOIL_STRUCTURE",
       "schema:name": "Improved Soil Structure & Hydrological Properties"
     },
     {
-      "rfs:impactType": "REDUCED_FERTILIZER_AMENDMENTS",
+      "rfs:hasImpactType": "REDUCED_FERTILIZER_AMENDMENTS",
       "schema:name": "Reduced Fertilizer Usage"
     }
   ],
-  "schema:description": "This Credit Class and its supporting measuring and monitoring methodology, focuses on quantifying increases in soil organic carbon sequestration and storage in regenerative cropping and managed grassland agricultural systems.",
+  "rfs:managedUnderProgram": {
+    "schema:url": "'https://registry-program-guide.regen.network",
+    "schema:name": "Regen Registry Program"
+  },
   "rfs:hasCreditingPeriod": "P10Y",
   "rfs:eligibleEnvironmentTypes": [
     "CROPLAND",
@@ -24,10 +32,6 @@
     "PASTURE",
     "SHRUBLAND"
   ],
-  "rfs:hasPrimaryImpact": {
-    "rfs:impactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
-    "schema:name": "Soil Organic Carbon"
-  },
   "rfs:hasPermanencePeriod": "P10Y",
   "rfs:hasBufferPoolAccounts": [
     {
@@ -48,7 +52,7 @@
     "schema:url": "https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems",
     "schema:name": "Methodology Proposal for Soil Organic Carbon Estimation in Regenerative Cropping and Managed Grassland Ecosystems",
     "schema:version": "V1.1",
-    "schema:identifier": "ecometric-0044 -- should this be required to be a URI / CURIE ?"
+    "schema:identifier": "ecometric-0044"
   },
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL"

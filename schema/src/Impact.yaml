@@ -20,7 +20,7 @@ classes:
       name:
         description: Name is optional and will be inferred from the ImpactType if not provided.
     attributes:
-      impactType:
+      hasImpactType:
         description: Type of impact, such as ecological, social, or economic.
         range: ImpactType
         required: true

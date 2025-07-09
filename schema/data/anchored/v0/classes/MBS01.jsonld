@@ -6,39 +6,43 @@
   },
   "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
   "schema:name": "SeaTrees Crediting Protocol for Marine Restoration",
+  "schema:description": "This protocol is designed to help local communities scale the restoration of degraded nearshore ecosystems and provide direct market access to philanthropic, donation-based funding via biodiversity credits called SeaTrees Biodiversity Blocks. It is a roadmap for designing effective marine restoration projects that can be funded via the insurance of voluntary biodiversity credits. This protocol also contains three ecosystem-specific modules, which provide guidelines and best-practices for restoring coral reefs, mangrove forests, and kelp forests. This protocol does not allow issuance of carbon credits or biodiversity offsets.",
+  "rfs:hasPrimaryImpact": {
+    "rfs:hasImpactType": "IMPROVED_BIODIVERSITY",
+    "schema:name": "Improved Biodiversity"
+  },
   "rfs:hasCoBenefits": [
     {
-      "rfs:impactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
+      "rfs:hasImpactType": "INCREASED_CARBON_SEQUESTRATION_STORAGE",
       "schema:name": "Increased Carbon Sequestration and Storage"
     },
     {
-      "rfs:impactType": "INCREASED_FOREST_COVER",
+      "rfs:hasImpactType": "INCREASED_FOREST_COVER",
       "schema:name": "Increased Forest Cover"
     },
     {
-      "rfs:impactType": "IMPROVED_FOREST_HEALTH",
+      "rfs:hasImpactType": "IMPROVED_FOREST_HEALTH",
       "schema:name": "Improved Forest Health"
     },
     {
-      "rfs:impactType": "IMPROVED_COMMUNITY_HEALTH",
+      "rfs:hasImpactType": "IMPROVED_COMMUNITY_HEALTH",
       "schema:name": "Improved Community Health"
     },
     {
-      "rfs:impactType": "IMPROVED_WILDLIFE_HABITAT",
+      "rfs:hasImpactType": "IMPROVED_WILDLIFE_HABITAT",
       "schema:name": "Improved Wildlife Habitat"
     }
   ],
-  "schema:description": "This protocol is designed to help local communities scale the restoration of degraded nearshore ecosystems and provide direct market access to philanthropic, donation-based funding via biodiversity credits called SeaTrees Biodiversity Blocks. It is a roadmap for designing effective marine restoration projects that can be funded via the insurance of voluntary biodiversity credits. This protocol also contains three ecosystem-specific modules, which provide guidelines and best-practices for restoring coral reefs, mangrove forests, and kelp forests. This protocol does not allow issuance of carbon credits or biodiversity offsets.",
+  "rfs:managedUnderProgram": {
+    "schema:url": "'https://registry-program-guide.regen.network",
+    "schema:name": "Regen Registry Program"
+  },
   "rfs:eligibleEnvironmentTypes": [
     "MARINE",
     "WETLAND",
     "CORAL_REEF",
     "COASTAL"
   ],
-  "rfs:hasPrimaryImpact": {
-    "rfs:impactType": "IMPROVED_BIODIVERSITY",
-    "schema:name": "Improved Biodiversity"
-  },
   "rfs:eligibleActivities": [
     "ECOSYSTEM_RESTORATION",
     "TREE_PLANTING",
@@ -47,5 +51,6 @@
   "rfs:hasCreditProtocol": {
     "schema:url": "https://regen-registry-28b507.webflow.io/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration",
     "schema:name": "Methodology Proposal for SeaTrees Crediting Protocol for Marine Restoration"
-  }
+  },
+  "rfs:hasCreditingPeriod": "P5Y"
 }

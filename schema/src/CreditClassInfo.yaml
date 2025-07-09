@@ -66,10 +66,7 @@ classes:
         range: duration
       eligibleEnvironmentTypes:
         description: Types of environments that a project registered under this credit class may focuses on.
-        range: string
-        any_of:
-          - range: uriorcurie
-          - range: EnvironmentType
+        range: EnvironmentType
         required: true
         multivalued: true
       eligibleActivities:

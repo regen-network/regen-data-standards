@@ -8,15 +8,19 @@
   "schema:name": "Verified Carbon Standard",
   "schema:description": "This credit class provides a vehicle for nature based Verified Carbon Units (VCUs) to enter the blockchain space via issuance on Regen Ledger. It can be used by project developers, credit brokers, and other stakeholders interested in digitizing carbon credits issued by the VCS program to make them available in the emerging world of decentralized finance.",
   "rfs:hasPrimaryImpact": {
-    "rfs:impactType": "AVOIDED_DEFORESTATION_DEGRADATION",
+    "rfs:hasImpactType": "AVOIDED_DEFORESTATION_DEGRADATION",
     "schema:name": "Avoided Deforestation"
   },
   "rfs:hasCoBenefits": [
     {
-      "rfs:impactType": "IMPROVED_BIODIVERSITY",
+      "rfs:hasImpactType": "IMPROVED_BIODIVERSITY",
       "schema:name": "Improved Biodiversity"
     }
   ],
+  "rfs:managedUnderProgram": {
+    "schema:url": "https://verra.org/programs/verified-carbon-standard/vcs-program-details/f",
+    "schema:name": "Verified Carbon Standard"
+  },
   "rfs:hasSourceRegistry": {
     "schema:url": "https://verra.org",
     "schema:name": "Verra"
@@ -322,6 +326,7 @@
   "rfs:hasPermanencePeriod": "P40Y",
   "rfs:hasCreditGenerationMethod": [
     "EMISSIONS_REDUCTION",
+    "AVOIDED_EMISSIONS",
     "CARBON_DIOXIDE_REMOVAL"
   ]
 }
