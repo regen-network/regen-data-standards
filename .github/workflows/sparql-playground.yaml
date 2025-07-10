@@ -23,5 +23,6 @@ jobs:
         run: make -C schema gen-rdf
       - name: Update graph
         env:
-          GRAPH_STORE_URL:  ${{ secrets.GRAPH_STORE_URL }}
+          #GRAPH_STORE_URL:  ${{ secrets.GRAPH_STORE_URL }}
+          GRAPH_STORE_URL: https://809df857a1.endpoints.dev
         run: make -C schema update-graph
