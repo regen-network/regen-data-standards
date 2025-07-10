@@ -22,4 +22,6 @@ jobs:
       - name: Generate RDF
         run: make -C schema gen-rdf
       - name: Update graph
+        env:
+          GRAPH_STORE_URL:  ${{ secrets.GRAPH_STORE_URL }}
         run: make -C schema update-graph
