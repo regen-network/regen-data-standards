@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Validate and Convert data
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+      - name: Generate RDF
+        run: make -C schema gen-rdf
+      - name: Update graph
+        run: make -C schema update-graph
