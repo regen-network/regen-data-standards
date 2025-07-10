@@ -23,3 +23,6 @@ hasProjectDeveloper:
   type: ORGANIZATION
   name: Wildlife Works Carbon LLC
   description: Wildlife Works is the world's leading REDD+ program development and management company.
+hasPrimaryImpact:
+  name: Example impact type
+  hasImpactType: IMPROVED_BIODIVERSITY
