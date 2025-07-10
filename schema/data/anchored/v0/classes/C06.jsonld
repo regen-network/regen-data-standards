@@ -4,7 +4,7 @@
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/"
   },
-  "schema:url": "https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class",
+  "schema:url": "https://app.regen.network/credit-classes/C06",
   "schema:name": "GHG Benefits in Managed Crop and Grassland Systems Credit Class",
   "schema:description": "This Credit Class and its supporting measuring and monitoring methodology, focuses on quantifying increases in soil organic carbon sequestration and storage in regenerative cropping and managed grassland agricultural systems.",
   "rfs:hasPrimaryImpact": {
@@ -49,10 +49,9 @@
     "PRESCRIBED_GRAZING"
   ],
   "rfs:hasCreditProtocol": {
-    "schema:url": "https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems",
-    "schema:name": "Methodology Proposal for Soil Organic Carbon Estimation in Regenerative Cropping and Managed Grassland Ecosystems",
-    "schema:version": "V1.1",
-    "schema:identifier": "ecometric-0044"
+    "schema:url": "https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class",
+    "schema:name": "GHG Benefits in Managed Crop and Grassland Systems Credit Class",
+    "schema:version": "V1.5"
   },
   "rfs:hasCreditGenerationMethod": [
     "CARBON_DIOXIDE_REMOVAL"

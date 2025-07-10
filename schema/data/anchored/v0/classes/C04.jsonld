@@ -4,7 +4,7 @@
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/"
   },
-  "schema:url": "https://library.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/ruuts-credit-class-for-soil-carbon-sequestration-through-regenerative-grazing",
+  "schema:url": "https://app.regen.network/credit-classes/C04",
   "schema:name": "Ruuts Credit Class for Soil Carbon Sequestration through Regenerative Grazing",
   "schema:description": "The Credit Class and its accompanying methodology provide farmers with a measuring and monitoring process for soil organic carbon sequestration in regenerative grazing systems, enabling them to generate carbon credits that also include robust ecological co-benefits such as water infiltration and biodiversity.",
   "rfs:hasPrimaryImpact": {
@@ -42,7 +42,7 @@
     "PRESCRIBED_GRAZING"
   ],
   "rfs:hasCreditProtocol": {
-    "schema:url": "https://library.regen.network/v/methodology-library/published-methodologies/ruuts-methodology-for-soil-carbon-sequestration",
+    "schema:url": "https://www.registry.regen.network/crediting-protocols/ruuts-credit-class-for-soil-carbon-sequestration-through-regenerative-grazing",
     "schema:name": "Ruuts Protocol Soil Carbon Sequestration Methodology v1",
     "schema:version": "V1.0"
   },

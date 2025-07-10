@@ -4,7 +4,7 @@
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/"
   },
-  "schema:url": "https://www.cityforestcredits.org/",
+  "schema:url": "https://app.regen.network/credit-classes/C02",
   "schema:name": "Urban Forest Carbon Credit Class",
   "schema:description": "City Forest Credits is the national standard for greenhouse gas emission reduction and removal for tree projects in cities and towns. Developed by leading scientists, industry, and urban forest professionals, the Standard and Protocols define the set of rules and requirements that tree preservation projects must follow in order to earn third-party verified carbon credits.\n\nCFC has a 40-year and a 100-year Tree Preservation Protocol, modeled after avoided conversion or avoided emissions protocols in forestry. The 40-year Protocol was designed for the voluntary market and the 100-year Protocol for the compliance market in the state of California.",
   "rfs:hasPrimaryImpact": {

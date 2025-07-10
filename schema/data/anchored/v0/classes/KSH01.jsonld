@@ -4,7 +4,7 @@
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/"
   },
-  "schema:url": "https://registry.regen.network/v/regen-registry-credit-classes/regen-registry-credit-classes-1/credit-class-for-grazing-in-vineyard-systems-v1.0",
+  "schema:url": "https://app.regen.network/credit-classes/KSH01",
   "schema:name": "Credit Class for Sheep Grazing in Vineyard Systems",
   "schema:description": "This Credit Class and its accompanying methodology are designed to support the use of high-density, short-duration rotational targeted sheep grazing in vineyard systems to improve ecosystem functioning through active management of the soil and herbaceous cover in the vineyard understory. As with other Environmental Stewardship methodologies, the environmental benefits are implicit in the practice. Projects being developed under the Methodology for Grazing in Vineyard Systems are expected, based on prior research, to result in positive ecological outcomes. This methodology is new and innovative, and will be improved as new projects are created and lessons are learned.",
   "rfs:hasPrimaryImpact": {
@@ -41,8 +41,8 @@
     "PRESCRIBED_GRAZING"
   ],
   "rfs:hasCreditProtocol": {
-    "schema:url": "https://registry.regen.network/v/methodology-library/published-methodologies/methodology-for-grazing-in-vineyard-systems-v1.0",
-    "schema:name": "Methodology for Grazing in Vineyard Systems",
+    "schema:url": "https://www.registry.regen.network/crediting-protocols/grazing-in-vineyard-systems",
+    "schema:name": "Grazing in Vineyard Systems",
     "schema:version": "1.0"
   }
 }

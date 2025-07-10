@@ -4,7 +4,7 @@
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/"
   },
-  "schema:url": "https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar",
+  "schema:url": "https://app.regen.network/credit-classes/C05",
   "schema:name": "Credit Class for Carbon Removal through Biochar Production",
   "schema:description": "The Biochar Carbon credit focuses on carbon removal and avoiding emissions that would have resulted from the decomposition of waste biomass. Carbon removal is the approved benefit that is monitored, quantified, and determines the number of credits issued. The approved benefit of atmospheric regulation through carbon sequestration is driven by carbon removals and reductions through the production and application of biochar to soils.",
   "rfs:hasPrimaryImpact": {
@@ -32,6 +32,10 @@
   "rfs:eligibleActivities": [
     "BIOCHAR_PRODUCTION"
   ],
+  "rfs:hasCreditProtocol": {
+    "schema:url": "https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar",
+    "schema:name": "Credit Class for Carbon Removal through Biochar Production"
+  },
   "rfs:hasApprovedMethodologies": [
     {
       "schema:url": "https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf",
