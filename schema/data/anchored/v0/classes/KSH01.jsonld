@@ -30,7 +30,7 @@
     }
   ],
   "rfs:managedUnderProgram": {
-    "schema:url": "'https://registry-program-guide.regen.network",
+    "schema:url": "https://registry-program-guide.regen.network",
     "schema:name": "Regen Registry Program"
   },
   "rfs:eligibleEnvironmentTypes": [

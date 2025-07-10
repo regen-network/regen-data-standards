@@ -24,12 +24,16 @@
   "rfs:eligibleEnvironmentTypes": [
     "URBAN_TREES"
   ],
+  "rfs:hasPermanencePeriod": "P25Y",
   "rfs:hasSourceRegistry": {
     "schema:url": "https://www.cityforestcredits.org/",
     "schema:name": "City Forest Credits"
   },
   "rfs:eligibleActivities": [
-    "Tree Preservation -- CANNOT FIND. CLOSEST IS TREE_PLANTING"
+    [
+      "URBAN_FOREST_IMPROVEMENT",
+      "TREE_PLANTING"
+    ]
   ],
   "rfs:managedUnderProgram": {
     "schema:url": "https://www.cityforestcredits.org/wp-content/uploads/2022/03/City-Forest-Credits-Standard-V2.pdf",

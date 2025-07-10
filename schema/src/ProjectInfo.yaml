@@ -85,12 +85,6 @@ classes:
         description: Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.
         range: Impact
         multivalued: true
-      projectStartDate:
-        slot_uri: xsd:date
-        description: The start date of the project.
-      projectEndDate:
-        slot_uri: xsd:date
-        description: The end date of the project.
       hasProjectDeveloper:
         range: Entity
         description: The organization responsible for owning the project.
@@ -193,6 +187,13 @@ classes:
   Any:
     class_uri: linkml:Any
 
+slots:
+  projectStartDate:
+    slot_uri: schema:sartDate
+    description: The start date of the project.
+  projectEndDate:
+    slot_uri: schema:endDate
+    description: The end date of the project.
 enums:
   MarketTypeTypes:
     description: The type of marketplace
