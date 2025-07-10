@@ -10,4 +10,7 @@ gen-doc:
 gen-rdf:
 	scripts/gen-rdf.sh
 
-all: gen-taxonomy lint gen-doc gen-rdf
+update-graph:
+	scripts/update-graph.sh
+
+all: gen-taxonomy lint gen-doc gen-rdf update-graph
