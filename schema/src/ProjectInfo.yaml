@@ -189,7 +189,7 @@ classes:
 
 slots:
   projectStartDate:
-    slot_uri: schema:sartDate
+    slot_uri: schema:startDate
     description: The start date of the project.
   projectEndDate:
     slot_uri: schema:endDate
