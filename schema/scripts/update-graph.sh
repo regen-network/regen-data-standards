@@ -7,6 +7,14 @@ DATA_DIR="data/playground"
 : "${GRAPH_STORE_URL:=http://localhost:7878/store}"
 : "${GRAPH:=default}"
 
+# Build auth variable if GRAPH_STORE_AUTH is present.
+# GRAPH_STORE_AUTH should be in format user:pass
+if [ -n "$GRAPH_STORE_AUTH" ]; then
+    AUTH="--user $GRAPH_STORE_AUTH"
+else
+    AUTH=""
+fi
+
 # Set METHOD and GRAPH_PARAM based on GRAPH value
 # Use POST to append to default graph, and PUT to replace named graphs
 if [ "$GRAPH" = "default" ]; then
@@ -28,7 +36,7 @@ total_count=0
 for file in "$DATA_DIR"/*/*/*.ttl; do
     ((total_count++))
 
-    if ! curl -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    if ! curl -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
       echo "❌ Failed to update graph: $GRAPH with $file"
         ((failed_count++))
     else

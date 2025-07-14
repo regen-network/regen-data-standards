@@ -25,6 +25,8 @@ jobs:
         id: check-dataset
         env:
           GRAPH_STORE_URL: ${{ vars.GRAPH_STORE_URL }}
+          GRAPH_STORE_USER: ${{ secrets.GRAPH_STORE_USER }}
+          GRAPH_STORE_PW: ${{ secrets.GRAPH_STORE_PW }}
           DATASET: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.number) || 'main' }}
         run: |
           URL="${GRAPH_STORE_URL}${DATASET}"
@@ -32,8 +34,11 @@ jobs:
           echo "Full URL: ${URL}"
           echo "url=${URL}" >> $GITHUB_OUTPUT
           
+          GRAPH_STORE_AUTH="${GRAPH_STORE_USER}:${GRAPH_STORE_PW}"
+          echo "auth=${GRAPH_STORE_AUTH}" >> $GITHUB_OUTPUT
+          
           echo "Checking if dataset exists at: ${URL}"
-          if curl -s -f -o /dev/null "${URL}"; then
+          if curl -s -f -o /dev/null --user "${GRAPH_STORE_AUTH}" "${URL}"; then
             echo "✅ Dataset exists at ${URL}"
             echo "exists=true" >> $GITHUB_OUTPUT
           else
@@ -46,4 +51,5 @@ jobs:
         if: steps.check-dataset.outputs.exists == 'true'
         env:
           GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
+          GRAPH_STORE_AUTH: ${{ steps.check-dataset.outputs.auth }}
         run: make -C schema update-graph
