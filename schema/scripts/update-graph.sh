@@ -25,6 +25,13 @@ else
     GRAPH_PARAM="?graph=$GRAPH"
 fi
 
+# First, clear the graph.
+if ! curl -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    echo "❌ Failed to delete content in graph: $GRAPH"
+else
+    echo "✅ Deleted content in graph: $GRAPH with $file"
+fi
+
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern
 
