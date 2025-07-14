@@ -26,7 +26,7 @@ else
 fi
 
 # First, clear the graph.
-if ! curl -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+if ! curl -s -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
     echo "❌ Failed to delete content in graph: $GRAPH"
 else
     echo "✅ Deleted content in graph: $GRAPH with $file"
@@ -43,7 +43,7 @@ total_count=0
 for file in "$DATA_DIR"/*/*/*.ttl; do
     ((total_count++))
 
-    if ! curl -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
       echo "❌ Failed to update graph: $GRAPH with $file"
         ((failed_count++))
     else
