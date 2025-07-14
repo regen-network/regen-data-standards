@@ -27,7 +27,7 @@ jobs:
           GRAPH_STORE_URL: ${{ vars.GRAPH_STORE_URL }}
           DATASET: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.number) || 'main' }}
         run: |
-          URL="${GRAPH_STORE_URL}/${DATASET}"
+          URL="${GRAPH_STORE_URL}${DATASET}"
           echo "Using dataset: ${DATASET}"
           echo "Full URL: ${URL}"
           echo "url=${URL}" >> $GITHUB_OUTPUT
