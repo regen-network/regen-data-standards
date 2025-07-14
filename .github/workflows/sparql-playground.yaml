@@ -21,8 +21,29 @@ jobs:
         run: pip install -r requirements.txt
       - name: Generate RDF
         run: make -C schema gen-rdf
-      - name: Update graph
+      - name: Check if dataset exists
+        id: check-dataset
         env:
-          #GRAPH_STORE_URL:  ${{ secrets.GRAPH_STORE_URL }}
-          GRAPH_STORE_URL: https://809df857a1.endpoints.dev
+          GRAPH_STORE_URL: ${{ vars.GRAPH_STORE_URL }}
+          DATASET: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.number) || 'main' }}
+        run: |
+          URL="${GRAPH_STORE_URL}/${DATASET}"
+          echo "Using dataset: ${DATASET}"
+          echo "Full URL: ${URL}"
+          echo "url=${URL}" >> $GITHUB_OUTPUT
+          
+          echo "Checking if dataset exists at: ${URL}"
+          if curl -s -f -o /dev/null "${URL}"; then
+            echo "✅ Dataset exists at ${URL}"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Dataset does not exist at ${URL}"
+            echo "⚠️  Skipping graph update step"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi 
+
+      - name: Update graph
+        if: steps.check-dataset.outputs.exists == 'true'
+        env:
+          GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
         run: make -C schema update-graph
