@@ -339,3 +339,6 @@ enums:
         text: IMPROVED_NUTRIENT_CYCLING
         meaning: rft:ImprovedNutrientCycling
         title: ImprovedNutrientCycling
+      UNKNOWN:
+        text: UNKNOWN
+        title: Unknown

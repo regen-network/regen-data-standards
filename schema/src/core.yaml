@@ -22,6 +22,7 @@ slots:
   url:
     slot_uri: schema:url
     description: Link to a valid URL where more information can be found about the entity / resource.
+    range: uri
     rank: 1
   identifier:
     slot_uri: schema:identifier

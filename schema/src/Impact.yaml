@@ -16,9 +16,13 @@ classes:
     description: Represents an ecological, social, or broader impact or benefit usually in the context of a project's activities. Impacts can be measurable or qualitative.
     slots:
       - name
+    slot_usage:
+      name:
+        description: Name is optional and will be inferred from the ImpactType if not provided.
     attributes:
-      id:
-        identifier: true
+      hasImpactType:
+        description: Type of impact, such as ecological, social, or economic.
+        range: ImpactType
         required: true
       supportsSDG:
         description: List of relevant Sustainable Development Goals that this impact supports.
