@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      statuses: write
     name: Validate and Convert data
     steps:
       - name: Checkout
