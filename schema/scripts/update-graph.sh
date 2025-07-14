@@ -28,7 +28,7 @@ total_count=0
 for file in "$DATA_DIR"/*/*/*.ttl; do
     ((total_count++))
 
-    if ! curl -X $METHOD -H 'Content-Type: text/turtle' -T "$file" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    if ! curl -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
       echo "❌ Failed to update graph: $GRAPH with $file"
         ((failed_count++))
     else
