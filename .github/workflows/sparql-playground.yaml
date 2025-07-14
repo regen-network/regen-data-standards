@@ -53,3 +53,34 @@ jobs:
           GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
           GRAPH_STORE_AUTH: ${{ steps.check-dataset.outputs.auth }}
         run: make -C schema update-graph
+      - name: Create SPARQL Playground Status
+        if: steps.check-dataset.outputs.exists == 'true'
+        env:
+          GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
+          GH_TOKEN: ${{ github.token }}
+        run: |  
+          # Define the SPARQL query in plain text
+          SPARQL_QUERY="
+          PREFIX rfs: <https://framework.regen.network/schema/>
+            
+            SELECT * WHERE {
+            ?sub ?pred ?obj .
+          } LIMIT 1000"
+          
+          # URL encode the SPARQL query
+          QUERY_ENDPOINT="${GRAPH_STORE_URL}/query"
+          ENCODED_QUERY=$(printf '%s' "${SPARQL_QUERY}" | jq -sRr @uri)
+          
+          # URL encode the query endpoint
+          ENCODED_ENDPOINT=$(printf '%s' "${QUERY_ENDPOINT}" | jq -sRr @uri)
+          
+          # Create the YASGUI URL
+          YASGUI_URL="https://yasgui.triply.cc/#query=${ENCODED_QUERY}&endpoint=${ENCODED_ENDPOINT}&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table&outputSettings=%7B%22isEllipsed%22%3Afalse%2C%22compact%22%3Afalse%7D"
+          
+          # Create commit status
+          gh api repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            --method POST \
+            --field state=success \
+            --field target_url="${YASGUI_URL}" \
+            --field description="Click to explore RDF data in SPARQL playground" \
+            --field context="sparql-playground/${DATASET}"
