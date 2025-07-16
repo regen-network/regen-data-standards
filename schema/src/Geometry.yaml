@@ -1,0 +1,53 @@
+id: Geometry
+name: Geometry
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dcterms: http://purl.org/dc/terms/
+  geo: http://www.opengis.net/ont/geosparql#
+  rfs: https://framework.regen.network/schema/
+
+default_prefix: rfs
+
+imports:
+  - core
+
+classes:
+  Feature:
+    description: A spatial feature, such as a project or area, with a defined geometry and optional bounding box.
+    class_uri: geo:Feature
+    slots:
+      - name
+      - hasGeometry
+      - hasBoundingBox
+      - hasCentroid
+    slot_usage:
+      name:
+        required: true
+      hasGeometry:
+        required: true
+  Geometry:
+    description: A geometry defined using Well-Known Text (WKT), compliant with GeoSPARQL 1.1.
+    class_uri: geo:Geometry
+    slots:
+      - asWKT
+    slot_usage:
+      asWKT:
+        required: true
+
+slots:
+  asWKT:
+    slot_uri: geo:asWKT
+    range: string
+    description:  A WKT literal with an optional CRS prefix (e.g., '<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(...)').
+  hasGeometry:
+    slot_uri: geo:hasGeometry
+    range: Geometry
+  hasBoundingBox:
+    slot_uri: geo:hasBoundingBox
+    range: Geometry
+    description: A derived geometry representing the bounding box of the geometry or feature.
+  hasCentroid:
+    slot_uri: geo:hasCentroid
+    range: Geometry
+    description: A derived geometry representing the centroid of the feature.
