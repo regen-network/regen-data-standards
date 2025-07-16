@@ -9,12 +9,47 @@ prefixes:
 
 default_prefix: rfs
 
+imports:
+  - core
+
 classes:
+  Feature:
+    description: A spatial feature, such as a project or area, with a defined geometry and optional bounding box.
+    class_uri: geo:Feature
+    slots:
+      - name
+      - geometry
+      - bounding_box
+      - centroid
+    slot_usage:
+      name:
+        required: true
+      geometry:
+        required: true
   Geometry:
-    description: A shape or location defined by points in space, using a standard coordinate system.
+    description: A geometry defined using Well-Known Text (WKT), compliant with GeoSPARQL 1.1.
     class_uri: geo:Geometry
-    attributes:
-      title:
-        slot_uri: dcterms:title
+    slots:
+      - wkt
+    slot_usage:
       wkt:
-        slot_uri: geo:asWKT
+        required: true
+
+slots:
+  wkt:
+    slot_uri: geo:asWKT
+    range: string
+    description:  A WKT literal with an optional CRS prefix (e.g., '<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(...)').
+  geometry:
+    slot_uri: geo:hasGeometry
+    range: Geometry
+  bounding_box:
+    slot_uri: geo:hasBoundingBox
+    range: Geometry
+    description: A derived geometry representing the bounding box of the geometry or feature.
+    inlined: false
+  centroid:
+    slot_uri: geo:hasCentroid
+    range: Geometry
+    description: A derived geometry representing the centroid of the feature.
+    inlined: false

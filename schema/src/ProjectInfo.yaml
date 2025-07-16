@@ -2,7 +2,6 @@ id: ProjectInfo
 name: ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
-  geo: http://www.opengis.net/ont/geosparql#
   rfs: https://framework.regen.network/schema/
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
@@ -45,9 +44,8 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
-      hasGeometry:
-        slot_uri: geo:hasGeometry
-        range: Geometry
+      hasFeature:
+        range: Feature
         required: true
         description: The location of the project.
       projectSize:
@@ -148,13 +146,6 @@ classes:
       referenceType:
         range: string
         description: An optional label that describes the identifier.
-  Geometry:
-    attributes:
-      type:
-        range: string
-      coordinates:
-        range: float
-        multivalued: true
   Any:
     class_uri: linkml:Any
 
