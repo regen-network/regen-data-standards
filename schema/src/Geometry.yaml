@@ -47,9 +47,7 @@ slots:
     slot_uri: geo:hasBoundingBox
     range: Geometry
     description: A derived geometry representing the bounding box of the geometry or feature.
-    inlined: false
   hasCentroid:
     slot_uri: geo:hasCentroid
     range: Geometry
     description: A derived geometry representing the centroid of the feature.
-    inlined: false
