@@ -1,0 +1,79 @@
+name: ""
+description: ""
+url: ""
+hasFeature:
+  name: ""
+  hasGeometry:
+    asWKT: ""
+  hasCentroid:
+    asWKT: ""
+projectStartDate: ""
+projectEndDate: ""
+hasPrimaryImpact:
+  name: ""
+  hasImpactType: ""
+  supportsSDG:
+    - ""
+hasLinks:
+  - name: ""
+    url: ""
+    description: ""
+hasReferenceId:
+  - identifier: ""
+    referenceType: ""
+projectSize:
+  numericValue:
+  unit: ""
+environmentType:
+  - ""
+activity:
+  - ""
+hasCoBenefits:
+  - name: ""
+    hasImpactType: ""
+    supportsSDG:
+      - ""
+hasProjectDeveloper:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+hasProjectOperator:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+hasProjectMonitor:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+hasProjectOwner:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+hasProjectPartner:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+hasProjectVerifier:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+creditClassVersion: ""
+marketType:
+  - "" # COMPLIANCE_MARKET or VOLUNTARY_MARKET
+usesMethodology:
+  name: ""
+  url: ""
+  version: ""
+  identifier: ""

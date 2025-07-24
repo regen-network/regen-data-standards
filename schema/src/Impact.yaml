@@ -4,12 +4,14 @@ name: Impact
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
 
 default_prefix: rfs
 
 imports:
   - core
   - SDG
+  - taxonomy
 
 classes:
   Impact:

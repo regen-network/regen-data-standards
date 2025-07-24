@@ -1,0 +1,110 @@
+# Required fields
+name: ""
+description: ""
+url: ""
+hasFeature:
+  name: ""
+  hasGeometry:
+    asWKT: ""
+  hasCentroid:
+    asWKT: ""
+projectStartDate: ""
+projectEndDate: ""
+hasPrimaryImpact:
+  name: ""
+  hasImpactType: ""
+  supportsSDG:
+    - ""
+
+# Optional basic information
+hasLinks:
+  - name: ""
+    url: ""
+    description: ""
+
+hasReferenceId:
+  - identifier: ""
+    referenceType: ""
+
+# Project size and location details
+projectSize:
+  numericValue:
+  unit: ""
+
+# Geographic and environmental classifications
+environmentType:
+  - ""
+region: ""
+bioregion:
+  - ""
+biomeType:
+  - ""
+watershed: ""
+subWatershed: ""
+
+# Activities
+activity:
+  - ""
+
+# Co-benefits (optional, multivalued)
+hasCoBenefits:
+  - name: ""
+    hasImpactType: ""
+    supportsSDG:
+      - ""
+
+# Stakeholder entities (all optional)
+hasProjectDeveloper:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+hasProjectOperator:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+hasProjectMonitor:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+hasProjectOwner:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+hasProjectPartner:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+# Credit-specific fields (from CreditProjectInfo)
+hasProjectVerifier:
+  name: ""
+  description: ""
+  url: ""
+  image: ""
+  type: "" # INDIVIDUAL or ORGANIZATION
+
+creditClassVersion: ""
+
+marketType:
+  - "" # COMPLIANCE_MARKET or VOLUNTARY_MARKET
+
+# Methodology (optional)
+usesMethodology:
+  name: ""
+  url: ""
+  version: ""
+  identifier: ""
