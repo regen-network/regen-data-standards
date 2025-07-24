@@ -18,6 +18,8 @@ classes:
     description: Project info for Verra Verified Carbon Standard projects.
     slot_usage:
       hasReferenceId:
+        range: ReferenceId
         required: true
       usesMethodology:
+        range: Methodology
         required: true
