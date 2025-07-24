@@ -1,0 +1,87 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
+    name: Validate and Convert data
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+      - name: Generate RDF
+        run: make -C schema gen-rdf
+      - name: Check if dataset exists
+        id: check-dataset
+        env:
+          GRAPH_STORE_URL: ${{ vars.GRAPH_STORE_URL }}
+          GRAPH_STORE_USER: ${{ secrets.GRAPH_STORE_USER }}
+          GRAPH_STORE_PW: ${{ secrets.GRAPH_STORE_PW }}
+          DATASET: ${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.number) || 'main' }}
+        run: |
+          URL="${GRAPH_STORE_URL}${DATASET}"
+          echo "Using dataset: ${DATASET}"
+          echo "Full URL: ${URL}"
+          echo "url=${URL}" >> $GITHUB_OUTPUT
+          
+          GRAPH_STORE_AUTH="${GRAPH_STORE_USER}:${GRAPH_STORE_PW}"
+          echo "auth=${GRAPH_STORE_AUTH}" >> $GITHUB_OUTPUT
+          
+          echo "Checking if dataset exists at: ${URL}"
+          if curl -s -f -o /dev/null --user "${GRAPH_STORE_AUTH}" "${URL}"; then
+            echo "✅ Dataset exists at ${URL}"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Dataset does not exist at ${URL}"
+            echo "⚠️  Skipping graph update step"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi 
+
+      - name: Update graph
+        if: steps.check-dataset.outputs.exists == 'true'
+        env:
+          GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
+          GRAPH_STORE_AUTH: ${{ steps.check-dataset.outputs.auth }}
+        run: make -C schema update-graph
+      - name: Create SPARQL Playground Status
+        if: steps.check-dataset.outputs.exists == 'true'
+        env:
+          GRAPH_STORE_URL: ${{ steps.check-dataset.outputs.url }}
+          GH_TOKEN: ${{ github.token }}
+        run: |  
+          # Define the SPARQL query in plain text
+          SPARQL_QUERY="
+          PREFIX rfs: <https://framework.regen.network/schema/>
+            
+            SELECT * WHERE {
+            ?sub ?pred ?obj .
+          } LIMIT 1000"
+          
+          # URL encode the SPARQL query
+          QUERY_ENDPOINT="${GRAPH_STORE_URL}/query"
+          ENCODED_QUERY=$(printf '%s' "${SPARQL_QUERY}" | jq -sRr @uri)
+          
+          # URL encode the query endpoint
+          ENCODED_ENDPOINT=$(printf '%s' "${QUERY_ENDPOINT}" | jq -sRr @uri)
+          
+          # Create the YASGUI URL
+          YASGUI_URL="https://yasgui.triply.cc/#query=${ENCODED_QUERY}&endpoint=${ENCODED_ENDPOINT}&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table&outputSettings=%7B%22isEllipsed%22%3Afalse%2C%22compact%22%3Afalse%7D"
+          
+          # Create commit status
+          gh api repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            --method POST \
+            --field state=success \
+            --field target_url="${YASGUI_URL}" \
+            --field description="Click to explore RDF data in SPARQL playground" \
+            --field context="sparql-playground/${DATASET}"

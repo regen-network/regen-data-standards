@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Root directory for data
+DATA_DIR="data/playground"
+
+# Only set default values if environment variables are not set
+: "${GRAPH_STORE_URL:=http://localhost:7878/store}"
+: "${GRAPH:=default}"
+
+# Build auth variable if GRAPH_STORE_AUTH is present.
+# GRAPH_STORE_AUTH should be in format user:pass
+if [ -n "$GRAPH_STORE_AUTH" ]; then
+    AUTH="--user $GRAPH_STORE_AUTH"
+else
+    AUTH=""
+fi
+
+# Set METHOD and GRAPH_PARAM based on GRAPH value
+# Use POST to append to default graph, and PUT to replace named graphs
+if [ "$GRAPH" = "default" ]; then
+    METHOD=POST
+    GRAPH_PARAM="?default"
+else
+    METHOD=PUT
+    GRAPH_PARAM="?graph=$GRAPH"
+fi
+
+# First, clear the graph.
+if ! curl -s -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    echo "❌ Failed to delete content in graph: $GRAPH"
+else
+    echo "✅ Deleted content in graph: $GRAPH with $file"
+fi
+
+# Use globbing to iterate through the nested structure
+shopt -s nullglob # Handle cases where no files match pattern
+
+# Initialize counters
+failed_count=0
+total_count=0
+
+# Loop through turtle files
+for file in "$DATA_DIR"/*/*/*.ttl; do
+    ((total_count++))
+
+    if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+      echo "❌ Failed to update graph: $GRAPH with $file"
+        ((failed_count++))
+    else
+        echo "✅ Updated graph: $GRAPH with $file"
+    fi
+done
+
+echo "Updating graph complete: $((total_count - failed_count)) passed, $failed_count failed out of $total_count total files"
+
+# Exit with failure if any validations failed
+[[ $failed_count -eq 0 ]] || exit 1

@@ -7,10 +7,10 @@ lint:
 gen-doc:
 	gen-doc src/schema.yaml --directory generated --diagram-type er_diagram -v
 
-gen-jsonld:
-	linkml-convert --input-format yaml --output-format json-ld --schema src/schema.yaml data/BT01ProjectInfoData.yaml	--output data/BT01ProjectInfoData.jsonld --target-class BT01ProjectInfo
+gen-rdf:
+	scripts/gen-rdf.sh
 
-validate:
-	linkml-validate -s src/schema.yaml --target-class BT01ProjectInfo data/BT01ProjectInfoData.yaml
+update-graph:
+	scripts/update-graph.sh
 
-all: gen-taxonomy lint gen-doc gen-jsonld validate
+all: gen-taxonomy lint gen-doc gen-rdf update-graph
