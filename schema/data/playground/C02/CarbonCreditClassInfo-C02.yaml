@@ -1,0 +1,43 @@
+name: Urban Forest Carbon Credit Class
+url: https://app.regen.network/credit-classes/C02
+description: >-
+  City Forest Credits is the national standard for greenhouse gas emission
+  reduction and removal for tree projects in cities and towns. Developed by
+  leading scientists, industry, and urban forest professionals, the Standard
+  and Protocols define the set of rules and requirements that tree preservation
+  projects must follow in order to earn third-party verified carbon credits.
+
+  CFC has a 40-year and a 100-year Tree Preservation Protocol, modeled after
+  avoided conversion or avoided emissions protocols in forestry. The 40-year
+  Protocol was designed for the voluntary market and the 100-year Protocol for
+  the compliance market in the state of California.
+hasPrimaryImpact:
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  name: Increased Carbon Sequestration and Storage
+hasCoBenefits:
+  - hasImpactType: INCREASED_FOREST_COVER
+    name: Increased Forest Cover
+  - hasImpactType: IMPROVED_FOREST_HEALTH
+    name: Improved Forest Health
+eligibleEnvironmentTypes:
+  - URBAN_TREES
+hasPermanencePeriod: P25Y
+hasSourceRegistry:
+  url: https://www.cityforestcredits.org/
+  name: City Forest Credits
+eligibleActivities:
+  - URBAN_FOREST_IMPROVEMENT
+  - TREE_PLANTING
+managedUnderProgram:
+  url: https://www.cityforestcredits.org/wp-content/uploads/2022/03/City-Forest-Credits-Standard-V2.pdf
+  name: City Forest Credits Standard
+hasCreditProtocol:
+  - url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf
+    name: Preservation Protocol — 40 years
+    version: "11.40"
+  - url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-100-Years-V11.100.pdf
+    name: Preservation Protocol — 100 years
+    version: "11.100"
+hasCreditGenerationMethod:
+  - AVOIDED_EMISSIONS
+  - CARBON_DIOXIDE_REMOVAL

@@ -1,0 +1,41 @@
+url: https://app.regen.network/credit-classes/MBS01
+name: SeaTrees Crediting Protocol for Marine Restoration
+description:
+  This protocol is designed to help local communities scale the restoration
+  of degraded nearshore ecosystems and provide direct market access to philanthropic,
+  donation-based funding via biodiversity credits called SeaTrees Biodiversity Blocks.
+  It is a roadmap for designing effective marine restoration projects that can be
+  funded via the insurance of voluntary biodiversity credits. This protocol also contains
+  three ecosystem-specific modules, which provide guidelines and best-practices for
+  restoring coral reefs, mangrove forests, and kelp forests. This protocol does not
+  allow issuance of carbon credits or biodiversity offsets.
+hasPrimaryImpact:
+  hasImpactType: IMPROVED_BIODIVERSITY
+  name: Improved Biodiversity
+hasCoBenefits:
+  - hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+    name: Increased Carbon Sequestration and Storage
+  - hasImpactType: INCREASED_FOREST_COVER
+    name: Increased Forest Cover
+  - hasImpactType: IMPROVED_FOREST_HEALTH
+    name: Improved Forest Health
+  - hasImpactType: IMPROVED_COMMUNITY_HEALTH
+    name: Improved Community Health
+  - hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    name: Improved Wildlife Habitat
+managedUnderProgram:
+  url: https://registry-program-guide.regen.network
+  name: Regen Registry Program
+eligibleEnvironmentTypes:
+  - MARINE
+  - WETLAND
+  - CORAL_REEF
+  - COASTAL
+eligibleActivities:
+  - ECOSYSTEM_RESTORATION
+  - TREE_PLANTING
+  - CONSERVATION
+hasCreditProtocol:
+  url: https://www.registry.regen.network/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration
+  name: Seatrees Crediting Protocol for Marine Restoration
+hasCreditingPeriod: P5Y

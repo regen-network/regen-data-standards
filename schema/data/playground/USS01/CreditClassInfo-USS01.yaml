@@ -1,0 +1,50 @@
+url: https://app.regen.network/credit-classes/USS01
+name: Biodiversity Credit Protocol for Umbrella Species Stewardship
+description: >-
+  The Biodiversity Crediting Protocol for Umbrella Species Stewardship
+  (USS) provides a comprehensive framework for measuring, verifying, and rewarding
+  communities for their conservation of umbrella species—organisms whose protection
+  benefits entire ecosystems and their inhabitants. The protocol measures conservation
+  success through three integrated components: Umbrella Species Health, which tracks
+  population dynamics and distribution; Habitat Quality, which assesses ecosystem
+  composition and function; and a Theory of Change, which translates community knowledge
+  and long-term goals into strategic conservation activities. By combining on-the-ground
+  data collection, remote sensing, and traditional ecological knowledge, the protocol
+  enables scientifically rigorous and transparent verification of conservation outcomes.
+  All ecological data anchors securely to a blockchain, ensuring credible, verifiable
+  proof of impact. The USS credits represent actual implementation costs, directly
+  linking conservation finance to real biodiversity gains while preventing speculative
+  trading. This empowers local communities and land stewards to address critical biodiversity
+  threats and strengthens their essential role in long-term ecosystem stewardship.
+hasPrimaryImpact:
+  hasImpactType: IMPROVED_BIODIVERSITY
+  supportsSDG:
+    - SDG_15
+    - SDG_13
+  name: Improved Biodiversity
+hasCoBenefits:
+  - hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_15
+  - hasImpactType: IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH
+    supportsSDG:
+      - SDG_4
+      - SDG_17
+      - SDG_8
+managedUnderProgram:
+  url: https://registry-program-guide.regen.network
+  name: Regen Registry Program
+hasCreditingPeriod: P5Y
+eligibleEnvironmentTypes:
+  - SAVANNA
+  - TROPICAL_FOREST
+  - TEMPERATE_FOREST
+  - GRASSLAND
+eligibleActivities:
+  - UMBRELLA_SPECIES_CONSERVATION
+  - ECOSYSTEM_RESTORATION
+  - ECOTOURISM
+hasCreditProtocol:
+  url: https://www.registry.regen.network/crediting-protocols/era-brazil
+  name: Biodiversity Crediting through Umbrella Species Stewardship
+  version: V2.1

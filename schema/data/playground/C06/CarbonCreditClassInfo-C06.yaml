@@ -1,0 +1,40 @@
+url: "https://app.regen.network/credit-classes/C06"
+name: GHG Benefits in Managed Crop and Grassland Systems Credit Class
+description: >-
+  This Credit Class and its supporting measuring and monitoring methodology,
+  focuses on quantifying increases in soil organic carbon sequestration and
+  storage in regenerative cropping and managed grassland agricultural systems.
+hasPrimaryImpact:
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  name: Soil Organic Carbon
+hasCoBenefits:
+  - hasImpactType: IMPROVED_SOIL_STRUCTURE
+    name: Improved Soil Structure & Hydrological Properties
+  - hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
+    name: Reduced Fertilizer Usage
+managedUnderProgram:
+  url: "https://registry-program-guide.regen.network"
+  name: Regen Registry Program
+hasCreditingPeriod: P10Y
+eligibleEnvironmentTypes:
+  - CROPLAND
+  - GRASSLAND
+  - PASTURE
+  - SHRUBLAND
+hasPermanencePeriod: P10Y
+hasBufferPoolAccounts:
+  - name: Crediting Term Buffer Pool
+    walletAddress: regen19rrgcsw8gu8c3rthucqnf6nyyg6q9pq79tt60pvahfsnfu4p5hrs9z2n3j
+    poolAllocation: 10%
+  - name: Permanence Reversal Buffer
+    walletAddress: regen15lch5glk7deu9tk8wrcfcup4tdpz2l8zhhqn4r2zzsr46dfv849qqfpu9m
+    poolAllocation: 10%
+eligibleActivities:
+  - PRESCRIBED_GRAZING
+hasCreditProtocol:
+  url: >-
+    https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class
+  name: GHG Benefits in Managed Crop and Grassland Systems Credit Class
+  version: V1.5
+hasCreditGenerationMethod:
+  - CARBON_DIOXIDE_REMOVAL
