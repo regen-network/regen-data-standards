@@ -1,0 +1,47 @@
+url: "https://app.regen.network/credit-classes/C05"
+name: Credit Class for Carbon Removal through Biochar Production
+description: >-
+  The Biochar Carbon credit focuses on carbon removal and avoiding emissions
+  that would have resulted from the decomposition of waste biomass. Carbon
+  removal is the approved benefit that is monitored, quantified, and determines
+  the number of credits issued. The approved benefit of atmospheric regulation
+  through carbon sequestration is driven by carbon removals and reductions
+  through the production and application of biochar to soils.
+hasPrimaryImpact:
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  name: Increased Carbon Sequestration and Storage
+managedUnderProgram:
+  url: "https://registry-program-guide.regen.network"
+  name: Regen Registry Program
+hasCreditingPeriod: P2Y
+eligibleEnvironmentTypes:
+  - FOREST
+  - CROPLAND
+  - GRASSLAND
+hasPermanencePeriod: P100Y
+hasBufferPoolAccounts:
+  - name: Carbon Removal through Biochar Production Credit Class Buffer Pool
+    walletAddress: regen1wgjpjh42cr7t5sp5hgty4yrzww496a6yaznc9u4wsv9ac3xccu8szz2upa
+    poolAllocation: 10%
+eligibleActivities:
+  - BIOCHAR_PRODUCTION
+hasCreditProtocol:
+  url: >-
+    https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar
+  name: Credit Class for Carbon Removal through Biochar Production
+hasApprovedMethodologies:
+  - url: "https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf"
+    name: >-
+      Methodology for Biochar Utilization in Soil and Non-Soil Applications
+      (VM0044)
+    version: V1.1
+    identifier: VM0044
+  - url: >-
+      https://www.registry.regen.network/methodology/appendix-in-stand-surface-application-of-biochar-in-forestlands-methodology
+    name: >-
+      Appendix: In-Stand Surface Application of Biochar in Forestlands
+      Methodology
+    version: V1.0
+hasCreditGenerationMethod:
+  - CARBON_DIOXIDE_REMOVAL
+  - EMISSIONS_REDUCTION

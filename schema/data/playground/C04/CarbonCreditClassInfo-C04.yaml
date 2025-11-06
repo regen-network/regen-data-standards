@@ -1,0 +1,37 @@
+url: "https://app.regen.network/credit-classes/C04"
+name: Ruuts Credit Class for Soil Carbon Sequestration through Regenerative Grazing
+description: >-
+  The Credit Class and its accompanying methodology provide farmers with a
+  measuring and monitoring process for soil organic carbon sequestration in
+  regenerative grazing systems, enabling them to generate carbon credits that
+  also include robust ecological co-benefits such as water infiltration and
+  biodiversity.
+hasPrimaryImpact:
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  name: Increased Carbon Sequestration and Storage
+hasCoBenefits:
+  - hasImpactType: IMPROVED_BIODIVERSITY
+    name: Improved Biodiversity
+  - hasImpactType: IMPROVED_WATER_INFILTRATION
+    name: Improved Water Infiltration
+managedUnderProgram:
+  url: "https://registry-program-guide.regen.network"
+  name: Regen Registry Program
+hasCreditingPeriod: P10Y
+eligibleEnvironmentTypes:
+  - PASTURE
+  - GRASSLAND
+hasPermanencePeriod: P20Y
+hasBufferPoolAccounts:
+  - name: Credit Class (Pooled) Buffer Pool
+    walletAddress: regen17pmq7hp4upvmmveqexzuhzu64v36re3w3447n7dt46uwp594wtpsuuh7f6
+    poolAllocation: 5%
+eligibleActivities:
+  - PRESCRIBED_GRAZING
+hasCreditProtocol:
+  url: >-
+    https://www.registry.regen.network/crediting-protocols/ruuts-credit-class-for-soil-carbon-sequestration-through-regenerative-grazing
+  name: Ruuts Protocol Soil Carbon Sequestration Methodology v1
+  version: V1.0
+hasCreditGenerationMethod:
+  - CARBON_DIOXIDE_REMOVAL

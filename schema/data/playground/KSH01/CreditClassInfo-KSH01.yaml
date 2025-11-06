@@ -1,0 +1,37 @@
+---
+url: https://app.regen.network/credit-classes/KSH01
+name: Credit Class for Sheep Grazing in Vineyard Systems
+description:
+  This Credit Class and its accompanying methodology are designed to support
+  the use of high-density, short-duration rotational targeted sheep grazing in vineyard
+  systems to improve ecosystem functioning through active management of the soil and
+  herbaceous cover in the vineyard understory. As with other Environmental Stewardship
+  methodologies, the environmental benefits are implicit in the practice. Projects
+  being developed under the Methodology for Grazing in Vineyard Systems are expected,
+  based on prior research, to result in positive ecological outcomes. This methodology
+  is new and innovative, and will be improved as new projects are created and lessons
+  are learned.
+hasPrimaryImpact:
+  hasImpactType: IMPROVED_SOIL_HEALTH
+  name: Improved Soil Health
+hasCoBenefits:
+  - hasImpactType: IMPROVED_NUTRIENT_CYCLING
+    name: Improved Nutrient Cycling
+  - hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
+    name: Reduced Fertilizer Amendments
+  - hasImpactType: IMPROVED_SOIL_STRUCTURE
+    name: Improved soil structure and hydrological properties
+  - hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+    name: Increased Carbon Sequestration and Storage
+managedUnderProgram:
+  url: https://registry-program-guide.regen.network
+  name: Regen Registry Program
+eligibleEnvironmentTypes:
+  - VINEYARD
+hasCreditingPeriod: P1Y
+eligibleActivities:
+  - PRESCRIBED_GRAZING
+hasCreditProtocol:
+  url: https://www.registry.regen.network/crediting-protocols/grazing-in-vineyard-systems
+  name: Grazing in Vineyard Systems
+  version: "1.0"

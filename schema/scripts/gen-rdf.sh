@@ -12,16 +12,16 @@ failed_count=0
 total_count=0
 
 # Loop through nested directories of linkml classes
-for linkml_class_dir in "$DATA_DIR"/*/*/; do
+for linkml_class_dir in "$DATA_DIR"/*/; do
+    echo "Processing directory: $linkml_class_dir"
 
     # Convert yaml files to RDF using linkml class schema
-    linkml_class=$(basename "$linkml_class_dir")
     for yaml_file in "$linkml_class_dir"*.yaml; do
 
         ((total_count++))
         # Create output filename by replacing .yaml extension with .jsonld
         output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format json-ld --target-class "$linkml_class" --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ JSON-LD conversion failed for: $yaml_file"
             ((failed_count++))
         else
@@ -31,7 +31,7 @@ for linkml_class_dir in "$DATA_DIR"/*/*/; do
         # Create output filename by replacing .yaml extension with .ttl
         output_file="${yaml_file%.yaml}.ttl"
         ((total_count++))
-        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format ttl --target-class "$linkml_class" --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ TTL conversion failed for: $yaml_file"
             ((failed_count++))
         else
