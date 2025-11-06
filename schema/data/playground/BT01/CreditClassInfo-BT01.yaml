@@ -1,0 +1,43 @@
+name: Terrasos Biodiversity Unit
+url: https://app.regen.network/credit-classes/BT01
+description: >-
+  The Biodioversity Credits protocol outlines a strategic framework for
+  the development of projects that guarantee quantifiable gains in biodiversity, all
+  while providing robust financial and legal assurances to secure their sustainability
+  and enduring impact. This pioneering approach to biodiversity conservation and resource
+  management emphasizes the selection of projects distinguished by their significant
+  ecological value within a performance-based model.
+
+  This protocol streamlines the process of registration, quantification, and issuance of Biodiversity Credits (VBC) for conservation projects that meet the eligibility criteria.
+  It is designed to resonate with both individuals and organizations committed to
+  contributing to the preservation of threatened ecosystems and biodiversity,
+  ultimately delivering long-term sustainability and socio-economic benefits.
+hasPrimaryImpact:
+  hasImpactType: IMPROVED_BIODIVERSITY
+  supportsSDG:
+    - SDG_15
+  name: Improved Biodiversity
+hasCoBenefits:
+  - hasImpactType: IMPROVED_BIODIVERSITY
+    supportsSDG:
+      - SDG_13
+    name: Climate
+  - hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    name: Improved Wildlife Habitat
+managedUnderProgram:
+  url: https://registry-program-guide.regen.network
+  name: Regen Registry Program
+hasCreditingPeriod: P30Y
+eligibleEnvironmentTypes:
+  - TROPICAL_FOREST
+eligibleActivities:
+  - CONSERVATION
+  - AFFORESTATION
+  - ECOSYSTEM_RESTORATION
+hasCreditProtocol:
+  - url: https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit
+    name: Terrasos Protocol for Issuing Voluntary Biodiversity Credits
+    version: V3.0
+  - url: https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit
+    name: Terrasos Protocol for Issuing Voluntary Biodiversity Credits
+    version: V4.0

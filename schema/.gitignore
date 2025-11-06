@@ -1,2 +1,5 @@
 # gen-doc output
 generated/
+
+data/playground/**/*.jsonld
+data/playground/**/*.ttl

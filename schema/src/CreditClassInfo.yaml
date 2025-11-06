@@ -91,6 +91,7 @@ classes:
       hasCreditGenerationMethod:
         description: Method for generating credits.
         range: CreditGenerationMethod
+        multivalued: true
         required: true
 
 enums:
