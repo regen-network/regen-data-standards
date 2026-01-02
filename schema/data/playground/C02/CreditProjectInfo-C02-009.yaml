@@ -1,0 +1,68 @@
+name: "Travis County Floodplain Reforestation Program"
+description: "TreeFolks and the City of Austin Office of Sustainability offered a second year of programming for the Travis County Floodplain Reforestation Program,. The program, operated by TreeFolks, restores healthy forest buffers of local rivers and streams in eastern Travis County. TreeFolks planted more than 23,000 native trees on 31.47 acres of private owned parcels. Tree saplings were planted less than 10 feet on center in order to provide canopy coverage in these riparian zones."
+url: "https://app.regen.network/project/C02-009"
+hasFeature:
+  name: "Travis County, Texas"
+  hasGeometry:
+    asWKT: "POINT(-97.658648 30.273086)"
+  hasCentroid:
+    asWKT: "POINT(-97.658648 30.273086)"
+projectStartDate: "2021-02-22"
+projectEndDate: "2047-02-22"
+hasPrimaryImpact:
+  name: "Carbon Sequestration through Tree Planting"
+  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  supportsSDG:
+    - "SDG_13"
+    - "SDG_15"
+hasLinks:
+  - name: "Project Design Document"
+    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/10/TCFRP-2021-Initial-Credit-Project-Design-Document-and-Attachments_Redacted2.pdf"
+    description: "Technical documentation for the project design"
+  - name: "CFC Project Page"
+    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/travis-county-reforestation-program-2021/"
+    description: "City Forest Credits project registry page"
+hasReferenceId:
+  - identifier: "CFC-014"
+    referenceType: "CFC Project ID"
+projectSize:
+  numericValue: 31.47
+  unit: "unit:HA"
+environmentType:
+  - "URBAN_TREES"
+activity:
+  - "TREE_PLANTING"
+  - "REFORESTATION"
+  - "RIPARIAN_FOREST_BUFFERS"
+  - "URBAN_FOREST_IMPROVEMENT"
+hasCoBenefits:
+  - name: "Riparian Forest Buffer Restoration"
+    hasImpactType: "IMPROVED_WATER_INFILTRATION"
+    supportsSDG:
+      - "SDG_6"
+      - "SDG_15"
+  - name: "Soil Erosion Reduction"
+    hasImpactType: "REDUCED_SOIL_EROSION"
+    supportsSDG:
+      - "SDG_15"
+  - name: "Stream and River Ecosystem Health"
+    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+    supportsSDG:
+      - "SDG_14"
+      - "SDG_15"
+hasProjectDeveloper:
+  name: "Tree Folks"
+  description: "Nonprofit organization dedicated to planting and caring for trees in Central Texas"
+  url: "https://www.treefolks.org/"
+  image: "https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TreeFolks-logo.png"
+  type: "ORGANIZATION"
+hasProjectVerifier:
+  name: "Dr. Qingfu Xiao"
+  type: "INDIVIDUAL"
+creditClassVersion: "1.0"
+marketType:
+  - "VOLUNTARY_MARKET"
+usesMethodology:
+  name: "Afforestation and Reforestation Protocol"
+  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf"
+  version: "v11.0"

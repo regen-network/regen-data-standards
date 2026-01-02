@@ -1,0 +1,67 @@
+name: "Fox River Bluffs Planting Project"
+description: "A 26-year afforestation and reforestation project planting trees across 16 hectares along the Fox River bluffs in Kendall County, Illinois. The project generates carbon credits through increased carbon sequestration while restoring riparian forest buffers and improving watershed health."
+url: "https://app.regen.network/project/C02-012"
+hasFeature:
+  name: "Lake County, Illinois"
+  hasGeometry:
+    asWKT: "POINT(-88.460694 41.676956)"
+  hasCentroid:
+    asWKT: "POINT(-88.460694 41.676956)"
+projectStartDate: "2020-04-08"
+projectEndDate: "2046-04-08"
+hasPrimaryImpact:
+  name: "Carbon Sequestration through Tree Planting"
+  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  supportsSDG:
+    - "SDG_13"
+    - "SDG_15"
+hasLinks:
+  - name: "Project Design Document"
+    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/11/Fox-River-Bluffs-Initial-Credit-Project-Design-Document-20211116-signed.pdf"
+    description: "Technical documentation for the project design"
+  - name: "CFC Project Page"
+    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/kendall-county-forest-carbon-offsets/"
+    description: "City Forest Credits project registry page"
+hasReferenceId:
+  - identifier: "CFC-019"
+    referenceType: "CFC Project ID"
+projectSize:
+  numericValue: 16
+  unit: "unit:HA"
+environmentType:
+  - "URBAN_TREES"
+activity:
+  - "TREE_PLANTING"
+  - "AFFORESTATION"
+  - "RIPARIAN_FOREST_BUFFERS"
+  - "URBAN_FOREST_IMPROVEMENT"
+hasCoBenefits:
+  - name: "Pollinator Habitat and Endangered Species Protection"
+    hasImpactType: "IMPROVED_BIODIVERSITY"
+    supportsSDG:
+      - "SDG_15"
+  - name: "Wildlife Corridor Connectivity"
+    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+    supportsSDG:
+      - "SDG_15"
+  - name: "Nature-Based Education"
+    hasImpactType: "IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH"
+    supportsSDG:
+      - "SDG_4"
+      - "SDG_11"
+hasProjectDeveloper:
+  name: "Kendall County Forest Preserve District"
+  description: "Public agency managing forest preserves and natural areas in Kendall County, Illinois"
+  url: "https://kendallforest.com/"
+  image: "https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/kendall_logo.png"
+  type: "ORGANIZATION"
+hasProjectVerifier:
+  name: "Ecofor LLC"
+  type: "ORGANIZATION"
+creditClassVersion: "1.0"
+marketType:
+  - "VOLUNTARY_MARKET"
+usesMethodology:
+  name: "Afforestation and Reforestation Protocol"
+  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf"
+  version: "v11.0"

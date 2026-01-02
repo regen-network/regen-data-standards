@@ -1,0 +1,66 @@
+name: "Buena Vista Heights Conservation Area"
+description: "Allegheny Land Trust protected 124 acres of woodlands from rapid encroaching residential development in Allegheny County. The 40 year old maple, cherry and oak-hickory forest provides habitat for deer, turkey, and birds, used by local hikers, birders, and mountain bikers. Located within the Youghiogheny River Watershed, this protected forest is five miles upstream from the Monongahela River, contributing to maintaining clean drinking water for the Pittsburgh region’s residents. Revenue from carbon credits is put towards acquisition costs, land stewardship, and expansion of conservation lands."
+url: "https://app.regen.network/project/C02-003"
+hasFeature:
+  name: "Elizabeth Township, Pennsylvania, United States, North America"
+  hasGeometry:
+    asWKT: "POINT(-79.899246 40.263906)"
+  hasCentroid:
+    asWKT: "POINT(-79.899246 40.263906)"
+projectStartDate: "2020-06-30"
+projectEndDate: "2060-06-30"
+hasPrimaryImpact:
+  name: "Carbon Sequestration and Avoided Emissions"
+  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  supportsSDG:
+    - "SDG_13"
+    - "SDG_15"
+hasLinks:
+  - name: "Project Design Document"
+    url: "https://www.cityforestcredits.org/wp-content/uploads/2020/02/Buena-Vista-Heights-Project-Design-Document-1.pdf"
+    description: "Technical documentation for the project design"
+  - name: "CFC Project Page"
+    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/pittsburgh-forest-carbon-offsets/"
+    description: "City Forest Credits project registry page"
+hasReferenceId:
+  - identifier: "CFC-9"
+    referenceType: "CFC Project ID"
+projectSize:
+  numericValue: 50.14
+  unit: "unit:HA"
+environmentType:
+  - "URBAN_TREES"
+activity:
+  - "CONSERVATION"
+  - "URBAN_FOREST_IMPROVEMENT"
+hasCoBenefits:
+  - name: "Improved Wildlife Habitat"
+    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+    supportsSDG:
+      - "SDG_15"
+  - name: "Improved Water Infiltration"
+    hasImpactType: "IMPROVED_WATER_INFILTRATION"
+    supportsSDG:
+      - "SDG_6"
+      - "SDG_15"
+  - name: "Improved Community Health"
+    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+    supportsSDG:
+      - "SDG_3"
+      - "SDG_11"
+hasProjectDeveloper:
+  name: "Allegheny Land Trust"
+  description: "Land trust protecting natural areas in the Pittsburgh region"
+  url: "https://alleghenylandtrust.org/"
+  image: "https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-003-profile-image.png"
+  type: "ORGANIZATION"
+hasProjectVerifier:
+  name: "Ecofor LLC"
+  type: "ORGANIZATION"
+creditClassVersion: "1.0"
+marketType:
+  - "VOLUNTARY_MARKET"
+usesMethodology:
+  name: "Preservation Protocol - 40 years"
+  url: "https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf"
+  version: "v8.40"
