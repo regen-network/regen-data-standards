@@ -1,68 +1,68 @@
-name: "Treasure Valley Municipal Parks Project"
-description: "The Treasure Valley Municipal Parks Planting Project is a partnership between the City of Boise and the Treasure Valley Canopy Network (Network). This project planted approximately 504 trees in 9 municipal parks throughout the Treasure Valley. The City of Boise is at the heart of Idaho's Treasure Valley, one of the fastest growing metropolitan areas in the United States. As our region grows, its cities are committed to building healthy and vibrant public spaces for all citizens to enjoy."
-url: "https://app.regen.network/project/C02-008"
+name: Treasure Valley Municipal Parks Project
+description: The Treasure Valley Municipal Parks Planting Project is a partnership between the City of Boise and the Treasure Valley Canopy Network (Network). This project planted approximately 504 trees in 9 municipal parks throughout the Treasure Valley. The City of Boise is at the heart of Idaho's Treasure Valley, one of the fastest growing metropolitan areas in the United States. As our region grows, its cities are committed to building healthy and vibrant public spaces for all citizens to enjoy.
+url: https://app.regen.network/project/C02-008
 hasFeature:
-  name: "Boise, Idaho, United States"
+  name: Boise, Idaho, United States
   hasGeometry:
-    asWKT: "POINT(-116.200886 43.616616)"
+    asWKT: POINT(-116.200886 43.616616)
   hasCentroid:
-    asWKT: "POINT(-116.200886 43.616616)"
+    asWKT: POINT(-116.200886 43.616616)
 projectStartDate: "2021-06-09"
 projectEndDate: "2047-06-09"
 hasPrimaryImpact:
-  name: "Carbon Sequestration through Tree Planting"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration through Tree Planting
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2018/10/CFC-Planting-Initial-Credit-PDD_TVCN_FINAL-20211206-signed.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/boise-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2018/10/CFC-Planting-Initial-Credit-PDD_TVCN_FINAL-20211206-signed.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/boise-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-004"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-004
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 10
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "TREE_PLANTING"
-  - "AFFORESTATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - TREE_PLANTING
+  - AFFORESTATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Improved Water Infiltration"
-    hasImpactType: "IMPROVED_WATER_INFILTRATION"
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
     supportsSDG:
-      - "SDG_6"
-      - "SDG_11"
-  - name: "Improved Community Health"
-    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+      - SDG_6
+      - SDG_11
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
     supportsSDG:
-      - "SDG_3"
-      - "SDG_11"
-  - name: "Increased Forest Cover"
-    hasImpactType: "INCREASED_FOREST_COVER"
+      - SDG_3
+      - SDG_11
+  - name: Increased Forest Cover
+    hasImpactType: INCREASED_FOREST_COVER
     supportsSDG:
-      - "SDG_11"
-      - "SDG_15"
+      - SDG_11
+      - SDG_15
 hasProjectDeveloper:
-  name: "Treasure Valley Canopy Network"
-  description: "Community organization dedicated to enhancing and protecting the urban forest in Idaho's Treasure Valley"
-  url: "https://www.tvcanopy.net/"
-  image: "https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TVCN-Logo-Black-Footer%2BSmall.webp"
-  type: "ORGANIZATION"
+  name: Treasure Valley Canopy Network
+  description: Community organization dedicated to enhancing and protecting the urban forest in Idaho's Treasure Valley
+  url: https://www.tvcanopy.net/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TVCN-Logo-Black-Footer%2BSmall.webp
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Dr. Qingfu Xiao"
-  type: "INDIVIDUAL"
-creditClassVersion: "1.0"
+  name: Dr. Qingfu Xiao
+  type: INDIVIDUAL
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Afforestation and Reforestation Protocol"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf"
-  version: "v11.0"
+  - name: Afforestation and Reforestation Protocol
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf
+    version: V11.0

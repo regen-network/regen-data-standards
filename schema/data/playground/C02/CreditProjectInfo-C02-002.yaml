@@ -1,64 +1,65 @@
-name: "Sandy Cross Forest Preservation Project"
-description: "The Sandy Cross Forest Preservation Project preserves a 132-acre forest on a 214-acre property, containing a diverse, 85-year forest with yellow poplar, sugar maple, oak, black cherry, and pin trees. Western Reserve Land Conservancy's forest conservation creates community benefits including carbon sequestration, wildlife habitat, and open space protection. Preservation of the large, diverse intact forest is increasingly rare in Richland County due to rapid agricultural development and continued threat of urban expansion from the adjacent Village of Lexington."
-url: "https://app.regen.network/project/C02-002"
+name: Sandy Cross Forest Preservation Project
+description: The Sandy Cross Forest Preservation Project preserves a 132-acre forest on a 214-acre property, containing a diverse, 85-year forest with yellow poplar, sugar maple, oak, black cherry, and pin trees. Western Reserve Land Conservancy's forest conservation creates community benefits including carbon sequestration, wildlife habitat, and open space protection. Preservation of the large, diverse intact forest is increasingly rare in Richland County due to rapid agricultural development and continued threat of urban expansion from the adjacent Village of Lexington.
+url: https://app.regen.network/project/C02-002
 hasFeature:
-  name: "Lexington, Ohio, United States of America, North America"
+  name: Lexington, Ohio, United States of America, North America
   hasGeometry:
-    asWKT: "POINT(-82.614459 40.68348)"
+    asWKT: POINT(-82.614459 40.68348)
   hasCentroid:
-    asWKT: "POINT(-82.614459 40.68348)"
+    asWKT: POINT(-82.614459 40.68348)
 projectStartDate: "2021-10-14"
 projectEndDate: "2061-10-14"
 hasPrimaryImpact:
-  name: "Carbon Sequestration and Avoided Emissions"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration and Avoided Emissions
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/07/Sandy-Cross-Project-Design-Document-1.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/mansfield-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2021/07/Sandy-Cross-Project-Design-Document-1.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/mansfield-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-18"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-18
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 53.4
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "CONSERVATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - CONSERVATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Improved Wildlife Habitat"
-    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
     supportsSDG:
-      - "SDG_15"
-  - name: "Improved Community Health"
-    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+      - SDG_15
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
     supportsSDG:
-      - "SDG_3"
-      - "SDG_11"
-  - name: "Improved Biodiversity"
-    hasImpactType: "IMPROVED_BIODIVERSITY"
+      - SDG_3
+      - SDG_11
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
     supportsSDG:
-      - "SDG_15"
+      - SDG_15
 hasProjectDeveloper:
-  name: "Western Reserve Land Conservancy"
-  description: "Land conservation organization protecting natural areas in Northeast Ohio"
-  url: "https://www.wrlandconservancy.org/"
-  image: "https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-002-profile-image.png"
-  type: "ORGANIZATION"
+  name: Western Reserve Land Conservancy
+  description: Land conservation organization protecting natural areas in Northeast Ohio
+  url: https://www.wrlandconservancy.org/
+  image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-002-profile-image.png
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Ecofor LLC"
-  type: "ORGANIZATION"
+  name: Ecofor LLC
+  type: ORGANIZATION
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Preservation Protocol - 40 years"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf"
-  version: "v10.40"
+  - name: Preservation Protocol - 40 years
+    url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf
+    version: V10.40

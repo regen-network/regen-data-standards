@@ -1,60 +1,60 @@
-name: "St. Elmo Preservation Project"
-description: "Lookout Mountain is one of the most biologically diverse and critically imperiled ecoregions in the world stretching 90+ miles across three states; Tennessee, Alabama, and Georgia. The 58 acre oak-pine forest is situated between the Chickamauga & Chattanooga National Military Park and the historic St. Elmo neighborhood. By protecting this property, the Conservancy ensures connectivity between habitat corridors and provides essential wildlife habitat for several species including eastern box turtles, red tailed hawks, black bears, and spotted salamanders."
-url: "https://app.regen.network/project/C02-006"
+name: St. Elmo Preservation Project
+description: Lookout Mountain is one of the most biologically diverse and critically imperiled ecoregions in the world stretching 90+ miles across three states; Tennessee, Alabama, and Georgia. The 58 acre oak-pine forest is situated between the Chickamauga & Chattanooga National Military Park and the historic St. Elmo neighborhood. By protecting this property, the Conservancy ensures connectivity between habitat corridors and provides essential wildlife habitat for several species including eastern box turtles, red tailed hawks, black bears, and spotted salamanders.
+url: https://app.regen.network/project/C02-006
 hasFeature:
-  name: "Chattanooga, Tennessee, United States"
+  name: Chattanooga, Tennessee, United States
   hasGeometry:
-    asWKT: "POINT(-85.309488 35.045722)"
+    asWKT: POINT(-85.309488 35.045722)
   hasCentroid:
-    asWKT: "POINT(-85.309488 35.045722)"
+    asWKT: POINT(-85.309488 35.045722)
 projectStartDate: "2021-02-16"
 projectEndDate: "2061-02-16"
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/02/St-Elmo-Project-Design-Document-1.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/st-elmo-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2021/02/St-Elmo-Project-Design-Document-1.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/st-elmo-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasPrimaryImpact:
-  name: "Carbon Sequestration and Avoided Emissions"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration and Avoided Emissions
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasCoBenefits:
-  - name: "Improved Biodiversity"
-    hasImpactType: "IMPROVED_BIODIVERSITY"
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
     supportsSDG:
-      - "SDG_15"
-  - name: "Improved Wildlife Habitat"
-    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+      - SDG_15
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
     supportsSDG:
-      - "SDG_15"
-  - name: "Improved Community Health"
-    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+      - SDG_15
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
     supportsSDG:
-      - "SDG_3"
-      - "SDG_11"
+      - SDG_3
+      - SDG_11
 activity:
-  - "CONSERVATION"
-  - "ECOSYSTEM_RESTORATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+  - URBAN_FOREST_IMPROVEMENT
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 hasProjectDeveloper:
-  name: "Lookout Mountain Conservancy"
-  description: "Land conservancy protecting natural areas in the Chattanooga region"
-  url: "https://lookoutmountainconservancy.org"
-  image: "https://regen-registry.s3.amazonaws.com/projects/1f484f70-16cd-11ee-ab29-0a6e1e09fcad/1688078344082-LMC_logo.jpg"
-  type: "ORGANIZATION"
+  name: Lookout Mountain Conservancy
+  description: Land conservancy protecting natural areas in the Chattanooga region
+  url: https://lookoutmountainconservancy.org
+  image: https://regen-registry.s3.amazonaws.com/projects/1f484f70-16cd-11ee-ab29-0a6e1e09fcad/1688078344082-LMC_logo.jpg
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Ecofor LLC"
-  type: "ORGANIZATION"
-creditClassVersion: "1.0"
+  name: Ecofor LLC
+  type: ORGANIZATION
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Preservation Protocol - 40 years"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/02/City-Forest-Preservation-Protocol-40-Years-V12.40.pdf"
-  version: "v9.40"
+  - name: Preservation Protocol - 40 years
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/02/City-Forest-Preservation-Protocol-40-Years-V12.40.pdf
+    version: V9.40

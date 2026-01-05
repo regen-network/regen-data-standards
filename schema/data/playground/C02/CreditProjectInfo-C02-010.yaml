@@ -1,67 +1,67 @@
-name: "Ballinger Open Space Restoration"
-description: "The Mountains to Sound Greenway Trust (Greenway Trust) is partnering with the City of Shoreline to restore a site known as Ballinger Open Space. The Greenway Trust will work with the City of Shoreline and community members to remove invasive plants, plant trees, and restore public access to this degraded open space. To date, over 1,900 trees have been planted and invasive weeds have been controlled across the 2.7 acre open space."
-url: "https://app.regen.network/project/C02-010"
+name: Ballinger Open Space Restoration
+description: The Mountains to Sound Greenway Trust (Greenway Trust) is partnering with the City of Shoreline to restore a site known as Ballinger Open Space. The Greenway Trust will work with the City of Shoreline and community members to remove invasive plants, plant trees, and restore public access to this degraded open space. To date, over 1,900 trees have been planted and invasive weeds have been controlled across the 2.7 acre open space.
+url: https://app.regen.network/project/C02-010
 hasFeature:
-  name: "Shoreline, Washington"
+  name: Shoreline, Washington
   hasGeometry:
-    asWKT: "POINT(-122.330178 47.787424)"
+    asWKT: POINT(-122.330178 47.787424)
   hasCentroid:
-    asWKT: "POINT(-122.330178 47.787424)"
+    asWKT: POINT(-122.330178 47.787424)
 projectStartDate: "2018-12-01"
 projectEndDate: "2044-12-01"
 hasPrimaryImpact:
-  name: "Carbon Sequestration through Tree Planting"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration through Tree Planting
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2018/08/Initial-Credit-Project-Design-Document.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/shoreline-washington-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2018/08/Initial-Credit-Project-Design-Document.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/shoreline-washington-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-003"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-003
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 31.47
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "TREE_PLANTING"
-  - "ECOSYSTEM_RESTORATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - TREE_PLANTING
+  - ECOSYSTEM_RESTORATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Water Quality Improvement"
-    hasImpactType: "IMPROVED_WATER_INFILTRATION"
+  - name: Water Quality Improvement
+    hasImpactType: IMPROVED_WATER_INFILTRATION
     supportsSDG:
-      - "SDG_6"
-      - "SDG_15"
-  - name: "Invasive Species Removal and Biodiversity"
-    hasImpactType: "IMPROVED_BIODIVERSITY"
+      - SDG_6
+      - SDG_15
+  - name: Invasive Species Removal and Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
     supportsSDG:
-      - "SDG_15"
-  - name: "Educational Programs and Community Engagement"
-    hasImpactType: "IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH"
+      - SDG_15
+  - name: Educational Programs and Community Engagement
+    hasImpactType: IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH
     supportsSDG:
-      - "SDG_4"
-      - "SDG_11"
+      - SDG_4
+      - SDG_11
 hasProjectDeveloper:
-  name: "Tree Folks"
-  description: "Nonprofit organization dedicated to planting and caring for trees in Central Texas"
-  url: "https://www.treefolks.org/"
-  image: "https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TreeFolks-logo.png"
-  type: "ORGANIZATION"
+  name: Tree Folks
+  description: Nonprofit organization dedicated to planting and caring for trees in Central Texas
+  url: https://www.treefolks.org/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TreeFolks-logo.png
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Dr. Qingfu Xiao"
-  type: "INDIVIDUAL"
-creditClassVersion: "1.0"
+  name: Dr. Qingfu Xiao
+  type: INDIVIDUAL
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Afforestation and Reforestation Protocol"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf"
-  version: "v11.0"
+  - name: Afforestation and Reforestation Protocol
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf
+    version: V11.0

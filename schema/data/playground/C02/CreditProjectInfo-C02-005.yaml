@@ -1,64 +1,64 @@
-name: "Evergreen & East Preservation Project"
-description: "The 65-acre project area comprises two adjacent historic African American burial grounds founded in the 1890s in the East End of Richmond, VA. Together, the two cemeteries provide a resting place for over 25,000 individuals who contributed in important ways to the city’s – and the nation’s – vibrant social, political, intellectual, and religious life. After decades of neglect, volunteers began chipping away at recovering both cemeteries and created a plan to restore and protect the forested site."
-url: "https://app.regen.network/project/C02-005"
+name: Evergreen & East Preservation Project
+description: The 65-acre project area comprises two adjacent historic African American burial grounds founded in the 1890s in the East End of Richmond, VA. Together, the two cemeteries provide a resting place for over 25,000 individuals who contributed in important ways to the city's – and the nation's – vibrant social, political, intellectual, and religious life. After decades of neglect, volunteers began chipping away at recovering both cemeteries and created a plan to restore and protect the forested site.
+url: https://app.regen.network/project/C02-005
 hasFeature:
-  name: "Richmond, Virginia"
+  name: Richmond, Virginia
   hasGeometry:
-    asWKT: "POINT(-77.388361 37.532868)"
+    asWKT: POINT(-77.388361 37.532868)
   hasCentroid:
-    asWKT: "POINT(-77.388361 37.532868)"
+    asWKT: POINT(-77.388361 37.532868)
 projectStartDate: "2019-11-06"
 projectEndDate: "2059-11-06"
 hasPrimaryImpact:
-  name: "Carbon Sequestration and Avoided Emissions"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration and Avoided Emissions
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2019/10/Evergreen-Project-Design-Document-1.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/richmond-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2019/10/Evergreen-Project-Design-Document-1.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/richmond-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-006"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-006
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 30.481
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "CONSERVATION"
-  - "ECOSYSTEM_RESTORATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Improved Forest Health"
-    hasImpactType: "IMPROVED_FOREST_HEALTH"
+  - name: Improved Forest Health
+    hasImpactType: IMPROVED_FOREST_HEALTH
     supportsSDG:
-      - "SDG_15"
-  - name: "Improved Cultural Heritage Awareness"
-    hasImpactType: "IMPROVED_CULTURAL_HERITAGE_AWARENESS"
+      - SDG_15
+  - name: Improved Cultural Heritage Awareness
+    hasImpactType: IMPROVED_CULTURAL_HERITAGE_AWARENESS
     supportsSDG:
-      - "SDG_11"
-  - name: "Improved Community Health"
-    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+      - SDG_11
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
     supportsSDG:
-      - "SDG_3"
-      - "SDG_11"
+      - SDG_3
+      - SDG_11
 hasProjectDeveloper:
-  name: "Enrichmond Foundation"
-  description: "Foundation supporting community development in Richmond, Virginia"
-  type: "ORGANIZATION"
+  name: Enrichmond Foundation
+  description: Foundation supporting community development in Richmond, Virginia
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Ecofor LLC"
-  type: "ORGANIZATION"
-creditClassVersion: "1.0"
+  name: Ecofor LLC
+  type: ORGANIZATION
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Preservation Protocol - 40 years"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/02/City-Forest-Preservation-Protocol-40-Years-V12.40.pdf"
-  version: "v7.40"
+  - name: Preservation Protocol - 40 years
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/02/City-Forest-Preservation-Protocol-40-Years-V12.40.pdf
+    version: V7.40

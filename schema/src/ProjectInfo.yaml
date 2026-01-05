@@ -110,6 +110,9 @@ classes:
       usesMethodology:
         range: Methodology
         description: The methodology that the project uses.
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
 
   CreditProjectInfo:
     is_a: ProjectInfo

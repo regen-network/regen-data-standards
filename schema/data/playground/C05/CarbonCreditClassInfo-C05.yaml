@@ -1,4 +1,4 @@
-url: "https://app.regen.network/credit-classes/C05"
+url: https://app.regen.network/credit-classes/C05
 name: Credit Class for Carbon Removal through Biochar Production
 description: >-
   The Biochar Carbon credit focuses on carbon removal and avoiding emissions
@@ -11,7 +11,7 @@ hasPrimaryImpact:
   hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   name: Increased Carbon Sequestration and Storage
 managedUnderProgram:
-  url: "https://registry-program-guide.regen.network"
+  url: https://registry-program-guide.regen.network
   name: Regen Registry Program
 hasCreditingPeriod: P2Y
 eligibleEnvironmentTypes:
@@ -30,7 +30,7 @@ hasCreditProtocol:
     https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar
   name: Credit Class for Carbon Removal through Biochar Production
 hasApprovedMethodologies:
-  - url: "https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf"
+  - url: https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf
     name: >-
       Methodology for Biochar Utilization in Soil and Non-Soil Applications
       (VM0044)

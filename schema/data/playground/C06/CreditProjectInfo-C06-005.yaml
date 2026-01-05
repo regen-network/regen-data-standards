@@ -1,0 +1,71 @@
+name: Neesham Farm Ltd.
+description: The project involves changes in farming methods to reverse soil degradation and water run-off, increase SOCS, improve soil and business resilience, and improve water quality. These changes are also being implemented to address increasing weed, pest and disease burdens and, over time, to reduce reliance on inorganic fertilisers and pesticides. Increases in SOCS are expected to improve soil workability, structure, drainage and water retention thereby reducing cultivation costs and improving crop yields.
+url: https://app.regen.network/project/C06-005
+hasFeature:
+  name: Lincoln, Lincolnshire, England, United Kingdom
+  hasGeometry:
+    asWKT: POINT(-1.194975 51.97922)
+  hasCentroid:
+    asWKT: POINT(-1.194975 51.97922)
+projectStartDate: '2022-01-01'
+projectEndDate: '2031-12-31'
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration and Storage
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+  - SDG_13
+  - SDG_15
+projectSize:
+  numericValue: 209.07
+  unit: unit:HA
+environmentType:
+- CROPLAND
+- GRASSLAND
+- PASTURE
+activity:
+- RESIDUE_TILLAGE_MANAGEMENT
+- COVER_CROPPING
+- PRESCRIBED_GRAZING
+hasCoBenefits:
+- name: Improved Soil Health
+  hasImpactType: IMPROVED_SOIL_HEALTH
+  supportsSDG:
+  - SDG_2
+  - SDG_15
+- name: Reduced Fertilizer Amendments
+  hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
+  supportsSDG:
+  - SDG_6
+  - SDG_15
+- name: Improved Water Holding Capacity
+  hasImpactType: IMPROVED_WATER_HOLDING_CAPACITY
+  supportsSDG:
+  - SDG_6
+  - SDG_13
+hasProjectDeveloper:
+  name: Ecometric
+  description: Agricultural carbon project developer
+  url: https://ecometric.co.uk/
+  image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
+  type: ORGANIZATION
+creditClassVersion: V1.5.1
+marketType:
+- VOLUNTARY_MARKET
+usesMethodology:
+- name: Methodology for Soil Organic Carbon Estimation in Regenerative Cropping and
+    Managed Grassland Ecosystems
+  url: https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems
+  version: V1.1
+hasProjectMonitor:
+  name: Ecometric
+  description: Measured soil carbon capture
+  url: https://ecometric.co.uk/
+  image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: Nova Cert
+  description: NOVA CERT is a Validation and Verification Body (VVB) which validates
+    and verifies projects that reduce greenhouse gases (GHG) emissions to the atmosphere.
+  url: https://nova-cert.com/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/novacert.png
+  type: ORGANIZATION

@@ -1,67 +1,67 @@
-name: "Reforesting Des Moines"
-description: "A 26-year afforestation and reforestation project planting trees in Des Moines, Iowa. The project generates carbon credits through increased carbon sequestration while improving urban green infrastructure and community well-being. Tree planting locations were a mix of street tree and park plantings, with the major focus on street tree plantings. Growing Futures teen employees (ages 14-18) along with community volunteers completed the plantings and ongoing watering for each tree planted. "
-url: "https://app.regen.network/project/C02-007"
+name: Reforesting Des Moines
+description: A 26-year afforestation and reforestation project planting trees in Des Moines, Iowa. The project generates carbon credits through increased carbon sequestration while improving urban green infrastructure and community well-being. Tree planting locations were a mix of street tree and park plantings, with the major focus on street tree plantings. Growing Futures teen employees (ages 14-18) along with community volunteers completed the plantings and ongoing watering for each tree planted.
+url: https://app.regen.network/project/C02-007
 hasFeature:
-  name: "Des Moins, Iowa"
+  name: Des Moins, Iowa
   hasGeometry:
-    asWKT: "POINT(-93.563968 41.567534)"
+    asWKT: POINT(-93.563968 41.567534)
   hasCentroid:
-    asWKT: "POINT(-93.563968 41.567534)"
+    asWKT: POINT(-93.563968 41.567534)
 projectStartDate: "2021-11-11"
 projectEndDate: "2047-11-11"
 hasPrimaryImpact:
-  name: "Carbon Sequestration through Tree Planting"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration through Tree Planting
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/07/2021-Reforesting-Des-Moines-Initial-Credit-Project-Design-Document.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/des-moines-forest-carbon-offsets-2/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2021/07/2021-Reforesting-Des-Moines-Initial-Credit-Project-Design-Document.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/des-moines-forest-carbon-offsets-2/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-016"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-016
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 0
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "TREE_PLANTING"
-  - "REFORESTATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - TREE_PLANTING
+  - REFORESTATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Increased Forest Cover"
-    hasImpactType: "INCREASED_FOREST_COVER"
+  - name: Increased Forest Cover
+    hasImpactType: INCREASED_FOREST_COVER
     supportsSDG:
-      - "SDG_15"
-  - name: "Improved Environmental Education Outreach"
-    hasImpactType: "IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH"
+      - SDG_15
+  - name: Improved Environmental Education Outreach
+    hasImpactType: IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH
     supportsSDG:
-      - "SDG_4"
-      - "SDG_8"
-  - name: "Improved Community Health"
-    hasImpactType: "IMPROVED_COMMUNITY_HEALTH"
+      - SDG_4
+      - SDG_8
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
     supportsSDG:
-      - "SDG_3"
-      - "SDG_11"
+      - SDG_3
+      - SDG_11
 hasProjectDeveloper:
-  name: "Trees Forever"
-  description: "Nonprofit organization planting and caring for trees in Iowa communities"
-  url: "https://treesforever.org/"
-  image: "https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/trees_forever_logo.gif"
-  type: "ORGANIZATION"
+  name: Trees Forever
+  description: Nonprofit organization planting and caring for trees in Iowa communities
+  url: https://treesforever.org/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/trees_forever_logo.gif
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Dr. Qingfu Xiao"
-  type: "INDIVIDUAL"
-creditClassVersion: "1.0"
+  name: Dr. Qingfu Xiao
+  type: INDIVIDUAL
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Afforestation and Reforestation Protocol"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf"
-  version: "v11.0"
+  - name: Afforestation and Reforestation Protocol
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf
+    version: V11.0

@@ -1,0 +1,57 @@
+name: Grgich Hills Estate Regenerative Sheep Grazing
+description: This project uses high-density, short-duration rotational sheep grazing in vineyard systems to improve ecosystem functioning through active management of the soil and herbaceous cover in the vineyard understory. The practice  improves soil health, reduces use of herbicides or mowing, and enhances carbon storage. Targeted grazing also supports biodiversity, mitigates wildfires, and improves on-farm nutrient cycling.  The Grgich Hills Estate vineyard and Kaos Sheep Grazing Outfit partnership exemplifies the benefits of managed grazing, especially in enhancing soil health and carbon content.
+url: https://app.regen.network/project/KSH01-001
+hasFeature:
+  name: Rutherford, Napa County, California, United States
+  hasGeometry:
+    asWKT: POINT(-122.3754 38.4082)
+  hasCentroid:
+    asWKT: POINT(-122.3754 38.4082)
+projectStartDate: "2019-01-01"
+projectEndDate: "2023-05-31"
+hasPrimaryImpact:
+  name: Improved Soil Health
+  hasImpactType: IMPROVED_SOIL_HEALTH
+  supportsSDG:
+    - SDG_2
+    - SDG_15
+projectSize:
+  numericValue: 126.6
+  unit: unit:HA
+environmentType:
+  - VINEYARD
+activity:
+  - PRESCRIBED_GRAZING
+hasCoBenefits:
+  - name: Improved Nutrient Cycling
+    hasImpactType: IMPROVED_NUTRIENT_CYCLING
+    supportsSDG:
+      - SDG_2
+      - SDG_15
+  - name: Reduced Fertilizer Amendments
+    hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
+    supportsSDG:
+      - SDG_6
+      - SDG_15
+  - name: Improved Soil Structure
+    hasImpactType: IMPROVED_SOIL_STRUCTURE
+    supportsSDG:
+      - SDG_15
+  - name: Increased Carbon Sequestration and Storage
+    hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+    supportsSDG:
+      - SDG_13
+      - SDG_15
+hasProjectDeveloper:
+  name: Regen Registry Credit Issuer
+  description: This address issues credits for Credit Classes on Regen Registry where Credit Administration functions have been delegated to Regen Registry
+  url: https://www.regen.network/
+  image: https://regen-registry.s3.amazonaws.com/profiles/ad5a126e-d7bf-11ed-b9d8-0a6e1e09fcad/1681230075630/avatar.png
+  type: ORGANIZATION
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Methodology for Grazing in Vineyard Systems
+    url: https://www.registry.regen.network/methodology/methodology-for-grazing-in-vineyard-systems-v1-0
+    version: V1.0

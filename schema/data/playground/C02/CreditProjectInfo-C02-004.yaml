@@ -1,66 +1,66 @@
-name: "Harvey Manning Park Expansion"
-description: "The 15.14 acre Harvey Manning Park Expansion project is part of 33 acres in the “Issaquah Alps” comprised of Tiger, Squak, and Cougar Mountains, above Lake Sammamish. Within Issaquah city limits and the Mountains to Sound Greenway National Heritage Area corridor, the 100+ year old forest includes riparian and wetland habitat that supports wildlife corridors on Cougar Mountain and protects cool freshwater streams that feed Tibbetts Creek, a salmon-bearing tributary to Lake Sammamish. The City of Issaquah worked with community, King County, and the Trust for Public Land to protect this site."
-url: "https://app.regen.network/project/C02-004"
+name: Harvey Manning Park Expansion
+description: The 15.14 acre Harvey Manning Park Expansion project is part of 33 acres in the "Issaquah Alps" comprised of Tiger, Squak, and Cougar Mountains, above Lake Sammamish. Within Issaquah city limits and the Mountains to Sound Greenway National Heritage Area corridor, the 100+ year old forest includes riparian and wetland habitat that supports wildlife corridors on Cougar Mountain and protects cool freshwater streams that feed Tibbetts Creek, a salmon-bearing tributary to Lake Sammamish. The City of Issaquah worked with community, King County, and the Trust for Public Land to protect this site.
+url: https://app.regen.network/project/C02-004
 hasFeature:
-  name: "Issaquah, Washington"
+  name: Issaquah, Washington
   hasGeometry:
-    asWKT: "POINT(-122.09555 47.5401)"
+    asWKT: POINT(-122.09555 47.5401)
   hasCentroid:
-    asWKT: "POINT(-122.09555 47.5401)"
+    asWKT: POINT(-122.09555 47.5401)
 projectStartDate: "2021-12-06"
 projectEndDate: "2061-12-06"
 hasPrimaryImpact:
-  name: "Carbon Sequestration and Avoided Emissions"
-  hasImpactType: "INCREASED_CARBON_SEQUESTRATION_STORAGE"
+  name: Carbon Sequestration and Avoided Emissions
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   supportsSDG:
-    - "SDG_13"
-    - "SDG_15"
+    - SDG_13
+    - SDG_15
 hasLinks:
-  - name: "Project Design Document"
-    url: "https://www.cityforestcredits.org/wp-content/uploads/2021/10/Harvey_Manning_Park_Project_Design_Document_20211213_Final.pdf"
-    description: "Technical documentation for the project design"
-  - name: "CFC Project Page"
-    url: "https://www.cityforestcredits.org/carbon-credits/carbon-registry/issaquah-forest-carbon-offsets/"
-    description: "City Forest Credits project registry page"
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2021/10/Harvey_Manning_Park_Project_Design_Document_20211213_Final.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/issaquah-forest-carbon-offsets/
+    description: City Forest Credits project registry page
 hasReferenceId:
-  - identifier: "CFC-15"
-    referenceType: "CFC Project ID"
+  - identifier: CFC-15
+    referenceType: CFC Project ID
 projectSize:
   numericValue: 6.13
-  unit: "unit:HA"
+  unit: unit:HA
 environmentType:
-  - "URBAN_TREES"
+  - URBAN_TREES
 activity:
-  - "CONSERVATION"
-  - "URBAN_FOREST_IMPROVEMENT"
+  - CONSERVATION
+  - URBAN_FOREST_IMPROVEMENT
 hasCoBenefits:
-  - name: "Improved Water Infiltration"
-    hasImpactType: "IMPROVED_WATER_INFILTRATION"
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
     supportsSDG:
-      - "SDG_6"
-      - "SDG_11"
-  - name: "Improved Wildlife Habitat"
-    hasImpactType: "IMPROVED_WILDLIFE_HABITAT"
+      - SDG_6
+      - SDG_11
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
     supportsSDG:
-      - "SDG_14"
-      - "SDG_15"
-  - name: "Improved Biodiversity"
-    hasImpactType: "IMPROVED_BIODIVERSITY"
+      - SDG_14
+      - SDG_15
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
     supportsSDG:
-      - "SDG_15"
+      - SDG_15
 hasProjectDeveloper:
-  name: "City of Issaquah"
-  description: "Municipality in King County, Washington"
-  url: "https://www.issaquahwa.gov/"
-  image: "https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-004-profile-image.png"
-  type: "ORGANIZATION"
+  name: City of Issaquah
+  description: Municipality in King County, Washington
+  url: https://www.issaquahwa.gov/
+  image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-004-profile-image.png
+  type: ORGANIZATION
 hasProjectVerifier:
-  name: "Ecofor LLC"
-  type: "ORGANIZATION"
-creditClassVersion: "1.0"
+  name: Ecofor LLC
+  type: ORGANIZATION
+creditClassVersion: V1.0
 marketType:
-  - "VOLUNTARY_MARKET"
+  - VOLUNTARY_MARKET
 usesMethodology:
-  name: "Preservation Protocol - 40 years"
-  url: "https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf"
-  version: "v10.40"
+  - name: Preservation Protocol - 40 years
+    url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf
+    version: V10.40
