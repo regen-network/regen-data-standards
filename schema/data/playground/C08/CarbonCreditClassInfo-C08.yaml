@@ -1,0 +1,58 @@
+name: Nature-Based Watershed & Green Infrastructure Solutions to Avoid Gray Infrastructure Emissions
+url: https://app.regen.network/credit-classes/C08
+description: >-
+  This Credit Class enables Project Proponents to generate carbon credits by reducing nonpoint source contamination of watersheds, thereby avoiding the increased greenhouse gas emissions from the status-quo infrastructure construction and electricity use associated with industrial drinking water and wastewater management and treatment. Project Proponents quantify reduction in GHG emissions associated with the avoided energy and materials from the gray infrastructure that green solutions replace - including construction materials, decades of operational energy use, and facility maintenance. Credits issue annually ex-post throughout the avoided infrastructure's lifetime, representing permanent emission reductions achieved when watersheds naturally filter and treat water, making industrial treatment infrastructure unnecessary while improving ecosystem health.
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration and Storage
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_9
+hasCoBenefits:
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
+    supportsSDG:
+      - SDG_6
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
+    supportsSDG:
+      - SDG_15
+      - SDG_14
+  - name: Improved Soil Health
+    hasImpactType: IMPROVED_SOIL_HEALTH
+    supportsSDG:
+      - SDG_15
+      - SDG_13
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
+    supportsSDG:
+      - SDG_3
+managedUnderProgram:
+  url: "https://registry-program-guide.regen.network"
+  name: Regen Registry Program
+hasCreditingPeriod: P20Y
+hasPermanencePeriod: P30Y
+eligibleEnvironmentTypes:
+  - WETLAND
+  - CROPLAND
+  - GRASSLAND
+  - FOREST
+eligibleActivities:
+  - RIPARIAN_FOREST_BUFFERS
+  - TREE_PLANTING
+  - COVER_CROPPING
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+hasCreditProtocol:
+  url: https://www.registry.regen.network/crediting-protocols/ghg-co-benefits-in-watershed-carbon-v1-0
+  name: GHG & Co-Benefits in Watershed Carbon v1.0
+  version: V1.0
+hasApprovedMethodologies:
+  - name: Nature-Based and Green Infrastructure Activities Avoiding Emission from Water Management Gray Infrastructure Construction and Operations Methodology
+    url: https://www.registry.regen.network/methodology/watershed-nature-based-and-green-infrastructure-activities-avoiding-emission-from-water-management-gray-infrastructure-construction-and-operations-methodology-v1-0
+    version: V1.0
+  - name: Methodology to Integrate Algae Wastewater Treatment Technologies to Avoid Emissions from Gray Infrastructure Wasterwater Management Systems
+    url: https://www.registry.regen.network/methodology/methodology-to-integrate-algae-wastewater-treatement-technologies-to-avoid-emissions-from-gray-infrastructure-wasterwater-management-systems-v1-3
+    version: V1.3
+hasCreditGenerationMethod:
+  - AVOIDED_EMISSIONS

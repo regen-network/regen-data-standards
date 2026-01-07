@@ -1,0 +1,85 @@
+name: Yahara WINS Watershed Carbon Project
+description: The Yahara WINS Watershed Carbon Project implements nature-based and green infrastructure
+  practices that avoid emissions from construction and operation of gray wastewater
+  infrastructure. Through an adaptive management approach, the project reduces nutrient loads
+  via agricultural and watershed best management practices—including cover crops, conservation
+  cover, grassed waterways, wetland restoration, and structural erosion control measures—thereby
+  avoiding the need for a tertiary/advanced filtration upgrade at the Nine Springs Wastewater
+  Treatment Plant. Project Proponents quantify reduction in GHG emissions associated with the
+  avoided energy and materials from the gray infrastructure that green solutions replace,
+  including construction materials, decades of operational energy use, and facility maintenance.
+  Credits issue annually ex-post throughout the avoided infrastructure's lifetime.
+url: https://app.regen.network/project/C08-001
+hasFeature:
+  name: 1610 Moorland Road, Madison, Wisconsin 53713, United States
+  hasGeometry:
+    asWKT: POINT(-89.3857 43.0422)
+  hasCentroid:
+    asWKT: POINT(-89.3857 43.0422)
+projectStartDate: "2017-01-01"
+projectEndDate: "2036-12-31"
+hasPrimaryImpact:
+  name: Avoided GHG Emissions from Gray Infrastructure
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_6
+hasCoBenefits:
+  - name: Reduced Soil Erosion
+    hasImpactType: REDUCED_SOIL_EROSION
+    supportsSDG:
+      - SDG_15
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
+    supportsSDG:
+      - SDG_6
+  - name: Improved Soil Health
+    hasImpactType: IMPROVED_SOIL_HEALTH
+    supportsSDG:
+      - SDG_15
+projectSize:
+  numericValue: 13922
+  unit: unit:HA
+environmentType:
+  - WETLAND
+  - CROPLAND
+  - GRASSLAND
+  - FRESHWATER
+region: Wisconsin, USA
+watershed: Yahara River Watershed
+subWatershed: Rock River Basin
+activity:
+  - COVER_CROPPING
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+  - RIPARIAN_FOREST_BUFFERS
+  - TREE_PLANTING
+  - PRESCRIBED_GRAZING
+hasProjectDeveloper:
+  name: Madison Metropolitan Sewerage District (MMSD)
+  description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
+  type: ORGANIZATION
+hasProjectOperator:
+  name: Madison Metropolitan Sewerage District (MMSD)
+  description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
+  type: ORGANIZATION
+  url: https://www.madsewer.org/
+hasProjectPartner:
+  name: Virridy Carbon LLC
+  description: Virridy uses our proprietary technology and water and carbon markets expertise to improve global water resiliency.
+  type: ORGANIZATION
+  image: https://regen-registry.s3.amazonaws.com/profiles/353ec5b2-94c9-11f0-ac02-0afffa81c869/1765487766606/1765487766602-avatar.png
+  url: https://virridy.com/
+hasProjectVerifier:
+  name: Jason Quinn
+  description: CEO of Sustainability Science and professor in the Mechanical Engineering Department Colorado State University.
+  type: INDIVIDUAL
+  image: https://regen-registry.s3.amazonaws.com/projects/4942ea96-9994-11f0-8a46-0afffa81c869/1758752395276-avatar.jpg
+  url: https://app.regen.network/profiles/f29d449c-9994-11f0-af55-0afffa81c869
+usesMethodology:
+  name: Watershed Nature-Based and Green Infrastructure Activities Avoiding Emissions from Water Management Gray Infrastructure Construction and Operations Methodology
+  url: https://registry.regen.network/v/methodology/watershed-carbon
+  version: V1.1
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
