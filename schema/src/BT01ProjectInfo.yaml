@@ -60,9 +60,11 @@ classes:
       bioregion:
         range: BT01BioregionTypes
         required: true
+        multivalued: true
       biomeType:
         range: BT01BiomeTypes
         required: true
+        multivalued: true
       watershed:
         range: BT01WatershedTypes
         required: true

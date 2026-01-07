@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Root directory for data
-DATA_DIR="data/playground"
-SCHEMA_PATH="src/schema.yaml"
+DATA_DIR="../data/playground"
+SCHEMA_PATH="../src/schema.yaml"
 
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern

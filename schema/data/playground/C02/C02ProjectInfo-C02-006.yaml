@@ -11,11 +11,14 @@ projectStartDate: "2021-02-16"
 projectEndDate: "2061-02-16"
 hasLinks:
   - name: Project Design Document
-    url: https://www.cityforestcredits.org/wp-content/uploads/2021/02/St-Elmo-Project-Design-Document-1.pdf
+    url: https://www.cityforestcredits.org/wp-content/uploads/2020/10/St-Elmo-Trail-Project-Design-Document-2.pdf
     description: Technical documentation for the project design
   - name: CFC Project Page
-    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/st-elmo-forest-carbon-offsets/
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/chattanooga-forest-carbon-offsets/
     description: City Forest Credits project registry page
+hasReferenceId:
+  - identifier: CFC-012
+    referenceType: CFC Project ID
 hasPrimaryImpact:
   name: Carbon Sequestration and Avoided Emissions
   hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
