@@ -1,0 +1,68 @@
+name: King County Urban Forest Carbon Project
+description: King County's Forest Carbon Project is a component of the Land Conservation Initiative, a 30-year vision to protect 65,000 acres of important high-value urban forest in the Seattle metro region, which is growing rapidly. King County municipality is preserving 1,500 acres and acquiring remaining natural lands and urban green spaces for preservation. The first acquisition in 2019 was a 15-acre addition to Soaring Eagle Regional Park near Sammamish, WA. The project confronts local climate change by keeping regional forests intact, so residents can explore and enjoy protected outdoor spaces.
+url: https://app.regen.network/project/C02-001
+hasFeature:
+  name: King County, Washington, USA, North America
+  hasGeometry:
+    asWKT: POINT(-121.992165 47.610332)
+  hasCentroid:
+    asWKT: POINT(-121.992165 47.610332)
+projectStartDate: "2018-12-14"
+projectEndDate: "2118-12-14"
+hasPrimaryImpact:
+  name: Carbon Sequestration and Avoided Emissions
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+hasLinks:
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2018/04/King-County-Project-Design-Document.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/king-county-forest-carbon-offsets/
+    description: City Forest Credits project registry page
+hasReferenceId:
+  - identifier: CFC-1.2018
+    referenceType: CFC Project ID
+projectSize:
+  numericValue: 6.07
+  unit: unit:HA
+environmentType:
+  - URBAN_TREES
+activity:
+  - CONSERVATION
+  - URBAN_FOREST_IMPROVEMENT
+hasCoBenefits:
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
+    supportsSDG:
+      - SDG_6
+      - SDG_11
+      - SDG_13
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_14
+      - SDG_15
+  - name: Improved Community Health
+    hasImpactType: IMPROVED_COMMUNITY_HEALTH
+    supportsSDG:
+      - SDG_3
+      - SDG_11
+hasProjectDeveloper:
+  name: King County Department of Natural Resources & Parks
+  description: County government department responsible for managing natural resources and parks in King County, Washington
+  url: https://www.kingcounty.gov/depts/dnrp.aspx
+  image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-001-profile-image.png
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: Ecofor LLC
+  type: ORGANIZATION
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Preservation Protocol — 100 years
+    url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-100-Years-V11.100.pdf
+    version: V6.100

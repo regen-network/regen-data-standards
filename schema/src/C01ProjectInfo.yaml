@@ -3,9 +3,12 @@ name: C01ProjectInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
 imports:
   - linkml:types
   - ProjectInfo
+
 default_curi_maps:
   - semweb_context
 default_prefix: rfs
@@ -20,6 +23,12 @@ classes:
       hasReferenceId:
         range: ReferenceId
         required: true
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
       usesMethodology:
         range: Methodology
         required: true
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
