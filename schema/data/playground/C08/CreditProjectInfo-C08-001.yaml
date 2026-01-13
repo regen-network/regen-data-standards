@@ -77,9 +77,9 @@ hasProjectVerifier:
   image: https://regen-registry.s3.amazonaws.com/projects/4942ea96-9994-11f0-8a46-0afffa81c869/1758752395276-avatar.jpg
   url: https://app.regen.network/profiles/f29d449c-9994-11f0-af55-0afffa81c869
 usesMethodology:
-  name: Watershed Nature-Based and Green Infrastructure Activities Avoiding Emissions from Water Management Gray Infrastructure Construction and Operations Methodology
-  url: https://registry.regen.network/v/methodology/watershed-carbon
-  version: V1.1
+  - name: Watershed Nature-Based and Green Infrastructure Activities Avoiding Emissions from Water Management Gray Infrastructure Construction and Operations Methodology
+    url: https://registry.regen.network/v/methodology/watershed-carbon
+    version: V1.1
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET
