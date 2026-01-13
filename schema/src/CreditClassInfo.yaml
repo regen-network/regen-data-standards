@@ -3,6 +3,7 @@ name: CreditClassInfo
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
 
 imports:
   - linkml:types

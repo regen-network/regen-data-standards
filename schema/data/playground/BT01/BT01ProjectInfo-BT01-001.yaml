@@ -1,0 +1,103 @@
+name: El Globo Habitat Bank
+description: >
+  El Globo is the first project in Colombia to issue Voluntary Biodiversity Credits. It is located
+  in the "Cuchilla Jardín-Támesis" Integrated Management District (DMI). Known as the "water star"
+  of southwestern Antioquia, this area is a prioritized ecosystem for conservation. Here ecosystem
+  preservation, forest enhancement and restoration activities are implemented to generate positive
+  and permanent impacts on biodiversity. The project has a 30-year financial, technical and legal
+  structure for operation, securing biodiversity gains in time. The area has one of the few remnants
+  of Native High Andean Forest still preserved in the region and it is a registered Habitat Bank
+  at the Ministry of Environment and Sustainable Development of Colombia.
+url: https://app.regen.network/project/BT01-001
+hasFeature:
+  name: Cuchilla Jardín-Támesis Integrated Management District (DMI), Antioquia, Colombia
+  hasGeometry:
+    asWKT: POINT(-75.7625 5.6568)
+  hasCentroid:
+    asWKT: POINT(-75.7625 5.6568)
+projectStartDate: "2022-12-22"
+projectEndDate: "2052-12-22"
+hasPrimaryImpact:
+  name: Improved Biodiversity
+  hasImpactType: IMPROVED_BIODIVERSITY
+  supportsSDG:
+    - SDG_15
+projectSize:
+  numericValue: 340.11
+  unit: unit:HA
+region: ANDEAN
+bioregion:
+  - LOW_MONTANE_VERY_HUMID_FOREST
+biomeType:
+  - ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS
+watershed: FRIO_RIVER
+subWatershed: RIO_FRIO_Y_OTROS_DIRECTOS_AL_CAUCA
+hasAdministrativeArea: ANTIOQUIA
+iucnConservationStatus: LEAST_CONCERN
+projectDuration: P30Y
+hasManagementAreas:
+  - projectActivity:
+      - ECOSYSTEM_RESTORATION
+    extent:
+      numericValue: 93.66
+      unit: unit:HA
+  - projectActivity:
+      - CONSERVATION
+    extent:
+      numericValue: 246.35
+      unit: unit:HA
+hasEnvironmentalAuthority:
+  - name: Environmental and Sustainable Development Ministry
+    type: ORGANIZATION
+  - name: Corantioquia
+    type: ORGANIZATION
+environmentType:
+  - TROPICAL_FOREST
+activity:
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+hasCoBenefits:
+  - name: Climate
+    hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+    supportsSDG:
+      - SDG_13
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_15
+hasProjectDeveloper:
+  name: Terrasos
+  description: Terrasos develops biodiversity conservation and restoration projects in Colombia
+  url: https://terrasos.co/
+  image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
+  type: ORGANIZATION
+hasProjectOperator:
+  name: Reserva Natural El Globo
+  description: Natural reserve managing conservation activities at El Globo
+  url: https://www.elglobo.org/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/el-globo-stakeholder-logo.png
+  type: ORGANIZATION
+hasProjectOwner:
+  name: Serna Family
+  description: Landowner family committed to conservation
+  type: ORGANIZATION
+hasProjectMonitor:
+  name: EAFIT
+  description: University institution providing monitoring services for biodiversity projects
+  url: https://www.eafit.edu.co/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/eafit.png
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: KPMG Advisory
+  description: International verification body for environmental projects
+  url: https://kpmg.com/
+  image: https://regen-registry.s3.amazonaws.com/profiles/9c621ff2-c485-11ee-b3e1-0a6e1e09fcad/Unknown-2
+  type: ORGANIZATION
+creditClassVersion: V3.0
+marketType:
+  - COMPLIANCE_MARKET
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Terrasos Protocol for Issuing Voluntary Biodiversity Credits
+    url: https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit
+    version: V3.0

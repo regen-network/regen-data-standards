@@ -1,0 +1,59 @@
+name: Woodburn
+description: Woodburn is a beef breeding operation situated north of Walcha on the New England tablelands
+  of Australia. The grasslands here grow on basalt and sandy loam soils and host Woodburn's
+  high density herds of cattle. Considerable investments have been made at Woodburn to improve
+  fencing and water infrastructure, enabling an increase in animal density integral to prescribed
+  grazing. Continued improvement in the ecological state of the farm is core to how Woodburn is managed.
+url: https://app.regen.network/project/C07-001
+hasFeature:
+  name: Salisbury Plains, New South Wales, Australia
+  hasGeometry:
+    asWKT: POINT(151.633912 -30.833851)
+  hasCentroid:
+    asWKT: POINT(151.633912 -30.833851)
+projectStartDate: "2017-06-06"
+projectEndDate: "2027-06-06"
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration and Storage
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+projectSize:
+  numericValue: 2321
+  unit: unit:HA
+environmentType:
+  - GRASSLAND
+  - SHRUBLAND
+  - PASTURE
+activity:
+  - PRESCRIBED_GRAZING
+hasCoBenefits:
+  - name: Improved Soil Health
+    hasImpactType: IMPROVED_SOIL_HEALTH
+    supportsSDG:
+      - SDG_2
+      - SDG_15
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
+    supportsSDG:
+      - SDG_15
+hasProjectMonitor:
+  name: Regen Network Development
+  description: Regen Network Development manages the implementation of CarbonPlus Grasslands projects
+  url: https://www.regen.network/
+  image: https://regen-registry.s3.amazonaws.com/profiles/ad5a126e-d7bf-11ed-b9d8-0a6e1e09fcad/1681230075630/avatar.png
+  type: ORGANIZATION
+hasProjectDeveloper:
+  name: Impact Ag
+  description: Impact Ag Partners is a specialist agricultural investment and development firm. With deep expertise and a proven track record – we lead the market in identifying, optimizing, and monetizing natural capital for agriculture.
+  url: https://impactagpartners.com/
+  image: https://impactagpartners.com/wp-content/uploads/2024/05/AGIcon.png
+  type: ORGANIZATION
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: CarbonPlus GHG & Co-Benefits in Grazing Systems
+    url: https://www.registry.regen.network/methodology/carbonplus-methodology-for-grazing-systems
+    version: V1.0

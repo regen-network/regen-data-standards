@@ -1,0 +1,65 @@
+name: Lake County Forest Preserve
+description: Lake County Forest Preserve District (the District) planted trees at 16 preserves from 2019 through 2021. In total, 2,660 trees representing 24 species were installed at the preserves. The planting areas were varied and ranged from restoration of retired agricultural fields to enlarging and enhancing existing woodlands. All project sites had the overall goal of restoring the historic tree diversity and canopy structure/density that existed prior to settlement (~early 1800s).
+url: https://app.regen.network/project/C02-011
+hasFeature:
+  name: Lake County, Illinois
+  hasGeometry:
+    asWKT: POINT(-87.812287 42.434863)
+  hasCentroid:
+    asWKT: POINT(-87.812287 42.434863)
+projectStartDate: "2021-10-09"
+projectEndDate: "2047-10-09"
+hasPrimaryImpact:
+  name: Carbon Sequestration through Tree Planting
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+hasLinks:
+  - name: Project Design Document
+    url: https://www.cityforestcredits.org/wp-content/uploads/2021/11/LCFPD-Initial-Credit-Project-Design-Document.pdf
+    description: Technical documentation for the project design
+  - name: CFC Project Page
+    url: https://www.cityforestcredits.org/carbon-credits/carbon-registry/lake-county-forest-preserve-district-carbon-planting-project/
+    description: City Forest Credits project registry page
+hasReferenceId:
+  - identifier: CFC-020
+    referenceType: CFC Project ID
+projectSize:
+  numericValue: 10
+  unit: unit:HA
+environmentType:
+  - URBAN_TREES
+activity:
+  - TREE_PLANTING
+  - AFFORESTATION
+  - URBAN_FOREST_IMPROVEMENT
+hasCoBenefits:
+  - name: Forest Restoration and Connectivity
+    hasImpactType: INCREASED_FOREST_COVER
+    supportsSDG:
+      - SDG_15
+  - name: Wildlife Habitat Enhancement
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_15
+  - name: Oak Ecosystem and Biodiversity Recovery
+    hasImpactType: IMPROVED_BIODIVERSITY
+    supportsSDG:
+      - SDG_15
+hasProjectDeveloper:
+  name: Lake County Forest Preserve District
+  description: Public agency managing forest preserves and natural areas in Lake County, Illinois
+  url: https://www.lcfpd.org/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/lake_county_logo.png
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: Dr. Qingfu Xiao
+  type: INDIVIDUAL
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Afforestation and Reforestation Protocol
+    url: https://www.cityforestcredits.org/wp-content/uploads/2023/03/City-Forest-Credits-Afforestation-Protocol-V11.pdf
+    version: V11.0

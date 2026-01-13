@@ -1,0 +1,38 @@
+name: The Kasigau Corridor REDD Project - Phase II The Community Ranches
+url: https://app.regen.network/project/C01-002
+hasFeature:
+  name: Taita–Taveta, Kenya
+  hasGeometry:
+    asWKT: POINT(38.802647 -3.910022)
+  hasCentroid:
+    asWKT: POINT(38.802647 -3.910022)
+projectStartDate: "2010-01-01"
+projectEndDate: "2039-12-31"
+hasPrimaryImpact:
+  name: Avoided Deforestation and Carbon Sequestration
+  hasImpactType: AVOIDED_DEFORESTATION_DEGRADATION
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+hasLinks:
+  - name: VCS Project Page
+    url: https://registry.verra.org/app/projectDetail/VCS/612
+    description: Verra registry page for this project
+hasReferenceId:
+  - identifier: "612"
+    referenceType: VCS Project ID
+projectSize:
+  numericValue: 169741
+  unit: unit:HA
+environmentType:
+  - TROPICAL_FOREST
+activity:
+  - CONSERVATION
+hasProjectDeveloper:
+  name: Wildlife Works Carbon LLC
+  description: Wildlife Works is the world's leading REDD+ program development and management company.
+  type: ORGANIZATION
+usesMethodology:
+  - name: Methodology for Avoided Ecosystem Conversion
+    url: https://verra.org/methodology/vm0009-methodology-for-avoided-ecosystem-conversion-v3-0/
+    version: VM0009 v3.0

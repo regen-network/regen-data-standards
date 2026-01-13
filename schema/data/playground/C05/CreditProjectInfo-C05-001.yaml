@@ -1,0 +1,57 @@
+name: San Juan Carbon Project
+description: The San Juan Islands Garry Oak Restoration Burns Project focuses on producing biochar from waste biomass in Washington's San Juan Islands. By converting wood waste gathered from wildfire prevention and invasive species control efforts into biochar, this project sequesters carbon, reduces GHG emissions, and restores native Garry Oak woodlands. The in-stand biochar application enhances soil health and supports long-term carbon storage.
+url: https://app.regen.network/project/C05-001
+hasFeature:
+  name: Turtleback Mountain Preserve, Eastsound, Washington 98245, United States
+  hasGeometry:
+    asWKT: POINT(-122.97292212697117 48.65633910268111)
+  hasCentroid:
+    asWKT: POINT(-122.97292212697117 48.65633910268111)
+projectStartDate: "2022-11-14"
+projectEndDate: "2024-11-14"
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+projectSize:
+  numericValue: 0
+  unit: unit:HA
+environmentType:
+  - FOREST
+  - TEMPERATE_FOREST
+activity:
+  - IMPROVED_FOREST_MANAGEMENT
+  - BIOCHAR_PRODUCTION
+hasCoBenefits:
+  - name: Improved Nutrient Cycling
+    hasImpactType: IMPROVED_NUTRIENT_CYCLING
+    supportsSDG:
+      - SDG_15
+  - name: Improved Water Infiltration
+    hasImpactType: IMPROVED_WATER_INFILTRATION
+    supportsSDG:
+      - SDG_15
+hasProjectDeveloper:
+  name: San Juan Conservation District
+  description: We work with local, state and federal partners to achieve regional targets for environmental sustainability.
+  url: https://www.sanjuanislandscd.org/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/san_juan_conservation_district.png
+  type: ORGANIZATION
+hasProjectMonitor:
+  name: Kulshan Carbon Trust
+  description: We are on a mission to conserve and sequester carbon through collaborative natural climate solutions in Northwest Washington.
+  url: https://kulshancarbontrust.org/
+  image: https://regen-registry.s3.amazonaws.com/profiles/772065bc-5334-11ef-a754-0afffa81c869/1724950434335/1724950434334-avatar.jpg
+  type: ORGANIZATION
+creditClassVersion: V1.1
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: "Appendix: In-Stand Surface Application of Biochar in Forestlands Methodology"
+    url: https://www.registry.regen.network/methodology/appendix-in-stand-surface-application-of-biochar-in-forestlands-methodology
+    version: V1.1
+  - name: Methodology for Biochar Utilization in Soil and Non-Soil Applications
+    url: https://verra.org/methodologies/methodology-for-biochar-utilization-in-soil-and-non-soil-applications/
+    version: V1.1
+    identifier: VM0044

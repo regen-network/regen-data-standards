@@ -1,0 +1,71 @@
+name: Philipson Estate Blaston
+description: This project aims to  achieve GHG removals through the implementation of Regenerative Farming practices to improve soil structure and  increase Soil Organic Carbon (SOC) stocks. SOC levels will be increased by growing harvestable and cover crops and grass to maximise root growth, while incorporating crop residues and manures. Reduced soil disturbance and maintaining soil cover will ensure that this root growth is retained in the soil and, through improved soil microbial activity, converted to resilient SOC.
+url: https://app.regen.network/project/C06-001
+hasFeature:
+  name: Blaston, Leicestershire, England, United Kingdom
+  hasGeometry:
+    asWKT: POINT(-0.813933 52.551384)
+  hasCentroid:
+    asWKT: POINT(-0.813933 52.551384)
+projectStartDate: '2022-01-01'
+projectEndDate: '2032-01-01'
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration and Storage
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+  - SDG_13
+  - SDG_15
+projectSize:
+  numericValue: 267
+  unit: unit:HA
+environmentType:
+- CROPLAND
+- GRASSLAND
+- PASTURE
+activity:
+- RESIDUE_TILLAGE_MANAGEMENT
+- COVER_CROPPING
+- PRESCRIBED_GRAZING
+hasCoBenefits:
+- name: Improved Soil Health
+  hasImpactType: IMPROVED_SOIL_HEALTH
+  supportsSDG:
+  - SDG_2
+  - SDG_15
+- name: Reduced Fertilizer Amendments
+  hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
+  supportsSDG:
+  - SDG_6
+  - SDG_15
+- name: Improved Water Holding Capacity
+  hasImpactType: IMPROVED_WATER_HOLDING_CAPACITY
+  supportsSDG:
+  - SDG_6
+  - SDG_13
+hasProjectDeveloper:
+  name: Ecometric
+  description: Agricultural carbon project developer
+  url: https://ecometric.co.uk/
+  image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
+  type: ORGANIZATION
+creditClassVersion: V1.5
+marketType:
+- VOLUNTARY_MARKET
+usesMethodology:
+- name: Methodology for Soil Organic Carbon Estimation in Regenerative Cropping and
+    Managed Grassland Ecosystems
+  url: https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems
+  version: V1.5
+hasProjectMonitor:
+  name: Ecometric
+  description: Measured soil carbon capture
+  url: https://ecometric.co.uk/
+  image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: Nova Cert
+  description: NOVA CERT is a Validation and Verification Body (VVB) which validates
+    and verifies projects that reduce greenhouse gases (GHG) emissions to the atmosphere.
+  url: https://nova-cert.com/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/novacert.png
+  type: ORGANIZATION

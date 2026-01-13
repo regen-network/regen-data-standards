@@ -1,0 +1,38 @@
+name: Evio Kuiñaji Ese´eja Cuana
+url: https://app.regen.network/project/C01-003
+hasFeature:
+  name: Puerto Maldonado, Madre de Dios, Peru
+  hasGeometry:
+    asWKT: POINT(-69.314155 -12.82265)
+  hasCentroid:
+    asWKT: POINT(-69.314155 -12.82265)
+projectStartDate: "2011-07-01"
+projectEndDate: "2030-06-30"
+hasPrimaryImpact:
+  name: Avoided Deforestation and Carbon Sequestration
+  hasImpactType: AVOIDED_DEFORESTATION_DEGRADATION
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+hasLinks:
+  - name: VCS Project Page
+    url: https://registry.verra.org/app/projectDetail/VCS/1218
+    description: Verra registry page for this project
+hasReferenceId:
+  - identifier: "1218"
+    referenceType: VCS Project ID
+projectSize:
+  numericValue: 7653
+  unit: unit:HA
+environmentType:
+  - TROPICAL_FOREST
+activity:
+  - CONSERVATION
+hasProjectDeveloper:
+  name: Ese´Eja Infierno Native Community
+  description: Forest owners committed to work to protect and manage the forest under a REDD+ project.
+  type: ORGANIZATION
+usesMethodology:
+  - name: VM0007 REDD+ Methodology Framework
+    url: https://verra.org/methodology/vm0007-redd-methodology-framework-redd-mf-v1-6/
+    version: VM0007 v1.6

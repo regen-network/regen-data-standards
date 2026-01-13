@@ -1,0 +1,77 @@
+name: Jaguar Stewardship in the Pantanal Conservation Network
+description: >
+  The Instituto Homem Pantaneiro (IHP) is an NGO dedicated to preserving the Brazilian Pantanal biome,
+  considered the largest continental wetland on the planet and a Natural World Heritage Site. IHP conducts
+  a range of activities to improve ecosystem health and jaguar habitat, including: managing protected areas,
+  firefighting, monitoring biodiversity and deforestation, conducting research, and facilitating dialogue
+  among stakeholders. One credit represents a composite measure of biodiversity stewardship effectiveness,
+  focused on jaguars as an umbrella species, across a 40,613-hectare private conservation reserve, based
+  on a Theory of Change established by ERA and IHP. The project combines advanced monitoring technologies
+  with community engagement to address key threats, particularly wildfires which affected over 90% of the
+  Serra do Amolar region in 2020.
+url: https://app.regen.network/project/USS01-002
+hasFeature:
+  name: Serra do Amolar, Corumbá, Mato Grosso do Sul, Brazil
+  hasGeometry:
+    asWKT: POINT(-57.489822 -18.040224)
+  hasCentroid:
+    asWKT: POINT(-57.489822 -18.040224)
+projectStartDate: "2021-01-01"
+projectEndDate: "2028-12-31"
+projectSize:
+  numericValue: 40613
+  unit: unit:HA
+environmentType:
+  - WETLAND
+activity:
+  - UMBRELLA_SPECIES_CONSERVATION
+  - ECOSYSTEM_RESTORATION
+  - ECOTOURISM
+hasPrimaryImpact:
+  name: Improved Biodiversity
+  hasImpactType: IMPROVED_BIODIVERSITY
+  supportsSDG:
+    - SDG_15
+    - SDG_13
+hasCoBenefits:
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_15
+  - name: Improved Education And Outreach
+    hasImpactType: IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH
+    supportsSDG:
+      - SDG_4
+      - SDG_17
+      - SDG_8
+hasProjectDeveloper:
+  name: ERA Brazil
+  description: ERA Brazil develops and implements regenerative projects focused on biodiversity conservation and ecosystem restoration in Brazil.
+  url: https://erabrazil.org
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ERA_logo.png
+  type: ORGANIZATION
+hasProjectOperator:
+  name: Instituto Homem Pantaneiro
+  description: NGO dedicated to preserving the Brazilian Pantanal biome through conservation activities, research, and community engagement.
+  url: https://ihp.org.br
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ihp_logo.png
+  type: ORGANIZATION
+hasProjectMonitor:
+  name: Okala
+  description: Environmental monitoring organization providing verification and monitoring services for regenerative projects.
+  url: https://okala.com
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/okala_logo.png
+  type: ORGANIZATION
+hasProjectVerifier:
+  name: Verifit
+  description: Third-party verification body for environmental and biodiversity projects.
+  url: https://verefit.com
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/verifit_logo.png
+  type: ORGANIZATION
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Biodiversity Crediting through Umbrella Species Stewardship
+    url: https://www.registry.regen.network/crediting-protocols/era-brazil
+    version: V2.2

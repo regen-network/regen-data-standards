@@ -1,0 +1,59 @@
+name: Cavan Station
+description: Cavan Station is on the southern tablelands of New South Wales, Australia. Divided by the
+  Murrumbidgee River at Yass, it comprises a diverse range of landscapes including limestone
+  rocky outcrops, undulating slopes and steep native vegetated hills. The Cavan Station angus
+  cow herd has been developed over the past 20 years on the harsh Southern Tablelands environment
+  and steep limestone hills. The lands are managed with time controlled rotational grazing.
+url: https://app.regen.network/project/C07-002
+hasFeature:
+  name: Cavan, New South Wales, Australia
+  hasGeometry:
+    asWKT: POINT(148.860905 -35.010218)
+  hasCentroid:
+    asWKT: POINT(148.860905 -35.010218)
+projectStartDate: "2017-10-02"
+projectEndDate: "2027-10-02"
+hasPrimaryImpact:
+  name: Increased Carbon Sequestration and Storage
+  hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+  supportsSDG:
+    - SDG_13
+    - SDG_15
+projectSize:
+  numericValue: 9900
+  unit: unit:HA
+environmentType:
+  - GRASSLAND
+  - SHRUBLAND
+  - PASTURE
+activity:
+  - PRESCRIBED_GRAZING
+hasCoBenefits:
+  - name: Improved Soil Health
+    hasImpactType: IMPROVED_SOIL_HEALTH
+    supportsSDG:
+      - SDG_2
+      - SDG_15
+  - name: Improved Biodiversity
+    hasImpactType: IMPROVED_BIODIVERSITY
+    supportsSDG:
+      - SDG_15
+hasProjectMonitor:
+  name: Regen Network Development
+  description: Regen Network Development manages the implementation of CarbonPlus Grasslands projects
+  url: https://www.regen.network/
+  image: https://regen-registry.s3.amazonaws.com/profiles/ad5a126e-d7bf-11ed-b9d8-0a6e1e09fcad/1681230075630/avatar.png
+  type: ORGANIZATION
+hasProjectDeveloper:
+  name: Impact Ag
+  description: Impact Ag Partners is a specialist agricultural investment and development firm. With deep expertise and a proven track record – we lead the market in identifying, optimizing, and monetizing natural capital for agriculture.
+  url: https://impactagpartners.com/
+  image: https://impactagpartners.com/wp-content/uploads/2024/05/AGIcon.png
+  type: ORGANIZATION
+creditClassVersion: V1.0
+marketType:
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: CarbonPlus GHG & Co-Benefits in Grazing Systems
+    url: https://www.registry.regen.network/methodology/carbonplus-methodology-for-grazing-systems
+    version: V1.0

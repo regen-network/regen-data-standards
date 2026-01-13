@@ -1,0 +1,89 @@
+name: Aguadulce Habitat Bank
+description: >-
+  Aguadulce – Río Sumapaz Habitat Bank, located in the province of Alto Magdalena, Cundinamarca,
+  Colombia, spans over 124.76 hectares and aims to preserve and restore two key ecosystems: tropical
+  dry forest and premontane humid forest. Through this initiative, Terrasos promotes biodiversity
+  conservation and offers biodiversity credits to offset environmental impacts. This project offers
+  an opportunity for buyers to contribute to the protection of endangered species while supporting
+  ecosystem restoration. The bank encompasses remnants of tropical dry forest and humid premontane
+  forest, habitats that are vital for species like the ocelot and yaguarundi. Terrasos engages
+  local communities in preservation and restoration activities, creating jobs and fostering
+  sustainable livelihoods.
+url: https://app.regen.network/project/BT01-002
+hasFeature:
+  name: Nilo, Cundinamarca, Colombia
+  hasGeometry:
+    asWKT: POINT(-74.557714 4.27456)
+  hasCentroid:
+    asWKT: POINT(-74.557714 4.27456)
+projectStartDate: "2022-09-28"
+projectEndDate: "2052-09-28"
+hasPrimaryImpact:
+  name: Improved Biodiversity
+  hasImpactType: IMPROVED_BIODIVERSITY
+  supportsSDG:
+    - SDG_15
+projectSize:
+  numericValue: 124.76
+  unit: unit:HA
+region: ANDEAN
+bioregion:
+  - TROPICAL_DRY_FOREST
+  - PREMONTANE_HUMID_FOREST
+biomeType:
+  - LARGE_TOLIMA_HYDROBIOME
+  - LARGE_TOLIMA_SUBANDEAN_OROBIOME
+  - TROPICAL_HUMID_ZONOBIOME_TOLIMA_GRANDE
+watershed: SUMAPAZ_RIVER_LOWER_WATERSHED
+subWatershed: RIO_SUMAPAZ
+hasAdministrativeArea: CUNDINAMARCA
+iucnConservationStatus: CRITICALLY_ENDANGERED
+projectDuration: P30Y
+hasManagementAreas:
+  - projectActivity:
+      - ECOSYSTEM_RESTORATION
+    extent:
+      numericValue: 25.7
+      unit: unit:HA
+  - projectActivity:
+      - CONSERVATION
+    extent:
+      numericValue: 89.29
+      unit: unit:HA
+hasEnvironmentalAuthority:
+  - name: Environmental and Sustainable Development Ministry
+    type: ORGANIZATION
+environmentType:
+  - TROPICAL_FOREST
+activity:
+  - CONSERVATION
+  - ECOSYSTEM_RESTORATION
+hasCoBenefits:
+  - name: Climate
+    hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
+    supportsSDG:
+      - SDG_13
+  - name: Improved Wildlife Habitat
+    hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    supportsSDG:
+      - SDG_15
+hasProjectDeveloper:
+  name: Terrasos
+  description: Terrasos develops biodiversity conservation and restoration projects in Colombia
+  url: https://terrasos.co/
+  image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
+  type: ORGANIZATION
+hasProjectOwner:
+  name: ALMASTER
+  description: Landowner organization committed to conservation
+  url: https://almaster.com/
+  image: https://regen-registry.s3.us-east-1.amazonaws.com/Almaster.png
+  type: ORGANIZATION
+creditClassVersion: V4.0
+marketType:
+  - COMPLIANCE_MARKET
+  - VOLUNTARY_MARKET
+usesMethodology:
+  - name: Terrasos Protocol for Issuing Voluntary Biodiversity Credits
+    url: https://www.registry.regen.network/crediting-protocols/terrasos-biodiversity-unit
+    version: V4.0
