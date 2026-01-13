@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Root directory for data
-DATA_DIR="data/playground"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DATA_DIR="${DATA_DIR:-${SCRIPT_DIR}/../data/playground}"
 
 # Only set default values if environment variables are not set
 : "${GRAPH_STORE_URL:=http://localhost:7878/store}"
@@ -40,7 +41,7 @@ failed_count=0
 total_count=0
 
 # Loop through turtle files
-for file in "$DATA_DIR"/*/*/*.ttl; do
+for file in "$DATA_DIR"/*/*.ttl; do
     ((total_count++))
 
     if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then

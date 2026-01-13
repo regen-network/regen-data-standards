@@ -1,4 +1,4 @@
-url: "https://app.regen.network/credit-classes/C07"
+url: https://app.regen.network/credit-classes/C07
 name: CarbonPlus Grasslands Credit Class
 description: >-
   This Credit Class provide incentive and a structure to significantly increase
@@ -11,7 +11,7 @@ hasPrimaryImpact:
   hasImpactType: INCREASED_CARBON_SEQUESTRATION_STORAGE
   name: Increased Carbon Sequestration and Storage
 managedUnderProgram:
-  url: "https://registry-program-guide.regen.network"
+  url: https://registry-program-guide.regen.network
   name: Regen Registry Program
 hasCreditingPeriod: P10Y
 eligibleEnvironmentTypes:
@@ -29,7 +29,7 @@ hasBufferPoolAccounts:
 eligibleActivities:
   - PRESCRIBED_GRAZING
 hasCreditProtocol:
-  url: "https://www.registry.regen.network/crediting-protocols/carbonplus-grasslands"
+  url: https://www.registry.regen.network/crediting-protocols/carbonplus-grasslands
   name: CarbonPlus GHG & Co-Benefits in Grazing Systems
   version: V1.0
 hasCreditGenerationMethod:

@@ -28,7 +28,7 @@ hasCoBenefits:
     supportsSDG:
       - SDG_3
 managedUnderProgram:
-  url: "https://registry-program-guide.regen.network"
+  url: https://registry-program-guide.regen.network
   name: Regen Registry Program
 hasCreditingPeriod: P20Y
 hasPermanencePeriod: P30Y
