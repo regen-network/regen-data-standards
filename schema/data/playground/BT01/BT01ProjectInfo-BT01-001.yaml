@@ -26,8 +26,10 @@ projectSize:
   numericValue: 340.11
   unit: unit:HA
 region: ANDEAN
-bioregion: LOW_MONTANE_VERY_HUMID_FOREST
-biomeType: ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS
+bioregion:
+  - LOW_MONTANE_VERY_HUMID_FOREST
+biomeType:
+  - ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS
 watershed: FRIO_RIVER
 subWatershed: RIO_FRIO_Y_OTROS_DIRECTOS_AL_CAUCA
 hasAdministrativeArea: ANTIOQUIA
