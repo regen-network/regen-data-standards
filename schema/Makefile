@@ -10,6 +10,9 @@ gen-doc:
 gen-rdf:
 	scripts/gen-rdf.sh
 
+clean-rdf:
+	scripts/clean-rdf.sh
+
 update-graph:
 	scripts/update-graph.sh
 
