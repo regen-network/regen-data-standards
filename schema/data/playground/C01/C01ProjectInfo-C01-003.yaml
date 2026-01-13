@@ -19,7 +19,7 @@ hasLinks:
     url: https://registry.verra.org/app/projectDetail/VCS/1218
     description: Verra registry page for this project
 hasReferenceId:
-  - identifier: "1218"
+  - identifier: 1218
     referenceType: VCS Project ID
 projectSize:
   numericValue: 7653
@@ -35,4 +35,5 @@ hasProjectDeveloper:
 usesMethodology:
   - name: VM0007 REDD+ Methodology Framework
     url: https://verra.org/methodology/vm0007-redd-methodology-framework-redd-mf-v1-6/
-    version: VM0007 v1.6
+    identifier: VM0007
+    version: V1.6

@@ -1,4 +1,4 @@
-url: "https://app.regen.network/credit-classes/C04"
+url: https://app.regen.network/credit-classes/C04
 name: Ruuts Credit Class for Soil Carbon Sequestration through Regenerative Grazing
 description: >-
   The Credit Class and its accompanying methodology provide farmers with a
@@ -15,7 +15,7 @@ hasCoBenefits:
   - hasImpactType: IMPROVED_WATER_INFILTRATION
     name: Improved Water Infiltration
 managedUnderProgram:
-  url: "https://registry-program-guide.regen.network"
+  url: https://registry-program-guide.regen.network
   name: Regen Registry Program
 hasCreditingPeriod: P10Y
 eligibleEnvironmentTypes:

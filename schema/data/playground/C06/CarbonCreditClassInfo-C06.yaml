@@ -1,4 +1,4 @@
-url: "https://app.regen.network/credit-classes/C06"
+url: https://app.regen.network/credit-classes/C06
 name: GHG Benefits in Managed Crop and Grassland Systems Credit Class
 description: >-
   This Credit Class and its supporting measuring and monitoring methodology,
@@ -13,7 +13,7 @@ hasCoBenefits:
   - hasImpactType: REDUCED_FERTILIZER_AMENDMENTS
     name: Reduced Fertilizer Usage
 managedUnderProgram:
-  url: "https://registry-program-guide.regen.network"
+  url: https://registry-program-guide.regen.network
   name: Regen Registry Program
 hasCreditingPeriod: P10Y
 eligibleEnvironmentTypes:

@@ -34,10 +34,10 @@ managedUnderProgram:
 hasCreditProtocol:
   - url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-40-Years-V11.40.pdf
     name: Preservation Protocol — 40 years
-    version: "11.40"
+    version: V11.40
   - url: https://www.cityforestcredits.org/wp-content/uploads/2022/07/City-Forest-Preservation-Protocol-100-Years-V11.100.pdf
     name: Preservation Protocol — 100 years
-    version: "11.100"
+    version: V11.100
 hasCreditGenerationMethod:
   - AVOIDED_EMISSIONS
   - CARBON_DIOXIDE_REMOVAL

@@ -34,4 +34,4 @@ eligibleActivities:
 hasCreditProtocol:
   url: https://www.registry.regen.network/crediting-protocols/grazing-in-vineyard-systems
   name: Grazing in Vineyard Systems
-  version: "1.0"
+  version: V1.0

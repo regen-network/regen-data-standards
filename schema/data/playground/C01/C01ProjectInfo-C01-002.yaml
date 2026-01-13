@@ -19,7 +19,7 @@ hasLinks:
     url: https://registry.verra.org/app/projectDetail/VCS/612
     description: Verra registry page for this project
 hasReferenceId:
-  - identifier: "612"
+  - identifier: 612
     referenceType: VCS Project ID
 projectSize:
   numericValue: 169741
@@ -35,4 +35,5 @@ hasProjectDeveloper:
 usesMethodology:
   - name: Methodology for Avoided Ecosystem Conversion
     url: https://verra.org/methodology/vm0009-methodology-for-avoided-ecosystem-conversion-v3-0/
-    version: VM0009 v3.0
+    identifier: VM0009
+    version: V3.0
