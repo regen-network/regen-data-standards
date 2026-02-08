@@ -29,7 +29,7 @@ if [ ! -s "${GENERATED_DIR}/regen-ontology.ttl" ]; then
 fi
 
 GRAPH_STORE_URL="${FUSEKI_URL}/${FUSEKI_DATASET}/data"
-ENCODED_GRAPH=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${FUSEKI_GRAPH}', safe=''))")
+ENCODED_GRAPH=$(python3 -c "import urllib.parse, os; print(urllib.parse.quote(os.environ['FUSEKI_GRAPH'], safe=''))")
 
 echo "Uploading ontology to Fuseki named graph: ${FUSEKI_GRAPH}"
 # PUT replaces the entire named graph (correct for single-file full replacement)

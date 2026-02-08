@@ -25,14 +25,14 @@ if [ "$TARGET" = "FUSEKI" ]; then
     fi
 
     GRAPH_STORE_URL="${FUSEKI_URL}/${FUSEKI_DATASET}/data"
-    AUTH="--user ${FUSEKI_USER}:${FUSEKI_PASSWORD}"
+    AUTH=("--user" "${FUSEKI_USER}:${FUSEKI_PASSWORD}")
     # URL-encode graph parameter (safe for all URI formats including non-URN graphs)
-    ENCODED_GRAPH=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${FUSEKI_GRAPH}', safe=''))")
+    ENCODED_GRAPH=$(python3 -c "import urllib.parse, os; print(urllib.parse.quote(os.environ['FUSEKI_GRAPH'], safe=''))")
     GRAPH_QS="?graph=${ENCODED_GRAPH}"
 
     # Delete existing named graph content (safe: only affects this graph)
     echo "Deleting existing content in named graph: ${FUSEKI_GRAPH}"
-    if ! curl -s -X DELETE -f $AUTH "${GRAPH_STORE_URL}${GRAPH_QS}" 2>/dev/null; then
+    if ! curl -s -X DELETE -f "${AUTH[@]}" "${GRAPH_STORE_URL}${GRAPH_QS}" 2>/dev/null; then
         echo "Note: Named graph did not exist or was already empty (this is OK for first upload)"
     fi
 
@@ -52,7 +52,7 @@ if [ "$TARGET" = "FUSEKI" ]; then
         if ! curl -s -X POST -f \
             -H 'Content-Type: text/turtle' \
             -T "$file" \
-            $AUTH \
+            "${AUTH[@]}" \
             "${GRAPH_STORE_URL}${GRAPH_QS}"; then
             echo "❌ Failed to upload: $file"
             ((failed_count++))
@@ -77,9 +77,9 @@ else
     # Build auth variable if GRAPH_STORE_AUTH is present.
     # GRAPH_STORE_AUTH should be in format user:pass
     if [ -n "${GRAPH_STORE_AUTH:-}" ]; then
-        AUTH="--user $GRAPH_STORE_AUTH"
+        AUTH=("--user" "$GRAPH_STORE_AUTH")
     else
-        AUTH=""
+        AUTH=()
     fi
 
     # Set METHOD and GRAPH_PARAM based on GRAPH value
@@ -93,7 +93,7 @@ else
     fi
 
     # First, clear the graph.
-    if ! curl -s -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+    if ! curl -s -X DELETE -f "${AUTH[@]}" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
         echo "❌ Failed to delete content in graph: $GRAPH"
     else
         echo "✅ Deleted content in graph: $GRAPH"
@@ -110,7 +110,7 @@ else
     for file in "$DATA_DIR"/*/*.ttl; do
         ((total_count++))
 
-        if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+        if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" "${AUTH[@]}" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
           echo "❌ Failed to update graph: $GRAPH with $file"
             ((failed_count++))
         else

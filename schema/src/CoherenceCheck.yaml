@@ -29,7 +29,7 @@ classes:
         required: true
         description: The type of artifact being checked.
       subjectId:
-        range: uriorcurie
+        range: string
         required: true
         description: >
           Identifier of the artifact being checked (e.g., WO-001, GD-001).

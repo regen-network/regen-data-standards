@@ -91,7 +91,7 @@ classes:
         description: Confidence score for the outcome (0.0 to 1.0).
       rationale:
         description: Explanation of how the outcome was determined.
-      evidenceIRIs:
+      evidence:
         range: uri
         multivalued: true
         description: URIs pointing to evidence supporting the outcome.
