@@ -110,7 +110,7 @@ else
     for file in "$DATA_DIR"/*/*.ttl; do
         ((total_count++))
 
-        if ! curl -s -X $METHOD -f -H 'Content-Type: text/turtle' -T "$file" "${AUTH[@]}" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
+        if ! curl -s -X "$METHOD" -f -H 'Content-Type: text/turtle' -T "$file" "${AUTH[@]}" "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
           echo "❌ Failed to update graph: $GRAPH with $file"
             ((failed_count++))
         else
