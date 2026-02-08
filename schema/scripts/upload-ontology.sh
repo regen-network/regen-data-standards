@@ -29,6 +29,7 @@ if [ ! -s "${GENERATED_DIR}/regen-ontology.ttl" ]; then
 fi
 
 GRAPH_STORE_URL="${FUSEKI_URL}/${FUSEKI_DATASET}/data"
+AUTH=("--user" "${FUSEKI_USER}:${FUSEKI_PASSWORD}")
 ENCODED_GRAPH=$(python3 -c "import urllib.parse, os; print(urllib.parse.quote(os.environ['FUSEKI_GRAPH'], safe=''))")
 
 echo "Uploading ontology to Fuseki named graph: ${FUSEKI_GRAPH}"
@@ -36,7 +37,7 @@ echo "Uploading ontology to Fuseki named graph: ${FUSEKI_GRAPH}"
 curl -s -X PUT -f \
     -H 'Content-Type: text/turtle' \
     -T "${GENERATED_DIR}/regen-ontology.ttl" \
-    --user "${FUSEKI_USER}:${FUSEKI_PASSWORD}" \
+    "${AUTH[@]}" \
     "${GRAPH_STORE_URL}?graph=${ENCODED_GRAPH}"
 
 echo "✅ Ontology uploaded to ${FUSEKI_GRAPH}"
