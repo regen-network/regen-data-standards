@@ -1,0 +1,132 @@
+id: https://framework.regen.network/schema/Agent
+name: Agent
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Agent:
+    is_a: Entity
+    description: >
+      An autonomous or semi-autonomous software agent that operates within the
+      Regen Network governance and data infrastructure. Agents have defined
+      capabilities, authority levels, and governance configurations.
+    slots:
+      - identifier
+    slot_usage:
+      identifier:
+        required: true
+    attributes:
+      agentType:
+        range: AgentType
+        required: true
+        description: The specialization category of this agent.
+      authorityLevel:
+        range: GovernanceLayer
+        required: true
+        description: The governance layer at which this agent is authorized to operate.
+      status:
+        range: AgentStatus
+        required: true
+        description: Current operational status of the agent.
+      capabilities:
+        range: AgentCapability
+        multivalued: true
+        inlined_as_list: true
+        description: List of capabilities this agent possesses.
+      governanceConfig:
+        range: GovernanceConfig
+        inlined: true
+        description: Governance-specific configuration for this agent.
+
+  AgentCapability:
+    description: A specific capability granted to an agent, with optional resource constraints.
+    attributes:
+      action:
+        range: AgentCapabilityType
+        required: true
+        description: The type of action this capability permits.
+      resourceTypes:
+        multivalued: true
+        description: Resource types this capability applies to (e.g., credit_class, governance_proposal).
+      restrictions:
+        multivalued: true
+        description: Any restrictions on this capability (e.g., read-only, requires-approval).
+
+  GovernanceConfig:
+    description: Configuration governing an agent's participation in governance processes.
+    attributes:
+      canPropose:
+        range: boolean
+        required: true
+        description: Whether the agent can submit governance proposals.
+      canExecute:
+        range: boolean
+        required: true
+        description: Whether the agent can execute approved work orders.
+      escalationThreshold:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        description: >
+          Confidence score below which the agent must escalate to a higher
+          governance layer. Value between 0.0 and 1.0.
+
+enums:
+  AgentType:
+    description: Specialization categories for agents.
+    permissible_values:
+      DOMAIN_SPECIALIST:
+        text: DOMAIN_SPECIALIST
+        meaning: rfs:DomainSpecialist
+        title: DomainSpecialist
+        description: Specialist in a specific ecological or credit domain.
+      ANALYTICAL_SPECIALIST:
+        text: ANALYTICAL_SPECIALIST
+        meaning: rfs:AnalyticalSpecialist
+        title: AnalyticalSpecialist
+        description: Specialist in data analysis and pattern recognition.
+      MARKET_SPECIALIST:
+        text: MARKET_SPECIALIST
+        meaning: rfs:MarketSpecialist
+        title: MarketSpecialist
+        description: Specialist in market dynamics and credit trading.
+      INFRASTRUCTURE_SPECIALIST:
+        text: INFRASTRUCTURE_SPECIALIST
+        meaning: rfs:InfrastructureSpecialist
+        title: InfrastructureSpecialist
+        description: Specialist in technical infrastructure and system operations.
+
+  AgentStatus:
+    description: Operational status of an agent.
+    permissible_values:
+      ACTIVE:
+        text: ACTIVE
+        meaning: rfs:Active
+        title: Active
+        description: Agent is operational and accepting work orders.
+      IDLE:
+        text: IDLE
+        meaning: rfs:Idle
+        title: Idle
+        description: Agent is available but not currently processing.
+      SUSPENDED:
+        text: SUSPENDED
+        meaning: rfs:Suspended
+        title: Suspended
+        description: Agent is temporarily disabled pending review.
+      RETIRED:
+        text: RETIRED
+        meaning: rfs:Retired
+        title: Retired
+        description: Agent is permanently decommissioned.

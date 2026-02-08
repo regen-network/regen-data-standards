@@ -1,0 +1,200 @@
+id: https://framework.regen.network/schema/VoiceCouncilSession
+name: VoiceCouncilSession
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+  - WorkOrder
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  VoiceCouncilSession:
+    description: >
+      A voice-based governance session following the PACTO pipeline pattern.
+      Sessions progress through defined stages from convening through work
+      order generation and signing.
+    slots:
+      - name
+      - description
+      - identifier
+    slot_usage:
+      identifier:
+        required: true
+    attributes:
+      sessionType:
+        range: SessionType
+        required: true
+        description: The type of governance session.
+      status:
+        range: SessionStatus
+        required: true
+        description: Current lifecycle status of the session.
+      governanceLayer:
+        range: GovernanceLayer
+        required: true
+        description: The governance layer at which this session operates.
+      facilitator:
+        range: Entity
+        description: The human or agent facilitating the session.
+      participants:
+        range: Participant
+        multivalued: true
+        inlined_as_list: true
+        description: List of participants with their roles.
+      stages:
+        range: SessionStage
+        multivalued: true
+        inlined_as_list: true
+        description: Ordered list of stages the session progresses through.
+      summary:
+        range: SessionSummary
+        inlined: true
+        description: Summary of session outcomes.
+      transcript:
+        description: Full transcript of the session.
+      workOrders:
+        range: WorkOrder
+        multivalued: true
+        description: Work orders generated from this session.
+      createdAt:
+        range: datetime
+        description: Timestamp when the session was created.
+
+  Participant:
+    description: A participant in a voice council session with role and attendance metadata.
+    attributes:
+      entity:
+        range: Entity
+        required: true
+        description: The person or agent participating.
+      role:
+        description: Role of the participant (e.g., facilitator, observer, voting member).
+      attendanceTimestamp:
+        range: datetime
+        description: When the participant joined the session.
+
+  SessionStage:
+    description: A stage in the voice council session pipeline.
+    attributes:
+      stageType:
+        range: SessionStageType
+        required: true
+        description: The type of stage in the PACTO pipeline.
+      stageOrder:
+        range: integer
+        required: true
+        description: Position of this stage in the session sequence (1-indexed).
+      startedAt:
+        range: datetime
+        description: When this stage began.
+      completedAt:
+        range: datetime
+        description: When this stage concluded.
+      notes:
+        description: Notes or observations from this stage.
+
+  SessionSummary:
+    description: Summary of a completed voice council session.
+    attributes:
+      topics:
+        multivalued: true
+        description: Key topics discussed during the session.
+      decisions:
+        multivalued: true
+        description: Decisions made during the session.
+      actionItems:
+        multivalued: true
+        description: Action items identified during the session.
+
+enums:
+  SessionType:
+    description: Types of voice council sessions.
+    permissible_values:
+      GOVERNANCE_CALL:
+        text: GOVERNANCE_CALL
+        meaning: rfs:GovernanceCall
+        title: GovernanceCall
+        description: Regular governance call for routine decisions.
+      WORKING_GROUP:
+        text: WORKING_GROUP
+        meaning: rfs:WorkingGroup
+        title: WorkingGroup
+        description: Working group session for specific topics.
+      EMERGENCY:
+        text: EMERGENCY
+        meaning: rfs:Emergency
+        title: Emergency
+        description: Emergency session for urgent matters.
+      CONSTITUTIONAL:
+        text: CONSTITUTIONAL
+        meaning: rfs:Constitutional
+        title: Constitutional
+        description: Constitutional session for fundamental governance changes.
+
+  SessionStageType:
+    description: >
+      Stages in the PACTO voice council pipeline, following the 6-step flow
+      from convening through execution.
+    permissible_values:
+      CONVENING:
+        text: CONVENING
+        meaning: rfs:Convening
+        title: Convening
+        description: Gathering participants and setting the agenda.
+      DELIBERATION:
+        text: DELIBERATION
+        meaning: rfs:Deliberation
+        title: Deliberation
+        description: Discussion and debate on agenda items.
+      SYNTHESIS:
+        text: SYNTHESIS
+        meaning: rfs:Synthesis
+        title: Synthesis
+        description: Synthesizing discussion into concrete proposals.
+      WORK_ORDER_GENERATION:
+        text: WORK_ORDER_GENERATION
+        meaning: rfs:WorkOrderGeneration
+        title: WorkOrderGeneration
+        description: Generating work orders from synthesized decisions.
+      SIGNING:
+        text: SIGNING
+        meaning: rfs:Signing
+        title: Signing
+        description: Cryptographic signing of work orders by authorized parties.
+      EXECUTION:
+        text: EXECUTION
+        meaning: rfs:Execution
+        title: Execution
+        description: On-chain execution of signed work orders.
+
+  SessionStatus:
+    description: Lifecycle status of a voice council session.
+    permissible_values:
+      SCHEDULED:
+        text: SCHEDULED
+        meaning: rfs:Scheduled
+        title: Scheduled
+        description: Session is scheduled but not yet started.
+      IN_PROGRESS:
+        text: IN_PROGRESS
+        meaning: rfs:SessionInProgress
+        title: SessionInProgress
+        description: Session is currently underway.
+      COMPLETED:
+        text: COMPLETED
+        meaning: rfs:SessionCompleted
+        title: SessionCompleted
+        description: Session has concluded.
+      CANCELLED:
+        text: CANCELLED
+        meaning: rfs:SessionCancelled
+        title: SessionCancelled
+        description: Session was cancelled.

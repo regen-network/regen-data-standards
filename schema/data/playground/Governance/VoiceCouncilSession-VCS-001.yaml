@@ -1,0 +1,57 @@
+name: Weekly Governance Call - C09 Review
+description: >
+  Regular governance call to discuss the C09 credit class submission
+  and agent review findings.
+identifier: VCS-001
+sessionType: GOVERNANCE_CALL
+status: COMPLETED
+governanceLayer: LAYER_3_HUMAN_IN_LOOP
+facilitator:
+  name: Greg Landua
+  type: INDIVIDUAL
+participants:
+  - entity:
+      name: Greg Landua
+      type: INDIVIDUAL
+    role: facilitator
+    attendanceTimestamp: "2026-02-05T15:00:00Z"
+  - entity:
+      name: Registry Reviewer
+      type: AGENT
+    role: analyst
+    attendanceTimestamp: "2026-02-05T15:00:00Z"
+  - entity:
+      name: Will Szal
+      type: INDIVIDUAL
+    role: voting member
+    attendanceTimestamp: "2026-02-05T15:02:00Z"
+stages:
+  - stageType: CONVENING
+    stageOrder: 1
+    startedAt: "2026-02-05T15:00:00Z"
+    completedAt: "2026-02-05T15:05:00Z"
+  - stageType: DELIBERATION
+    stageOrder: 2
+    startedAt: "2026-02-05T15:05:00Z"
+    completedAt: "2026-02-05T15:35:00Z"
+    notes: Discussion of C09 permanence period concerns raised by agent.
+  - stageType: SYNTHESIS
+    stageOrder: 3
+    startedAt: "2026-02-05T15:35:00Z"
+    completedAt: "2026-02-05T15:45:00Z"
+  - stageType: WORK_ORDER_GENERATION
+    stageOrder: 4
+    startedAt: "2026-02-05T15:45:00Z"
+    completedAt: "2026-02-05T15:50:00Z"
+summary:
+  topics:
+    - C09 Soil Carbon methodology review
+    - Permanence period requirements
+    - Buffer pool specification gaps
+  decisions:
+    - Request additional permanence documentation from C09 proponent
+    - Accept agent recommendation as conditional approval
+  actionItems:
+    - C09 proponent to submit permanence period addendum within 14 days
+    - Agent to re-review upon addendum submission
+createdAt: "2026-02-05T15:00:00Z"

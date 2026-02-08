@@ -1,0 +1,50 @@
+name: C09 Credit Class Recommendation
+description: >
+  Agent recommendation on the C09 Soil Carbon credit class submission
+  following review under WO-001.
+identifier: GD-001
+decisionType: RECOMMEND
+governanceLayer: LAYER_2_AGENTIC_OVERSIGHT
+decidedBy: AGENT-001
+subjectType: CreditClass
+subjectId: C09
+decision: CONDITIONAL
+confidence: 0.78
+rationale: >
+  The C09 methodology demonstrates sound soil carbon measurement approaches
+  but requires additional permanence period documentation and buffer pool
+  specification before approval. Three evidence sources reviewed confirm
+  methodology validity; however, the crediting period exceeds comparable
+  programs without sufficient justification.
+evidence:
+  - https://regen.network/evidence/c09-methodology-review
+  - https://regen.network/evidence/soil-carbon-benchmarks
+humanOverride: false
+relatedWorkOrder: WO-001
+process:
+  name: Credit Class Approval Process
+  description: Standard process for evaluating new credit class submissions.
+  identifier: PROC-001
+  category: REGISTRY_GOVERNANCE
+  stages:
+    - stageName: Initial Review
+      stageOrder: 1
+      automationLevel: LAYER_2_AGENTIC_OVERSIGHT
+      duration: P7D
+      requiredInputs:
+        - Credit class submission
+        - Methodology documentation
+    - stageName: Community Comment
+      stageOrder: 2
+      automationLevel: LAYER_3_HUMAN_IN_LOOP
+      duration: P14D
+      requiredInputs:
+        - Agent review report
+    - stageName: Final Decision
+      stageOrder: 3
+      automationLevel: LAYER_3_HUMAN_IN_LOOP
+      duration: P3D
+      requiredInputs:
+        - Community comments
+        - Agent recommendation
+createdAt: "2026-02-07T14:30:00Z"

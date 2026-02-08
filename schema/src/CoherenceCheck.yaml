@@ -1,0 +1,150 @@
+id: https://framework.regen.network/schema/CoherenceCheck
+name: CoherenceCheck
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - Entity
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  CoherenceCheck:
+    description: >
+      An OPAL coherence check performed on a governance artifact (work order or
+      decision). Evaluates alignment across five dimensions: Ontology, Philosophy,
+      Architecture, Language, and Action.
+    slots:
+      - name
+      - description
+      - identifier
+    attributes:
+      subjectType:
+        range: CoherenceSubjectType
+        required: true
+        description: The type of artifact being checked.
+      subjectId:
+        range: uriorcurie
+        required: true
+        description: >
+          Identifier of the artifact being checked (e.g., WO-001, GD-001).
+          Expected to match the identifier field of the referenced artifact.
+      checkedBy:
+        range: string
+        description: Identifier of the agent or human who performed the coherence check.
+      overallScore:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        required: true
+        description: Aggregate coherence score across all dimensions (0.0 to 1.0).
+      dimensions:
+        range: OPALDimension
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        description: Scores and explanations for each OPAL dimension.
+      thresholds:
+        range: CoherenceThreshold
+        multivalued: true
+        inlined_as_list: true
+        description: Threshold configuration for each dimension.
+      createdAt:
+        range: datetime
+        description: Timestamp when the coherence check was performed.
+
+  OPALDimension:
+    description: >
+      A single dimension score within an OPAL coherence check. Each dimension
+      evaluates a specific aspect of alignment.
+    attributes:
+      dimension:
+        range: OPALDimensionType
+        required: true
+        description: Which OPAL dimension this score represents.
+      score:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        required: true
+        description: Score for this dimension (0.0 to 1.0).
+      explanation:
+        required: true
+        description: Human-readable explanation of the score.
+      evidence:
+        range: uri
+        multivalued: true
+        description: URIs pointing to evidence supporting the score.
+      belowThreshold:
+        range: boolean
+        description: Whether this dimension score is below the configured threshold.
+
+  CoherenceThreshold:
+    description: >
+      Threshold configuration for a single OPAL dimension, defining the minimum
+      acceptable score and escalation behavior.
+    attributes:
+      dimension:
+        range: OPALDimensionType
+        required: true
+        description: Which OPAL dimension this threshold applies to.
+      minimumScore:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        required: true
+        description: Minimum acceptable score for this dimension.
+      escalateBelow:
+        range: boolean
+        description: Whether to escalate to a higher governance layer if below threshold.
+
+enums:
+  CoherenceSubjectType:
+    description: Types of artifacts that can be subject to coherence checks.
+    permissible_values:
+      WORK_ORDER:
+        text: WORK_ORDER
+        meaning: rfs:WorkOrder
+        title: WorkOrder
+        description: A work order artifact.
+      GOVERNANCE_DECISION:
+        text: GOVERNANCE_DECISION
+        meaning: rfs:GovernanceDecision
+        title: GovernanceDecision
+        description: A governance decision artifact.
+
+  OPALDimensionType:
+    description: >
+      The five OPAL dimensions for coherence checking. Each evaluates a distinct
+      aspect of alignment between proposed actions and system values.
+    permissible_values:
+      ONTOLOGY:
+        text: ONTOLOGY
+        meaning: rfs:OntologyDimension
+        title: OntologyDimension
+        description: Alignment with regen-data-standards entity definitions.
+      PHILOSOPHY:
+        text: PHILOSOPHY
+        meaning: rfs:PhilosophyDimension
+        title: PhilosophyDimension
+        description: Supports ecological regeneration and human sovereignty.
+      ARCHITECTURE:
+        text: ARCHITECTURE
+        meaning: rfs:ArchitectureDimension
+        title: ArchitectureDimension
+        description: Compatible with existing systems, dependencies specified.
+      LANGUAGE:
+        text: LANGUAGE
+        meaning: rfs:LanguageDimension
+        title: LanguageDimension
+        description: Consistent terminology, accessible to non-technical participants.
+      ACTION:
+        text: ACTION
+        meaning: rfs:ActionDimension
+        title: ActionDimension
+        description: Agent capabilities needed, reversibility characteristics.

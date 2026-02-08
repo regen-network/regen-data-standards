@@ -1,0 +1,60 @@
+name: OPAL Check on WO-001
+description: >
+  OPAL coherence check on the C09 credit class review work order
+  to verify alignment across all five dimensions.
+identifier: CC-001
+subjectType: WORK_ORDER
+subjectId: WO-001
+checkedBy: AGENT-001
+overallScore: 0.82
+dimensions:
+  - dimension: ONTOLOGY
+    score: 0.95
+    explanation: >
+      Work order references valid CreditClassInfo schema fields and uses
+      correct entity types from regen-data-standards.
+    belowThreshold: false
+  - dimension: PHILOSOPHY
+    score: 0.88
+    explanation: >
+      Review methodology supports ecological integrity verification
+      and community participation in credit class governance.
+    belowThreshold: false
+  - dimension: ARCHITECTURE
+    score: 0.72
+    explanation: >
+      Work order specification references existing methodology documents
+      but does not specify API version for credit class validation endpoint.
+    evidence:
+      - https://regen.network/evidence/architecture-gap-report
+    belowThreshold: true
+  - dimension: LANGUAGE
+    score: 0.85
+    explanation: >
+      Terminology is consistent with existing credit class documentation.
+      Technical terms are defined in the specification inputs.
+    belowThreshold: false
+  - dimension: ACTION
+    score: 0.70
+    explanation: >
+      Agent capabilities are sufficient for read and analyze operations.
+      Execution capability not required for this review work order.
+      Reversibility is high as the review produces a recommendation only.
+    belowThreshold: true
+thresholds:
+  - dimension: ONTOLOGY
+    minimumScore: 0.80
+    escalateBelow: true
+  - dimension: PHILOSOPHY
+    minimumScore: 0.75
+    escalateBelow: true
+  - dimension: ARCHITECTURE
+    minimumScore: 0.75
+    escalateBelow: false
+  - dimension: LANGUAGE
+    minimumScore: 0.70
+    escalateBelow: false
+  - dimension: ACTION
+    minimumScore: 0.75
+    escalateBelow: true
+createdAt: "2026-02-07T14:35:00Z"
