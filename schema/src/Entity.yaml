@@ -33,3 +33,5 @@ enums:
         meaning: rfs:Individual
       ORGANIZATION:
         meaning: rfs:Organization
+      AGENT:
+        meaning: rfs:Agent

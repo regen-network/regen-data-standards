@@ -1,0 +1,200 @@
+id: https://framework.regen.network/schema/WorkOrder
+name: WorkOrder
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  WorkOrder:
+    description: >
+      A discrete unit of work generated from governance processes, assigned to
+      agents or humans for execution. Work orders flow through the PACTO pipeline
+      from voice council sessions to on-chain execution.
+    slots:
+      - name
+      - description
+      - identifier
+    slot_usage:
+      identifier:
+        required: true
+    attributes:
+      intent:
+        required: true
+        description: Human-readable statement of what this work order aims to achieve.
+      workOrderType:
+        range: WorkOrderType
+        description: Classification of the work to be performed.
+      status:
+        range: WorkOrderStatus
+        required: true
+        description: Current lifecycle status of the work order.
+      governanceLayer:
+        range: GovernanceLayer
+        required: true
+        description: The governance layer under which this work order operates.
+      assignee:
+        range: string
+        description: Identifier of the agent or human assigned to execute this work order.
+      specification:
+        range: WorkOrderSpecification
+        inlined: true
+        required: true
+        description: Detailed specification of inputs, outputs, and constraints.
+      result:
+        range: WorkOrderResult
+        inlined: true
+        description: Outcome of the work order execution, populated upon completion.
+      createdAt:
+        range: datetime
+        description: Timestamp when the work order was created.
+      completedAt:
+        range: datetime
+        description: Timestamp when the work order was completed.
+
+  WorkOrderSpecification:
+    description: Detailed specification defining the inputs, expected outputs, and constraints for a work order.
+    attributes:
+      inputs:
+        multivalued: true
+        description: Required input data or resources for execution.
+      outputs:
+        multivalued: true
+        description: Expected output artifacts or deliverables.
+      constraints:
+        multivalued: true
+        description: Constraints or requirements that must be satisfied.
+      timeout:
+        range: duration
+        description: Maximum allowed duration for execution (ISO 8601 duration).
+
+  WorkOrderResult:
+    description: The outcome of a completed work order, including confidence scoring and evidence.
+    attributes:
+      outcome:
+        range: WorkOrderOutcome
+        required: true
+        description: The disposition of the work order.
+      confidence:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        description: Confidence score for the outcome (0.0 to 1.0).
+      rationale:
+        description: Explanation of how the outcome was determined.
+      evidence:
+        range: uri
+        multivalued: true
+        description: URIs pointing to evidence supporting the outcome.
+      humanOverride:
+        range: boolean
+        description: Whether a human overrode the agent's recommendation.
+
+enums:
+  WorkOrderType:
+    description: Classification of work order types.
+    permissible_values:
+      REVIEW:
+        text: REVIEW
+        meaning: rfs:Review
+        title: Review
+        description: Review of a credit class, project, or proposal.
+      ANALYSIS:
+        text: ANALYSIS
+        meaning: rfs:Analysis
+        title: Analysis
+        description: Data analysis or impact assessment.
+      MONITORING:
+        text: MONITORING
+        meaning: rfs:Monitoring
+        title: Monitoring
+        description: Ongoing monitoring of a project or process.
+      REPORTING:
+        text: REPORTING
+        meaning: rfs:Reporting
+        title: Reporting
+        description: Generation of reports or summaries.
+      PROPOSAL_DRAFTING:
+        text: PROPOSAL_DRAFTING
+        meaning: rfs:ProposalDrafting
+        title: ProposalDrafting
+        description: Drafting a governance proposal.
+      VALIDATION:
+        text: VALIDATION
+        meaning: rfs:Validation
+        title: Validation
+        description: Validation of data, claims, or processes.
+
+  WorkOrderStatus:
+    description: Lifecycle status of a work order.
+    permissible_values:
+      PENDING:
+        text: PENDING
+        meaning: rfs:Pending
+        title: Pending
+        description: Work order created but not yet assigned.
+      ASSIGNED:
+        text: ASSIGNED
+        meaning: rfs:Assigned
+        title: Assigned
+        description: Work order assigned to an agent or human.
+      IN_PROGRESS:
+        text: IN_PROGRESS
+        meaning: rfs:InProgress
+        title: InProgress
+        description: Work order currently being executed.
+      COMPLETED:
+        text: COMPLETED
+        meaning: rfs:Completed
+        title: Completed
+        description: Work order execution finished.
+      ESCALATED:
+        text: ESCALATED
+        meaning: rfs:Escalated
+        title: Escalated
+        description: Work order escalated to a higher governance layer.
+      CANCELLED:
+        text: CANCELLED
+        meaning: rfs:Cancelled
+        title: Cancelled
+        description: Work order cancelled before completion.
+
+  WorkOrderOutcome:
+    description: >
+      Disposition of a completed work order or governance decision.
+      Shared between WorkOrderResult and GovernanceDecision.
+    permissible_values:
+      APPROVED:
+        text: APPROVED
+        meaning: rfs:Approved
+        title: Approved
+        description: The subject was approved.
+      REJECTED:
+        text: REJECTED
+        meaning: rfs:Rejected
+        title: Rejected
+        description: The subject was rejected.
+      CONDITIONAL:
+        text: CONDITIONAL
+        meaning: rfs:Conditional
+        title: Conditional
+        description: Approved with conditions that must be met.
+      ESCALATED:
+        text: ESCALATED
+        meaning: rfs:OutcomeEscalated
+        title: OutcomeEscalated
+        description: Escalated to a higher authority for decision.
+      INCONCLUSIVE:
+        text: INCONCLUSIVE
+        meaning: rfs:Inconclusive
+        title: Inconclusive
+        description: Insufficient evidence to reach a determination.

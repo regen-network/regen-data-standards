@@ -1,0 +1,30 @@
+name: Registry Reviewer
+description: >
+  Domain specialist agent for reviewing credit class submissions
+  against Regen Network standards and methodologies.
+type: AGENT
+identifier: AGENT-001
+agentType: DOMAIN_SPECIALIST
+authorityLevel: LAYER_2_AGENTIC_OVERSIGHT
+status: ACTIVE
+capabilities:
+  - action: READ
+    resourceTypes:
+      - credit_class
+      - methodology
+      - project
+    restrictions:
+      - read-only
+  - action: ANALYZE
+    resourceTypes:
+      - credit_class
+      - methodology
+    restrictions:
+      - requires-evidence
+  - action: REPORT
+    resourceTypes:
+      - governance_proposal
+governanceConfig:
+  canPropose: true
+  canExecute: false
+  escalationThreshold: 0.85

@@ -342,3 +342,78 @@ enums:
       UNKNOWN:
         text: UNKNOWN
         title: Unknown
+
+  GovernanceLayer:
+    name: GovernanceLayer
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      LAYER_1_AUTOMATED:
+        text: LAYER_1_AUTOMATED
+        meaning: rft:Layer1Automated
+        title: Layer1Automated
+        description: Fully automated decisions.
+      LAYER_2_AGENTIC_OVERSIGHT:
+        text: LAYER_2_AGENTIC_OVERSIGHT
+        meaning: rft:Layer2AgenticOversight
+        title: Layer2AgenticOversight
+        description: Agent decides with human oversight window.
+      LAYER_3_HUMAN_IN_LOOP:
+        text: LAYER_3_HUMAN_IN_LOOP
+        meaning: rft:Layer3HumanInLoop
+        title: Layer3HumanInLoop
+        description: Human must approve agent recommendation.
+      LAYER_4_CONSTITUTIONAL:
+        text: LAYER_4_CONSTITUTIONAL
+        meaning: rft:Layer4Constitutional
+        title: Layer4Constitutional
+        description: Requires community vote or constitutional process.
+
+  GovernanceActionType:
+    name: GovernanceActionType
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      PROPOSE:
+        text: PROPOSE
+        meaning: rft:Propose
+        title: Propose
+      VOTE:
+        text: VOTE
+        meaning: rft:Vote
+        title: Vote
+      DELEGATE:
+        text: DELEGATE
+        meaning: rft:Delegate
+        title: Delegate
+      OVERRIDE:
+        text: OVERRIDE
+        meaning: rft:Override
+        title: Override
+      ESCALATE:
+        text: ESCALATE
+        meaning: rft:Escalate
+        title: Escalate
+      MONITOR:
+        text: MONITOR
+        meaning: rft:Monitor
+        title: Monitor
+
+  AgentCapabilityType:
+    name: AgentCapabilityType
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      READ:
+        text: READ
+        meaning: rft:Read
+        title: Read
+      ANALYZE:
+        text: ANALYZE
+        meaning: rft:Analyze
+        title: Analyze
+      REPORT:
+        text: REPORT
+        meaning: rft:Report
+        title: Report
+      EXECUTE:
+        text: EXECUTE
+        meaning: rft:Execute
+        title: Execute

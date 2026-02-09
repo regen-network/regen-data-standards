@@ -23,6 +23,11 @@ imports:
   - BT01ProjectInfo
   - C01ProjectInfo
   - C02ProjectInfo
+  - Agent
+  - WorkOrder
+  - GovernanceDecision
+  - VoiceCouncilSession
+  - CoherenceCheck
 default_curi_maps:
   - semweb_context
 default_prefix: rfs

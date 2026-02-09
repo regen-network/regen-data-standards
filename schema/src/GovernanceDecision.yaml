@@ -1,0 +1,192 @@
+id: https://framework.regen.network/schema/GovernanceDecision
+name: GovernanceDecision
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+  - WorkOrder
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  GovernanceDecision:
+    description: >
+      A record of a governance decision made by an agent or human, including
+      the decision rationale, confidence scoring, and links to related work
+      orders and governance processes.
+    slots:
+      - name
+      - description
+      - identifier
+    slot_usage:
+      identifier:
+        required: true
+    attributes:
+      decisionType:
+        range: DecisionType
+        required: true
+        description: The type of governance action taken.
+      governanceLayer:
+        range: GovernanceLayer
+        required: true
+        description: The governance layer at which this decision was made.
+      decidedBy:
+        range: string
+        description: Identifier of the agent or human who made the decision.
+      subjectType:
+        required: true
+        description: >
+          Type of the artifact this decision applies to
+          (e.g., WorkOrder, CreditClass, GovernanceProposal).
+      subjectId:
+        required: true
+        description: >
+          Identifier of the artifact this decision applies to
+          (e.g., WO-001, C01, PROP-42).
+      decision:
+        range: WorkOrderOutcome
+        required: true
+        description: >
+          The outcome of the decision. Reuses WorkOrderOutcome since decisions
+          and work orders share the same outcome vocabulary.
+      confidence:
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+        required: true
+        description: Confidence score for the decision (0.0 to 1.0).
+      rationale:
+        required: true
+        description: Explanation of the reasoning behind the decision.
+      evidence:
+        range: uri
+        multivalued: true
+        description: URIs pointing to evidence supporting the decision.
+      humanOverride:
+        range: boolean
+        description: Whether a human overrode an agent's recommendation.
+      relatedWorkOrder:
+        range: string
+        description: Identifier of the work order that led to or was created by this decision.
+      process:
+        range: GovernanceProcess
+        inlined: true
+        description: The governance process under which this decision was made.
+      createdAt:
+        range: datetime
+        description: Timestamp when the decision was recorded.
+
+  GovernanceProcess:
+    description: >
+      A defined governance process with named stages, used to structure
+      decision-making workflows.
+    slots:
+      - name
+      - description
+      - identifier
+    slot_usage:
+      name:
+        required: true
+      identifier:
+        required: true
+    attributes:
+      category:
+        range: GovernanceCategory
+        required: true
+        description: The governance domain this process belongs to.
+      stages:
+        range: GovernanceStage
+        multivalued: true
+        inlined_as_list: true
+        description: Ordered list of stages in this governance process.
+
+  GovernanceStage:
+    description: A single stage within a governance process.
+    attributes:
+      stageName:
+        required: true
+        description: Name of this stage.
+      stageOrder:
+        range: integer
+        required: true
+        description: Position of this stage in the process sequence (1-indexed).
+      automationLevel:
+        range: GovernanceLayer
+        description: The governance layer determining automation level for this stage.
+      duration:
+        range: duration
+        description: Expected duration for this stage (ISO 8601 duration).
+      requiredInputs:
+        multivalued: true
+        description: Inputs required before this stage can begin.
+
+enums:
+  DecisionType:
+    description: Types of governance decisions.
+    permissible_values:
+      RECOMMEND:
+        text: RECOMMEND
+        meaning: rfs:Recommend
+        title: Recommend
+        description: Agent recommendation for human review.
+      ESCALATE:
+        text: ESCALATE
+        meaning: rfs:DecisionEscalate
+        title: DecisionEscalate
+        description: Escalation to a higher governance layer.
+      ALERT:
+        text: ALERT
+        meaning: rfs:Alert
+        title: Alert
+        description: Alert requiring attention but not immediate action.
+      PROPOSE:
+        text: PROPOSE
+        meaning: rfs:DecisionPropose
+        title: DecisionPropose
+        description: Formal proposal for governance action.
+      APPROVE:
+        text: APPROVE
+        meaning: rfs:DecisionApprove
+        title: DecisionApprove
+        description: Approval of a proposal or work order.
+      REJECT:
+        text: REJECT
+        meaning: rfs:DecisionReject
+        title: DecisionReject
+        description: Rejection of a proposal or work order.
+
+  GovernanceCategory:
+    description: Categories of governance processes.
+    permissible_values:
+      REGISTRY_GOVERNANCE:
+        text: REGISTRY_GOVERNANCE
+        meaning: rfs:RegistryGovernance
+        title: RegistryGovernance
+        description: Governance of the credit registry (class approvals, project reviews).
+      MARKETPLACE_GOVERNANCE:
+        text: MARKETPLACE_GOVERNANCE
+        meaning: rfs:MarketplaceGovernance
+        title: MarketplaceGovernance
+        description: Governance of marketplace operations (listing rules, pricing).
+      TECHNICAL_GOVERNANCE:
+        text: TECHNICAL_GOVERNANCE
+        meaning: rfs:TechnicalGovernance
+        title: TechnicalGovernance
+        description: Governance of technical infrastructure (upgrades, parameters).
+      TREASURY_GOVERNANCE:
+        text: TREASURY_GOVERNANCE
+        meaning: rfs:TreasuryGovernance
+        title: TreasuryGovernance
+        description: Governance of treasury and fund allocation.
+      SYSTEM_GOVERNANCE:
+        text: SYSTEM_GOVERNANCE
+        meaning: rfs:SystemGovernance
+        title: SystemGovernance
+        description: Cross-cutting system governance (constitutional changes, agent policies).

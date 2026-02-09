@@ -1,0 +1,23 @@
+name: C09 Credit Class Review
+description: >
+  Review the C09 Soil Carbon credit class submission for compliance
+  with Regen Network methodology standards.
+identifier: WO-001
+intent: Evaluate C09 credit class methodology against Regen standards
+workOrderType: REVIEW
+status: ASSIGNED
+governanceLayer: LAYER_2_AGENTIC_OVERSIGHT
+assignee: AGENT-001
+specification:
+  inputs:
+    - C09 credit class submission document
+    - Regen Network credit class standards v2.0
+    - Existing soil carbon methodologies (C01, C02)
+  outputs:
+    - Compliance assessment report
+    - Risk score with evidence
+  constraints:
+    - Must reference at least 3 evidence sources
+    - Must evaluate against all required fields in CreditClassInfo schema
+  timeout: P7D
+createdAt: "2026-02-01T10:00:00Z"

@@ -16,4 +16,10 @@ clean-rdf:
 update-graph:
 	scripts/update-graph.sh
 
+update-fuseki:
+	TARGET=FUSEKI scripts/update-graph.sh
+
+upload-ontology:
+	scripts/upload-ontology.sh
+
 all: gen-taxonomy lint gen-doc gen-rdf update-graph
