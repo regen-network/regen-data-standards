@@ -5,7 +5,7 @@ lint:
 	linkml-lint --validate src/ -a
 
 gen-doc:
-	gen-doc src/schema.yaml --directory generated --diagram-type er_diagram -v
+	gen-doc src/schema.yaml --directory generated --diagram-type mermaid_class_diagram -v
 
 gen-rdf:
 	scripts/gen-rdf.sh

@@ -82,4 +82,9 @@
         --purple-200: 128 142 171;
         --purple-100: 86 104 143;
     }
+
+    /* Center mermaid SVG diagrams. */
+    main svg {
+        margin: auto;
+    }
 }
