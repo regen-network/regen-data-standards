@@ -25,6 +25,13 @@ classes:
       type:
         range: EntityTypes
         required: true
+      walletAddress:
+        slot_uri: rfs:walletAddress
+        description: >-
+          On-chain wallet address (bech32 or hex) bridging semantic identity
+          to signing capability. Used by the identity bridge to link KOI
+          entity URIs to on-chain accounts for CLAMS and EAS interop.
+        range: string
 
 enums:
   EntityTypes:
@@ -33,3 +40,8 @@ enums:
         meaning: rfs:Individual
       ORGANIZATION:
         meaning: rfs:Organization
+      COMMUNITY:
+        meaning: rfs:Community
+        description: >-
+          A collective entity such as a community, cooperative, or indigenous
+          group acting as a unified identity for claims and governance.

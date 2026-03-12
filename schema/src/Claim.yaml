@@ -1,0 +1,136 @@
+id: Claim
+name: Claim
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+  - Impact
+  - SDG
+  - Methodology
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Claim:
+    description: >-
+      A verifiable claim about ecological, social, or financial outcomes
+      associated with a place, practice, or project. Claims are the atomic
+      unit of the regenerative claims engine, linking a claimant's assertion
+      to a subject entity with typed impact and temporal bounds.
+    slots:
+      - name
+      - description
+      - url
+    slot_usage:
+      name:
+        required: true
+        description: Human-readable title of the claim.
+    attributes:
+      hasClaimType:
+        slot_uri: rfs:hasClaimType
+        description: >-
+          The primary category of the claim, drawn from the FWG ClaimType
+          taxonomy. Determines which verification pathways apply.
+        range: ClaimType
+        required: true
+      hasClaimant:
+        slot_uri: rfs:hasClaimant
+        description: >-
+          The entity making the claim. May be an individual, organization,
+          or community.
+        range: Entity
+        required: true
+        inlined: true
+      hasSubject:
+        slot_uri: rfs:hasSubject
+        description: >-
+          The entity or place about which the claim is made. Often a project,
+          land steward, or community.
+        range: Entity
+        required: true
+        inlined: true
+      hasOperator:
+        slot_uri: rfs:hasOperator
+        description: >-
+          The entity responsible for operations that produced the claimed
+          outcome, if different from the claimant.
+        range: Entity
+        inlined: true
+      hasPrimaryImpact:
+        slot_uri: rfs:hasPrimaryImpact
+        description: The primary impact claimed.
+        range: Impact
+        required: true
+        inlined: true
+      hasCoBenefits:
+        description: Secondary impacts or co-benefits associated with the claim.
+        range: Impact
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      verificationStatus:
+        slot_uri: rfs:verificationStatus
+        description: >-
+          Current verification state of the claim, from self-reported through
+          ledger-anchored.
+        range: VerificationStatus
+        required: true
+      claimStartDate:
+        slot_uri: schema:startDate
+        description: The start date of the period covered by this claim.
+        range: date
+      claimEndDate:
+        slot_uri: schema:endDate
+        description: The end date of the period covered by this claim.
+        range: date
+      quantity:
+        slot_uri: rfs:quantity
+        description: >-
+          Numeric quantity associated with the claim (e.g., tonnes CO2e,
+          hectares restored).
+        range: float
+      quantityUnit:
+        slot_uri: qudt:unit
+        description: >-
+          Unit of measurement for the quantity (e.g., unit:TON, unit:HA).
+        range: string
+      usesMethodology:
+        description: The methodology used to measure or verify the claimed outcome.
+        range: Methodology
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      hasCreditClass:
+        slot_uri: rfs:hasCreditClass
+        description: >-
+          Credit class identifier (e.g., C01, C06) linking this claim to
+          a registered credit class on Regen Ledger.
+        range: string
+      contentHash:
+        slot_uri: rfs:contentHash
+        description: >-
+          BLAKE2b-256 content hash of the canonical claim representation,
+          used for on-chain anchoring via Regen Data Module.
+        range: string
+      dataIri:
+        slot_uri: rfs:dataIri
+        description: >-
+          Regen Data Module IRI derived from the content hash. Bridges the
+          off-chain claim to its on-chain anchor.
+        range: uri
+      supersedes:
+        slot_uri: rfs:supersedes
+        description: >-
+          IRI or RID of a previous claim that this claim supersedes,
+          forming a version chain.
+        range: uri
