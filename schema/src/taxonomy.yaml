@@ -342,3 +342,93 @@ enums:
       UNKNOWN:
         text: UNKNOWN
         title: Unknown
+  ClaimType:
+    name: ClaimType
+    description: >-
+      Categories of claims that can be made about regenerative outcomes.
+      Determines which verification pathways and impact metrics apply.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      ECOLOGICAL:
+        text: ECOLOGICAL
+        meaning: rft:Ecological
+        title: Ecological
+        description: Claims about ecological outcomes such as carbon sequestration, biodiversity, soil health, or water quality.
+      SOCIAL:
+        text: SOCIAL
+        meaning: rft:Social
+        title: Social
+        description: Claims about social outcomes such as community well-being, livelihoods, education, or cultural preservation.
+      FINANCIAL:
+        text: FINANCIAL
+        meaning: rft:Financial
+        title: Financial
+        description: Claims about financial outcomes such as revenue generation, cost savings, or investment returns from regenerative practices.
+      GOVERNANCE:
+        text: GOVERNANCE
+        meaning: rft:Governance
+        title: Governance
+        description: Claims about governance outcomes such as stakeholder participation, decision-making processes, or institutional arrangements.
+      BIOCULTURAL:
+        text: BIOCULTURAL
+        meaning: rft:Biocultural
+        title: Biocultural
+        description: Claims about biocultural outcomes integrating ecological and cultural dimensions, such as traditional ecological knowledge or indigenous stewardship.
+  VerificationStatus:
+    name: VerificationStatus
+    description: >-
+      Lifecycle states of a claim as it moves through verification.
+      Each state represents increasing levels of assurance.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      SELF_REPORTED:
+        text: SELF_REPORTED
+        meaning: rft:SelfReported
+        title: SelfReported
+        description: Claim submitted by the claimant without independent review.
+      PEER_REVIEWED:
+        text: PEER_REVIEWED
+        meaning: rft:PeerReviewed
+        title: PeerReviewed
+        description: Claim reviewed by one or more peer attestors.
+      VERIFIED:
+        text: VERIFIED
+        meaning: rft:Verified
+        title: Verified
+        description: Claim verified by an accredited or authorized verifier.
+      LEDGER_ANCHORED:
+        text: LEDGER_ANCHORED
+        meaning: rft:LedgerAnchored
+        title: LedgerAnchored
+        description: Claim anchored on-chain via Regen Data Module with a content hash.
+      WITHDRAWN:
+        text: WITHDRAWN
+        meaning: rft:Withdrawn
+        title: Withdrawn
+        description: Claim withdrawn by the claimant or invalidated through review.
+  VerdictType:
+    name: VerdictType
+    description: >-
+      Possible verdicts an attestor can assign when reviewing a claim.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      PENDING:
+        text: PENDING
+        meaning: rft:Pending
+        title: Pending
+        description: Attestation is in progress; no verdict has been rendered yet.
+      APPROVED:
+        text: APPROVED
+        meaning: rft:Approved
+        title: Approved
+        description: The claim has been reviewed and approved by the attestor.
+      REJECTED:
+        text: REJECTED
+        meaning: rft:Rejected
+        title: Rejected
+        description: The claim has been reviewed and rejected by the attestor.
+      NEEDS_INFO:
+        text: NEEDS_INFO
+        meaning: rft:NeedsInfo
+        title: NeedsInfo
+        description: The attestor requires additional information or evidence before rendering a verdict.
