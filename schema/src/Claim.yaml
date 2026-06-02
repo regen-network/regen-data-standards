@@ -133,4 +133,4 @@ classes:
         description: >-
           IRI or RID of a previous claim that this claim supersedes,
           forming a version chain.
-        range: uri
+        range: uriorcurie
