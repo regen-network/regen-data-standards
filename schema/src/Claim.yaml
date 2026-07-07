@@ -73,6 +73,7 @@ classes:
         required: true
         inlined: true
       hasCoBenefits:
+        slot_uri: rfs:hasCoBenefits
         description: Secondary impacts or co-benefits associated with the claim.
         range: Impact
         multivalued: true
@@ -105,6 +106,7 @@ classes:
           Unit of measurement for the quantity (e.g., unit:TON, unit:HA).
         range: string
       usesMethodology:
+        slot_uri: rfs:usesMethodology
         description: The methodology used to measure or verify the claimed outcome.
         range: Methodology
         multivalued: true
@@ -132,5 +134,6 @@ classes:
         slot_uri: rfs:supersedes
         description: >-
           IRI or RID of a previous claim that this claim supersedes,
-          forming a version chain.
+          forming a version chain. Accepts full IRIs and CURIE-form
+          identifiers such as ORN RIDs (orn:...).
         range: uriorcurie

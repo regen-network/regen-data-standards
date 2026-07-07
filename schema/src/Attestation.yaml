@@ -59,8 +59,9 @@ classes:
         multivalued: true
       attestationDate:
         slot_uri: rfs:attestationDate
-        description: Date when the attestation was made.
+        description: Date when the attestation was made. Always known at attest time.
         range: date
+        required: true
       contentHash:
         slot_uri: rfs:contentHash
         description: >-
