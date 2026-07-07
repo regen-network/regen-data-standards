@@ -1,1 +1,4 @@
 linkml==1.8.6
+# linkml-runtime >=1.11 removed linkml_files.Format.JSON, which linkml 1.8.6
+# still imports (breaks all gen-rdf conversions in CI). Pin until linkml is upgraded.
+linkml-runtime==1.10.1
