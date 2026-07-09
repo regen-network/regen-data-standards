@@ -100,11 +100,18 @@ classes:
           Numeric quantity associated with the claim (e.g., tonnes CO2e,
           hectares restored).
         range: float
+        comments:
+          - >-
+            Kept flat (quantity + quantityUnit) to preserve the Output Record
+            Contract instance shape. Upgrade trigger: adopt a QUDT-style
+            Quantity class (value + unit) the day quantity is needed on more
+            than one slot or ranges/uncertainty are required.
       quantityUnit:
         slot_uri: qudt:unit
         description: >-
-          Unit of measurement for the quantity (e.g., unit:TON, unit:HA).
-        range: string
+          Unit of measurement for the quantity, as a QUDT unit code
+          (e.g., TONNE, HA).
+        range: QuantityUnit
       usesMethodology:
         slot_uri: rfs:usesMethodology
         description: The methodology used to measure or verify the claimed outcome.
@@ -137,3 +144,44 @@ classes:
           forming a version chain. Accepts full IRIs and CURIE-form
           identifiers such as ORN RIDs (orn:...).
         range: uriorcurie
+    rules:
+      - description: >-
+          A quantity is ambiguous without its unit; quantityUnit is required
+          whenever quantity is present.
+        preconditions:
+          slot_conditions:
+            quantity:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            quantityUnit:
+              value_presence: PRESENT
+
+enums:
+  QuantityUnit:
+    description: >-
+      Controlled vocabulary of measurement units for claim quantities.
+      Values are QUDT unit codes, each mapped to its QUDT unit IRI via
+      meaning. Extend as new claim types require additional units.
+    permissible_values:
+      TONNE:
+        description: Metric tonne (e.g., tonnes CO2e sequestered)
+        meaning: unit:TONNE
+      HA:
+        description: Hectare (e.g., hectares restored)
+        meaning: unit:HA
+      KILOGM:
+        description: Kilogram (QUDT code KiloGM)
+        meaning: unit:KiloGM
+      M3:
+        description: Cubic metre (e.g., water retained)
+        meaning: unit:M3
+      KILOM:
+        description: Kilometre (e.g., riparian length restored; QUDT code KiloM)
+        meaning: unit:KiloM
+      NUM:
+        description: Dimensionless count (e.g., trees planted)
+        meaning: unit:NUM
+      PERCENT:
+        description: Percentage (e.g., canopy cover change)
+        meaning: unit:PERCENT
