@@ -20,6 +20,8 @@ imports:
   - Methodology
   - Registry
   - CreditClassInfo
+  - Claim
+  - Attestation
   - BT01ProjectInfo
   - C01ProjectInfo
   - C02ProjectInfo

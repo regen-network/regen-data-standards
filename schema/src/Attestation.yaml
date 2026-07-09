@@ -1,0 +1,76 @@
+id: Attestation
+name: Attestation
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Attestation:
+    description: >-
+      A reviewer's attestation about a Claim. Maps to the KOI
+      claim_attestations table and aligns with on-chain MsgAttest
+      and Ethereum Attestation Service (EAS) attestation patterns.
+    slots:
+      - name
+      - description
+    attributes:
+      attestsClaim:
+        slot_uri: rfs:attestsClaim
+        description: >-
+          Reference to the Claim being attested, by RID or IRI.
+        range: string
+        required: true
+      hasReviewer:
+        slot_uri: rfs:hasReviewer
+        description: >-
+          The entity providing the attestation. Must have a registered
+          identity (KOI entity URI and/or wallet address).
+        range: Entity
+        required: true
+        inlined: true
+      hasVerdict:
+        slot_uri: rfs:hasVerdict
+        description: >-
+          The reviewer's verdict on the claim.
+        range: VerdictType
+        required: true
+      rationale:
+        slot_uri: rfs:rationale
+        description: >-
+          Free-text explanation of the verdict, including any conditions
+          or caveats noted during review.
+        range: string
+      evidenceReviewed:
+        slot_uri: rfs:evidenceReviewed
+        description: >-
+          URIs of evidence documents, datasets, or field observations
+          reviewed as part of this attestation.
+        range: uri
+        multivalued: true
+      attestationDate:
+        slot_uri: rfs:attestationDate
+        description: Date when the attestation was made. Always known at attest time.
+        range: date
+        required: true
+      contentHash:
+        slot_uri: rfs:contentHash
+        description: >-
+          BLAKE2b-256 content hash of the canonical attestation
+          representation, used for on-chain anchoring.
+        range: string
+      graphIri:
+        slot_uri: rfs:graphIri
+        description: >-
+          On-chain graph IRI from Regen Data Module MsgAttest,
+          using ContentHash.Graph encoding.
+        range: uri
