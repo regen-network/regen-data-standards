@@ -1,0 +1,427 @@
+id: OutputRecord
+name: OutputRecord
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Entity
+  - Claim
+  - Attestation
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  OutputRecord:
+    description: >-
+      The Output Record Contract: the single, sensor-agnostic envelope a sensor
+      emits when it hands data downstream to the claims engine. It carries (a)
+      stable provenance keyed on the upstream source's native record id, (b) an
+      explicit consent / data-sovereignty directive on every record from day
+      one, (c) the observed evidence separated by trust level, and (d) zero or
+      more extracted Claims (and optional Attestations) that compose with the
+      Claim and Attestation schemas. Raw source data stays at source by default;
+      only the content-addressed fingerprint (rawContentHash) is obligated to
+      travel and is what anchors on-chain. Re-emitting a record for the same
+      sourceRecordId is legal and defined as an in-place update (see dedup
+      rules); consumers dedup and version on sourceRecordId + sensorId.
+    slots:
+      - name
+      - description
+    slot_usage:
+      name:
+        required: false
+        description: >-
+          Optional human-readable title of the record (e.g. the meeting title).
+          Identity is carried by sourceRecordId, never by name.
+    attributes:
+      # --- Provenance / identity (Contract implication, field-notes §1, §6) ---
+      sourceRecordId:
+        slot_uri: rfs:sourceRecordId
+        description: >-
+          The upstream system's native, stable identifier for this record
+          (e.g. the Otter meeting id). REQUIRED. This is the dedup/update key:
+          downstream consumers key exactly one record per (sourceRecordId,
+          sensorId) and update in place. Never derive identity from name,
+          title, or filename — recurring items and title collisions make those
+          unstable.
+        range: string
+        required: true
+      sensorId:
+        slot_uri: rfs:sensorId
+        description: >-
+          Stable identifier of the sensor that emitted this record (e.g.
+          "otter-transcript-sensor"). Part of the dedup key so two sensors
+          observing the same upstream record do not collide.
+        range: string
+        required: true
+      sensorVersion:
+        slot_uri: rfs:sensorVersion
+        description: Version of the sensor implementation that produced this record.
+        range: string
+        required: true
+      sourceSystem:
+        slot_uri: rfs:sourceSystem
+        description: >-
+          The upstream system of record the data was pulled from (e.g. "otter",
+          "inaturalist", "field-signing-app").
+        range: string
+        required: true
+      recordType:
+        slot_uri: rfs:recordType
+        description: >-
+          The kind of record this envelope carries (e.g. "meeting_transcript",
+          "species_observation"). Lets one contract serve many sensors while
+          keeping downstream routing explicit.
+        range: string
+        required: true
+      # --- Time (Contract implication, field-notes §2) ---
+      emittedAt:
+        slot_uri: rfs:emittedAt
+        description: >-
+          UTC timestamp (ISO 8601, timezone-qualified) when the sensor emitted
+          this record. Distinct from the observed/source time below.
+        range: datetime
+        required: true
+      observedAt:
+        slot_uri: rfs:observedAt
+        description: >-
+          Timestamp of the underlying event at the source (e.g. meeting start),
+          as an ISO 8601 timezone-qualified instant.
+        range: datetime
+      observedLocalDate:
+        slot_uri: rfs:observedLocalDate
+        description: >-
+          The source-local calendar date of the observed event. Recorded
+          explicitly because the source UI and humans name records by local
+          date ("Tuesday's standup"); a UTC date puts evening events on the
+          wrong day. Sensors MUST decide the date rule once and record it here.
+        range: date
+      sourceTimezone:
+        slot_uri: rfs:sourceTimezone
+        description: >-
+          IANA timezone (e.g. "America/Vancouver") that observedAt /
+          observedLocalDate are expressed in. The timezone rule lives in the
+          record, never in per-sensor convention.
+        range: string
+      # --- Processing state (Contract implication, field-notes §3, §5) ---
+      processingState:
+        slot_uri: rfs:processingState
+        description: >-
+          The completeness/health state of this record. Consumers MUST honor
+          this: only COMPLETE records are safe to treat as finished evidence.
+          PLACEHOLDER / PARTIAL / EMPTY guard against poisoning the corpus with
+          not-yet-ready source bodies; AUTH_EXPIRED / FETCH_ERROR distinguish
+          "could not look" from "looked and found nothing".
+        range: ProcessingState
+        required: true
+      language:
+        slot_uri: rfs:language
+        description: >-
+          BCP-47 language tag(s) detected in the record content. Present so
+          downstream logic never assumes English.
+        range: string
+        multivalued: true
+      # --- Consent / data sovereignty (Contract implication, field-notes §7) ---
+      consent:
+        slot_uri: rfs:consent
+        description: >-
+          The consent / data-sovereignty directive governing this record.
+          REQUIRED on every record from day one — retrofitting consent onto an
+          existing corpus is far more painful than carrying a mostly-default
+          field. Encodes who consented (which may be a COMMUNITY), the
+          sovereignty tier, whether raw data may leave the source, and whether
+          the fingerprint may anchor on-chain.
+        range: ConsentDirective
+        required: true
+        inlined: true
+      # --- Raw payload + fingerprint (raw stays at source; hash travels) ---
+      rawContentHash:
+        slot_uri: rfs:rawContentHash
+        description: >-
+          BLAKE2b-256 content hash of the canonical raw source payload. REQUIRED
+          for COMPLETE records. This is the fingerprint that is obligated to
+          travel and that anchors on-chain (Regen Data Module) — even when the
+          raw payload itself stays at source under the consent directive.
+        range: string
+      rawContentUri:
+        slot_uri: rfs:rawContentUri
+        description: >-
+          Resolvable pointer to the raw source payload at its home system. The
+          default sovereignty posture is that raw data stays here and only the
+          fingerprint leaves.
+        range: uri
+      rawContentInline:
+        slot_uri: rfs:rawContentInline
+        description: >-
+          The raw source payload carried inline. PERMITTED ONLY when the
+          consent directive's rawDataStaysAtSource is false (see rules). Absent
+          by default.
+        range: string
+      recordContentHash:
+        slot_uri: rfs:recordContentHash
+        description: >-
+          BLAKE2b-256 content hash of this canonical OutputRecord envelope
+          (its own fingerprint), enabling content-addressed identity and
+          tamper-evidence of the record as emitted.
+        range: string
+      # --- Evidence by trust level (Contract implication, field-notes §4) ---
+      participants:
+        slot_uri: rfs:participants
+        description: >-
+          Entities CLAIMED to be involved (e.g. calendar invitees). LOW TRUST:
+          invitees are not attendees and source metadata name/email pairings are
+          frequently wrong. Kept distinct from speakers so the claims layer
+          never mistakes a hint for evidence.
+        range: ParticipantRef
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      speakers:
+        slot_uri: rfs:speakers
+        description: >-
+          Entities OBSERVED in the evidence itself (e.g. parsed from timestamped
+          transcript speaker lines). EVIDENCE-GRADE, distinct from participants.
+          Speaker identification is the genuinely hard part of a transcript
+          sensor; keeping it separate preserves the trust distinction the claims
+          layer needs.
+        range: SpeakerRef
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      # --- Enrichment (Contract implication, field-notes §7) ---
+      enrichmentVersion:
+        slot_uri: rfs:enrichmentVersion
+        description: >-
+          Version of the enrichment pass applied to this record. Consumers will
+          encounter re-enriched records and need to know which vintage they are
+          reading. Absent means raw/un-enriched.
+        range: string
+      priorityScore:
+        slot_uri: rfs:priorityScore
+        description: >-
+          Optional 0..1 relevance/priority score (e.g. recency + domain-keyword
+          relevance) used to order an enrichment backlog "top N by priority".
+        range: float
+      # --- Extracted claims / attestations (compose with Claim / Attestation) ---
+      claims:
+        slot_uri: rfs:claims
+        description: >-
+          Zero or more Claims extracted from this record, conforming to the
+          Claim schema. A sensor emits evidence + provenance + consent here; the
+          claims engine consumes them. Claimants and subjects are Entities and
+          MAY be COMMUNITY (collective) entities, not only individuals.
+        range: Claim
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      attestations:
+        slot_uri: rfs:attestations
+        description: >-
+          Optional Attestations already associated with the carried claims
+          (e.g. a reviewer verdict produced in the same pass), conforming to the
+          Attestation schema.
+        range: Attestation
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      # --- Versioning ---
+      supersedes:
+        slot_uri: rfs:supersedes
+        description: >-
+          IRI or RID of a prior OutputRecord that this record supersedes,
+          forming a version chain for the same sourceRecordId. Accepts full
+          IRIs and CURIE-form identifiers such as ORN RIDs (orn:...).
+        range: uriorcurie
+    rules:
+      - description: >-
+          A COMPLETE record must carry the fingerprint that is obligated to
+          travel: rawContentHash is required whenever processingState is
+          COMPLETE.
+        preconditions:
+          slot_conditions:
+            processingState:
+              equals_string: COMPLETE
+        postconditions:
+          slot_conditions:
+            rawContentHash:
+              value_presence: PRESENT
+
+  ConsentDirective:
+    description: >-
+      The consent / data-sovereignty primitive carried on every OutputRecord.
+      Makes data sovereignty a first-class, day-one property: it names who
+      granted consent (which may be a collective/community), the sovereignty
+      tier, whether raw data may leave the source, and whether the
+      content-addressed fingerprint may anchor on-chain. Sourced from the PACTO
+      / biocultural-crediting requirement that raw data stays at source and
+      claim-makers can be collectives.
+    attributes:
+      consentStatus:
+        slot_uri: rfs:consentStatus
+        description: Current consent state governing use of this record.
+        range: ConsentStatus
+        required: true
+      dataSovereigntyTier:
+        slot_uri: rfs:dataSovereigntyTier
+        description: >-
+          The sharing/sovereignty tier of this record's content. A team standup
+          and a 1:1 are the same record type from the same sensor but have
+          different sharing semantics — this field carries that difference.
+        range: DataSovereigntyTier
+        required: true
+      rawDataStaysAtSource:
+        slot_uri: rfs:rawDataStaysAtSource
+        description: >-
+          If true (the default posture), the raw payload MUST NOT be carried
+          inline anywhere downstream; only rawContentHash + rawContentUri may
+          travel. Enforced by an OutputRecord rule.
+        range: boolean
+        required: true
+      onChainAnchorAllowed:
+        slot_uri: rfs:onChainAnchorAllowed
+        description: >-
+          Whether the content-addressed fingerprint may be anchored on-chain
+          (Regen Data Module). Independent of rawDataStaysAtSource: a fingerprint
+          can anchor even when the raw payload never leaves source.
+        range: boolean
+        required: true
+      consentedBy:
+        slot_uri: rfs:consentedBy
+        description: >-
+          The Entity that granted consent. MAY be an INDIVIDUAL, ORGANIZATION,
+          or COMMUNITY — data sovereignty for collectives is a first-class case.
+        range: Entity
+        inlined: true
+      consentDate:
+        slot_uri: rfs:consentDate
+        description: Date consent was granted (or last affirmed).
+        range: date
+      retentionPolicy:
+        slot_uri: rfs:retentionPolicy
+        description: >-
+          Human- or machine-readable retention / deletion terms for this record
+          (e.g. "delete raw after 90 days", "retain fingerprint indefinitely").
+        range: string
+      consentEvidence:
+        slot_uri: rfs:consentEvidence
+        description: >-
+          URIs of consent artifacts (signed agreements, governance decisions,
+          community assent records) backing this directive.
+        range: uri
+        multivalued: true
+
+  ParticipantRef:
+    description: >-
+      A CLAIMED participant reference (low trust) — e.g. a calendar invitee.
+      Distinct from SpeakerRef so hints are never mistaken for observed evidence.
+    slots:
+      - name
+    slot_usage:
+      name:
+        required: true
+        description: Claimed participant name as reported by the source.
+    attributes:
+      email:
+        slot_uri: schema:email
+        description: Claimed email, as reported by the source (frequently misaligned).
+        range: string
+      resolvedEntity:
+        slot_uri: rfs:resolvedEntity
+        description: >-
+          Optional resolved Entity this participant was matched to, if identity
+          resolution succeeded. Absent when unresolved.
+        range: Entity
+        inlined: true
+      inferredRole:
+        slot_uri: rfs:inferredRole
+        description: >-
+          Role inferred from source metadata (e.g. "organizer"). A hint for the
+          claims layer, never ground truth.
+        range: string
+
+  SpeakerRef:
+    description: >-
+      An OBSERVED speaker reference (evidence-grade) — parsed from the evidence
+      itself (e.g. transcript speaker lines). Distinct from ParticipantRef.
+    slots:
+      - name
+    slot_usage:
+      name:
+        required: true
+        description: Speaker label as observed in the evidence.
+    attributes:
+      resolvedEntity:
+        slot_uri: rfs:resolvedEntity
+        description: >-
+          Optional resolved Entity this observed speaker was matched to. MAY be
+          a COMMUNITY entity. Absent when unresolved.
+        range: Entity
+        inlined: true
+      segmentCount:
+        slot_uri: rfs:segmentCount
+        description: Number of evidence segments (e.g. utterances) attributed to this speaker.
+        range: integer
+
+enums:
+  ProcessingState:
+    description: >-
+      Completeness / health state of an OutputRecord. Separates "not ready yet"
+      and "could not look" from genuinely finished evidence, so early or failed
+      fetches never silently poison the corpus.
+    permissible_values:
+      COMPLETE:
+        description: A finished, trustworthy record safe to treat as evidence.
+      PARTIAL:
+        description: >-
+          Some content present but known-incomplete; safe to store, not yet safe
+          to treat as finished evidence.
+      PLACEHOLDER:
+        description: >-
+          The source returned a not-yet-ready body (empty, "still processing",
+          error stub). Must re-enter the sync queue; must never clobber a real
+          body.
+      EMPTY:
+        description: The source authoritatively has no content for this record.
+      AUTH_EXPIRED:
+        description: >-
+          The sensor's session/credential expired and it could not fetch. A
+          distinct, surfaced state — an auth failure that presents as an empty
+          sync is the most dangerous variant (looks healthy while going stale).
+      FETCH_ERROR:
+        description: A transport/HTTP error prevented retrieval; retry expected.
+
+  DataSovereigntyTier:
+    description: >-
+      Sharing / sovereignty tier of a record's content, from fully public to
+      sovereign (community-controlled).
+    permissible_values:
+      PUBLIC:
+        description: Freely shareable; no access restriction.
+      KNOWLEDGE_COMMONS:
+        description: Shareable within the knowledge commons under commons norms.
+      RESTRICTED:
+        description: Access limited to named parties / roles.
+      SOVEREIGN:
+        description: >-
+          Community- or steward-controlled; raw data stays at source and use is
+          governed by the consenting entity (biocultural / indigenous data
+          sovereignty).
+
+  ConsentStatus:
+    description: Current consent state governing use of a record.
+    permissible_values:
+      GRANTED:
+        description: Consent has been granted for the declared use.
+      PENDING:
+        description: Consent has been requested but not yet resolved.
+      WITHHELD:
+        description: Consent has not been granted; use is not permitted.
+      REVOKED:
+        description: Previously-granted consent has been withdrawn.
