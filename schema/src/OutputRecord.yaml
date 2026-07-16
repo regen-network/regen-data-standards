@@ -1,0 +1,262 @@
+id: OutputRecord
+name: OutputRecord
+description: >-
+  Output Record Contract. Normalized shape of ONE sensor observation entering
+  the claims engine. A PRE-CLAIM (an upstream observation a downstream extractor
+  turns into 0..N rfs:Claim); it does NOT satisfy the closed Claim shape, it
+  carries enough to PROJECT one-or-more valid rfs:Claims (or zero). Three bands:
+  (1) Identity & Provenance, (2) Consent/Access, (3) Claim-Projection Hints.
+  Deliberately permissive: only the identity core (rid, sourceType, source) and
+  the consent gate (sourceAccessTier) are required; everything else is optional
+  because a raw sensor may not know it yet.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+  schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+default_prefix: rfs
+default_range: string
+
+classes:
+  OutputRecord:
+    description: >-
+      Normalized sensor observation (the de-facto KOI 'document' dict, plus the
+      document_to_bundle() manifest fields, as a typed contract). Projects into
+      0..N rfs:Claim. Only Band-1 identity core (rid, sourceType, source) and the
+      Band-2 consent gate (sourceAccessTier) are required; every payload/temporal
+      field is optional and every Band-3 field is an optional projection HINT.
+    slots:
+      - description
+    attributes:
+      rid:
+        slot_uri: rfs:rid
+        description: Stable KOI RID/ORN (processing.koi_rid); dedup + provenance key.
+        range: uriorcurie
+        required: true
+      sourceType:
+        slot_uri: rfs:sourceType
+        description: Source kind (otter-transcript, youtube, newsletter...); selects the projection profile.
+        range: string
+        required: true
+      source:
+        slot_uri: rfs:source
+        description: Namespaced origin locator, e.g. "youtube:{channel_id}" or "otter:{conversation_id}".
+        range: string
+        required: true
+      url:
+        slot_uri: schema:url
+        description: Canonical source URL.
+        range: uri
+      sourceUrl:
+        slot_uri: rfs:sourceUrl
+        description: Alternate/raw source URL.
+        range: uri
+      title:
+        slot_uri: schema:name
+        description: Human-readable title. When present, seeds the required Claim.name.
+        range: string
+      content:
+        slot_uri: schema:text
+        description: Full observation text (transcript/body). The substrate the extractor mints claims from.
+        range: string
+      author:
+        slot_uri: schema:author
+        description: Raw author string as emitted (unresolved).
+        range: string
+      authorEntityRef:
+        slot_uri: rfs:authorEntityRef
+        description: Resolved KOI entity URI/RID for the author. Fallback source for Claim.hasClaimant.
+        range: uriorcurie
+      observedAt:
+        slot_uri: rfs:observedAt
+        description: When the observation occurred (event time, NOT ingest).
+        range: datetime
+      collectedAt:
+        slot_uri: rfs:collectedAt
+        description: When the sensor ingested it. The reliably-present timestamp.
+        range: datetime
+      lastModified:
+        slot_uri: schema:dateModified
+        description: Source last-modified; change detection / supersedes.
+        range: datetime
+      contentHash:
+        slot_uri: rfs:contentHash
+        description: sha256 hash of the source content. NOTE - NOT Claim.contentHash which is BLAKE2b-256.
+        range: string
+      ingestMethod:
+        slot_uri: rfs:ingestMethod
+        description: Capture method (yt-dlp+scribe, imap, api-poll, webhook).
+        range: string
+      koiSensor:
+        slot_uri: rfs:koiSensor
+        description: Emitting KOI sensor node id; pipeline provenance.
+        range: string
+      tags:
+        slot_uri: rfs:tags
+        description: Free-text provenance/routing tags from sensor route config.
+        range: string
+        multivalued: true
+      sourceAccessTier:
+        slot_uri: rfs:sourceAccessTier
+        description: >-
+          6-tier access class; the authoritative consent signal that gates every
+          publish/anchor decision. REQUIRED as a fail-closed gate. Defaults to
+          RESTRICTED when unknown.
+        range: SourceAccessTier
+        required: true
+      isPrivate:
+        slot_uri: rfs:isPrivate
+        description: Derived back-compat mirror (true for any tier stricter than PUBLIC). Do not author directly.
+        range: boolean
+      accessSource:
+        slot_uri: rfs:accessSource
+        description: Which agreement/label grants access.
+        range: string
+      anchorPolicy:
+        slot_uri: rfs:anchorPolicy
+        description: Whether/when a projected claim may be anchored on-chain. Defaults derivable from sourceAccessTier.
+        range: AnchorPolicy
+      publishPolicy:
+        slot_uri: rfs:publishPolicy
+        description: Whether/where projected claims may be published. Defaults derivable from sourceAccessTier.
+        range: PublishPolicy
+      subjectRef:
+        slot_uri: rfs:subjectRef
+        description: KOI entity URI/RID the observation is ABOUT; single most valuable hint.
+        range: uriorcurie
+      claimantRef:
+        slot_uri: rfs:claimantRef
+        description: KOI entity URI/RID making the assertion (falls back to authorEntityRef then author).
+        range: uriorcurie
+      suggestedClaimType:
+        slot_uri: rfs:suggestedClaimType
+        description: Suggested ClaimType. Default for the required Claim.hasClaimType.
+        range: ClaimType
+      primaryImpactHint:
+        slot_uri: rfs:primaryImpactHint
+        description: Suggested ImpactType; projector wraps it into Impact{hasImpactType}.
+        range: ImpactType
+      quantity:
+        slot_uri: rfs:quantity
+        description: Numeric magnitude parsed from source. Seeds Claim.quantity.
+        range: float
+      quantityUnit:
+        slot_uri: qudt:unit
+        description: Unit for quantity (unit:TON, unit:HA). Required when quantity is present.
+        range: string
+      periodStart:
+        slot_uri: schema:startDate
+        description: Start of the outcome period, if stated.
+        range: date
+      periodEnd:
+        slot_uri: schema:endDate
+        description: End of the outcome period, if stated.
+        range: date
+      evidenceRefs:
+        slot_uri: rfs:evidenceRefs
+        description: URIs of supporting evidence.
+        range: uri
+        multivalued: true
+      extractionConfidence:
+        slot_uri: rfs:extractionConfidence
+        description: Extractor confidence 0..1; gates whether to project and routes to human review.
+        range: float
+        minimum_value: 0
+        maximum_value: 1
+      creditClassHint:
+        slot_uri: rfs:creditClassHint
+        description: Suggested Regen credit class (C01, C06) if implied.
+        range: string
+
+enums:
+  SourceAccessTier:
+    name: SourceAccessTier
+    description: 6-tier access class of source content, replacing binary is_private.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      PUBLIC:
+        text: PUBLIC
+        title: PublicAccess
+        meaning: rft:PublicAccess
+        description: Openly published; no gate.
+      TEAM:
+        text: TEAM
+        title: TeamAccess
+        meaning: rft:TeamAccess
+        description: Internal to the operating org/team that ingested it.
+      MEMBER:
+        text: MEMBER
+        title: MemberAccess
+        meaning: rft:MemberAccess
+        description: Visible to authenticated members/community of the tenant.
+      PRIVATE:
+        text: PRIVATE
+        title: PrivateAccess
+        meaning: rft:PrivateAccess
+        description: Restricted to the ingesting owner/operator only.
+      CONSENTED_THIRD_PARTY:
+        text: CONSENTED_THIRD_PARTY
+        title: ConsentedThirdPartyAccess
+        meaning: rft:ConsentedThirdPartyAccess
+        description: Shared under an explicit consent envelope with a named third party.
+      RESTRICTED:
+        text: RESTRICTED
+        title: RestrictedAccess
+        meaning: rft:RestrictedAccess
+        description: Legally/ethically restricted; never publish/anchor without a governance act.
+  AnchorPolicy:
+    name: AnchorPolicy
+    description: Whether/when a projected claim may be anchored on-chain.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      AUTO_ANCHOR:
+        text: AUTO_ANCHOR
+        title: AutoAnchor
+        meaning: rft:AutoAnchor
+        description: Eligible for automatic anchoring once a valid claim is projected.
+      ANCHOR_ON_VERIFY:
+        text: ANCHOR_ON_VERIFY
+        title: AnchorOnVerify
+        meaning: rft:AnchorOnVerify
+        description: Anchor only after the claim reaches VERIFIED / is attested.
+      MANUAL_ANCHOR:
+        text: MANUAL_ANCHOR
+        title: ManualAnchor
+        meaning: rft:ManualAnchor
+        description: Requires explicit operator/governance action to anchor.
+      NEVER_ANCHOR:
+        text: NEVER_ANCHOR
+        title: NeverAnchor
+        meaning: rft:NeverAnchor
+        description: Must never be anchored on-chain.
+  PublishPolicy:
+    name: PublishPolicy
+    description: Whether/where projected claims may be published outside the tenant.
+    from_schema: https://framework.regen.network/taxonomy/
+    permissible_values:
+      PUBLISH:
+        text: PUBLISH
+        title: Publish
+        meaning: rft:Publish
+        description: May be published to public surfaces.
+      PUBLISH_DERIVED:
+        text: PUBLISH_DERIVED
+        title: PublishDerived
+        meaning: rft:PublishDerived
+        description: Only derived/aggregated products may be published, never raw content.
+      INTERNAL_ONLY:
+        text: INTERNAL_ONLY
+        title: InternalOnly
+        meaning: rft:InternalOnly
+        description: Never leaves the tenant/team boundary.
+      EMBARGOED:
+        text: EMBARGOED
+        title: Embargoed
+        meaning: rft:Embargoed
+        description: Hold publication until an embargo date/condition is met.
