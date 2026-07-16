@@ -1,0 +1,50 @@
+# Example OutputRecord: a field-signing sensor emitting a biocultural claim
+# where the claim-maker is a COMMUNITY and data sovereignty is non-negotiable.
+# Demonstrates the differentiators the contract exists for: COMMUNITY claimant,
+# SOVEREIGN tier, rawDataStaysAtSource=true (only the fingerprint travels), yet
+# onChainAnchorAllowed=true (the fingerprint may anchor while raw never leaves).
+name: "Riparian restoration — spring 2026 monitoring"
+sourceRecordId: "fieldsign:obs:2026-05-18:0421"
+sensorId: "field-signing-sensor"
+sensorVersion: "0.1.0"
+sourceSystem: "field-signing-app"
+recordType: "biocultural_observation"
+emittedAt: "2026-05-19T02:00:00Z"
+observedAt: "2026-05-18T09:30:00-07:00"
+observedLocalDate: "2026-05-18"
+sourceTimezone: "America/Vancouver"
+processingState: COMPLETE
+language:
+  - "en"
+consent:
+  consentStatus: GRANTED
+  dataSovereigntyTier: SOVEREIGN
+  rawDataStaysAtSource: true
+  onChainAnchorAllowed: true
+  consentedBy:
+    name: "W̱SÁNEĆ Leadership Council"
+    type: COMMUNITY
+  consentDate: "2026-05-18"
+  retentionPolicy: "raw imagery and coordinates remain at source; governed by the consenting community"
+  consentEvidence:
+    - "https://example.org/consent/wsanec-2026-05.json"
+rawContentHash: "b2s256:9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d"
+recordContentHash: "b2s256:00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+speakers: []
+claims:
+  - name: "Riparian buffer restored along 1.2 km of creek"
+    hasClaimType: ECOLOGICAL
+    hasClaimant:
+      name: "W̱SÁNEĆ Leadership Council"
+      type: COMMUNITY
+    hasSubject:
+      name: "Lower creek riparian corridor"
+      type: COMMUNITY
+    hasPrimaryImpact:
+      hasImpactType: IMPROVED_WILDLIFE_HABITAT
+    verificationStatus: SELF_REPORTED
+    claimStartDate: "2026-03-01"
+    claimEndDate: "2026-05-18"
+    quantity: 1.2
+    quantityUnit: KILOM
+    contentHash: "b2s256:9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d"
