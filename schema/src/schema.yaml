@@ -22,6 +22,7 @@ imports:
   - CreditClassInfo
   - Claim
   - Attestation
+  - OutputRecord
   - BT01ProjectInfo
   - C01ProjectInfo
   - C02ProjectInfo

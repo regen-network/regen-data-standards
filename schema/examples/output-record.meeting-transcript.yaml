@@ -1,0 +1,44 @@
+# Example OutputRecord: an Otter transcript sensor emitting one meeting record.
+# Demonstrates the raw-evidence emission shape from field-notes §1–§7:
+# identity on the source id, participants (claimed) vs speakers (observed),
+# COMPLETE processing state, and a KNOWLEDGE_COMMONS consent directive.
+# claims: [] is the natural state — claim extraction is a separate downstream
+# pass (field-notes §6), so a raw transcript emission carries evidence, not
+# yet claims.
+name: "Regen AI Builders Standup"
+sourceRecordId: "26J6RZXDFBVYAODN"
+sensorId: "otter-transcript-sensor"
+sensorVersion: "0.1.0"
+sourceSystem: "otter"
+recordType: "meeting_transcript"
+emittedAt: "2026-07-15T05:10:00Z"
+observedAt: "2026-07-14T18:20:00-07:00"
+observedLocalDate: "2026-07-14"
+sourceTimezone: "America/Los_Angeles"
+processingState: COMPLETE
+language:
+  - "en"
+consent:
+  consentStatus: GRANTED
+  dataSovereigntyTier: KNOWLEDGE_COMMONS
+  rawDataStaysAtSource: false
+  onChainAnchorAllowed: true
+  retentionPolicy: "retain fingerprint indefinitely; raw per commons norms"
+rawContentHash: "b2s256:3f9a1c0e7d5b4a2f8c6e1d0b9a7f5e3c2d1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f"
+rawContentUri: "https://otter.ai/u/aLimio-UJMK5h9ov75Eyj3QJiFM"
+recordContentHash: "b2s256:1a2b3c4d5e6f70819aacbbdcedfe0f1122334455667788990aabbccddeeff001"
+enrichmentVersion: "meeting-enrich-1"
+priorityScore: 0.72
+participants:
+  - name: "David Fortson"
+    email: "dave@regen.network"
+    inferredRole: "organizer"
+  - name: "Darren Zal"
+speakers:
+  - name: "Dave"
+    segmentCount: 41
+  - name: "Shawn"
+    segmentCount: 28
+  - name: "Darren"
+    segmentCount: 17
+claims: []
