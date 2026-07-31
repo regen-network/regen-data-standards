@@ -1,7 +1,7 @@
 # Output Record Contract — v0.1 (draft)
 
 **Status:** draft for review (WP4). Canonical schema: [`schema/src/OutputRecord.yaml`](../schema/src/OutputRecord.yaml).
-Pydantic mirror: generated from the schema (regenerable; `generated/` is gitignored — see the command at the end of this doc).
+Language bindings are generated from the schema by the consuming repository; nothing generated is committed here.
 Worked examples: [`schema/examples/`](../schema/examples/).
 
 ## What this is
@@ -106,11 +106,13 @@ Two hashes, both BLAKE2b-256 (matching `Claim.contentHash` / `Attestation.conten
 
 > **Seam to the JC / claims-engine canonicalization work.** "Only the
 > content-addressed fingerprint anchors on-chain" is the same design surface as
-> the claims-engine substance-fingerprint / canonicalization spike. The contract
-> deliberately keeps the *fields* (`rawContentHash`, `recordContentHash`,
+> the claims-engine substance-fingerprint / canonicalization spike, specified in
+> [**ADR 0001 — Claim substance & content-addressed canonicalization**](adr/0001-claim-substance-canonicalization.md)
+> ([PR #56](https://github.com/regen-network/regen-data-standards/pull/56)). The
+> contract deliberately keeps the *fields* (`rawContentHash`, `recordContentHash`,
 > `Claim.contentHash` → `dataIri`) while leaving the *canonicalization algorithm*
-> to that ADR. Whatever substance-schema that ADR lands, it fills these fields;
-> it does not change this envelope.
+> to ADR 0001. Whatever substance-schema that ADR lands, it fills these fields; it
+> does not change this envelope.
 
 ## Open questions for review
 
@@ -126,17 +128,38 @@ Two hashes, both BLAKE2b-256 (matching `Claim.contentHash` / `Attestation.conten
 5. **Speaker identity resolution** — is `resolvedEntity` on `SpeakerRef` the right
    place, or should resolution be a separate downstream annotation pass?
 
-## Regenerating the Pydantic mirror
+## Consuming the contract
 
-The LinkML schema is canonical; the Pydantic mirror is generated:
+The LinkML schema in `schema/src/` is canonical. How a consumer binds to it —
+generated Pydantic models, generated dataclasses, hand-written validators — is
+the consumer's choice and is documented in the consuming repository, not here.
 
-```bash
-gen-pydantic --meta NONE schema/src/schema.yaml \
-  > schema/generated/pydantic/regen_data_standards.py
-```
 
-Validate instances:
+---
 
-```bash
-linkml-validate -s schema/src/schema.yaml -C OutputRecord schema/examples/output-record.meeting-transcript.yaml
-```
+## Raw-data residency is not schema-enforced
+
+`consent.rawDataStaysAtSource: true` means the raw payload MUST NOT travel — only
+`rawContentHash` and `rawContentUri` may. **LinkML does not enforce this, and a
+record that violates it will validate successfully.**
+
+The reason is structural: a LinkML `rule` on `OutputRecord` cannot traverse into
+`consent.rawDataStaysAtSource` to make `rawContentInline` conditionally forbidden.
+The only rule the class carries requires `rawContentHash` when `processingState`
+is `COMPLETE`. Hoisting a mirror of `rawDataStaysAtSource` onto `OutputRecord`
+itself would make the rule expressible, but at the cost of two sources of truth
+for the same policy — worse than an honest gap.
+
+So the invariant is enforced **outside the schema**, and every consumer owes it:
+
+> Before reading `rawContentInline`, check `consent.rawDataStaysAtSource`. If it
+> is true, the record is malformed — reject it and do not read the payload.
+> Fail closed.
+
+`schema/examples/output-record.INVALID-sovereign-inline-raw.yaml` is a committed
+negative fixture demonstrating exactly this: a SOVEREIGN-tier record carrying its
+raw payload inline. It passes `linkml-validate`. It is kept so the gap stays
+visible, and so that if a future LinkML version or a SHACL shape ever does express
+the constraint, the fixture begins to fail and we notice.
+
+Treat schema validation as necessary but not sufficient.

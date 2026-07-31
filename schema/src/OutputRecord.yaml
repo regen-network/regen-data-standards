@@ -5,14 +5,13 @@ prefixes:
   rfs: https://framework.regen.network/schema/
   rft: https://framework.regen.network/taxonomy/
   schema: http://schema.org/
+  prov: http://www.w3.org/ns/prov#
 
 imports:
   - linkml:types
   - core
   - taxonomy
   - Entity
-  - Claim
-  - Attestation
 
 default_prefix: rfs
 default_range: string
@@ -25,8 +24,8 @@ classes:
       stable provenance keyed on the upstream source's native record id, (b) an
       explicit consent / data-sovereignty directive on every record from day
       one, (c) the observed evidence separated by trust level, and (d) zero or
-      more extracted Claims (and optional Attestations) that compose with the
-      Claim and Attestation schemas. Raw source data stays at source by default;
+      references to extracted Claims (and optional Attestations), which carry their
+      own identity and lifecycle. Raw source data stays at source by default;
       only the content-addressed fingerprint (rawContentHash) is obligated to
       travel and is what anchors on-chain. Re-emitting a record for the same
       sourceRecordId is legal and defined as an in-place update (see dedup
@@ -68,6 +67,7 @@ classes:
         required: true
       sourceSystem:
         slot_uri: rfs:sourceSystem
+        pattern: "^[a-z0-9]+(_[a-z0-9]+)*$"
         description: >-
           The upstream system of record the data was pulled from (e.g. "otter",
           "inaturalist", "field-signing-app").
@@ -75,6 +75,7 @@ classes:
         required: true
       recordType:
         slot_uri: rfs:recordType
+        pattern: "^[a-z0-9]+(_[a-z0-9]+)*$"
         description: >-
           The kind of record this envelope carries (e.g. "meeting_transcript",
           "species_observation"). Lets one contract serve many sensors while
@@ -87,6 +88,8 @@ classes:
         description: >-
           UTC timestamp (ISO 8601, timezone-qualified) when the sensor emitted
           this record. Distinct from the observed/source time below.
+        exact_mappings:
+          - prov:generatedAtTime
         range: datetime
         required: true
       observedAt:
@@ -95,20 +98,14 @@ classes:
           Timestamp of the underlying event at the source (e.g. meeting start),
           as an ISO 8601 timezone-qualified instant.
         range: datetime
-      observedLocalDate:
-        slot_uri: rfs:observedLocalDate
-        description: >-
-          The source-local calendar date of the observed event. Recorded
-          explicitly because the source UI and humans name records by local
-          date ("Tuesday's standup"); a UTC date puts evening events on the
-          wrong day. Sensors MUST decide the date rule once and record it here.
-        range: date
       sourceTimezone:
         slot_uri: rfs:sourceTimezone
         description: >-
-          IANA timezone (e.g. "America/Vancouver") that observedAt /
-          observedLocalDate are expressed in. The timezone rule lives in the
-          record, never in per-sensor convention.
+          IANA timezone (e.g. "America/Vancouver") that observedAt is interpreted
+          in for display and for deriving a source-local calendar date. The timezone
+          rule lives in the record, never in per-sensor convention. NORMATIVE: the
+          source-local date is `observedAt converted to sourceTimezone`. It is a
+          derivation, not a stored field, so it can never disagree with its instant.
         range: string
       # --- Processing state (Contract implication, field-notes §3, §5) ---
       processingState:
@@ -160,9 +157,11 @@ classes:
       rawContentInline:
         slot_uri: rfs:rawContentInline
         description: >-
-          The raw source payload carried inline. PERMITTED ONLY when the
-          consent directive's rawDataStaysAtSource is false (see rules). Absent
-          by default.
+          The raw source payload carried inline. PERMITTED ONLY when the consent
+          directive's rawDataStaysAtSource is false. NOT enforced by LinkML — a rule
+          cannot traverse into consent.rawDataStaysAtSource from this class, so this is
+          a cross-field invariant enforced outside the schema (see
+          docs/output-record-contract.md). A record violating it WILL still validate.
         range: string
       recordContentHash:
         slot_uri: rfs:recordContentHash
@@ -209,28 +208,28 @@ classes:
           Optional 0..1 relevance/priority score (e.g. recency + domain-keyword
           relevance) used to order an enrichment backlog "top N by priority".
         range: float
+        minimum_value: 0.0
+        maximum_value: 1.0
       # --- Extracted claims / attestations (compose with Claim / Attestation) ---
-      claims:
-        slot_uri: rfs:claims
+      claimRefs:
+        slot_uri: rfs:claimRefs
         description: >-
-          Zero or more Claims extracted from this record, conforming to the
-          Claim schema. A sensor emits evidence + provenance + consent here; the
-          claims engine consumes them. Claimants and subjects are Entities and
-          MAY be COMMUNITY (collective) entities, not only individuals.
-        range: Claim
+          References to zero or more Claims extracted from this record. REFERENCES,
+          not inlined objects: a Claim has its own identity and lifecycle
+          (verificationStatus, contentHash, supersession) that evolves independently
+          of the source record, so embedding one couples this envelope's lifecycle to
+          the claim's. Claimants and subjects are Entities and MAY be COMMUNITY
+          (collective) entities, not only individuals.
+        range: uriorcurie
         multivalued: true
-        inlined: true
-        inlined_as_list: true
-      attestations:
-        slot_uri: rfs:attestations
+      attestationRefs:
+        slot_uri: rfs:attestationRefs
         description: >-
-          Optional Attestations already associated with the carried claims
-          (e.g. a reviewer verdict produced in the same pass), conforming to the
-          Attestation schema.
-        range: Attestation
+          References to Attestations already associated with the referenced claims
+          (e.g. a reviewer verdict produced in the same pass). References for the same
+          reason as claimRefs — attestation state evolves after emission.
+        range: uriorcurie
         multivalued: true
-        inlined: true
-        inlined_as_list: true
       # --- Versioning ---
       supersedes:
         slot_uri: rfs:supersedes
@@ -281,7 +280,8 @@ classes:
         description: >-
           If true (the default posture), the raw payload MUST NOT be carried
           inline anywhere downstream; only rawContentHash + rawContentUri may
-          travel. Enforced by an OutputRecord rule.
+          travel. NOT enforced by LinkML — see rawContentInline. Enforcement is
+          external; treat schema validation as necessary but not sufficient.
         range: boolean
         required: true
       onChainAnchorAllowed:
@@ -368,6 +368,7 @@ classes:
         slot_uri: rfs:segmentCount
         description: Number of evidence segments (e.g. utterances) attributed to this speaker.
         range: integer
+        minimum_value: 0
 
 enums:
   ProcessingState:
