@@ -2,7 +2,7 @@
 # Demonstrates the raw-evidence emission shape from field-notes §1–§7:
 # identity on the source id, participants (claimed) vs speakers (observed),
 # COMPLETE processing state, and a KNOWLEDGE_COMMONS consent directive.
-# claims: [] is the natural state — claim extraction is a separate downstream
+# claimRefs: [] is the natural state — claim extraction is a separate downstream
 # pass (field-notes §6), so a raw transcript emission carries evidence, not
 # yet claims.
 name: "Regen AI Builders Standup"
@@ -13,7 +13,6 @@ sourceSystem: "otter"
 recordType: "meeting_transcript"
 emittedAt: "2026-07-15T05:10:00Z"
 observedAt: "2026-07-14T18:20:00-07:00"
-observedLocalDate: "2026-07-14"
 sourceTimezone: "America/Los_Angeles"
 processingState: COMPLETE
 language:
@@ -41,4 +40,4 @@ speakers:
     segmentCount: 28
   - name: "Darren"
     segmentCount: 17
-claims: []
+claimRefs: []
