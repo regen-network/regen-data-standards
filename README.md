@@ -2,6 +2,8 @@
 
 This repository contains data standards for Regen Network.
 
+**Contributing a schema change or an ADR?** Start with [standards-agent-context.md](./standards-agent-context.md) — non-negotiable ledger constraints, authoritative sources, and the pre-PR checklist. Agent workflows bootstrap from it; humans use it as a quick checklist.
+
 ## Taxonomies
 
 Taxonomy cards are intended to provide a high-level sense of a project’s activities, environment, and impact. The labels and associated definitions and icons convey a general idea rather than provide an analytical understanding. For more details about a project’s activities, environment, and impact, it will be necessary to read the relevant project documentation.
