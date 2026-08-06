@@ -4,6 +4,7 @@
 # SOVEREIGN tier, rawDataStaysAtSource=true (only the fingerprint travels), yet
 # onChainAnchorAllowed=true (the fingerprint may anchor while raw never leaves).
 name: "Riparian restoration — spring 2026 monitoring"
+rid: "orn:regen.output-record:field-signing-sensor/fieldsign-obs-2026-05-18-0421"
 sourceRecordId: "fieldsign:obs:2026-05-18:0421"
 sensorId: "field-signing-sensor"
 sensorVersion: "0.1.0"

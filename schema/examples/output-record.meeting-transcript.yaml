@@ -6,6 +6,9 @@
 # pass (field-notes §6), so a raw transcript emission carries evidence, not
 # yet claims.
 name: "Regen AI Builders Standup"
+# rid = this record's own identity (what a uriorcurie ref to it resolves against).
+# Distinct from the (sourceRecordId, sensorId) dedup key below.
+rid: "orn:regen.output-record:otter-transcript-sensor/26J6RZXDFBVYAODN"
 sourceRecordId: "26J6RZXDFBVYAODN"
 sensorId: "otter-transcript-sensor"
 sensorVersion: "0.1.0"

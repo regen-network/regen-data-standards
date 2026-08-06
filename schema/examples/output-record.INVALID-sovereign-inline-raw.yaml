@@ -18,6 +18,7 @@
 #
 # See docs/output-record-contract.md, "Raw-data residency is not schema-enforced".
 
+rid: "orn:regen.output-record:fixture-sensor/invalid-fixture-001"
 sourceRecordId: "invalid-fixture-001"
 sensorId: "fixture-sensor"
 sensorVersion: "0.0.0"

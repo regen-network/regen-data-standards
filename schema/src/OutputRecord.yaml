@@ -27,9 +27,12 @@ classes:
       references to extracted Claims (and optional Attestations), which carry their
       own identity and lifecycle. Raw source data stays at source by default;
       only the content-addressed fingerprint (rawContentHash) is obligated to
-      travel and is what anchors on-chain. Re-emitting a record for the same
-      sourceRecordId is legal and defined as an in-place update (see dedup
-      rules); consumers dedup and version on sourceRecordId + sensorId.
+      travel and is what anchors on-chain. Two identity handles, and both are
+      load-bearing: `rid` is the record's own address (what a reference to this
+      record resolves against), while `(sourceRecordId, sensorId)` is the
+      upstream dedup/update key. Re-emitting for the same
+      `(sourceRecordId, sensorId)` is legal and defined as an in-place update
+      (see dedup rules).
     slots:
       - name
       - description
@@ -38,9 +41,28 @@ classes:
         required: false
         description: >-
           Optional human-readable title of the record (e.g. the meeting title).
-          Identity is carried by sourceRecordId, never by name.
+          Identity is carried by rid and by (sourceRecordId, sensorId), never by
+          name.
     attributes:
       # --- Provenance / identity (Contract implication, field-notes §1, §6) ---
+      rid:
+        slot_uri: rfs:rid
+        description: >-
+          Stable KOI RID / ORN for this record — the record's OWN identity, and
+          the thing a `uriorcurie` reference to an OutputRecord resolves against.
+          REQUIRED. Distinct from the dedup key below and both are needed:
+          `(sourceRecordId, sensorId)` says WHICH upstream thing this record is
+          about, and therefore which live record a re-emission updates in place;
+          `rid` says which record THIS is, so it can be cited, superseded and
+          resolved. Shape taken from PR #57 (`rfs:rid`, `uriorcurie`, required).
+          Deliberately NOT `identifier: true`: LinkML resolves an identifier slot's
+          value as a CURIE when serializing to RDF, and `orn:` has no declared
+          prefix expansion, so `linkml-convert --output-format ttl` fails with
+          "Unknown CURIE prefix: orn". Promoting this to an identifier requires
+          first deciding what `orn:` expands to — that belongs with the
+          Entity/Claim identity-key follow-up, not here.
+        range: uriorcurie
+        required: true
       sourceRecordId:
         slot_uri: rfs:sourceRecordId
         description: >-
