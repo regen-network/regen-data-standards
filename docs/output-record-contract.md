@@ -23,8 +23,12 @@ is what lets sensors and consumers evolve independently.
 
 It composes with the merged WP4 schemas rather than re-inventing them:
 
-- **`Claim`** — extracted claims ride in `OutputRecord.claims` (0..N).
-- **`Attestation`** — optional, in `OutputRecord.attestations`.
+- **`Claim`** — extracted claims are **referenced**, not embedded:
+  `OutputRecord.claimRefs` (0..N `uriorcurie`). A claim's identity and lifecycle
+  move independently of the source record.
+- **`Attestation`** — **no field on this envelope.** `Attestation.attestsClaim`
+  is required, so it is already the edge; attestations reachable from a record
+  are found by traversing `claimRefs` and inverting `attestsClaim`.
 - **`Entity`** — claimants, subjects, consenters, resolved speakers are `Entity`,
   and `Entity.type` already includes **`COMMUNITY`**, so collective claim-makers
   are first-class.
