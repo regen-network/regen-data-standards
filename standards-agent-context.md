@@ -196,7 +196,8 @@ Agent drafts → **human checks this list** → only then open the PR. Every ite
 - [ ] Every `uriorcurie` reference has a resolvable identifier slot on the target class.
 - [ ] Multivalued slots that participate in identity declare ordering (`list_elements_ordered`) — set vs
       sequence must be explicit (ADR 0001 D7).
-- [ ] `make -C schema` (or the documented build) runs clean.
+- [ ] `make -C schema lint` passes; `make -C schema all` runs clean if you changed generated output.
+      (Bare `make -C schema` runs only the first target, `gen-taxonomy` — it is not a full check.)
 
 **Provenance**
 - [ ] Every factual claim in the PR body traces to a file path, a `gh api` call, or a line of code — and you
