@@ -20,12 +20,16 @@ sourceTimezone: "America/Los_Angeles"
 processingState: COMPLETE
 language:
   - "en"
-consent:
+# Consent is carried twice on purpose: an immutable snapshot of what was true at
+# emission, and a ref to the current versioned policy. A consumer applies the more
+# restrictive of the two, field by field, and denies if the ref won't resolve.
+consentAtEmission:
   consentStatus: GRANTED
   dataSovereigntyTier: KNOWLEDGE_COMMONS
   rawDataStaysAtSource: false
   onChainAnchorAllowed: true
   retentionPolicy: "retain fingerprint indefinitely; raw per commons norms"
+consentRef: "orn:regen.consent:regen-ai-builders-standup/v3"
 rawContentHash: "b2s256:3f9a1c0e7d5b4a2f8c6e1d0b9a7f5e3c2d1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f"
 rawContentUri: "https://otter.ai/u/aLimio-UJMK5h9ov75Eyj3QJiFM"
 recordContentHash: "b2s256:1a2b3c4d5e6f70819aacbbdcedfe0f1122334455667788990aabbccddeeff001"
