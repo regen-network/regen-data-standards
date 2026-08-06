@@ -44,8 +44,8 @@ each "Contract implication" is honored by a field:
 
 | Field-note implication | Contract field(s) |
 |---|---|
-| §1 Identity on the source's stable id, never title/filename; dedup/update defined on it | `sourceRecordId` (required) + `sensorId` as the dedup key |
-| §2 Timestamps need an explicit timezone rule in the schema, not per-sensor convention | `emittedAt` (UTC), `observedAt` (tz-qualified), `observedLocalDate`, `sourceTimezone` |
+| §1 Identity on the source's stable id, never title/filename; dedup/update defined on it | `rid` (the record's own identity) + `sourceRecordId` / `sensorId` (the dedup key) |
+| §2 Timestamps need an explicit timezone rule in the schema, not per-sensor convention | `emittedAt` (UTC), `observedAt` (tz-qualified), `sourceTimezone` (the local date is derived, not stored) |
 | §3 Records need a processing-state signal; re-emission for the same id must be legal | `processingState` enum (COMPLETE/PARTIAL/PLACEHOLDER/EMPTY/…) + `supersedes` |
 | §4 Distinguish claimed participants from observed speakers (different trust) | `participants` (ParticipantRef, low trust) vs `speakers` (SpeakerRef, evidence-grade) |
 | §5 Auth expiry is first-class; empty-sync ≠ auth-failure | `processingState: AUTH_EXPIRED` / `FETCH_ERROR` |
@@ -85,8 +85,22 @@ an existing corpus is far more painful than carrying a mostly-default field.
 
 ## Identity, dedup, and versioning semantics
 
-- **Identity key** = `(sourceRecordId, sensorId)`. Exactly one live record per
-  key downstream.
+Two handles, doing two different jobs. Conflating them was the original mistake.
+
+- **Record identity** = `rid` (required, `uriorcurie`). The record's own stable
+  address — what a reference *to this record* resolves against, and what
+  `supersedes` points at. Shape carried over from [PR #57](https://github.com/regen-network/regen-data-standards/pull/57).
+- **Dedup / update key** = `(sourceRecordId, sensorId)`. Says *which upstream
+  thing* this record is about, and therefore which live record a re-emission
+  replaces. Exactly one live record per key downstream.
+- A re-emission mints a **new `rid`** and reuses the **same
+  `(sourceRecordId, sensorId)`**; that is precisely what makes it an update
+  rather than a new subject.
+- `rid` is deliberately **not** declared `identifier: true`. LinkML resolves an
+  identifier slot's value as a CURIE during RDF serialization, and `orn:` has no
+  declared prefix expansion, so `linkml-convert --output-format ttl` fails with
+  `Unknown CURIE prefix: orn`. Promoting it requires first deciding what `orn:`
+  expands to — that belongs with the `Entity` / `Claim` identity-key follow-up.
 - **Re-emission** of the same key is a legal **in-place update**, not a new
   record (field-notes §1/§3). Consumers update in place.
 - **Placeholder safety**: a `PLACEHOLDER`/`EMPTY` emission must never clobber a
