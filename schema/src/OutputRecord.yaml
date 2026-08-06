@@ -148,18 +148,41 @@ classes:
         range: string
         multivalued: true
       # --- Consent / data sovereignty (Contract implication, field-notes §7) ---
-      consent:
-        slot_uri: rfs:consent
+      # Split into an immutable snapshot + a reference to current policy. See
+      # docs/output-record-contract.md, "Consent resolution", for the worked rule.
+      consentAtEmission:
+        slot_uri: rfs:consentAtEmission
         description: >-
-          The consent / data-sovereignty directive governing this record.
-          REQUIRED on every record from day one — retrofitting consent onto an
-          existing corpus is far more painful than carrying a mostly-default
-          field. Encodes who consented (which may be a COMMUNITY), the
-          sovereignty tier, whether raw data may leave the source, and whether
-          the fingerprint may anchor on-chain.
+          IMMUTABLE snapshot of the consent / data-sovereignty directive as it
+          stood when this record was emitted. REQUIRED on every record from day
+          one: consent must be PRESENT and NON-LOSABLE on the record itself, so a
+          consumer that resolves nothing still cannot read the record without
+          seeing terms. This field is EVIDENCE, not policy — it records what was
+          true at emission and is never updated in place. A re-emission (new rid,
+          same sourceRecordId + sensorId) carries its own snapshot. Current policy
+          lives behind consentRef, and neither field is sufficient alone: the
+          snapshot can be stale, the ref can be unresolvable.
         range: ConsentDirective
         required: true
         inlined: true
+      consentRef:
+        slot_uri: rfs:consentRef
+        description: >-
+          Reference (IRI or ORN RID) to the CURRENT versioned consent record
+          governing this OutputRecord. REQUIRED. consentStatus,
+          dataSovereigntyTier, rawDataStaysAtSource, onChainAnchorAllowed and
+          retentionPolicy are mutable authorization state; freezing them inside a
+          provenance envelope means a consumer holding an old record acts on
+          revoked consent. They are versioned separately and this points at them.
+          NORMATIVE RESOLUTION RULE, fail-closed: (1) any use that
+          consentAtEmission already forbids is FORBIDDEN — no resolution needed;
+          (2) for any use consentAtEmission permits, the consumer MUST resolve
+          consentRef first and apply the MORE RESTRICTIVE of the two, field by
+          field; (3) if consentRef cannot be resolved, the use is DENIED. A
+          resolution failure is never a permit. Field-by-field merge and a worked
+          example: docs/output-record-contract.md, "Consent resolution".
+        range: uriorcurie
+        required: true
       # --- Raw payload + fingerprint (raw stays at source; hash travels) ---
       rawContentHash:
         slot_uri: rfs:rawContentHash
@@ -179,10 +202,14 @@ classes:
       rawContentInline:
         slot_uri: rfs:rawContentInline
         description: >-
-          The raw source payload carried inline. PERMITTED ONLY when the consent
-          directive's rawDataStaysAtSource is false. NOT enforced by LinkML — a rule
-          cannot traverse into consent.rawDataStaysAtSource from this class, so this is
-          a cross-field invariant enforced outside the schema (see
+          The raw source payload carried inline. PERMITTED ONLY when
+          rawDataStaysAtSource resolves to false — that is, false in
+          consentAtEmission AND false in the record behind consentRef. Either one
+          saying true forbids it, and an unresolvable consentRef forbids it. NOT
+          enforced by LinkML — a rule cannot traverse into
+          consentAtEmission.rawDataStaysAtSource from this class, and it certainly
+          cannot follow consentRef, so this is a cross-field, cross-record
+          invariant enforced outside the schema (see
           docs/output-record-contract.md). A record violating it WILL still validate.
         range: string
       recordContentHash:
@@ -273,17 +300,26 @@ classes:
 
   ConsentDirective:
     description: >-
-      The consent / data-sovereignty primitive carried on every OutputRecord.
-      Makes data sovereignty a first-class, day-one property: it names who
-      granted consent (which may be a collective/community), the sovereignty
-      tier, whether raw data may leave the source, and whether the
-      content-addressed fingerprint may anchor on-chain. Sourced from the PACTO
-      / biocultural-crediting requirement that raw data stays at source and
-      claim-makers can be collectives.
+      The consent / data-sovereignty primitive. Names who granted consent (which
+      may be a collective/community), the sovereignty tier, whether raw data may
+      leave the source, and whether the content-addressed fingerprint may anchor
+      on-chain. Sourced from the PACTO / biocultural-crediting requirement that
+      raw data stays at source and claim-makers can be collectives.
+      Used in TWO places with different semantics, and the difference matters:
+      inlined as OutputRecord.consentAtEmission it is an immutable snapshot
+      (evidence of what was true at emission), and as the payload of the
+      separately versioned record behind OutputRecord.consentRef it is current
+      policy. Consumers combine the two by taking the MORE RESTRICTIVE value of
+      each field; the per-field merge is defined in
+      docs/output-record-contract.md, "Consent resolution". The restrictiveness
+      order of the two enum-valued fields is machine-readable via the `rank` on
+      each permissible value: higher rank wins.
     attributes:
       consentStatus:
         slot_uri: rfs:consentStatus
-        description: Current consent state governing use of this record.
+        description: >-
+          Current consent state governing use of this record.
+          MERGE: take the higher `rank`. Only an effective GRANTED permits use.
         range: ConsentStatus
         required: true
       dataSovereigntyTier:
@@ -292,6 +328,7 @@ classes:
           The sharing/sovereignty tier of this record's content. A team standup
           and a 1:1 are the same record type from the same sensor but have
           different sharing semantics — this field carries that difference.
+          MERGE: take the higher `rank` (the more restrictive tier).
         range: DataSovereigntyTier
         required: true
       rawDataStaysAtSource:
@@ -299,8 +336,10 @@ classes:
         description: >-
           If true (the default posture), the raw payload MUST NOT be carried
           inline anywhere downstream; only rawContentHash + rawContentUri may
-          travel. NOT enforced by LinkML — see rawContentInline. Enforcement is
-          external; treat schema validation as necessary but not sufficient.
+          travel. MERGE: logical OR — true if EITHER the snapshot or the resolved
+          policy says true. NOT enforced by LinkML — see rawContentInline.
+          Enforcement is external; treat schema validation as necessary but not
+          sufficient.
         range: boolean
         required: true
       onChainAnchorAllowed:
@@ -309,6 +348,9 @@ classes:
           Whether the content-addressed fingerprint may be anchored on-chain
           (Regen Data Module). Independent of rawDataStaysAtSource: a fingerprint
           can anchor even when the raw payload never leaves source.
+          MERGE: logical AND — true only if BOTH the snapshot and the resolved
+          policy say true. Anchoring is irreversible, so it takes the strictest
+          merge of any field here.
         range: boolean
         required: true
       consentedBy:
@@ -327,6 +369,10 @@ classes:
         description: >-
           Human- or machine-readable retention / deletion terms for this record
           (e.g. "delete raw after 90 days", "retain fingerprint indefinitely").
+          MERGE: NOT MERGEABLE — free text has no restrictiveness order, so two
+          policies cannot be combined mechanically. The resolved policy governs;
+          the snapshot is retained as evidence of the terms at emission. If the
+          two differ materially, that is a human decision, not an automatic one.
         range: string
       consentEvidence:
         slot_uri: rfs:consentEvidence
@@ -420,28 +466,44 @@ enums:
   DataSovereigntyTier:
     description: >-
       Sharing / sovereignty tier of a record's content, from fully public to
-      sovereign (community-controlled).
+      sovereign (community-controlled). TOTALLY ORDERED by restrictiveness via
+      `rank` — 1 is least restrictive, 4 is most. The order is declared rather
+      than described because consent resolution has to compute "the more
+      restrictive of two tiers" mechanically (see consentRef).
     permissible_values:
       PUBLIC:
         description: Freely shareable; no access restriction.
+        rank: 1
       KNOWLEDGE_COMMONS:
         description: Shareable within the knowledge commons under commons norms.
+        rank: 2
       RESTRICTED:
         description: Access limited to named parties / roles.
+        rank: 3
       SOVEREIGN:
         description: >-
           Community- or steward-controlled; raw data stays at source and use is
           governed by the consenting entity (biocultural / indigenous data
           sovereignty).
+        rank: 4
 
   ConsentStatus:
-    description: Current consent state governing use of a record.
+    description: >-
+      Current consent state governing use of a record. TOTALLY ORDERED by
+      restrictiveness via `rank`; higher rank wins when resolving a snapshot
+      against current policy. Only GRANTED permits use — any other effective
+      status denies it, so the ordering among the non-GRANTED values matters for
+      reporting, not for the permit decision.
     permissible_values:
       GRANTED:
         description: Consent has been granted for the declared use.
+        rank: 1
       PENDING:
         description: Consent has been requested but not yet resolved.
-      WITHHELD:
-        description: Consent has not been granted; use is not permitted.
+        rank: 2
       REVOKED:
         description: Previously-granted consent has been withdrawn.
+        rank: 3
+      WITHHELD:
+        description: Consent has not been granted; use is not permitted.
+        rank: 4

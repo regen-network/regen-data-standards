@@ -33,12 +33,15 @@ language:
 
 rawContentHash: "b2s256:9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d"
 
-# ⛔ THE VIOLATION: consent below says raw data must never leave the source, yet
-#    the payload is right here. Schema validation passes regardless.
+# ⛔ THE VIOLATION: the consent snapshot below says raw data must never leave the
+#    source, yet the payload is right here. Schema validation passes regardless.
+#    Note the split does not fix this: rawDataStaysAtSource merges as a logical OR,
+#    so the snapshot alone already forbids the inline payload and no resolution of
+#    consentRef could permit it. LinkML still cannot express that.
 rawContentInline: |
   Observation notes, community-held. This text should never have travelled.
 
-consent:
+consentAtEmission:
   consentStatus: GRANTED
   dataSovereigntyTier: SOVEREIGN
   rawDataStaysAtSource: true      # <-- contradicted by rawContentInline above
@@ -46,3 +49,4 @@ consent:
   consentedBy:
     name: "Example Community"
     type: COMMUNITY
+consentRef: "orn:regen.consent:fixture-community/v1"
