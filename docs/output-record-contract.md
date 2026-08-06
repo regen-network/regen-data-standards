@@ -67,8 +67,9 @@ each "Contract implication" is honored by a field:
   to current policy, resolved fail-closed to the more restrictive of the two.
 - **Raw data stays at source; only the content-addressed fingerprint anchors
   on-chain** → `rawContentHash` (obligated to travel) + `rawContentUri` (pointer)
-  + `rawContentInline` (permitted only when `rawDataStaysAtSource: false`), with a
-  schema rule enforcing that a `COMPLETE` record always carries the fingerprint.
+  + `rawContentInline` (permitted only when `rawDataStaysAtSource` resolves to
+  false in *both* the snapshot and current policy), with a schema rule enforcing
+  that a `COMPLETE` record always carries the fingerprint.
 
 ## The consent / sovereignty primitive
 
@@ -249,8 +250,9 @@ the reason is worth stating because it is the opposite of what I expected.
 
 What the evidence actually says:
 
-- **Production emits bare lowercase hex.** `koi-processor/api/ledger_anchor.py:96`
-  returns `hashlib.blake2b(..., digest_size=32).hexdigest()`. No prefix.
+- **Production emits bare lowercase hex.** `koi-processor/api/ledger_anchor.py:95-96`
+  (`compute_content_hash`) computes `hashlib.blake2b(..., digest_size=32)` and
+  returns `.hexdigest()`. No prefix.
 - **`b2s256` appears nowhere.** `grep -r b2s256` over both `koi-processor` and
   `regen-ledger` returns zero hits. I invented it in these examples.
 - **The ledger carries the algorithm out of band.** `ContentHash.Raw` and
@@ -297,8 +299,9 @@ algorithm** — nothing else. Specifically:
 
 **Lowercase hex only** (`[0-9a-f]`, not `[0-9a-fA-F]` as the review bot
 suggested). `hexdigest()` is lowercase, and permitting mixed case gives a single
-fingerprint 2⁶⁴ valid spellings — string equality and dedup would break on a
-value whose entire purpose is content-addressed identity.
+fingerprint up to 2⁶⁴ valid spellings (2ᵏ, where k is the count of `a`–`f`
+characters) — string equality and dedup would break on a value whose entire
+purpose is content-addressed identity.
 
 **Rejected: multihash / multibase.** Standards-based and genuinely
 self-describing, but it needs a codec table on both sides, produces values
