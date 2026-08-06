@@ -23,9 +23,9 @@ classes:
       emits when it hands data downstream to the claims engine. It carries (a)
       stable provenance keyed on the upstream source's native record id, (b) an
       explicit consent / data-sovereignty directive on every record from day
-      one, (c) the observed evidence separated by trust level, and (d) zero or
-      references to extracted Claims (and optional Attestations), which carry their
-      own identity and lifecycle. Raw source data stays at source by default;
+      one, (c) the observed evidence separated by trust level, and (d) references
+      to zero or more extracted Claims, which carry their own identity and
+      lifecycle. Raw source data stays at source by default;
       only the content-addressed fingerprint (rawContentHash) is obligated to
       travel and is what anchors on-chain. Two identity handles, and both are
       load-bearing: `rid` is the record's own address (what a reference to this
@@ -244,14 +244,11 @@ classes:
           (collective) entities, not only individuals.
         range: uriorcurie
         multivalued: true
-      attestationRefs:
-        slot_uri: rfs:attestationRefs
-        description: >-
-          References to Attestations already associated with the referenced claims
-          (e.g. a reviewer verdict produced in the same pass). References for the same
-          reason as claimRefs — attestation state evolves after emission.
-        range: uriorcurie
-        multivalued: true
+      # No attestationRefs. Attestation.attestsClaim (required) is already the
+      # edge from an attestation to its claim, so attestations reachable from
+      # this record are found by traversing claimRefs and taking the inverse of
+      # attestsClaim. A forward list here would be a second, independently
+      # maintained copy of the same edge, and the two would drift.
       # --- Versioning ---
       supersedes:
         slot_uri: rfs:supersedes
