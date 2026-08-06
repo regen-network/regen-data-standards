@@ -190,7 +190,9 @@ classes:
           BLAKE2b-256 content hash of the raw source payload. REQUIRED for
           COMPLETE records. This is the fingerprint that is obligated to travel
           and that anchors on-chain (Regen Data Module) — even when the raw
-          payload itself stays at source under the consent directive.
+          payload itself stays at source under the effective consent policy.
+          Anchoring additionally requires an effective onChainAnchorAllowed of
+          true, which is the AND of the snapshot and the resolved policy.
           WIRE FORMAT: `<algorithm-token>:<lowercase hex digest>`, enforced by the
           pattern. The token names the DIGEST ALGORITHM and is drawn from the
           ledger's DigestAlgorithm registry, which today has exactly one non-zero
@@ -281,7 +283,7 @@ classes:
         range: float
         minimum_value: 0.0
         maximum_value: 1.0
-      # --- Extracted claims / attestations (compose with Claim / Attestation) ---
+      # --- Extracted claims (compose with Claim) ---
       claimRefs:
         slot_uri: rfs:claimRefs
         description: >-

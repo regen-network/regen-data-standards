@@ -1,7 +1,8 @@
 # Example OutputRecord: an Otter transcript sensor emitting one meeting record.
 # Demonstrates the raw-evidence emission shape from field-notes §1–§7:
 # identity on the source id, participants (claimed) vs speakers (observed),
-# COMPLETE processing state, and a KNOWLEDGE_COMMONS consent directive.
+# COMPLETE processing state, and a KNOWLEDGE_COMMONS consent snapshot plus a ref
+# to the current consent record.
 # claimRefs: [] is the natural state — claim extraction is a separate downstream
 # pass (field-notes §6), so a raw transcript emission carries evidence, not
 # yet claims.
