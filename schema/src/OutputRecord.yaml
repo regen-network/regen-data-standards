@@ -187,11 +187,25 @@ classes:
       rawContentHash:
         slot_uri: rfs:rawContentHash
         description: >-
-          BLAKE2b-256 content hash of the canonical raw source payload. REQUIRED
-          for COMPLETE records. This is the fingerprint that is obligated to
-          travel and that anchors on-chain (Regen Data Module) — even when the
-          raw payload itself stays at source under the consent directive.
+          BLAKE2b-256 content hash of the raw source payload. REQUIRED for
+          COMPLETE records. This is the fingerprint that is obligated to travel
+          and that anchors on-chain (Regen Data Module) — even when the raw
+          payload itself stays at source under the consent directive.
+          WIRE FORMAT: `<algorithm-token>:<lowercase hex digest>`, enforced by the
+          pattern. The token names the DIGEST ALGORITHM and is drawn from the
+          ledger's DigestAlgorithm registry, which today has exactly one non-zero
+          member — `b2s256` = DIGEST_ALGORITHM_BLAKE2B_256 = 1. A new token may
+          only be minted when that enum gains a member. Lowercase hex only: a
+          fingerprint must have exactly one spelling or string equality and dedup
+          break. Converting to ContentHash.Raw is: split on ':', map the token to
+          digest_algorithm, `bytes.fromhex()` the rest.
+          SCOPE: the token names the digest, not the ContentHash kind and not a
+          canonicalization. For this field that is complete — a raw source payload
+          is not RDF, so it anchors as ContentHash.Raw, and the proto states Raw
+          "does not specify a deterministic, canonical encoding". See
+          docs/output-record-contract.md, "Hash wire format".
         range: string
+        pattern: "^b2s256:[0-9a-f]{64}$"
       rawContentUri:
         slot_uri: rfs:rawContentUri
         description: >-
@@ -215,10 +229,18 @@ classes:
       recordContentHash:
         slot_uri: rfs:recordContentHash
         description: >-
-          BLAKE2b-256 content hash of this canonical OutputRecord envelope
-          (its own fingerprint), enabling content-addressed identity and
-          tamper-evidence of the record as emitted.
+          BLAKE2b-256 content hash of this OutputRecord envelope (its own
+          fingerprint), enabling content-addressed identity and tamper-evidence
+          of the record as emitted. Same wire format as rawContentHash.
+          OPEN, and deliberately not decided here: unlike a raw payload, this
+          envelope HAS an RDF projection (the repo generates one), so whether it
+          fingerprints as ContentHash.Raw over canonical JSON or ContentHash.Graph
+          over RDFC-1.0 is the same question ADR 0001 is deciding for Claim, one
+          layer up. The wire format below pins the ENCODING only; it does not pin
+          what was hashed. Until ADR 0001 lands, treat this as a Raw-kind digest
+          for integrity, not as an attestable identity.
         range: string
+        pattern: "^b2s256:[0-9a-f]{64}$"
       # --- Evidence by trust level (Contract implication, field-notes §4) ---
       participants:
         slot_uri: rfs:participants
