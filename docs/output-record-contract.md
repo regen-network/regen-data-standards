@@ -221,11 +221,15 @@ Two handles, doing two different jobs. Conflating them was the original mistake.
 
 Two hashes, both BLAKE2b-256 (matching `Claim.contentHash` / `Attestation.contentHash`):
 
-- `rawContentHash` — fingerprint of the canonical **raw source payload**. This is
-  the value obligated to travel and the one that anchors on-chain even under
+- `rawContentHash` — fingerprint of the **raw source payload**. This is the value
+  obligated to travel and the one that anchors on-chain even under
   `rawDataStaysAtSource: true`.
-- `recordContentHash` — fingerprint of the canonical **OutputRecord envelope**
-  itself (tamper-evidence of the record as emitted).
+- `recordContentHash` — fingerprint of the **OutputRecord envelope** itself
+  (tamper-evidence of the record as emitted).
+
+Both use the wire format decided below. Note that "canonical" is doing no work in
+either definition until ADR 0001 lands — the contract pins how a hash is
+*written*, not what was hashed.
 
 > **Seam to the JC / claims-engine canonicalization work.** "Only the
 > content-addressed fingerprint anchors on-chain" is the same design surface as
@@ -237,10 +241,86 @@ Two hashes, both BLAKE2b-256 (matching `Claim.contentHash` / `Attestation.conten
 > to ADR 0001. Whatever substance-schema that ADR lands, it fills these fields; it
 > does not change this envelope.
 
+### Hash wire format
+
+**Decision: `b2s256:<64 lowercase hex chars>`, enforced by a `pattern` on both
+hash slots.** This reverses the lean I put to @blushi on 31 July (bare hex), and
+the reason is worth stating because it is the opposite of what I expected.
+
+What the evidence actually says:
+
+- **Production emits bare lowercase hex.** `koi-processor/api/ledger_anchor.py:96`
+  returns `hashlib.blake2b(..., digest_size=32).hexdigest()`. No prefix.
+- **`b2s256` appears nowhere.** `grep -r b2s256` over both `koi-processor` and
+  `regen-ledger` returns zero hits. I invented it in these examples.
+- **The ledger carries the algorithm out of band.** `ContentHash.Raw` and
+  `ContentHash.Graph` are `{hash: bytes, digest_algorithm: uint32, …}` — raw
+  bytes plus a numeric discriminator, never a prefixed string.
+
+Read alone, those three all argue for bare hex, which is why I leaned that way.
+The thing that flips it:
+
+- **A bare 64-hex string is ambiguous, and the ambiguity is already in our own
+  database.** `koi_memories.content_hash` is SHA-256
+  (`migrations/004_add_publication_dates.sql:28`) and `claims.content_hash` is
+  BLAKE2b-256 (`migrations/064_claims_engine.sql:41`). Same name, same shape,
+  same length, different algorithms, one codebase. Nothing in the value
+  distinguishes them.
+- **ADR 0001 D8 commits us to two coexisting anchoring schemes** — legacy
+  `ContentHash.Raw` anchors stay, new claims mint `ContentHash.Graph` — and names
+  the absence of a discriminator as a latent defect in its own words: *"the
+  current schema cannot express which canonicalization produced a stored hash."*
+  Shipping an undiscriminated hash in a **wire contract**, where there is no
+  sibling column to add later, repeats that defect in the one place it is hardest
+  to fix.
+
+A wire envelope is not a database row. The ledger and ADR 0001 can put the
+discriminator in an adjacent field because they control both sides of the read.
+This contract is consumed by parties we do not control, so the value has to carry
+its own meaning.
+
+**What the token does and does not say.** `b2s256` names the **digest
+algorithm** — nothing else. Specifically:
+
+- It is drawn from the ledger's `DigestAlgorithm` registry, which today has
+  exactly one non-zero member (`DIGEST_ALGORITHM_BLAKE2B_256 = 1`). A new token
+  may only be minted when that enum gains a member. This is not a freehand
+  namespace.
+- It does **not** encode the `ContentHash` kind (Raw vs Graph) or a
+  canonicalization algorithm. For `rawContentHash` that is complete: a raw source
+  payload is not RDF, so it anchors as `ContentHash.Raw`, and the proto is
+  explicit that Raw *"does not specify a deterministic, canonical encoding."*
+  For `recordContentHash` it is **not** complete — this envelope does have an RDF
+  projection, so Raw-over-JSON vs Graph-over-RDFC-1.0 is genuinely open, and it
+  is the same question ADR 0001 is answering for `Claim`. Flagged in the slot
+  description rather than quietly decided here.
+
+**Lowercase hex only** (`[0-9a-f]`, not `[0-9a-fA-F]` as the review bot
+suggested). `hexdigest()` is lowercase, and permitting mixed case gives a single
+fingerprint 2⁶⁴ valid spellings — string equality and dedup would break on a
+value whose entire purpose is content-addressed identity.
+
+**Rejected: multihash / multibase.** Standards-based and genuinely
+self-describing, but it needs a codec table on both sides, produces values
+nothing in our stack emits today, and diverges from the ledger's own registry
+for no gain we can currently spend.
+
+**The cost, plainly.** koi-processor emits bare hex today and will have to prefix
+at the contract boundary. That is a one-line change, and it is the right
+direction: the standard sets the wire format and the implementation adapts, not
+the reverse. Conversion back is `token, hex = value.split(":")` →
+`bytes.fromhex(hex)` + the mapped `digest_algorithm`.
+
+**Not done here:** `Claim.contentHash` and `Attestation.contentHash` on `main`
+are `range: string` with no pattern and the same ambiguity. Same class of gap as
+`Entity` having no identifier slot — belongs in the identity-keys follow-up, not
+in a PR that has no business editing merged schemas.
+
 ## Open questions for review
 
-1. **Canonicalization** of `rawContentHash` / `recordContentHash` — defer to the
-   claims-engine substance-schema ADR, or pin a byte-canonicalization here?
+1. ~~**Canonicalization** of `rawContentHash` / `recordContentHash`~~ — **wire
+   format settled above**; the *canonicalization* remains ADR 0001's call, and
+   for `recordContentHash` specifically the Raw-vs-Graph kind is still open.
 2. **Consent granularity** — is one `consentAtEmission` / `consentRef` pair per
    record enough, or do we need per-claim / per-field consent for
    mixed-sensitivity records? (The snapshot-plus-ref split is settled; this is
