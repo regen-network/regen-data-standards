@@ -104,6 +104,23 @@ classes:
           keeping downstream routing explicit.
         range: string
         required: true
+      sourceUrl:
+        slot_uri: rfs:sourceUrl
+        description: >-
+          Stable, human-navigable landing page for this record at the source
+          system — the URL a person opens to look at the thing itself (the Otter
+          meeting page, the Notion page, the Drive file's view link).
+          DISTINCT FROM rawContentUri, which is where the raw evidence BYTES are
+          fetched from. The two coincide for some sources (Otter serves both from
+          one URL) and diverge for many (a Notion page vs its export endpoint; a
+          Drive file's view link vs its download link). Ported from PR #57, which
+          defined it only as "Alternate/raw source URL" — too close to
+          rawContentUri to be actionable, so the scope is narrowed here rather
+          than carried over as-is.
+          NOT identity: a landing page can move or be re-skinned without the
+          record changing. Identity is rid; the dedup key is
+          (sourceRecordId, sensorId).
+        range: uri
       # --- Time (Contract implication, field-notes §2) ---
       emittedAt:
         slot_uri: rfs:emittedAt
@@ -119,6 +136,22 @@ classes:
         description: >-
           Timestamp of the underlying event at the source (e.g. meeting start),
           as an ISO 8601 timezone-qualified instant.
+        range: datetime
+      lastModified:
+        slot_uri: schema:dateModified
+        description: >-
+          The SOURCE system's last-modified timestamp for this record, as an
+          ISO 8601 timezone-qualified instant. Ported from PR #57
+          ("Source last-modified; change detection / supersedes").
+          Purpose is change detection: because re-emitting for the same
+          (sourceRecordId, sensorId) is defined as an in-place update, a consumer
+          needs a cheap way to ask "has the upstream thing changed since I last
+          saw it?" without refetching and rehashing the payload. Distinct from
+          emittedAt (when THIS sensor emitted) and from observedAt (when the
+          underlying event happened at source).
+          Advisory, not authoritative: rawContentHash remains the only
+          trustworthy change signal, since a source may touch mtime without
+          changing content, or change content without touching mtime.
         range: datetime
       sourceTimezone:
         slot_uri: rfs:sourceTimezone

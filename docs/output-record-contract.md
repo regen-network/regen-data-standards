@@ -336,6 +336,33 @@ in a PR that has no business editing merged schemas.
 5. **Speaker identity resolution** — is `resolvedEntity` on `SpeakerRef` the right
    place, or should resolution be a separate downstream annotation pass?
 
+## Source metadata ported from PR #57
+
+[PR #57](https://github.com/regen-network/regen-data-standards/pull/57) proposed a
+parallel `OutputRecord`. It was closed on 2026-08-20 in favour of this one, with
+the agreement that a named set of its fields would be ported first. Two were:
+
+| Field | Disposition |
+|---|---|
+| `lastModified` (`schema:dateModified`) | **Ported as-is.** Source-side mtime, for change detection against the in-place `(sourceRecordId, sensorId)` update rule. Advisory only — `rawContentHash` stays the authoritative change signal, since a source can touch mtime without changing content and vice versa. |
+| `sourceUrl` (`rfs:sourceUrl`) | **Ported with a narrowed definition.** #57 defined it as "Alternate/raw source URL", which overlaps `rawContentUri` to the point of being unactionable. Here it means the **human-navigable landing page** for the record at its source; `rawContentUri` remains **where the bytes are fetched**. They coincide for some sources (Otter) and diverge for many (a Notion page vs its export endpoint; a Drive file's view link vs its download link). Neither is identity. |
+
+Deliberately **not** ported, with reasons:
+
+- `collectedAt` — not observably distinct from `emittedAt` for any sensor we have. Re-propose it when a sensor can show the two differing.
+- `ingestMethod` — describes the sensor, not the record. Belongs in sensor metadata.
+- `contentHash` — untagged SHA-256. This contract uses algorithm-tagged `b2s256:` digests precisely so a fingerprint has exactly one spelling; an untagged second hash reintroduces the ambiguity.
+- Claim-projection hints (`subject`, `claimant`, claim type, `impact`, `quantity`, period, `evidence`, `confidence`, credit-class) — a sensor reports what it observed. How evidence is projected into candidate claims is processor configuration, and belongs in a versioned extractor profile rather than in the sensor envelope.
+
+## Conformance vectors
+
+`schema/data/playground/OutputRecord/` holds instances that
+`make -C schema gen-rdf` validates and converts on every PR. The files under
+`schema/examples/` are illustrative and are **not** executed by anything — a
+distinction worth knowing before treating a green CI run as evidence that an
+example is valid. New contract behaviour should land a playground instance, not
+only an example.
+
 ## Consuming the contract
 
 The LinkML schema in `schema/src/` is canonical. How a consumer binds to it —
