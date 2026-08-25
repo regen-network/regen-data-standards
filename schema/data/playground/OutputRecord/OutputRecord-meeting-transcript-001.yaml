@@ -1,14 +1,10 @@
-# Example OutputRecord: an Otter transcript sensor emitting one meeting record.
-# Demonstrates the raw-evidence emission shape from field-notes §1–§7:
-# identity on the source id, participants (claimed) vs speakers (observed),
-# COMPLETE processing state, and a KNOWLEDGE_COMMONS consent snapshot plus a ref
-# to the current consent record.
-# claimRefs: [] is the natural state — claim extraction is a separate downstream
-# pass (field-notes §6), so a raw transcript emission carries evidence, not
-# yet claims.
+# CI-exercised OutputRecord instance. Lives under schema/data/playground/ so that
+# `make -C schema gen-rdf` validates and converts it on every PR — the copies in
+# schema/examples/ are illustrative only and are not run by anything.
+# Target class is inferred from the filename (OutputRecord-*.yaml).
+# WP1 asks for machine-readable conformance vectors rather than prose examples;
+# this is the first one for this contract.
 name: "Regen AI Builders Standup"
-# rid = this record's own identity (what a uriorcurie ref to it resolves against).
-# Distinct from the (sourceRecordId, sensorId) dedup key below.
 rid: "orn:regen.output-record:otter-transcript-sensor/26J6RZXDFBVYAODN"
 sourceRecordId: "26J6RZXDFBVYAODN"
 sensorId: "otter-transcript-sensor"
@@ -18,19 +14,11 @@ recordType: "meeting_transcript"
 emittedAt: "2026-07-15T05:10:00Z"
 observedAt: "2026-07-14T18:20:00-07:00"
 sourceTimezone: "America/Los_Angeles"
-# sourceUrl = the human-navigable page for this record at the source.
-# rawContentUri below is where the bytes are fetched. For Otter they happen
-# to be the same URL; for a Notion page or a Drive file they would not be.
 sourceUrl: "https://otter.ai/u/aLimio-UJMK5h9ov75Eyj3QJiFM"
-# Source-side mtime: a cheap "has upstream changed?" signal for the in-place
-# update path. Advisory only — rawContentHash is the authoritative signal.
 lastModified: "2026-07-15T04:58:12Z"
 processingState: COMPLETE
 language:
   - "en"
-# Consent is carried twice on purpose: an immutable snapshot of what was true at
-# emission, and a ref to the current versioned policy. A consumer applies the more
-# restrictive of the two, field by field, and denies if the ref won't resolve.
 consentAtEmission:
   consentStatus: GRANTED
   dataSovereigntyTier: KNOWLEDGE_COMMONS
