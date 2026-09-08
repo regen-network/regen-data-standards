@@ -1,0 +1,18 @@
+# Positive schema/conversion control for #62; synthetic data only.
+# The hash is a format-valid fixture value, not a canonicalization test oracle.
+# Class inference uses OutputRecord-*.yaml, matching gen-rdf.sh conventions.
+rid: "https://example.org/output-records/minimal-complete"
+sourceRecordId: "minimal-complete"
+sensorId: "fixture-sensor"
+sensorVersion: "0.1.0"
+sourceSystem: "fixture"
+recordType: "test_record"
+emittedAt: "2026-09-08T00:00:00Z"
+processingState: COMPLETE
+consentAtEmission:
+  consentStatus: GRANTED
+  dataSovereigntyTier: SOVEREIGN
+  rawDataStaysAtSource: true
+  onChainAnchorAllowed: false
+consentRef: "https://example.org/consent/minimal-complete"
+rawContentHash: "b2s256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
