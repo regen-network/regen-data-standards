@@ -1,6 +1,6 @@
 # Output Record Contract — v0.1 (draft)
 
-**Status:** draft for review (WP4). Canonical schema: [`schema/src/OutputRecord.yaml`](../schema/src/OutputRecord.yaml).
+**Status:** draft for review; acceptance remains subject to WP0 governance. Canonical schema: [`schema/src/OutputRecord.yaml`](../schema/src/OutputRecord.yaml).
 Language bindings are generated from the schema by the consuming repository; nothing generated is committed here.
 Worked examples: [`schema/examples/`](../schema/examples/).
 
@@ -65,8 +65,9 @@ each "Contract implication" is honored by a field:
 - **Consent / data sovereignty as a field from day one** → a required immutable
   `consentAtEmission: ConsentDirective` snapshot **plus** a required `consentRef`
   to current policy, resolved fail-closed to the more restrictive of the two.
-- **Raw data stays at source; only the content-addressed fingerprint anchors
-  on-chain** → `rawContentHash` (obligated to travel) + `rawContentUri` (pointer)
+- **Raw data stays at source; a fingerprint may be committed on-chain when
+  effective consent and the workflow permit** → `rawContentHash` (obligated to
+  travel) + `rawContentUri` (pointer)
   + `rawContentInline` (permitted only when `rawDataStaysAtSource` resolves to
   false in *both* the snapshot and current policy), with a schema rule enforcing
   that a `COMPLETE` record always carries the fingerprint.
@@ -220,114 +221,98 @@ Two handles, doing two different jobs. Conflating them was the original mistake.
 
 ## Fingerprints and the on-chain anchor
 
-Two hashes, both BLAKE2b-256 (matching `Claim.contentHash` / `Attestation.contentHash`):
+This draft proposes two BLAKE2b-256 hash fields with distinct input meanings:
 
-- `rawContentHash` — fingerprint of the **raw source payload**. This is the value
-  obligated to travel and the one that anchors on-chain even under
-  `rawDataStaysAtSource: true`.
-- `recordContentHash` — fingerprint of the **OutputRecord envelope** itself
-  (tamper-evidence of the record as emitted).
+- `rawContentHash` — digest of the **exact raw source payload bytes**. It travels
+  with a COMPLETE record even when the payload stays at source. Preserve or retain
+  access to those exact bytes for verification. This integrity digest is not an
+  RDF-semantic identity, including when the source payload itself contains RDF.
+- `recordContentHash` — intended digest of the **OutputRecord envelope**. The
+  complete preimage/profile is still open: serialization or RDF projection,
+  treatment of the hash field itself, and any normalization need explicit rules
+  and vectors before independent consumers can recompute matching values.
 
-Both use the wire format decided below. Note that "canonical" is doing no work in
-either definition until ADR 0001 lands — the contract pins how a hash is
-*written*, not what was hashed.
+These are distinct from the identities of the claims referenced by `claimRefs`.
+A record can supply evidence for multiple claims; hashing its raw source or its
+whole envelope does not automatically compute any claim's semantic fingerprint.
+The record's address remains `rid`.
 
-> **Seam to the JC / claims-engine canonicalization work.** "Only the
-> content-addressed fingerprint anchors on-chain" is the same design surface as
-> the claims-engine substance-fingerprint / canonicalization spike, specified in
-> [**ADR 0001 — Claim substance & content-addressed canonicalization**](adr/0001-claim-substance-canonicalization.md)
-> ([PR #56](https://github.com/regen-network/regen-data-standards/pull/56)). The
-> contract deliberately keeps the *fields* (`rawContentHash`, `recordContentHash`,
-> `Claim.contentHash` → `dataIri`) while leaving the *canonicalization algorithm*
-> to ADR 0001. Whatever substance-schema that ADR lands, it fills these fields; it
-> does not change this envelope.
+[ADR 0001 (#56)](https://github.com/regen-network/regen-data-standards/pull/56)
+now covers proposed Claim RDF shape and provenance boundaries. Service identity,
+canonicalization, digest framing and anchoring proposals are in
+[koi-processor #54](https://github.com/gaiaaiagent/koi-processor/pull/54).
+Neither proposal selects this envelope's preimage or guarantees that a future
+claim-identity decision needs no contract change. Schema declarations or profile
+references required by an adopted interface need their own reviewed schema change.
+
+Anchoring is a separate, consent-gated operation. An effective
+`onChainAnchorAllowed: true` permits consideration of anchoring; it is not a
+receipt or a requirement to anchor every record. The actual workflow must identify
+what is committed and whether it uses a Raw or Graph representation.
 
 ### Hash wire format
 
-**Decision: `b2s256:<64 lowercase hex chars>`, enforced by a `pattern` on both
-hash slots.** This reverses the lean I put to @blushi on 31 July (bare hex), and
-the reason is worth stating because it is the opposite of what I expected.
+**Proposed v0.1 format: `b2s256:<64 lowercase hex chars>`.** The current draft
+schema enforces `^b2s256:[0-9a-f]{64}$` on both hash slots. This is the proposed
+contract encoding, not evidence of team ratification or a deployed adapter.
+The token and validation patterns remain unchanged in this documentation revision.
 
-What the evidence actually says:
+`b2s256` is this contract's local label for BLAKE2b-256. It is not a token supplied
+by the ledger registry. The inspected
+[ledger v2 definitions](https://github.com/regen-network/regen-ledger/blob/451c3a3f4353fc0d5a82383f2616a284baffa96f/proto/regen/data/v2/types.proto)
+carry hash bytes and numeric algorithm fields; their registry names
+`DIGEST_ALGORITHM_BLAKE2B_256 = 1`. A future contract-token change requires a
+reviewed contract revision; this draft does not establish a general token registry.
 
-- **Production emits bare lowercase hex.** `koi-processor/api/ledger_anchor.py:95-96`
-  (`compute_content_hash`) computes `hashlib.blake2b(..., digest_size=32)` and
-  returns `.hexdigest()`. No prefix.
-- **`b2s256` appears nowhere.** `grep -r b2s256` over both `koi-processor` and
-  `regen-ledger` returns zero hits. I invented it in these examples.
-- **The ledger carries the algorithm out of band.** `ContentHash.Raw` and
-  `ContentHash.Graph` are `{hash: bytes, digest_algorithm: uint32, …}` — raw
-  bytes plus a numeric discriminator, never a prefixed string.
+At the inspected
+[koi-processor revision c08c0a7e](https://github.com/gaiaaiagent/koi-processor/blob/c08c0a7e3fdde4b6ce5186e2f7d8d11069ff4b95/api/ledger_anchor.py),
+`compute_content_hash` returns bare lowercase BLAKE2b-256 hex over its claim
+projection, and `derive_ledger_iri` constructs a Raw hash with numeric algorithm
+1. Those functions operate on that implementation's claim content, not the
+OutputRecord fields defined here. This is pinned source evidence, not a check of
+running production. Prefixing an arbitrary existing claim digest would not make
+it the correct raw-source or record-envelope hash.
 
-Read alone, those three all argue for bare hex, which is why I leaned that way.
-The thing that flips it:
+The local token identifies only the digest algorithm. It does **not** encode:
 
-- **A bare 64-hex string is ambiguous, and the ambiguity is already in our own
-  database.** `koi_memories.content_hash` is SHA-256
-  (`migrations/004_add_publication_dates.sql:28`) and `claims.content_hash` is
-  BLAKE2b-256 (`migrations/064_claims_engine.sql:41`). Same name, same shape,
-  same length, different algorithms, one codebase. Nothing in the value
-  distinguishes them.
-- **ADR 0001 D8 commits us to two coexisting anchoring schemes** — legacy
-  `ContentHash.Raw` anchors stay, new claims mint `ContentHash.Graph` — and names
-  the absence of a discriminator as a latent defect in its own words: *"the
-  current schema cannot express which canonicalization produced a stored hash."*
-  Shipping an undiscriminated hash in a **wire contract**, where there is no
-  sibling column to add later, repeats that defect in the one place it is hardest
-  to fix.
+- the preimage/profile, a Raw/Graph hash kind, or a canonicalization algorithm;
+- whether a payload is RDF — an RDF document can also be hashed as exact bytes;
+- whether any anchor exists, consent permits it, or its graph has been attested.
 
-A wire envelope is not a database row. The ledger and ADR 0001 can put the
-discriminator in an adjacent field because they control both sides of the read.
-This contract is consumed by parties we do not control, so the value has to carry
-its own meaning.
+If a workflow commits `rawContentHash` as a Raw hash, the commitment is to those
+exact source bytes, including their serialization. A semantic Graph commitment
+requires the separately specified canonical RDF graph and its digest. Do not
+relabel an exact-byte digest as Graph merely because the source parses as RDF.
+Likewise, this draft does not default `recordContentHash` to Raw while waiting for
+ADR 0001; its preimage and any ledger mapping remain explicit implementation work.
 
-**What the token does and does not say.** `b2s256` names the **digest
-algorithm** — nothing else. Specifically:
+The ledger's
+[MsgAttest](https://github.com/regen-network/regen-ledger/blob/451c3a3f4353fc0d5a82383f2616a284baffa96f/proto/regen/data/v2/tx.proto)
+takes Graph hashes. The exact Raw hash cannot serve as that Graph target, but a
+separate RDF attestation can reference a Raw-anchored claim or source. Creating a
+Graph representation also creates a different IRI. No dual-anchor migration or
+cutover is selected by this contract.
 
-- It is drawn from the ledger's `DigestAlgorithm` registry, which today has
-  exactly one non-zero member (`DIGEST_ALGORITHM_BLAKE2B_256 = 1`). A new token
-  may only be minted when that enum gains a member. This is not a freehand
-  namespace.
-- It does **not** encode the `ContentHash` kind (Raw vs Graph) or a
-  canonicalization algorithm. For `rawContentHash` that is complete: a raw source
-  payload is not RDF, so it anchors as `ContentHash.Raw`, and the proto is
-  explicit that Raw *"does not specify a deterministic, canonical encoding."*
-  For `recordContentHash` it is **not** complete — this envelope does have an RDF
-  projection, so Raw-over-JSON vs Graph-over-RDFC-1.0 is genuinely open, and it
-  is the same question ADR 0001 is answering for `Claim`. Flagged in the slot
-  description rather than quietly decided here.
+Lowercase hex gives each digest one spelling in this proposed encoding. A consumer
+must validate the whole pattern, then map the known token to the selected digest
+algorithm and decode the hex; it must still obtain the correct preimage and ledger
+kind from the agreed profile. A prefix alone cannot provide those semantics.
 
-**Lowercase hex only** (`[0-9a-f]`, not `[0-9a-fA-F]` as the review bot
-suggested). `hexdigest()` is lowercase, and permitting mixed case gives a single
-fingerprint up to 2⁶⁴ valid spellings (2ᵏ, where k is the count of `a`–`f`
-characters) — string equality and dedup would break on a value whose entire
-purpose is content-addressed identity.
-
-**Rejected: multihash / multibase.** Standards-based and genuinely
-self-describing, but it needs a codec table on both sides, produces values
-nothing in our stack emits today, and diverges from the ledger's own registry
-for no gain we can currently spend.
-
-**The cost, plainly.** koi-processor emits bare hex today and will have to prefix
-at the contract boundary. That is a one-line change, and it is the right
-direction: the standard sets the wire format and the implementation adapts, not
-the reverse. Conversion back is `token, hex = value.split(":")` →
-`bytes.fromhex(hex)` + the mapped `digest_algorithm`.
-
-**Not done here:** `Claim.contentHash` and `Attestation.contentHash` on `main`
-are `range: string` with no pattern and the same ambiguity. Same class of gap as
-`Entity` having no identifier slot — belongs in the identity-keys follow-up, not
-in a PR that has no business editing merged schemas.
+Bare hex and multihash/multibase remain alternatives for the acceptance discussion;
+this revision changes neither the proposed pattern nor existing examples.
+`Claim.contentHash` and `Attestation.contentHash` are outside this envelope's field
+changes; do not infer that this pattern has been applied to them.
 
 ## Open questions for review
 
-1. ~~**Canonicalization** of `rawContentHash` / `recordContentHash`~~ — **wire
-   format settled above**; the *canonicalization* remains ADR 0001's call, and
-   for `recordContentHash` specifically the Raw-vs-Graph kind is still open.
+1. **Hash profiles and wire acceptance** — raw-source hashing covers exact bytes;
+   the record-envelope preimage/profile and any Raw/Graph ledger mapping remain
+   open. The `b2s256:` wire pattern is implemented in this draft, not yet ratified.
+   ADR 0001 covers Claim RDF shape; it does not decide these hash computations.
 2. **Consent granularity** — is one `consentAtEmission` / `consentRef` pair per
    record enough, or do we need per-claim / per-field consent for
-   mixed-sensitivity records? (The snapshot-plus-ref split is settled; this is
-   about *how many* of them a record carries.)
+   mixed-sensitivity records? (The snapshot-plus-ref split is implemented in this draft and remains
+   under review; this question concerns *how many* pairs a record carries.)
 3. **`rawContentInline` vs pointer-only** — should the contract forbid inline raw
    entirely for `SOVEREIGN` tier (schema rule), not just when
    `rawDataStaysAtSource: true`?
