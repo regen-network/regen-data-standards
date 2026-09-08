@@ -26,31 +26,51 @@ python -m unittest discover -s schema/tests -p test_output_record_conversion.py
 ```
 
 The focused test calls the same conversion target with `DATA_DIR` set to a temporary
-fixture directory. It requires both conversions to succeed and the consent snapshot fields, policy
-reference, record address, processing state and raw hash to survive in each format. It also checks that
-no inline raw payload appears. CI runs it after the ordinary conversion pass.
+directory containing the minimal and existing rich meeting fixtures. It requires
+both formats to convert and yield isomorphic RDF graphs for each fixture. The minimal
+record's consent snapshot fields, policy reference, address, processing state and
+raw hash must survive, without an inline raw payload. A comparison with the original
+LinkML JSON-LD output checks that only node types are added: the context, root type,
+other fields, values and JSON structure stay the same. A missing required sensor ID
+must still fail conversion. CI runs these checks after the ordinary conversion pass.
 Generated test outputs stay in the temporary directory.
 
 `make -C schema all` also invokes `update-graph`, which clears and uploads to a
 configured graph store. Use the conversion/test commands above for local conformance
 checks; a full build or deployment is a separate check against an isolated destination.
 
-## Observed RDF parity gap
+## Nested RDF types in JSON-LD
 
-The focused fixture exposes an existing difference with `linkml==1.8.6` and
+The unmodified converter has a difference with `linkml==1.8.6` and
 `linkml-runtime==1.9.5`: Turtle includes the snapshot's `rdf:type rfs:ConsentDirective`
 triple; parsing the generated JSON-LD does not produce that triple. The remaining
 triples in this minimal fixture match up to blank-node identity. JSON-LD's context
 maps `consentAtEmission` with `@type: rfs:ConsentDirective`, which does not assert a
-class type on its nested object. The field-preservation test intentionally makes
-no full graph-parity claim. A separate normative graph-equivalence assertion remains
-a strict `unittest.expectedFailure`, tracked in #62: an unexpected success fails
-the suite until the marker is removed. Conversion/parsing failures happen in test
-setup and are never expected failures. The expected result is one positive test
-and one expected failure, not full conformance. The existing rich meeting fixture
-also loses nested ConsentDirective, ParticipantRef and SpeakerRef type triples in
-JSON-LD. Resolve or specify this conversion difference before
-using the two outputs as interchangeable input graphs for identity tests.
+class type on its nested object. The existing rich meeting fixture also loses
+nested ConsentDirective, ParticipantRef and SpeakerRef type triples in JSON-LD.
+
+The cause is the pinned runtime's
+[root-only type injection](https://github.com/linkml/linkml-runtime/blob/v1.9.5/linkml_runtime/utils/yamlutils.py)
+through its [JSON dumper](https://github.com/linkml/linkml-runtime/blob/v1.9.5/linkml_runtime/dumpers/json_dumper.py).
+The loaded nested objects retain their generated model class URIs. JSON-LD
+[node types](https://www.w3.org/TR/json-ld11/#specifying-the-type) must be stated on
+the node; the generated slot's datatype coercion is not that assertion.
+
+`gen-rdf.sh` now routes only `OutputRecord-*.yaml` JSON-LD conversion through
+`convert-output-record-jsonld.py`. This compatibility shim uses the same pinned
+model generator, YAML loader, object validation, context generator and JSON dumper.
+It copies loaded model nodes and adds their existing class URIs as explicit nested
+`@type` values before dumping. Enum/scalar serialization stays with LinkML. The
+original Turtle path and every other target class's conversion path remain unchanged.
+Schema source, dependency pins, identifier values and consent fields are unchanged.
+
+The strict expected-failure marker is removed because the minimal and rich fixtures
+now satisfy the ordinary graph-equivalence assertion. This is bounded fixture parity,
+not a general guarantee about arbitrary future schemas or all LinkML conversions.
+If OutputRecord gains polymorphic/type-designating slots or changes nested object
+shape, extend the parity fixtures when reviewing that schema change. In particular,
+this does not select canonical bytes, fingerprint substance, policy enforcement or
+the proposed contract itself. The broader #62 layers remain open.
 
 ## Remaining test layers
 
@@ -58,7 +78,7 @@ using the two outputs as interchangeable input graphs for identity tests.
 |---|---|
 | Consent policy | A validator with a supplied current-policy resolver. Valid-schema data with raw forbidden by either snapshot or current policy must be denied specifically for residency; an unresolved policy denies use. These expected-negative cases stay outside the all-success conversion corpus. |
 | Replay and supersession | A consumer/store harness plus an agreed mapping from the source/sensor update key to record/version identity. Re-emitting one source/sensor must not create duplicate live records; supersession history is tested separately. |
-| Canonicalization and fingerprint parity | A selected canonicalizer, pinned input-substance/schema-reference policy and expected canonical bytes/digests. Equivalent RDF serializations must match the agreed expected result; changed inputs must follow that selected identity policy. The positive field-preservation control establishes neither RDF graph parity nor a canonical byte representation. |
+| Canonicalization and fingerprint parity | A selected canonicalizer, pinned input-substance/schema-reference policy and expected canonical bytes/digests. Equivalent RDF serializations must match the agreed expected result; changed inputs must follow that selected identity policy. Fixture graph parity does not establish canonical bytes or fingerprint parity. |
 
 The illustrative `schema/examples/output-record.INVALID-sovereign-inline-raw.yaml`
 remains a policy counterexample. A schema/conversion failure cannot stand in for the
