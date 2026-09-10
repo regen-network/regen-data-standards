@@ -51,6 +51,12 @@ We are using GitHub as the governance platform to approve new taxonomy component
 
 Schemas for the Regen Network Framework are documented. See [/schema/README.md](schema/README.md)
 
+## Contributing
+
+Before opening a pull request, work through [`standards-agent-context.md`](standards-agent-context.md).
+It carries the pre-PR checklist for schema changes, the ADR-to-schema alignment rules, an index of the
+authoritative sources in this repo, and the review tag vocabulary reviewers use on PRs here.
+
 ## Local Development
 
 For building and developing this repo locally, you will need [npm](https://www.npmjs.com) and [node.js](https://nodejs.org/en/download/package-manager).
