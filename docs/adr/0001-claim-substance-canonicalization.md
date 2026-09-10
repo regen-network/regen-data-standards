@@ -25,7 +25,7 @@ The following is a **candidate content profile**, not a merged change to Claim.y
 | `hasClaimant` | Candidate asserted attribution in content. | Resolve in-content attribution versus separate assertion provenance; it remains pending. |
 | `hasOperator` | Candidate asserted content where it describes the outcome. | Confirm meaning and placement; it remains pending. |
 | `hasPrimaryImpact`, `quantity`, `quantityUnit`, `hasCreditClass`, `claimStartDate`, `claimEndDate`, `usesMethodology` | Preserve the stated impact, amount/unit, classification, period and methodology in the relevant claim-type profile. | Validate applicability and RDF shape per claim type. Omission must not collapse material distinctions. |
-| `hasCoBenefits` | Candidate additional asserted impacts. | Participation and collection semantics remain pending; see D7. |
+| `hasCoBenefits` | Candidate additional asserted impacts. | Participation and collection semantics remain pending; see D2. |
 | `verificationStatus`, `contentHash`, `dataIri` | Propose separating changing review state and derived identity from asserted content. | Decide the companion shape and references; do not assume JC’s crate already defines it or that migration is free. |
 | `supersedes` | A relation between claim versions. | Decide which RDF record carries it and whether it is part of asserted content. |
 | `name`, `description`, `url` | Inspect their meaning per claim-type profile. | Do not exclude them from identity merely because they look presentational; a description may contain asserted meaning. |
@@ -34,27 +34,23 @@ Changing identity-bearing content, including an assertion timestamp or attributi
 
 The precise companion model, whether PROV-O is used, and any removal of slots from Claim.yaml are still open. This documentation PR changes no schema or validation rule.
 
-### D7 — Declare collection semantics in the schema
+### D2 — Declare collection semantics in the schema
 
 Propose set semantics for `hasCoBenefits` if order has no domain meaning; seek explicit confirmation. `multivalued`/`inlined_as_list` alone should not stand in for that decision. Any ordered collection must preserve its sequence in RDF. Sorting a serializer’s input is not a substitute for declaring how the RDF model represents order. This ADR does not impose one blanket rule on every future multivalued field.
 
 ## Standards boundaries already established
 
-Use `rfs:`/`rft:` and the schema-generated JSON-LD context from this repository. Compact and expanded identifiers under the same pinned context are not alternative namespace choices. The implementation’s `claim_type` field must map to the schema’s `hasClaimType` according to that schema. Date-only values remain dates; timestamp lexical normalization belongs to an explicit type-aware implementation profile, not a rule that silently timezone-shifts dates.
+Use `rfs:`/`rft:` and the schema-generated JSON-LD context from this repository. Compact and expanded identifiers under the same pinned context are not alternative namespace choices. Date-only values remain dates; timestamp lexical normalization belongs to an explicit type-aware implementation profile, not a rule that silently timezone-shifts dates.
 
 ## Open decisions and review continuity
 
 Historical question numbers are retained here so existing review links remain interpretable.
 
-1. **RDF namespace/compaction:** remove as an open choice. Existing namespaces and the generated context govern it, as clarified in review. Validate adapters against that context.
-2. **JC implementation:** source evidence and the main/design/spike distinction are documented in the implementation companion. A suite name is not proof of an implemented canonicalizer, equivalent content, or parity.
-3. **Claimant and operator:** decide asserted-provenance placement and the relevant profile fields in D1.
-4. **Co-benefits:** decide inclusion and set/sequence semantics in D1/D7.
-5. **Methodology change:** remove the false “new identity or supersede” choice. If it changes the accepted identity-bearing content it produces a new identity; a supersession relation can express continuity. Relation placement remains part of the schema discussion above.
-6. **Digest suite:** moved to the implementation proposal; no digest algorithm is selected here.
-7. **Lifecycle/provenance model:** define the separate state/identity references, if adopted, and PROV-O alignment. Do not infer a schema from one implementation’s storage columns.
-8. **Raw-anchor migration:** moved to the implementation proposal. Consumer and deployment evidence is required before selecting cutover or transition.
-9. **Declared schema references in identity:** moved to the implementation proposal. If an adopted profile requires schema declarations at a standards boundary, propose that shape explicitly in a subsequent schema change.
+- **Q1 — RDF namespace/compaction:** remove as an open choice. Existing namespaces and the generated context govern it, as clarified in review. Validate adapters against that context.
+- **Q3 — Claimant and operator:** decide asserted-provenance placement and the relevant profile fields in D1.
+- **Q4 — Co-benefits:** decide inclusion and set/sequence semantics in D1/D2.
+- **Q5 — Methodology change:** remove the false “new identity or supersede” choice. If it changes the accepted identity-bearing content it produces a new identity; a supersession relation can express continuity. Relation placement remains part of the schema discussion above.
+- **Q7 — Lifecycle/provenance model:** define the separate state/identity references, if adopted, and PROV-O alignment. Do not infer a schema from one implementation’s storage columns.
 
 ## Consequences and acceptance
 
