@@ -42,15 +42,13 @@ Propose set semantics for `hasCoBenefits` if order has no domain meaning; seek e
 
 Use `rfs:`/`rft:` and the schema-generated JSON-LD context from this repository. Compact and expanded identifiers under the same pinned context are not alternative namespace choices. Date-only values remain dates; timestamp lexical normalization belongs to an explicit type-aware implementation profile, not a rule that silently timezone-shifts dates.
 
-## Open decisions and review continuity
+## Open decisions
 
-Historical question numbers are retained here so existing review links remain interpretable.
-
-- **Q1 — RDF namespace/compaction:** remove as an open choice. Existing namespaces and the generated context govern it, as clarified in review. Validate adapters against that context.
-- **Q3 — Claimant and operator:** decide asserted-provenance placement and the relevant profile fields in D1.
-- **Q4 — Co-benefits:** decide inclusion and set/sequence semantics in D1/D2.
-- **Q5 — Methodology change:** remove the false “new identity or supersede” choice. If it changes the accepted identity-bearing content it produces a new identity; a supersession relation can express continuity. Relation placement remains part of the schema discussion above.
-- **Q7 — Lifecycle/provenance model:** define the separate state/identity references, if adopted, and PROV-O alignment. Do not infer a schema from one implementation’s storage columns.
+- **RDF namespace/compaction:** remove as an open choice. Existing namespaces and the generated context govern it, as clarified in review. Validate adapters against that context.
+- **Claimant and operator:** decide asserted-provenance placement and the relevant profile fields in D1.
+- **Co-benefits:** decide inclusion and set/sequence semantics in D1/D2.
+- **Methodology change:** remove the false “new identity or supersede” choice. If it changes the accepted identity-bearing content it produces a new identity; a supersession relation can express continuity. Relation placement remains part of the schema discussion above.
+- **Lifecycle/provenance model:** define the separate state/identity references, if adopted, and PROV-O alignment. Do not infer a schema from one implementation’s storage columns.
 
 ## Consequences and acceptance
 
