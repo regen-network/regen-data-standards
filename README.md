@@ -61,3 +61,7 @@ You can then install dependencies and run a local development environment with t
 npm install
 npm run dev
 ```
+
+## License
+
+[Apache License 2.0](LICENSE) — Copyright 2026 Regen Network Development, PBC.
