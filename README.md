@@ -53,9 +53,10 @@ Schemas for the Regen Network Framework are documented. See [/schema/README.md](
 
 ## Contributing
 
-Before opening a pull request, work through [`standards-agent-context.md`](standards-agent-context.md).
-It carries the pre-PR checklist for schema changes, the ADR-to-schema alignment rules, an index of the
-authoritative sources in this repo, and the review tag vocabulary reviewers use on PRs here.
+Before opening a pull request, work through [`AGENTS.md`](AGENTS.md). It carries the pre-PR checklist
+for schema changes, the ADR-to-schema alignment rules, an index of the authoritative sources in this
+repo, and the review tag vocabulary reviewers use on PRs here. Coding agents that follow the
+[AGENTS.md convention](https://agents.md/) read it from the repository root without being pointed at it.
 
 ## Local Development
 

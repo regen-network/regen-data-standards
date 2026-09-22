@@ -1,8 +1,11 @@
-# standards-agent-context.md
+# AGENTS.md
 
 **Scope.** This file covers what an agent or a human needs before changing a **schema** or an **ADR**
 in this repository. It deliberately stops at the repository boundary: how the resulting data is
 anchored, attested or consumed downstream is documented with the relevant implementation.
+
+Sections 1 to 3 apply to schema and ADR changes. Section 4, the review tag vocabulary and the
+author response convention, applies to every pull request in this repository.
 
 **How to use it.** Agents bootstrap from it before writing a schema change, an ADR, or a PR
 description; humans read §1 as a pre-PR checklist.
