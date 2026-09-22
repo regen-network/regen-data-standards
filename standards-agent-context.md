@@ -73,6 +73,10 @@ link relevant proposed decisions from each PR without treating them as accepted.
 
 Reviewers prefix a comment with one tag so threads can be triaged and counted.
 
+This vocabulary is deliberately small: it covers only the two failure classes that have actually cost
+review time in this repository, not every kind of review feedback. A comment that fits neither tag is
+simply left untagged. Add a tag by PR when a third class recurs.
+
 | Tag | Use for |
 |---|---|
 | `[CONSISTENCY]` | Internal contradiction — doc vs schema, ADR vs implementation, two sections disagreeing |
