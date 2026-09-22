@@ -38,10 +38,16 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Publish
-        uses: cloudflare/pages-action@v1
+        # cloudflare/pages-action was deleted upstream (the repo 404s), so every
+        # run has failed at job setup with "Unable to resolve action" since
+        # July. wrangler-action is Cloudflare's supported replacement; `pages
+        # deploy` on a non-main branch creates a preview deployment exactly as
+        # pages-action did. Fork PRs never receive the secrets, so they skip
+        # this step instead of failing on a missing token.
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: regen-data-standards
-          directory: dist
+          command: pages deploy dist --project-name=regen-data-standards
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
