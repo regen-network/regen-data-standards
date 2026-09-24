@@ -24,7 +24,14 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         ((total_count++))
         # Create output filename by replacing .yaml extension with .jsonld
         output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if [[ "${yaml_file##*/}" == OutputRecord-* ]]; then
+            # Pinned LinkML omits nested RDF types in JSON-LD. Keep this
+            # compatibility correction scoped to the OutputRecord contract.
+            jsonld_command=(python3 "$SCRIPT_DIR/convert-output-record-jsonld.py" --schema "$SCHEMA_PATH")
+        else
+            jsonld_command=(linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format json-ld --target-class-from-path)
+        fi
+        if ! "${jsonld_command[@]}" --output "$output_file" "$yaml_file" ; then
             echo "❌ JSON-LD conversion failed for: $yaml_file"
             ((failed_count++))
         else
