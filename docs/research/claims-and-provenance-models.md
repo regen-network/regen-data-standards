@@ -228,8 +228,6 @@ OpenCitations snapshots preserve historical descriptions (§2.1); JC's “Snapsh
 | Spike [projection][PROJECTION] discards graph names. | Cannot preserve nanopublications unchanged; retain boundaries or reject unsupported multi-graph input. |
 | Spike uses blank-root examples and handwritten validation artifacts. | Neither establishes a required root pattern nor a generated validation pipeline. Admission does not require a blank root. |
 
-The spike uses RDFC-1.0/SHA-256; the inspected [Regen IRI generator][IRIGEN] uses URDNA2015/BLAKE2b-256. Resolve compatibility explicitly. The [KOI identity proposal][KOI] is another input, not a requirement to compute every proposed digest. None of these proposals settles ontology selection.
-
 ## 5. ADR handoff: decisions still needed
 
 **Schema/provenance:** take the vocabulary recommendations in §3 to [ADR 0001: Claim RDF shape and provenance boundaries][ADR] ([WP1-04 / #70](https://github.com/regen-network/regen-data-standards/issues/70)). Resolve:
@@ -260,8 +258,6 @@ Historical inspection only: [OutputRecord PR #55](https://github.com/regen-netwo
 [SPIKE]: https://github.com/ybird-labs/claims/blob/217fafdd9685fb427ed74f440f9fa65a475f4885/spike/README.md
 [IDENTITY]: https://github.com/ybird-labs/claims/blob/217fafdd9685fb427ed74f440f9fa65a475f4885/spike/src/identity.rs
 [PROJECTION]: https://github.com/ybird-labs/claims/blob/217fafdd9685fb427ed74f440f9fa65a475f4885/spike/src/projection.rs#L81-L90
-[KOI]: https://github.com/gaiaaiagent/koi-processor/blob/944d6e1/docs/claim-identity-proposal.md
-[IRIGEN]: https://github.com/regen-network/regen-server/blob/bf32dcb67704b01c93bb60934a02541874ea78c7/iri-gen/iri-gen.ts
 [MICRO]: https://pmc.ncbi.nlm.nih.gov/articles/PMC4530550/
 [TRUSTY]: https://arxiv.org/html/1401.5775
 [FAIRSCAPE]: https://pmc.ncbi.nlm.nih.gov/articles/PMC8760356/
