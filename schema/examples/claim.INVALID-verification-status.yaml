@@ -1,0 +1,13 @@
+# expect: 'verificationStatus' was unexpected
+# Mutable review state is not Claim content. Review outcomes are separate
+# resources that point to the Claim; a Claim without one is still valid.
+name: Hedgerow planting on plot A, spring 2026
+hasClaimType: ECOLOGICAL
+hasClaimant:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+verificationStatus: SELF_REPORTED
