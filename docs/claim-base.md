@@ -41,8 +41,6 @@ about a subject, at a stated time.
 | `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for the assertion. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | What the claim is about, as a typed subject node. |
-| `claimStartDate` | `schema:startDate` | `xsd:date` | 0..1 | Start of the period the assertion is about. |
-| `claimEndDate` | `schema:endDate` | `xsd:date` | 0..1 | End of that period. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
 
@@ -81,8 +79,8 @@ identities. XSD 1.1 names these redundancies ([lexical mappings][XSD-LEX]) and f
 value, its canonical representation ([definition][XSD-CANON]), which for a zero offset is `Z`
 ([timezone canonical mapping][XSD-TZ]). A pattern enforces the format in both JSON Schema and SHACL,
 so a local offset such as `+02:00` is rejected
-([example](../schema/examples/claim.INVALID-local-offset-assertion-time.yaml)). Date-only values
-(`claimStartDate`, `claimEndDate`) stay dates and are not shifted to UTC.
+([example](../schema/examples/claim.INVALID-local-offset-assertion-time.yaml)). This applies to
+timestamps only: date-only values elsewhere stay dates and are not shifted to UTC.
 
 `+00:00`, the other spelling of UTC, is rejected too
 ([example](../schema/examples/claim.INVALID-utc-offset-assertion-time.yaml)). Tools must therefore
@@ -117,9 +115,15 @@ skeleton has only an IRI, a title and a description.
 [#73](https://github.com/regen-network/regen-data-standards/issues/73) adds content hash and resolver,
 locator, producer, sources, place and licence terms.
 
-**Period.** The claim period stays on the base as optional content. Stewardship, programme-reporting
-and CarbonEg claims are all about a period, while an indicator definition may leave it unknown
-(#68 use cases 1, 2 and 5). Keeping it next to `assertedAt` keeps "when it is about" distinct from "when it was said".
+**Period.** The base Claim has no period, only its assertion time. The period a claim is about
+belongs to the domain activity it describes, such as a planting from 1 March to 15 April, which a
+specialized claim schema defines together with its operator (`wasAssociatedWith`). Activity classes
+declare the `ProvActivity` mixin. With timestamps, the activity uses `prov:startedAtTime` and
+`prov:endedAtTime`, whose PROV domain is `prov:Activity` and range `xsd:dateTime`. With dates, it uses
+date-typed terms such as `schema:startDate` and `schema:endDate`. Evidence has its own, different
+time: when it was produced, for example a survey carried out after the planting. That time goes on
+the activity that generated it (`prov:wasGeneratedBy`), not on the Evidence, because PROV-O declares
+`prov:Activity` and `prov:Entity` disjoint and Evidence is an Entity.
 
 ## What is not Claim content
 
@@ -149,6 +153,9 @@ One slot of the base Claim is still a plain IRI reference: `wasRevisionOf`, whic
 `Resource`, an abstract class with only an `id`. Its value is always an earlier Claim version, so
 "must be an IRI" is the only rule that makes sense for it. The generated SHACL additionally requires a
 `rfs:Resource` type that the data never states, so `check-claim-examples` removes that one rule.
+LinkML 1.11 generates the right rule for `range: uriorcurie` (an IRI, no class), so both the
+`Resource` class and the correction go away with the upgrade in
+[#84](https://github.com/regen-network/regen-data-standards/issues/84).
 
 ## PROV-O conformance
 
@@ -163,7 +170,8 @@ and [PROV-CONSTRAINTS][PROVC].
 
 The classes are aligned too. The mixins in [`ProvAlignment.yaml`](../schema/src/ProvAlignment.yaml)
 make the generated OWL state `rfs:Claim rdfs:subClassOf prov:Entity` and
-`rfs:Entity rdfs:subClassOf prov:Agent`. Our `Entity` class, an individual, organization or community,
+`rfs:Entity rdfs:subClassOf prov:Agent`, and the `ProvActivity` mixin does the same for the activity
+classes of specialized claim schemas. Our `Entity` class, an individual, organization or community,
 is therefore a PROV *Agent*, not a PROV Entity. The mixins add no slots and do not change instance
 data. The PROV slots declare no LinkML `domain:`, because `gen-owl` would turn it into an
 `rdfs:domain` axiom on PROV's own property (for example "every `prov:wasRevisionOf` subject is an
@@ -274,7 +282,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasClaimType` | Retained | Required. Its description, and the `ClaimType` enum's, no longer say it selects verification pathways. |
 | `hasClaimant` | Retained, changed | Now a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
-| `claimStartDate`, `claimEndDate` | Retained | Unchanged terms. Placement was open in ADR D1; see [Period](#base-fields). |
+| `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe (see [Period](#base-fields)). Placement was open in ADR D1. |
 | — | Added | `assertedAt`, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith` ([ADR D1][ADR-D1]). |
@@ -306,8 +314,9 @@ records that use the prior fields and their RIDs.
   ([#58](https://github.com/regen-network/regen-data-standards/pull/58)). When it lands, the claimant
   can be identified by IRI like the subject.
 - ADR 0001 still lists PROV-O alignment, claim period placement and the `supersedes` record as open.
-  This implementation takes the WP1-01 recommendations for the first two and puts `wasRevisionOf` in
-  Claim content. The ADR should record those decisions before either merges.
+  This implementation takes the WP1-01 recommendations for PROV-O, moves the claim period to the
+  domain activity, and puts `wasRevisionOf` in Claim content. The ADR should record those decisions
+  before either merges.
 - Two items of the #71 checklist are deferred to #73, which has the first specialized schema to use
   them: verification-method terms (the story map's CS-4 enumeration, attributable to the claim or
   attestation that used them) and normative rule-set version references (PG-1). Neither applies to
