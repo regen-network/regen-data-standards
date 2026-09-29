@@ -199,7 +199,7 @@ In [LinkML][LINKML], `slot_uri` selects the emitted RDF property. Keeping `slot_
 | Meaning | Recommended term or action |
 | --- | --- |
 | Responsible person, organization or software | Reuse `prov:Agent` and relevant subtypes. A collective agent does not make every member a co-claimant. |
-| Record produced from a source | `prov:wasDerivedFrom` for actual derivation, not every citation or supporting document. |
+| Entity actually produced from another, such as an estimate from samples or an aggregate claim from its component claims | `prov:wasDerivedFrom`, or a more specific PROV subproperty where one applies (`prov:wasRevisionOf`, `prov:hadPrimarySource`, `prov:wasQuotedFrom`), as PROV-O recommends. Not for citations or supporting documents, and not a base Claim field: a Claim record's extraction history is a processing record (§3.2). |
 | Cited document | `dcterms:references`; add page/fragment and evidence version when needed. Citation alone does not assert support. |
 | Activity inputs and outputs | `prov:used` and `prov:wasGeneratedBy` for extraction/calculation history, not endorsement. |
 | Genuine revision | `prov:wasRevisionOf`; maintain which version an application currently accepts separately. |
