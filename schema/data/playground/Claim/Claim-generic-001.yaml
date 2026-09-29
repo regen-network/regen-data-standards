@@ -12,8 +12,6 @@ assertedAt: "2026-05-02T07:30:00Z"
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A
-claimStartDate: "2026-03-01"
-claimEndDate: "2026-04-15"
 hasEvidence:
   - id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
     name: Planting log, spring 2026 (v1)

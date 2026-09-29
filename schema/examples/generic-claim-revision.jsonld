@@ -13,14 +13,6 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
-    "claimEndDate": {
-      "@type": "xsd:date",
-      "@id": "schema:endDate"
-    },
-    "claimStartDate": {
-      "@type": "xsd:date",
-      "@id": "schema:startDate"
-    },
     "id": "@id",
     "description": {
       "@id": "schema:description"
@@ -107,6 +99,9 @@
     "Link": {
       "@id": "Link"
     },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
     "ProvAgent": {
       "@id": "prov:Agent"
     },
@@ -137,8 +132,6 @@
     "id": "https://example.org/plot/A",
     "name": "Plot A"
   },
-  "claimStartDate": "2026-03-01",
-  "claimEndDate": "2026-04-15",
   "hasEvidence": [
     {
       "@type": "Evidence",

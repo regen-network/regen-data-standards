@@ -6,6 +6,8 @@ description: >-
   PROV-O property domains and ranges. They add no slots and do not change
   instance data. Note the naming: our Entity class is a PROV Agent (an
   individual, organization or community), while a Claim is a PROV Entity.
+  Activity classes, which specialized claim schemas define, declare the
+  ProvActivity mixin.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -28,3 +30,11 @@ classes:
     description: >-
       PROV-O Agent: something that bears responsibility, such as a person,
       organization or community.
+  ProvActivity:
+    class_uri: prov:Activity
+    mixin: true
+    description: >-
+      PROV-O Activity: something that occurs over a period of time, such as
+      the domain activity a specialized claim describes (a planting, a
+      restoration) or the activity that produced a piece of evidence (a
+      survey, a lab analysis).

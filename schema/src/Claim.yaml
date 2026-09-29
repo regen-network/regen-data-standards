@@ -47,8 +47,6 @@ classes:
       - hasClaimant
       - assertedAt
       - hasSubject
-      - claimStartDate
-      - claimEndDate
       - hasEvidence
       - wasRevisionOf
     slot_usage:
@@ -132,15 +130,3 @@ slots:
     range: ClaimSubject
     inlined: true
     required: true
-  claimStartDate:
-    slot_uri: schema:startDate
-    description: >-
-      Start date of the period the assertion is about. Distinct from
-      assertedAt, which is when the assertion is made.
-    range: date
-  claimEndDate:
-    slot_uri: schema:endDate
-    description: >-
-      End date of the period the assertion is about. Distinct from
-      assertedAt, which is when the assertion is made.
-    range: date
