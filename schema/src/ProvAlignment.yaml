@@ -1,0 +1,30 @@
+id: ProvAlignment
+name: ProvAlignment
+description: >-
+  Mixins that declare which of our classes are PROV-O classes, so that the
+  generated OWL states it (rdfs:subClassOf) without relying on inference from
+  PROV-O property domains and ranges. They add no slots and do not change
+  instance data. Note the naming: our Entity class is a PROV Agent (an
+  individual, organization or community), while a Claim is a PROV Entity.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+
+imports:
+  - linkml:types
+
+default_prefix: rfs
+
+classes:
+  ProvEntity:
+    class_uri: prov:Entity
+    mixin: true
+    description: >-
+      PROV-O Entity: a thing with some fixed aspects, such as a Claim version.
+  ProvAgent:
+    class_uri: prov:Agent
+    mixin: true
+    description: >-
+      PROV-O Agent: something that bears responsibility, such as a person,
+      organization or community.

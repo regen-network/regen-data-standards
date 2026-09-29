@@ -22,6 +22,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Generate RDF
         run: make -C schema gen-rdf
+      - name: Check Claim examples
+        run: make -C schema check-claim-examples
       - name: Check if dataset exists
         id: check-dataset
         env:
