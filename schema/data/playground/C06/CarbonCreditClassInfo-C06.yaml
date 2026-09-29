@@ -32,9 +32,9 @@ hasBufferPoolAccounts:
 eligibleActivities:
   - PRESCRIBED_GRAZING
 hasCreditProtocol:
-  url: >-
-    https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class
-  name: GHG Benefits in Managed Crop and Grassland Systems Credit Class
-  version: V1.5
+  - url: >-
+      https://www.registry.regen.network/crediting-protocols/ecometric---ghg-benefits-in-managed-crop-and-grassland-systems-credit-class
+    name: GHG Benefits in Managed Crop and Grassland Systems Credit Class
+    version: V1.5
 hasCreditGenerationMethod:
   - CARBON_DIOXIDE_REMOVAL

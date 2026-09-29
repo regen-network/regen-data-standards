@@ -36,6 +36,6 @@ eligibleActivities:
   - TREE_PLANTING
   - CONSERVATION
 hasCreditProtocol:
-  url: https://www.registry.regen.network/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration
-  name: Seatrees Crediting Protocol for Marine Restoration
+  - url: https://www.registry.regen.network/crediting-protocols/seatrees-crediting-protocol-for-marine-restoration
+    name: Seatrees Crediting Protocol for Marine Restoration
 hasCreditingPeriod: P5Y
