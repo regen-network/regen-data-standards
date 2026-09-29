@@ -84,11 +84,14 @@ so a local offset such as `+02:00` is rejected
 ([example](../schema/examples/claim.INVALID-local-offset-assertion-time.yaml)). Date-only values
 (`claimStartDate`, `claimEndDate`) stay dates and are not shifted to UTC.
 
-`+00:00` is still accepted for now. The CI conversion (`linkml-convert --validate`) loads data into
-LinkML objects, and LinkML rewrites `Z` as `+00:00` before validating, so a `Z`-only pattern would
-reject every valid claim there. rdflib does the same by default, unless `NORMALIZE_LITERALS` is off.
-Once CI validates the authored files directly, the pattern accepts only `Z`. How the identity recipe
-treats timestamp literals is decided in [claims#1](https://github.com/regen-network/claims/issues/1).
+`+00:00`, the other spelling of UTC, is rejected too
+([example](../schema/examples/claim.INVALID-utc-offset-assertion-time.yaml)). Tools must therefore
+check the text as written. LinkML objects rewrite `Z` as `+00:00` when they load data, and rdflib does
+the same unless `NORMALIZE_LITERALS` is off. So CI validates the authored files with `linkml-validate`
+rather than with `linkml-convert --validate`, and `check-claim-examples` parses JSON-LD with literal
+normalization off. The Turtle and JSON-LD that `gen-rdf` writes still contain `+00:00`, the same
+value. How the identity recipe treats timestamp literals is decided in
+[claims#1](https://github.com/regen-network/claims/issues/1).
 
 **References are typed nodes.** Every resource a claim points to is written as a node with its own
 IRI and an RDF type, never as a bare IRI, so the generated JSON Schema and SHACL can validate it as
@@ -235,7 +238,7 @@ base `Claim`, and produced the expected RDF. It is not committed, because domain
 |---|---|
 | [`generic-claim.jsonld`](../schema/examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](../schema/examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
-| [`claim.INVALID-*.yaml`](../schema/examples/) | Documents the base must reject: a candidate without a claimant, review state, the Claim's own hash/IRI, an empty claimant set, a date-only or local-offset assertion time, and domain fields on the base. |
+| [`claim.INVALID-*.yaml`](../schema/examples/) | Documents the base must reject: a candidate without a claimant, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `+00:00` assertion time, and domain fields on the base. |
 
 The JSON-LD files are generated from the playground fixtures in
 [`schema/data/playground/Claim/`](../schema/data/playground/Claim/), which `gen-rdf` validates, by
