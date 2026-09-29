@@ -136,13 +136,22 @@ def authored_graph(jsonld_text):
 
 
 def turtle_graph(fixture):
+    # --no-validate: validation would check LinkML's re-serialized objects,
+    # which rewrite Z as +00:00. The authored file is validated by
+    # json_schema_check instead.
     result = run(
-        "linkml-convert", "-s", SCHEMA, "-C", TARGET_CLASS, "--validate",
+        "linkml-convert", "-s", SCHEMA, "-C", TARGET_CLASS, "--no-validate",
         "-f", "yaml", "-t", "ttl", fixture,
     )
     if result.returncode != 0:
         sys.exit(f"{fixture}: conversion failed\n{result.stderr}")
     return rdflib.Graph().parse(data=result.stdout, format="turtle")
+
+
+def json_schema_check(document):
+    """Validate an authored YAML document with JSON Schema (linkml-validate)."""
+    result = run("linkml-validate", "-s", SCHEMA, "-C", TARGET_CLASS, document)
+    return result.returncode == 0, result.stdout + result.stderr
 
 
 def shacl_report(graph, shapes):
@@ -165,6 +174,12 @@ def main(mode):
             print(f"❌ {example} is stale: run make gen-claim-examples")
             failures += 1
             continue
+        valid, output = json_schema_check(fixture)
+        if valid:
+            print(f"✅ {fixture}: conforms to JSON Schema")
+        else:
+            print(f"❌ {fixture}: JSON Schema violations\n{output}")
+            failures += 1
         jsonld = rdflib.Graph().parse(data=text, format="json-ld")
         if isomorphic(jsonld, turtle_graph(fixture)):
             print(f"✅ {example}: RDF matches {fixture}")
@@ -181,9 +196,8 @@ def main(mode):
     for invalid in sorted(glob.glob(INVALID_GLOB)):
         first_line = Path(invalid).read_text().splitlines()[0]
         expected = first_line.removeprefix("# expect:").strip()
-        result = run("linkml-validate", "-s", SCHEMA, "-C", TARGET_CLASS, invalid)
-        output = result.stdout + result.stderr
-        if result.returncode != 0 and expected in output:
+        valid, output = json_schema_check(invalid)
+        if not valid and expected in output:
             print(f"✅ {invalid}: JSON Schema rejects it ({expected})")
         else:
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")

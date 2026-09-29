@@ -118,7 +118,7 @@ slots:
       XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is
       not accepted.
     range: datetime
-    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|\\+00:00)$"
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
     required: true
   hasSubject:
     slot_uri: rfs:hasSubject
