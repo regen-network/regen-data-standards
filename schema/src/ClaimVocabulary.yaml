@@ -61,7 +61,8 @@ slots:
     slot_uri: prov:wasAssociatedWith
     description: >-
       Responsibility of an agent for an activity (PROV). Use it only on a
-      class that represents an activity (its PROV domain is prov:Activity).
+      class that represents an activity (its PROV domain is prov:Activity);
+      such classes declare the ProvActivity mixin.
       Not used by the base Claim: it is provided for specialized claim
       schemas, such as a CarbonEg claim schema, to name the operator of the
       domain activity they describe, for example a restoration activity. It is not attribution of the Claim: the operator
