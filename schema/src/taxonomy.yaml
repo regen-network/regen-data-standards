@@ -345,8 +345,9 @@ enums:
   ClaimType:
     name: ClaimType
     description: >-
-      Categories of claims that can be made about regenerative outcomes.
-      Determines which verification pathways and impact metrics apply.
+      Subject-matter categories of claims. A category classifies what a claim
+      asserts; it does not declare a schema version or select a verification
+      pathway.
     from_schema: https://framework.regen.network/taxonomy/
     permissible_values:
       ECOLOGICAL:

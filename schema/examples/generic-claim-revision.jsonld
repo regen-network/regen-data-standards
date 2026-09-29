@@ -1,0 +1,150 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "rfs": "https://framework.regen.network/schema/",
+    "rft": "https://framework.regen.network/taxonomy/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "@vocab": "https://framework.regen.network/schema/",
+    "assertedAt": {
+      "@type": "xsd:dateTime",
+      "@id": "assertedAt"
+    },
+    "claimEndDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "claimStartDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "id": "@id",
+    "description": {
+      "@id": "schema:description"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "hasClaimant": {
+      "@type": "rfs:Entity",
+      "@id": "hasClaimant"
+    },
+    "hasClaimType": {
+      "@id": "hasClaimType",
+      "@type": "@vocab",
+      "@context": {
+        "ECOLOGICAL": "rft:Ecological",
+        "SOCIAL": "rft:Social",
+        "FINANCIAL": "rft:Financial",
+        "GOVERNANCE": "rft:Governance",
+        "BIOCULTURAL": "rft:Biocultural"
+      }
+    },
+    "hasEvidence": {
+      "@type": "rfs:Evidence",
+      "@id": "hasEvidence"
+    },
+    "hasSubject": {
+      "@type": "rfs:ClaimSubject",
+      "@id": "hasSubject"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "references": {
+      "@type": "@id",
+      "@id": "dcterms:references"
+    },
+    "url": {
+      "@type": "xsd:anyURI",
+      "@id": "schema:url"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "rfs:Entity",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "wasAttributedTo": {
+      "@type": "rfs:Entity",
+      "@id": "prov:wasAttributedTo"
+    },
+    "wasRevisionOf": {
+      "@type": "@id",
+      "@id": "prov:wasRevisionOf"
+    },
+    "Claim": {
+      "@id": "Claim"
+    },
+    "ClaimSubject": {
+      "@id": "ClaimSubject"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "Evidence": {
+      "@id": "Evidence"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "Resource": {
+      "@id": "Resource"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "Claim",
+  "name": "Hedgerow planting on plot A, spring 2026 (corrected length)",
+  "description": "Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
+  "hasClaimType": "ECOLOGICAL",
+  "hasClaimant": [
+    {
+      "@type": "Entity",
+      "name": "Hedgerow Cooperative",
+      "type": "COMMUNITY"
+    }
+  ],
+  "assertedAt": "2026-05-20T12:00:00Z",
+  "hasSubject": {
+    "@type": "ClaimSubject",
+    "id": "https://example.org/plot/A",
+    "name": "Plot A"
+  },
+  "claimStartDate": "2026-03-01",
+  "claimEndDate": "2026-04-15",
+  "hasEvidence": [
+    {
+      "@type": "Evidence",
+      "id": "https://example.org/evidence/planting-log-2026-v2.pdf#page=2",
+      "name": "Planting log, spring 2026 (v2)"
+    }
+  ],
+  "wasRevisionOf": "https://example.org/placeholder/claim-iri/generic-claim-v1"
+}

@@ -1,0 +1,19 @@
+# expect: 'hasOperator', 'hasPrimaryImpact', 'quantity', 'quantityUnit' were unexpected
+# Impact, quantity and operator content belongs to a claim-type schema that
+# extends Claim (is_a: Claim). The base Claim is closed and rejects it.
+name: Hedgerow planting on plot A, spring 2026
+hasClaimType: ECOLOGICAL
+hasClaimant:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasOperator:
+  name: Hedgerow Cooperative
+  type: COMMUNITY
+hasPrimaryImpact:
+  hasImpactType: BIODIVERSITY
+quantity: 400
+quantityUnit: NUM

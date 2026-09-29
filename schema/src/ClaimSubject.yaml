@@ -1,0 +1,37 @@
+id: ClaimSubject
+name: ClaimSubject
+description: >-
+  Skeleton of what a Claim is about. It gives every claim subject a typed,
+  identified node, so subjects can be queried and validated instead of being
+  bare IRIs. Specialized claim schemas define the kinds of subject they need as
+  subclasses (for example Plot is_a ClaimSubject) and add their fields there.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  ClaimSubject:
+    class_uri: rfs:ClaimSubject
+    description: >-
+      What a Claim is about: a place, plot, project, organization, community,
+      indicator, dataset or another claim, identified by an IRI so that claims
+      about the same subject can be joined. The IRI identifies the subject
+      itself; its full description lives on its own resource.
+    slots:
+      - name
+    slot_usage:
+      name:
+        description: Human-readable name of the subject.
+    attributes:
+      id:
+        identifier: true
+        range: uriorcurie
+        description: IRI or CURIE of the subject, for example https://example.org/plot/A.

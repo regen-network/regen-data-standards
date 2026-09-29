@@ -10,10 +10,16 @@ gen-doc:
 gen-rdf:
 	scripts/gen-rdf.sh
 
+gen-claim-examples:
+	python3 scripts/claim-examples.py generate
+
+check-claim-examples:
+	python3 scripts/claim-examples.py check
+
 clean-rdf:
 	scripts/clean-rdf.sh
 
 update-graph:
 	scripts/update-graph.sh
 
-all: gen-taxonomy lint gen-doc gen-rdf update-graph
+all: gen-taxonomy lint gen-doc gen-rdf check-claim-examples update-graph

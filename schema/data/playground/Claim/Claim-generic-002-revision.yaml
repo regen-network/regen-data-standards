@@ -1,0 +1,21 @@
+# Synthetic example: an immutable revision of Claim-generic-001. The earlier
+# version is unchanged; this version names it by a labelled placeholder that
+# stands for the ClaimIRI derived under WP1-08 (regen-network/claims#1).
+name: Hedgerow planting on plot A, spring 2026 (corrected length)
+description: >-
+  Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern
+  boundary of plot A between 1 March and 15 April 2026.
+hasClaimType: ECOLOGICAL
+hasClaimant:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-20T12:00:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+claimStartDate: "2026-03-01"
+claimEndDate: "2026-04-15"
+hasEvidence:
+  - id: https://example.org/evidence/planting-log-2026-v2.pdf#page=2
+    name: Planting log, spring 2026 (v2)
+wasRevisionOf: https://example.org/placeholder/claim-iri/generic-claim-v1
