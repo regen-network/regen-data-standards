@@ -29,8 +29,8 @@ hasBufferPoolAccounts:
 eligibleActivities:
   - PRESCRIBED_GRAZING
 hasCreditProtocol:
-  url: https://www.registry.regen.network/crediting-protocols/carbonplus-grasslands
-  name: CarbonPlus GHG & Co-Benefits in Grazing Systems
-  version: V1.0
+  - url: https://www.registry.regen.network/crediting-protocols/carbonplus-grasslands
+    name: CarbonPlus GHG & Co-Benefits in Grazing Systems
+    version: V1.0
 hasCreditGenerationMethod:
   - CARBON_DIOXIDE_REMOVAL
