@@ -15,7 +15,13 @@ The schemas are designed to be converted to RDF/JSON-LD formats for semantic web
 
 ## Requirements
 
-[Install LinkML](https://linkml.io/linkml/intro/install.html) to use the helper and generator commands for interacting with LinkML schemas and data.
+[Install LinkML](https://linkml.io/linkml/intro/install.html) to use the helper and generator commands for interacting with LinkML schemas and data. Use the versions pinned in the repository's `requirements.txt`, which need Python 3.10 or later:
+
+```shell
+pip install -r requirements.txt
+```
+
+Every schema module needs a URI `id` (for example `https://framework.regen.network/schema/Claim`); `make lint` rejects a bare name.
 
 ## Structure
 
@@ -58,9 +64,8 @@ generates on every document:
 - JSON Schema (`linkml-validate`) over the authored YAML;
 - SHACL (`gen-shacl`, run with pyshacl) over the RDF graph of the authored JSON-LD and over the
   Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both are parsed
-  without rdflib's literal normalization, so lexical forms are checked as written. `gen-shacl` adds
-  `sh:class` to reference slots, but referenced IRIs are not typed in the data, so the check removes
-  that `sh:class` and keeps `sh:nodeKind sh:IRI`.
+  without rdflib's literal normalization, so lexical forms are checked as written. The generated
+  shapes are used unchanged.
 - SHACL over each example retyped as a claim type defined outside this repository, with a field of
   its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
   must reject it without `assertedBy`.
@@ -70,8 +75,11 @@ is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turt
 validator rejects a valid example or its published Turtle, or if either accepts an invalid one.
 JSON Schema must reject each invalid document with the error named on its first line.
 
-The inline context is generated from `Claim.yaml` alone, with two corrections applied because
-`linkml-convert -t json-ld` output in LinkML 1.8.6 does not produce the same RDF as its Turtle output.
+The inline context is generated from `Claim.yaml` alone, with `gen-jsonld-context
+--xsd-anyuri-as-iri`, so `uri` and `uriorcurie` terms (`url`, `wasRevisionOf`, `references`) map to
+`@type: @id` and their values are IRI nodes, as in Turtle; without the flag they are `xsd:anyURI`
+literals. Two corrections are applied because the generated JSON-LD in LinkML 1.11.1 still does not
+produce the same RDF as the Turtle output.
 Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so a claimant's `"COMMUNITY"`
 becomes `rfs:Community`, not a string. Nested objects carry `@type`. The context is not generated from
 `schema.yaml` because there `ProjectPost`'s `description` (`dcterms:description`) replaces

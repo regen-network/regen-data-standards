@@ -76,13 +76,14 @@ slots it lists.
 | `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
 | `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity. |
 
-One slot of the base Claim is still a plain IRI reference: `wasRevisionOf`, which ranges over
-`Resource`, an abstract class with only an `id`. Its value is always an earlier Claim version, so
-"must be an IRI" is the only rule that makes sense for it. The generated SHACL additionally requires a
-`rfs:Resource` type that the data never states, so `check-claim-examples` removes that one rule.
-LinkML 1.11 generates the right rule for `range: uriorcurie` (an IRI, no class), so both the
-`Resource` class and the correction go away with the upgrade in
-[#84](https://github.com/regen-network/regen-data-standards/issues/84).
+One slot of the base Claim is a plain IRI reference: `wasRevisionOf`, with `range: uriorcurie`
+(as is `references`, its unused sibling). Its value is always an earlier Claim version, so "must be
+an IRI" is the only rule that makes sense for it. Since LinkML 1.11
+([#84](https://github.com/regen-network/regen-data-standards/issues/84)), such a value is an IRI node
+in the Turtle output and the generated SHACL requires `sh:nodeKind sh:IRI` with no class, which is
+that rule. By default the generated JSON-LD context and OWL still treat it as an `xsd:anyURI`
+literal; both generators need `--xsd-anyuri-as-iri` (see [Examples](#examples) and
+[PROV-O conformance](#prov-o-conformance)).
 
 ## PROV-O in the schema
 
@@ -99,14 +100,30 @@ ADR 0001 decides the PROV-O alignment. In the schema it is implemented as follow
   axiom on PROV's own property (for example "every `prov:wasRevisionOf` subject is an `rfs:Claim`"),
   which is false outside our data.
 
-**Generated OWL restates ranges on PROV and DCTerms properties.** `gen-owl --no-use-native-uris`
-emits, for example, `prov:wasAttributedTo rdfs:range rfs:Entity` and
-`prov:wasRevisionOf rdfs:range rfs:Resource`. That does not contradict PROV-O, but loading it would
-narrow PROV's own properties for all data, not just ours. Without `--no-use-native-uris`, `gen-owl`
-mints `rfs:`-namespaced copies of these properties instead. No OWL artifact is built, published or
-planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74) generates contexts,
-JSON Schema and SHACL only. If one is added, it should emit axioms only for `rfs:` terms, keeping
-`rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo`.
+**Generated OWL must not redefine PROV or DCTerms properties.** No OWL artifact is built,
+published or planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74)
+generates contexts, JSON Schema and SHACL only. The rules below apply if one is added. With
+LinkML 1.11.1, `gen-owl --no-use-native-uris` emits two kinds of axiom on properties we reuse but
+do not own:
+
+- *Contradictions, fixed by `--xsd-anyuri-as-iri`.* By default a `uriorcurie` slot becomes an
+  `owl:DatatypeProperty` with `rdfs:range xsd:anyURI`. PROV-O declares `prov:wasRevisionOf` an
+  `owl:ObjectProperty` from `prov:Entity` to `prov:Entity`, so loading both makes it both kinds of
+  property, which OWL 2 DL forbids, and a reasoner infers that the earlier Claim version is both a
+  `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:hasEvidence`, an object
+  property, a subproperty of the datatype property `dcterms:references`. With the flag, both become
+  object properties without a range, as in PROV-O and DCMI Terms.
+- *Global narrowing, fixed by emitting only `rfs:` axioms.* `prov:wasAttributedTo rdfs:range
+  rfs:Entity` (and the same for `prov:wasAssociatedWith`) remains. It is not a contradiction, but a
+  reasoner applies it to all PROV data: any agent anyone attributes anything to becomes an
+  `rfs:Entity`. The published OWL should therefore drop every axiom whose subject is a non-`rfs:`
+  IRI, keeping the links from our terms, such as `rfs:assertedBy rdfs:subPropertyOf
+  prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf prov:Entity`.
+
+Checked with the OWL-RL reasoner over PROV-O plus the generated OWL: with both measures, the
+reasoner infers only what PROV-O itself implies. Without `--no-use-native-uris`, `gen-owl` mints
+`rfs:`-namespaced copies of these properties, which describe terms the data does not use. Any
+future OWL artifact needs both measures.
 
 ## Extending the base: claim-type schemas
 
