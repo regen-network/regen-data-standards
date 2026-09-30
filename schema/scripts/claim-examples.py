@@ -6,9 +6,11 @@
 
 Run from the schema/ directory. Each example is built from a playground
 fixture (validated by gen-rdf in CI) plus an inline JSON-LD context generated
-from src/Claim.yaml. Two corrections are applied to the generated context,
-because this LinkML version's JSON-LD output does not produce the same RDF as
-its Turtle output:
+from src/Claim.yaml with --xsd-anyuri-as-iri, so that uri- and
+uriorcurie-valued terms, such as wasRevisionOf, map to "@type": "@id" (an IRI
+node, as in the Turtle output) instead of an xsd:anyURI literal. Two
+corrections are applied to the generated context, because this LinkML
+version's JSON-LD output does not produce the same RDF as its Turtle output:
 
 - enum-valued terms get "@type": "@vocab" and a scoped context mapping each
   permissible value to its `meaning`, so a claimant's "COMMUNITY" expands to
@@ -22,10 +24,7 @@ The check validates every document with both validators the schema generates:
   Turtle that gen-rdf publishes for the fixture, both parsed
   without rdflib's literal normalization so that lexical forms are checked as
   written (rdflib would otherwise rewrite an invalid Z in assertedAt as
-  +00:00). One correction is applied to the generated shapes: gen-shacl adds
-  sh:class to reference slots (a class range with an identifier, not inlined),
-  but referenced IRIs are not typed in the data, so every valid claim would
-  fail. The correction removes that sh:class and keeps sh:nodeKind sh:IRI.
+  +00:00). The generated shapes are used unchanged.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators.
@@ -75,7 +74,7 @@ def run(*args):
 
 
 def inline_context(view):
-    result = run("gen-jsonld-context", CONTEXT_SOURCE)
+    result = run("gen-jsonld-context", "--xsd-anyuri-as-iri", CONTEXT_SOURCE)
     if result.returncode != 0:
         sys.exit(result.stderr)
     context = json.loads(result.stdout)["@context"]
@@ -93,22 +92,11 @@ def inline_context(view):
     return context
 
 
-def shacl_shapes(view):
+def shacl_shapes():
     result = run("gen-shacl", CONTEXT_SOURCE)
     if result.returncode != 0:
         sys.exit(result.stderr)
-    shapes = rdflib.Graph().parse(data=result.stdout, format="turtle")
-    for class_name in view.all_classes():
-        for slot in view.class_induced_slots(class_name):
-            if (
-                slot.range in view.all_classes()
-                and view.get_identifier_slot(slot.range) is not None
-                and not slot.inlined
-            ):
-                path = rdflib.URIRef(view.get_uri(slot, expand=True))
-                for prop in shapes.subjects(SH.path, path):
-                    shapes.remove((prop, SH["class"], None))
-    return shapes
+    return rdflib.Graph().parse(data=result.stdout, format="turtle")
 
 
 def typed(view, class_name, data):
@@ -184,7 +172,7 @@ def shacl_report(graph, shapes):
 def main(mode):
     view = SchemaView(CONTEXT_SOURCE)
     context = inline_context(view)
-    shapes = shacl_shapes(view)
+    shapes = shacl_shapes()
     failures = 0
 
     for fixture, example in EXAMPLES.items():

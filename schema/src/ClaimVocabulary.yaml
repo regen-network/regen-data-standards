@@ -1,4 +1,4 @@
-id: ClaimVocabulary
+id: https://framework.regen.network/schema/ClaimVocabulary
 name: ClaimVocabulary
 description: >-
   Shared terms that the base Claim and claim-type schemas import rather than
@@ -25,24 +25,6 @@ imports:
 
 default_prefix: rfs
 default_range: string
-
-classes:
-  Resource:
-    class_uri: rfs:Resource
-    abstract: true
-    description: >-
-      Anything identified by an IRI or CURIE. Used as the range of reference
-      slots so that their values are IRI nodes in RDF, not string literals,
-      and can be joined across graphs. A reference asserts nothing about the
-      referenced resource: its description, type and integrity information
-      live on its own resource, shaped by its own schema. Claim-type schemas
-      may narrow a reference slot's range to a more specific class that has
-      an identifier.
-    attributes:
-      id:
-        identifier: true
-        range: uriorcurie
-        description: IRI or CURIE of the resource.
 
 slots:
   inLanguage:
@@ -99,8 +81,7 @@ slots:
       version current nor carries over any attestation of the earlier one;
       which version an application accepts is maintained outside the
       resource.
-    range: Resource
-    inlined: false
+    range: uriorcurie
   references:
     slot_uri: dcterms:references
     description: >-
@@ -108,8 +89,7 @@ slots:
       cites or otherwise points to. Declared here so that narrower relations,
       such as hasEvidence, can specialize it (rdfs:subPropertyOf); a citation
       alone asserts neither derivation nor support. Unordered set.
-    range: Resource
-    inlined: false
+    range: uriorcurie
     multivalued: true
     list_elements_ordered: false
   hasEvidence:

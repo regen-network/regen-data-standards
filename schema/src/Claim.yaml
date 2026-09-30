@@ -1,4 +1,4 @@
-id: Claim
+id: https://framework.regen.network/schema/Claim
 name: Claim
 description: >-
   The reusable base Claim: asserted content shared by every kind of claim.
