@@ -60,11 +60,14 @@ PROV infers from an attribution that the agent was associated with an activity t
 entity ([PROV-CONSTRAINTS, Inference 13][PROVC]). For a Claim, that activity is the act of asserting,
 which is why a service that only extracted or submitted the RDF is not a claimant.
 
-**Assertion time.** `assertedAt` is not observation, extraction, file-generation, submission,
-publication or ingestion time. Those are recorded elsewhere. The claimant states it, and it is always
-known at the moment of asserting. The date of an older source document is cited evidence. Content
-asserted at a different time is a different Claim. The research asks for an explicit definition
-([§3.4][R34]). `prov:atTime` cannot attach to a PROV attribution
+**Assertion time.** `assertedAt` is when the claimants made the assertion. When they made it in a
+source document, such as a project plan, and someone transcribed it later, it is when they made it
+there: the transcriber is recorded in the authoring trail, not as claimant, and transcription time
+is not assertion time. It is never observation time, which belongs to the observation or activity the
+claim describes, nor the time the Claim record was generated, submitted, published or ingested, which
+belong to the authoring, submission ([claims#55](https://github.com/regen-network/claims/issues/55))
+and publication records. Content asserted at a different time is a different Claim. The research
+asks for an explicit definition ([§3.4][R34]). `prov:atTime` cannot attach to a PROV attribution
 ([#70](https://github.com/regen-network/regen-data-standards/issues/70#issuecomment-5785207710)).
 `prov:generatedAtTime` ("the time at which an entity was completely created and is available for use",
 [PROV-O][PROVO]) is the nearest PROV term. It is not used, because other records use it for the time a

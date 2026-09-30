@@ -107,12 +107,13 @@ slots:
   assertedAt:
     slot_uri: rfs:assertedAt
     description: >-
-      When the claimants make this assertion. It is the time of asserting,
-      not the time of observation, extraction, file generation, submission,
-      publication or ingestion. It is stated by the claimant and always known
-      when asserting; the date of an earlier source document is cited
-      evidence, not assertion time. The same content asserted at a different
-      time is a different Claim. Written in UTC with whole seconds, in the
+      When the claimants made this assertion. For an assertion they made in a
+      source document, such as a project plan, and that was transcribed
+      later, it is when they made it there, not when it was extracted,
+      transcribed or submitted. It is never the time of an observation, or
+      the time the Claim record was generated, submitted, published or
+      ingested. The same content asserted at a different time is a different
+      Claim. Written in UTC with whole seconds, in the
       XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is
       not accepted.
     range: datetime
