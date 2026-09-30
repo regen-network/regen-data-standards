@@ -154,13 +154,14 @@ slots it lists.
 | `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
 | `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
 
-One slot of the base Claim is still a plain IRI reference: `wasRevisionOf`, which ranges over
-`Resource`, an abstract class with only an `id`. Its value is always an earlier Claim version, so
-"must be an IRI" is the only rule that makes sense for it. The generated SHACL additionally requires a
-`rfs:Resource` type that the data never states, so `check-claim-examples` removes that one rule.
-LinkML 1.11 generates the right rule for `range: uriorcurie` (an IRI, no class), so both the
-`Resource` class and the correction go away with the upgrade in
-[#84](https://github.com/regen-network/regen-data-standards/issues/84).
+One slot of the base Claim is a plain IRI reference: `wasRevisionOf`, with `range: uriorcurie`
+(as is `references`, its unused sibling). Its value is always an earlier Claim version, so "must be
+an IRI" is the only rule that makes sense for it. Since LinkML 1.11
+([#84](https://github.com/regen-network/regen-data-standards/issues/84)), such a value is an IRI node
+in the Turtle output and the generated SHACL requires `sh:nodeKind sh:IRI` with no class, which is
+that rule. By default the generated JSON-LD context and OWL still treat it as an `xsd:anyURI`
+literal; both generators need `--xsd-anyuri-as-iri` (see [Examples](#examples) and
+[PROV-O conformance](#prov-o-conformance)).
 
 ## PROV-O conformance
 
@@ -186,14 +187,30 @@ data. The PROV slots declare no LinkML `domain:`, because `gen-owl` would turn i
 evidence, which PROV does not model. For the second, `prov:atTime` applies only to qualified events and `prov:generatedAtTime`
 is the time a record was produced (see [Assertion time](#base-fields)).
 
-**Generated OWL restates ranges on PROV and DCTerms properties.** `gen-owl --no-use-native-uris`
-emits, for example, `prov:wasAttributedTo rdfs:range rfs:Entity` and
-`prov:wasRevisionOf rdfs:range rfs:Resource`. That does not contradict PROV-O, but loading it would
-narrow PROV's own properties for all data, not just ours. Without `--no-use-native-uris`, `gen-owl`
-mints `rfs:`-namespaced copies of these properties instead. No OWL artifact is built, published or
-planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74) generates contexts,
-JSON Schema and SHACL only. If one is added, it should emit axioms only for `rfs:` terms, keeping
-`rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`.
+**Generated OWL must not redefine PROV or DCTerms properties.** No OWL artifact is built,
+published or planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74)
+generates contexts, JSON Schema and SHACL only. The rules below apply if one is added. With
+LinkML 1.11.1, `gen-owl --no-use-native-uris` emits two kinds of axiom on properties we reuse but
+do not own:
+
+- *Contradictions, fixed by `--xsd-anyuri-as-iri`.* By default a `uriorcurie` slot becomes an
+  `owl:DatatypeProperty` with `rdfs:range xsd:anyURI`. PROV-O declares `prov:wasRevisionOf` an
+  `owl:ObjectProperty` from `prov:Entity` to `prov:Entity`, so loading both makes it both kinds of
+  property, which OWL 2 DL forbids, and a reasoner infers that the earlier Claim version is both a
+  `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:hasEvidence`, an object
+  property, a subproperty of the datatype property `dcterms:references`. With the flag, both become
+  object properties without a range, as in PROV-O and DCMI Terms.
+- *Global narrowing, fixed by emitting only `rfs:` axioms.* `prov:wasAttributedTo rdfs:range
+  rfs:Entity` (and the same for `prov:wasAssociatedWith`) remains. It is not a contradiction, but a
+  reasoner applies it to all PROV data: any agent anyone attributes anything to becomes an
+  `rfs:Entity`. The published OWL should therefore drop every axiom whose subject is a non-`rfs:`
+  IRI, keeping the links from our terms, such as `rfs:hasClaimant rdfs:subPropertyOf
+  prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf prov:Entity`.
+
+Checked with the OWL-RL reasoner over PROV-O plus the generated OWL: with both measures, the
+reasoner infers only what PROV-O itself implies. Without `--no-use-native-uris`, `gen-owl` mints
+`rfs:`-namespaced copies of these properties, which describe terms the data does not use. Any
+future OWL artifact needs both measures.
 
 ## Extending the base: claim-type schemas
 
@@ -296,19 +313,21 @@ both validators the schema generates on every document:
 - JSON Schema (`linkml-validate`) over the authored YAML;
 - SHACL (`gen-shacl`, closed shapes, run with pyshacl) over the RDF graph of the authored JSON-LD.
   The graph is parsed without rdflib's literal normalization, so lexical forms are checked as
-  written. `gen-shacl` adds `sh:class` to reference slots, but referenced IRIs are not typed in the
-  data, so the check removes that `sh:class` and keeps `sh:nodeKind sh:IRI`.
+  written. The generated shapes are used unchanged.
 
 The check fails if an example is stale, if its JSON-LD graph is not isomorphic to the fixture's
 Turtle output, if either validator rejects a valid example, or if either accepts an invalid one.
 JSON Schema must reject each invalid document with the error named on its first line.
 
-The inline context is generated from `Claim.yaml` alone, with two corrections applied because
-`linkml-convert -t json-ld` output in LinkML 1.8.6 does not produce the same RDF as its Turtle output.
-Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so `"ECOLOGICAL"` becomes
-`rft:Ecological`, not a string. Nested objects carry `@type`. The context is not generated from
+The inline context is generated from `Claim.yaml` alone, with `gen-jsonld-context
+--xsd-anyuri-as-iri`, so `uri` and `uriorcurie` terms (`url`, `wasRevisionOf`, `references`) map to
+`@type: @id` and their values are IRI nodes, as in Turtle; without the flag they are `xsd:anyURI`
+literals. Two corrections are applied because the generated JSON-LD in LinkML 1.11.1 still does not
+produce the same RDF as the Turtle output. Enum terms use `@type: @vocab` with each value mapped to
+its `meaning`, so `"ECOLOGICAL"` becomes `rft:Ecological`, not a string. Nested objects carry
+`@type`. The context is not generated from
 `schema.yaml` because there `ProjectPost`'s `description` (`dcterms:description`) replaces
-`schema:description` for every class. Both issues affect all JSON-LD generated in this repository and
+`schema:description` for every class. These issues affect all JSON-LD generated in this repository and
 are recorded for [#74](https://github.com/regen-network/regen-data-standards/issues/74) (WP1-07).
 
 ## Field record against `Claim.yaml` at `0a4ba12a`
