@@ -188,8 +188,9 @@ is the time a record was produced (see [Assertion time](#base-fields)).
 emits, for example, `prov:wasAttributedTo rdfs:range rfs:Entity` and
 `prov:wasRevisionOf rdfs:range rfs:Resource`. That does not contradict PROV-O, but loading it would
 narrow PROV's own properties for all data, not just ours. Without `--no-use-native-uris`, `gen-owl`
-mints `rfs:`-namespaced copies of these properties instead. No OWL artifact is built or published
-today. When #74 adds one, it should emit axioms only for `rfs:` terms, keeping
+mints `rfs:`-namespaced copies of these properties instead. No OWL artifact is built, published or
+planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74) generates contexts,
+JSON Schema and SHACL only. If one is added, it should emit axioms only for `rfs:` terms, keeping
 `rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`.
 
 ## Extending the base: claim-type schemas
@@ -325,7 +326,7 @@ records that use the prior fields and their RIDs.
   attestation that used them) and normative rule-set version references (PG-1). Neither applies to
   every claim, so neither is on the base Claim.
 - The review-state record and the full evidence shape also belong to #73. Generated JSON Schema,
-  SHACL, OWL and context artifacts belong to #74.
+  SHACL and context artifacts belong to #74; no OWL artifact is planned.
 
 [ADR-D1]: https://github.com/regen-network/regen-data-standards/blob/0cfe1c522754e4479baf7b931f272865d7c8f4e3/docs/adr/0001-claim-substance-canonicalization.md#d1--define-asserted-content-separately-from-lifecycle-and-derived-identity
 [RESEARCH]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md
