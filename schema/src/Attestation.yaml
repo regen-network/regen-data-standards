@@ -1,4 +1,4 @@
-id: Attestation
+id: https://framework.regen.network/schema/Attestation
 name: Attestation
 prefixes:
   linkml: https://w3id.org/linkml/

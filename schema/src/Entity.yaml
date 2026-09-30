@@ -1,4 +1,4 @@
-id: Entity
+id: https://framework.regen.network/schema/Entity
 name: Entity
 prefixes:
   linkml: https://w3id.org/linkml/
