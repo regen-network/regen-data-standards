@@ -43,7 +43,6 @@ classes:
       - name
       - description
       - url
-      - hasClaimType
       - hasClaimant
       - assertedAt
       - hasSubject
@@ -74,15 +73,6 @@ classes:
           selecting a current version happens outside the Claim.
 
 slots:
-  hasClaimType:
-    slot_uri: rfs:hasClaimType
-    description: >-
-      Subject-matter classification of what is asserted, drawn from the
-      ClaimType taxonomy. It classifies content only: it does not declare
-      which schema or schema version the document conforms to, and it does
-      not by itself select a verification pathway.
-    range: ClaimType
-    required: true
   hasClaimant:
     is_a: wasAttributedTo
     slot_uri: rfs:hasClaimant
