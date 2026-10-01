@@ -1,0 +1,21 @@
+# expect: 'contentHash' is a required property
+# class: C06SiteClaim
+# Cited evidence carries the hash of the exact source version, so that a reader
+# can check the bytes the resolver returns.
+name: Site S-001 start date
+hasClaimant:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-07-10T00:00:00Z"
+hasSubject:
+  id: https://example.org/c06/site/S-001
+  name: Site S-001
+  siteKey: S-001
+  project: https://example.org/c06/project/P-001
+siteProjectStartDate: "2022-03-15"
+hasEvidence:
+  - id: https://example.org/c06/project-plan-v2.0.pdf#page=16
+    name: Example project plan v2.0, section 1.8
+    sourceType: TEXT
+    resolver:
+      - https://example.org/c06/project-plan-v2.0.pdf

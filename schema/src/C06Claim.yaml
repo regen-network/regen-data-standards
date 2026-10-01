@@ -1,0 +1,479 @@
+id: https://framework.regen.network/schema/C06Claim
+name: C06Claim
+version: 0.1.0
+description: >-
+  The C06 claim schema (#73, WP1-06): the claims a project developer
+  makes in an aggregate soil-carbon project registration under credit class
+  C06, and the subjects they are about. Each claim class extends the base
+  Claim with the values that registration requirements check; requirements
+  that only need the project plan to contain a statement use
+  C06ProjectStatementClaim. Values reviewers judge are on the claims; the subject
+  classes only identify and place what the claims are about.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rft: https://framework.regen.network/taxonomy/
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - taxonomy
+  - Claim
+  - ClaimSubject
+  - ClaimVocabulary
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  # Subjects
+
+  Project:
+    is_a: ClaimSubject
+    class_uri: rfs:Project
+    description: An aggregate project of enrolled sites.
+    slots:
+      - registryProjectId
+
+  Cohort:
+    is_a: ClaimSubject
+    class_uri: rfs:Cohort
+    description: >-
+      The sites of a project whose baseline soil sampling took place in the
+      same year. Each cohort has its own crediting and permanence periods, and
+      approvals can be scoped to cohorts.
+    slots:
+      - baselineYear
+      - project
+    slot_usage:
+      baselineYear:
+        required: true
+      project:
+        required: true
+
+  Site:
+    is_a: ClaimSubject
+    class_uri: rfs:Site
+    description: One enrolled site (farm) of an aggregate project.
+    slots:
+      - siteKey
+      - country
+      - project
+      - cohort
+    slot_usage:
+      siteKey:
+        required: true
+      project:
+        required: true
+
+  Plot:
+    is_a: ClaimSubject
+    class_uri: rfs:Plot
+    description: >-
+      One land parcel of a site. The plots of a site are the plots whose site
+      is that site.
+    slots:
+      - plotKey
+      - parcelId
+      - site
+    slot_usage:
+      plotKey:
+        required: true
+      site:
+        required: true
+
+  # Claims
+
+  C06ProjectClaim:
+    is_a: Claim
+    class_uri: rfs:C06ProjectClaim
+    description: >-
+      The project developer's assertions about the whole project: the rule
+      sets it applies, its aggregation, eligibility, start date, crediting and
+      permanence periods, enrolment window, area and requested deviations.
+    slots:
+      - appliesRuleSet
+      - methodologyUse
+      - isAggregateProject
+      - aggregationBasis
+      - ecosystemTypes
+      - mandatoryPractices
+      - complementaryPractices
+      - aggregateStartDate
+      - startDateBasis
+      - adoptionDate
+      - creditingPeriod
+      - permanencePeriod
+      - enrolmentCutoff
+      - areaHectares
+      - requestedDeviations
+    slot_usage:
+      hasSubject:
+        range: Project
+
+  C06CohortClaim:
+    is_a: Claim
+    class_uri: rfs:C06CohortClaim
+    description: The project developer's assertions about one cohort.
+    slots:
+      - creditingPeriod
+      - finalMonitoringYear
+      - permanencePeriod
+      - areaHectares
+    slot_usage:
+      hasSubject:
+        range: Cohort
+
+  C06SiteClaim:
+    is_a: Claim
+    class_uri: rfs:C06SiteClaim
+    description: >-
+      The project developer's assertions about one site: its start date and
+      crediting period, ecosystem types, aggregation characteristics,
+      practices and their history, land use and monitoring schedule.
+    slots:
+      - siteProjectStartDate
+      - startDateBasis
+      - creditingPeriod
+      - ecosystemTypes
+      - climateClass
+      - soilGroup
+      - practices
+      - historicActivityYears
+      - primaryLandUse
+      - monitoringSampleDates
+      - monitoringIntervalJustification
+    slot_usage:
+      hasSubject:
+        range: Site
+
+  C06PlotClaim:
+    is_a: Claim
+    class_uri: rfs:C06PlotClaim
+    description: >-
+      The project developer's assertions about one plot: its area and
+      boundary, land use, eligibility, tenure, land-use-change screening and
+      enrolment status.
+    slots:
+      - areaHectares
+      - geometry
+      - primaryLandUse
+      - eligible
+      - eligibilityBasis
+      - tenureBasis
+      - tenureRecord
+      - landUseChangeScreening
+      - enrolmentStatus
+      - enrolmentStatusReason
+    slot_usage:
+      hasSubject:
+        range: Plot
+
+  C06ProjectStatementClaim:
+    is_a: Claim
+    class_uri: rfs:C06ProjectStatementClaim
+    description: >-
+      A statement the project developer makes about the project that a
+      reviewer reads rather than checks as a value, such as how local
+      stakeholders were consulted. The assertion is in description and its
+      location in the project plan is the evidence; which requirement it
+      answers is recorded by the reviewer's attestation.
+    slot_usage:
+      description:
+        required: true
+      hasSubject:
+        range: Project
+
+  # Inlined values
+
+  DatePeriod:
+    class_uri: rfs:DatePeriod
+    description: A period between two dates, both included.
+    slots:
+      - startDate
+      - endDate
+    slot_usage:
+      startDate:
+        required: true
+
+  MethodologyUse:
+    class_uri: rfs:MethodologyUse
+    description: A methodology version the project applies, and for what.
+    slots:
+      - methodology
+      - methodologyRole
+      - methodologyScope
+    slot_usage:
+      methodology:
+        required: true
+      methodologyRole:
+        required: true
+
+  DeviationRequest:
+    class_uri: rfs:DeviationRequest
+    description: >-
+      A project-specific deviation from a requirement that the project
+      developer requests. Whether it is approved is a separate attestation.
+    slots:
+      - requirement
+      - replacedParameters
+      - justification
+    slot_usage:
+      requirement:
+        required: true
+      replacedParameters:
+        required: true
+
+  LandUseChangeScreening:
+    class_uri: rfs:LandUseChangeScreening
+    description: >-
+      The screening of a plot for conversion from forest, wetland or another
+      natural ecosystem in the lookback period.
+    slots:
+      - screeningDatasets
+      - noConversionFound
+    slot_usage:
+      noConversionFound:
+        required: true
+
+slots:
+  registryProjectId:
+    slot_uri: rfs:registryProjectId
+    description: The project's identifier in the registry, once assigned.
+    range: string
+  baselineYear:
+    slot_uri: rfs:baselineYear
+    description: Year of the cohort's baseline soil sampling.
+    range: integer
+  project:
+    slot_uri: rfs:project
+    description: Identifier of the project this subject belongs to.
+    range: uriorcurie
+  cohort:
+    slot_uri: rfs:cohort
+    description: Identifier of the site's cohort.
+    range: uriorcurie
+  site:
+    slot_uri: rfs:site
+    description: Identifier of the plot's site.
+    range: uriorcurie
+  siteKey:
+    slot_uri: rfs:siteKey
+    description: The key that identifies the site in the project's records.
+    range: string
+  plotKey:
+    slot_uri: rfs:plotKey
+    description: The key that identifies the plot in the project's records.
+    range: string
+  parcelId:
+    slot_uri: rfs:parcelId
+    description: >-
+      Identifier of the parcel in the national land parcel register, for
+      example LPIS in Czechia or GSAA in Slovakia.
+    range: string
+  country:
+    slot_uri: schema:addressCountry
+    description: ISO 3166-1 alpha-2 country code.
+    range: string
+    pattern: "^[A-Z]{2}$"
+  methodologyUse:
+    slot_uri: rfs:methodologyUse
+    range: MethodologyUse
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  methodology:
+    slot_uri: rfs:methodology
+    description: Identifier of an exact methodology version.
+    range: uriorcurie
+  methodologyRole:
+    slot_uri: rfs:methodologyRole
+    range: MethodologyRole
+  methodologyScope:
+    slot_uri: rfs:methodologyScope
+    description: What the methodology is used for in this project.
+    range: string
+  isAggregateProject:
+    slot_uri: rfs:isAggregateProject
+    range: boolean
+  aggregationBasis:
+    slot_uri: rfs:aggregationBasis
+    description: >-
+      Why the sites are grouped: the shared climatic or geographic region and
+      the homogeneity of soil, ecology and management.
+    range: string
+  ecosystemTypes:
+    slot_uri: rfs:ecosystemTypes
+    range: EnvironmentType
+    multivalued: true
+    list_elements_ordered: false
+  mandatoryPractices:
+    slot_uri: rfs:mandatoryPractices
+    description: Practices every enrolled site must implement.
+    range: ActivityType
+    multivalued: true
+    list_elements_ordered: false
+  complementaryPractices:
+    slot_uri: rfs:complementaryPractices
+    description: Practices promoted but not required for enrolment.
+    range: ActivityType
+    multivalued: true
+    list_elements_ordered: false
+  practices:
+    slot_uri: rfs:practices
+    description: Practices implemented on the site.
+    range: ActivityType
+    multivalued: true
+    list_elements_ordered: false
+  aggregateStartDate:
+    slot_uri: rfs:aggregateStartDate
+    description: >-
+      Start date of the aggregate project. Each site also has its own start
+      date (siteProjectStartDate).
+    range: date
+  siteProjectStartDate:
+    slot_uri: rfs:siteProjectStartDate
+    range: date
+  startDateBasis:
+    slot_uri: rfs:startDateBasis
+    description: >-
+      The event or record that establishes the start date, for example the
+      first baseline soil sampling or a contract signature.
+    range: string
+  adoptionDate:
+    slot_uri: rfs:adoptionDate
+    description: When the project activities were adopted.
+    range: date
+  creditingPeriod:
+    slot_uri: rfs:creditingPeriod
+    range: DatePeriod
+    inlined: true
+  permanencePeriod:
+    slot_uri: rfs:permanencePeriod
+    range: DatePeriod
+    inlined: true
+  finalMonitoringYear:
+    slot_uri: rfs:finalMonitoringYear
+    range: integer
+  enrolmentCutoff:
+    slot_uri: rfs:enrolmentCutoff
+    description: Last date on which sites or plots may be enrolled.
+    range: date
+  areaHectares:
+    slot_uri: rfs:areaHectares
+    description: Area in hectares.
+    range: decimal
+    minimum_value: 0
+  requestedDeviations:
+    slot_uri: rfs:requestedDeviations
+    range: DeviationRequest
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  replacedParameters:
+    slot_uri: rfs:replacedParameters
+    description: What the deviation replaces, and with what.
+    range: string
+  justification:
+    slot_uri: rfs:justification
+    range: string
+  climateClass:
+    slot_uri: rfs:climateClass
+    description: Köppen-Geiger climate class, for example Dfb.
+    range: string
+  soilGroup:
+    slot_uri: rfs:soilGroup
+    description: World Reference Base soil group, for example Cambisol.
+    range: string
+  historicActivityYears:
+    slot_uri: rfs:historicActivityYears
+    description: Years for which historic activity records exist.
+    range: integer
+    multivalued: true
+    list_elements_ordered: false
+  primaryLandUse:
+    slot_uri: rfs:primaryLandUse
+    range: EnvironmentType
+  monitoringSampleDates:
+    slot_uri: rfs:monitoringSampleDates
+    description: Dates of soil sampling at the site.
+    range: date
+    multivalued: true
+    list_elements_ordered: false
+  monitoringIntervalJustification:
+    slot_uri: rfs:monitoringIntervalJustification
+    description: Why sampling intervals differ from the expected cadence.
+    range: string
+  geometry:
+    slot_uri: rfs:geometry
+    description: >-
+      Identifier of the boundary feature, for example a feature in a cited
+      GeoPackage. One feature may cover more than one plot.
+    range: uriorcurie
+  eligible:
+    slot_uri: rfs:eligible
+    description: Whether the plot is eligible for crediting.
+    range: boolean
+  eligibilityBasis:
+    slot_uri: rfs:eligibilityBasis
+    range: string
+  tenureBasis:
+    slot_uri: rfs:tenureBasis
+    range: TenureBasis
+  tenureRecord:
+    slot_uri: rfs:tenureRecord
+    description: Identifier of the land register record that evidences tenure.
+    range: uriorcurie
+  landUseChangeScreening:
+    slot_uri: rfs:landUseChangeScreening
+    range: LandUseChangeScreening
+    inlined: true
+  screeningDatasets:
+    slot_uri: rfs:screeningDatasets
+    description: Land cover datasets and years used, for example CORINE 2018.
+    range: string
+    multivalued: true
+    list_elements_ordered: false
+  noConversionFound:
+    slot_uri: rfs:noConversionFound
+    range: boolean
+  enrolmentStatus:
+    slot_uri: rfs:enrolmentStatus
+    description: >-
+      Whether the plot is enrolled, as asserted in this version. A later
+      version asserting a cancellation is a revision, not a state change.
+    range: EnrolmentStatus
+  enrolmentStatusReason:
+    slot_uri: rfs:enrolmentStatusReason
+    range: string
+  startDate:
+    slot_uri: schema:startDate
+    range: date
+  endDate:
+    slot_uri: schema:endDate
+    range: date
+
+enums:
+  MethodologyRole:
+    permissible_values:
+      PRIMARY:
+        meaning: rfs:PrimaryMethodology
+      SUPPLEMENTARY:
+        meaning: rfs:SupplementaryMethodology
+  TenureBasis:
+    permissible_values:
+      OWNERSHIP:
+        meaning: rfs:Ownership
+      LEASE:
+        meaning: rfs:Lease
+      OTHER:
+        meaning: rfs:OtherTenure
+  EnrolmentStatus:
+    permissible_values:
+      ACTIVE:
+        meaning: rfs:EnrolmentActive
+      CANCELLED:
+        meaning: rfs:EnrolmentCancelled
