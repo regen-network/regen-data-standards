@@ -1,76 +1,130 @@
 id: https://framework.regen.network/schema/Attestation
 name: Attestation
+description: >-
+  The base Attestation: an issuer's dated, scoped judgment about claims or
+  other attestations. It holds only what every program's judgments share;
+  program-specific review vocabularies, such as Regen Registry's, extend it
+  with is_a Attestation. See docs/attestation-and-evidence.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
-  rft: https://framework.regen.network/taxonomy/
 
 imports:
   - linkml:types
   - core
-  - taxonomy
-  - Entity
+  - Claim
+  - ClaimVocabulary
 
 default_prefix: rfs
 default_range: string
 
 classes:
   Attestation:
+    is_a: Claim
+    class_uri: rfs:Attestation
     description: >-
-      A reviewer's attestation about a Claim. Maps to the KOI
-      claim_attestations table and aligns with on-chain MsgAttest
-      and Ethereum Attestation Service (EAS) attestation patterns.
+      An issuer's judgment, made at a stated time, about what it targets:
+      exact versions of claims, of other attestations, or a snapshot of
+      claims. As a Claim it is attributed (hasClaimant names the issuer),
+      immutable and revisable with wasRevisionOf; it is about a subject, such
+      as a project or a plot, even when it judges a claim about that subject.
+      It does not carry its own hash or IRI, anchoring state, or a status
+      that changes after it is made: a later judgment is a new Attestation.
     slots:
-      - name
-      - description
-    attributes:
-      attestsClaim:
-        slot_uri: rfs:attestsClaim
+      - hasTarget
+      - reliesOn
+      - requirement
+      - appliesRuleSet
+      - outcome
+      - rationale
+      - verificationMethod
+      - verificationMethodDescriptor
+      - scope
+      - unbounded
+    slot_usage:
+      hasClaimant:
         description: >-
-          Reference to the Claim being attested, by RID or IRI.
-        range: string
+          The issuer: the party that makes the judgment and takes
+          responsibility for it.
+      assertedAt:
+        description: When the issuer made the judgment.
+      hasSubject:
+        description: >-
+          What the judgment is about: a project, plot or other subject. It is
+          stated even when it is also the subject of a targeted claim.
+      hasEvidence:
+        description: Sources the issuer relied on.
+      verificationMethod:
         required: true
-      hasReviewer:
-        slot_uri: rfs:hasReviewer
-        description: >-
-          The entity providing the attestation. Must have a registered
-          identity (KOI entity URI and/or wallet address).
-        range: Entity
+    rules:
+      - description: >-
+          A verification method outside the enumeration is described, so the
+          method is never empty (story map CS-4). Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            verificationMethod:
+              equals_string: OTHER
+        postconditions:
+          slot_conditions:
+            verificationMethodDescriptor:
+              required: true
+
+  Scope:
+    class_uri: rfs:Scope
+    description: >-
+      Where an attestation applies, as structured fields, so that a consumer
+      can check whether a subject falls inside it. A scope always names the
+      subjects it covers. An attestation without a scope applies only to what
+      it targets, unless it states unbounded.
+    slots:
+      - appliesTo
+      - exclusion
+      - limitation
+    slot_usage:
+      appliesTo:
         required: true
-        inlined: true
-      hasVerdict:
-        slot_uri: rfs:hasVerdict
-        description: >-
-          The reviewer's verdict on the claim.
-        range: VerdictType
-        required: true
-      rationale:
-        slot_uri: rfs:rationale
-        description: >-
-          Free-text explanation of the verdict, including any conditions
-          or caveats noted during review.
-        range: string
-      evidenceReviewed:
-        slot_uri: rfs:evidenceReviewed
-        description: >-
-          URIs of evidence documents, datasets, or field observations
-          reviewed as part of this attestation.
-        range: uri
-        multivalued: true
-      attestationDate:
-        slot_uri: rfs:attestationDate
-        description: Date when the attestation was made. Always known at attest time.
-        range: date
-        required: true
-      contentHash:
-        slot_uri: rfs:contentHash
-        description: >-
-          BLAKE2b-256 content hash of the canonical attestation
-          representation, used for on-chain anchoring.
-        range: string
-      graphIri:
-        slot_uri: rfs:graphIri
-        description: >-
-          On-chain graph IRI from Regen Data Module MsgAttest,
-          using ContentHash.Graph encoding.
-        range: uri
+
+slots:
+  outcome:
+    slot_uri: rfs:outcome
+    description: >-
+      The verdict, as a term from the vocabulary of the program or rule set
+      the judgment is made under, for example a registration determination.
+    range: uriorcurie
+  rationale:
+    slot_uri: rfs:rationale
+    description: Why the issuer reached the outcome.
+    range: string
+  scope:
+    slot_uri: rfs:scope
+    range: Scope
+    inlined: true
+  appliesTo:
+    slot_uri: rfs:appliesTo
+    description: >-
+      Identifiers of the subjects the judgment covers, for example the
+      enrolment cohorts an approval is limited to. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  exclusion:
+    slot_uri: rfs:exclusion
+    description: What the judgment explicitly does not cover. Unordered set.
+    range: string
+    multivalued: true
+    list_elements_ordered: false
+  limitation:
+    slot_uri: rfs:limitation
+    description: >-
+      What the judgment is not, for example that an approval of a project
+      structure is not a validation of its evidence.
+    range: string
+  unbounded:
+    slot_uri: rfs:unbounded
+    description: >-
+      True when the issuer explicitly gives the judgment no limits beyond what
+      it targets (story map AD-1), so that an unlimited approval is a stated
+      choice rather than an omission. An attestation that states it has no
+      scope.
+    range: boolean

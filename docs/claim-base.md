@@ -37,7 +37,6 @@ about a subject, at a stated time.
 | `name` | `schema:name` | string | 1 | Human-readable title. |
 | `description` | `schema:description` | string | 0..1 | The assertion in the claimant's words. It is asserted content, not a summary. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
-| `hasClaimType` | `rfs:hasClaimType` | `ClaimType` | 1 | Subject-matter classification. It does not declare a schema version or select a verification pathway. |
 | `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for the assertion. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | What the claim is about, as a typed subject node. |
@@ -113,10 +112,9 @@ be queried and validated ([example](../schema/examples/claim.INVALID-bare-iri-ev
 IRI being rejected). The node's IRI names the exact version cited and may carry a fragment for a
 position inside it, such as `#page=2`. Whether a source actually supports the assertion is judged
 separately, by attestations. `hasEvidence` specializes `dcterms:references` (the same pattern as
-`hasClaimant` and `prov:wasAttributedTo`), so generic Dublin Core citation queries still find it. The
-skeleton has only an IRI, a title and a description.
-[#73](https://github.com/regen-network/regen-data-standards/issues/73) adds content hash and resolver,
-locator, producer, sources, place and licence terms.
+`hasClaimant` and `prov:wasAttributedTo`), so generic Dublin Core citation queries still find it. Each Evidence node also
+carries the hash of the cited version, where to fetch it, its DCMI type and its licence reference; see
+[`docs/attestation-and-evidence.md`](attestation-and-evidence.md) (#73).
 
 **Period.** The base Claim has no period, only its assertion time. The period a claim is about
 belongs to the domain activity it describes, such as a planting from 1 March to 15 April, which a
@@ -136,8 +134,8 @@ the activity that generated it (`prov:wasGeneratedBy`), not on the Evidence, bec
 | Identifiers derived from the Claim's own canonical form (formerly `contentHash`, `dataIri`) | Computed over the Claim by [claims#1](https://github.com/regen-network/claims/issues/1) (WP1-08). |
 | Which version is current, and the logical claim a version belongs to | Maintained outside immutable versions ([research §3.5][R35]). |
 | Submission attempts, submitter, received bytes, ingestion time | Service records ([claims#55](https://github.com/regen-network/claims/issues/55), WP1-09). |
-| Evidence integrity, resolver, licence terms and current availability | Integrity, resolver and licence fields are added to [`Evidence`](../schema/src/Evidence.yaml) by [#73](https://github.com/regen-network/regen-data-standards/issues/73) (WP1-06). Current availability and access stay outside Claim content. |
-| Schema-version (conformance) declarations | Validation machinery. [claims#1](https://github.com/regen-network/claims/issues/1) decides whether they enter identity. `hasClaimType` is not one. |
+| Evidence integrity, resolver, licence terms and current availability | The hash, resolver and licence reference of the cited version are [`Evidence`](../schema/src/Evidence.yaml) fields (#73, [`docs/attestation-and-evidence.md`](attestation-and-evidence.md)). Current availability and access, and the currently offered licence, stay outside Claim content. |
+| Schema-version (conformance) declarations | Validation machinery. [claims#1](https://github.com/regen-network/claims/issues/1) decides whether they enter identity. |
 
 ## Shared vocabulary
 
@@ -150,7 +148,7 @@ slots it lists.
 | `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `hasClaimant`. |
 | `references` | `dcterms:references` | Parent of `hasEvidence`: a plain citation. |
 | `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
-| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
+| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as the C06 claim schema ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
 
 One slot of the base Claim is a plain IRI reference: `wasRevisionOf`, with `range: uriorcurie`
 (as is `references`, its unused sibling). Its value is always an earlier Claim version, so "must be
@@ -214,7 +212,7 @@ future OWL artifact needs both measures.
 
 A claim-type schema supplies whatever its kind of claim needs beyond the base: domain statements,
 quantities with units, activities and their operators, methodologies, and stricter constraints. For
-example, the CarbonEg schema in [#73](https://github.com/regen-network/regen-data-standards/issues/73)
+example, the C06 claim schema in [#73](https://github.com/regen-network/regen-data-standards/issues/73)
 will carry the fields moved out of the base (below).
 
 ```yaml
@@ -302,15 +300,17 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 |---|---|---|
 | `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
 | `description` | Retained | Same term. Now documented as asserted content ([ADR D1][ADR-D1]: "a description may contain asserted meaning"). |
-| `hasClaimType` | Retained | Required. Its description, and the `ClaimType` enum's, no longer say it selects verification pathways. |
+| `hasClaimType` | Removed | A single required enum could not cover every kind of claim (#86: a health claim had no category). The kind of claim is the specialized claim class (`is_a Claim`). The `ClaimType` enum remains in the taxonomy. |
 | `hasClaimant` | Retained, changed | Now a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe (see [Period](#base-fields)). Placement was open in ADR D1. |
 | — | Added | `assertedAt`, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith` ([ADR D1][ADR-D1]). |
-| `hasPrimaryImpact`, `hasCoBenefits`, `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule), `hasCreditClass` | Moved | To specialized claim schemas ([ADR D1][ADR-D1]), starting with #73. Their shape, including co-benefit collection semantics, is decided there. `Impact` and `SDG` remain available as shared modules. |
-| `usesMethodology` | Moved | To specialized claim schemas, starting with #73. It names a methodology document, such as a sampling protocol, which only some kinds of claim use. |
+| `hasPrimaryImpact`, `hasCoBenefits` | Removed | They describe the project or the credit class, which `ProjectInfo` and `CreditClassInfo` already do, not what a claim asserts. |
+| `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule) | Moved | To specialized claim schemas that state a quantity; `C06Claim` states areas as QUDT quantity values (`area`). A shared quantity structure is open ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). |
+| `hasCreditClass` | Replaced | By `appliesRuleSet` (`ClaimVocabulary`), the exact credit class version a claim applies, used by `C06ProjectClaim`. |
+| `usesMethodology` | Moved | To `C06ProjectClaim.methodologyUse`, which names each methodology version and its role. Only some kinds of claim use a methodology. |
 | `verificationStatus` | Removed | Review state is not content ([ADR D1][ADR-D1], agreed July 2026). The `VerificationStatus` enum remains in the taxonomy until the review-state record is designed. |
 | `contentHash`, `dataIri` | Removed | Derived identity is not content (same agreement). |
 
@@ -340,12 +340,11 @@ records that use the prior fields and their RIDs.
   This implementation takes the WP1-01 recommendations for PROV-O, moves the claim period to the
   domain activity, and puts `wasRevisionOf` in Claim content. The ADR should record those decisions
   before either merges.
-- Two items of the #71 checklist are deferred to #73, which has the first specialized schema to use
-  them: verification-method terms (the story map's CS-4 enumeration, attributable to the claim or
-  attestation that used them) and normative rule-set version references (PG-1). Neither applies to
-  every claim, so neither is on the base Claim.
-- The review-state record and the full evidence shape also belong to #73. Generated JSON Schema,
-  SHACL and context artifacts belong to #74; no OWL artifact is planned.
+- Verification-method terms (the story map's CS-4 enumeration) and normative rule-set version
+  references (PG-1), deferred from #71, are defined in `ClaimVocabulary` by #73 and used by
+  `Attestation` and the C06 claims; neither is on the base Claim. The Attestation and the full
+  evidence shape are in [`docs/attestation-and-evidence.md`](attestation-and-evidence.md). Generated
+  JSON Schema, SHACL and context artifacts belong to #74; no OWL artifact is planned.
 
 [ADR-D1]: https://github.com/regen-network/regen-data-standards/blob/0cfe1c522754e4479baf7b931f272865d7c8f4e3/docs/adr/0001-claim-substance-canonicalization.md#d1--define-asserted-content-separately-from-lifecycle-and-derived-identity
 [RESEARCH]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md

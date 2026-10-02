@@ -5,7 +5,6 @@
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "rfs": "https://framework.regen.network/schema/",
-    "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
@@ -13,11 +12,22 @@
       "@type": "@id",
       "@id": "appliesRuleSet"
     },
+    "appliesTo": {
+      "@type": "@id",
+      "@id": "appliesTo"
+    },
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
     "id": "@id",
+    "conditionLabel": {
+      "@id": "conditionLabel"
+    },
+    "conditions": {
+      "@type": "@id",
+      "@id": "conditions"
+    },
     "algorithm": {
       "@id": "algorithm",
       "@type": "@vocab",
@@ -48,6 +58,23 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exclusion": {
+      "@id": "exclusion"
+    },
+    "findingLabel": {
+      "@id": "findingLabel"
+    },
+    "findingType": {
+      "@id": "findingType",
+      "@type": "@vocab",
+      "@context": {
+        "CAR": "rfs:CorrectiveActionRequest",
+        "CL": "rfs:ClarificationRequest",
+        "FAR": "rfs:ForwardActionRequest",
+        "REGISTRY_ISSUE": "rfs:RegistryIssue",
+        "OTHER": "rfs:OtherFindingType"
+      }
+    },
     "hasClaimant": {
       "@type": "@id",
       "@id": "hasClaimant"
@@ -74,9 +101,22 @@
       "@type": "xsd:date",
       "@id": "dcterms:issued"
     },
+    "issuerRole": {
+      "@id": "issuerRole",
+      "@type": "@vocab",
+      "@context": {
+        "REGISTRY_AGENT": "rfs:RegistryAgent",
+        "VVB": "rfs:ValidationVerificationBody",
+        "CREDIT_CLASS_ADMIN": "rfs:CreditClassAdmin",
+        "OTHER": "rfs:OtherIssuerRole"
+      }
+    },
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
+    },
+    "limitation": {
+      "@id": "limitation"
     },
     "locator": {
       "@id": "locator"
@@ -84,8 +124,25 @@
     "mediaType": {
       "@id": "dcterms:format"
     },
+    "milestone": {
+      "@id": "milestone",
+      "@type": "@vocab",
+      "@context": {
+        "REGISTRATION": "rfs:RegistrationMilestone",
+        "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
+        "VERIFICATION": "rfs:VerificationMilestone",
+        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
+      }
+    },
     "name": {
       "@id": "schema:name"
+    },
+    "outcome": {
+      "@type": "@id",
+      "@id": "outcome"
+    },
+    "rationale": {
+      "@id": "rationale"
     },
     "references": {
       "@type": "@id",
@@ -102,6 +159,10 @@
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
+    },
+    "scope": {
+      "@type": "@id",
+      "@id": "scope"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -120,6 +181,10 @@
         "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
         "TEXT": "http://purl.org/dc/dcmitype/Text"
       }
+    },
+    "unbounded": {
+      "@type": "xsd:boolean",
+      "@id": "unbounded"
     },
     "url": {
       "@type": "@id",
@@ -156,11 +221,17 @@
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
     },
+    "Attestation": {
+      "@id": "Attestation"
+    },
     "Claim": {
       "@id": "Claim"
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
+    },
+    "Condition": {
+      "@id": "Condition"
     },
     "ContentDigest": {
       "@id": "ContentDigest"
@@ -183,40 +254,84 @@
     "ProvEntity": {
       "@id": "prov:Entity"
     },
+    "RegistryFindingAttestation": {
+      "@id": "RegistryFindingAttestation"
+    },
+    "RegistryReviewAttestation": {
+      "@id": "RegistryReviewAttestation"
+    },
+    "Scope": {
+      "@id": "Scope"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
   },
-  "@type": "Claim",
-  "name": "Hedgerow planting on plot A, spring 2026",
-  "description": "Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
+  "@type": "RegistryReviewAttestation",
+  "name": "Registry confirmation of the cohort-based crediting structure",
+  "description": "The registry accepts the rolling cohort-based crediting and permanence structure described in the project plan for the cohorts enrolled from 2020 to 2023, subject to the scope below.",
   "hasClaimant": [
     {
       "@type": "Entity",
-      "name": "Hedgerow Cooperative",
-      "type": "COMMUNITY"
+      "name": "Example Registry",
+      "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-05-02T07:30:00Z",
+  "assertedAt": "2026-03-12T00:00:00Z",
   "hasSubject": {
     "@type": "ClaimSubject",
-    "id": "https://example.org/plot/A",
-    "name": "Plot A"
+    "id": "https://example.org/c06/project/P-001",
+    "name": "Example project P-001"
   },
+  "hasTarget": [
+    "https://example.org/placeholder/claim-iri/verifier-finding-7-1",
+    "https://example.org/placeholder/claim-iri/verifier-finding-7-2"
+  ],
+  "reliesOn": [
+    "https://example.org/placeholder/claim-iri/developer-enrolment-cutoff"
+  ],
+  "appliesRuleSet": [
+    "https://example.org/rule-set/credit-class-c06/1.5.2"
+  ],
+  "outcome": "rfs:ApprovedForRegistration",
+  "rationale": "Each cohort keeps a full ten-year crediting period from its baseline sampling, and the enrolment cutoff prevents open-ended expansion.",
+  "verificationMethod": "THIRD_PARTY_AUDITED",
+  "scope": {
+    "@type": "Scope",
+    "appliesTo": [
+      "https://example.org/c06/cohort/P-001-2020",
+      "https://example.org/c06/cohort/P-001-2021",
+      "https://example.org/c06/cohort/P-001-2022",
+      "https://example.org/c06/cohort/P-001-2023"
+    ],
+    "exclusion": [
+      "Open-ended addition of plots, farms or project areas after the enrolment cutoff."
+    ],
+    "limitation": "Confirms the acceptability of the project structure; does not replace the verifier's responsibility to validate the supporting evidence."
+  },
+  "issuerRole": "REGISTRY_AGENT",
+  "conditions": [
+    {
+      "@type": "Condition",
+      "conditionLabel": "C-1",
+      "description": "Each farm, cohort and project area remains individually identifiable and traceable.",
+      "milestone": "VERIFICATION"
+    }
+  ],
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/evidence/planting-log-2026-v1.pdf#page=2",
-      "name": "Planting log, spring 2026 (v1)",
+      "id": "https://example.org/registry/confirmation-2026-03-12.pdf",
+      "name": "Registry confirmation letter, 12 March 2026",
       "sourceType": "TEXT",
       "mediaType": "application/pdf",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "0565254fd498456cc07a7be4a379b6d38e849ef145dc0c122daaab8a9cb8cf46"
+        "digestValue": "06379123b857f6899002024e6a1d89eced2583a5ee1d09b8f3952f21e9bdc31f"
       },
       "resolver": [
-        "https://example.org/evidence/planting-log-2026-v1.pdf"
+        "https://example.org/registry/confirmation-2026-03-12.pdf"
       ]
     }
   ]

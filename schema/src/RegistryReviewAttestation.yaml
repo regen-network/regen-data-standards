@@ -1,0 +1,182 @@
+id: https://framework.regen.network/schema/RegistryReviewAttestation
+name: RegistryReviewAttestation
+description: >-
+  Regen Registry's review vocabulary: the judgments a registry review and its
+  independent verifier make (findings, determinations, confirmations,
+  approved deviations, validation opinions), as a subclass of the base
+  Attestation. Another program would define its own subclass.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+  - Attestation
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  RegistryReviewAttestation:
+    is_a: Attestation
+    class_uri: rfs:RegistryReviewAttestation
+    description: >-
+      A judgment made in a Regen Registry review by the Registry Agent, an
+      independent verifier (VVB) or the Credit Class Admin.
+    slots:
+      - findingLabel
+      - issuerRole
+      - conditions
+    slot_usage:
+      outcome:
+        description: >-
+          The verdict, as the IRI of a RegistryReviewOutcome term, for example
+          rfs:ApprovedForRegistration.
+      issuerRole:
+        required: true
+
+  RegistryFindingAttestation:
+    is_a: RegistryReviewAttestation
+    class_uri: rfs:RegistryFindingAttestation
+    description: >-
+      A finding raised in a Regen Registry review: a corrective action,
+      clarification or forward action request, or a material issue raised by
+      the Registry Agent. A finding states its type and cites at least one
+      piece of evidence (story map CS-3). Later assessments of the finding and
+      replies to it are RegistryReviewAttestations that target it and carry
+      the same findingLabel.
+    slots:
+      - findingType
+    slot_usage:
+      findingType:
+        required: true
+      hasEvidence:
+        required: true
+
+  Condition:
+    class_uri: rfs:Condition
+    description: >-
+      An obligation a judgment carries to a later milestone, such as a
+      follow-up action due before verification or a design condition binding
+      on future verifications.
+    slots:
+      - conditionLabel
+      - description
+      - milestone
+    slot_usage:
+      description:
+        required: true
+
+slots:
+  findingLabel:
+    slot_uri: rfs:findingLabel
+    description: >-
+      The issuer's own identifier for a finding, stable across review rounds,
+      such as "CL 07(1)". It groups the dated records about one finding; it is
+      not the identifier of any of them.
+    range: string
+  findingType:
+    slot_uri: rfs:findingType
+    description: The kind of finding.
+    range: FindingType
+  issuerRole:
+    slot_uri: rfs:issuerRole
+    description: >-
+      The capacity in which the issuer acts, so that a consumer can check the
+      issuer's authority for the decision.
+    range: IssuerRole
+  conditions:
+    slot_uri: rfs:conditions
+    range: Condition
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  conditionLabel:
+    slot_uri: rfs:conditionLabel
+    description: The issuer's label for the condition, such as "RA-6".
+    range: string
+  milestone:
+    slot_uri: rfs:milestone
+    description: When the condition must be met.
+    range: Milestone
+
+enums:
+  FindingType:
+    permissible_values:
+      CAR:
+        meaning: rfs:CorrectiveActionRequest
+        description: >-
+          Corrective action request: a material non-conformity that must be
+          corrected.
+      CL:
+        meaning: rfs:ClarificationRequest
+        description: >-
+          Clarification request: evidence, wording or interpretation is
+          incomplete or ambiguous.
+      FAR:
+        meaning: rfs:ForwardActionRequest
+        description: >-
+          Forward action request: to be followed up at a future verification;
+          it does not prevent the current conclusion.
+      REGISTRY_ISSUE:
+        meaning: rfs:RegistryIssue
+        description: A material finding raised in the Registry Agent's review.
+      OTHER:
+        meaning: rfs:OtherFindingType
+  IssuerRole:
+    permissible_values:
+      REGISTRY_AGENT:
+        meaning: rfs:RegistryAgent
+      VVB:
+        meaning: rfs:ValidationVerificationBody
+        description: An independent validation and verification body.
+      CREDIT_CLASS_ADMIN:
+        meaning: rfs:CreditClassAdmin
+      OTHER:
+        meaning: rfs:OtherIssuerRole
+  Milestone:
+    permissible_values:
+      REGISTRATION:
+        meaning: rfs:RegistrationMilestone
+      PRE_ISSUANCE:
+        meaning: rfs:PreIssuanceMilestone
+      VERIFICATION:
+        meaning: rfs:VerificationMilestone
+      FUTURE_VERIFICATIONS:
+        meaning: rfs:FutureVerificationsMilestone
+  RegistryReviewOutcome:
+    description: >-
+      Outcomes of Regen Registry review judgments, used as outcome values by
+      their meaning IRIs (for example rfs:ApprovedForRegistration). The enum
+      documents the vocabulary; outcome is not narrowed to it, because LinkML
+      1.11 cannot narrow a uriorcurie slot to an enum in a subclass (the
+      generated Python model of the base class rejects the enum value). The
+      four registration determinations follow the Registry Agent Review Report's approval
+      categories. REQUIREMENT_PENDING is a dated determination that a
+      requirement cannot yet be decided; it is not a placeholder for a
+      judgment still to come.
+    permissible_values:
+      APPROVED_FOR_REGISTRATION:
+        meaning: rfs:ApprovedForRegistration
+        description: The requirement is met for project registration.
+      NOT_APPROVED:
+        meaning: rfs:NotApproved
+        description: The evidence is insufficient or missing.
+      REQUIREMENT_PENDING:
+        meaning: rfs:RequirementPending
+        description: >-
+          The requirement cannot yet be determined because the applicable
+          evidence, activity or review has not been completed.
+      NOT_APPLICABLE:
+        meaning: rfs:NotApplicable
+        description: >-
+          The requirement applies only if a condition occurs, and it has not
+          occurred.
+      FINDING_OPEN:
+        meaning: rfs:FindingOpen
+        description: The finding is not resolved as of this judgment.
+      FINDING_CLOSED:
+        meaning: rfs:FindingClosed
+        description: The finding is resolved as of this judgment.

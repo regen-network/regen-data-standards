@@ -5,13 +5,16 @@
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "rfs": "https://framework.regen.network/schema/",
-    "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "appliesRuleSet": {
       "@type": "@id",
       "@id": "appliesRuleSet"
+    },
+    "appliesTo": {
+      "@type": "@id",
+      "@id": "appliesTo"
     },
     "assertedAt": {
       "@type": "xsd:dateTime",
@@ -48,6 +51,9 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exclusion": {
+      "@id": "exclusion"
+    },
     "hasClaimant": {
       "@type": "@id",
       "@id": "hasClaimant"
@@ -78,6 +84,9 @@
       "@type": "@id",
       "@id": "dcterms:license"
     },
+    "limitation": {
+      "@id": "limitation"
+    },
     "locator": {
       "@id": "locator"
     },
@@ -86,6 +95,13 @@
     },
     "name": {
       "@id": "schema:name"
+    },
+    "outcome": {
+      "@type": "@id",
+      "@id": "outcome"
+    },
+    "rationale": {
+      "@id": "rationale"
     },
     "references": {
       "@type": "@id",
@@ -102,6 +118,10 @@
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
+    },
+    "scope": {
+      "@type": "@id",
+      "@id": "scope"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -120,6 +140,10 @@
         "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
         "TEXT": "http://purl.org/dc/dcmitype/Text"
       }
+    },
+    "unbounded": {
+      "@type": "xsd:boolean",
+      "@id": "unbounded"
     },
     "url": {
       "@type": "@id",
@@ -156,6 +180,9 @@
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
     },
+    "Attestation": {
+      "@id": "Attestation"
+    },
     "Claim": {
       "@id": "Claim"
     },
@@ -183,40 +210,50 @@
     "ProvEntity": {
       "@id": "prov:Entity"
     },
+    "Scope": {
+      "@id": "Scope"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
   },
-  "@type": "Claim",
-  "name": "Hedgerow planting on plot A, spring 2026",
-  "description": "Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
+  "@type": "Attestation",
+  "name": "Steward review of the plot A hedgerow planting",
+  "description": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
   "hasClaimant": [
     {
       "@type": "Entity",
-      "name": "Hedgerow Cooperative",
+      "name": "Valley Stewards Circle",
       "type": "COMMUNITY"
     }
   ],
-  "assertedAt": "2026-05-02T07:30:00Z",
+  "assertedAt": "2026-06-10T09:00:00Z",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/A",
     "name": "Plot A"
   },
+  "hasTarget": [
+    "https://example.org/placeholder/claim-iri/generic-claim-v1"
+  ],
+  "outcome": "https://example.org/vocab/review/confirmed",
+  "rationale": "The steward walked the boundary and compared it with the planting log.",
+  "verificationMethod": "OTHER",
+  "verificationMethodDescriptor": "On-site walkover by a community steward",
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/evidence/planting-log-2026-v1.pdf#page=2",
-      "name": "Planting log, spring 2026 (v1)",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
+      "id": "https://example.org/evidence/walkover-photos-2026-06.zip",
+      "name": "Walkover photographs, June 2026",
+      "sourceType": "STILL_IMAGE",
+      "mediaType": "application/zip",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "0565254fd498456cc07a7be4a379b6d38e849ef145dc0c122daaab8a9cb8cf46"
+        "digestValue": "7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5"
       },
       "resolver": [
-        "https://example.org/evidence/planting-log-2026-v1.pdf"
+        "https://example.org/evidence/walkover-photos-2026-06.zip"
       ]
     }
   ]
