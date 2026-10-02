@@ -40,6 +40,7 @@ classes:
       - verificationMethod
       - verificationMethodDescriptor
       - scope
+      - unbounded
     slot_usage:
       hasClaimant:
         description: >-
@@ -73,13 +74,16 @@ classes:
     class_uri: rfs:Scope
     description: >-
       Where an attestation applies, as structured fields, so that a consumer
-      can check whether a subject falls inside it. An attestation without a
-      scope applies only to what it targets.
+      can check whether a subject falls inside it. A scope always names the
+      subjects it covers. An attestation without a scope applies only to what
+      it targets, unless it states unbounded.
     slots:
       - appliesTo
       - exclusion
       - limitation
-      - unbounded
+    slot_usage:
+      appliesTo:
+        required: true
 
 slots:
   outcome:
@@ -119,6 +123,8 @@ slots:
   unbounded:
     slot_uri: rfs:unbounded
     description: >-
-      True when the issuer explicitly gives the judgment no scope limits, so
-      that an unscoped approval is a stated choice rather than an omission.
+      True when the issuer explicitly gives the judgment no limits beyond what
+      it targets (story map AD-1), so that an unlimited approval is a stated
+      choice rather than an omission. An attestation that states it has no
+      scope.
     range: boolean

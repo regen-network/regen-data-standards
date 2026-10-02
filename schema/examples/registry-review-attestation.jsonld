@@ -254,6 +254,9 @@
     "ProvEntity": {
       "@id": "prov:Entity"
     },
+    "RegistryFindingAttestation": {
+      "@id": "RegistryFindingAttestation"
+    },
     "RegistryReviewAttestation": {
       "@id": "RegistryReviewAttestation"
     },
@@ -304,8 +307,7 @@
     "exclusion": [
       "Open-ended addition of plots, farms or project areas after the enrolment cutoff."
     ],
-    "limitation": "Confirms the acceptability of the project structure; does not replace the verifier's responsibility to validate the supporting evidence.",
-    "unbounded": false
+    "limitation": "Confirms the acceptability of the project structure; does not replace the verifier's responsibility to validate the supporting evidence."
   },
   "issuerRole": "REGISTRY_AGENT",
   "conditions": [

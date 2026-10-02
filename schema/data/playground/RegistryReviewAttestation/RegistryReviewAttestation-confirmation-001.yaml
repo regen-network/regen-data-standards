@@ -39,7 +39,6 @@ scope:
   limitation: >-
     Confirms the acceptability of the project structure; does not replace the
     verifier's responsibility to validate the supporting evidence.
-  unbounded: false
 issuerRole: REGISTRY_AGENT
 conditions:
   - conditionLabel: C-1

@@ -96,19 +96,21 @@ classDiagram
         rationale
         verificationMethod
         scope
+        unbounded
     }
     class Scope {
         appliesTo
         exclusion
         limitation
-        unbounded
     }
     class RegistryReviewAttestation {
         <<Layer 2, Regen Registry>>
         findingLabel
-        findingType
         issuerRole
         conditions
+    }
+    class RegistryFindingAttestation {
+        findingType
     }
     class Condition {
         conditionLabel
@@ -117,12 +119,15 @@ classDiagram
     }
     Claim <|-- Attestation
     Attestation <|-- RegistryReviewAttestation
+    RegistryReviewAttestation <|-- RegistryFindingAttestation
     Attestation *-- Scope
     RegistryReviewAttestation *-- "0..*" Condition
 ```
 
 There is no attestation type field. Like `hasClaimType`, a single list of kinds of judgment would not
-fit every program; the program's subclass and its outcome vocabulary say what a judgment is.
+fit every program; the program's subclass and its outcome vocabulary say what a judgment is. Findings
+are the one kind with their own subclass, `RegistryFindingAttestation`, because they have required
+fields the other judgments do not: a finding type and at least one piece of evidence.
 
 ### `Attestation`
 
@@ -137,11 +142,15 @@ fit every program; the program's subclass and its outcome vocabulary say what a 
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked (CS-4). |
 | `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
+| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets (AD-1). |
 
-**Scope.** `appliesTo` (subject IRIs), `exclusion` (what it explicitly does not cover), `limitation`
-(what the judgment is not, for example "confirms the project structure; does not validate its
-evidence") and `unbounded` (an explicit choice to give no limits). A scope is a blank node inside the
-attestation and part of its content. Checking whether a subject is covered is a query; for the
+**Scope.** `appliesTo` (subject IRIs, required: a scope always names the subjects it covers),
+`exclusion` (what it explicitly does not cover) and `limitation` (what the judgment is not, for example
+"confirms the project structure; does not validate its evidence"). An attestation without a scope
+applies only to what it targets; `unbounded: true` states explicitly that it has no limits, so an
+unlimited approval is never an omission (AD-1;
+[example](../schema/examples/attestation.INVALID-scope-without-subjects.yaml) of an empty scope being
+rejected). A scope is a blank node inside the attestation and part of its content. Checking whether a subject is covered is a query; for the
 [example](../schema/examples/registry-review-attestation.jsonld):
 
 ```sparql
@@ -156,9 +165,15 @@ enrolment-cutoff claim the approval depends on.
 | Field | Range | Meaning |
 |---|---|---|
 | `findingLabel` | string | The issuer's identifier for a finding, stable across rounds, such as "CL 07(1)". |
-| `findingType` | `CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER` | Set when the attestation raises a finding. |
 | `issuerRole` | `REGISTRY_AGENT`, `VVB`, `CREDIT_CLASS_ADMIN`, `OTHER` | Required. Lets a consumer check the issuer's authority. |
 | `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
+
+**`RegistryFindingAttestation`** (`is_a RegistryReviewAttestation`) is a finding: a corrective action,
+clarification or forward action request, or a material issue raised by the Registry Agent. It requires
+`findingType` (`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`) and at least one piece of evidence (CS-3;
+[example](../schema/examples/registry-finding-attestation.INVALID-without-evidence.yaml) of a finding
+without evidence being rejected). Later assessments of a finding, and replies to it, are
+`RegistryReviewAttestation`s that target it and carry the same `findingLabel`.
 
 `outcome` values are the IRIs of the `RegistryReviewOutcome` terms: the four registration
 determinations (`rfs:ApprovedForRegistration`, `rfs:NotApproved`, `rfs:RequirementPending`,
@@ -262,7 +277,8 @@ validators.
 | [`c06-project-statement-claim.jsonld`](../schema/examples/c06-project-statement-claim.jsonld) | A `C06ProjectStatementClaim` |
 | [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
-| `*.INVALID-*.yaml` | Documents each validator must reject. The two that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, SHACL does not express rules |
+| [`registry-finding-attestation.jsonld`](../schema/examples/registry-finding-attestation.jsonld) | A `RegistryFindingAttestation`: a clarification request with its type, label, target and evidence |
+| `*.INVALID-*.yaml` | Documents each validator must reject. The one that breaks a LinkML rule (an `OTHER` method without a descriptor) is marked `# shacl: not enforced`: JSON Schema rejects it, the generated SHACL does not express rules |
 
 ## Validation entry points
 
@@ -323,10 +339,13 @@ the source.
   IRI-valued slot to an enum in a subclass (the generated Python model of the base class rejects the
   enum value), so `RegistryReviewAttestation.outcome` accepts any IRI. The vocabulary is documented by
   the `RegistryReviewOutcome` enum.
-- **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (CS-4), and at least one
-  piece of evidence on a finding (CS-3). They are LinkML rules, which the generated SHACL does not
-  express. **Not enforced:** a scope that has neither `appliesTo` nor `unbounded: true` (AD-1): the
-  generated JSON Schema compares the boolean with a string.
+- **A descriptor with `OTHER` is enforced by JSON Schema only** (CS-4: the verification method is never
+  empty). It is a LinkML rule, and LinkML's SHACL generator does not translate rules: 1.11.1 ignores
+  them, and the unreleased support ([linkml/linkml#3451](https://github.com/linkml/linkml/pull/3451))
+  covers other patterns ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)). SHACL
+  itself can express it with `sh:or`. The other two conditional rules, evidence on a finding (CS-3) and a
+  scope that names its subjects (AD-1), are expressed as class and slot constraints, which both
+  validators enforce.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
