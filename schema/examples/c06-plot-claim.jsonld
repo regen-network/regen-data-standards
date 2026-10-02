@@ -592,9 +592,8 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "C06SiteClaim",
-  "name": "Site S-001 start date, crediting period and practices",
-  "description": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
+  "@type": "C06PlotClaim",
+  "name": "Plot S-001.0007 area, tenure and land-use screening",
   "hasClaimant": [
     {
       "@type": "Entity",
@@ -602,73 +601,65 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-07-10T00:00:00Z",
+  "assertedAt": "2026-02-20T00:00:00Z",
   "hasSubject": {
-    "@type": "Site",
-    "id": "https://example.org/c06/site/S-001",
-    "name": "Site S-001",
-    "siteKey": "S-001",
-    "country": "CZ",
-    "project": "https://example.org/c06/project/P-001",
-    "cohort": "https://example.org/c06/cohort/P-001-2022"
+    "@type": "Plot",
+    "id": "https://example.org/c06/plot/S-001.0007",
+    "name": "Plot S-001.0007",
+    "plotKey": "S-001.0007",
+    "parcelId": "4012/7",
+    "site": "https://example.org/c06/site/S-001"
   },
-  "siteProjectStartDate": "2022-03-15",
-  "startDateBasis": "First baseline soil sampling",
-  "creditingPeriod": {
-    "@type": "DatePeriod",
-    "startDate": "2022-03-15",
-    "endDate": "2032-03-14"
+  "area": {
+    "@type": "AreaQuantity",
+    "numericValue": 12.75,
+    "unit": "HA"
   },
-  "ecosystemTypes": [
-    "CROPLAND"
-  ],
-  "climateClass": "Dfb",
-  "soilGroup": "Cambisol",
-  "practices": [
-    "COVER_CROPPING",
-    "RESIDUE_TILLAGE_MANAGEMENT"
-  ],
-  "historicActivityYears": [
-    2019,
-    2020,
-    2021
-  ],
+  "geometry": "https://example.org/c06/boundaries-2026.gpkg#feature=118",
   "primaryLandUse": "CROPLAND",
-  "monitoringSampleDates": [
-    "2022-03-15",
-    "2024-04-02"
-  ],
+  "eligible": true,
+  "eligibilityBasis": "Registered agricultural parcel in the national land parcel register",
+  "tenureBasis": "LEASE",
+  "tenureRecord": "https://example.org/land-register/parcel/4012-7",
+  "landUseChangeScreening": {
+    "@type": "LandUseChangeScreening",
+    "screeningDatasets": [
+      "Land cover map 2012",
+      "Land cover map 2018"
+    ],
+    "noConversionFound": true
+  },
+  "enrolmentStatus": "ACTIVE",
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=16",
-      "name": "Example project plan v2.0, section 1.8",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
+      "id": "https://example.org/c06/boundaries-2026.gpkg",
+      "name": "Project boundary GeoPackage, 2026",
+      "sourceType": "DATASET",
+      "mediaType": "application/geopackage+sqlite3",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9"
+        "digestValue": "f36af2c85a7b1a40806b1dd2836f6e4c9c18961c0b8ef2d7a7faf4de2fd3df81"
       },
       "resolver": [
-        "https://example.org/c06/project-plan-v2.0.pdf"
+        "https://example.org/c06/boundaries-2026.gpkg"
       ],
-      "locator": "Section 1.8, Project Start Date",
-      "issued": "2026-07-10"
+      "licence": "https://example.org/c06/licences/project-data/v1"
     },
     {
       "@type": "Evidence",
-      "id": "https://example.org/c06/exports/soil-sampling-2026-05.csv",
-      "name": "Soil sampling export, May 2026",
+      "id": "https://example.org/c06/exports/tenure-2026-02.csv",
+      "name": "Land tenure workbook export, February 2026",
       "sourceType": "DATASET",
       "mediaType": "text/csv",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "a69e3f990801846d6dc9f9ff81527e1ee7f54a65896654616551e34a53d87575"
+        "digestValue": "013d8824c7e0c9ffc1486e012d18e82c907757b3d9eb05481332d9a1c64917de"
       },
       "resolver": [
-        "https://example.org/c06/exports/soil-sampling-2026-05.csv"
+        "https://example.org/c06/exports/tenure-2026-02.csv"
       ]
     }
   ]
