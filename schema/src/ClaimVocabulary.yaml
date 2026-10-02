@@ -140,12 +140,12 @@ slots:
     description: >-
       How the assertion or judgment was established, as structured data, so
       that a consumer can distinguish, for example, a lab-measured value from
-      a self-attested one. The party and date are those of the record that
-      carries it: for an attestation, its issuer and assertedAt. A value of
-      OTHER must come with verificationMethodDescriptor. Unordered set.
+      a self-attested one. One method per record: its party and date are
+      those of the record that carries it (for an attestation, its issuer and
+      assertedAt), so a subject checked by two methods has two records, each
+      with its own party and date. A value of OTHER must come with
+      verificationMethodDescriptor.
     range: VerificationMethodType
-    multivalued: true
-    list_elements_ordered: false
   verificationMethodDescriptor:
     slot_uri: rfs:verificationMethodDescriptor
     description: >-

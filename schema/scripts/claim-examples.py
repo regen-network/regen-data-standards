@@ -33,6 +33,9 @@ part of its file name before the first "-", as in gen-rdf. Every
 examples/*.INVALID-*.yaml document must be rejected by both validators: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
 Its class is named on a "# class: ..." line, and is Claim when there is none.
+A document that breaks a LinkML rule carries a "# shacl: not enforced" line:
+the generated SHACL does not express rules, so only JSON Schema must reject it,
+and the check reports that SHACL accepts it.
 """
 
 import glob
@@ -67,6 +70,11 @@ EXAMPLES = {
     "data/playground/Claim/Claim-generic-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml": "examples/c06-mvp-claim.jsonld",
     "data/playground/RegistryReviewAttestation/RegistryReviewAttestation-confirmation-001.yaml": "examples/registry-review-attestation.jsonld",
+    "data/playground/Attestation/Attestation-generic-001.yaml": "examples/generic-attestation.jsonld",
+    "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
+    "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
+    "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
+    "data/playground/C06ProjectStatementClaim/C06ProjectStatementClaim-mvp-001.yaml": "examples/c06-project-statement-claim.jsonld",
 }
 INVALID_GLOB = "examples/*.INVALID-*.yaml"
 
@@ -245,7 +253,13 @@ def main(mode):
             failures += 1
         graph = authored_graph(build(module, class_name, invalid))
         conforms, messages = shacl_report(graph, module["shapes"])
-        if not conforms:
+        if "# shacl: not enforced" in content:
+            if conforms:
+                print(f"ℹ️  {invalid}: SHACL accepts it (a LinkML rule; not expressed in SHACL)")
+            else:
+                print(f"❌ {invalid}: marked 'shacl: not enforced' but SHACL rejects it ({messages[0][:80]})")
+                failures += 1
+        elif not conforms:
             print(f"✅ {invalid}: SHACL rejects it ({messages[0][:80]})")
         else:
             print(f"❌ {invalid}: SHACL accepts it")
