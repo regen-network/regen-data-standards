@@ -13,7 +13,6 @@ hasSubject:
   name: Example project P-001
 hasTarget:
   - https://example.org/placeholder/claim-iri/verifier-finding-7-1
-verificationMethod:
-  - THIRD_PARTY_AUDITED
+verificationMethod: THIRD_PARTY_AUDITED
 contentHash: b2s256:0000000000000000000000000000000000000000000000000000000000000000
 graphIri: regen:13toVgf5UjYBz6J29x28pLQyjKz5FpcW3f4bT5uRKGyGREWGKjEdXYG.rdf

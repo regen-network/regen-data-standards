@@ -1,0 +1,49 @@
+# Synthetic example (example.org identifiers): a project developer's claim about
+# one plot. The plot's keys and site are fields of the Plot subject; its area,
+# boundary, tenure and screening are asserted here and checked by reviewers.
+name: Plot S-001.0007 area, tenure and land-use screening
+hasClaimant:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00Z"
+hasSubject:
+  id: https://example.org/c06/plot/S-001.0007
+  name: Plot S-001.0007
+  plotKey: S-001.0007
+  parcelId: "4012/7"
+  site: https://example.org/c06/site/S-001
+area:
+  numericValue: 12.75
+  unit: HA
+geometry: https://example.org/c06/boundaries-2026.gpkg#feature=118
+primaryLandUse: CROPLAND
+eligible: true
+eligibilityBasis: Registered agricultural parcel in the national land parcel register
+tenureBasis: LEASE
+tenureRecord: https://example.org/land-register/parcel/4012-7
+landUseChangeScreening:
+  screeningDatasets:
+    - Land cover map 2012
+    - Land cover map 2018
+  noConversionFound: true
+enrolmentStatus: ACTIVE
+hasEvidence:
+  - id: https://example.org/c06/boundaries-2026.gpkg
+    name: Project boundary GeoPackage, 2026
+    sourceType: DATASET
+    mediaType: application/geopackage+sqlite3
+    contentHash:
+      algorithm: SHA_256
+      digestValue: f36af2c85a7b1a40806b1dd2836f6e4c9c18961c0b8ef2d7a7faf4de2fd3df81
+    resolver:
+      - https://example.org/c06/boundaries-2026.gpkg
+    licence: https://example.org/c06/licences/project-data/v1
+  - id: https://example.org/c06/exports/tenure-2026-02.csv
+    name: Land tenure workbook export, February 2026
+    sourceType: DATASET
+    mediaType: text/csv
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 013d8824c7e0c9ffc1486e012d18e82c907757b3d9eb05481332d9a1c64917de
+    resolver:
+      - https://example.org/c06/exports/tenure-2026-02.csv

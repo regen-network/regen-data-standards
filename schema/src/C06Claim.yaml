@@ -14,6 +14,7 @@ prefixes:
   rfs: https://framework.regen.network/schema/
   rft: https://framework.regen.network/taxonomy/
   schema: http://schema.org/
+  qudt: http://qudt.org/schema/qudt/
 
 imports:
   - linkml:types
@@ -106,7 +107,7 @@ classes:
       - creditingPeriod
       - permanencePeriod
       - enrolmentCutoff
-      - areaHectares
+      - area
       - requestedDeviations
     slot_usage:
       hasSubject:
@@ -120,7 +121,7 @@ classes:
       - creditingPeriod
       - finalMonitoringYear
       - permanencePeriod
-      - areaHectares
+      - area
     slot_usage:
       hasSubject:
         range: Cohort
@@ -156,7 +157,7 @@ classes:
       boundary, land use, eligibility, tenure, land-use-change screening and
       enrolment status.
     slots:
-      - areaHectares
+      - area
       - geometry
       - primaryLandUse
       - eligible
@@ -223,6 +224,23 @@ classes:
       requirement:
         required: true
       replacedParameters:
+        required: true
+
+  AreaQuantity:
+    class_uri: qudt:QuantityValue
+    description: >-
+      An area as a QUDT quantity value: a number and a unit IRI from the QUDT
+      unit vocabulary. Hectares is the only unit the C06 registration
+      requirements use.
+    attributes:
+      numericValue:
+        slot_uri: qudt:numericValue
+        range: double
+        minimum_value: 0
+        required: true
+      unit:
+        slot_uri: qudt:unit
+        range: AreaUnit
         required: true
 
   LandUseChangeScreening:
@@ -361,11 +379,11 @@ slots:
     slot_uri: rfs:enrolmentCutoff
     description: Last date on which sites or plots may be enrolled.
     range: date
-  areaHectares:
-    slot_uri: rfs:areaHectares
-    description: Area in hectares.
-    range: decimal
-    minimum_value: 0
+  area:
+    slot_uri: rfs:area
+    description: Area, as a QUDT quantity value in hectares.
+    range: AreaQuantity
+    inlined: true
   requestedDeviations:
     slot_uri: rfs:requestedDeviations
     range: DeviationRequest
@@ -457,6 +475,11 @@ slots:
     range: date
 
 enums:
+  AreaUnit:
+    permissible_values:
+      HA:
+        meaning: http://qudt.org/vocab/unit/HA
+        description: Hectare.
   MethodologyRole:
     permissible_values:
       PRIMARY:

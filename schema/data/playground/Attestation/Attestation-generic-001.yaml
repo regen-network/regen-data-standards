@@ -1,0 +1,31 @@
+# Synthetic example (example.org identifiers): a base Attestation, with no
+# program vocabulary. A community steward reviews the generic hedgerow claim
+# (Claim-generic-001) after walking the planted boundary. The target is a
+# labelled placeholder for that claim's ClaimIRI (regen-network/claims#1).
+name: Steward review of the plot A hedgerow planting
+description: >-
+  The planted hedgerow along the northern boundary of plot A is present along
+  its full length, as the planting log states.
+hasClaimant:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-10T09:00:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/placeholder/claim-iri/generic-claim-v1
+outcome: https://example.org/vocab/review/confirmed
+rationale: The steward walked the boundary and compared it with the planting log.
+verificationMethod: OTHER
+verificationMethodDescriptor: On-site walkover by a community steward
+hasEvidence:
+  - id: https://example.org/evidence/walkover-photos-2026-06.zip
+    name: Walkover photographs, June 2026
+    sourceType: STILL_IMAGE
+    mediaType: application/zip
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5
+    resolver:
+      - https://example.org/evidence/walkover-photos-2026-06.zip

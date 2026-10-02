@@ -36,6 +36,19 @@ classes:
           rfs:ApprovedForRegistration.
       issuerRole:
         required: true
+    rules:
+      - description: >-
+          A finding cites at least one piece of evidence (story map CS-3).
+          Enforced by the generated JSON Schema; the generated SHACL does not
+          express LinkML rules.
+        preconditions:
+          slot_conditions:
+            findingType:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            hasEvidence:
+              required: true
 
   Condition:
     class_uri: rfs:Condition

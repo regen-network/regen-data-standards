@@ -27,8 +27,7 @@ outcome: rfs:ApprovedForRegistration
 rationale: >-
   Each cohort keeps a full ten-year crediting period from its baseline sampling,
   and the enrolment cutoff prevents open-ended expansion.
-verificationMethod:
-  - THIRD_PARTY_AUDITED
+verificationMethod: THIRD_PARTY_AUDITED
 scope:
   appliesTo:
     - https://example.org/c06/cohort/P-001-2020

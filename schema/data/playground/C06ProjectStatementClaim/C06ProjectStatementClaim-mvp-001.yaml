@@ -1,0 +1,25 @@
+# Synthetic example (example.org identifiers): a statement the project
+# developer makes in its project plan. A reviewer reads it; which requirement it
+# answers is recorded by the reviewer's attestation, not here.
+name: Participation in other crediting programs
+description: >-
+  The project is not registered with, and is not seeking registration with, any
+  other greenhouse-gas or ecosystem-service crediting program, and no credits
+  have been issued to it under any other program.
+hasClaimant:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00Z"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+  name: Example project P-001
+hasEvidence:
+  - id: https://example.org/c06/project-plan-v2.0.pdf#page=52
+    name: Example project plan v2.0, participation in other programs
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
+    resolver:
+      - https://example.org/c06/project-plan-v2.0.pdf
