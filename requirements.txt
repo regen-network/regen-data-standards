@@ -1,7 +1,6 @@
-linkml==1.8.6
-# Pin linkml-runtime — 1.10.0 renamed Format.JSON → Format.JSONLD,
-# which breaks linkml==1.8.6's __init__.py (calls Format.JSON).
-# 1.9.5 is the last release compatible with the pinned linkml.
-linkml-runtime==1.9.5
+# linkml and linkml-runtime are released together; keep them on the same
+# minor version.
+linkml==1.11.1
+linkml-runtime==1.11.1
 # SHACL validation of the Claim examples (make -C schema check-claim-examples).
 pyshacl==0.40.1

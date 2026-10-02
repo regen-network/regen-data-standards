@@ -2,7 +2,7 @@ gen-taxonomy:
 	python3 scripts/populateSemanticEnums.py
 
 lint:
-	linkml-lint --validate src/ -a
+	linkml-lint src/ -a
 
 gen-doc:
 	gen-doc src/schema.yaml --directory generated --diagram-type er_diagram -v

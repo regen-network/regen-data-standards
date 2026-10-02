@@ -1,4 +1,4 @@
-id: ClaimSubject
+id: https://framework.regen.network/schema/ClaimSubject
 name: ClaimSubject
 description: >-
   Skeleton of what a Claim is about. It gives every claim subject a typed,
