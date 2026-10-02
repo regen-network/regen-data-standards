@@ -26,7 +26,6 @@ classes:
       independent verifier (VVB) or the Credit Class Admin.
     slots:
       - findingLabel
-      - findingType
       - issuerRole
       - conditions
     slot_usage:
@@ -36,19 +35,24 @@ classes:
           rfs:ApprovedForRegistration.
       issuerRole:
         required: true
-    rules:
-      - description: >-
-          A finding cites at least one piece of evidence (story map CS-3).
-          Enforced by the generated JSON Schema; the generated SHACL does not
-          express LinkML rules.
-        preconditions:
-          slot_conditions:
-            findingType:
-              value_presence: PRESENT
-        postconditions:
-          slot_conditions:
-            hasEvidence:
-              required: true
+
+  RegistryFindingAttestation:
+    is_a: RegistryReviewAttestation
+    class_uri: rfs:RegistryFindingAttestation
+    description: >-
+      A finding raised in a Regen Registry review: a corrective action,
+      clarification or forward action request, or a material issue raised by
+      the Registry Agent. A finding states its type and cites at least one
+      piece of evidence (story map CS-3). Later assessments of the finding and
+      replies to it are RegistryReviewAttestations that target it and carry
+      the same findingLabel.
+    slots:
+      - findingType
+    slot_usage:
+      findingType:
+        required: true
+      hasEvidence:
+        required: true
 
   Condition:
     class_uri: rfs:Condition
@@ -74,7 +78,7 @@ slots:
     range: string
   findingType:
     slot_uri: rfs:findingType
-    description: Set when the attestation raises a finding.
+    description: The kind of finding.
     range: FindingType
   issuerRole:
     slot_uri: rfs:issuerRole
