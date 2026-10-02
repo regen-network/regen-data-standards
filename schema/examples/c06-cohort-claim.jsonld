@@ -592,9 +592,8 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "C06SiteClaim",
-  "name": "Site S-001 start date, crediting period and practices",
-  "description": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
+  "@type": "C06CohortClaim",
+  "name": "Example project P-001, 2021 cohort periods",
   "hasClaimant": [
     {
       "@type": "Entity",
@@ -602,74 +601,47 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-07-10T00:00:00Z",
+  "assertedAt": "2026-02-20T00:00:00Z",
   "hasSubject": {
-    "@type": "Site",
-    "id": "https://example.org/c06/site/S-001",
-    "name": "Site S-001",
-    "siteKey": "S-001",
-    "country": "CZ",
-    "project": "https://example.org/c06/project/P-001",
-    "cohort": "https://example.org/c06/cohort/P-001-2022"
+    "@type": "Cohort",
+    "id": "https://example.org/c06/cohort/P-001-2021",
+    "name": "Example project P-001, 2021 cohort",
+    "baselineYear": 2021,
+    "project": "https://example.org/c06/project/P-001"
   },
-  "siteProjectStartDate": "2022-03-15",
-  "startDateBasis": "First baseline soil sampling",
   "creditingPeriod": {
     "@type": "DatePeriod",
-    "startDate": "2022-03-15",
-    "endDate": "2032-03-14"
+    "startDate": "2021-04-15",
+    "endDate": "2031-04-14"
   },
-  "ecosystemTypes": [
-    "CROPLAND"
-  ],
-  "climateClass": "Dfb",
-  "soilGroup": "Cambisol",
-  "practices": [
-    "COVER_CROPPING",
-    "RESIDUE_TILLAGE_MANAGEMENT"
-  ],
-  "historicActivityYears": [
-    2019,
-    2020,
-    2021
-  ],
-  "primaryLandUse": "CROPLAND",
-  "monitoringSampleDates": [
-    "2022-03-15",
-    "2024-04-02"
-  ],
+  "finalMonitoringYear": 2031,
+  "permanencePeriod": {
+    "@type": "DatePeriod",
+    "startDate": "2031-04-15",
+    "endDate": "2041-04-14"
+  },
+  "area": {
+    "@type": "AreaQuantity",
+    "numericValue": 1200.25,
+    "unit": "HA"
+  },
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=16",
-      "name": "Example project plan v2.0, section 1.8",
+      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=8",
+      "name": "Example project plan v2.0",
       "sourceType": "TEXT",
       "mediaType": "application/pdf",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9"
+        "digestValue": "c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6"
       },
       "resolver": [
         "https://example.org/c06/project-plan-v2.0.pdf"
       ],
-      "locator": "Section 1.8, Project Start Date",
-      "issued": "2026-07-10"
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/soil-sampling-2026-05.csv",
-      "name": "Soil sampling export, May 2026",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "a69e3f990801846d6dc9f9ff81527e1ee7f54a65896654616551e34a53d87575"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/soil-sampling-2026-05.csv"
-      ]
+      "licence": "https://example.org/c06/licences/project-documents/v2",
+      "issued": "2026-02-20"
     }
   ]
 }
