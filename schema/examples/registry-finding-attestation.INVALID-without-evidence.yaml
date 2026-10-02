@@ -1,9 +1,6 @@
 # expect: 'hasEvidence' is a required property
-# class: RegistryReviewAttestation
-# shacl: not enforced
-# A finding cites at least one piece of evidence (story map CS-3). This is a
-# LinkML rule, which the generated JSON Schema enforces and the generated SHACL
-# does not express.
+# class: RegistryFindingAttestation
+# A finding cites at least one piece of evidence (story map CS-3).
 name: Clarification request on the crediting period structure
 hasClaimant:
   - name: Example Verifier
