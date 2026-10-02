@@ -351,6 +351,7 @@ the source.
   validator is given the class hierarchy.
 - **Areas are QUDT quantity values** (`area`: `qudt:numericValue` and `qudt:unit`, with hectares, `unit:HA`, as the only unit), defined in `C06Claim.yaml`. `ProjectInfo.yaml` has its own `QuantityValue` whose `unit` is a string, so its fixtures' `unit:HA` is a literal, not the QUDT unit IRI; a shared quantity structure is open (#86).
 - **Not modelled yet:** the activity that produced a piece of evidence (`prov:wasGeneratedBy`), and the
-  domain activity with its operator (`wasAssociatedWith`).
+  domain activity with its operator (`wasAssociatedWith`). Both are left to a follow-up pull request
+  for #73.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.
