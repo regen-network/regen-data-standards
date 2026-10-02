@@ -4,6 +4,7 @@
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -24,9 +25,20 @@
       "@type": "@id",
       "@id": "appliesRuleSet"
     },
-    "areaHectares": {
-      "@type": "xsd:decimal",
-      "@id": "areaHectares"
+    "area": {
+      "@type": "@id",
+      "@id": "area"
+    },
+    "numericValue": {
+      "@type": "xsd:double",
+      "@id": "qudt:numericValue"
+    },
+    "unit": {
+      "@id": "qudt:unit",
+      "@type": "@vocab",
+      "@context": {
+        "HA": "http://qudt.org/vocab/unit/HA"
+      }
     },
     "assertedAt": {
       "@type": "xsd:dateTime",
@@ -506,6 +518,9 @@
     "wasRevisionOf": {
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
+    },
+    "AreaQuantity": {
+      "@id": "qudt:QuantityValue"
     },
     "C06CohortClaim": {
       "@id": "C06CohortClaim"

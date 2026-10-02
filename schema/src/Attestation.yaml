@@ -55,7 +55,19 @@ classes:
         description: Sources the issuer relied on.
       verificationMethod:
         required: true
-        minimum_cardinality: 1
+    rules:
+      - description: >-
+          A verification method outside the enumeration is described, so the
+          method is never empty (story map CS-4). Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            verificationMethod:
+              equals_string: OTHER
+        postconditions:
+          slot_conditions:
+            verificationMethodDescriptor:
+              required: true
 
   Scope:
     class_uri: rfs:Scope

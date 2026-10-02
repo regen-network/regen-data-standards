@@ -134,8 +134,8 @@ fit every program; the program's subclass and its outcome vocabulary say what a 
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied (PG-1). |
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
-| `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1..*, set | How the issuer checked (CS-4). |
-| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER`. |
+| `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked (CS-4). |
+| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
 
 **Scope.** `appliesTo` (subject IRIs), `exclusion` (what it explicitly does not cover), `limitation`
@@ -182,11 +182,14 @@ and states the usage terms that applied to that version.
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
 
-**Licence terms.** #73 and story EX-2 ask for terms covering permitted uses, prohibitions, attribution,
-fees and effective versions. `licence` references them by IRI: a standard licence document, or a
-versioned terms document. Machine-readable terms could reuse the W3C ODRL model (permissions,
-prohibitions, duties); that is not decided here. When `licence` is absent, the terms are
-`unspecified — all rights reserved` (`rfs:UnspecifiedAllRightsReserved`), never unrestricted.
+**Licence terms.** `licence` references the terms in effect by IRI: a standard licence document, or a
+versioned terms document whose IRI changes when the terms change, so a citation keeps the version it was
+made under. When `licence` is absent, the terms are `unspecified — all rights reserved`
+(`rfs:UnspecifiedAllRightsReserved`), never unrestricted. Terms as structured fields (permitted uses,
+prohibitions, attribution, fees, effective dates) belong to story EX-2, which the Work Packages place in
+Layer 3, to be tested with data owners before any implementation; the WP8-01 records state no licence
+terms to model. When EX-2 is taken up, the W3C ODRL model (permissions, prohibitions, duties) is the
+first candidate to reuse.
 
 **Integrity and access outcomes** (`EvidenceCheckOutcome`: `EVIDENCE_INTACT`, `EVIDENCE_ALTERED`,
 `UNREACHABLE`, `ACCESS_RESTRICTED`) are terms the resolver reports when a consumer fetches evidence.
@@ -202,8 +205,9 @@ spreadsheet or database, is cited through a captured export and its hash.
 
 **Verification method** (CS-4): `SELF_ATTESTED`, `PEER_OR_COMMUNITY`, `LAB_MEASURED`,
 `SENSOR_DERIVED`, `MODEL_ESTIMATED`, `THIRD_PARTY_AUDITED`, `OTHER` with
-`verificationMethodDescriptor`. Required on attestations, where the party and date are the issuer and
-`assertedAt`. A claim with no attestation is self-attested by the base Claim's definition. The
+`verificationMethodDescriptor`. Required on attestations, one per attestation: its party and date are
+the issuer and `assertedAt`, so a subject checked by two methods has two attestations, each with its own
+party and date (CS-4). A claim with no attestation is self-attested by the base Claim's definition. The
 extension path is `OTHER` with a descriptor, then a new value in a later schema version.
 
 **Rule-set version** (`appliesRuleSet`, PG-1) and **requirement** (`requirement`) references are IRIs
@@ -231,14 +235,34 @@ on the claims, because a later plan version or another party can assert them dif
 
 | Claim | Fields |
 |---|---|
-| `C06ProjectClaim` | `appliesRuleSet`, `methodologyUse`, `isAggregateProject`, `aggregationBasis`, `ecosystemTypes`, `mandatoryPractices`, `complementaryPractices`, `aggregateStartDate`, `startDateBasis`, `adoptionDate`, `creditingPeriod`, `permanencePeriod`, `enrolmentCutoff`, `areaHectares`, `requestedDeviations` |
-| `C06CohortClaim` | `creditingPeriod`, `finalMonitoringYear`, `permanencePeriod`, `areaHectares` |
+| `C06ProjectClaim` | `appliesRuleSet`, `methodologyUse`, `isAggregateProject`, `aggregationBasis`, `ecosystemTypes`, `mandatoryPractices`, `complementaryPractices`, `aggregateStartDate`, `startDateBasis`, `adoptionDate`, `creditingPeriod`, `permanencePeriod`, `enrolmentCutoff`, `area`, `requestedDeviations` |
+| `C06CohortClaim` | `creditingPeriod`, `finalMonitoringYear`, `permanencePeriod`, `area` |
 | `C06SiteClaim` | `siteProjectStartDate`, `startDateBasis`, `creditingPeriod`, `ecosystemTypes`, `climateClass`, `soilGroup`, `practices`, `historicActivityYears`, `primaryLandUse`, `monitoringSampleDates`, `monitoringIntervalJustification` |
-| `C06PlotClaim` | `areaHectares`, `geometry`, `primaryLandUse`, `eligible`, `eligibilityBasis`, `tenureBasis`, `tenureRecord`, `landUseChangeScreening`, `enrolmentStatus`, `enrolmentStatusReason` |
+| `C06PlotClaim` | `area`, `geometry`, `primaryLandUse`, `eligible`, `eligibilityBasis`, `tenureBasis`, `tenureRecord`, `landUseChangeScreening`, `enrolmentStatus`, `enrolmentStatusReason` |
 | `C06ProjectStatementClaim` | none beyond the base Claim |
 
 Ecosystem types and practices reuse the taxonomy's `EnvironmentType` and `ActivityType`.
-[`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) is a synthetic `C06SiteClaim`.
+
+**Derived values.** No derivation reference is needed. When a value is derived from other records,
+such as a site start date taken from the first soil sampling, the claimant states the value and its
+basis (`startDateBasis`), and a reviewer who derives a value states it in an attestation.
+
+## Examples
+
+All examples are synthetic and generated from the playground fixtures by `make -C schema
+gen-claim-examples`; `make -C schema check-claim-examples` validates each with both generated
+validators.
+
+| Example | Shows |
+|---|---|
+| [`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) | A `C06SiteClaim`: base Claim fields, a `Site` subject with its identifying fields, C06 values, evidence as a document and a dataset |
+| [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, an enrolment cutoff, a requested deviation, and evidence under a versioned licence |
+| [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
+| [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with tenure, land-use-change screening and a GeoPackage feature |
+| [`c06-project-statement-claim.jsonld`](../schema/examples/c06-project-statement-claim.jsonld) | A `C06ProjectStatementClaim` |
+| [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
+| [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
+| `*.INVALID-*.yaml` | Documents each validator must reject. The two that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, SHACL does not express rules |
 
 ## Validation entry points
 
@@ -299,12 +323,14 @@ the source.
   IRI-valued slot to an enum in a subclass (the generated Python model of the base class rejects the
   enum value), so `RegistryReviewAttestation.outcome` accepts any IRI. The vocabulary is documented by
   the `RegistryReviewOutcome` enum.
-- **Not enforced yet:** `verificationMethodDescriptor` when the method is `OTHER`; a scope that has
-  neither `appliesTo` nor `unbounded: true` (AD-1); at least one evidence for a finding (CS-3).
+- **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (CS-4), and at least one
+  piece of evidence on a finding (CS-3). They are LinkML rules, which the generated SHACL does not
+  express. **Not enforced:** a scope that has neither `appliesTo` nor `unbounded: true` (AD-1): the
+  generated JSON Schema compares the boolean with a string.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
-- **Areas are decimals in hectares** (`areaHectares`), pending a shared quantity structure (#86).
+- **Areas are QUDT quantity values** (`area`: `qudt:numericValue` and `qudt:unit`, with hectares, `unit:HA`, as the only unit), defined in `C06Claim.yaml`. `ProjectInfo.yaml` has its own `QuantityValue` whose `unit` is a string, so its fixtures' `unit:HA` is a literal, not the QUDT unit IRI; a shared quantity structure is open (#86).
 - **Not modelled yet:** the activity that produced a piece of evidence (`prov:wasGeneratedBy`), and the
   domain activity with its operator (`wasAssociatedWith`).
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
