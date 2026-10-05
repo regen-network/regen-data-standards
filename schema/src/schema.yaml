@@ -1,5 +1,6 @@
 id: https://framework.regen.network/schema/
 name: Schemas
+version: 0.2.0
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -8,6 +9,10 @@ prefixes:
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
   dcmitype: http://purl.org/dc/dcmitype/
+  geo: http://www.opengis.net/ont/geosparql#
+  # Not "sdg": LinkML's generated Python names a prefix's namespace after it in
+  # capitals, which would clash with the SDG enum.
+  sdgs: https://sdgs.un.org/goals/
 imports:
   - linkml:types
   - core
