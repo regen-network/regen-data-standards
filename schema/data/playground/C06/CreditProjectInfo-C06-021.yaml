@@ -18,7 +18,7 @@ hasPrimaryImpact:
   - SDG_15
 projectSize:
   numericValue: 280.58
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
 - CROPLAND
 - GRASSLAND

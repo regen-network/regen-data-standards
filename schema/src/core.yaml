@@ -5,6 +5,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
   qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
 
 default_prefix: rfs
 
@@ -66,16 +67,13 @@ classes:
         description: >-
           The numeric value of the quantity. It cannot be negative: the
           quantities stated so far are sizes and areas.
-      unit:
+      hasUnit:
         slot_uri: qudt:hasUnit
         range: uriorcurie
         required: true
         description: >-
           IRI of the unit in the QUDT unit vocabulary
-          (http://qudt.org/vocab/unit/), for example
-          http://qudt.org/vocab/unit/HA (hectare). In JSON-LD, write the full
-          IRI: the term unit, which is this slot, shadows a unit: prefix, so
-          unit:HA would not expand.
+          (http://qudt.org/vocab/unit/), for example unit:HA (hectare).
 
 types:
   duration:

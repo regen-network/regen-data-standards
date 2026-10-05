@@ -17,7 +17,7 @@ hasPrimaryImpact:
     - SDG_13
 projectSize:
   numericValue: 10200
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - TROPICAL_FOREST
 activity:
