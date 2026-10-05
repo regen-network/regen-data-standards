@@ -105,13 +105,13 @@
       "@type": "@id",
       "@id": "outcome"
     },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "numericValue": {
       "@type": "xsd:float",
       "@id": "qudt:value"
-    },
-    "unit": {
-      "@type": "@id",
-      "@id": "qudt:hasUnit"
     },
     "rationale": {
       "@id": "rationale"
