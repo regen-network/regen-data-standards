@@ -62,7 +62,11 @@ slots:
     inlined_as_list: true
   startDate:
     slot_uri: schema:startDate
+    description: >-
+      First day of the period, included.
     range: date
   endDate:
     slot_uri: schema:endDate
+    description: >-
+      Last day of the period, included.
     range: date

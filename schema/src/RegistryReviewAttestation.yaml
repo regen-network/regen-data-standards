@@ -88,6 +88,9 @@ slots:
     range: IssuerRole
   conditions:
     slot_uri: rfs:conditions
+    description: >-
+      Obligations the judgment carries to a later milestone, such as follow-up
+      actions due before verification. Unordered set.
     range: Condition
     inlined: true
     inlined_as_list: true
