@@ -389,15 +389,14 @@ the source.
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
 - **Areas are QUDT quantity values** (`area`: the shared `QuantityValue` in `core.yaml`, also used
-  by `ProjectInfo`'s `projectSize`). `numericValue` maps to `qudt:value` and `unit` to
-  `qudt:hasUnit`, the IRI of any QUDT unit, such as `http://qudt.org/vocab/unit/HA`. QUDT 2.1
+  by `ProjectInfo`'s `projectSize`). `numericValue` maps to `qudt:value` and `hasUnit` to
+  `qudt:hasUnit`, the IRI of any QUDT unit, such as `unit:HA`. QUDT 2.1
   deprecated `qudt:unit` for `qudt:hasUnit`
   ([SCHEMA_QUDT-v2.1.ttl](https://github.com/qudt/qudt-public-repo/blob/4cfc2ec39b08d8ded5d1fe8451c4b3404ecea3ce/schema/SCHEMA_QUDT-v2.1.ttl#L3041-L3050))
   and 3.0.0 removed it
   ([CHANGELOG.md](https://github.com/qudt/qudt-public-repo/blob/9a2f71fcad04083372d56736c08741cb0e4fd251/CHANGELOG.md#L838)).
   The number and the unit are both required, and the number cannot be negative. The schema does
-  not check that the unit is an area unit, and in JSON-LD the IRI must be written in full, because
-  the `unit` term shadows a `unit:` prefix. A richer quantity structure, with uncertainty and rate
+  not check that the unit is an area unit. A richer quantity structure, with uncertainty and rate
   denominators, is open
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
 - **Operators have no IRI yet.** `wasAssociatedWith` names an `Entity`, which has no identifier until

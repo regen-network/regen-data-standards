@@ -39,7 +39,7 @@ hasCoBenefits:
       - SDG_15
 projectSize:
   numericValue: 13922
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - WETLAND
   - CROPLAND
