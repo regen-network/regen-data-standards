@@ -9,6 +9,7 @@
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
+    "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
     "adoptionDate": {
@@ -291,13 +292,13 @@
       "@type": "@id",
       "@id": "project"
     },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "numericValue": {
       "@type": "xsd:float",
       "@id": "qudt:value"
-    },
-    "unit": {
-      "@type": "@id",
-      "@id": "qudt:hasUnit"
     },
     "references": {
       "@type": "@id",
@@ -506,7 +507,7 @@
   "area": {
     "@type": "QuantityValue",
     "numericValue": 12.75,
-    "unit": "http://qudt.org/vocab/unit/HA"
+    "hasUnit": "unit:HA"
   },
   "geometry": "https://example.org/c06/boundaries-2026.gpkg#feature=118",
   "tenureBasis": "LEASE",

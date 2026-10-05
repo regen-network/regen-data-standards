@@ -14,6 +14,7 @@ prefixes:
   rfs: https://framework.regen.network/schema/
   rft: https://framework.regen.network/taxonomy/
   schema: http://schema.org/
+  unit: http://qudt.org/vocab/unit/
 
 imports:
   - linkml:types

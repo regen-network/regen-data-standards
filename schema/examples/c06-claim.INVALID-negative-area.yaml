@@ -14,4 +14,4 @@ hasSubject:
   site: https://example.org/c06/site/S-001
 area:
   numericValue: -12.75
-  unit: http://qudt.org/vocab/unit/HA
+  hasUnit: unit:HA

@@ -21,7 +21,7 @@ hasPrimaryImpact:
     - SDG_15
 projectSize:
   numericValue: 9900
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - GRASSLAND
   - SHRUBLAND
