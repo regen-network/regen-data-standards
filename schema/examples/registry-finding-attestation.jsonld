@@ -4,6 +4,7 @@
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
@@ -145,6 +146,14 @@
       "@type": "@id",
       "@id": "outcome"
     },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "unit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "rationale": {
       "@id": "rationale"
     },
@@ -268,6 +277,9 @@
     },
     "ProvEntity": {
       "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
     },
     "RegistryFindingAttestation": {
       "@id": "RegistryFindingAttestation"

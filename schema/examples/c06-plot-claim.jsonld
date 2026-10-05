@@ -27,14 +27,6 @@
       "@type": "@id",
       "@id": "area"
     },
-    "numericValue": {
-      "@type": "xsd:double",
-      "@id": "qudt:numericValue"
-    },
-    "unit": {
-      "@type": "@id",
-      "@id": "qudt:unit"
-    },
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
@@ -299,6 +291,14 @@
       "@type": "@id",
       "@id": "project"
     },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "unit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "references": {
       "@type": "@id",
       "@id": "dcterms:references"
@@ -415,9 +415,6 @@
     "Activity": {
       "@id": "Activity"
     },
-    "AreaQuantity": {
-      "@id": "qudt:QuantityValue"
-    },
     "C06CohortClaim": {
       "@id": "C06CohortClaim"
     },
@@ -478,6 +475,9 @@
     "ProvEntity": {
       "@id": "prov:Entity"
     },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
     "Site": {
       "@id": "Site"
     },
@@ -504,7 +504,7 @@
     "site": "https://example.org/c06/site/S-001"
   },
   "area": {
-    "@type": "AreaQuantity",
+    "@type": "QuantityValue",
     "numericValue": 12.75,
     "unit": "http://qudt.org/vocab/unit/HA"
   },
