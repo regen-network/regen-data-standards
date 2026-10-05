@@ -6,13 +6,6 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # Root directory for data (overrideable)
 DATA_DIR="${DATA_DIR:-${SCRIPT_DIR}/../data/playground}"
 SCHEMA_PATH="${SCHEMA_PATH:-${SCRIPT_DIR}/../src/schema.yaml}"
-# Regen Ledger data module IRIs, such as regen:13toVg...rdf, use regen as their
-# scheme, which LinkML's converter would otherwise reject as a CURIE with an
-# unknown prefix. The prefix expands to itself, so the IRI is kept as written.
-# It is passed here rather than declared in the schema: a schema prefix also
-# becomes a "regen": "regen:" term in the generated JSON-LD contexts, which
-# JSON-LD processors reject as a cyclic IRI mapping.
-PREFIXES=(-P regen=regen:)
 
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern
@@ -34,26 +27,16 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         target_class="$(basename "$yaml_file")"
         target_class="${target_class%%-*}"
         if ! linkml-validate -s "$SCHEMA_PATH" -C "$target_class" "$yaml_file" ; then
-            echo "❌ Validation failed for: $yaml_file (JSON-LD and TTL conversions skipped)"
-            ((total_count += 2))
-            ((failed_count += 2))
-            continue
-        fi
-
-        ((total_count++))
-        # Create output filename by replacing .yaml extension with .jsonld
-        output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" "${PREFIXES[@]}" --no-validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
-            echo "❌ JSON-LD conversion failed for: $yaml_file"
+            echo "❌ Validation failed for: $yaml_file (TTL conversion skipped)"
+            ((total_count++))
             ((failed_count++))
-        else
-            echo "✅ JSON-LD conversion passed for: $yaml_file"
+            continue
         fi
 
         # Create output filename by replacing .yaml extension with .ttl
         output_file="${yaml_file%.yaml}.ttl"
         ((total_count++))
-        if ! linkml-convert -s "$SCHEMA_PATH" "${PREFIXES[@]}" --no-validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ TTL conversion failed for: $yaml_file"
             ((failed_count++))
         else
@@ -62,7 +45,10 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
     done
 done
 
-echo "RDF conversion complete: $((total_count - failed_count)) passed, $failed_count failed out of $total_count total files"
-
-# Exit with failure if any validations failed
+echo "TTL conversion complete: $((total_count - failed_count)) passed, $failed_count failed out of $total_count total files"
 [[ $failed_count -eq 0 ]] || exit 1
+
+# JSON-LD is built with the published context of the current schema version
+# (linkml-convert's own context writes IRIs as xsd:anyURI literals), and must
+# give the same graph as the Turtle.
+cd "${SCRIPT_DIR}/.." && python3 scripts/claim-examples.py playground
