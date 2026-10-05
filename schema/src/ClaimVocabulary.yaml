@@ -2,14 +2,13 @@ id: https://framework.regen.network/schema/ClaimVocabulary
 name: ClaimVocabulary
 description: >-
   Shared terms that the base Claim and claim-type schemas import rather than
-  restate: attribution, activity-responsibility, citation and revision
-  relations reused from PROV-O and Dublin Core, and the language of a text.
-  Importing this module does
-  not make any class carry these slots; a class carries only the slots it lists. The PROV
-  relations keep PROV-O's meaning, domains and ranges: a subject of
-  wasAttributedTo or wasRevisionOf is a prov:Entity, a subject of
-  wasAssociatedWith is a prov:Activity, and their agent values are
-  prov:Agent.
+  restate: attribution, citation and revision relations reused from PROV-O and
+  Dublin Core, and the language of a text. Importing this module does not make any class carry these
+  slots; a class carries only the slots it lists. The PROV relations keep
+  PROV-O's meaning, domains and ranges: a subject of wasAttributedTo or
+  wasRevisionOf is a prov:Entity, and their agent values are prov:Agent. The
+  activity-responsibility relation, wasAssociatedWith, is defined with the
+  Activity class in Activity.yaml, which this module imports.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -21,6 +20,7 @@ imports:
   - linkml:types
   - core
   - Entity
+  - Activity
   - Evidence
 
 default_prefix: rfs
@@ -48,22 +48,6 @@ slots:
       assertedBy, can specialize it (rdfs:subPropertyOf) instead of
       redefining its meaning. Every value of a specializing slot therefore
       implies this relation; the reverse does not hold.
-    range: Entity
-    multivalued: true
-    list_elements_ordered: false
-    inlined: true
-    inlined_as_list: true
-  wasAssociatedWith:
-    slot_uri: prov:wasAssociatedWith
-    description: >-
-      Responsibility of an agent for an activity (PROV). Use it only on a
-      class that represents an activity (its PROV domain is prov:Activity);
-      such classes declare the ProvActivity mixin.
-      Not used by the base Claim: it is provided for specialized claim
-      schemas, such as the C06 claim schema, to name the operator of the
-      domain activity they describe, for example a restoration activity. It is not attribution of the Claim: the operator
-      and the claimant may differ, and when they coincide both relations are
-      still stated.
     range: Entity
     multivalued: true
     list_elements_ordered: false
