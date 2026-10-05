@@ -10,6 +10,7 @@
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -17,9 +18,6 @@
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
-    },
-    "aggregationBasis": {
-      "@id": "aggregationBasis"
     },
     "appliesRuleSet": {
       "@type": "@id",
@@ -48,45 +46,12 @@
       "@type": "xsd:integer",
       "@id": "baselineYear"
     },
-    "id": "@id",
     "climateClass": {
       "@id": "climateClass"
     },
     "cohort": {
       "@type": "@id",
       "@id": "cohort"
-    },
-    "complementaryPractices": {
-      "@id": "complementaryPractices",
-      "@type": "@vocab",
-      "@context": {
-        "RESIDUE_TILLAGE_MANAGEMENT": "rft:ResidueTillageManagement",
-        "BIOCHAR_PRODUCTION": "rft:BiocharProduction",
-        "IMPROVED_FOREST_MANAGEMENT": "rft:ImprovedForestManagement",
-        "AGROFORESTRY": "rft:Agroforestry",
-        "PRESCRIBED_GRAZING": "rft:PrescribedGrazing",
-        "RIPARIAN_FOREST_BUFFERS": "rft:RiparianForestBuffers",
-        "SOIL_AMENDMENTS": "rft:SoilAmendments",
-        "CONSERVATION": "rft:Conservation",
-        "ECOTOURISM": "rft:Ecotourism",
-        "COVER_CROPPING": "rft:CoverCropping",
-        "TREE_PLANTING": "rft:TreePlanting",
-        "PHOTOCATALYST_APPLICATION": "rft:PhotocatalystApplication",
-        "ECOSYSTEM_RESTORATION": "rft:EcosystemRestoration",
-        "INDUSTRIAL_BIOCHAR_PRODUCTION": "rft:IndustrialBiocharProduction",
-        "ARTISANAL_BIOCHAR_PRODUCTION": "rft:ArtisanalBiocharProduction",
-        "BIOCHAR": "rft:Biochar",
-        "ENHANCED_ROCK_WEATHERING": "rft:EnhancedRockWeathering",
-        "COMPOST_AMENDMENTS": "rft:CompostAmendments",
-        "KEYSTONE_SPECIES_CONSERVATION": "rft:KeystoneSpeciesConservation",
-        "UMBRELLA_SPECIES_CONSERVATION": "rft:UmbrellaSpeciesConservation",
-        "SILVOPASTURE": "rft:Silvopasture",
-        "FOREST_FARMING": "rft:ForestFarming",
-        "NON_URBAN_FOREST_IMPROVEMENT": "rft:NonUrbanForestImprovement",
-        "URBAN_FOREST_IMPROVEMENT": "rft:UrbanForestImprovement",
-        "AFFORESTATION": "rft:Afforestation",
-        "REFORESTATION": "rft:Reforestation"
-      }
     },
     "algorithm": {
       "@id": "algorithm",
@@ -102,6 +67,10 @@
     "contentHash": {
       "@type": "@id",
       "@id": "contentHash"
+    },
+    "convertedFromNaturalEcosystem": {
+      "@type": "xsd:boolean",
+      "@id": "convertedFromNaturalEcosystem"
     },
     "country": {
       "@id": "schema:addressCountry"
@@ -154,31 +123,9 @@
         "WATERCOURSE": "rft:Watercourse"
       }
     },
-    "eligibilityBasis": {
-      "@id": "eligibilityBasis"
-    },
-    "eligible": {
-      "@type": "xsd:boolean",
-      "@id": "eligible"
-    },
     "endDate": {
       "@type": "xsd:date",
       "@id": "schema:endDate"
-    },
-    "enrolmentCutoff": {
-      "@type": "xsd:date",
-      "@id": "enrolmentCutoff"
-    },
-    "enrolmentStatus": {
-      "@id": "enrolmentStatus",
-      "@type": "@vocab",
-      "@context": {
-        "ACTIVE": "rfs:EnrolmentActive",
-        "CANCELLED": "rfs:EnrolmentCancelled"
-      }
-    },
-    "enrolmentStatusReason": {
-      "@id": "enrolmentStatusReason"
     },
     "type": {
       "@id": "type",
@@ -191,10 +138,6 @@
     },
     "walletAddress": {
       "@id": "walletAddress"
-    },
-    "finalMonitoringYear": {
-      "@type": "xsd:integer",
-      "@id": "finalMonitoringYear"
     },
     "geometry": {
       "@type": "@id",
@@ -216,10 +159,6 @@
       "@type": "@id",
       "@id": "hasTarget"
     },
-    "historicActivityYears": {
-      "@type": "xsd:integer",
-      "@id": "historicActivityYears"
-    },
     "identifier": {
       "@id": "schema:identifier"
     },
@@ -237,48 +176,12 @@
     "justification": {
       "@id": "justification"
     },
-    "landUseChangeScreening": {
-      "@type": "@id",
-      "@id": "landUseChangeScreening"
-    },
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
     },
     "locator": {
       "@id": "locator"
-    },
-    "mandatoryPractices": {
-      "@id": "mandatoryPractices",
-      "@type": "@vocab",
-      "@context": {
-        "RESIDUE_TILLAGE_MANAGEMENT": "rft:ResidueTillageManagement",
-        "BIOCHAR_PRODUCTION": "rft:BiocharProduction",
-        "IMPROVED_FOREST_MANAGEMENT": "rft:ImprovedForestManagement",
-        "AGROFORESTRY": "rft:Agroforestry",
-        "PRESCRIBED_GRAZING": "rft:PrescribedGrazing",
-        "RIPARIAN_FOREST_BUFFERS": "rft:RiparianForestBuffers",
-        "SOIL_AMENDMENTS": "rft:SoilAmendments",
-        "CONSERVATION": "rft:Conservation",
-        "ECOTOURISM": "rft:Ecotourism",
-        "COVER_CROPPING": "rft:CoverCropping",
-        "TREE_PLANTING": "rft:TreePlanting",
-        "PHOTOCATALYST_APPLICATION": "rft:PhotocatalystApplication",
-        "ECOSYSTEM_RESTORATION": "rft:EcosystemRestoration",
-        "INDUSTRIAL_BIOCHAR_PRODUCTION": "rft:IndustrialBiocharProduction",
-        "ARTISANAL_BIOCHAR_PRODUCTION": "rft:ArtisanalBiocharProduction",
-        "BIOCHAR": "rft:Biochar",
-        "ENHANCED_ROCK_WEATHERING": "rft:EnhancedRockWeathering",
-        "COMPOST_AMENDMENTS": "rft:CompostAmendments",
-        "KEYSTONE_SPECIES_CONSERVATION": "rft:KeystoneSpeciesConservation",
-        "UMBRELLA_SPECIES_CONSERVATION": "rft:UmbrellaSpeciesConservation",
-        "SILVOPASTURE": "rft:Silvopasture",
-        "FOREST_FARMING": "rft:ForestFarming",
-        "NON_URBAN_FOREST_IMPROVEMENT": "rft:NonUrbanForestImprovement",
-        "URBAN_FOREST_IMPROVEMENT": "rft:UrbanForestImprovement",
-        "AFFORESTATION": "rft:Afforestation",
-        "REFORESTATION": "rft:Reforestation"
-      }
     },
     "mediaType": {
       "@id": "dcterms:format"
@@ -311,10 +214,6 @@
     },
     "name": {
       "@id": "schema:name"
-    },
-    "noConversionFound": {
-      "@type": "xsd:boolean",
-      "@id": "noConversionFound"
     },
     "parcelId": {
       "@id": "parcelId"
@@ -429,9 +328,6 @@
       "@type": "@id",
       "@id": "resolver"
     },
-    "screeningDatasets": {
-      "@id": "screeningDatasets"
-    },
     "site": {
       "@type": "@id",
       "@id": "site"
@@ -480,10 +376,6 @@
         "OTHER": "rfs:OtherTenure"
       }
     },
-    "tenureRecord": {
-      "@type": "@id",
-      "@id": "tenureRecord"
-    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -515,9 +407,16 @@
       "@type": "@id",
       "@id": "prov:wasAttributedTo"
     },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
     "wasRevisionOf": {
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
     },
     "AreaQuantity": {
       "@id": "qudt:QuantityValue"
@@ -560,9 +459,6 @@
     },
     "Evidence": {
       "@id": "Evidence"
-    },
-    "LandUseChangeScreening": {
-      "@id": "LandUseChangeScreening"
     },
     "Link": {
       "@id": "Link"
@@ -628,11 +524,6 @@
     "COVER_CROPPING",
     "RESIDUE_TILLAGE_MANAGEMENT"
   ],
-  "historicActivityYears": [
-    2019,
-    2020,
-    2021
-  ],
   "primaryLandUse": "CROPLAND",
   "monitoringSampleDates": [
     "2022-03-15",
@@ -670,6 +561,35 @@
       "resolver": [
         "https://example.org/c06/exports/soil-sampling-2026-05.csv"
       ]
+    },
+    {
+      "@type": "Evidence",
+      "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
+      "name": "Field management records, site S-001, 2019 to 2021",
+      "sourceType": "DATASET",
+      "mediaType": "text/csv",
+      "contentHash": {
+        "@type": "ContentDigest",
+        "algorithm": "SHA_256",
+        "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
+      },
+      "resolver": [
+        "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
+      ],
+      "wasGeneratedBy": {
+        "@type": "Activity",
+        "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
+        "name": "Field operations on site S-001, 2019 to 2021",
+        "startDate": "2019-01-01",
+        "endDate": "2021-12-31",
+        "wasAssociatedWith": [
+          {
+            "@type": "Entity",
+            "name": "Example Farm Operator",
+            "type": "INDIVIDUAL"
+          }
+        ]
+      }
     }
   ]
 }

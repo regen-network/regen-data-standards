@@ -1,7 +1,8 @@
 # Synthetic example (example.org identifiers): a project developer's claim about
 # one plot. The plot's keys and site are fields of the Plot subject; its area,
-# boundary, tenure and screening are asserted here and checked by reviewers.
-name: Plot S-001.0007 area, tenure and land-use screening
+# boundary, tenure basis and land-use history are asserted here and checked by
+# reviewers. The land register extract and the land cover maps are evidence.
+name: Plot S-001.0007 area, tenure and land-use history
 hasClaimant:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
@@ -16,17 +17,8 @@ area:
   numericValue: 12.75
   unit: HA
 geometry: https://example.org/c06/boundaries-2026.gpkg#feature=118
-primaryLandUse: CROPLAND
-eligible: true
-eligibilityBasis: Registered agricultural parcel in the national land parcel register
 tenureBasis: LEASE
-tenureRecord: https://example.org/land-register/parcel/4012-7
-landUseChangeScreening:
-  screeningDatasets:
-    - Land cover map 2012
-    - Land cover map 2018
-  noConversionFound: true
-enrolmentStatus: ACTIVE
+convertedFromNaturalEcosystem: false
 hasEvidence:
   - id: https://example.org/c06/boundaries-2026.gpkg
     name: Project boundary GeoPackage, 2026
@@ -47,3 +39,28 @@ hasEvidence:
       digestValue: 013d8824c7e0c9ffc1486e012d18e82c907757b3d9eb05481332d9a1c64917de
     resolver:
       - https://example.org/c06/exports/tenure-2026-02.csv
+  - id: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+    name: Land register extract, parcel 4012/7, 10 February 2026
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: ab7b53c54ef38ad04b05a4ec3f504d99916c4360983e4f9a9febc1da0b491f0a
+    resolver:
+      - https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+  - id: https://example.org/land-cover/2012/v1
+    name: Land cover map 2012
+    sourceType: DATASET
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 85b72fc90622c632d6e5bb359395c77f43407597dfc27ba1b9509c3a0fb347ae
+    resolver:
+      - https://example.org/land-cover/2012/v1/download
+  - id: https://example.org/land-cover/2018/v1
+    name: Land cover map 2018
+    sourceType: DATASET
+    contentHash:
+      algorithm: SHA_256
+      digestValue: d28eb2dfbedfbb471da33c868655c6ec75c51d1707e8073c86cbffb114b1882e
+    resolver:
+      - https://example.org/land-cover/2018/v1/download

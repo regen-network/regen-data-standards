@@ -1,6 +1,6 @@
 # Synthetic example (example.org identifiers): a project developer's claim about
 # one enrolment cohort. The cohort's baseline year identifies it, so it is a
-# field of the Cohort subject; the periods and area are asserted here.
+# field of the Cohort subject; its periods are asserted here.
 name: Example project P-001, 2021 cohort periods
 hasClaimant:
   - name: Example Soil Carbon Developer
@@ -14,13 +14,9 @@ hasSubject:
 creditingPeriod:
   startDate: "2021-04-15"
   endDate: "2031-04-14"
-finalMonitoringYear: 2031
 permanencePeriod:
   startDate: "2031-04-15"
   endDate: "2041-04-14"
-area:
-  numericValue: 1200.25
-  unit: HA
 hasEvidence:
   - id: https://example.org/c06/project-plan-v2.0.pdf#page=8
     name: Example project plan v2.0
