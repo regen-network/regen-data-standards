@@ -98,6 +98,9 @@ slots:
     range: string
   scope:
     slot_uri: rfs:scope
+    description: >-
+      Where the judgment applies: the subjects it covers, what it explicitly
+      excludes, and what it does not establish.
     range: Scope
     inlined: true
   appliesTo:

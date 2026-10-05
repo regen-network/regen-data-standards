@@ -276,6 +276,9 @@ slots:
     pattern: "^[A-Z]{2}$"
   methodologyUse:
     slot_uri: rfs:methodologyUse
+    description: >-
+      The methodology versions the project applies, each with its role and
+      what it is used for. Unordered set.
     range: MethodologyUse
     inlined: true
     inlined_as_list: true
@@ -287,6 +290,10 @@ slots:
     range: uriorcurie
   methodologyRole:
     slot_uri: rfs:methodologyRole
+    description: >-
+      Whether the methodology is the project's primary quantification
+      methodology or a supplementary one, used for part of the assessment such
+      as the baseline or leakage.
     range: MethodologyRole
   methodologyScope:
     slot_uri: rfs:methodologyScope
@@ -294,9 +301,15 @@ slots:
     range: string
   isAggregateProject:
     slot_uri: rfs:isAggregateProject
+    description: >-
+      True when the project is an aggregate project: a group of sites, each
+      individually identifiable, registered as one project.
     range: boolean
   ecosystemTypes:
     slot_uri: rfs:ecosystemTypes
+    description: >-
+      Ecosystem types of the site, as taxonomy terms such as cropland or
+      pastureland. Unordered set.
     range: EnvironmentType
     multivalued: true
     list_elements_ordered: false
@@ -314,6 +327,10 @@ slots:
     range: date
   siteProjectStartDate:
     slot_uri: rfs:siteProjectStartDate
+    description: >-
+      The site's own project start date. In an aggregate project each site
+      defines its own, which may differ from the aggregate's; its basis is
+      stated in startDateBasis.
     range: date
   startDateBasis:
     slot_uri: rfs:startDateBasis
@@ -327,10 +344,16 @@ slots:
     range: date
   creditingPeriod:
     slot_uri: rfs:creditingPeriod
+    description: >-
+      The period during which credits can be issued for the subject. In an
+      aggregate project, cohorts and sites may have their own.
     range: DatePeriod
     inlined: true
   permanencePeriod:
     slot_uri: rfs:permanencePeriod
+    description: >-
+      The period after the crediting period during which the carbon stored
+      must be maintained.
     range: DatePeriod
     inlined: true
   area:
@@ -340,6 +363,11 @@ slots:
     inlined: true
   requestedDeviations:
     slot_uri: rfs:requestedDeviations
+    description: >-
+      Project-specific deviations from requirements that the project developer
+      requests in its project plan, each naming the requirements it replaces.
+      Whether a deviation is approved is a separate attestation. Unordered
+      set.
     range: DeviationRequest
     inlined: true
     inlined_as_list: true
@@ -351,6 +379,9 @@ slots:
     range: string
   justification:
     slot_uri: rfs:justification
+    description: >-
+      Why the deviation is requested, including why it is as conservative as
+      the requirement it replaces.
     range: string
   climateClass:
     slot_uri: rfs:climateClass
@@ -362,6 +393,9 @@ slots:
     range: string
   primaryLandUse:
     slot_uri: rfs:primaryLandUse
+    description: >-
+      The site's primary land use, as a taxonomy term, which the site must
+      maintain during its project period.
     range: EnvironmentType
   monitoringSampleDates:
     slot_uri: rfs:monitoringSampleDates
@@ -381,6 +415,9 @@ slots:
     range: uriorcurie
   tenureBasis:
     slot_uri: rfs:tenureBasis
+    description: >-
+      The legal basis on which the plot is controlled during the crediting
+      period: ownership, a lease, or another arrangement.
     range: TenureBasis
   convertedFromNaturalEcosystem:
     slot_uri: rfs:convertedFromNaturalEcosystem
