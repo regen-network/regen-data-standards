@@ -1,0 +1,68 @@
+id: https://framework.regen.network/schema/Activity
+name: Activity
+description: >-
+  A PROV activity: something that took place over a period and that agents
+  were responsible for, such as the soil sampling or the field operations that
+  produced a piece of evidence. Evidence names the activity that generated it
+  with wasGeneratedBy; the activity states when it took place and who carried
+  it out. See docs/attestation-and-evidence.md.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - Entity
+  - ProvAlignment
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Activity:
+    class_uri: rfs:Activity
+    mixins:
+      - ProvActivity
+    description: >-
+      Something that took place over a period, identified by an IRI so that
+      every piece of evidence it generated names the same activity. Its period
+      is given as dates; prov:startedAtTime and prov:endedAtTime would require
+      timestamps.
+    slots:
+      - name
+      - description
+      - startDate
+      - endDate
+      - wasAssociatedWith
+    attributes:
+      id:
+        identifier: true
+        range: uriorcurie
+        description: IRI of the activity.
+
+slots:
+  wasAssociatedWith:
+    slot_uri: prov:wasAssociatedWith
+    description: >-
+      Responsibility of an agent for an activity (PROV), for example the farm
+      operator who carried out the field operations a record documents.
+      Claim-type schemas that describe a domain activity, such as a
+      restoration, name its operator the same way. Use it only on a class that
+      represents an activity (its PROV domain is prov:Activity); such classes
+      declare the ProvActivity mixin. It is not attribution of a Claim: the
+      operator and the claimant may differ, and when they coincide both
+      relations are still stated.
+    range: Entity
+    multivalued: true
+    list_elements_ordered: false
+    inlined: true
+    inlined_as_list: true
+  startDate:
+    slot_uri: schema:startDate
+    range: date
+  endDate:
+    slot_uri: schema:endDate
+    range: date

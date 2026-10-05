@@ -4,9 +4,8 @@
 # separate attestation.
 name: Example project P-001 design
 description: >-
-  Example project P-001 is an aggregate soil-carbon project of cropland and
-  pasture sites enrolled from 2020 to 2023, started on 1 March 2020, with no
-  new enrolment after 31 January 2024.
+  Example project P-001 is an aggregate soil-carbon project of sites enrolled
+  from 2020 to 2023, started on 1 March 2020.
 hasClaimant:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
@@ -25,18 +24,6 @@ methodologyUse:
     methodologyRole: SUPPLEMENTARY
     methodologyScope: Baseline, additionality and leakage assessment
 isAggregateProject: true
-aggregationBasis: >-
-  Sites share one climate zone and comparable soil groups and management
-  practices.
-ecosystemTypes:
-  - CROPLAND
-  - PASTURE
-mandatoryPractices:
-  - COVER_CROPPING
-  - RESIDUE_TILLAGE_MANAGEMENT
-  - PRESCRIBED_GRAZING
-complementaryPractices:
-  - COMPOST_AMENDMENTS
 aggregateStartDate: "2020-03-01"
 startDateBasis: First baseline soil sampling
 adoptionDate: "2020-03-01"
@@ -46,10 +33,6 @@ creditingPeriod:
 permanencePeriod:
   startDate: "2030-03-01"
   endDate: "2044-02-28"
-enrolmentCutoff: "2024-01-31"
-area:
-  numericValue: 5250.5
-  unit: HA
 requestedDeviations:
   - requirement:
       - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/ML-020

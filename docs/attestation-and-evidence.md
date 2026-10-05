@@ -4,7 +4,8 @@ This document describes the schemas added for
 [#73 (WP1-06)](https://github.com/regen-network/regen-data-standards/issues/73): the base
 [`Attestation`](../schema/src/Attestation.yaml), the Regen Registry review vocabulary
 [`RegistryReviewAttestation`](../schema/src/RegistryReviewAttestation.yaml), the full
-[`Evidence`](../schema/src/Evidence.yaml), the shared terms added to
+[`Evidence`](../schema/src/Evidence.yaml) with the [`Activity`](../schema/src/Activity.yaml) that
+generated it, the shared terms added to
 [`ClaimVocabulary`](../schema/src/ClaimVocabulary.yaml), and the C06 claim schema
 [`C06Claim`](../schema/src/C06Claim.yaml). It builds on the base Claim described in
 [`docs/claim-base.md`](claim-base.md).
@@ -26,6 +27,8 @@ flowchart LR
     end
     A[Attestation]
     E[Evidence]
+    ACT[Activity]
+    OP["Operator (Entity)"]
     S["Subjects: Project, Cohort, Site, Plot"]
 
     PC & CC & SC & PLC & PS -- hasSubject --> S
@@ -34,6 +37,8 @@ flowchart LR
     A -- "hasTarget (e.g. a registry's confirmation → the verifier's finding)" --> A
     A -- hasSubject --> S
     A -- hasEvidence --> E
+    E -- wasGeneratedBy --> ACT
+    ACT -- wasAssociatedWith --> OP
 ```
 
 | Type | Produced by | Consumed by | Reuse decision |
@@ -43,6 +48,7 @@ flowchart LR
 | `Attestation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
 | `RegistryReviewAttestation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; `is_a Attestation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
+| `Activity` | Whoever cites the evidence it generated | Reviewers checking when and by whom evidence was produced | New module; `ProvActivity` mixin |
 
 A project developer's response to a finding is a Claim by the developer (usually a revised C06
 claim with new evidence), not an attestation.
@@ -59,8 +65,9 @@ grouped by the issuer's `findingLabel`.
 | Module | Change | Imports |
 |---|---|---|
 | `Claim.yaml` | `hasClaimType` removed (see [Field migrations](#field-migrations)). | as before |
-| `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `requirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. | as before |
-| `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, locator, licence reference and issue date, and the integrity-outcome terms. | as before |
+| `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `requirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
+| `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, locator, licence reference, issue date and generating activity (`wasGeneratedBy`), and the integrity-outcome terms. | adds `Activity` |
+| `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Attestation.yaml` | Rewritten: `Attestation is_a Claim`, and `Scope`. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewAttestation.yaml` | New: `RegistryReviewAttestation is_a Attestation`, `Condition`, and the review enums. | `Attestation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
@@ -196,6 +203,20 @@ and states the usage terms that applied to that version.
 | `locator` | `rfs:locator` | string | 0..1 | Position inside the source when the fragment is not enough. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
+| `wasGeneratedBy` | `prov:wasGeneratedBy` | `Activity` (inlined, with its IRI) | 0..1 | The activity that produced the source. |
+
+**Who produced it, and when.** `wasGeneratedBy` names the activity that produced the cited source,
+for example the soil sampling behind a results file, or the field operations a farm management
+record documents. The activity has its own IRI, its period (`startDate`, `endDate`, as dates) and
+who carried it out (`wasAssociatedWith`), who may differ from the claimant. The time a source was
+produced is the activity's, not a field of Evidence, because PROV-O declares activities and entities
+disjoint. Evidence produced by the same activity names the same activity IRI, so an activity always
+has one ([example](../schema/examples/c06-claim.INVALID-activity-without-iri.yaml) of an activity
+without an IRI being rejected). A claim reaches the
+activity through its evidence (claim → `hasEvidence` → `wasGeneratedBy` → activity); it does not
+describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
+requirement checks who carried out a practice, only which practices a site applies (`practices`) and
+the records that support it.
 
 **Licence terms.** `licence` references the terms in effect by IRI: a standard licence document, or a
 versioned terms document whose IRI changes when the terms change, so a citation keeps the version it was
@@ -250,13 +271,30 @@ on the claims, because a later plan version or another party can assert them dif
 
 | Claim | Fields |
 |---|---|
-| `C06ProjectClaim` | `appliesRuleSet`, `methodologyUse`, `isAggregateProject`, `aggregationBasis`, `ecosystemTypes`, `mandatoryPractices`, `complementaryPractices`, `aggregateStartDate`, `startDateBasis`, `adoptionDate`, `creditingPeriod`, `permanencePeriod`, `enrolmentCutoff`, `area`, `requestedDeviations` |
-| `C06CohortClaim` | `creditingPeriod`, `finalMonitoringYear`, `permanencePeriod`, `area` |
-| `C06SiteClaim` | `siteProjectStartDate`, `startDateBasis`, `creditingPeriod`, `ecosystemTypes`, `climateClass`, `soilGroup`, `practices`, `historicActivityYears`, `primaryLandUse`, `monitoringSampleDates`, `monitoringIntervalJustification` |
-| `C06PlotClaim` | `area`, `geometry`, `primaryLandUse`, `eligible`, `eligibilityBasis`, `tenureBasis`, `tenureRecord`, `landUseChangeScreening`, `enrolmentStatus`, `enrolmentStatusReason` |
+| `C06ProjectClaim` | `appliesRuleSet`, `methodologyUse`, `isAggregateProject`, `aggregateStartDate`, `startDateBasis`, `adoptionDate`, `creditingPeriod`, `permanencePeriod`, `requestedDeviations` |
+| `C06CohortClaim` | `creditingPeriod`, `permanencePeriod` |
+| `C06SiteClaim` | `siteProjectStartDate`, `startDateBasis`, `creditingPeriod`, `ecosystemTypes`, `climateClass`, `soilGroup`, `practices`, `primaryLandUse`, `monitoringSampleDates`, `monitoringIntervalJustification` |
+| `C06PlotClaim` | `area`, `geometry`, `tenureBasis`, `convertedFromNaturalEcosystem` |
 | `C06ProjectStatementClaim` | none beyond the base Claim |
 
 Ecosystem types and practices reuse the taxonomy's `EnvironmentType` and `ActivityType`.
+
+**What is not a claim field.** A field holds a value the claimant states and a requirement checks.
+The following are therefore not fields:
+
+- *Rules:* which practices an enrolled site must or may apply is the project's enrolment rule, not
+  a fact a reviewer checks. A requirement checks the practices each site applies (`practices`).
+- *Reviewers' conclusions:* whether a plot is eligible is what an attestation decides. The claimant
+  delineates the land (`geometry`).
+- *Values computed from other claims:* the project's or a cohort's total area is the sum of its
+  plots, and the project's ecosystem types are those of its sites.
+- *Evidence:* the land register record behind a tenure basis, the land cover datasets behind a
+  land-use history, and the historic activity records of a site are cited as `Evidence`. The period
+  those records cover is their generating activity's.
+- *Statements:* the basis of the aggregation, and that no sites are enrolled after a cutoff date,
+  are `C06ProjectStatementClaim`s. An attestation that depends on the cutoff names that claim in
+  `reliesOn`.
+- *Lifecycle:* whether a plot is still enrolled (see [Exclusions](#exclusions)).
 
 **Derived values.** No derivation reference is needed. When a value is derived from other records,
 such as a site start date taken from the first soil sampling, the claimant states the value and its
@@ -270,10 +308,10 @@ validators.
 
 | Example | Shows |
 |---|---|
-| [`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) | A `C06SiteClaim`: base Claim fields, a `Site` subject with its identifying fields, C06 values, evidence as a document and a dataset |
-| [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, an enrolment cutoff, a requested deviation, and evidence under a versioned licence |
+| [`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) | A `C06SiteClaim`: base Claim fields, a `Site` subject with its identifying fields, C06 values, evidence as a document and datasets, and field records with the activity that generated them and its operator |
+| [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, a requested deviation, and evidence under a versioned licence |
 | [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
-| [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with tenure, land-use-change screening and a GeoPackage feature |
+| [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-statement-claim.jsonld`](../schema/examples/c06-project-statement-claim.jsonld) | A `C06ProjectStatementClaim` |
 | [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
@@ -290,7 +328,7 @@ handling, and that imported definitions are not separate whole-claim targets. As
    `RegistryReviewAttestation`…); each has one shape.
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
-3. Nested nodes (subjects, evidence, scope, conditions) are checked as values of the root, not as
+3. Nested nodes (subjects, evidence and its activities, scope, conditions) are checked as values of the root, not as
    documents of their own.
 4. Shapes are closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)).
@@ -315,6 +353,7 @@ it is made.
 | A finding's current status as an updated field | Each dated attestation states the status as of its date; the current status is computed |
 | Whether a version is controlling, superseded or stale; whether a confirmation is awaited | Computed by the services |
 | Current availability, access and licence of evidence | Reported by the resolver |
+| Whether a plot is still enrolled | Not a field: a cancelled plot is one the developer no longer claims in a later plan version |
 
 The hash of a *cited source* (`Evidence.contentHash`) is not excluded: it is what lets a reader verify
 the source.
@@ -350,8 +389,8 @@ the source.
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
 - **Areas are QUDT quantity values** (`area`: `qudt:numericValue` and `qudt:unit`, with hectares, `unit:HA`, as the only unit), defined in `C06Claim.yaml`. `ProjectInfo.yaml` has its own `QuantityValue` whose `unit` is a string, so its fixtures' `unit:HA` is a literal, not the QUDT unit IRI; a shared quantity structure is open (#86).
-- **Not modelled yet:** the activity that produced a piece of evidence (`prov:wasGeneratedBy`), and the
-  domain activity with its operator (`wasAssociatedWith`). Both are left to a follow-up pull request
-  for #73.
+- **Operators have no IRI yet.** `wasAssociatedWith` names an `Entity`, which has no identifier until
+  [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
+  activity is a node with a name and type and cannot be joined across activities.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.

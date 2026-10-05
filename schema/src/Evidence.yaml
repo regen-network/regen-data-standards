@@ -12,10 +12,12 @@ prefixes:
   schema: http://schema.org/
   dcterms: http://purl.org/dc/terms/
   dcmitype: http://purl.org/dc/dcmitype/
+  prov: http://www.w3.org/ns/prov#
 
 imports:
   - linkml:types
   - core
+  - Activity
   - ProvAlignment
 
 default_prefix: rfs
@@ -42,6 +44,7 @@ classes:
       - locator
       - licence
       - issued
+      - wasGeneratedBy
     slot_usage:
       name:
         description: Title of the cited source.
@@ -124,6 +127,17 @@ slots:
     slot_uri: dcterms:issued
     description: Date of the cited version of the source.
     range: date
+  wasGeneratedBy:
+    slot_uri: prov:wasGeneratedBy
+    description: >-
+      The activity that produced the cited source, with its period and who
+      carried it out: for example the soil sampling behind a results file, or
+      the field operations a farm management record documents. When the
+      evidence was produced is the activity's period, not a field of Evidence,
+      because PROV-O declares activities and entities disjoint. Evidence
+      produced by the same activity names the same activity IRI.
+    range: Activity
+    inlined: true
 
 enums:
   DCMIType:
