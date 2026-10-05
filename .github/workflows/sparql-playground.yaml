@@ -24,6 +24,16 @@ jobs:
         run: make -C schema gen-rdf
       - name: Check Claim examples
         run: make -C schema check-claim-examples
+      - name: Check schema artifacts
+        # On a pull request, the versions published on the base branch must be
+        # unchanged.
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+            make -C schema check-schema-artifacts BASE=FETCH_HEAD
+          else
+            make -C schema check-schema-artifacts
+          fi
       - name: Check if dataset exists
         id: check-dataset
         env:

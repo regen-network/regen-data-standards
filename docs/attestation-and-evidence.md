@@ -303,8 +303,9 @@ basis (`startDateBasis`), and a reviewer who derives a value states it in an att
 ## Examples
 
 All examples are synthetic and generated from the playground fixtures by `make -C schema
-gen-claim-examples`; `make -C schema check-claim-examples` validates each with both generated
-validators.
+gen-claim-examples`, with the published context of the current schema version;
+`make -C schema check-claim-examples` validates each with its published JSON Schema and SHACL
+shapes (see [`schema/README.md`](../schema/README.md#published-schema-artifacts)).
 
 | Example | Shows |
 |---|---|
@@ -316,6 +317,7 @@ validators.
 | [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
 | [`registry-finding-attestation.jsonld`](../schema/examples/registry-finding-attestation.jsonld) | A `RegistryFindingAttestation`: a clarification request with its type, label, target and evidence |
+| [`c06-mvp-claim-domain-invalid.jsonld`](../schema/examples/c06-mvp-claim-domain-invalid.jsonld) | `c06-mvp-claim.jsonld` with a practice that is not an `ActivityType` term: its base Claim fields are valid, and only the C06 constraint on `practices` fails. Generated from [`c06-mvp-claim.INVALID-unknown-practice.yaml`](../schema/examples/c06-mvp-claim.INVALID-unknown-practice.yaml) |
 | `*.INVALID-*.yaml` | Documents each validator must reject. The one that breaks a LinkML rule (an `OTHER` method without a descriptor) is marked `# shacl: not enforced`: JSON Schema rejects it, the generated SHACL does not express rules |
 
 ## Validation entry points
