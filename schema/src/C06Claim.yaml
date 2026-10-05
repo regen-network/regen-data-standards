@@ -220,9 +220,9 @@ classes:
   AreaQuantity:
     class_uri: qudt:QuantityValue
     description: >-
-      An area as a QUDT quantity value: a number and a unit IRI from the QUDT
-      unit vocabulary. Hectares is the only unit the C06 registration
-      requirements use.
+      An area as a QUDT quantity value: a number and the IRI of its unit in
+      the QUDT unit vocabulary, for example http://qudt.org/vocab/unit/HA
+      (hectare) or http://qudt.org/vocab/unit/AC (acre).
     attributes:
       numericValue:
         slot_uri: qudt:numericValue
@@ -231,7 +231,12 @@ classes:
         required: true
       unit:
         slot_uri: qudt:unit
-        range: AreaUnit
+        description: >-
+          IRI of a unit in the QUDT unit vocabulary
+          (http://qudt.org/vocab/unit/). The schema does not restrict it to
+          area units. Write the full IRI: in JSON-LD the term unit, which is
+          this slot, shadows a unit: prefix, so unit:HA would not expand.
+        range: uriorcurie
         required: true
 
 slots:
@@ -358,7 +363,7 @@ slots:
     inlined: true
   area:
     slot_uri: rfs:area
-    description: Area, as a QUDT quantity value in hectares.
+    description: Area, as a QUDT quantity value.
     range: AreaQuantity
     inlined: true
   requestedDeviations:
@@ -427,11 +432,6 @@ slots:
     range: boolean
 
 enums:
-  AreaUnit:
-    permissible_values:
-      HA:
-        meaning: http://qudt.org/vocab/unit/HA
-        description: Hectare.
   MethodologyRole:
     permissible_values:
       PRIMARY:
