@@ -309,7 +309,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith` ([ADR D1][ADR-D1]). |
 | `hasPrimaryImpact`, `hasCoBenefits` | Removed | They describe the project or the credit class, which `ProjectInfo` and `CreditClassInfo` already do, not what a claim asserts. |
-| `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule) | Moved | To specialized claim schemas that state a quantity; `C06Claim` states areas as QUDT quantity values (`area`). A shared quantity structure is open ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). |
+| `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule) | Moved | To specialized claim schemas that state a quantity; `C06Claim` states areas with the shared `QuantityValue` in `core.yaml` (`area`). A richer quantity structure is open ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). |
 | `hasCreditClass` | Replaced | By `appliesRuleSet` (`ClaimVocabulary`), the exact credit class version a claim applies, used by `C06ProjectClaim`. |
 | `usesMethodology` | Moved | To `C06ProjectClaim.methodologyUse`, which names each methodology version and its role. Only some kinds of claim use a methodology. |
 | `verificationStatus` | Removed | Review state is not content ([ADR D1][ADR-D1], agreed July 2026). The `VerificationStatus` enum remains in the taxonomy until the review-state record is designed. |

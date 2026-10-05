@@ -4,6 +4,7 @@
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -90,6 +91,14 @@
     },
     "name": {
       "@id": "schema:name"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "unit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
     },
     "references": {
       "@type": "@id",
@@ -197,6 +206,9 @@
     },
     "ProvEntity": {
       "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
