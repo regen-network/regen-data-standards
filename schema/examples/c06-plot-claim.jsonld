@@ -32,11 +32,8 @@
       "@id": "qudt:numericValue"
     },
     "unit": {
-      "@id": "qudt:unit",
-      "@type": "@vocab",
-      "@context": {
-        "HA": "http://qudt.org/vocab/unit/HA"
-      }
+      "@type": "@id",
+      "@id": "qudt:unit"
     },
     "assertedAt": {
       "@type": "xsd:dateTime",
@@ -509,7 +506,7 @@
   "area": {
     "@type": "AreaQuantity",
     "numericValue": 12.75,
-    "unit": "HA"
+    "unit": "http://qudt.org/vocab/unit/HA"
   },
   "geometry": "https://example.org/c06/boundaries-2026.gpkg#feature=118",
   "tenureBasis": "LEASE",

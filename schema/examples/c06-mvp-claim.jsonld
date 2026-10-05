@@ -32,11 +32,8 @@
       "@id": "qudt:numericValue"
     },
     "unit": {
-      "@id": "qudt:unit",
-      "@type": "@vocab",
-      "@context": {
-        "HA": "http://qudt.org/vocab/unit/HA"
-      }
+      "@type": "@id",
+      "@id": "qudt:unit"
     },
     "assertedAt": {
       "@type": "xsd:dateTime",
