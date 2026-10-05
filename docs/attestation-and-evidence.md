@@ -388,7 +388,7 @@ the source.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
-- **Areas are QUDT quantity values** (`area`: `qudt:numericValue` and `qudt:unit`, with hectares, `unit:HA`, as the only unit), defined in `C06Claim.yaml`. `ProjectInfo.yaml` has its own `QuantityValue` whose `unit` is a string, so its fixtures' `unit:HA` is a literal, not the QUDT unit IRI; a shared quantity structure is open (#86).
+- **Areas are QUDT quantity values** (`area`: `qudt:numericValue` and `qudt:unit`, the IRI of any QUDT unit, such as `http://qudt.org/vocab/unit/HA`; the schema does not check that it is an area unit, and the IRI must be written in full, because in JSON-LD the `unit` term shadows a `unit:` prefix), defined in `C06Claim.yaml`. `ProjectInfo.yaml` has its own `QuantityValue` whose `unit` is a string, so its fixtures' `unit:HA` is a literal, not the QUDT unit IRI; a shared quantity structure is open (#86).
 - **Operators have no IRI yet.** `wasAssociatedWith` names an `Entity`, which has no identifier until
   [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
   activity is a node with a name and type and cannot be joined across activities.
