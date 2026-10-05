@@ -27,20 +27,10 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         target_class="$(basename "$yaml_file")"
         target_class="${target_class%%-*}"
         if ! linkml-validate -s "$SCHEMA_PATH" -C "$target_class" "$yaml_file" ; then
-            echo "❌ Validation failed for: $yaml_file (JSON-LD and TTL conversions skipped)"
-            ((total_count += 2))
-            ((failed_count += 2))
-            continue
-        fi
-
-        ((total_count++))
-        # Create output filename by replacing .yaml extension with .jsonld
-        output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
-            echo "❌ JSON-LD conversion failed for: $yaml_file"
+            echo "❌ Validation failed for: $yaml_file (TTL conversion skipped)"
+            ((total_count++))
             ((failed_count++))
-        else
-            echo "✅ JSON-LD conversion passed for: $yaml_file"
+            continue
         fi
 
         # Create output filename by replacing .yaml extension with .ttl
@@ -55,7 +45,10 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
     done
 done
 
-echo "RDF conversion complete: $((total_count - failed_count)) passed, $failed_count failed out of $total_count total files"
-
-# Exit with failure if any validations failed
+echo "TTL conversion complete: $((total_count - failed_count)) passed, $failed_count failed out of $total_count total files"
 [[ $failed_count -eq 0 ]] || exit 1
+
+# JSON-LD is built with the published context of the current schema version
+# (linkml-convert's own context writes IRIs as xsd:anyURI literals), and must
+# give the same graph as the Turtle.
+cd "${SCRIPT_DIR}/.." && python3 scripts/claim-examples.py playground
