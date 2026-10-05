@@ -395,9 +395,10 @@ the source.
   ([SCHEMA_QUDT-v2.1.ttl](https://github.com/qudt/qudt-public-repo/blob/4cfc2ec39b08d8ded5d1fe8451c4b3404ecea3ce/schema/SCHEMA_QUDT-v2.1.ttl#L3041-L3050))
   and 3.0.0 removed it
   ([CHANGELOG.md](https://github.com/qudt/qudt-public-repo/blob/9a2f71fcad04083372d56736c08741cb0e4fd251/CHANGELOG.md#L838)).
-  The schema does not check that the unit is an area unit, and in JSON-LD the IRI must be written
-  in full, because the `unit` term shadows a `unit:` prefix. A richer quantity structure, with
-  uncertainty and rate denominators, is open
+  The number and the unit are both required, and the number cannot be negative. The schema does
+  not check that the unit is an area unit, and in JSON-LD the IRI must be written in full, because
+  the `unit` term shadows a `unit:` prefix. A richer quantity structure, with uncertainty and rate
+  denominators, is open
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
 - **Operators have no IRI yet.** `wasAssociatedWith` names an `Entity`, which has no identifier until
   [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
