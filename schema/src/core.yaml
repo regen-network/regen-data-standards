@@ -61,10 +61,15 @@ classes:
       numericValue:
         slot_uri: qudt:value
         range: float
-        description: The numeric value of the quantity.
+        minimum_value: 0
+        required: true
+        description: >-
+          The numeric value of the quantity. It cannot be negative: the
+          quantities stated so far are sizes and areas.
       unit:
         slot_uri: qudt:hasUnit
         range: uriorcurie
+        required: true
         description: >-
           IRI of the unit in the QUDT unit vocabulary
           (http://qudt.org/vocab/unit/), for example
