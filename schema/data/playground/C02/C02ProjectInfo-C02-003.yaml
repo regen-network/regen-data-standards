@@ -27,7 +27,7 @@ hasReferenceId:
     referenceType: CFC Project ID
 projectSize:
   numericValue: 50.14
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - URBAN_TREES
 activity:

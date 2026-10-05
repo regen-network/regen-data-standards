@@ -92,13 +92,13 @@
     "name": {
       "@id": "schema:name"
     },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "numericValue": {
       "@type": "xsd:float",
       "@id": "qudt:value"
-    },
-    "unit": {
-      "@type": "@id",
-      "@id": "qudt:hasUnit"
     },
     "references": {
       "@type": "@id",
