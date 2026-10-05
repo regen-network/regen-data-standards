@@ -134,18 +134,6 @@ classes:
         range: MarketTypeTypes
         description: The type of market for the associated credits.
         multivalued: true
-  QuantityValue:
-    class_uri: qudt:QuantityValue
-    description: A value that represents a quantity, with a numeric value and a unit.
-    attributes:
-      numericValue:
-        slot_uri: qudt:numericValue
-        range: float
-        description: The numeric value of the quantity.
-      unit:
-        slot_uri: qudt:unit
-        range: string
-        description: The unit of measurement for the quantity.
   ReferenceId:
     attributes:
       identifier:
