@@ -24,6 +24,7 @@ imports:
   - Claim
   - ClaimSubject
   - Evidence
+  - Activity
   - ClaimVocabulary
   - ProvAlignment
   - Attestation

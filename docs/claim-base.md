@@ -123,7 +123,7 @@ declare the `ProvActivity` mixin. With timestamps, the activity uses `prov:start
 `prov:endedAtTime`, whose PROV domain is `prov:Activity` and range `xsd:dateTime`. With dates, it uses
 date-typed terms such as `schema:startDate` and `schema:endDate`. Evidence has its own, different
 time: when it was produced, for example a survey carried out after the planting. That time goes on
-the activity that generated it (`prov:wasGeneratedBy`), not on the Evidence, because PROV-O declares
+the activity that generated it (`Evidence.wasGeneratedBy`, an [`Activity`](../schema/src/Activity.yaml)), not on the Evidence, because PROV-O declares
 `prov:Activity` and `prov:Entity` disjoint and Evidence is an Entity.
 
 ## What is not Claim content
@@ -148,7 +148,7 @@ slots it lists.
 | `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `hasClaimant`. |
 | `references` | `dcterms:references` | Parent of `hasEvidence`: a plain citation. |
 | `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
-| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as the C06 claim schema ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
+| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Defined with `Activity` in [`Activity.yaml`](../schema/src/Activity.yaml), which `ClaimVocabulary` imports ([#73](https://github.com/regen-network/regen-data-standards/issues/73)). It names who carried out an activity: the one that generated a piece of evidence, or a domain activity a claim-type schema describes, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
 
 One slot of the base Claim is a plain IRI reference: `wasRevisionOf`, with `range: uriorcurie`
 (as is `references`, its unused sibling). Its value is always an earlier Claim version, so "must be
@@ -168,12 +168,13 @@ and [PROV-CONSTRAINTS][PROVC].
 |---|---|---|---|
 | `prov:wasAttributedTo`, specialized by `rfs:hasClaimant` | Entity → Agent | Claim → claimant | The Claim is a `prov:Entity` and each claimant a `prov:Agent`. The claimant was associated with an activity that generated the Claim: the act of asserting (Inference 13). |
 | `prov:wasRevisionOf` | Entity → Entity (⊑ `wasDerivedFrom`) | Claim version → earlier version | Also a derivation, and the two versions are alternates, i.e. aspects of the same thing (Inference 12). This is why it is reserved for revised versions of the same assertion. |
-| `prov:wasAssociatedWith` | Activity → Agent | Domain activity → operator | The subject is a `prov:Activity`. |
+| `prov:wasAssociatedWith` | Activity → Agent | Activity → operator | The subject is a `prov:Activity`. |
+| `prov:wasGeneratedBy` | Entity → Activity | Evidence → the activity that produced it (#73) | The Evidence is a `prov:Entity` and the activity a `prov:Activity`. |
 
 The classes are aligned too. The mixins in [`ProvAlignment.yaml`](../schema/src/ProvAlignment.yaml)
 make the generated OWL state `rfs:Claim rdfs:subClassOf prov:Entity` and
-`rfs:Entity rdfs:subClassOf prov:Agent`, and the `ProvActivity` mixin does the same for the activity
-classes of specialized claim schemas. Our `Entity` class, an individual, organization or community,
+`rfs:Entity rdfs:subClassOf prov:Agent`, and the `ProvActivity` mixin does the same for `Activity`
+and the activity classes of specialized claim schemas. Our `Entity` class, an individual, organization or community,
 is therefore a PROV *Agent*, not a PROV Entity. The mixins add no slots and do not change instance
 data. The PROV slots declare no LinkML `domain:`, because `gen-owl` would turn it into an
 `rdfs:domain` axiom on PROV's own property (for example "every `prov:wasRevisionOf` subject is an
