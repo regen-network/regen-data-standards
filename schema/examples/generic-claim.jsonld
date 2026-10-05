@@ -9,6 +9,7 @@
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
     "appliesRuleSet": {
       "@type": "@id",
       "@id": "appliesRuleSet"
@@ -17,7 +18,6 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
-    "id": "@id",
     "algorithm": {
       "@id": "algorithm",
       "@type": "@vocab",
@@ -35,6 +35,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
     },
     "type": {
       "@id": "type",
@@ -121,6 +125,10 @@
         "TEXT": "http://purl.org/dc/dcmitype/Text"
       }
     },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -152,9 +160,16 @@
       "@type": "@id",
       "@id": "prov:wasAttributedTo"
     },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
     "wasRevisionOf": {
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
     },
     "Claim": {
       "@id": "Claim"
