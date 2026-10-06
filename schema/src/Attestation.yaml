@@ -84,6 +84,7 @@ classes:
     slot_usage:
       appliesTo:
         required: true
+        minimum_cardinality: 1
 
 slots:
   outcome:
