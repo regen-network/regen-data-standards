@@ -52,6 +52,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+import uuid
 from collections import Counter
 from importlib.metadata import version as package_version
 from pathlib import Path
@@ -379,6 +380,21 @@ def shacl_results(shapes, jsonld_text):
     return conforms, found
 
 
+def has_root_type(document, class_iri):
+    """Check the expanded type of the document root, not a nested node.
+
+    SHACL reports success when no node matches a target class. JSON Schema
+    checks the LinkML data form, which strips @type, so neither validator
+    alone proves that an example targets its declared entry point. A
+    validation-only copy names the root so RDF expansion can identify it;
+    the published example and its identity input remain unchanged.
+    """
+    root = rdflib.URIRef("urn:regen:schema-artifact-check:" + uuid.uuid4().hex)
+    probe = {**document, "@id": str(root)}
+    graph = rdflib.Graph().parse(data=json.dumps(probe), format="json-ld")
+    return (root, rdflib.RDF.type, rdflib.URIRef(class_iri)) in graph
+
+
 def check_examples(version, entry, failures):
     out = VERSIONS / version
     schema = json.loads((out / ARTIFACTS["json-schema"]).read_text())
@@ -391,7 +407,12 @@ def check_examples(version, entry, failures):
         if entry_point not in entry["entryPoints"]:
             failures.append(f"{path}: entry point {entry_point} is not in the manifest")
             continue
-        errors = json_schema_errors(schema, entry_point, strip_keywords(json.loads(text)))
+        document = json.loads(text)
+        class_iri = entry["entryPoints"][entry_point]["class"]
+        if not has_root_type(document, class_iri):
+            failures.append(f"{path}: root does not have entry-point RDF type {class_iri}")
+            continue
+        errors = json_schema_errors(schema, entry_point, strip_keywords(document))
         conforms, results = shacl_results(shapes, text)
         if example["valid"]:
             if errors:

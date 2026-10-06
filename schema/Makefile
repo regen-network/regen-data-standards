@@ -29,7 +29,10 @@ gen-schema-artifacts:
 	python3 scripts/schema-artifacts.py bundle
 
 # BASE=<git ref>: also check that the versions published there are unchanged.
-check-schema-artifacts:
+test-schema-artifacts:
+	python3 -m unittest discover -s tests -v
+
+check-schema-artifacts: test-schema-artifacts
 	python3 scripts/schema-artifacts.py check $(if $(BASE),--base $(BASE))
 
 gen-claim-examples:
