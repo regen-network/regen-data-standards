@@ -12,6 +12,7 @@ hasSubject:
   name: Example project P-001
 hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
+outcome: rfs:FindingOpen
 verificationMethod: THIRD_PARTY_AUDITED
 issuerRole: VVB
 findingType: CL
