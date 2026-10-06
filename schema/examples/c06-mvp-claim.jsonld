@@ -530,8 +530,8 @@
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=16",
-      "name": "Example project plan v2.0, section 1.8",
+      "id": "https://example.org/c06/project-plan-v2.1.pdf#page=16",
+      "name": "Example project plan v2.1, section 1.8",
       "sourceType": "TEXT",
       "mediaType": "application/pdf",
       "contentHash": {
@@ -540,7 +540,7 @@
         "digestValue": "d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9"
       },
       "resolver": [
-        "https://example.org/c06/project-plan-v2.0.pdf"
+        "https://example.org/c06/project-plan-v2.1.pdf"
       ],
       "locator": "Section 1.8, Project Start Date",
       "issued": "2026-07-10"
