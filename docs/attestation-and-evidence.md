@@ -149,7 +149,7 @@ fields the other judgments do not: a finding type and at least one piece of evid
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked (CS-4). |
 | `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
-| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets (AD-1). |
+| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets (AD-1). Exclusive with `scope`. |
 
 **Scope.** `appliesTo` (subject IRIs, required: a scope always names the subjects it covers),
 `exclusion` (what it explicitly does not cover) and `limitation` (what the judgment is not, for example
@@ -157,7 +157,9 @@ fields the other judgments do not: a finding type and at least one piece of evid
 applies only to what it targets; `unbounded: true` states explicitly that it has no limits, so an
 unlimited approval is never an omission (AD-1;
 [example](../schema/examples/attestation.INVALID-scope-without-subjects.yaml) of an empty scope being
-rejected). A scope is a blank node inside the attestation and part of its content. Checking whether a subject is covered is a query; for the
+rejected). The two are exclusive: an attestation with a scope does not state `unbounded`, so a consumer
+never has to choose between them ([example](../schema/examples/attestation.INVALID-scope-and-unbounded.yaml),
+rejected by JSON Schema only; see [Known limitations](#known-limitations)). A scope is a blank node inside the attestation and part of its content. Checking whether a subject is covered is a query; for the
 [example](../schema/examples/registry-review-attestation.jsonld):
 
 ```sparql
@@ -321,7 +323,7 @@ validators.
 | [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
 | [`registry-finding-attestation.jsonld`](../schema/examples/registry-finding-attestation.jsonld) | A `RegistryFindingAttestation`: a clarification request with its type, label, target and evidence |
-| `*.INVALID-*.yaml` | Documents each validator must reject. The one that breaks a LinkML rule (an `OTHER` method without a descriptor) is marked `# shacl: not enforced`: JSON Schema rejects it, the generated SHACL does not express rules |
+| `*.INVALID-*.yaml` | Documents each validator must reject. The two that break a LinkML rule (an `OTHER` method without a descriptor, and a scope together with `unbounded`) are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules |
 
 ## Validation entry points
 
@@ -383,11 +385,12 @@ the source.
   IRI-valued slot to an enum in a subclass (the generated Python model of the base class rejects the
   enum value), so `RegistryReviewAttestation.outcome` accepts any IRI. The vocabulary is documented by
   the `RegistryReviewOutcome` enum.
-- **A descriptor with `OTHER` is enforced by JSON Schema only** (CS-4: the verification method is never
-  empty). It is a LinkML rule, and LinkML's SHACL generator does not translate rules: 1.11.1 ignores
-  them, and the unreleased support ([linkml/linkml#3451](https://github.com/linkml/linkml/pull/3451))
-  covers other patterns ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)). SHACL
-  itself can express it with `sh:or`. The other two conditional rules, evidence on a finding (CS-3) and a
+- **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (CS-4: the verification
+  method is never empty), and a scope and `unbounded` being exclusive (AD-1). Both are LinkML rules, and
+  LinkML's SHACL generator does not translate rules: 1.11.1 ignores them, and the unreleased support
+  ([linkml/linkml#3451](https://github.com/linkml/linkml/pull/3451)) covers other patterns
+  ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)). SHACL itself can express both
+  with `sh:or`. The other two conditional rules, evidence on a finding (CS-3) and a
   scope that names its subjects (AD-1), are expressed as class and slot constraints, which both
   validators enforce.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
