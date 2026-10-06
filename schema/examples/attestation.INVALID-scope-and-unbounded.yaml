@@ -2,7 +2,7 @@
 # class: Attestation
 # shacl: not enforced
 # A scope limits the judgment to the subjects it names; unbounded states that it
-# has no limits beyond its targets (story map AD-1). The two are exclusive.
+# has no limits beyond its targets. The two are exclusive.
 name: Steward review of the plot A hedgerow planting
 hasClaimant:
   - name: Valley Stewards Circle

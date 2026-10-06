@@ -1,6 +1,6 @@
 # expect: 'hasEvidence' is a required property
 # class: RegistryFindingAttestation
-# A finding cites at least one piece of evidence (story map CS-3).
+# A finding cites at least one piece of evidence.
 name: Clarification request on the crediting period structure
 hasClaimant:
   - name: Example Verifier
