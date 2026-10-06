@@ -1,6 +1,6 @@
 id: https://framework.regen.network/schema/
 name: Schemas
-version: 0.2.0
+version: 0.1.0
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
