@@ -53,9 +53,10 @@ and each one serializes as repeated RDF triples, not an `rdf:List` (ADR D2).
 as one body, such as a cooperative or community, is **one** claimant of type `COMMUNITY` or
 `ORGANIZATION`. Listing it does not make its members co-claimants. A service that extracted,
 generated or submitted the RDF is not a claimant unless it asserts the content itself
-([research §3.1][R31]). The slot declares `is_a: wasAttributedTo`. `gen-owl --no-use-native-uris`
-emits this as `rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`. Instance data carries only
-`rfs:hasClaimant`, so queries that want generic PROV attribution must apply the property hierarchy.
+([research §3.1][R31]). The slot declares `is_a: wasAttributedTo`, published as
+`rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`. Instance data carries only
+`rfs:hasClaimant`, so a generic PROV attribution query must follow the published hierarchy
+([Querying across the hierarchy](#querying-across-the-hierarchy)).
 PROV infers from an attribution that the agent was associated with an activity that generated the
 entity ([PROV-CONSTRAINTS, Inference 13][PROVC]). For a Claim, that activity is the act of asserting,
 which is why a service that only extracted or submitted the RDF is not a claimant.
@@ -113,7 +114,8 @@ be queried and validated ([example](../schema/examples/claim.INVALID-bare-iri-ev
 IRI being rejected). The node's IRI names the exact version cited and may carry a fragment for a
 position inside it, such as `#page=2`. Whether a source actually supports the assertion is judged
 separately, by attestations. `hasEvidence` specializes `dcterms:references` (the same pattern as
-`hasClaimant` and `prov:wasAttributedTo`), so generic Dublin Core citation queries still find it. The
+`hasClaimant` and `prov:wasAttributedTo`), so a generic Dublin Core citation query finds it when it
+follows the published hierarchy ([Querying across the hierarchy](#querying-across-the-hierarchy)). The
 skeleton has only an IRI, a title and a description.
 [#73](https://github.com/regen-network/regen-data-standards/issues/73) adds content hash and resolver,
 locator, producer, sources, place and licence terms.
@@ -172,7 +174,7 @@ and [PROV-CONSTRAINTS][PROVC].
 | `prov:wasAssociatedWith` | Activity → Agent | Domain activity → operator | The subject is a `prov:Activity`. |
 
 The classes are aligned too. The mixins in [`ProvAlignment.yaml`](../schema/src/ProvAlignment.yaml)
-make the generated OWL state `rfs:Claim rdfs:subClassOf prov:Entity` and
+make the published hierarchy state `rfs:Claim rdfs:subClassOf prov:Entity` and
 `rfs:Entity rdfs:subClassOf prov:Agent`, and the `ProvActivity` mixin does the same for the activity
 classes of specialized claim schemas. Our `Entity` class, an individual, organization or community,
 is therefore a PROV *Agent*, not a PROV Entity. The mixins add no slots and do not change instance
@@ -231,7 +233,8 @@ base `Claim`, and produced the expected RDF. It is not committed, because domain
   `gen-shacl` output). For a claim-type document it is its own class, such as `HedgerowClaim`.
 - **Target node:** the root claim node, typed with that one class. Do not also type a claim-type
   instance `rfs:Claim`, because the base shape is closed and would reject the extension's fields.
-  Queries for all Claims should use `rdfs:subClassOf` from the generated OWL.
+  Queries for all Claims follow the published class hierarchy instead
+  ([Querying across the hierarchy](#querying-across-the-hierarchy)).
 - **Nested and imported definitions:** `Entity`, `Methodology` and other imported classes are checked
   only as values reached from the entry point. Importing a module does not make its classes separate
   whole-claim targets.
@@ -243,6 +246,39 @@ base `Claim`, and produced the expected RDF. It is not committed, because domain
   [claims#55](https://github.com/regen-network/claims/issues/55) (WP1-09). Runtime checks are
   [claims#18](https://github.com/regen-network/claims/issues/18) (WP3-03). Schema conformance is not a
   programme verdict.
+
+## Querying across the hierarchy
+
+Instance data carries only the most specific class and property: a specialized claim is typed with
+its own class, for example `ex:CarbonEgClaim`, and evidence is linked with `rfs:hasEvidence`. The
+broader types and properties are not added to the data, because they would enter the Claim's hashed
+content and, for `rfs:Claim`, the closed base shape would reject the specialized fields. So a plain
+query for every `rfs:Claim`, or every `dcterms:references`, misses them.
+
+`make -C schema gen-hierarchy` reads the class and property hierarchy from the schema (`is_a` and
+mixins) and writes it as `rdfs:subClassOf` and `rdfs:subPropertyOf` triples to
+`schema/data/playground/vocabulary/hierarchy.ttl`, which `update-graph` publishes with the playground
+data. It covers only subjects in the `rfs:` namespace, so it says nothing about PROV or Dublin Core
+terms themselves. Queries follow the hierarchy with SPARQL property paths, without a reasoner:
+
+```sparql
+PREFIX rfs: <https://framework.regen.network/schema/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+# Every Claim, including specialized claims
+SELECT ?claim WHERE { ?claim a/rdfs:subClassOf* rfs:Claim }
+
+# Every citation, including hasEvidence
+SELECT ?claim ?source WHERE { ?claim ?p ?source . ?p rdfs:subPropertyOf* dcterms:references }
+```
+
+A consumer that loads claims into another store loads `hierarchy.ttl` with them, or uses an RDFS
+reasoner. `make -C schema check-hierarchy`, run in CI after `gen-rdf`, checks that for every class
+and specialized property in the schema these queries return every instance and triple the schema's
+hierarchy implies. The same gap existed before the base Claim: project and credit-class fixtures are
+typed with their specific classes, such as `rfs:C01ProjectInfo`, which a query for every
+`rfs:ProjectInfo` missed.
 
 ## Examples
 
