@@ -1,5 +1,60 @@
 {
     "$defs": {
+        "Activity": {
+            "additionalProperties": false,
+            "description": "Something that took place over a period, identified by an IRI so that every piece of evidence it generated names the same activity. Its period is given as dates; prov:startedAtTime and prov:endedAtTime would require timestamps.",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endDate": {
+                    "description": "Last day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI of the activity.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDate": {
+                    "description": "First day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasAssociatedWith": {
+                    "description": "Responsibility of an agent for an activity (PROV), for example the farm operator who carried out the field operations a record documents. Claim-type schemas that describe a domain activity, such as a restoration, name its operator the same way. Use it only on a class that represents an activity (its PROV domain is prov:Activity); such classes declare the ProvActivity mixin. It is not attribution of a Claim: the operator and the claimant may differ, and when they coincide both relations are still stated.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Activity",
+            "type": "object"
+        },
         "ActivityType": {
             "description": "",
             "enum": [
@@ -56,35 +111,53 @@
         },
         "Attestation": {
             "additionalProperties": false,
-            "description": "A reviewer's attestation about a Claim. Maps to the KOI claim_attestations table and aligns with on-chain MsgAttest and Ethereum Attestation Service (EAS) attestation patterns.",
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "An issuer's judgment, made at a stated time, about what it targets: exact versions of claims, of other attestations, or a snapshot of claims. As a Claim it is attributed (hasClaimant names the issuer), immutable and revisable with wasRevisionOf; it is about a subject, such as a project or a plot, even when it judges a claim about that subject. It does not carry its own hash or IRI, anchoring state, or a status that changes after it is made: a later judgment is a new Attestation.",
             "properties": {
-                "attestationDate": {
-                    "description": "Date when the attestation was made. Always known at attest time.",
-                    "format": "date",
-                    "type": "string"
-                },
-                "attestsClaim": {
-                    "description": "Reference to the Claim being attested, by RID or IRI.",
-                    "type": "string"
-                },
-                "contentHash": {
-                    "description": "BLAKE2b-256 content hash of the canonical attestation representation, used for on-chain anchoring.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "description": {
-                    "description": "Description of the entity / resource.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "evidenceReviewed": {
-                    "description": "URIs of evidence documents, datasets, or field observations reviewed as part of this attestation.",
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
                     "items": {
-                        "format": "uri",
                         "type": "string"
                     },
                     "type": [
@@ -92,31 +165,144 @@
                         "null"
                     ]
                 },
-                "graphIri": {
-                    "description": "On-chain graph IRI from Regen Data Module MsgAttest, using ContentHash.Graph encoding.",
-                    "format": "uri",
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "hasReviewer": {
-                    "$ref": "#/$defs/Entity",
-                    "description": "The entity providing the attestation. Must have a registered identity (KOI entity URI and/or wallet address)."
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
                 },
-                "hasVerdict": {
-                    "$ref": "#/$defs/VerdictType",
-                    "description": "The reviewer's verdict on the claim."
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "name": {
-                    "description": "Name of the entity / resource.",
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as a term from the vocabulary of the program or rule set the judgment is made under, for example a registration determination.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "rationale": {
-                    "description": "Free-text explanation of the verdict, including any conditions or caveats noted during review.",
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
                     "type": [
                         "string",
                         "null"
@@ -124,10 +310,11 @@
                 }
             },
             "required": [
-                "attestsClaim",
-                "hasReviewer",
-                "hasVerdict",
-                "attestationDate"
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
             ],
             "title": "Attestation",
             "type": "object"
@@ -996,6 +1183,559 @@
             "title": "C02ProjectInfo",
             "type": "object"
         },
+        "C06CohortClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one cohort: its crediting and permanence periods.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Cohort",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "permanencePeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period after the crediting period during which the carbon stored must be maintained."
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06CohortClaim",
+            "type": "object"
+        },
+        "C06PlotClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one plot: its area and boundary, its tenure basis, and whether it was converted from a natural ecosystem. The land register records and land cover datasets behind them are cited as evidence.",
+            "properties": {
+                "area": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Area, as a QUDT quantity value."
+                },
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "convertedFromNaturalEcosystem": {
+                    "description": "Whether the plot was converted from forest land, wetland or another natural ecosystem in the ten years before its site's project start date.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "geometry": {
+                    "description": "Identifier of the boundary feature, for example a feature in a cited GeoPackage. One feature may cover more than one plot.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Plot",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "tenureBasis": {
+                    "$ref": "#/$defs/TenureBasis",
+                    "description": "The legal basis on which the plot is controlled during the crediting period: ownership, a lease, or another arrangement."
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06PlotClaim",
+            "type": "object"
+        },
+        "C06ProjectClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about the whole project: the rule sets and methodologies it applies, that it is an aggregate project, its start and adoption dates, crediting and permanence periods, and the deviations it requests.",
+            "properties": {
+                "adoptionDate": {
+                    "description": "When the project activities were adopted.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "aggregateStartDate": {
+                    "description": "Start date of the aggregate project. Each site also has its own start date (siteProjectStartDate).",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Project",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "isAggregateProject": {
+                    "description": "True when the project is an aggregate project: a group of sites, each individually identifiable, registered as one project.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "methodologyUse": {
+                    "description": "The methodology versions the project applies, each with its role and what it is used for. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/MethodologyUse"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "permanencePeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period after the crediting period during which the carbon stored must be maintained."
+                },
+                "requestedDeviations": {
+                    "description": "Project-specific deviations from requirements that the project developer requests in its project plan, each naming the requirements it replaces. Whether a deviation is approved is a separate attestation. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/DeviationRequest"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "startDateBasis": {
+                    "description": "The event or record that establishes the start date, for example the first baseline soil sampling or a contract signature.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06ProjectClaim",
+            "type": "object"
+        },
+        "C06ProjectStatementClaim": {
+            "additionalProperties": false,
+            "description": "A statement the project developer makes about the project that a reviewer reads rather than checks as a value, such as how local stakeholders were consulted, the basis of the aggregation, or that no sites are enrolled after a cutoff date. The assertion is in description and its location in the project plan is the evidence; which requirement it answers is recorded by the reviewer's attestation.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": "string"
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Project",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "description",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06ProjectStatementClaim",
+            "type": "object"
+        },
+        "C06SiteClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one site: its start date and crediting period, ecosystem types, climate and soil classes, practices, primary land use and soil monitoring schedule. Records of its historic activity are cited as evidence.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "climateClass": {
+                    "description": "K\u00f6ppen-Geiger climate class, for example Dfb.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ecosystemTypes": {
+                    "description": "Ecosystem types of the site, as taxonomy terms such as cropland or pastureland. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Site",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "monitoringIntervalJustification": {
+                    "description": "Why sampling intervals differ from the expected cadence.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "monitoringSampleDates": {
+                    "description": "Dates of soil sampling at the site.",
+                    "items": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "practices": {
+                    "description": "Practices implemented on the site.",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "primaryLandUse": {
+                    "$ref": "#/$defs/EnvironmentType",
+                    "description": "The site's primary land use, as a taxonomy term, which the site must maintain during its project period."
+                },
+                "siteProjectStartDate": {
+                    "description": "The site's own project start date. In an aggregate project each site defines its own, which may differ from the aggregate's; its basis is stated in startDateBasis.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "soilGroup": {
+                    "description": "World Reference Base soil group, for example Cambisol.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDateBasis": {
+                    "description": "The event or record that establishes the start date, for example the first baseline soil sampling or a contract signature.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06SiteClaim",
+            "type": "object"
+        },
         "CarbonCreditClassInfo": {
             "additionalProperties": false,
             "description": "Off-chain metadata representation for credit classes where the credit type is Carbon (C)",
@@ -1144,10 +1884,6 @@
                         "null"
                     ]
                 },
-                "hasClaimType": {
-                    "$ref": "#/$defs/ClaimType",
-                    "description": "Subject-matter classification of what is asserted, drawn from the ClaimType taxonomy. It classifies content only: it does not declare which schema or schema version the document conforms to, and it does not by itself select a verification pathway."
-                },
                 "hasClaimant": {
                     "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
                     "items": {
@@ -1167,7 +1903,23 @@
                     ]
                 },
                 "hasSubject": {
-                    "$ref": "#/$defs/ClaimSubject",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
                     "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
                 },
                 "name": {
@@ -1192,7 +1944,6 @@
             },
             "required": [
                 "name",
-                "hasClaimType",
                 "hasClaimant",
                 "assertedAt",
                 "hasSubject"
@@ -1234,6 +1985,64 @@
             "title": "ClaimType",
             "type": "string"
         },
+        "Cohort": {
+            "additionalProperties": false,
+            "description": "The sites of a project whose baseline soil sampling took place in the same year. Each cohort has its own crediting and permanence periods, and approvals can be scoped to cohorts.",
+            "properties": {
+                "baselineYear": {
+                    "description": "Year of the cohort's baseline soil sampling.",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "project": {
+                    "description": "Identifier of the project this subject belongs to.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "baselineYear",
+                "project",
+                "id"
+            ],
+            "title": "Cohort",
+            "type": "object"
+        },
+        "Condition": {
+            "additionalProperties": false,
+            "description": "An obligation a judgment carries to a later milestone, such as a follow-up action due before verification or a design condition binding on future verifications.",
+            "properties": {
+                "conditionLabel": {
+                    "description": "The issuer's label for the condition, such as \"RA-6\".",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": "string"
+                },
+                "milestone": {
+                    "$ref": "#/$defs/Milestone",
+                    "description": "When the condition must be met."
+                }
+            },
+            "required": [
+                "description"
+            ],
+            "title": "Condition",
+            "type": "object"
+        },
         "ConservationStatusTypes": {
             "description": "The conservation status of the project",
             "enum": [
@@ -1249,6 +2058,26 @@
             ],
             "title": "ConservationStatusTypes",
             "type": "string"
+        },
+        "ContentDigest": {
+            "additionalProperties": false,
+            "description": "A cryptographic hash of the bytes of the cited source version: the whole file, not the position a fragment points to. A reader recomputes it over the bytes the resolver returns to check that they are the bytes cited.",
+            "properties": {
+                "algorithm": {
+                    "$ref": "#/$defs/DigestAlgorithm"
+                },
+                "digestValue": {
+                    "description": "Lowercase hexadecimal digest.",
+                    "pattern": "^[0-9a-f]{64}$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "algorithm",
+                "digestValue"
+            ],
+            "title": "ContentDigest",
+            "type": "object"
         },
         "CreditClassInfo": {
             "additionalProperties": false,
@@ -1701,6 +2530,89 @@
             "title": "CreditingProgram",
             "type": "object"
         },
+        "DCMIType": {
+            "description": "The DCMI Type Vocabulary.",
+            "enum": [
+                "COLLECTION",
+                "DATASET",
+                "EVENT",
+                "IMAGE",
+                "INTERACTIVE_RESOURCE",
+                "MOVING_IMAGE",
+                "PHYSICAL_OBJECT",
+                "SERVICE",
+                "SOFTWARE",
+                "SOUND",
+                "STILL_IMAGE",
+                "TEXT"
+            ],
+            "title": "DCMIType",
+            "type": "string"
+        },
+        "DatePeriod": {
+            "additionalProperties": false,
+            "description": "A period between two dates, both included.",
+            "properties": {
+                "endDate": {
+                    "description": "Last day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDate": {
+                    "description": "First day of the period, included.",
+                    "format": "date",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "startDate"
+            ],
+            "title": "DatePeriod",
+            "type": "object"
+        },
+        "DeviationRequest": {
+            "additionalProperties": false,
+            "description": "A project-specific deviation from a requirement that the project developer requests. Whether it is approved is a separate attestation.",
+            "properties": {
+                "justification": {
+                    "description": "Why the deviation is requested, including why it is as conservative as the requirement it replaces.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "replacedParameters": {
+                    "description": "What the deviation replaces, and with what.",
+                    "type": "string"
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "requirement",
+                "replacedParameters"
+            ],
+            "title": "DeviationRequest",
+            "type": "object"
+        },
+        "DigestAlgorithm": {
+            "description": "",
+            "enum": [
+                "SHA_256",
+                "BLAKE2B_256"
+            ],
+            "title": "DigestAlgorithm",
+            "type": "string"
+        },
         "Entity": {
             "additionalProperties": false,
             "description": "",
@@ -1804,6 +2716,10 @@
             "additionalProperties": false,
             "description": "A source cited as evidence: a document, dataset, record or observation, identified by an IRI. The IRI names the exact version cited and may carry a fragment for a position inside it, for example a page. Whether it actually supports a claim is judged separately, by attestations, and its current availability or access is not recorded here.",
             "properties": {
+                "contentHash": {
+                    "$ref": "#/$defs/ContentDigest",
+                    "description": "Hash of the bytes of the cited source version. This is the hash of the source, which a citation needs; it is not the hash of the Claim or Attestation that cites it, which is never part of its own content."
+                },
                 "description": {
                     "description": "What the source is, in the citer's words.",
                     "type": [
@@ -1815,19 +2731,87 @@
                     "description": "IRI or CURIE of the exact source version cited, for example https://example.org/project-plan-v2.pdf#page=12.",
                     "type": "string"
                 },
+                "issued": {
+                    "description": "Date of the cited version of the source.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "licence": {
+                    "description": "IRI of the licence document or versioned licence terms in effect for this version of the source. When absent, the terms must be read as \"unspecified \u2014 all rights reserved\" (rfs:UnspecifiedAllRightsReserved), never as unrestricted.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "locator": {
+                    "description": "Human-readable position inside the source, for example \"section 1.9, Table 2\", when the IRI fragment is not enough.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "mediaType": {
+                    "description": "Media type of the source, for example application/pdf.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "name": {
                     "description": "Title of the cited source.",
                     "type": [
                         "string",
                         "null"
                     ]
+                },
+                "resolver": {
+                    "description": "Where the bytes of the cited version can be fetched. The data can stay where its owner keeps it; the claim stores only the hash and the resolver. Unordered set.",
+                    "items": {
+                        "format": "uri",
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "sourceType": {
+                    "$ref": "#/$defs/DCMIType",
+                    "description": "Genre of the cited source, from the DCMI Type Vocabulary, which the dcterms:type definition recommends. Finer kinds of evidence that a program accepts, such as a lease agreement, belong to that program's rule set, not to Evidence."
+                },
+                "wasGeneratedBy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The activity that produced the cited source, with its period and who carried it out: for example the soil sampling behind a results file, or the field operations a farm management record documents. When the evidence was produced is the activity's period, not a field of Evidence, because PROV-O declares activities and entities disjoint. Evidence produced by the same activity names the same activity IRI."
                 }
             },
             "required": [
+                "sourceType",
+                "contentHash",
+                "resolver",
                 "id"
             ],
             "title": "Evidence",
             "type": "object"
+        },
+        "EvidenceCheckOutcome": {
+            "description": "Outcomes a resolver reports when a consumer fetches cited evidence. They are reported at a point in time and are never stored in Claim or Attestation content.",
+            "enum": [
+                "EVIDENCE_INTACT",
+                "EVIDENCE_ALTERED",
+                "UNREACHABLE",
+                "ACCESS_RESTRICTED"
+            ],
+            "title": "EvidenceCheckOutcome",
+            "type": "string"
         },
         "Feature": {
             "additionalProperties": false,
@@ -1910,6 +2894,18 @@
             "title": "File",
             "type": "object"
         },
+        "FindingType": {
+            "description": "",
+            "enum": [
+                "CAR",
+                "CL",
+                "FAR",
+                "REGISTRY_ISSUE",
+                "OTHER"
+            ],
+            "title": "FindingType",
+            "type": "string"
+        },
         "Geometry": {
             "additionalProperties": false,
             "description": "A geometry defined using Well-Known Text (WKT), compliant with GeoSPARQL 1.1.",
@@ -1982,6 +2978,17 @@
                 "UNKNOWN"
             ],
             "title": "ImpactType",
+            "type": "string"
+        },
+        "IssuerRole": {
+            "description": "",
+            "enum": [
+                "REGISTRY_AGENT",
+                "VVB",
+                "CREDIT_CLASS_ADMIN",
+                "OTHER"
+            ],
+            "title": "IssuerRole",
             "type": "string"
         },
         "Link": {
@@ -2083,6 +3090,121 @@
                 "url"
             ],
             "title": "Methodology",
+            "type": "object"
+        },
+        "MethodologyRole": {
+            "description": "",
+            "enum": [
+                "PRIMARY",
+                "SUPPLEMENTARY"
+            ],
+            "title": "MethodologyRole",
+            "type": "string"
+        },
+        "MethodologyUse": {
+            "additionalProperties": false,
+            "description": "A methodology version the project applies, and for what.",
+            "properties": {
+                "methodology": {
+                    "description": "Identifier of an exact methodology version.",
+                    "type": "string"
+                },
+                "methodologyRole": {
+                    "$ref": "#/$defs/MethodologyRole",
+                    "description": "Whether the methodology is the project's primary quantification methodology or a supplementary one, used for part of the assessment such as the baseline or leakage."
+                },
+                "methodologyScope": {
+                    "description": "What the methodology is used for in this project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "methodology",
+                "methodologyRole"
+            ],
+            "title": "MethodologyUse",
+            "type": "object"
+        },
+        "Milestone": {
+            "description": "",
+            "enum": [
+                "REGISTRATION",
+                "PRE_ISSUANCE",
+                "VERIFICATION",
+                "FUTURE_VERIFICATIONS"
+            ],
+            "title": "Milestone",
+            "type": "string"
+        },
+        "Plot": {
+            "additionalProperties": false,
+            "description": "One land parcel of a site. The plots of a site are the plots whose site is that site.",
+            "properties": {
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parcelId": {
+                    "description": "Identifier of the parcel in the national land parcel register, for example LPIS in Czechia or GSAA in Slovakia.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "plotKey": {
+                    "description": "The key that identifies the plot in the project's records.",
+                    "type": "string"
+                },
+                "site": {
+                    "description": "Identifier of the plot's site.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "plotKey",
+                "site",
+                "id"
+            ],
+            "title": "Plot",
+            "type": "object"
+        },
+        "Project": {
+            "additionalProperties": false,
+            "description": "An aggregate project of enrolled sites.",
+            "properties": {
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "registryProjectId": {
+                    "description": "The project's identifier in the registry, once assigned.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Project",
             "type": "object"
         },
         "ProjectInfo": {
@@ -2361,23 +3483,22 @@
         },
         "QuantityValue": {
             "additionalProperties": false,
-            "description": "A value that represents a quantity, with a numeric value and a unit.",
+            "description": "A value that represents a quantity, with a numeric value and the unit it is expressed in, as a QUDT quantity value.",
             "properties": {
-                "numericValue": {
-                    "description": "The numeric value of the quantity.",
-                    "type": [
-                        "number",
-                        "null"
-                    ]
+                "hasUnit": {
+                    "description": "IRI of the unit in the QUDT unit vocabulary (http://qudt.org/vocab/unit/), for example unit:HA (hectare).",
+                    "type": "string"
                 },
-                "unit": {
-                    "description": "The unit of measurement for the quantity.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                "numericValue": {
+                    "description": "The numeric value of the quantity. It cannot be negative: the quantities stated so far are sizes and areas.",
+                    "minimum": 0,
+                    "type": "number"
                 }
             },
+            "required": [
+                "numericValue",
+                "hasUnit"
+            ],
             "title": "QuantityValue",
             "type": "object"
         },
@@ -2426,6 +3547,486 @@
             "title": "Registry",
             "type": "object"
         },
+        "RegistryFindingAttestation": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence. Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel.",
+            "properties": {
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingLabel": {
+                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingType": {
+                    "$ref": "#/$defs/FindingType",
+                    "description": "The kind of finding."
+                },
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer acts, so that a consumer can check the issuer's authority for the decision."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as the IRI of a RegistryReviewOutcome term, for example rfs:ApprovedForRegistration. Required: a registry review is recorded when there is a judgment, and each dated record states its verdict or the finding's status as of its date. A requirement that cannot yet be decided is rfs:RequirementPending, not an omitted outcome.",
+                    "type": "string"
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "findingType",
+                "issuerRole",
+                "outcome",
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject",
+                "hasEvidence"
+            ],
+            "title": "RegistryFindingAttestation",
+            "type": "object"
+        },
+        "RegistryReviewAttestation": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "A judgment made in a Regen Registry review by the Registry Agent, an independent verifier (VVB) or the Credit Class Admin.",
+            "properties": {
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingLabel": {
+                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer acts, so that a consumer can check the issuer's authority for the decision."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as the IRI of a RegistryReviewOutcome term, for example rfs:ApprovedForRegistration. Required: a registry review is recorded when there is a judgment, and each dated record states its verdict or the finding's status as of its date. A requirement that cannot yet be decided is rfs:RequirementPending, not an omitted outcome.",
+                    "type": "string"
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "issuerRole",
+                "outcome",
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "RegistryReviewAttestation",
+            "type": "object"
+        },
+        "RegistryReviewOutcome": {
+            "description": "Outcomes of Regen Registry review judgments, used as outcome values by their meaning IRIs (for example rfs:ApprovedForRegistration). The enum documents the vocabulary; outcome is not narrowed to it, because LinkML 1.11 cannot narrow a uriorcurie slot to an enum in a subclass (the generated Python model of the base class rejects the enum value). The four registration determinations follow the Registry Agent Review Report's approval categories. The three report ratings are those the Program Guide (sections 12.4 and 12.5) gives a verification or validation report. REQUIREMENT_PENDING is a dated determination that a requirement cannot yet be decided; it is not a placeholder for a judgment still to come.",
+            "enum": [
+                "APPROVED_FOR_REGISTRATION",
+                "NOT_APPROVED",
+                "REQUIREMENT_PENDING",
+                "NOT_APPLICABLE",
+                "FINDING_OPEN",
+                "FINDING_CLOSED",
+                "ACCEPTANCE",
+                "ACCEPTANCE_WITH_CONTINGENCIES",
+                "REJECTION"
+            ],
+            "title": "RegistryReviewOutcome",
+            "type": "string"
+        },
         "SDG": {
             "description": "Enumeration of all 17 Sustainable Development Goals",
             "enum": [
@@ -2450,6 +4051,89 @@
             "title": "SDG",
             "type": "string"
         },
+        "Scope": {
+            "additionalProperties": false,
+            "description": "Where an attestation applies, as structured fields, so that a consumer can check whether a subject falls inside it. A scope always names the subjects it covers. An attestation without a scope applies only to what it targets, unless it states unbounded.",
+            "properties": {
+                "appliesTo": {
+                    "description": "Identifiers of the subjects the judgment covers, for example the enrolment cohorts an approval is limited to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "exclusion": {
+                    "description": "What the judgment explicitly does not cover. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "limitation": {
+                    "description": "What the judgment is not, for example that an approval of a project structure is not a validation of its evidence.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "appliesTo"
+            ],
+            "title": "Scope",
+            "type": "object"
+        },
+        "Site": {
+            "additionalProperties": false,
+            "description": "One enrolled site (farm) of an aggregate project.",
+            "properties": {
+                "cohort": {
+                    "description": "Identifier of the site's cohort.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "country": {
+                    "description": "ISO 3166-1 alpha-2 country code.",
+                    "pattern": "^[A-Z]{2}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "project": {
+                    "description": "Identifier of the project this subject belongs to.",
+                    "type": "string"
+                },
+                "siteKey": {
+                    "description": "The key that identifies the site in the project's records.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "siteKey",
+                "project",
+                "id"
+            ],
+            "title": "Site",
+            "type": "object"
+        },
         "SocialCulturalIndexTypes": {
             "description": "The social cultural indices for BT01 projects.",
             "enum": [
@@ -2461,6 +4145,16 @@
             "title": "SocialCulturalIndexTypes",
             "type": "string"
         },
+        "TenureBasis": {
+            "description": "",
+            "enum": [
+                "OWNERSHIP",
+                "LEASE",
+                "OTHER"
+            ],
+            "title": "TenureBasis",
+            "type": "string"
+        },
         "VerdictType": {
             "description": "Possible verdicts an attestor can assign when reviewing a claim.",
             "enum": [
@@ -2470,6 +4164,20 @@
                 "NEEDS_INFO"
             ],
             "title": "VerdictType",
+            "type": "string"
+        },
+        "VerificationMethodType": {
+            "description": "Kinds of verification method. A program declares which methods it accepts; this enumeration does not rank them.",
+            "enum": [
+                "SELF_ATTESTED",
+                "PEER_OR_COMMUNITY",
+                "LAB_MEASURED",
+                "SENSOR_DERIVED",
+                "MODEL_ESTIMATED",
+                "THIRD_PARTY_AUDITED",
+                "OTHER"
+            ],
+            "title": "VerificationMethodType",
             "type": "string"
         },
         "VerificationStatus": {
@@ -2526,6 +4234,6 @@
     "metamodel_version": "1.11.0",
     "title": "Schemas",
     "type": "object",
-    "version": null
+    "version": "0.1.0"
 }
 
