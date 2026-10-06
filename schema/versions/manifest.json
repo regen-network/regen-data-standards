@@ -81,10 +81,10 @@
     "0.2.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "11bc4c11ae0fb72d61a77f685bf4cdb7f1eaac7f",
+        "gitTree": "76fb9d6e0995cea245f4a143d445de09ead15e7b",
         "files": {
           "Activity.yaml": "de542909d482a5005a00c32227b10d7e228a365e",
-          "Attestation.yaml": "fe0cc7f3b844d957d36353c975e109dce711be3d",
+          "Attestation.yaml": "1451a4b407a621f1e5aa76452c17cf9535c0b24e",
           "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
           "BufferPoolAccount.yaml": "59e19688da66066fdc14a2a27560a5c5b56a3fe5",
           "C01ProjectInfo.yaml": "994223f47da82e9d5721b12294989412a2f91b61",
@@ -92,7 +92,7 @@
           "C06Claim.yaml": "5ec75efcbcbc2cbe3c5a7aa3f6d57fd7cf4ddfc3",
           "Claim.yaml": "cc138737553fc1b337d254eaf75886ff03b005bb",
           "ClaimSubject.yaml": "ce4019bf5db4fd3376142c8d9368b1ca260e7fcc",
-          "ClaimVocabulary.yaml": "a995bfe4620bfab9cdcc0d838f1117368c331134",
+          "ClaimVocabulary.yaml": "763697314ab3335f87b529d204805cf459529004",
           "CreditClassInfo.yaml": "270d8a1ff74272acbc347a8fd321ab5fb9338e85",
           "CreditProtocol.yaml": "540e73eec30c609d0fc2dcd16ab5c5124b1e6973",
           "CreditingProgram.yaml": "bd85707c5ee9176c54479a6f1e437f72aca78e2c",
@@ -105,7 +105,7 @@
           "ProjectPost.yaml": "114cb094d558747ab3296f240f051a58e918187c",
           "ProvAlignment.yaml": "2f4d480fe07aa5503bdb063111305d535235868f",
           "Registry.yaml": "8cf7f8bdeec4743bf22f21328fb1fdcddc2a6a26",
-          "RegistryReviewAttestation.yaml": "b00a4c617cd176746ce4f63bc71d7c7588b6ca05",
+          "RegistryReviewAttestation.yaml": "9e7b2fc3a81ecd9c6af1ef24453aaa0c009ade1f",
           "SDG.yaml": "045b7f48733a2883f435262b1760f1fca349e7e3",
           "core.yaml": "d8e8371ffe78f212b09a527116da5337f62d588c",
           "schema.yaml": "f182302480b1ffecf5d45b841002ac6f9038509e",
@@ -123,15 +123,15 @@
         },
         "json-schema": {
           "path": "0.2.0/json-schema.json",
-          "sha256": "356740d505092d5297a30aec035cf066c5caa443ad214197d197e9841d37a0b9"
+          "sha256": "15266d85ee5f3736e330b243f9674b2576a84887d60f8a593d8d515c75718b23"
         },
         "shacl": {
           "path": "0.2.0/shacl.ttl",
-          "sha256": "902067b02359b8f07e33c450aaacd12af135d6c9e7662bc3b04359a07e929736"
+          "sha256": "343bf7d4a2f28308815264e90b1cd235fdcdaa4fa2f79019c99d93cdc5834e30"
         },
         "linkml": {
           "path": "0.2.0/linkml.yaml",
-          "sha256": "1fb8d41b633b2560aa1da06de0dd3f77e749611eec32235f2f4584fa0c1d8ad9"
+          "sha256": "9204030904f5ddb37079cc5ec6468f46ddb95a6b9915a0a9640a99d6f3efb9f6"
         }
       },
       "entryPoints": {

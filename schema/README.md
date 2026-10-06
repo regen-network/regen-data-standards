@@ -136,8 +136,10 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
     `--xsd-anyuri-as-iri`;
   - nested objects need an explicit `@type`, which `scripts/claim-examples.py` adds when it builds a
     document.
-- **Rules are not translated to SHACL** ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)).
-  CS-4, an `OTHER` verification method without a descriptor, is rejected by JSON Schema only.
+- **Class `rules` are not translated to SHACL** ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)),
+  so a constraint written as a rule is enforced by the JSON Schema only. In this schema, that is
+  `Attestation`'s two rules: a `verificationMethod` of `OTHER` requires a
+  `verificationMethodDescriptor`, and an attestation with a `scope` does not state `unbounded`.
 - **Class-level `any_of` is dropped by `gen-shacl`.** A slot-level `any_of` over enums is expressed
   in JSON Schema and SHACL, but the generated context leaves its values as strings, so SHACL rejects
   valid values, and `linkml-convert` fails on it.
