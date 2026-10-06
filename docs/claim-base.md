@@ -309,27 +309,27 @@ typed with their specific classes, such as `rfs:C01ProjectInfo`, which a query f
 The JSON-LD files are generated from the playground fixtures in
 [`schema/data/playground/Claim/`](../schema/data/playground/Claim/), which `gen-rdf` validates, by
 `make -C schema gen-claim-examples`. CI runs `make -C schema check-claim-examples`, which runs
-both validators the schema generates on every document:
+the published validators of the current schema version (`schema/versions/<version>/`) on every
+document:
 
-- JSON Schema (`linkml-validate`) over the authored YAML;
-- SHACL (`gen-shacl`, closed shapes, run with pyshacl) over the RDF graph of the authored JSON-LD.
-  The graph is parsed without rdflib's literal normalization, so lexical forms are checked as
-  written. The generated shapes are used unchanged.
+- the JSON Schema (`json-schema.json`, errors reported as `linkml-validate` reports them) over the
+  authored YAML;
+- the SHACL shapes (`shacl.ttl`, closed shapes, run with pyshacl) over the RDF graph of the authored
+  JSON-LD. The graph is parsed without rdflib's literal normalization, so lexical forms are checked
+  as written. The generated shapes are used unchanged.
 
 The check fails if an example is stale, if its JSON-LD graph is not isomorphic to the fixture's
 Turtle output, if either validator rejects a valid example, or if either accepts an invalid one.
 JSON Schema must reject each invalid document with the error named on its first line.
 
-The inline context is generated from `Claim.yaml` alone, with `gen-jsonld-context
---xsd-anyuri-as-iri`, so `uri` and `uriorcurie` terms (`url`, `wasRevisionOf`, `references`) map to
-`@type: @id` and their values are IRI nodes, as in Turtle; without the flag they are `xsd:anyURI`
-literals. Two corrections are applied because the generated JSON-LD in LinkML 1.11.1 still does not
-produce the same RDF as the Turtle output. Enum terms use `@type: @vocab` with each value mapped to
-its `meaning`, so `"ECOLOGICAL"` becomes `rft:Ecological`, not a string. Nested objects carry
-`@type`. The context is not generated from
-`schema.yaml` because there `ProjectPost`'s `description` (`dcterms:description`) replaces
-`schema:description` for every class. These issues affect all JSON-LD generated in this repository and
-are recorded for [#74](https://github.com/regen-network/regen-data-standards/issues/74) (WP1-07).
+The inline context is the published context of the current schema version, generated from
+`schema.yaml` with `gen-jsonld-context --xsd-anyuri-as-iri`, so `uri` and `uriorcurie` terms (`url`,
+`wasRevisionOf`, `references`) map to `@type: @id` and their values are IRI nodes, as in Turtle. It is
+corrected so that it gives the same RDF as the Turtle output: enum terms map each value to its
+`meaning`, and a slot name that classes map differently, such as `File`'s `description` in `ProjectPost.yaml`
+(`dcterms:description`), is redefined in a type-scoped context on its class. Nested objects carry
+`@type`. The corrections and the other generator limitations are listed in
+[`schema/README.md`](../schema/README.md#generator-limitations) (#74, WP1-07).
 
 ## Field record against `Claim.yaml` at `0a4ba12a`
 

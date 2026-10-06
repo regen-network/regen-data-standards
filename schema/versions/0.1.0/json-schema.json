@@ -1,0 +1,4239 @@
+{
+    "$defs": {
+        "Activity": {
+            "additionalProperties": false,
+            "description": "Something that took place over a period, identified by an IRI so that every piece of evidence it generated names the same activity. Its period is given as dates; prov:startedAtTime and prov:endedAtTime would require timestamps.",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endDate": {
+                    "description": "Last day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI of the activity.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDate": {
+                    "description": "First day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasAssociatedWith": {
+                    "description": "Responsibility of an agent for an activity (PROV), for example the farm operator who carried out the field operations a record documents. Claim-type schemas that describe a domain activity, such as a restoration, name its operator the same way. Use it only on a class that represents an activity (its PROV domain is prov:Activity); such classes declare the ProvActivity mixin. It is not attribution of a Claim: the operator and the claimant may differ, and when they coincide both relations are still stated.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Activity",
+            "type": "object"
+        },
+        "ActivityType": {
+            "description": "",
+            "enum": [
+                "RESIDUE_TILLAGE_MANAGEMENT",
+                "BIOCHAR_PRODUCTION",
+                "IMPROVED_FOREST_MANAGEMENT",
+                "AGROFORESTRY",
+                "PRESCRIBED_GRAZING",
+                "RIPARIAN_FOREST_BUFFERS",
+                "SOIL_AMENDMENTS",
+                "CONSERVATION",
+                "ECOTOURISM",
+                "COVER_CROPPING",
+                "TREE_PLANTING",
+                "PHOTOCATALYST_APPLICATION",
+                "ECOSYSTEM_RESTORATION",
+                "INDUSTRIAL_BIOCHAR_PRODUCTION",
+                "ARTISANAL_BIOCHAR_PRODUCTION",
+                "BIOCHAR",
+                "ENHANCED_ROCK_WEATHERING",
+                "COMPOST_AMENDMENTS",
+                "KEYSTONE_SPECIES_CONSERVATION",
+                "UMBRELLA_SPECIES_CONSERVATION",
+                "SILVOPASTURE",
+                "FOREST_FARMING",
+                "NON_URBAN_FOREST_IMPROVEMENT",
+                "URBAN_FOREST_IMPROVEMENT",
+                "AFFORESTATION",
+                "REFORESTATION"
+            ],
+            "title": "ActivityType",
+            "type": "string"
+        },
+        "AdministrativeAreaTypes": {
+            "description": "The administrative area types for the project",
+            "enum": [
+                "ANTIOQUIA",
+                "CUNDINAMARCA"
+            ],
+            "title": "AdministrativeAreaTypes",
+            "type": "string"
+        },
+        "Any": {
+            "additionalProperties": true,
+            "description": "",
+            "title": "Any",
+            "type": [
+                "null",
+                "boolean",
+                "object",
+                "number",
+                "string"
+            ]
+        },
+        "Attestation": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "An issuer's judgment, made at a stated time, about what it targets: exact versions of claims, of other attestations, or a snapshot of claims. As a Claim it is attributed (hasClaimant names the issuer), immutable and revisable with wasRevisionOf; it is about a subject, such as a project or a plot, even when it judges a claim about that subject. It does not carry its own hash or IRI, anchoring state, or a status that changes after it is made: a later judgment is a new Attestation.",
+            "properties": {
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as a term from the vocabulary of the program or rule set the judgment is made under, for example a registration determination.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "Attestation",
+            "type": "object"
+        },
+        "BT01BiomeTypes": {
+            "description": "The biome types for BT01 projects.",
+            "enum": [
+                "ANDEAN_OROBIOME_NORTH_PACIFIC_FOOTHILLS",
+                "LARGE_TOLIMA_HYDROBIOME",
+                "LARGE_TOLIMA_SUBANDEAN_OROBIOME",
+                "TROPICAL_HUMID_ZONOBIOME_TOLIMA_GRANDE"
+            ],
+            "title": "BT01BiomeTypes",
+            "type": "string"
+        },
+        "BT01BioregionTypes": {
+            "description": "The bioregions for BT01 projects.",
+            "enum": [
+                "LOW_MONTANE_VERY_HUMID_FOREST",
+                "ORINOCO_SAVANNA",
+                "PREMONTANE_HUMID_FOREST",
+                "RIPARIAN_FOREST",
+                "SAVANNA",
+                "TROPICAL_HUMID_FOREST",
+                "TROPICAL_DRY_FOREST"
+            ],
+            "title": "BT01BioregionTypes",
+            "type": "string"
+        },
+        "BT01ProjectInfo": {
+            "additionalProperties": false,
+            "description": "Project info for Tebu projects.",
+            "properties": {
+                "activity": {
+                    "description": "The types of activities being implemented in projects",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "biomeType": {
+                    "description": "The type of biome associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/BT01BiomeTypes"
+                    },
+                    "type": "array"
+                },
+                "bioregion": {
+                    "description": "The bioregion associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/BT01BioregionTypes"
+                    },
+                    "type": "array"
+                },
+                "creditClassVersion": {
+                    "description": "The version of the credit class used for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ecologicalConnectivityIndex": {
+                    "description": "The ecological connectivity index of the project.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "environmentType": {
+                    "description": "The environment type of the project.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasAdministrativeArea": {
+                    "$ref": "#/$defs/AdministrativeAreaTypes",
+                    "description": "The administrative area associated with the project."
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasEnvironmentalAuthority": {
+                    "description": "The environmental authority associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasFeature": {
+                    "$ref": "#/$defs/Feature",
+                    "description": "The location of the project."
+                },
+                "hasLinks": {
+                    "description": "A list of links associated with the project.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Link"
+                            },
+                            {
+                                "$ref": "#/$defs/VersionedLink"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasManagementAreas": {
+                    "description": "The management areas associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ManagementArea"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasProjectDeveloper": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasProjectMonitor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for monitoring the project."
+                },
+                "hasProjectOperator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for operating the project."
+                },
+                "hasProjectOwner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that owns the project."
+                },
+                "hasProjectPartner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that is a partner for the project."
+                },
+                "hasProjectVerifier": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasReferenceId": {
+                    "description": "External reference IDs associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ReferenceId"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "iucnConservationStatus": {
+                    "$ref": "#/$defs/ConservationStatusTypes",
+                    "description": "The conservation status of the project."
+                },
+                "marketType": {
+                    "description": "The type of market for the associated credits.",
+                    "items": {
+                        "$ref": "#/$defs/MarketTypeTypes"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "projectDuration": {
+                    "description": "The duration of the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "projectEndDate": {
+                    "description": "The end date of the project.",
+                    "type": "string"
+                },
+                "projectSize": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "projectStartDate": {
+                    "description": "The start date of the project.",
+                    "type": "string"
+                },
+                "region": {
+                    "$ref": "#/$defs/BT01RegionTypes",
+                    "description": "The region associated with the project."
+                },
+                "socialCulturalIndex": {
+                    "$ref": "#/$defs/SocialCulturalIndexTypes",
+                    "description": "The social cultural index of the project."
+                },
+                "subWatershed": {
+                    "$ref": "#/$defs/BT01SubWatershedTypes",
+                    "description": "The sub-watershed associated with the project."
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "usesMethodology": {
+                    "description": "The methodology that the project uses.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "watershed": {
+                    "$ref": "#/$defs/BT01WatershedTypes",
+                    "description": "The watershed associated with the project."
+                }
+            },
+            "required": [
+                "name",
+                "projectStartDate",
+                "projectEndDate",
+                "hasFeature",
+                "region",
+                "bioregion",
+                "biomeType",
+                "watershed",
+                "subWatershed",
+                "hasPrimaryImpact"
+            ],
+            "title": "BT01ProjectInfo",
+            "type": "object"
+        },
+        "BT01RegionTypes": {
+            "description": "The regions for BT01 projects.",
+            "enum": [
+                "ANDEAN",
+                "CARIBBEAN",
+                "ORINOCO",
+                "PACIFIC"
+            ],
+            "title": "BT01RegionTypes",
+            "type": "string"
+        },
+        "BT01SubWatershedTypes": {
+            "description": "The watersheds for BT01 projects.",
+            "enum": [
+                "RIO_FRIO_Y_OTROS_DIRECTOS_AL_CAUCA",
+                "RIO_SUMAPAZ"
+            ],
+            "title": "BT01SubWatershedTypes",
+            "type": "string"
+        },
+        "BT01WatershedTypes": {
+            "description": "The watersheds for BT01 projects.",
+            "enum": [
+                "FRIO_RIVER",
+                "SUMAPAZ_RIVER_LOWER_WATERSHED"
+            ],
+            "title": "BT01WatershedTypes",
+            "type": "string"
+        },
+        "BufferPoolAccount": {
+            "additionalProperties": false,
+            "description": "Details of the buffer pool account associated with a credit class.",
+            "properties": {
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "poolAllocation": {
+                    "description": "The allocation of the buffer pool.",
+                    "pattern": "^\\d+(\\.\\d+)?%$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "walletAddress": {
+                    "description": "The wallet address of the buffer pool account.",
+                    "pattern": "^regen1[0-9a-zA-Z]+$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "walletAddress"
+            ],
+            "title": "BufferPoolAccount",
+            "type": "object"
+        },
+        "C01ProjectInfo": {
+            "additionalProperties": false,
+            "description": "Project info for Verra Verified Carbon Standard projects.",
+            "properties": {
+                "activity": {
+                    "description": "The types of activities being implemented in projects",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "biomeType": {
+                    "description": "The type of biome associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "bioregion": {
+                    "description": "The bioregion associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "creditClassVersion": {
+                    "description": "The version of the credit class used for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environmentType": {
+                    "description": "The environment type of the project.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasFeature": {
+                    "$ref": "#/$defs/Feature",
+                    "description": "The location of the project."
+                },
+                "hasLinks": {
+                    "description": "A list of links associated with the project.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Link"
+                            },
+                            {
+                                "$ref": "#/$defs/VersionedLink"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasProjectDeveloper": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasProjectMonitor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for monitoring the project."
+                },
+                "hasProjectOperator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for operating the project."
+                },
+                "hasProjectOwner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that owns the project."
+                },
+                "hasProjectPartner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that is a partner for the project."
+                },
+                "hasProjectVerifier": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasReferenceId": {
+                    "description": "External reference IDs associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ReferenceId"
+                    },
+                    "type": "array"
+                },
+                "marketType": {
+                    "description": "The type of market for the associated credits.",
+                    "items": {
+                        "$ref": "#/$defs/MarketTypeTypes"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "projectEndDate": {
+                    "description": "The end date of the project.",
+                    "type": "string"
+                },
+                "projectSize": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "projectStartDate": {
+                    "description": "The start date of the project.",
+                    "type": "string"
+                },
+                "region": {
+                    "description": "The region associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "subWatershed": {
+                    "description": "The sub-watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "usesMethodology": {
+                    "description": "The methodology that the project uses.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": "array"
+                },
+                "watershed": {
+                    "description": "The watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "projectStartDate",
+                "projectEndDate",
+                "hasReferenceId",
+                "hasFeature",
+                "hasPrimaryImpact",
+                "usesMethodology"
+            ],
+            "title": "C01ProjectInfo",
+            "type": "object"
+        },
+        "C02ProjectInfo": {
+            "additionalProperties": false,
+            "description": "Project info for City Forest Carbon Credit projects.",
+            "properties": {
+                "activity": {
+                    "description": "The types of activities being implemented in projects",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "biomeType": {
+                    "description": "The type of biome associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "bioregion": {
+                    "description": "The bioregion associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "creditClassVersion": {
+                    "description": "The version of the credit class used for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environmentType": {
+                    "description": "The environment type of the project.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasFeature": {
+                    "$ref": "#/$defs/Feature",
+                    "description": "The location of the project."
+                },
+                "hasLinks": {
+                    "description": "A list of links associated with the project.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Link"
+                            },
+                            {
+                                "$ref": "#/$defs/VersionedLink"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasProjectDeveloper": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasProjectMonitor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for monitoring the project."
+                },
+                "hasProjectOperator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for operating the project."
+                },
+                "hasProjectOwner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that owns the project."
+                },
+                "hasProjectPartner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that is a partner for the project."
+                },
+                "hasProjectVerifier": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasReferenceId": {
+                    "description": "External reference IDs associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ReferenceId"
+                    },
+                    "type": "array"
+                },
+                "marketType": {
+                    "description": "The type of market for the associated credits.",
+                    "items": {
+                        "$ref": "#/$defs/MarketTypeTypes"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "projectEndDate": {
+                    "description": "The end date of the project.",
+                    "type": "string"
+                },
+                "projectSize": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "projectStartDate": {
+                    "description": "The start date of the project.",
+                    "type": "string"
+                },
+                "region": {
+                    "description": "The region associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "subWatershed": {
+                    "description": "The sub-watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "usesMethodology": {
+                    "description": "The methodology that the project uses.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": "array"
+                },
+                "watershed": {
+                    "description": "The watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "projectStartDate",
+                "projectEndDate",
+                "hasReferenceId",
+                "hasFeature",
+                "hasPrimaryImpact",
+                "usesMethodology"
+            ],
+            "title": "C02ProjectInfo",
+            "type": "object"
+        },
+        "C06CohortClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one cohort: its crediting and permanence periods.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Cohort",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "permanencePeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period after the crediting period during which the carbon stored must be maintained."
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06CohortClaim",
+            "type": "object"
+        },
+        "C06PlotClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one plot: its area and boundary, its tenure basis, and whether it was converted from a natural ecosystem. The land register records and land cover datasets behind them are cited as evidence.",
+            "properties": {
+                "area": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Area, as a QUDT quantity value."
+                },
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "convertedFromNaturalEcosystem": {
+                    "description": "Whether the plot was converted from forest land, wetland or another natural ecosystem in the ten years before its site's project start date.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "geometry": {
+                    "description": "Identifier of the boundary feature, for example a feature in a cited GeoPackage. One feature may cover more than one plot.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Plot",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "tenureBasis": {
+                    "$ref": "#/$defs/TenureBasis",
+                    "description": "The legal basis on which the plot is controlled during the crediting period: ownership, a lease, or another arrangement."
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06PlotClaim",
+            "type": "object"
+        },
+        "C06ProjectClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about the whole project: the rule sets and methodologies it applies, that it is an aggregate project, its start and adoption dates, crediting and permanence periods, and the deviations it requests.",
+            "properties": {
+                "adoptionDate": {
+                    "description": "When the project activities were adopted.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "aggregateStartDate": {
+                    "description": "Start date of the aggregate project. Each site also has its own start date (siteProjectStartDate).",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Project",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "isAggregateProject": {
+                    "description": "True when the project is an aggregate project: a group of sites, each individually identifiable, registered as one project.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "methodologyUse": {
+                    "description": "The methodology versions the project applies, each with its role and what it is used for. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/MethodologyUse"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "permanencePeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period after the crediting period during which the carbon stored must be maintained."
+                },
+                "requestedDeviations": {
+                    "description": "Project-specific deviations from requirements that the project developer requests in its project plan, each naming the requirements it replaces. Whether a deviation is approved is a separate attestation. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/DeviationRequest"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "startDateBasis": {
+                    "description": "The event or record that establishes the start date, for example the first baseline soil sampling or a contract signature.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06ProjectClaim",
+            "type": "object"
+        },
+        "C06ProjectStatementClaim": {
+            "additionalProperties": false,
+            "description": "A statement the project developer makes about the project that a reviewer reads rather than checks as a value, such as how local stakeholders were consulted, the basis of the aggregation, or that no sites are enrolled after a cutoff date. The assertion is in description and its location in the project plan is the evidence; which requirement it answers is recorded by the reviewer's attestation.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": "string"
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Project",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "description",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06ProjectStatementClaim",
+            "type": "object"
+        },
+        "C06SiteClaim": {
+            "additionalProperties": false,
+            "description": "The project developer's assertions about one site: its start date and crediting period, ecosystem types, climate and soil classes, practices, primary land use and soil monitoring schedule. Records of its historic activity are cited as evidence.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "climateClass": {
+                    "description": "K\u00f6ppen-Geiger climate class, for example Dfb.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "creditingPeriod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DatePeriod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ecosystemTypes": {
+                    "description": "Ecosystem types of the site, as taxonomy terms such as cropland or pastureland. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "$ref": "#/$defs/Site",
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "monitoringIntervalJustification": {
+                    "description": "Why sampling intervals differ from the expected cadence.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "monitoringSampleDates": {
+                    "description": "Dates of soil sampling at the site.",
+                    "items": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "practices": {
+                    "description": "Practices implemented on the site.",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "primaryLandUse": {
+                    "$ref": "#/$defs/EnvironmentType",
+                    "description": "The site's primary land use, as a taxonomy term, which the site must maintain during its project period."
+                },
+                "siteProjectStartDate": {
+                    "description": "The site's own project start date. In an aggregate project each site defines its own, which may differ from the aggregate's; its basis is stated in startDateBasis.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "soilGroup": {
+                    "description": "World Reference Base soil group, for example Cambisol.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDateBasis": {
+                    "description": "The event or record that establishes the start date, for example the first baseline soil sampling or a contract signature.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "C06SiteClaim",
+            "type": "object"
+        },
+        "CarbonCreditClassInfo": {
+            "additionalProperties": false,
+            "description": "Off-chain metadata representation for credit classes where the credit type is Carbon (C)",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "eligibleActivities": {
+                    "description": "Eligible activities for projects registered under this credit class.",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": "array"
+                },
+                "eligibleEnvironmentTypes": {
+                    "description": "Types of environments that a project registered under this credit class may focuses on.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": "array"
+                },
+                "hasApprovedMethodologies": {
+                    "description": "If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasBufferPoolAccounts": {
+                    "description": "Buffer pool accounts associated with the credit class.",
+                    "items": {
+                        "$ref": "#/$defs/BufferPoolAccount"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCreditGenerationMethod": {
+                    "description": "Method for generating credits.",
+                    "items": {
+                        "$ref": "#/$defs/CreditGenerationMethod"
+                    },
+                    "type": "array"
+                },
+                "hasCreditProtocol": {
+                    "description": "The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.",
+                    "items": {
+                        "$ref": "#/$defs/CreditProtocol"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCreditingPeriod": {
+                    "description": "The total duration of the crediting term for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasPermanencePeriod": {
+                    "description": "Permanence period of the credits.",
+                    "type": "string"
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasSourceRegistry": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Registry"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The registry where the credits are originally issued and tracked if somewhere other than Regen Network."
+                },
+                "managedUnderProgram": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CreditingProgram"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The higher-level rules and requirements under which the given credit protocol operates, sometimes referred to as the \"Standard\"."
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "hasPermanencePeriod",
+                "hasCreditGenerationMethod",
+                "name",
+                "url",
+                "hasPrimaryImpact",
+                "eligibleEnvironmentTypes",
+                "eligibleActivities"
+            ],
+            "title": "CarbonCreditClassInfo",
+            "type": "object"
+        },
+        "Claim": {
+            "additionalProperties": false,
+            "description": "An attributed assertion: related statements that one or more identified claimants present together about a subject, at a stated time. A Claim is asserted by definition, so it is self-attested by its claimants and is valid without any third-party attestation; later reviews are separate resources that point to it. An unasserted authoring candidate, such as an extraction draft without a claimant, is not a Claim. Every version is immutable: a correction is a new Claim that states wasRevisionOf.",
+            "properties": {
+                "assertedAt": {
+                    "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds, in the XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is not accepted.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The agent or agents that take responsibility for making this assertion: an individual, organization or community. Each listed claimant takes responsibility for the whole assertion. A collective that asserts as one body is a single claimant of type COMMUNITY or ORGANIZATION; listing it does not make its members co-claimants. A service that extracted, generated or submitted the RDF is not a claimant unless it asserts the content itself. Specializes prov:wasAttributedTo, so under PROV each claimant is an agent associated with the activity that generated the Claim, which is the act of asserting. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the claimant presents as evidence for the assertion, each an Evidence node identified by the IRI of the exact version cited. Whether a source actually supports the assertion is judged separately, by attestations. Specializes dcterms:references. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the claim is about, as a ClaimSubject node identified by its IRI: a place, plot, project, organization, community, indicator, dataset or another claim. Claims about the same subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of ClaimSubject. Not the claimant, and not necessarily the feature of interest of an observation inside the claim."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "Claim",
+            "type": "object"
+        },
+        "ClaimSubject": {
+            "additionalProperties": false,
+            "description": "What a Claim is about: a place, plot, project, organization, community, indicator, dataset or another claim, identified by an IRI so that claims about the same subject can be joined. The IRI identifies the subject itself; its full description lives on its own resource.",
+            "properties": {
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ClaimSubject",
+            "type": "object"
+        },
+        "ClaimType": {
+            "description": "Subject-matter categories of claims. A category classifies what a claim asserts; it does not declare a schema version or select a verification pathway.",
+            "enum": [
+                "ECOLOGICAL",
+                "SOCIAL",
+                "FINANCIAL",
+                "GOVERNANCE",
+                "BIOCULTURAL"
+            ],
+            "title": "ClaimType",
+            "type": "string"
+        },
+        "Cohort": {
+            "additionalProperties": false,
+            "description": "The sites of a project whose baseline soil sampling took place in the same year. Each cohort has its own crediting and permanence periods, and approvals can be scoped to cohorts.",
+            "properties": {
+                "baselineYear": {
+                    "description": "Year of the cohort's baseline soil sampling.",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "project": {
+                    "description": "Identifier of the project this subject belongs to.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "baselineYear",
+                "project",
+                "id"
+            ],
+            "title": "Cohort",
+            "type": "object"
+        },
+        "Condition": {
+            "additionalProperties": false,
+            "description": "An obligation a judgment carries to a later milestone, such as a follow-up action due before verification or a design condition binding on future verifications.",
+            "properties": {
+                "conditionLabel": {
+                    "description": "The issuer's label for the condition, such as \"RA-6\".",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": "string"
+                },
+                "milestone": {
+                    "$ref": "#/$defs/Milestone",
+                    "description": "When the condition must be met."
+                }
+            },
+            "required": [
+                "description"
+            ],
+            "title": "Condition",
+            "type": "object"
+        },
+        "ConservationStatusTypes": {
+            "description": "The conservation status of the project",
+            "enum": [
+                "EXTINCT",
+                "EXTINCT_IN_WILD",
+                "CRITICALLY_ENDANGERED",
+                "ENDANGERED",
+                "VULNERABLE",
+                "NEAR_THREATENED",
+                "LEAST_CONCERN",
+                "DATA_DEFICIENT",
+                "NOT_EVALUATED"
+            ],
+            "title": "ConservationStatusTypes",
+            "type": "string"
+        },
+        "ContentDigest": {
+            "additionalProperties": false,
+            "description": "A cryptographic hash of the bytes of the cited source version: the whole file, not the position a fragment points to. A reader recomputes it over the bytes the resolver returns to check that they are the bytes cited.",
+            "properties": {
+                "algorithm": {
+                    "$ref": "#/$defs/DigestAlgorithm"
+                },
+                "digestValue": {
+                    "description": "Lowercase hexadecimal digest.",
+                    "pattern": "^[0-9a-f]{64}$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "algorithm",
+                "digestValue"
+            ],
+            "title": "ContentDigest",
+            "type": "object"
+        },
+        "CreditClassInfo": {
+            "additionalProperties": false,
+            "description": "Base class with common fields used to define credit class info.",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "eligibleActivities": {
+                    "description": "Eligible activities for projects registered under this credit class.",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": "array"
+                },
+                "eligibleEnvironmentTypes": {
+                    "description": "Types of environments that a project registered under this credit class may focuses on.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": "array"
+                },
+                "hasApprovedMethodologies": {
+                    "description": "If one or more standalone methodologies for quantifying GHG or other benefits are approved for use, supplemental to any explicit methodlogies defined within the main creditProtocol document, they can be listed here.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasBufferPoolAccounts": {
+                    "description": "Buffer pool accounts associated with the credit class.",
+                    "items": {
+                        "$ref": "#/$defs/BufferPoolAccount"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCreditProtocol": {
+                    "description": "The root document of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. It could be registered under a program or independent. It could include methods to measure and monitor, or reference other methodology documents.",
+                    "items": {
+                        "$ref": "#/$defs/CreditProtocol"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCreditingPeriod": {
+                    "description": "The total duration of the crediting term for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasSourceRegistry": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Registry"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The registry where the credits are originally issued and tracked if somewhere other than Regen Network."
+                },
+                "managedUnderProgram": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CreditingProgram"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The higher-level rules and requirements under which the given credit protocol operates, sometimes referred to as the \"Standard\"."
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "url",
+                "hasPrimaryImpact",
+                "eligibleEnvironmentTypes",
+                "eligibleActivities"
+            ],
+            "title": "CreditClassInfo",
+            "type": "object"
+        },
+        "CreditGenerationMethod": {
+            "description": "Enumeration of methods for generating credits in the carbon domain.",
+            "enum": [
+                "AVOIDED_EMISSIONS",
+                "CARBON_DIOXIDE_REMOVAL",
+                "EMISSIONS_REDUCTION"
+            ],
+            "title": "CreditGenerationMethod",
+            "type": "string"
+        },
+        "CreditProjectInfo": {
+            "additionalProperties": false,
+            "description": "Base class with additional fields for projects that issue credits.",
+            "properties": {
+                "activity": {
+                    "description": "The types of activities being implemented in projects",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "biomeType": {
+                    "description": "The type of biome associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "bioregion": {
+                    "description": "The bioregion associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "creditClassVersion": {
+                    "description": "The version of the credit class used for the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environmentType": {
+                    "description": "The environment type of the project.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasFeature": {
+                    "$ref": "#/$defs/Feature",
+                    "description": "The location of the project."
+                },
+                "hasLinks": {
+                    "description": "A list of links associated with the project.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Link"
+                            },
+                            {
+                                "$ref": "#/$defs/VersionedLink"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasProjectDeveloper": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasProjectMonitor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for monitoring the project."
+                },
+                "hasProjectOperator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for operating the project."
+                },
+                "hasProjectOwner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that owns the project."
+                },
+                "hasProjectPartner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that is a partner for the project."
+                },
+                "hasProjectVerifier": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasReferenceId": {
+                    "description": "External reference IDs associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ReferenceId"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "marketType": {
+                    "description": "The type of market for the associated credits.",
+                    "items": {
+                        "$ref": "#/$defs/MarketTypeTypes"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "projectEndDate": {
+                    "description": "The end date of the project.",
+                    "type": "string"
+                },
+                "projectSize": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "projectStartDate": {
+                    "description": "The start date of the project.",
+                    "type": "string"
+                },
+                "region": {
+                    "description": "The region associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "subWatershed": {
+                    "description": "The sub-watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "usesMethodology": {
+                    "description": "The methodology that the project uses.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "watershed": {
+                    "description": "The watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "projectStartDate",
+                "projectEndDate",
+                "hasFeature",
+                "hasPrimaryImpact"
+            ],
+            "title": "CreditProjectInfo",
+            "type": "object"
+        },
+        "CreditProtocol": {
+            "additionalProperties": false,
+            "description": "Details of the credit protocol that defines the requirements and process to register and issue credits under a credit protocol. Credit Protocols can be registered under a program or independent. It could include specific methods to measure and monitor, or reference other methodology documents.",
+            "properties": {
+                "identifier": {
+                    "description": "Unique identifier for the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version number of the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "title": "CreditProtocol",
+            "type": "object"
+        },
+        "CreditingProgram": {
+            "additionalProperties": false,
+            "description": "Details of the program that oversees the crediting protocol associated with this credit class.",
+            "properties": {
+                "identifier": {
+                    "description": "Unique identifier for the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "version": {
+                    "description": "Version number of the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "CreditingProgram",
+            "type": "object"
+        },
+        "DCMIType": {
+            "description": "The DCMI Type Vocabulary.",
+            "enum": [
+                "COLLECTION",
+                "DATASET",
+                "EVENT",
+                "IMAGE",
+                "INTERACTIVE_RESOURCE",
+                "MOVING_IMAGE",
+                "PHYSICAL_OBJECT",
+                "SERVICE",
+                "SOFTWARE",
+                "SOUND",
+                "STILL_IMAGE",
+                "TEXT"
+            ],
+            "title": "DCMIType",
+            "type": "string"
+        },
+        "DatePeriod": {
+            "additionalProperties": false,
+            "description": "A period between two dates, both included.",
+            "properties": {
+                "endDate": {
+                    "description": "Last day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDate": {
+                    "description": "First day of the period, included.",
+                    "format": "date",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "startDate"
+            ],
+            "title": "DatePeriod",
+            "type": "object"
+        },
+        "DeviationRequest": {
+            "additionalProperties": false,
+            "description": "A project-specific deviation from a requirement that the project developer requests. Whether it is approved is a separate attestation.",
+            "properties": {
+                "justification": {
+                    "description": "Why the deviation is requested, including why it is as conservative as the requirement it replaces.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "replacedParameters": {
+                    "description": "What the deviation replaces, and with what.",
+                    "type": "string"
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "requirement",
+                "replacedParameters"
+            ],
+            "title": "DeviationRequest",
+            "type": "object"
+        },
+        "DigestAlgorithm": {
+            "description": "",
+            "enum": [
+                "SHA_256",
+                "BLAKE2B_256"
+            ],
+            "title": "DigestAlgorithm",
+            "type": "string"
+        },
+        "Entity": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/$defs/EntityTypes"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "walletAddress": {
+                    "description": "On-chain wallet address (bech32 or hex) bridging semantic identity to signing capability. Used by the identity bridge to link KOI entity URIs to on-chain accounts for CLAMS and EAS interop.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "type"
+            ],
+            "title": "Entity",
+            "type": "object"
+        },
+        "EntityTypes": {
+            "description": "",
+            "enum": [
+                "INDIVIDUAL",
+                "ORGANIZATION",
+                "COMMUNITY"
+            ],
+            "title": "EntityTypes",
+            "type": "string"
+        },
+        "EnvironmentType": {
+            "description": "",
+            "enum": [
+                "MARINE",
+                "CROPLAND",
+                "URBAN_TREES",
+                "SHRUBLAND",
+                "PASTURE",
+                "SAVANNA",
+                "GRASSLAND",
+                "AGROFORESTRY_SYSTEM",
+                "PERMANENT_ICE",
+                "WETLAND",
+                "FRESHWATER",
+                "ORCHARD",
+                "AQUACULTURE_SYSTEM",
+                "VINEYARD",
+                "DESERT",
+                "FOREST",
+                "IRRIGATED_CROPLAND",
+                "RAINFED_CROPLAND",
+                "TEMPERATE_SHRUBLAND",
+                "BOREAL_SHRUBLAND",
+                "TROPICAL_SHRUBLAND",
+                "MARSH",
+                "BOG",
+                "SWAMP",
+                "TROPICAL_FOREST",
+                "TEMPERATE_FOREST",
+                "BOREAL_FOREST",
+                "COASTAL",
+                "DEEP_WATER",
+                "CORAL_REEF",
+                "TEMPERATE_GRASSLAND",
+                "TUNDRA",
+                "TROPICAL_GRASSLAND",
+                "LAKE",
+                "WATERCOURSE"
+            ],
+            "title": "EnvironmentType",
+            "type": "string"
+        },
+        "Evidence": {
+            "additionalProperties": false,
+            "description": "A source cited as evidence: a document, dataset, record or observation, identified by an IRI. The IRI names the exact version cited and may carry a fragment for a position inside it, for example a page. Whether it actually supports a claim is judged separately, by attestations, and its current availability or access is not recorded here.",
+            "properties": {
+                "contentHash": {
+                    "$ref": "#/$defs/ContentDigest",
+                    "description": "Hash of the bytes of the cited source version. This is the hash of the source, which a citation needs; it is not the hash of the Claim or Attestation that cites it, which is never part of its own content."
+                },
+                "description": {
+                    "description": "What the source is, in the citer's words.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI or CURIE of the exact source version cited, for example https://example.org/project-plan-v2.pdf#page=12.",
+                    "type": "string"
+                },
+                "issued": {
+                    "description": "Date of the cited version of the source.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "licence": {
+                    "description": "IRI of the licence document or versioned licence terms in effect for this version of the source. When absent, the terms must be read as \"unspecified \u2014 all rights reserved\" (rfs:UnspecifiedAllRightsReserved), never as unrestricted.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "locator": {
+                    "description": "Human-readable position inside the source, for example \"section 1.9, Table 2\", when the IRI fragment is not enough.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "mediaType": {
+                    "description": "Media type of the source, for example application/pdf.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Title of the cited source.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resolver": {
+                    "description": "Where the bytes of the cited version can be fetched. The data can stay where its owner keeps it; the claim stores only the hash and the resolver. Unordered set.",
+                    "items": {
+                        "format": "uri",
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "sourceType": {
+                    "$ref": "#/$defs/DCMIType",
+                    "description": "Genre of the cited source, from the DCMI Type Vocabulary, which the dcterms:type definition recommends. Finer kinds of evidence that a program accepts, such as a lease agreement, belong to that program's rule set, not to Evidence."
+                },
+                "wasGeneratedBy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The activity that produced the cited source, with its period and who carried it out: for example the soil sampling behind a results file, or the field operations a farm management record documents. When the evidence was produced is the activity's period, not a field of Evidence, because PROV-O declares activities and entities disjoint. Evidence produced by the same activity names the same activity IRI."
+                }
+            },
+            "required": [
+                "sourceType",
+                "contentHash",
+                "resolver",
+                "id"
+            ],
+            "title": "Evidence",
+            "type": "object"
+        },
+        "EvidenceCheckOutcome": {
+            "description": "Outcomes a resolver reports when a consumer fetches cited evidence. They are reported at a point in time and are never stored in Claim or Attestation content.",
+            "enum": [
+                "EVIDENCE_INTACT",
+                "EVIDENCE_ALTERED",
+                "UNREACHABLE",
+                "ACCESS_RESTRICTED"
+            ],
+            "title": "EvidenceCheckOutcome",
+            "type": "string"
+        },
+        "Feature": {
+            "additionalProperties": false,
+            "description": "A spatial feature, such as a project or area, with a defined geometry and optional bounding box.",
+            "properties": {
+                "hasBoundingBox": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Geometry"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A derived geometry representing the bounding box of the geometry or feature."
+                },
+                "hasCentroid": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Geometry"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A derived geometry representing the centroid of the feature."
+                },
+                "hasGeometry": {
+                    "$ref": "#/$defs/Geometry"
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "hasGeometry"
+            ],
+            "title": "Feature",
+            "type": "object"
+        },
+        "File": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "credit": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "iri": {
+                    "type": "string"
+                },
+                "location": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Geometry"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "iri",
+                "name"
+            ],
+            "title": "File",
+            "type": "object"
+        },
+        "FindingType": {
+            "description": "",
+            "enum": [
+                "CAR",
+                "CL",
+                "FAR",
+                "REGISTRY_ISSUE",
+                "OTHER"
+            ],
+            "title": "FindingType",
+            "type": "string"
+        },
+        "Geometry": {
+            "additionalProperties": false,
+            "description": "A geometry defined using Well-Known Text (WKT), compliant with GeoSPARQL 1.1.",
+            "properties": {
+                "asWKT": {
+                    "description": "A WKT literal with an optional CRS prefix (e.g., '<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(...)').",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "asWKT"
+            ],
+            "title": "Geometry",
+            "type": "object"
+        },
+        "Impact": {
+            "additionalProperties": false,
+            "description": "Represents an ecological, social, or broader impact or benefit usually in the context of a project's activities. Impacts can be measurable or qualitative.",
+            "properties": {
+                "hasImpactType": {
+                    "$ref": "#/$defs/ImpactType",
+                    "description": "Type of impact, such as ecological, social, or economic."
+                },
+                "name": {
+                    "description": "Name is optional and will be inferred from the ImpactType if not provided.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "supportsSDG": {
+                    "description": "List of relevant Sustainable Development Goals that this impact supports.",
+                    "items": {
+                        "$ref": "#/$defs/SDG"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "hasImpactType"
+            ],
+            "title": "Impact",
+            "type": "object"
+        },
+        "ImpactType": {
+            "description": "",
+            "enum": [
+                "REDUCED_FERTILIZER_AMENDMENTS",
+                "AVOIDED_DEFORESTATION_DEGRADATION",
+                "IMPROVED_CULTURAL_HERITAGE_AWARENESS",
+                "IMPROVED_BIODIVERSITY",
+                "IMPROVED_ENVIRONMENTAL_EDUCATION_OUTREACH",
+                "REDUCED_SOIL_EROSION",
+                "REDUCED_HERBICIDE_AMENDMENTS",
+                "IMPROVED_FOREST_HEALTH",
+                "IMPROVED_COMMUNITY_HEALTH",
+                "IMPROVED_WILDLIFE_HABITAT",
+                "IMPROVED_SOIL_HEALTH",
+                "INCREASED_FOREST_COVER",
+                "REDUCED_PESTICIDE_AMENDMENTS",
+                "IMPROVED_WATER_INFILTRATION",
+                "IMPROVED_WATER_HOLDING_CAPACITY",
+                "INCREASED_CARBON_SEQUESTRATION_STORAGE",
+                "REDUCED_IRRIGATION",
+                "IMPROVED_SOIL_STRUCTURE",
+                "IMPROVED_NUTRIENT_CYCLING",
+                "UNKNOWN"
+            ],
+            "title": "ImpactType",
+            "type": "string"
+        },
+        "IssuerRole": {
+            "description": "",
+            "enum": [
+                "REGISTRY_AGENT",
+                "VVB",
+                "CREDIT_CLASS_ADMIN",
+                "OTHER"
+            ],
+            "title": "IssuerRole",
+            "type": "string"
+        },
+        "Link": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "title": "Link",
+            "type": "object"
+        },
+        "ManagementArea": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "extent": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "the extent"
+                },
+                "projectActivity": {
+                    "description": "the activity",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "ManagementArea",
+            "type": "object"
+        },
+        "MarketTypeTypes": {
+            "description": "The type of marketplace",
+            "enum": [
+                "COMPLIANCE_MARKET",
+                "VOLUNTARY_MARKET"
+            ],
+            "title": "MarketTypeTypes",
+            "type": "string"
+        },
+        "Methodology": {
+            "additionalProperties": false,
+            "description": "Details about a specific methodology.",
+            "properties": {
+                "identifier": {
+                    "description": "Unique identifier for the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version number of the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "title": "Methodology",
+            "type": "object"
+        },
+        "MethodologyRole": {
+            "description": "",
+            "enum": [
+                "PRIMARY",
+                "SUPPLEMENTARY"
+            ],
+            "title": "MethodologyRole",
+            "type": "string"
+        },
+        "MethodologyUse": {
+            "additionalProperties": false,
+            "description": "A methodology version the project applies, and for what.",
+            "properties": {
+                "methodology": {
+                    "description": "Identifier of an exact methodology version.",
+                    "type": "string"
+                },
+                "methodologyRole": {
+                    "$ref": "#/$defs/MethodologyRole",
+                    "description": "Whether the methodology is the project's primary quantification methodology or a supplementary one, used for part of the assessment such as the baseline or leakage."
+                },
+                "methodologyScope": {
+                    "description": "What the methodology is used for in this project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "methodology",
+                "methodologyRole"
+            ],
+            "title": "MethodologyUse",
+            "type": "object"
+        },
+        "Milestone": {
+            "description": "",
+            "enum": [
+                "REGISTRATION",
+                "PRE_ISSUANCE",
+                "VERIFICATION",
+                "FUTURE_VERIFICATIONS"
+            ],
+            "title": "Milestone",
+            "type": "string"
+        },
+        "Plot": {
+            "additionalProperties": false,
+            "description": "One land parcel of a site. The plots of a site are the plots whose site is that site.",
+            "properties": {
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parcelId": {
+                    "description": "Identifier of the parcel in the national land parcel register, for example LPIS in Czechia or GSAA in Slovakia.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "plotKey": {
+                    "description": "The key that identifies the plot in the project's records.",
+                    "type": "string"
+                },
+                "site": {
+                    "description": "Identifier of the plot's site.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "plotKey",
+                "site",
+                "id"
+            ],
+            "title": "Plot",
+            "type": "object"
+        },
+        "Project": {
+            "additionalProperties": false,
+            "description": "An aggregate project of enrolled sites.",
+            "properties": {
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "registryProjectId": {
+                    "description": "The project's identifier in the registry, once assigned.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Project",
+            "type": "object"
+        },
+        "ProjectInfo": {
+            "additionalProperties": false,
+            "description": "Base class with common fields used to define project info.",
+            "properties": {
+                "activity": {
+                    "description": "The types of activities being implemented in projects",
+                    "items": {
+                        "$ref": "#/$defs/ActivityType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "biomeType": {
+                    "description": "The type of biome associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "bioregion": {
+                    "description": "The bioregion associated with the project.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environmentType": {
+                    "description": "The environment type of the project.",
+                    "items": {
+                        "$ref": "#/$defs/EnvironmentType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasCoBenefits": {
+                    "description": "Co-benefits are any secondary impacts that may result from adhering to the protocol and/or management practices associated with the credit class. They can be qualitative or quantitative.",
+                    "items": {
+                        "$ref": "#/$defs/Impact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasFeature": {
+                    "$ref": "#/$defs/Feature",
+                    "description": "The location of the project."
+                },
+                "hasLinks": {
+                    "description": "A list of links associated with the project.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Link"
+                            },
+                            {
+                                "$ref": "#/$defs/VersionedLink"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasPrimaryImpact": {
+                    "$ref": "#/$defs/Impact",
+                    "description": "The primary impact expected from adhering to the protocol and/or management practices associated with the credit class. Generally speaking the quantifiable components of this impact are associated with the credit type that the credit class exists under (e.g. Carbon, Biodiversity, etc)."
+                },
+                "hasProjectDeveloper": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for owning the project."
+                },
+                "hasProjectMonitor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for monitoring the project."
+                },
+                "hasProjectOperator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization responsible for operating the project."
+                },
+                "hasProjectOwner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that owns the project."
+                },
+                "hasProjectPartner": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Entity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The organization that is a partner for the project."
+                },
+                "hasReferenceId": {
+                    "description": "External reference IDs associated with the project.",
+                    "items": {
+                        "$ref": "#/$defs/ReferenceId"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "projectEndDate": {
+                    "description": "The end date of the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "projectSize": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/QuantityValue"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "projectStartDate": {
+                    "description": "The start date of the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "region": {
+                    "description": "The region associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "subWatershed": {
+                    "description": "The sub-watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "usesMethodology": {
+                    "description": "The methodology that the project uses.",
+                    "items": {
+                        "$ref": "#/$defs/Methodology"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "watershed": {
+                    "description": "The watershed associated with the project.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "hasFeature",
+                "hasPrimaryImpact"
+            ],
+            "title": "ProjectInfo",
+            "type": "object"
+        },
+        "ProjectPost": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "comment": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "files": {
+                    "items": {
+                        "$ref": "#/$defs/File"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "title"
+            ],
+            "title": "ProjectPost",
+            "type": "object"
+        },
+        "ProvActivity": {
+            "additionalProperties": false,
+            "description": "PROV-O Activity: something that occurs over a period of time, such as the domain activity a specialized claim describes (a planting, a restoration) or the activity that produced a piece of evidence (a survey, a lab analysis).",
+            "title": "ProvActivity",
+            "type": "object"
+        },
+        "ProvAgent": {
+            "additionalProperties": false,
+            "description": "PROV-O Agent: something that bears responsibility, such as a person, organization or community.",
+            "title": "ProvAgent",
+            "type": "object"
+        },
+        "ProvEntity": {
+            "additionalProperties": false,
+            "description": "PROV-O Entity: a thing with some fixed aspects, such as a Claim version.",
+            "title": "ProvEntity",
+            "type": "object"
+        },
+        "QuantityValue": {
+            "additionalProperties": false,
+            "description": "A value that represents a quantity, with a numeric value and the unit it is expressed in, as a QUDT quantity value.",
+            "properties": {
+                "hasUnit": {
+                    "description": "IRI of the unit in the QUDT unit vocabulary (http://qudt.org/vocab/unit/), for example unit:HA (hectare).",
+                    "type": "string"
+                },
+                "numericValue": {
+                    "description": "The numeric value of the quantity. It cannot be negative: the quantities stated so far are sizes and areas.",
+                    "minimum": 0,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "numericValue",
+                "hasUnit"
+            ],
+            "title": "QuantityValue",
+            "type": "object"
+        },
+        "ReferenceId": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "identifier": {
+                    "description": "The identifier value",
+                    "type": "string"
+                },
+                "referenceType": {
+                    "description": "An optional label that describes the identifier.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "identifier"
+            ],
+            "title": "ReferenceId",
+            "type": "object"
+        },
+        "Registry": {
+            "additionalProperties": false,
+            "description": "Details of the registry where the credits are tracked.",
+            "properties": {
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "Registry",
+            "type": "object"
+        },
+        "RegistryFindingAttestation": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence. Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel.",
+            "properties": {
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingLabel": {
+                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingType": {
+                    "$ref": "#/$defs/FindingType",
+                    "description": "The kind of finding."
+                },
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer acts, so that a consumer can check the issuer's authority for the decision."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as the IRI of a RegistryReviewOutcome term, for example rfs:ApprovedForRegistration. Required: a registry review is recorded when there is a judgment, and each dated record states its verdict or the finding's status as of its date. A requirement that cannot yet be decided is rfs:RequirementPending, not an omitted outcome.",
+                    "type": "string"
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "findingType",
+                "issuerRole",
+                "outcome",
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject",
+                "hasEvidence"
+            ],
+            "title": "RegistryFindingAttestation",
+            "type": "object"
+        },
+        "RegistryReviewAttestation": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "verificationMethod": {
+                                "const": "OTHER"
+                            }
+                        },
+                        "required": [
+                            "verificationMethod"
+                        ]
+                    },
+                    "then": {
+                        "properties": {
+                            "verificationMethodDescriptor": {}
+                        },
+                        "required": [
+                            "verificationMethodDescriptor"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "scope": {}
+                        },
+                        "required": [
+                            "scope"
+                        ]
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "unbounded"
+                            ]
+                        },
+                        "properties": {
+                            "unbounded": {}
+                        }
+                    }
+                }
+            ],
+            "description": "A judgment made in a Regen Registry review by the Registry Agent, an independent verifier (VVB) or the Credit Class Admin.",
+            "properties": {
+                "appliesRuleSet": {
+                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingLabel": {
+                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hasClaimant": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasEvidence": {
+                    "description": "Sources the issuer relied on.",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                },
+                "hasTarget": {
+                    "description": "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer acts, so that a consumer can check the issuer's authority for the decision."
+                },
+                "name": {
+                    "description": "Human-readable title of the claim.",
+                    "type": "string"
+                },
+                "outcome": {
+                    "description": "The verdict, as the IRI of a RegistryReviewOutcome term, for example rfs:ApprovedForRegistration. Required: a registry review is recorded when there is a judgment, and each dated record states its verdict or the finding's status as of its date. A requirement that cannot yet be decided is rfs:RequirementPending, not an omitted outcome.",
+                    "type": "string"
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the outcome.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "Exact versions of claims or attestations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "requirement": {
+                    "description": "Identifier of a requirement within one version of a rule set or checklist, for example a credit class registration requirement. The identifier must name the checklist version as well as the requirement, because the same short ID can name different requirements in different versions. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
+                },
+                "unbounded": {
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationMethod": {
+                    "$ref": "#/$defs/VerificationMethodType",
+                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an attestation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
+                },
+                "verificationMethodDescriptor": {
+                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "issuerRole",
+                "outcome",
+                "verificationMethod",
+                "name",
+                "hasClaimant",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "title": "RegistryReviewAttestation",
+            "type": "object"
+        },
+        "RegistryReviewOutcome": {
+            "description": "Outcomes of Regen Registry review judgments, used as outcome values by their meaning IRIs (for example rfs:ApprovedForRegistration). The enum documents the vocabulary; outcome is not narrowed to it, because LinkML 1.11 cannot narrow a uriorcurie slot to an enum in a subclass (the generated Python model of the base class rejects the enum value). The four registration determinations follow the Registry Agent Review Report's approval categories. The three report ratings are those the Program Guide (sections 12.4 and 12.5) gives a verification or validation report. REQUIREMENT_PENDING is a dated determination that a requirement cannot yet be decided; it is not a placeholder for a judgment still to come.",
+            "enum": [
+                "APPROVED_FOR_REGISTRATION",
+                "NOT_APPROVED",
+                "REQUIREMENT_PENDING",
+                "NOT_APPLICABLE",
+                "FINDING_OPEN",
+                "FINDING_CLOSED",
+                "ACCEPTANCE",
+                "ACCEPTANCE_WITH_CONTINGENCIES",
+                "REJECTION"
+            ],
+            "title": "RegistryReviewOutcome",
+            "type": "string"
+        },
+        "SDG": {
+            "description": "Enumeration of all 17 Sustainable Development Goals",
+            "enum": [
+                "SDG_1",
+                "SDG_2",
+                "SDG_3",
+                "SDG_4",
+                "SDG_5",
+                "SDG_6",
+                "SDG_7",
+                "SDG_8",
+                "SDG_9",
+                "SDG_10",
+                "SDG_11",
+                "SDG_12",
+                "SDG_13",
+                "SDG_14",
+                "SDG_15",
+                "SDG_16",
+                "SDG_17"
+            ],
+            "title": "SDG",
+            "type": "string"
+        },
+        "Scope": {
+            "additionalProperties": false,
+            "description": "Where an attestation applies, as structured fields, so that a consumer can check whether a subject falls inside it. A scope always names the subjects it covers. An attestation without a scope applies only to what it targets, unless it states unbounded.",
+            "properties": {
+                "appliesTo": {
+                    "description": "Identifiers of the subjects the judgment covers, for example the enrolment cohorts an approval is limited to. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "exclusion": {
+                    "description": "What the judgment explicitly does not cover. Unordered set.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "limitation": {
+                    "description": "What the judgment is not, for example that an approval of a project structure is not a validation of its evidence.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "appliesTo"
+            ],
+            "title": "Scope",
+            "type": "object"
+        },
+        "Site": {
+            "additionalProperties": false,
+            "description": "One enrolled site (farm) of an aggregate project.",
+            "properties": {
+                "cohort": {
+                    "description": "Identifier of the site's cohort.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "country": {
+                    "description": "ISO 3166-1 alpha-2 country code.",
+                    "pattern": "^[A-Z]{2}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI or CURIE of the subject, for example https://example.org/plot/A.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the subject.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "project": {
+                    "description": "Identifier of the project this subject belongs to.",
+                    "type": "string"
+                },
+                "siteKey": {
+                    "description": "The key that identifies the site in the project's records.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "siteKey",
+                "project",
+                "id"
+            ],
+            "title": "Site",
+            "type": "object"
+        },
+        "SocialCulturalIndexTypes": {
+            "description": "The social cultural indices for BT01 projects.",
+            "enum": [
+                "VERY_HIGH",
+                "HIGH",
+                "MEDIUM",
+                "LOW"
+            ],
+            "title": "SocialCulturalIndexTypes",
+            "type": "string"
+        },
+        "TenureBasis": {
+            "description": "",
+            "enum": [
+                "OWNERSHIP",
+                "LEASE",
+                "OTHER"
+            ],
+            "title": "TenureBasis",
+            "type": "string"
+        },
+        "VerdictType": {
+            "description": "Possible verdicts an attestor can assign when reviewing a claim.",
+            "enum": [
+                "PENDING",
+                "APPROVED",
+                "REJECTED",
+                "NEEDS_INFO"
+            ],
+            "title": "VerdictType",
+            "type": "string"
+        },
+        "VerificationMethodType": {
+            "description": "Kinds of verification method. A program declares which methods it accepts; this enumeration does not rank them.",
+            "enum": [
+                "SELF_ATTESTED",
+                "PEER_OR_COMMUNITY",
+                "LAB_MEASURED",
+                "SENSOR_DERIVED",
+                "MODEL_ESTIMATED",
+                "THIRD_PARTY_AUDITED",
+                "OTHER"
+            ],
+            "title": "VerificationMethodType",
+            "type": "string"
+        },
+        "VerificationStatus": {
+            "description": "Lifecycle states of a claim as it moves through verification. Each state represents increasing levels of assurance.",
+            "enum": [
+                "SELF_REPORTED",
+                "PEER_REVIEWED",
+                "VERIFIED",
+                "LEDGER_ANCHORED",
+                "WITHDRAWN"
+            ],
+            "title": "VerificationStatus",
+            "type": "string"
+        },
+        "VersionedLink": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Link to a valid URL where more information can be found about the entity / resource.",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version number of the resource / entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "title": "VersionedLink",
+            "type": "object"
+        }
+    },
+    "$id": "https://framework.regen.network/schema/",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.11.0",
+    "title": "Schemas",
+    "type": "object",
+    "version": "0.1.0"
+}
+
