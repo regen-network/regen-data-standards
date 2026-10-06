@@ -2,6 +2,7 @@
   "@context": {
     "@version": 1.1,
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
     "dcterms": "http://purl.org/dc/terms/",
     "geo": "http://www.opengis.net/ont/geosparql#",
     "linkml": "https://w3id.org/linkml/",
@@ -10,11 +11,31 @@
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
+    "sdgs": "https://sdgs.un.org/goals/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "unit": {
-      "@id": "qudt:unit"
-    },
+    "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "adoptionDate": {
+      "@type": "xsd:date",
+      "@id": "adoptionDate"
+    },
+    "aggregateStartDate": {
+      "@type": "xsd:date",
+      "@id": "aggregateStartDate"
+    },
+    "appliesRuleSet": {
+      "@type": "@id",
+      "@id": "appliesRuleSet"
+    },
+    "appliesTo": {
+      "@type": "@id",
+      "@id": "appliesTo"
+    },
+    "area": {
+      "@type": "@id",
+      "@id": "area"
+    },
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
@@ -22,40 +43,9 @@
     "asWKT": {
       "@id": "geo:asWKT"
     },
-    "attestationDate": {
-      "@type": "xsd:date",
-      "@id": "attestationDate"
-    },
-    "attestsClaim": {
-      "@id": "attestsClaim"
-    },
-    "contentHash": {
-      "@id": "contentHash"
-    },
-    "evidenceReviewed": {
-      "@type": "@id",
-      "@id": "evidenceReviewed"
-    },
-    "graphIri": {
-      "@type": "@id",
-      "@id": "graphIri"
-    },
-    "hasReviewer": {
-      "@type": "@id",
-      "@id": "hasReviewer"
-    },
-    "hasVerdict": {
-      "@id": "rfs:hasVerdict",
-      "@type": "@vocab",
-      "@context": {
-        "PENDING": "rft:Pending",
-        "APPROVED": "rft:Approved",
-        "REJECTED": "rft:Rejected",
-        "NEEDS_INFO": "rft:NeedsInfo"
-      }
-    },
-    "rationale": {
-      "@id": "rationale"
+    "baselineYear": {
+      "@type": "xsd:integer",
+      "@id": "baselineYear"
     },
     "biomeType": {
       "@id": "biomeType"
@@ -128,7 +118,42 @@
       "@type": "xsd:duration",
       "@id": "hasPermanencePeriod"
     },
-    "id": "@id",
+    "climateClass": {
+      "@id": "climateClass"
+    },
+    "cohort": {
+      "@type": "@id",
+      "@id": "cohort"
+    },
+    "conditionLabel": {
+      "@id": "conditionLabel"
+    },
+    "conditions": {
+      "@type": "@id",
+      "@id": "conditions"
+    },
+    "algorithm": {
+      "@id": "rfs:algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
+    "convertedFromNaturalEcosystem": {
+      "@type": "xsd:boolean",
+      "@id": "convertedFromNaturalEcosystem"
+    },
+    "country": {
+      "@id": "schema:addressCountry"
+    },
     "eligibleActivities": {
       "@id": "eligibleActivities",
       "@type": "@vocab",
@@ -234,6 +259,10 @@
       "@type": "@id",
       "@id": "managedUnderProgram"
     },
+    "creditingPeriod": {
+      "@type": "@id",
+      "@id": "creditingPeriod"
+    },
     "creditClassVersion": {
       "@id": "creditClassVersion"
     },
@@ -252,6 +281,51 @@
     "description": {
       "@id": "schema:description"
     },
+    "ecosystemTypes": {
+      "@id": "rfs:ecosystemTypes",
+      "@type": "@vocab",
+      "@context": {
+        "MARINE": "rft:Marine",
+        "CROPLAND": "rft:Cropland",
+        "URBAN_TREES": "rft:UrbanTrees",
+        "SHRUBLAND": "rft:Shrubland",
+        "PASTURE": "rft:Pasture",
+        "SAVANNA": "rft:Savanna",
+        "GRASSLAND": "rft:Grassland",
+        "AGROFORESTRY_SYSTEM": "rft:AgroforestrySystem",
+        "PERMANENT_ICE": "rft:PermanentIce",
+        "WETLAND": "rft:Wetland",
+        "FRESHWATER": "rft:Freshwater",
+        "ORCHARD": "rft:Orchard",
+        "AQUACULTURE_SYSTEM": "rft:AquacultureSystem",
+        "VINEYARD": "rft:Vineyard",
+        "DESERT": "rft:Desert",
+        "FOREST": "rft:Forest",
+        "IRRIGATED_CROPLAND": "rft:IrrigatedCropland",
+        "RAINFED_CROPLAND": "rft:RainfedCropland",
+        "TEMPERATE_SHRUBLAND": "rft:TemperateShrubland",
+        "BOREAL_SHRUBLAND": "rft:BorealShrubland",
+        "TROPICAL_SHRUBLAND": "rft:TropicalShrubland",
+        "MARSH": "rft:Marsh",
+        "BOG": "rft:Bog",
+        "SWAMP": "rft:Swamp",
+        "TROPICAL_FOREST": "rft:TropicalForest",
+        "TEMPERATE_FOREST": "rft:TemperateForest",
+        "BOREAL_FOREST": "rft:BorealForest",
+        "COASTAL": "rft:Coastal",
+        "DEEP_WATER": "rft:DeepWater",
+        "CORAL_REEF": "rft:CoralReef",
+        "TEMPERATE_GRASSLAND": "rft:TemperateGrassland",
+        "TUNDRA": "rft:Tundra",
+        "TROPICAL_GRASSLAND": "rft:TropicalGrassland",
+        "LAKE": "rft:Lake",
+        "WATERCOURSE": "rft:Watercourse"
+      }
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -260,6 +334,9 @@
         "ORGANIZATION": "rfs:Organization",
         "COMMUNITY": "rfs:Community"
       }
+    },
+    "exclusion": {
+      "@id": "exclusion"
     },
     "credit": {
       "@id": "dcterms:creator"
@@ -272,6 +349,24 @@
     "name": {
       "@id": "schema:name"
     },
+    "findingLabel": {
+      "@id": "findingLabel"
+    },
+    "findingType": {
+      "@id": "rfs:findingType",
+      "@type": "@vocab",
+      "@context": {
+        "CAR": "rfs:CorrectiveActionRequest",
+        "CL": "rfs:ClarificationRequest",
+        "FAR": "rfs:ForwardActionRequest",
+        "REGISTRY_ISSUE": "rfs:RegistryIssue",
+        "OTHER": "rfs:OtherFindingType"
+      }
+    },
+    "geometry": {
+      "@type": "@id",
+      "@id": "geometry"
+    },
     "hasBoundingBox": {
       "@type": "@id",
       "@id": "geo:hasBoundingBox"
@@ -283,17 +378,6 @@
     "hasClaimant": {
       "@type": "@id",
       "@id": "hasClaimant"
-    },
-    "hasClaimType": {
-      "@id": "rfs:hasClaimType",
-      "@type": "@vocab",
-      "@context": {
-        "ECOLOGICAL": "rft:Ecological",
-        "SOCIAL": "rft:Social",
-        "FINANCIAL": "rft:Financial",
-        "GOVERNANCE": "rft:Governance",
-        "BIOCULTURAL": "rft:Biocultural"
-      }
     },
     "hasEvidence": {
       "@type": "@id",
@@ -310,6 +394,10 @@
     "hasSubject": {
       "@type": "@id",
       "@id": "hasSubject"
+    },
+    "hasTarget": {
+      "@type": "@id",
+      "@id": "hasTarget"
     },
     "identifier": {
       "@id": "schema:identifier"
@@ -366,6 +454,37 @@
         "SDG_17": "https://sdgs.un.org/goals/goal17"
       }
     },
+    "isAggregateProject": {
+      "@type": "xsd:boolean",
+      "@id": "isAggregateProject"
+    },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "issuerRole": {
+      "@id": "rfs:issuerRole",
+      "@type": "@vocab",
+      "@context": {
+        "REGISTRY_AGENT": "rfs:RegistryAgent",
+        "VVB": "rfs:ValidationVerificationBody",
+        "CREDIT_CLASS_ADMIN": "rfs:CreditClassAdmin",
+        "OTHER": "rfs:OtherIssuerRole"
+      }
+    },
+    "justification": {
+      "@id": "justification"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "limitation": {
+      "@id": "limitation"
+    },
+    "locator": {
+      "@id": "locator"
+    },
     "extent": {
       "@type": "@id",
       "@id": "dcterms:extent"
@@ -401,6 +520,136 @@
         "AFFORESTATION": "rft:Afforestation",
         "REFORESTATION": "rft:Reforestation"
       }
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
+    "methodology": {
+      "@type": "@id",
+      "@id": "methodology"
+    },
+    "methodologyRole": {
+      "@id": "rfs:methodologyRole",
+      "@type": "@vocab",
+      "@context": {
+        "PRIMARY": "rfs:PrimaryMethodology",
+        "SUPPLEMENTARY": "rfs:SupplementaryMethodology"
+      }
+    },
+    "methodologyScope": {
+      "@id": "methodologyScope"
+    },
+    "methodologyUse": {
+      "@type": "@id",
+      "@id": "methodologyUse"
+    },
+    "milestone": {
+      "@id": "rfs:milestone",
+      "@type": "@vocab",
+      "@context": {
+        "REGISTRATION": "rfs:RegistrationMilestone",
+        "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
+        "VERIFICATION": "rfs:VerificationMilestone",
+        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
+      }
+    },
+    "monitoringIntervalJustification": {
+      "@id": "monitoringIntervalJustification"
+    },
+    "monitoringSampleDates": {
+      "@type": "xsd:date",
+      "@id": "monitoringSampleDates"
+    },
+    "outcome": {
+      "@type": "@id",
+      "@id": "outcome"
+    },
+    "parcelId": {
+      "@id": "parcelId"
+    },
+    "permanencePeriod": {
+      "@type": "@id",
+      "@id": "permanencePeriod"
+    },
+    "plotKey": {
+      "@id": "plotKey"
+    },
+    "practices": {
+      "@id": "rfs:practices",
+      "@type": "@vocab",
+      "@context": {
+        "RESIDUE_TILLAGE_MANAGEMENT": "rft:ResidueTillageManagement",
+        "BIOCHAR_PRODUCTION": "rft:BiocharProduction",
+        "IMPROVED_FOREST_MANAGEMENT": "rft:ImprovedForestManagement",
+        "AGROFORESTRY": "rft:Agroforestry",
+        "PRESCRIBED_GRAZING": "rft:PrescribedGrazing",
+        "RIPARIAN_FOREST_BUFFERS": "rft:RiparianForestBuffers",
+        "SOIL_AMENDMENTS": "rft:SoilAmendments",
+        "CONSERVATION": "rft:Conservation",
+        "ECOTOURISM": "rft:Ecotourism",
+        "COVER_CROPPING": "rft:CoverCropping",
+        "TREE_PLANTING": "rft:TreePlanting",
+        "PHOTOCATALYST_APPLICATION": "rft:PhotocatalystApplication",
+        "ECOSYSTEM_RESTORATION": "rft:EcosystemRestoration",
+        "INDUSTRIAL_BIOCHAR_PRODUCTION": "rft:IndustrialBiocharProduction",
+        "ARTISANAL_BIOCHAR_PRODUCTION": "rft:ArtisanalBiocharProduction",
+        "BIOCHAR": "rft:Biochar",
+        "ENHANCED_ROCK_WEATHERING": "rft:EnhancedRockWeathering",
+        "COMPOST_AMENDMENTS": "rft:CompostAmendments",
+        "KEYSTONE_SPECIES_CONSERVATION": "rft:KeystoneSpeciesConservation",
+        "UMBRELLA_SPECIES_CONSERVATION": "rft:UmbrellaSpeciesConservation",
+        "SILVOPASTURE": "rft:Silvopasture",
+        "FOREST_FARMING": "rft:ForestFarming",
+        "NON_URBAN_FOREST_IMPROVEMENT": "rft:NonUrbanForestImprovement",
+        "URBAN_FOREST_IMPROVEMENT": "rft:UrbanForestImprovement",
+        "AFFORESTATION": "rft:Afforestation",
+        "REFORESTATION": "rft:Reforestation"
+      }
+    },
+    "primaryLandUse": {
+      "@id": "rfs:primaryLandUse",
+      "@type": "@vocab",
+      "@context": {
+        "MARINE": "rft:Marine",
+        "CROPLAND": "rft:Cropland",
+        "URBAN_TREES": "rft:UrbanTrees",
+        "SHRUBLAND": "rft:Shrubland",
+        "PASTURE": "rft:Pasture",
+        "SAVANNA": "rft:Savanna",
+        "GRASSLAND": "rft:Grassland",
+        "AGROFORESTRY_SYSTEM": "rft:AgroforestrySystem",
+        "PERMANENT_ICE": "rft:PermanentIce",
+        "WETLAND": "rft:Wetland",
+        "FRESHWATER": "rft:Freshwater",
+        "ORCHARD": "rft:Orchard",
+        "AQUACULTURE_SYSTEM": "rft:AquacultureSystem",
+        "VINEYARD": "rft:Vineyard",
+        "DESERT": "rft:Desert",
+        "FOREST": "rft:Forest",
+        "IRRIGATED_CROPLAND": "rft:IrrigatedCropland",
+        "RAINFED_CROPLAND": "rft:RainfedCropland",
+        "TEMPERATE_SHRUBLAND": "rft:TemperateShrubland",
+        "BOREAL_SHRUBLAND": "rft:BorealShrubland",
+        "TROPICAL_SHRUBLAND": "rft:TropicalShrubland",
+        "MARSH": "rft:Marsh",
+        "BOG": "rft:Bog",
+        "SWAMP": "rft:Swamp",
+        "TROPICAL_FOREST": "rft:TropicalForest",
+        "TEMPERATE_FOREST": "rft:TemperateForest",
+        "BOREAL_FOREST": "rft:BorealForest",
+        "COASTAL": "rft:Coastal",
+        "DEEP_WATER": "rft:DeepWater",
+        "CORAL_REEF": "rft:CoralReef",
+        "TEMPERATE_GRASSLAND": "rft:TemperateGrassland",
+        "TUNDRA": "rft:Tundra",
+        "TROPICAL_GRASSLAND": "rft:TropicalGrassland",
+        "LAKE": "rft:Lake",
+        "WATERCOURSE": "rft:Watercourse"
+      }
+    },
+    "project": {
+      "@type": "@id",
+      "@id": "project"
     },
     "projectEndDate": {
       "@id": "schema:endDate"
@@ -551,9 +800,16 @@
     "projectStartDate": {
       "@id": "schema:startDate"
     },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
     "numericValue": {
       "@type": "xsd:float",
-      "@id": "qudt:numericValue"
+      "@id": "qudt:value"
+    },
+    "rationale": {
+      "@id": "rationale"
     },
     "referenceType": {
       "@id": "referenceType"
@@ -562,9 +818,103 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "registryProjectId": {
+      "@id": "registryProjectId"
+    },
+    "reliesOn": {
+      "@type": "@id",
+      "@id": "reliesOn"
+    },
+    "replacedParameters": {
+      "@id": "replacedParameters"
+    },
+    "requestedDeviations": {
+      "@type": "@id",
+      "@id": "requestedDeviations"
+    },
+    "requirement": {
+      "@type": "@id",
+      "@id": "requirement"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "scope": {
+      "@type": "@id",
+      "@id": "scope"
+    },
+    "site": {
+      "@type": "@id",
+      "@id": "site"
+    },
+    "siteKey": {
+      "@id": "siteKey"
+    },
+    "siteProjectStartDate": {
+      "@type": "xsd:date",
+      "@id": "siteProjectStartDate"
+    },
+    "soilGroup": {
+      "@id": "soilGroup"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "startDateBasis": {
+      "@id": "startDateBasis"
+    },
+    "tenureBasis": {
+      "@id": "rfs:tenureBasis",
+      "@type": "@vocab",
+      "@context": {
+        "OWNERSHIP": "rfs:Ownership",
+        "LEASE": "rfs:Lease",
+        "OTHER": "rfs:OtherTenure"
+      }
+    },
+    "unbounded": {
+      "@type": "xsd:boolean",
+      "@id": "unbounded"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "verificationMethod": {
+      "@id": "rfs:verificationMethod",
+      "@type": "@vocab",
+      "@context": {
+        "SELF_ATTESTED": "rfs:SelfAttested",
+        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
+        "LAB_MEASURED": "rfs:LabMeasured",
+        "SENSOR_DERIVED": "rfs:SensorDerived",
+        "MODEL_ESTIMATED": "rfs:ModelEstimated",
+        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
+        "OTHER": "rfs:OtherVerificationMethod"
+      }
+    },
+    "verificationMethodDescriptor": {
+      "@id": "verificationMethodDescriptor"
     },
     "version": {
       "@id": "schema:version"
@@ -577,9 +927,16 @@
       "@type": "@id",
       "@id": "prov:wasAttributedTo"
     },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
     "wasRevisionOf": {
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
     },
     "Any": {
       "@id": "linkml:Any"
@@ -599,6 +956,21 @@
     "C02ProjectInfo": {
       "@id": "C02ProjectInfo"
     },
+    "C06CohortClaim": {
+      "@id": "C06CohortClaim"
+    },
+    "C06PlotClaim": {
+      "@id": "C06PlotClaim"
+    },
+    "C06ProjectClaim": {
+      "@id": "C06ProjectClaim"
+    },
+    "C06ProjectStatementClaim": {
+      "@id": "C06ProjectStatementClaim"
+    },
+    "C06SiteClaim": {
+      "@id": "C06SiteClaim"
+    },
     "CarbonCreditClassInfo": {
       "@id": "CarbonCreditClassInfo"
     },
@@ -607,6 +979,15 @@
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
+    },
+    "Cohort": {
+      "@id": "Cohort"
+    },
+    "Condition": {
+      "@id": "Condition"
+    },
+    "ContentDigest": {
+      "@id": "ContentDigest"
     },
     "CreditClassInfo": {
       "@id": "CreditClassInfo"
@@ -619,6 +1000,12 @@
     },
     "CreditProtocol": {
       "@id": "CreditProtocol"
+    },
+    "DatePeriod": {
+      "@id": "DatePeriod"
+    },
+    "DeviationRequest": {
+      "@id": "DeviationRequest"
     },
     "Entity": {
       "@id": "Entity"
@@ -655,6 +1042,15 @@
     "Methodology": {
       "@id": "Methodology"
     },
+    "MethodologyUse": {
+      "@id": "MethodologyUse"
+    },
+    "Plot": {
+      "@id": "Plot"
+    },
+    "Project": {
+      "@id": "Project"
+    },
     "ProjectInfo": {
       "@id": "ProjectInfo"
     },
@@ -684,6 +1080,18 @@
     "Registry": {
       "@id": "Registry"
     },
+    "RegistryFindingAttestation": {
+      "@id": "RegistryFindingAttestation"
+    },
+    "RegistryReviewAttestation": {
+      "@id": "RegistryReviewAttestation"
+    },
+    "Scope": {
+      "@id": "Scope"
+    },
+    "Site": {
+      "@id": "Site"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
@@ -691,7 +1099,6 @@
   "@type": "Claim",
   "name": "Hedgerow planting on plot A, spring 2026 (corrected length)",
   "description": "Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
-  "hasClaimType": "ECOLOGICAL",
   "hasClaimant": [
     {
       "@type": "Entity",
@@ -709,7 +1116,17 @@
     {
       "@type": "Evidence",
       "id": "https://example.org/evidence/planting-log-2026-v2.pdf#page=2",
-      "name": "Planting log, spring 2026 (v2)"
+      "name": "Planting log, spring 2026 (v2)",
+      "sourceType": "TEXT",
+      "mediaType": "application/pdf",
+      "contentHash": {
+        "@type": "ContentDigest",
+        "algorithm": "SHA_256",
+        "digestValue": "7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5"
+      },
+      "resolver": [
+        "https://example.org/evidence/planting-log-2026-v2.pdf"
+      ]
     }
   ],
   "wasRevisionOf": "https://example.org/placeholder/claim-iri/generic-claim-v1"

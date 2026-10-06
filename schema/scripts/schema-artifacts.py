@@ -492,7 +492,8 @@ def check(base):
         print(f"❌ {failure}")
     if failures:
         sys.exit(f"{len(failures)} schema artifact check(s) failed")
-    print(f"✅ {MANIFEST}: {len(manifest['versions'])} versions, current {current}")
+    count = len(manifest["versions"])
+    print(f"✅ {MANIFEST}: {count} version{'s' if count != 1 else ''}, current {current}")
 
 
 def main():
