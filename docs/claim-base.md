@@ -87,7 +87,9 @@ slots it lists.
 Two slots of the base Claim are plain IRI references: `wasRevisionOf` and `reliesOn`, with
 `range: uriorcurie`, as is `references`, the parent of `reliesOn`. Their values are always exact Claim
 or Evaluation versions, described by their own records, so "must be an IRI" is the only rule that
-makes sense for them. Since LinkML 1.11
+makes sense for them. The slots name no class, because a Claim or Evaluation has no identifier slot:
+a version's ClaimIRI is computed over its canonical form by
+[claims#1](https://github.com/regen-network/claims/issues/1), outside Claim content. Since LinkML 1.11
 ([#84](https://github.com/regen-network/regen-data-standards/issues/84)), such a value is an IRI node
 in the Turtle output and the generated SHACL requires `sh:nodeKind sh:IRI` with no class, which is
 that rule. By default the generated JSON-LD context and OWL still treat it as an `xsd:anyURI`
