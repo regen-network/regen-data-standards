@@ -59,7 +59,8 @@ class ExampleEntryPointTests(unittest.TestCase):
         self.assertTrue(self.check_example("UnrelatedRecord"))
 
     def test_nested_claim_cannot_supply_the_root_type(self):
-        self.assertTrue(self.check_example("UnrelatedRecord", nested_claim=True))
+        failures = self.check_example("UnrelatedRecord", nested_claim=True)
+        self.assertIn("root does not have entry-point RDF type", "\n".join(failures))
 
     def test_missing_type_cannot_pass_without_a_shacl_target(self):
         self.assertTrue(self.check_example(None))
