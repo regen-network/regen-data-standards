@@ -30,9 +30,13 @@ classes:
       - conditions
     slot_usage:
       outcome:
+        required: true
         description: >-
           The verdict, as the IRI of a RegistryReviewOutcome term, for example
-          rfs:ApprovedForRegistration.
+          rfs:ApprovedForRegistration. Required: a registry review is recorded
+          when there is a judgment, and each dated record states its verdict or
+          the finding's status as of its date. A requirement that cannot yet be
+          decided is rfs:RequirementPending, not an omitted outcome.
       issuerRole:
         required: true
 

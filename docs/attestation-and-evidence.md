@@ -185,7 +185,11 @@ without evidence being rejected). Later assessments of a finding, and replies to
 `outcome` values are the IRIs of the `RegistryReviewOutcome` terms: the four registration
 determinations (`rfs:ApprovedForRegistration`, `rfs:NotApproved`, `rfs:RequirementPending`,
 `rfs:NotApplicable`) and the finding states (`rfs:FindingOpen`, `rfs:FindingClosed`), each stated as of
-the attestation's date.
+the attestation's date. `outcome` is required on every `RegistryReviewAttestation`: a review is recorded when
+there is a judgment, so a requirement that cannot yet be decided is `rfs:RequirementPending`, never an
+omitted outcome ([example](../schema/examples/registry-review-attestation.INVALID-without-outcome.yaml)
+of a review without one being rejected). On the base `Attestation`, which no program vocabulary
+constrains, `outcome` stays optional.
 
 ## Evidence
 
