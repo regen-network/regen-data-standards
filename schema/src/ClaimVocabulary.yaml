@@ -149,7 +149,7 @@ slots:
 enums:
   VerificationMethodType:
     description: >-
-      Kinds of verification method (story map CS-4). A program declares which
+      Kinds of verification method. A program declares which
       methods it accepts; this enumeration does not rank them.
     permissible_values:
       SELF_ATTESTED:
