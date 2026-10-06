@@ -214,6 +214,7 @@ classes:
     slot_usage:
       requirement:
         required: true
+        minimum_cardinality: 1
       replacedParameters:
         required: true
 

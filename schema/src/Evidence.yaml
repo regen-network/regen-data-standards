@@ -109,6 +109,7 @@ slots:
     multivalued: true
     list_elements_ordered: false
     required: true
+    minimum_cardinality: 1
   locator:
     slot_uri: rfs:locator
     description: >-
