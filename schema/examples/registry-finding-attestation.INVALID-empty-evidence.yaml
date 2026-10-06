@@ -1,6 +1,6 @@
 # expect: [] should be non-empty
 # class: RegistryFindingAttestation
-# A finding cites at least one piece of evidence (story map CS-3): an empty list
+# A finding cites at least one piece of evidence: an empty list
 # is rejected like a missing one.
 name: Clarification request on the crediting period structure
 hasClaimant:

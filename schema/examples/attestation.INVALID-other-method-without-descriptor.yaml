@@ -2,7 +2,7 @@
 # class: Attestation
 # shacl: not enforced
 # A verification method outside the enumeration is described, so the method is
-# never empty (story map CS-4). This is a LinkML rule, which the generated JSON
+# never empty. This is a LinkML rule, which the generated JSON
 # Schema enforces and the generated SHACL does not express.
 name: Steward review of the plot A hedgerow planting
 hasClaimant:
