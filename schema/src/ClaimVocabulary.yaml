@@ -66,7 +66,8 @@ slots:
       or version-family identifier. Stating a revision neither makes this
       version current nor carries over any attestation of the earlier one;
       which version an application accepts is maintained outside the
-      resource.
+      resource. The value is a bare IRI: this schema does not describe the
+      earlier version, so the slot names no class.
     range: uriorcurie
   references:
     slot_uri: dcterms:references
@@ -74,7 +75,12 @@ slots:
       Dublin Core citation: a resource the described resource references,
       cites or otherwise points to. Declared here so that narrower relations,
       such as hasEvidence, can specialize it (rdfs:subPropertyOf); a citation
-      alone asserts neither derivation nor support. Unordered set.
+      alone asserts neither derivation nor support. Each value is the IRI of
+      the cited resource. A citation asserts nothing about that resource: its
+      description, type and integrity information live on the resource
+      itself, shaped by its own schema. A subproperty that describes the cited
+      resource narrows the range to a class with an identifier slot, as
+      hasEvidence does with Evidence. Unordered set.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
