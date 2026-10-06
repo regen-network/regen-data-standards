@@ -84,8 +84,7 @@ issuer), timed (`assertedAt`), about a subject, citing evidence, immutable, and 
 subject, because some judgments, such as a determination that a project meets a requirement, have no
 single target claim.
 
-It comes in two layers, following the story map's split between the claim substrate shared by every
-program and one program's logic:
+It comes in two layers: what every program's judgments share, and one program's review vocabulary:
 
 ```mermaid
 classDiagram
@@ -94,7 +93,7 @@ classDiagram
         <<base, #85>>
     }
     class Attestation {
-        <<Layer 1>>
+        <<every program>>
         hasTarget
         reliesOn
         requirement
@@ -111,7 +110,7 @@ classDiagram
         limitation
     }
     class RegistryReviewAttestation {
-        <<Layer 2, Regen Registry>>
+        <<Regen Registry>>
         findingLabel
         issuerRole
         conditions
@@ -143,20 +142,20 @@ fields the other judgments do not: a finding type and at least one piece of evid
 | `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | Exact versions judged or answered. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Versions the judgment depends on without judging them, such as a claim stating an enrolment cutoff. |
 | `requirement` | `rfs:requirement` | IRI | 0..*, set | Requirements judged, each named within a checklist version. |
-| `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied (PG-1). |
+| `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
-| `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked (CS-4). |
+| `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked. |
 | `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
-| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets (AD-1). Exclusive with `scope`. |
+| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets. Exclusive with `scope`. |
 
 **Scope.** `appliesTo` (subject IRIs, required: a scope always names the subjects it covers),
 `exclusion` (what it explicitly does not cover) and `limitation` (what the judgment is not, for example
 "confirms the project structure; does not validate its evidence"). An attestation without a scope
 applies only to what it targets; `unbounded: true` states explicitly that it has no limits, so an
-unlimited approval is never an omission (AD-1;
-[example](../schema/examples/attestation.INVALID-scope-without-subjects.yaml) of an empty scope being
+unlimited approval is never an omission
+([example](../schema/examples/attestation.INVALID-scope-without-subjects.yaml) of an empty scope being
 rejected). The two are exclusive: an attestation with a scope does not state `unbounded`, so a consumer
 never has to choose between them ([example](../schema/examples/attestation.INVALID-scope-and-unbounded.yaml),
 rejected by JSON Schema only; see [Known limitations](#known-limitations)). A scope is a blank node inside the attestation and part of its content. Checking whether a subject is covered is a query; for the
@@ -179,8 +178,8 @@ enrolment-cutoff claim the approval depends on.
 
 **`RegistryFindingAttestation`** (`is_a RegistryReviewAttestation`) is a finding: a corrective action,
 clarification or forward action request, or a material issue raised by the Registry Agent. It requires
-`findingType` (`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`) and at least one piece of evidence (CS-3;
-[example](../schema/examples/registry-finding-attestation.INVALID-without-evidence.yaml) of a finding
+`findingType` (`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`) and at least one piece of evidence
+([example](../schema/examples/registry-finding-attestation.INVALID-without-evidence.yaml) of a finding
 without evidence being rejected). Later assessments of a finding, and replies to it, are
 `RegistryReviewAttestation`s that target it and carry the same `findingLabel`.
 
@@ -206,7 +205,7 @@ and states the usage terms that applied to that version.
 | `sourceType` | `dcterms:type` | DCMI Type Vocabulary | 1 | `TEXT`, `DATASET`, `STILL_IMAGE`… Finer kinds a program accepts belong to its rule set. |
 | `mediaType` | `dcterms:format` | string | 0..1 | For example `application/pdf`. |
 | `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version. |
-| `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source (CS-3). |
+| `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source. |
 | `locator` | `rfs:locator` | string | 0..1 | Position inside the source when the fragment is not enough. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
@@ -229,9 +228,9 @@ the records that support it.
 versioned terms document whose IRI changes when the terms change, so a citation keeps the version it was
 made under. When `licence` is absent, the terms are `unspecified — all rights reserved`
 (`rfs:UnspecifiedAllRightsReserved`), never unrestricted. Terms as structured fields (permitted uses,
-prohibitions, attribution, fees, effective dates) belong to story EX-2, which the Work Packages place in
-Layer 3, to be tested with data owners before any implementation; the WP8-01 records state no licence
-terms to model. When EX-2 is taken up, the W3C ODRL model (permissions, prohibitions, duties) is the
+prohibitions, attribution, fees, effective dates) are left for later work, to be tested with data
+owners before any implementation; the WP8-01 records state no licence terms to model. When they are
+taken up, the W3C ODRL model (permissions, prohibitions, duties) is the
 first candidate to reuse.
 
 **Integrity and access outcomes** (`EvidenceCheckOutcome`: `EVIDENCE_INTACT`, `EVIDENCE_ALTERED`,
@@ -246,14 +245,14 @@ spreadsheet or database, is cited through a captured export and its hash.
 
 ## Shared terms
 
-**Verification method** (CS-4): `SELF_ATTESTED`, `PEER_OR_COMMUNITY`, `LAB_MEASURED`,
+**Verification method:** `SELF_ATTESTED`, `PEER_OR_COMMUNITY`, `LAB_MEASURED`,
 `SENSOR_DERIVED`, `MODEL_ESTIMATED`, `THIRD_PARTY_AUDITED`, `OTHER` with
 `verificationMethodDescriptor`. Required on attestations, one per attestation: its party and date are
 the issuer and `assertedAt`, so a subject checked by two methods has two attestations, each with its own
-party and date (CS-4). A claim with no attestation is self-attested by the base Claim's definition. The
+party and date. A claim with no attestation is self-attested by the base Claim's definition. The
 extension path is `OTHER` with a descriptor, then a new value in a later schema version.
 
-**Rule-set version** (`appliesRuleSet`, PG-1) and **requirement** (`requirement`) references are IRIs
+**Rule-set version** (`appliesRuleSet`) and **requirement** (`requirement`) references are IRIs
 of exact versions. A requirement IRI names its checklist version, because the same short ID can name
 different requirements in different versions; mapping historical IDs to current ones is rule-set data.
 Neither is a schema-version declaration.
@@ -385,13 +384,13 @@ the source.
   IRI-valued slot to an enum in a subclass (the generated Python model of the base class rejects the
   enum value), so `RegistryReviewAttestation.outcome` accepts any IRI. The vocabulary is documented by
   the `RegistryReviewOutcome` enum.
-- **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (CS-4: the verification
-  method is never empty), and a scope and `unbounded` being exclusive (AD-1). Both are LinkML rules, and
+- **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (the verification method is
+  never empty), and a scope and `unbounded` being exclusive. Both are LinkML rules, and
   LinkML's SHACL generator does not translate rules: 1.11.1 ignores them, and the unreleased support
   ([linkml/linkml#3451](https://github.com/linkml/linkml/pull/3451)) covers other patterns
   ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)). SHACL itself can express both
-  with `sh:or`. The other two conditional rules, evidence on a finding (CS-3) and a
-  scope that names its subjects (AD-1), are expressed as class and slot constraints, which both
+  with `sh:or`. The other two conditional rules, evidence on a finding and a scope
+  that names its subjects, are expressed as class and slot constraints, which both
   validators enforce.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
