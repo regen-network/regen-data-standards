@@ -14,8 +14,8 @@ hasSubject:
   project: https://example.org/c06/project/P-001
 siteProjectStartDate: "2022-03-15"
 hasEvidence:
-  - id: https://example.org/c06/project-plan-v2.0.pdf#page=16
-    name: Example project plan v2.0, section 1.8
+  - id: https://example.org/c06/project-plan-v2.1.pdf#page=16
+    name: Example project plan v2.1, section 1.8
     sourceType: TEXT
     resolver:
-      - https://example.org/c06/project-plan-v2.0.pdf
+      - https://example.org/c06/project-plan-v2.1.pdf

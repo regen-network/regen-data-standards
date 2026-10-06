@@ -304,7 +304,7 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-02-02T00:00:00Z",
+  "assertedAt": "2026-03-02T00:00:00Z",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/c06/project/P-001",
