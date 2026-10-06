@@ -1,0 +1,18 @@
+# expect: 'hasEvidence' is a required property
+# class: RegistryFindingAttestation
+# A finding cites at least one piece of evidence.
+name: Clarification request on the crediting period structure
+hasClaimant:
+  - name: Example Verifier
+    type: ORGANIZATION
+assertedAt: "2026-03-02T00:00:00Z"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+  name: Example project P-001
+hasTarget:
+  - https://example.org/placeholder/claim-iri/developer-crediting-period
+outcome: rfs:FindingOpen
+verificationMethod: THIRD_PARTY_AUDITED
+issuerRole: VVB
+findingType: CL
+findingLabel: CL 07(1)

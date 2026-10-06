@@ -1,0 +1,535 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rfs": "https://framework.regen.network/schema/",
+    "rft": "https://framework.regen.network/taxonomy/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "unit": "http://qudt.org/vocab/unit/",
+    "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "adoptionDate": {
+      "@type": "xsd:date",
+      "@id": "adoptionDate"
+    },
+    "aggregateStartDate": {
+      "@type": "xsd:date",
+      "@id": "aggregateStartDate"
+    },
+    "appliesRuleSet": {
+      "@type": "@id",
+      "@id": "appliesRuleSet"
+    },
+    "area": {
+      "@type": "@id",
+      "@id": "area"
+    },
+    "assertedAt": {
+      "@type": "xsd:dateTime",
+      "@id": "assertedAt"
+    },
+    "baselineYear": {
+      "@type": "xsd:integer",
+      "@id": "baselineYear"
+    },
+    "climateClass": {
+      "@id": "climateClass"
+    },
+    "cohort": {
+      "@type": "@id",
+      "@id": "cohort"
+    },
+    "algorithm": {
+      "@id": "algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
+    "convertedFromNaturalEcosystem": {
+      "@type": "xsd:boolean",
+      "@id": "convertedFromNaturalEcosystem"
+    },
+    "country": {
+      "@id": "schema:addressCountry"
+    },
+    "creditingPeriod": {
+      "@type": "@id",
+      "@id": "creditingPeriod"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "ecosystemTypes": {
+      "@id": "ecosystemTypes",
+      "@type": "@vocab",
+      "@context": {
+        "MARINE": "rft:Marine",
+        "CROPLAND": "rft:Cropland",
+        "URBAN_TREES": "rft:UrbanTrees",
+        "SHRUBLAND": "rft:Shrubland",
+        "PASTURE": "rft:Pasture",
+        "SAVANNA": "rft:Savanna",
+        "GRASSLAND": "rft:Grassland",
+        "AGROFORESTRY_SYSTEM": "rft:AgroforestrySystem",
+        "PERMANENT_ICE": "rft:PermanentIce",
+        "WETLAND": "rft:Wetland",
+        "FRESHWATER": "rft:Freshwater",
+        "ORCHARD": "rft:Orchard",
+        "AQUACULTURE_SYSTEM": "rft:AquacultureSystem",
+        "VINEYARD": "rft:Vineyard",
+        "DESERT": "rft:Desert",
+        "FOREST": "rft:Forest",
+        "IRRIGATED_CROPLAND": "rft:IrrigatedCropland",
+        "RAINFED_CROPLAND": "rft:RainfedCropland",
+        "TEMPERATE_SHRUBLAND": "rft:TemperateShrubland",
+        "BOREAL_SHRUBLAND": "rft:BorealShrubland",
+        "TROPICAL_SHRUBLAND": "rft:TropicalShrubland",
+        "MARSH": "rft:Marsh",
+        "BOG": "rft:Bog",
+        "SWAMP": "rft:Swamp",
+        "TROPICAL_FOREST": "rft:TropicalForest",
+        "TEMPERATE_FOREST": "rft:TemperateForest",
+        "BOREAL_FOREST": "rft:BorealForest",
+        "COASTAL": "rft:Coastal",
+        "DEEP_WATER": "rft:DeepWater",
+        "CORAL_REEF": "rft:CoralReef",
+        "TEMPERATE_GRASSLAND": "rft:TemperateGrassland",
+        "TUNDRA": "rft:Tundra",
+        "TROPICAL_GRASSLAND": "rft:TropicalGrassland",
+        "LAKE": "rft:Lake",
+        "WATERCOURSE": "rft:Watercourse"
+      }
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "geometry": {
+      "@type": "@id",
+      "@id": "geometry"
+    },
+    "hasClaimant": {
+      "@type": "@id",
+      "@id": "hasClaimant"
+    },
+    "hasEvidence": {
+      "@type": "@id",
+      "@id": "hasEvidence"
+    },
+    "hasSubject": {
+      "@type": "@id",
+      "@id": "hasSubject"
+    },
+    "hasTarget": {
+      "@type": "@id",
+      "@id": "hasTarget"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "isAggregateProject": {
+      "@type": "xsd:boolean",
+      "@id": "isAggregateProject"
+    },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "justification": {
+      "@id": "justification"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "locator": {
+      "@id": "locator"
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
+    "methodology": {
+      "@type": "@id",
+      "@id": "methodology"
+    },
+    "methodologyRole": {
+      "@id": "methodologyRole",
+      "@type": "@vocab",
+      "@context": {
+        "PRIMARY": "rfs:PrimaryMethodology",
+        "SUPPLEMENTARY": "rfs:SupplementaryMethodology"
+      }
+    },
+    "methodologyScope": {
+      "@id": "methodologyScope"
+    },
+    "methodologyUse": {
+      "@type": "@id",
+      "@id": "methodologyUse"
+    },
+    "monitoringIntervalJustification": {
+      "@id": "monitoringIntervalJustification"
+    },
+    "monitoringSampleDates": {
+      "@type": "xsd:date",
+      "@id": "monitoringSampleDates"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "parcelId": {
+      "@id": "parcelId"
+    },
+    "permanencePeriod": {
+      "@type": "@id",
+      "@id": "permanencePeriod"
+    },
+    "plotKey": {
+      "@id": "plotKey"
+    },
+    "practices": {
+      "@id": "practices",
+      "@type": "@vocab",
+      "@context": {
+        "RESIDUE_TILLAGE_MANAGEMENT": "rft:ResidueTillageManagement",
+        "BIOCHAR_PRODUCTION": "rft:BiocharProduction",
+        "IMPROVED_FOREST_MANAGEMENT": "rft:ImprovedForestManagement",
+        "AGROFORESTRY": "rft:Agroforestry",
+        "PRESCRIBED_GRAZING": "rft:PrescribedGrazing",
+        "RIPARIAN_FOREST_BUFFERS": "rft:RiparianForestBuffers",
+        "SOIL_AMENDMENTS": "rft:SoilAmendments",
+        "CONSERVATION": "rft:Conservation",
+        "ECOTOURISM": "rft:Ecotourism",
+        "COVER_CROPPING": "rft:CoverCropping",
+        "TREE_PLANTING": "rft:TreePlanting",
+        "PHOTOCATALYST_APPLICATION": "rft:PhotocatalystApplication",
+        "ECOSYSTEM_RESTORATION": "rft:EcosystemRestoration",
+        "INDUSTRIAL_BIOCHAR_PRODUCTION": "rft:IndustrialBiocharProduction",
+        "ARTISANAL_BIOCHAR_PRODUCTION": "rft:ArtisanalBiocharProduction",
+        "BIOCHAR": "rft:Biochar",
+        "ENHANCED_ROCK_WEATHERING": "rft:EnhancedRockWeathering",
+        "COMPOST_AMENDMENTS": "rft:CompostAmendments",
+        "KEYSTONE_SPECIES_CONSERVATION": "rft:KeystoneSpeciesConservation",
+        "UMBRELLA_SPECIES_CONSERVATION": "rft:UmbrellaSpeciesConservation",
+        "SILVOPASTURE": "rft:Silvopasture",
+        "FOREST_FARMING": "rft:ForestFarming",
+        "NON_URBAN_FOREST_IMPROVEMENT": "rft:NonUrbanForestImprovement",
+        "URBAN_FOREST_IMPROVEMENT": "rft:UrbanForestImprovement",
+        "AFFORESTATION": "rft:Afforestation",
+        "REFORESTATION": "rft:Reforestation"
+      }
+    },
+    "primaryLandUse": {
+      "@id": "primaryLandUse",
+      "@type": "@vocab",
+      "@context": {
+        "MARINE": "rft:Marine",
+        "CROPLAND": "rft:Cropland",
+        "URBAN_TREES": "rft:UrbanTrees",
+        "SHRUBLAND": "rft:Shrubland",
+        "PASTURE": "rft:Pasture",
+        "SAVANNA": "rft:Savanna",
+        "GRASSLAND": "rft:Grassland",
+        "AGROFORESTRY_SYSTEM": "rft:AgroforestrySystem",
+        "PERMANENT_ICE": "rft:PermanentIce",
+        "WETLAND": "rft:Wetland",
+        "FRESHWATER": "rft:Freshwater",
+        "ORCHARD": "rft:Orchard",
+        "AQUACULTURE_SYSTEM": "rft:AquacultureSystem",
+        "VINEYARD": "rft:Vineyard",
+        "DESERT": "rft:Desert",
+        "FOREST": "rft:Forest",
+        "IRRIGATED_CROPLAND": "rft:IrrigatedCropland",
+        "RAINFED_CROPLAND": "rft:RainfedCropland",
+        "TEMPERATE_SHRUBLAND": "rft:TemperateShrubland",
+        "BOREAL_SHRUBLAND": "rft:BorealShrubland",
+        "TROPICAL_SHRUBLAND": "rft:TropicalShrubland",
+        "MARSH": "rft:Marsh",
+        "BOG": "rft:Bog",
+        "SWAMP": "rft:Swamp",
+        "TROPICAL_FOREST": "rft:TropicalForest",
+        "TEMPERATE_FOREST": "rft:TemperateForest",
+        "BOREAL_FOREST": "rft:BorealForest",
+        "COASTAL": "rft:Coastal",
+        "DEEP_WATER": "rft:DeepWater",
+        "CORAL_REEF": "rft:CoralReef",
+        "TEMPERATE_GRASSLAND": "rft:TemperateGrassland",
+        "TUNDRA": "rft:Tundra",
+        "TROPICAL_GRASSLAND": "rft:TropicalGrassland",
+        "LAKE": "rft:Lake",
+        "WATERCOURSE": "rft:Watercourse"
+      }
+    },
+    "project": {
+      "@type": "@id",
+      "@id": "project"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "references": {
+      "@type": "@id",
+      "@id": "dcterms:references"
+    },
+    "registryProjectId": {
+      "@id": "registryProjectId"
+    },
+    "reliesOn": {
+      "@type": "@id",
+      "@id": "reliesOn"
+    },
+    "replacedParameters": {
+      "@id": "replacedParameters"
+    },
+    "requestedDeviations": {
+      "@type": "@id",
+      "@id": "requestedDeviations"
+    },
+    "requirement": {
+      "@type": "@id",
+      "@id": "requirement"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "site": {
+      "@type": "@id",
+      "@id": "site"
+    },
+    "siteKey": {
+      "@id": "siteKey"
+    },
+    "siteProjectStartDate": {
+      "@type": "xsd:date",
+      "@id": "siteProjectStartDate"
+    },
+    "soilGroup": {
+      "@id": "soilGroup"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "startDateBasis": {
+      "@id": "startDateBasis"
+    },
+    "tenureBasis": {
+      "@id": "tenureBasis",
+      "@type": "@vocab",
+      "@context": {
+        "OWNERSHIP": "rfs:Ownership",
+        "LEASE": "rfs:Lease",
+        "OTHER": "rfs:OtherTenure"
+      }
+    },
+    "url": {
+      "@type": "@id",
+      "@id": "schema:url"
+    },
+    "verificationMethod": {
+      "@id": "verificationMethod",
+      "@type": "@vocab",
+      "@context": {
+        "SELF_ATTESTED": "rfs:SelfAttested",
+        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
+        "LAB_MEASURED": "rfs:LabMeasured",
+        "SENSOR_DERIVED": "rfs:SensorDerived",
+        "MODEL_ESTIMATED": "rfs:ModelEstimated",
+        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
+        "OTHER": "rfs:OtherVerificationMethod"
+      }
+    },
+    "verificationMethodDescriptor": {
+      "@id": "verificationMethodDescriptor"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "@id",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "wasAttributedTo": {
+      "@type": "@id",
+      "@id": "prov:wasAttributedTo"
+    },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
+    "wasRevisionOf": {
+      "@type": "@id",
+      "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
+    },
+    "C06CohortClaim": {
+      "@id": "C06CohortClaim"
+    },
+    "C06PlotClaim": {
+      "@id": "C06PlotClaim"
+    },
+    "C06ProjectClaim": {
+      "@id": "C06ProjectClaim"
+    },
+    "C06ProjectStatementClaim": {
+      "@id": "C06ProjectStatementClaim"
+    },
+    "C06SiteClaim": {
+      "@id": "C06SiteClaim"
+    },
+    "Claim": {
+      "@id": "Claim"
+    },
+    "ClaimSubject": {
+      "@id": "ClaimSubject"
+    },
+    "Cohort": {
+      "@id": "Cohort"
+    },
+    "ContentDigest": {
+      "@id": "ContentDigest"
+    },
+    "DatePeriod": {
+      "@id": "DatePeriod"
+    },
+    "DeviationRequest": {
+      "@id": "DeviationRequest"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "Evidence": {
+      "@id": "Evidence"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "MethodologyUse": {
+      "@id": "MethodologyUse"
+    },
+    "Plot": {
+      "@id": "Plot"
+    },
+    "Project": {
+      "@id": "Project"
+    },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "Site": {
+      "@id": "Site"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "C06CohortClaim",
+  "name": "Example project P-001, 2021 cohort periods",
+  "hasClaimant": [
+    {
+      "@type": "Entity",
+      "name": "Example Soil Carbon Developer",
+      "type": "ORGANIZATION"
+    }
+  ],
+  "assertedAt": "2026-02-20T00:00:00Z",
+  "hasSubject": {
+    "@type": "Cohort",
+    "id": "https://example.org/c06/cohort/P-001-2021",
+    "name": "Example project P-001, 2021 cohort",
+    "baselineYear": 2021,
+    "project": "https://example.org/c06/project/P-001"
+  },
+  "creditingPeriod": {
+    "@type": "DatePeriod",
+    "startDate": "2021-04-15",
+    "endDate": "2031-04-14"
+  },
+  "permanencePeriod": {
+    "@type": "DatePeriod",
+    "startDate": "2031-04-15",
+    "endDate": "2041-04-14"
+  },
+  "hasEvidence": [
+    {
+      "@type": "Evidence",
+      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=8",
+      "name": "Example project plan v2.0",
+      "sourceType": "TEXT",
+      "mediaType": "application/pdf",
+      "contentHash": {
+        "@type": "ContentDigest",
+        "algorithm": "SHA_256",
+        "digestValue": "c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6"
+      },
+      "resolver": [
+        "https://example.org/c06/project-plan-v2.0.pdf"
+      ],
+      "licence": "https://example.org/c06/licences/project-documents/v2",
+      "issued": "2026-02-20"
+    }
+  ]
+}

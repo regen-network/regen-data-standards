@@ -16,7 +16,7 @@ hasPrimaryImpact:
     - SDG_13
 projectSize:
   numericValue: 0
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - FOREST
   - TEMPERATE_FOREST

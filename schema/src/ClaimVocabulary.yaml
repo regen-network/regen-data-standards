@@ -2,13 +2,13 @@ id: https://framework.regen.network/schema/ClaimVocabulary
 name: ClaimVocabulary
 description: >-
   Shared terms that the base Claim and claim-type schemas import rather than
-  restate: attribution, activity-responsibility, citation and revision
-  relations reused from PROV-O and Dublin Core. Importing this module does
-  not make any class carry these slots; a class carries only the slots it lists. The PROV
-  relations keep PROV-O's meaning, domains and ranges: a subject of
-  wasAttributedTo or wasRevisionOf is a prov:Entity, a subject of
-  wasAssociatedWith is a prov:Activity, and their agent values are
-  prov:Agent.
+  restate: attribution, citation and revision relations reused from PROV-O and
+  Dublin Core. Importing this module does not make any class carry these
+  slots; a class carries only the slots it lists. The PROV relations keep
+  PROV-O's meaning, domains and ranges: a subject of wasAttributedTo or
+  wasRevisionOf is a prov:Entity, and their agent values are prov:Agent. The
+  activity-responsibility relation, wasAssociatedWith, is defined with the
+  Activity class in Activity.yaml, which this module imports.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -19,6 +19,7 @@ imports:
   - linkml:types
   - core
   - Entity
+  - Activity
   - Evidence
 
 default_prefix: rfs
@@ -34,22 +35,6 @@ slots:
       hasClaimant, can specialize it (rdfs:subPropertyOf) instead of
       redefining its meaning. Every value of a specializing slot therefore
       implies this relation; the reverse does not hold.
-    range: Entity
-    multivalued: true
-    list_elements_ordered: false
-    inlined: true
-    inlined_as_list: true
-  wasAssociatedWith:
-    slot_uri: prov:wasAssociatedWith
-    description: >-
-      Responsibility of an agent for an activity (PROV). Use it only on a
-      class that represents an activity (its PROV domain is prov:Activity);
-      such classes declare the ProvActivity mixin.
-      Not used by the base Claim: it is provided for specialized claim
-      schemas, such as a CarbonEg claim schema, to name the operator of the
-      domain activity they describe, for example a restoration activity. It is not attribution of the Claim: the operator
-      and the claimant may differ, and when they coincide both relations are
-      still stated.
     range: Entity
     multivalued: true
     list_elements_ordered: false
@@ -97,3 +82,94 @@ slots:
     inlined_as_list: true
     multivalued: true
     list_elements_ordered: false
+  reliesOn:
+    is_a: references
+    slot_uri: rfs:reliesOn
+    description: >-
+      Exact versions of claims or attestations that a judgment depends on
+      without judging them, for example the claim stating an enrolment cutoff
+      that an approval relies on. Each value is the identifier of one
+      immutable version. Specializes dcterms:references, so it asserts neither
+      derivation nor support. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  hasTarget:
+    slot_uri: rfs:hasTarget
+    description: >-
+      What an attestation judges or answers: the identifier of an exact,
+      immutable version of a claim, of another attestation, or of a snapshot
+      (a fixed set of claim versions). Never a logical identifier or label.
+      Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  requirement:
+    slot_uri: rfs:requirement
+    description: >-
+      Identifier of a requirement within one version of a rule set or
+      checklist, for example a credit class registration requirement. The
+      identifier must name the checklist version as well as the requirement,
+      because the same short ID can name different requirements in different
+      versions. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  appliesRuleSet:
+    slot_uri: rfs:appliesRuleSet
+    description: >-
+      Identifier of an exact version of a normative rule set applied, such as
+      a credit class, a methodology or a program guide version. It is content
+      and enters the identity of the record. It is distinct from a
+      schema-version declaration, which states which schema the RDF conforms
+      to. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  verificationMethod:
+    slot_uri: rfs:verificationMethod
+    description: >-
+      How the assertion or judgment was established, as structured data, so
+      that a consumer can distinguish, for example, a lab-measured value from
+      a self-attested one. One method per record: its party and date are
+      those of the record that carries it (for an attestation, its issuer and
+      assertedAt), so a subject checked by two methods has two records, each
+      with its own party and date. A value of OTHER must come with
+      verificationMethodDescriptor.
+    range: VerificationMethodType
+  verificationMethodDescriptor:
+    slot_uri: rfs:verificationMethodDescriptor
+    description: >-
+      Free-text description of a verification method that the
+      VerificationMethodType enumeration does not cover; required when
+      verificationMethod is OTHER. It is the extension path: a method that
+      recurs is added to the enumeration in a later schema version.
+    range: string
+
+enums:
+  VerificationMethodType:
+    description: >-
+      Kinds of verification method. A program declares which
+      methods it accepts; this enumeration does not rank them.
+    permissible_values:
+      SELF_ATTESTED:
+        meaning: rfs:SelfAttested
+        description: Asserted by the claimant without independent verification.
+      PEER_OR_COMMUNITY:
+        meaning: rfs:PeerOrCommunity
+        description: Checked by peers or a community of practice.
+      LAB_MEASURED:
+        meaning: rfs:LabMeasured
+        description: Established by laboratory measurement of samples.
+      SENSOR_DERIVED:
+        meaning: rfs:SensorDerived
+        description: Derived from sensor or remote-sensing data.
+      MODEL_ESTIMATED:
+        meaning: rfs:ModelEstimated
+        description: Estimated with a model.
+      THIRD_PARTY_AUDITED:
+        meaning: rfs:ThirdPartyAudited
+        description: Reviewed by an independent third party, such as a verifier.
+      OTHER:
+        meaning: rfs:OtherVerificationMethod
+        description: Not in this list; verificationMethodDescriptor says what it is.

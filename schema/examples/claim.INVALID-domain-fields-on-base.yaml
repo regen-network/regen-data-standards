@@ -2,7 +2,6 @@
 # Impact, quantity and operator content belongs to a claim-type schema that
 # extends Claim (is_a: Claim). The base Claim is closed and rejects it.
 name: Hedgerow planting on plot A, spring 2026
-hasClaimType: ECOLOGICAL
 hasClaimant:
   - name: Hedgerow Cooperative
     type: COMMUNITY

@@ -1,0 +1,56 @@
+# Synthetic example (example.org identifiers): a project developer's claim about
+# a whole aggregate project, as asserted in one project plan version. The rule
+# sets it applies are exact versions; the requested deviation's approval is a
+# separate attestation.
+name: Example project P-001 design
+description: >-
+  Example project P-001 is an aggregate soil-carbon project of sites enrolled
+  from 2020 to 2023, started on 1 March 2020.
+hasClaimant:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00Z"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+  name: Example project P-001
+appliesRuleSet:
+  - https://example.org/rule-set/credit-class-c06/1.5.2
+  - https://example.org/rule-set/program-guide/1.1
+methodologyUse:
+  - methodology: https://example.org/methodology/soil-organic-carbon/1.2.4
+    methodologyRole: PRIMARY
+    methodologyScope: Soil organic carbon stock change quantification
+  - methodology: https://example.org/methodology/agricultural-land-management/2.1
+    methodologyRole: SUPPLEMENTARY
+    methodologyScope: Baseline, additionality and leakage assessment
+isAggregateProject: true
+aggregateStartDate: "2020-03-01"
+startDateBasis: First baseline soil sampling
+adoptionDate: "2020-03-01"
+creditingPeriod:
+  startDate: "2020-03-01"
+  endDate: "2034-02-28"
+permanencePeriod:
+  startDate: "2030-03-01"
+  endDate: "2044-02-28"
+requestedDeviations:
+  - requirement:
+      - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/ML-020
+    replacedParameters: >-
+      A three-year historical lookback and a 5% productivity-decline trigger
+      instead of a five-year rolling average and a 10% trigger.
+    justification: >-
+      Aligns the leakage assessment with the supplementary methodology used for
+      the baseline.
+hasEvidence:
+  - id: https://example.org/c06/project-plan-v2.0.pdf#page=8
+    name: Example project plan v2.0
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
+    resolver:
+      - https://example.org/c06/project-plan-v2.0.pdf
+    licence: https://example.org/c06/licences/project-documents/v2
+    issued: "2026-02-20"

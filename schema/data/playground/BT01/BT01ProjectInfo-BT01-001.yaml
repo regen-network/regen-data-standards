@@ -24,7 +24,7 @@ hasPrimaryImpact:
     - SDG_15
 projectSize:
   numericValue: 340.11
-  unit: unit:HA
+  hasUnit: unit:HA
 region: ANDEAN
 bioregion:
   - LOW_MONTANE_VERY_HUMID_FOREST
@@ -40,12 +40,12 @@ hasManagementAreas:
       - ECOSYSTEM_RESTORATION
     extent:
       numericValue: 93.66
-      unit: unit:HA
+      hasUnit: unit:HA
   - projectActivity:
       - CONSERVATION
     extent:
       numericValue: 246.35
-      unit: unit:HA
+      hasUnit: unit:HA
 hasEnvironmentalAuthority:
   - name: Environmental and Sustainable Development Ministry
     type: ORGANIZATION

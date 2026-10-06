@@ -1,0 +1,21 @@
+# expect: should not be valid under {'required': ['unbounded']}
+# class: Attestation
+# shacl: not enforced
+# A scope limits the judgment to the subjects it names; unbounded states that it
+# has no limits beyond its targets. The two are exclusive.
+name: Steward review of the plot A hedgerow planting
+hasClaimant:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-10T09:00:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/placeholder/claim-iri/generic-claim-v1
+verificationMethod: PEER_OR_COMMUNITY
+scope:
+  limitation: Confirms the planting only, not the survival of the plants.
+  appliesTo:
+    - https://example.org/plot/A
+unbounded: true

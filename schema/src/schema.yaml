@@ -7,6 +7,7 @@ prefixes:
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/
+  dcmitype: http://purl.org/dc/dcmitype/
 imports:
   - linkml:types
   - core
@@ -23,9 +24,12 @@ imports:
   - Claim
   - ClaimSubject
   - Evidence
+  - Activity
   - ClaimVocabulary
   - ProvAlignment
   - Attestation
+  - RegistryReviewAttestation
+  - C06Claim
   - BT01ProjectInfo
   - C01ProjectInfo
   - C02ProjectInfo

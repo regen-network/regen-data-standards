@@ -1,0 +1,18 @@
+# expect: [] should be non-empty
+# class: Attestation
+# A scope names the subjects it covers: an empty list of
+# subjects is rejected like a missing one.
+name: Steward review of the plot A hedgerow planting
+hasClaimant:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-10T09:00:00Z"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/placeholder/claim-iri/generic-claim-v1
+verificationMethod: PEER_OR_COMMUNITY
+scope:
+  limitation: Confirms the planting only, not the survival of the plants.
+  appliesTo: []
