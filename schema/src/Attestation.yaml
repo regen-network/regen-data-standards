@@ -69,6 +69,20 @@ classes:
           slot_conditions:
             verificationMethodDescriptor:
               required: true
+      - description: >-
+          A scope and unbounded are exclusive: a scope limits the judgment to
+          the subjects it names, and unbounded states that the judgment has no
+          limits beyond its targets (story map AD-1). An attestation with a
+          scope does not state unbounded. Enforced by the generated JSON
+          Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            scope:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            unbounded:
+              value_presence: ABSENT
 
   Scope:
     class_uri: rfs:Scope
@@ -129,6 +143,6 @@ slots:
     description: >-
       True when the issuer explicitly gives the judgment no limits beyond what
       it targets (story map AD-1), so that an unlimited approval is a stated
-      choice rather than an omission. An attestation that states it has no
-      scope.
+      choice rather than an omission. Stated only on an attestation without a
+      scope: the two are exclusive.
     range: boolean
