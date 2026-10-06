@@ -16,10 +16,16 @@ gen-claim-examples:
 check-claim-examples:
 	python3 scripts/claim-examples.py check
 
+gen-hierarchy:
+	python3 scripts/gen-hierarchy.py generate
+
+check-hierarchy:
+	python3 scripts/gen-hierarchy.py check
+
 clean-rdf:
 	scripts/clean-rdf.sh
 
 update-graph:
 	scripts/update-graph.sh
 
-all: gen-taxonomy lint gen-doc gen-rdf check-claim-examples update-graph
+all: gen-taxonomy lint gen-doc gen-rdf gen-hierarchy check-hierarchy check-claim-examples update-graph
