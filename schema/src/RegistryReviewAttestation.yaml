@@ -53,6 +53,7 @@ classes:
         required: true
       hasEvidence:
         required: true
+        minimum_cardinality: 1
 
   Condition:
     class_uri: rfs:Condition
