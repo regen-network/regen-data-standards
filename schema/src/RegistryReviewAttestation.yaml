@@ -162,7 +162,9 @@ enums:
       1.11 cannot narrow a uriorcurie slot to an enum in a subclass (the
       generated Python model of the base class rejects the enum value). The
       four registration determinations follow the Registry Agent Review Report's approval
-      categories. REQUIREMENT_PENDING is a dated determination that a
+      categories. The three report ratings are those the Program Guide
+      (sections 12.4 and 12.5) gives a verification or validation report.
+      REQUIREMENT_PENDING is a dated determination that a
       requirement cannot yet be decided; it is not a placeholder for a
       judgment still to come.
     permissible_values:
@@ -188,3 +190,18 @@ enums:
       FINDING_CLOSED:
         meaning: rfs:FindingClosed
         description: The finding is resolved as of this judgment.
+      ACCEPTANCE:
+        meaning: rfs:Acceptance
+        description: >-
+          Report rating: the verifier accepts the project as reported.
+      ACCEPTANCE_WITH_CONTINGENCIES:
+        meaning: rfs:AcceptanceWithContingencies
+        description: >-
+          Report rating: accepted once the project proponent provides the
+          required corrections and clarifications and the verifier resubmits
+          the report where required.
+      REJECTION:
+        meaning: rfs:Rejection
+        description: >-
+          Report rating: rejected. The project is on hold until the identified
+          issues are addressed.
