@@ -1,0 +1,8 @@
+# Generated files. GitHub collapses them in pull request diffs.
+# Change the source and regenerate instead of editing these by hand.
+
+# Claim examples written by `make -C schema gen-claim-examples` (claims schema stack, #85 to #91)
+schema/examples/*.jsonld linguist-generated=true
+
+# Versioned schema bundles (#91). Published versions must not change, and CI checks that.
+schema/versions/** linguist-generated=true
