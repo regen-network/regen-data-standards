@@ -19,7 +19,7 @@ hasLinks:
     url: https://registry.verra.org/app/projectDetail/VCS/612
     description: Verra registry page for this project
 hasReferenceId:
-  - identifier: 612
+  - identifier: '612'
     referenceType: VCS Project ID
 projectSize:
   numericValue: 169741

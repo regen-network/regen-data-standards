@@ -1,0 +1,113 @@
+id: ClaimVocabulary
+name: ClaimVocabulary
+description: >-
+  Shared terms that the base Claim and claim-type schemas import rather than
+  restate: attribution, activity-responsibility, citation and revision
+  relations reused from PROV-O and Dublin Core. Importing this module does
+  not make any class carry these slots; a class carries only the slots it lists. The PROV
+  relations keep PROV-O's meaning, domains and ranges: a subject of
+  wasAttributedTo or wasRevisionOf is a prov:Entity, a subject of
+  wasAssociatedWith is a prov:Activity, and their agent values are
+  prov:Agent.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+  dcterms: http://purl.org/dc/terms/
+
+imports:
+  - linkml:types
+  - core
+  - Entity
+  - Evidence
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Resource:
+    class_uri: rfs:Resource
+    abstract: true
+    description: >-
+      Anything identified by an IRI or CURIE. Used as the range of reference
+      slots so that their values are IRI nodes in RDF, not string literals,
+      and can be joined across graphs. A reference asserts nothing about the
+      referenced resource: its description, type and integrity information
+      live on its own resource, shaped by its own schema. Claim-type schemas
+      may narrow a reference slot's range to a more specific class that has
+      an identifier.
+    attributes:
+      id:
+        identifier: true
+        range: uriorcurie
+        description: IRI or CURIE of the resource.
+
+slots:
+  wasAttributedTo:
+    slot_uri: prov:wasAttributedTo
+    description: >-
+      PROV attribution: the ascribing of an entity to an agent. PROV infers
+      that the agent was associated with an activity that generated the
+      entity. Declared here so that narrower attribution relations, such as
+      hasClaimant, can specialize it (rdfs:subPropertyOf) instead of
+      redefining its meaning. Every value of a specializing slot therefore
+      implies this relation; the reverse does not hold.
+    range: Entity
+    multivalued: true
+    list_elements_ordered: false
+    inlined: true
+    inlined_as_list: true
+  wasAssociatedWith:
+    slot_uri: prov:wasAssociatedWith
+    description: >-
+      Responsibility of an agent for an activity (PROV). Use it only on a
+      class that represents an activity (its PROV domain is prov:Activity);
+      such classes declare the ProvActivity mixin.
+      Not used by the base Claim: it is provided for specialized claim
+      schemas, such as a CarbonEg claim schema, to name the operator of the
+      domain activity they describe, for example a restoration activity. It is not attribution of the Claim: the operator
+      and the claimant may differ, and when they coincide both relations are
+      still stated.
+    range: Entity
+    multivalued: true
+    list_elements_ordered: false
+    inlined: true
+    inlined_as_list: true
+  wasRevisionOf:
+    slot_uri: prov:wasRevisionOf
+    description: >-
+      Identifier of the exact, immutable earlier version this resource revises
+      (a PROV revision, itself a derivation, so do not also state
+      prov:wasDerivedFrom for it). PROV infers that the two versions are
+      aspects of the same thing (alternateOf); a resource that merely builds on
+      another is not its revision. It must name one version, never a logical
+      or version-family identifier. Stating a revision neither makes this
+      version current nor carries over any attestation of the earlier one;
+      which version an application accepts is maintained outside the
+      resource.
+    range: Resource
+    inlined: false
+  references:
+    slot_uri: dcterms:references
+    description: >-
+      Dublin Core citation: a resource the described resource references,
+      cites or otherwise points to. Declared here so that narrower relations,
+      such as hasEvidence, can specialize it (rdfs:subPropertyOf); a citation
+      alone asserts neither derivation nor support. Unordered set.
+    range: Resource
+    inlined: false
+    multivalued: true
+    list_elements_ordered: false
+  hasEvidence:
+    is_a: references
+    slot_uri: rfs:hasEvidence
+    description: >-
+      Sources the claimant presents as evidence for the assertion, each an
+      Evidence node identified by the IRI of the exact version cited. Whether
+      a source actually supports the assertion is judged separately, by
+      attestations. Specializes dcterms:references. Unordered set.
+    range: Evidence
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
