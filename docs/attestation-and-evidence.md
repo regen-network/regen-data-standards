@@ -147,7 +147,7 @@ fields the other judgments do not: a finding type and at least one piece of evid
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked (CS-4). |
-| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
+| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | nonblank string | 0..1 | Required with `OTHER` ([missing](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml) and [empty](../schema/examples/attestation.INVALID-empty-method-descriptor.yaml) examples). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
 | `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets (AD-1). |
 

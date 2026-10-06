@@ -136,9 +136,12 @@ slots:
     description: >-
       Free-text description of a verification method that the
       VerificationMethodType enumeration does not cover; required when
-      verificationMethod is OTHER. It is the extension path: a method that
-      recurs is added to the enumeration in a later schema version.
+      verificationMethod is OTHER. It must contain a non-whitespace character,
+      so an empty descriptor cannot leave the method unspecified. It is the
+      extension path: a method that recurs is added to the enumeration in a
+      later schema version.
     range: string
+    pattern: "\\S"
 
 enums:
   VerificationMethodType:
