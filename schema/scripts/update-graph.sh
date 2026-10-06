@@ -16,13 +16,13 @@ else
     AUTH=""
 fi
 
-# Set METHOD and GRAPH_PARAM based on GRAPH value
-# Use POST to append to default graph, and PUT to replace named graphs
+# Clear the graph once, then POST every file, which appends to it. PUT would
+# replace the graph's content with each file, so only the last file would
+# remain (SPARQL 1.1 Graph Store Protocol).
+METHOD=POST
 if [ "$GRAPH" = "default" ]; then
-    METHOD=POST
     GRAPH_PARAM="?default"
 else
-    METHOD=PUT
     GRAPH_PARAM="?graph=$GRAPH"
 fi
 
