@@ -39,6 +39,12 @@ rfs:Attestation a sh:NodeShape ;
             sh:nodeKind sh:IRI ;
             sh:order 0 ;
             sh:path rfs:hasTarget ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path rfs:unbounded ],
         [ sh:datatype xsd:string ;
             sh:description "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim." ;
             sh:maxCount 1 ;
@@ -54,12 +60,6 @@ rfs:Attestation a sh:NodeShape ;
             sh:nodeKind sh:IRI ;
             sh:order 12 ;
             sh:path schema1:url ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 9 ;
-            sh:path rfs:unbounded ],
         [ sh:description "Identifier of the exact, immutable earlier Claim version that this Claim revises, typically its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its attestations do not carry over, and selecting a current version happens outside the Claim." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
@@ -1622,7 +1622,7 @@ rfs:ProjectPost a sh:NodeShape ;
     sh:targetClass rfs:ProjectPost .
 
 rfs:RegistryFindingAttestation a sh:NodeShape ;
-    rdfs:comment "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence (story map CS-3). Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel." ;
+    rdfs:comment "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence. Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:description "What an attestation judges or answers: the identifier of an exact, immutable version of a claim, of another attestation, or of a snapshot (a fixed set of claim versions). Never a logical identifier or label. Unordered set." ;
@@ -1636,7 +1636,7 @@ rfs:RegistryFindingAttestation a sh:NodeShape ;
             sh:order 15 ;
             sh:path schema1:description ],
         [ sh:datatype xsd:boolean ;
-            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
+            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 13 ;
@@ -1756,17 +1756,17 @@ rfs:RegistryReviewAttestation a sh:NodeShape ;
     rdfs:comment "A judgment made in a Regen Registry review by the Registry Agent, an independent verifier (VVB) or the Credit Class Admin." ;
     sh:closed true ;
     sh:ignoredProperties ( rfs:findingType rdf:type ) ;
-    sh:property [ sh:description "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 15 ;
-            sh:path schema1:url ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 12 ;
             sh:path rfs:unbounded ],
+        [ sh:description "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 15 ;
+            sh:path schema1:url ],
         [ sh:datatype xsd:string ;
             sh:description "The assertion as the claimant states it in natural language. This is asserted content, not a presentational summary: changing it changes the Claim." ;
             sh:maxCount 1 ;

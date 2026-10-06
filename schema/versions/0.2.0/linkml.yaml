@@ -897,8 +897,8 @@ enums:
         meaning: rfs:EvidenceAccessRestricted
   VerificationMethodType:
     name: VerificationMethodType
-    description: Kinds of verification method (story map CS-4). A program declares
-      which methods it accepts; this enumeration does not rank them.
+    description: Kinds of verification method. A program declares which methods it
+      accepts; this enumeration does not rank them.
     from_schema: https://framework.regen.network/schema/
     permissible_values:
       SELF_ATTESTED:
@@ -1737,9 +1737,8 @@ slots:
   unbounded:
     name: unbounded
     description: 'True when the issuer explicitly gives the judgment no limits beyond
-      what it targets (story map AD-1), so that an unlimited approval is a stated
-      choice rather than an omission. Stated only on an attestation without a scope:
-      the two are exclusive.'
+      what it targets, so that an unlimited approval is a stated choice rather than
+      an omission. Stated only on an attestation without a scope: the two are exclusive.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:unbounded
     domain_of:
@@ -4715,9 +4714,9 @@ classes:
       unbounded:
         name: unbounded
         description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets (story map AD-1), so that an unlimited approval is
-          a stated choice rather than an omission. Stated only on an attestation without
-          a scope: the two are exclusive.'
+          beyond what it targets, so that an unlimited approval is a stated choice
+          rather than an omission. Stated only on an attestation without a scope:
+          the two are exclusive.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:unbounded
         owner: Attestation
@@ -4874,8 +4873,8 @@ classes:
             name: verificationMethodDescriptor
             required: true
       description: A verification method outside the enumeration is described, so
-        the method is never empty (story map CS-4). Enforced by the generated JSON
-        Schema; the generated SHACL does not express LinkML rules.
+        the method is never empty. Enforced by the generated JSON Schema; the generated
+        SHACL does not express LinkML rules.
     - preconditions:
         slot_conditions:
           scope:
@@ -4888,9 +4887,9 @@ classes:
             value_presence: ABSENT
       description: 'A scope and unbounded are exclusive: a scope limits the judgment
         to the subjects it names, and unbounded states that the judgment has no limits
-        beyond its targets (story map AD-1). An attestation with a scope does not
-        state unbounded. Enforced by the generated JSON Schema; the generated SHACL
-        does not express LinkML rules.'
+        beyond its targets. An attestation with a scope does not state unbounded.
+        Enforced by the generated JSON Schema; the generated SHACL does not express
+        LinkML rules.'
   Scope:
     name: Scope
     description: Where an attestation applies, as structured fields, so that a consumer
@@ -5128,9 +5127,9 @@ classes:
       unbounded:
         name: unbounded
         description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets (story map AD-1), so that an unlimited approval is
-          a stated choice rather than an omission. Stated only on an attestation without
-          a scope: the two are exclusive.'
+          beyond what it targets, so that an unlimited approval is a stated choice
+          rather than an omission. Stated only on an attestation without a scope:
+          the two are exclusive.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:unbounded
         owner: RegistryReviewAttestation
@@ -5279,8 +5278,8 @@ classes:
     name: RegistryFindingAttestation
     description: 'A finding raised in a Regen Registry review: a corrective action,
       clarification or forward action request, or a material issue raised by the Registry
-      Agent. A finding states its type and cites at least one piece of evidence (story
-      map CS-3). Later assessments of the finding and replies to it are RegistryReviewAttestations
+      Agent. A finding states its type and cites at least one piece of evidence. Later
+      assessments of the finding and replies to it are RegistryReviewAttestations
       that target it and carry the same findingLabel.'
     from_schema: https://framework.regen.network/schema/
     is_a: RegistryReviewAttestation
@@ -5466,9 +5465,9 @@ classes:
       unbounded:
         name: unbounded
         description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets (story map AD-1), so that an unlimited approval is
-          a stated choice rather than an omission. Stated only on an attestation without
-          a scope: the two are exclusive.'
+          beyond what it targets, so that an unlimited approval is a stated choice
+          rather than an omission. Stated only on an attestation without a scope:
+          the two are exclusive.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:unbounded
         owner: RegistryFindingAttestation

@@ -276,7 +276,7 @@
                     "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
                 },
                 "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
                     "type": [
                         "boolean",
                         "null"
@@ -3591,7 +3591,7 @@
                     }
                 }
             ],
-            "description": "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence (story map CS-3). Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel.",
+            "description": "A finding raised in a Regen Registry review: a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent. A finding states its type and cites at least one piece of evidence. Later assessments of the finding and replies to it are RegistryReviewAttestations that target it and carry the same findingLabel.",
             "properties": {
                 "appliesRuleSet": {
                     "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
@@ -3734,7 +3734,7 @@
                     "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
                 },
                 "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
                     "type": [
                         "boolean",
                         "null"
@@ -3966,7 +3966,7 @@
                     "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
                 },
                 "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets (story map AD-1), so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
+                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an attestation without a scope: the two are exclusive.",
                     "type": [
                         "boolean",
                         "null"
@@ -4167,7 +4167,7 @@
             "type": "string"
         },
         "VerificationMethodType": {
-            "description": "Kinds of verification method (story map CS-4). A program declares which methods it accepts; this enumeration does not rank them.",
+            "description": "Kinds of verification method. A program declares which methods it accepts; this enumeration does not rank them.",
             "enum": [
                 "SELF_ATTESTED",
                 "PEER_OR_COMMUNITY",
