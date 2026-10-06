@@ -23,7 +23,9 @@ Pin code citations to a commit SHA. Line numbers drift — use the symbol name a
 Agent drafts → **human checks this list** → only then open the PR. Every item is mechanically checkable.
 
 **Standards compatibility**
-- [ ] Every `uriorcurie` reference has a resolvable identifier slot on the target class.
+- [ ] Every slot that references a class without inlining it (`range: <Class>`, `inlined: false`)
+      targets a class with an identifier slot. A slot whose value is a bare IRI uses
+      `range: uriorcurie`, and its description says what the IRI identifies.
 - [ ] Multivalued slots that participate in identity declare ordering (`list_elements_ordered`) — set vs
       sequence must be explicit.
 - [ ] `make -C schema lint` passes; `make -C schema all` runs clean if you changed generated output.
