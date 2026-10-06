@@ -15,7 +15,13 @@ The schemas are designed to be converted to RDF/JSON-LD formats for semantic web
 
 ## Requirements
 
-[Install LinkML](https://linkml.io/linkml/intro/install.html) to use the helper and generator commands for interacting with LinkML schemas and data.
+[Install LinkML](https://linkml.io/linkml/intro/install.html) to use the helper and generator commands for interacting with LinkML schemas and data. Use the versions pinned in the repository's `requirements.txt`, which need Python 3.10 or later:
+
+```shell
+pip install -r requirements.txt
+```
+
+Every schema module needs a URI `id` (for example `https://framework.regen.network/schema/Claim`); `make lint` rejects a bare name.
 
 ## Structure
 
