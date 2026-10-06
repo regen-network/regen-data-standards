@@ -26,12 +26,18 @@ else
     GRAPH_PARAM="?graph=$GRAPH"
 fi
 
-# First, clear the graph.
-if ! curl -s -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
-    echo "❌ Failed to delete content in graph: $GRAPH"
-else
-    echo "✅ Deleted content in graph: $GRAPH with $file"
-fi
+# First, clear the graph. Stop if it may still hold old triples: uploading
+# would leave them beside the new data. 404 means the graph does not exist
+# yet, so it is empty.
+status=$(curl -s -o /dev/null -w '%{http_code}' -X DELETE $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM")
+case "$status" in
+    200|204) echo "✅ Deleted content in graph: $GRAPH" ;;
+    404) echo "✅ Graph $GRAPH does not exist yet; nothing to delete" ;;
+    *)
+        echo "❌ Failed to delete content in graph: $GRAPH (HTTP $status); nothing uploaded"
+        exit 1
+        ;;
+esac
 
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern
