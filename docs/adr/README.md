@@ -6,4 +6,4 @@ implementation decisions live in the consuming repository and are linked where r
 
 | # | Title | Status |
 |---|-------|--------|
-| [0001](0001-claim-substance-canonicalization.md) | Claim RDF shape and provenance boundaries | Proposed |
+| [0001](0001-claim-rdf-shape-and-provenance-boundaries.md) | Claim RDF shape and provenance boundaries | Proposed |
