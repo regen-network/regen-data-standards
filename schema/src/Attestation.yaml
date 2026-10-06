@@ -59,8 +59,8 @@ classes:
     rules:
       - description: >-
           A verification method outside the enumeration is described, so the
-          method is never empty (story map CS-4). Enforced by the generated
-          JSON Schema; the generated SHACL does not express LinkML rules.
+          method is never empty. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
         preconditions:
           slot_conditions:
             verificationMethod:
@@ -72,9 +72,9 @@ classes:
       - description: >-
           A scope and unbounded are exclusive: a scope limits the judgment to
           the subjects it names, and unbounded states that the judgment has no
-          limits beyond its targets (story map AD-1). An attestation with a
-          scope does not state unbounded. Enforced by the generated JSON
-          Schema; the generated SHACL does not express LinkML rules.
+          limits beyond its targets. An attestation with a scope does not
+          state unbounded. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
         preconditions:
           slot_conditions:
             scope:
@@ -142,7 +142,7 @@ slots:
     slot_uri: rfs:unbounded
     description: >-
       True when the issuer explicitly gives the judgment no limits beyond what
-      it targets (story map AD-1), so that an unlimited approval is a stated
-      choice rather than an omission. Stated only on an attestation without a
-      scope: the two are exclusive.
+      it targets, so that an unlimited approval is a stated choice rather than
+      an omission. Stated only on an attestation without a scope: the two are
+      exclusive.
     range: boolean
