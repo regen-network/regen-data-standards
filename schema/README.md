@@ -62,11 +62,12 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
 - `examples`: each example's entry point, whether it is valid, and, if not, the only slots it may
   violate.
 
-`latest` names the highest version. `0.1.0` is the base Claim of
-[#85](https://github.com/regen-network/regen-data-standards/pull/85) as upgraded to LinkML 1.11 by
-[#87](https://github.com/regen-network/regen-data-standards/pull/87) (commit `6a78e60`); `0.2.0` adds
-the Attestation, Evidence and C06 schemas of
-[#90](https://github.com/regen-network/regen-data-standards/pull/90).
+`latest` names the highest version. The first version, `0.1.0`, is the schema with the base Claim,
+Attestation, Evidence and C06 claim modules
+([#85](https://github.com/regen-network/regen-data-standards/pull/85),
+[#87](https://github.com/regen-network/regen-data-standards/pull/87),
+[#90](https://github.com/regen-network/regen-data-standards/pull/90)) and the existing credit class
+and project modules.
 
 ### Commands
 
@@ -96,8 +97,8 @@ CI runs it on every pull request with `BASE` set to the base branch.
 
 A published version never changes: when definitions change, declare a new version in
 `src/schema.yaml` and run `make gen-schema-artifacts`, which adds it to the manifest and leaves the
-others as they are. Until a version is published, it can be regenerated. An older version is
-generated from a checkout of its source:
+others as they are. Until a version is published, it can be regenerated. A version can also be
+generated from a checkout of an earlier source:
 
 ```shell
 git -C .. archive <commit> schema | tar -x -C <dir>
