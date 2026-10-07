@@ -28,10 +28,15 @@ jobs:
         run: make -C schema check-claim-examples
       - name: Check schema artifacts
         # On a pull request, the versions published on the base branch must be
-        # unchanged.
+        # unchanged. The base branch name is passed as an environment variable,
+        # not inserted into the script, because a branch name can contain shell
+        # syntax such as $(...).
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "refs/heads/$BASE_REF"
             make -C schema check-schema-artifacts BASE=FETCH_HEAD
           else
             make -C schema check-schema-artifacts
