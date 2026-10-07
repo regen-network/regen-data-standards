@@ -76,23 +76,26 @@ record was produced (OutputRecord maps `emittedAt` to it in
 [#55](https://github.com/regen-network/regen-data-standards/pull/55)), and the research warns against
 substituting file-generation time for assertion time. So the term is `rfs:assertedAt`.
 
-**Timestamp format.** `assertedAt` is written in UTC with whole seconds, in the XSD canonical form,
-for example `2026-05-02T07:30:00Z`. RDF literals are compared by their exact text, so the same instant
-written two ways (`Z` and `+00:00`, or `…:00` and `…:00.0`) would give the same assertion two
-identities. XSD 1.1 names these redundancies ([lexical mappings][XSD-LEX]) and fixes one spelling per
-value, its canonical representation ([definition][XSD-CANON]), which for a zero offset is `Z`
-([timezone canonical mapping][XSD-TZ]). A pattern enforces the format in both JSON Schema and SHACL,
-so a local offset such as `+02:00` is rejected
-([example](../schema/examples/claim.INVALID-local-offset-assertion-time.yaml)). This applies to
-timestamps only: date-only values elsewhere stay dates and are not shifted to UTC.
+**Timestamp format.** `assertedAt` is written in UTC with whole seconds and the offset `+00:00`, for
+example `2026-05-02T07:30:00+00:00`. RDF literals are compared by their exact text, so the same
+instant written two ways (`Z` and `+00:00`, or `…:00` and `…:00.0`) would give the same assertion
+two identities. One spelling is therefore required. XSD 1.1 names these redundancies
+([lexical mappings][XSD-LEX]); its canonical representation for a zero offset is `Z`
+([timezone canonical mapping][XSD-TZ]), but canonical representations "are not required for schema
+processing itself" ([definition and note][XSD-CANON]). The base requires `+00:00` because LinkML and
+rdflib write that form: LinkML objects rewrite `Z` as `+00:00` when they load data, and rdflib does
+the same unless `NORMALIZE_LITERALS` is off. So the authored fixtures and the RDF that `gen-rdf`
+publishes both conform, with no rewriting step. A tool that writes `Z` by default, such as
+JavaScript's `Date.prototype.toISOString()`, must write `+00:00` instead. A pattern enforces the
+format in both JSON Schema and SHACL, so `Z` is rejected
+([example](../schema/examples/claim.INVALID-z-suffix-assertion-time.yaml)), and so is a local offset
+such as `+02:00` ([example](../schema/examples/claim.INVALID-local-offset-assertion-time.yaml)). This
+applies to timestamps only: date-only values elsewhere stay dates and are not shifted to UTC.
 
-`+00:00`, the other spelling of UTC, is rejected too
-([example](../schema/examples/claim.INVALID-utc-offset-assertion-time.yaml)). Tools must therefore
-check the text as written. LinkML objects rewrite `Z` as `+00:00` when they load data, and rdflib does
-the same unless `NORMALIZE_LITERALS` is off. So CI validates the authored files with `linkml-validate`
-rather than with `linkml-convert --validate`, and `check-claim-examples` parses JSON-LD with literal
-normalization off. The Turtle and JSON-LD that `gen-rdf` writes still contain `+00:00`, the same
-value. How the identity recipe treats timestamp literals is decided in
+Because LinkML and rdflib would turn a rejected `Z` into an accepted `+00:00`, tools must check the
+text as written. So CI validates the authored files with `linkml-validate` rather than with
+`linkml-convert --validate`, and `check-claim-examples` parses RDF with literal normalization off. How
+the identity recipe treats timestamp literals is decided in
 [claims#1](https://github.com/regen-network/claims/issues/1).
 
 **References are typed nodes.** Every resource a claim points to is written as a node with its own
@@ -286,7 +289,7 @@ typed with their specific classes, such as `rfs:C01ProjectInfo`, which a query f
 |---|---|
 | [`generic-claim.jsonld`](../schema/examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](../schema/examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
-| [`claim.INVALID-*.yaml`](../schema/examples/) | Documents the base must reject: a candidate without a claimant, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `+00:00` assertion time, and domain fields on the base. |
+| [`claim.INVALID-*.yaml`](../schema/examples/) | Documents the base must reject: a candidate without a claimant, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, and domain fields on the base. |
 
 The JSON-LD files are generated from the playground fixtures in
 [`schema/data/playground/Claim/`](../schema/data/playground/Claim/), which `gen-rdf` validates, by
@@ -294,13 +297,15 @@ The JSON-LD files are generated from the playground fixtures in
 both validators the schema generates on every document:
 
 - JSON Schema (`linkml-validate`) over the authored YAML;
-- SHACL (`gen-shacl`, closed shapes, run with pyshacl) over the RDF graph of the authored JSON-LD.
-  The graph is parsed without rdflib's literal normalization, so lexical forms are checked as
-  written. `gen-shacl` adds `sh:class` to reference slots, but referenced IRIs are not typed in the
-  data, so the check removes that `sh:class` and keeps `sh:nodeKind sh:IRI`.
+- SHACL (`gen-shacl`, closed shapes, run with pyshacl) over the RDF graph of the authored JSON-LD
+  and over the Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both
+  are parsed without rdflib's literal normalization, so lexical forms are checked as written.
+  `gen-shacl` adds `sh:class` to reference slots, but referenced IRIs are not typed in the data, so
+  the check removes that `sh:class` and keeps `sh:nodeKind sh:IRI`.
 
-The check fails if an example is stale, if its JSON-LD graph is not isomorphic to the fixture's
-Turtle output, if either validator rejects a valid example, or if either accepts an invalid one.
+The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
+is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
+validator rejects a valid example or its published Turtle, or if either accepts an invalid one.
 JSON Schema must reject each invalid document with the error named on its first line.
 
 The inline context is generated from `Claim.yaml` alone, with two corrections applied because

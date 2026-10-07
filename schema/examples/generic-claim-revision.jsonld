@@ -126,7 +126,7 @@
       "type": "COMMUNITY"
     }
   ],
-  "assertedAt": "2026-05-20T12:00:00Z",
+  "assertedAt": "2026-05-20T12:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/A",

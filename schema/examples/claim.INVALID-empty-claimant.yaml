@@ -3,7 +3,7 @@
 name: Hedgerow planting on plot A, spring 2026
 hasClaimType: ECOLOGICAL
 hasClaimant: []
-assertedAt: "2026-05-02T07:30:00Z"
+assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A
