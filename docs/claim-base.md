@@ -115,8 +115,12 @@ the identity recipe treats timestamp literals is decided in
 IRI and an RDF type, never as a bare IRI, so the generated JSON Schema and SHACL can validate it as
 generated and claims can be queried by what they point to.
 
-**Subject.** The subject is a [`ClaimSubject`](../schema/src/ClaimSubject.yaml) node: its IRI, so
-claims about the same plot, project or community can be joined, and optionally a name. Its full
+**Subject.** The subject is the one focal resource the claim is about, a
+[`ClaimSubject`](../schema/src/ClaimSubject.yaml) node: its IRI, so claims about the same plot, project
+or community can be joined, and optionally a name. It is not every participant the assertion
+mentions. In a claim relating several parties, such as a lease between a landowner and a farmer,
+the others appear in named roles that the claim-type schema defines, or the relationship itself
+(the lease) is the subject. Its full
 description lives on its own resource. Specialized claim schemas define the kinds of subject they
 need as subclasses, for example `Plot is_a ClaimSubject` ([example](../schema/examples/claim.INVALID-bare-iri-subject.yaml)
 of a bare IRI being rejected). The range admits places and projects, not only agents. This fixes the old contradiction
