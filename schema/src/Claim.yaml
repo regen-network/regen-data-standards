@@ -32,9 +32,14 @@ classes:
     mixins:
       - ProvEntity
     description: >-
-      An attributed assertion: related statements that one or more identified
-      claimants present together about a subject, at a stated time. A Claim is
-      asserted by definition, so it is self-attested by its claimants and is
+      An assertion made or adopted by one or more claimants about one subject,
+      at a stated time. It records what is asserted and may cite evidence. A
+      Claim is one unit that can be accepted, rejected, evidenced or revised on
+      its own, and one unit of responsibility: each claimant takes
+      responsibility for all of it. It may span many RDF statements; parts that
+      a reviewer could judge separately, or that different agents take
+      responsibility for, are separate Claims. A Claim is asserted by
+      definition, so it is self-attested by its claimants and is
       valid without any third-party attestation; later reviews are separate
       resources that point to it. An unasserted authoring candidate, such as
       an extraction draft without a claimant, is not a Claim. Every version is
