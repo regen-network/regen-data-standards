@@ -494,11 +494,37 @@ def check_current(version, entry, failures):
 
 
 def check_base(base, manifest, failures):
-    result = subprocess.run(["git", "show", f"{base}:schema/{MANIFEST}"], capture_output=True, text=True)
-    if result.returncode != 0:
+    """Compare with the versions published in base. Only a base commit whose
+    tree has no manifest skips the comparison; any failure to read it fails."""
+
+    def git(*args):
+        return subprocess.run(["git", *args], capture_output=True, text=True)
+
+    path = f"schema/{MANIFEST}"
+    commit = git("rev-parse", "--verify", "--quiet", f"{base}^{{commit}}")
+    if commit.returncode != 0:
+        failures.append(f"--base {base} is not a commit: cannot compare with the published versions")
+        return
+    commit = commit.stdout.strip()
+    listing = git("ls-tree", "--full-tree", commit, "--", path)
+    if listing.returncode != 0:
+        failures.append(f"cannot read the tree of {base}: {listing.stderr.strip()}")
+        return
+    if not listing.stdout.strip():
         print(f"ℹ️  {base} has no {MANIFEST}: nothing published to compare")
         return
-    for version, entry in read_manifest(result.stdout)["versions"].items():
+    shown = git("show", f"{commit}:{path}")
+    if shown.returncode != 0:
+        failures.append(f"cannot read {path} in {base}: {shown.stderr.strip()}")
+        return
+    try:
+        published = read_manifest(shown.stdout)["versions"]
+        if not isinstance(published, dict):
+            raise TypeError("versions is not an object")
+    except (ValueError, KeyError, TypeError) as error:
+        failures.append(f"{path} in {base} is not a readable manifest: {error}")
+        return
+    for version, entry in published.items():
         if manifest["versions"].get(version) != entry:
             failures.append(f"{version} is published in {base} and must not change: declare a new version")
         else:
