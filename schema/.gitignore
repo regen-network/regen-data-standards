@@ -4,5 +4,5 @@ generated/
 data/playground/**/*.jsonld
 data/playground/**/*.ttl
 
-# Python bytecode
+# Python bytecode, written when a script loads another as a module
 __pycache__/
