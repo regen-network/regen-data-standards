@@ -88,8 +88,8 @@ slots:
   issuerRole:
     slot_uri: rfs:issuerRole
     description: >-
-      The capacity in which the issuer acts, so that a consumer can check the
-      issuer's authority for the decision.
+      The capacity in which the issuer is recorded as acting for this judgment.
+      This value does not by itself establish the issuer's authority to act in that capacity.
     range: IssuerRole
   conditions:
     slot_uri: rfs:conditions
