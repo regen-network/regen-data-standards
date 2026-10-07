@@ -4,7 +4,7 @@ and the playground JSON-LD.
 
     python3 scripts/claim-examples.py generate    # rewrite examples/*.jsonld
     python3 scripts/claim-examples.py check       # fail if anything is stale or wrong
-    python3 scripts/claim-examples.py playground  # write and check data/playground/**/*.jsonld
+    python3 scripts/claim-examples.py playground [DIR [SCHEMA]]  # write and check DIR/*/*.jsonld
 
 Run from the schema/ directory. Examples and playground JSON-LD are built
 with the published artifacts of the version src/schema.yaml declares
@@ -32,13 +32,19 @@ the generated SHACL does not express rules, so only JSON Schema must reject it,
 and the check reports that SHACL accepts it. An invalid document listed in
 INVALID_JSONLD is also published as JSON-LD.
 
-`playground` writes the JSON-LD of every playground fixture next to the
-Turtle that gen-rdf writes, and checks that both have the same graph. Numbers
-are compared by value: a float written as a YAML integer, such as 500, is
-"500"^^xsd:float in JSON-LD and "500.0"^^xsd:float in Turtle.
+`playground` writes the JSON-LD of every playground fixture (DIR/*/*.yaml,
+DIR being data/playground unless given) next to the Turtle that gen-rdf
+writes from SCHEMA (src/schema.yaml unless given). For src/schema.yaml it uses
+the published context; for another schema, which has no published artifacts,
+it generates that schema's context with the same corrections
+(scripts/schema-artifacts.py). It checks that the JSON-LD and the Turtle have
+the same graph. Numbers are compared by value: a float written as a YAML
+integer, such as 500, is "500"^^xsd:float in JSON-LD and "500.0"^^xsd:float in
+Turtle.
 """
 
 import glob
+import importlib.util
 import json
 import logging
 import subprocess
@@ -82,11 +88,26 @@ def run(*args):
     return subprocess.run(args, capture_output=True, text=True)
 
 
-class Bundle:
-    """The published artifacts of the version src/schema.yaml declares."""
+def schema_artifacts():
+    """scripts/schema-artifacts.py, loaded as a module (its file name has a dash)."""
+    path = Path(__file__).with_name("schema-artifacts.py")
+    spec = importlib.util.spec_from_file_location("schema_artifacts", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
-    def __init__(self):
-        self.view = SchemaView(SCHEMA)
+
+class Bundle:
+    """The published artifacts of the version src/schema.yaml declares, or,
+    for another schema, its corrected JSON-LD context alone."""
+
+    def __init__(self, schema=SCHEMA):
+        self.view = SchemaView(str(schema))
+        if Path(schema).resolve() != Path(SCHEMA).resolve():
+            context = schema_artifacts().generate_artifact("context", Path(schema))
+            self.context = json.loads(context)["@context"]
+            self.json_schema = self.shapes = None
+            return
         directory = Path("versions") / self.view.schema.version
         if not directory.exists():
             sys.exit(f"{directory} is missing: run make gen-schema-artifacts")
@@ -259,10 +280,10 @@ def by_value(graph):
     return out
 
 
-def playground():
-    bundle = Bundle()
+def playground(directory="data/playground", schema=SCHEMA):
+    bundle = Bundle(schema)
     failures = 0
-    fixtures = sorted(glob.glob("data/playground/*/*.yaml"))
+    fixtures = sorted(glob.glob(f"{directory}/*/*.yaml"))
     for fixture in fixtures:
         path = Path(fixture)
         text = build(bundle, fixture_class(fixture), fixture)
@@ -284,9 +305,9 @@ def playground():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in ("generate", "check", "playground"):
+    if sys.argv[1:2] == ["playground"] and len(sys.argv) <= 4:
+        playground(*sys.argv[2:])
+    elif len(sys.argv) != 2 or sys.argv[1] not in ("generate", "check"):
         sys.exit(__doc__)
-    if sys.argv[1] == "playground":
-        playground()
     else:
         examples(sys.argv[1])

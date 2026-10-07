@@ -3,3 +3,6 @@ generated/
 
 data/playground/**/*.jsonld
 data/playground/**/*.ttl
+
+# Python bytecode, written when a script loads another as a module
+__pycache__/

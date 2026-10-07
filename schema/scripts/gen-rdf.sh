@@ -50,5 +50,9 @@ echo "TTL conversion complete: $((total_count - failed_count)) passed, $failed_c
 
 # JSON-LD is built with the published context of the current schema version
 # (linkml-convert's own context writes IRIs as xsd:anyURI literals), and must
-# give the same graph as the Turtle.
-cd "${SCRIPT_DIR}/.." && python3 scripts/claim-examples.py playground
+# give the same graph as the Turtle. Another SCHEMA_PATH has no published
+# context, so its context is generated the same way. Both paths are made
+# absolute because the script runs from schema/.
+DATA_DIR="$(cd -- "$DATA_DIR" && pwd)"
+SCHEMA_PATH="$(cd -- "$(dirname -- "$SCHEMA_PATH")" && pwd)/$(basename -- "$SCHEMA_PATH")"
+cd "${SCRIPT_DIR}/.." && python3 scripts/claim-examples.py playground "$DATA_DIR" "$SCHEMA_PATH"
