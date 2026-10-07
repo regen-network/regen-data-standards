@@ -619,6 +619,7 @@ enums:
         title: ImprovedNutrientCycling
       UNKNOWN:
         text: UNKNOWN
+        meaning: rfs:UnknownImpact
         title: Unknown
   ClaimType:
     name: ClaimType

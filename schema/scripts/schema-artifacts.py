@@ -111,9 +111,9 @@ def corrected_context(view, context):
     term for nodes of that type. Enum-valued terms get "@type": "@vocab" and a
     scoped context mapping each permissible value to its meaning, so that
     "COMMUNITY" expands to rfs:Community instead of a string literal. An enum
-    with no meanings stays a string, as in the Turtle output; in an enum with
-    some meanings, a value without one expands against @vocab (rfs:), where
-    the Turtle output writes a string.
+    with no meanings stays a string, as in the Turtle output. An enum where
+    only some values have a meaning is refused: JSON-LD would make every value
+    an IRI, where the Turtle output keeps a value without a meaning a string.
     """
     prefixes = {k: v for k, v in context.items() if isinstance(v, str) and not k.startswith("@")}
     vocab = context["@vocab"]
@@ -138,9 +138,16 @@ def corrected_context(view, context):
         enum = view.get_enum(slot.range)
         if enum:
             # An enum without meanings is written as strings in Turtle.
-            if any(pv.meaning for pv in enum.permissible_values.values()):
-                return iri, ("enum", slot.range)
-            return iri, None
+            without = [text for text, pv in enum.permissible_values.items() if not pv.meaning]
+            if len(without) == len(enum.permissible_values):
+                return iri, None
+            if without:
+                sys.exit(
+                    f"enum {enum.name}: {', '.join(without)} has no meaning while other values do. "
+                    "A JSON-LD term turns every value of such an enum into an IRI, where the Turtle "
+                    "output keeps a value without a meaning as a string: give every value a meaning."
+                )
+            return iri, ("enum", slot.range)
         if slot.range in view.all_classes():
             return iri, "@id"
         datatype = view.induced_type(slot.range).uri

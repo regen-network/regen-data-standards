@@ -5,7 +5,7 @@
     "0.1.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "91a026f8a29e6e1f7649ce5aa87924caeb0a4ac0",
+        "gitTree": "5d541bb31a04386733e6e88fcfa4558c4fe9f153",
         "files": {
           "Activity.yaml": "de542909d482a5005a00c32227b10d7e228a365e",
           "Attestation.yaml": "1451a4b407a621f1e5aa76452c17cf9535c0b24e",
@@ -33,7 +33,7 @@
           "SDG.yaml": "045b7f48733a2883f435262b1760f1fca349e7e3",
           "core.yaml": "d8e8371ffe78f212b09a527116da5337f62d588c",
           "schema.yaml": "bbc0eed3a14b5a5a7c32ddf77763595d4aff530e",
-          "taxonomy.yaml": "76006b5a5356ed818d055af50a08c63f3f86eb50"
+          "taxonomy.yaml": "0fdd1606788ad2eb83f3254abe591a6e5993b613"
         }
       },
       "generators": {
@@ -43,7 +43,7 @@
       "files": {
         "context": {
           "path": "0.1.0/context.jsonld",
-          "sha256": "1a33074d23769c6961edb12374bfbc12485c51de3f65c283d49e7975c344c38a"
+          "sha256": "afcc76c2a566523fa8dcfeed929ea07e75983130fa6aae1de497257e3bc0aec2"
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
@@ -51,11 +51,11 @@
         },
         "shacl": {
           "path": "0.1.0/shacl.ttl",
-          "sha256": "343bf7d4a2f28308815264e90b1cd235fdcdaa4fa2f79019c99d93cdc5834e30"
+          "sha256": "d00e6e5737c2efb02ad1f2bd95e4c1c633afb0854e8cf0398471bacdc58f346d"
         },
         "linkml": {
           "path": "0.1.0/linkml.yaml",
-          "sha256": "d2a213792d29f33093339bbcf1bd2f58e88e518a73230d6e0095b6af5eacefbd"
+          "sha256": "2cd384675dc82c9413331b77f7438b12a15d9a0ca8a373b440480e14f8d10387"
         }
       },
       "entryPoints": {
@@ -110,7 +110,7 @@
           "path": "0.1.0/examples/c06-cohort-claim.jsonld",
           "entryPoint": "C06CohortClaim",
           "valid": true,
-          "sha256": "62ebd3b2966f284a59005e6fa8d13030179f716a869a3d6d9d40c5dd34885251"
+          "sha256": "01cab8f1ecb616b46ff4bb4dc9ad30a3b8320756fffa4ad2266c3b00c0a60fdc"
         },
         {
           "path": "0.1.0/examples/c06-mvp-claim-domain-invalid.jsonld",
@@ -119,61 +119,61 @@
           "violates": [
             "practices"
           ],
-          "sha256": "85890e123b9bbd2ef54bd650afe833f79b030fc370044c114b398aa4597996fa"
+          "sha256": "9d5491ac3eb27ded008e663c6e8de27f0fbb7020b0b3cff9c916974caca63501"
         },
         {
           "path": "0.1.0/examples/c06-mvp-claim.jsonld",
           "entryPoint": "C06SiteClaim",
           "valid": true,
-          "sha256": "c147ebfd2fd0aa6174b92f9b751698759bb16e09d989521e4e45c23536fa60c7"
+          "sha256": "dcb619c3612ed06e43537a8b22310032540cefb666d0a1b9e691ce0c69b12c90"
         },
         {
           "path": "0.1.0/examples/c06-plot-claim.jsonld",
           "entryPoint": "C06PlotClaim",
           "valid": true,
-          "sha256": "52ba22d46c2fcccbc0f0e040ae3c38949574ac64f2a1548634fe2ef7247e9a81"
+          "sha256": "9ef47b76af212b0884f078ea7712b6229553b190530a2c885145fba391a34c13"
         },
         {
           "path": "0.1.0/examples/c06-project-claim.jsonld",
           "entryPoint": "C06ProjectClaim",
           "valid": true,
-          "sha256": "133b342431c4577fd32afd4fc5509ced85b77df5126b8a9aa87a679c531e25e7"
+          "sha256": "bea97410d0482e6c20c019f79b0a9039eade19d0160daf4e6a9b27973e9e3a0e"
         },
         {
           "path": "0.1.0/examples/c06-project-statement-claim.jsonld",
           "entryPoint": "C06ProjectStatementClaim",
           "valid": true,
-          "sha256": "d2afc17eb75aa857439d3412cf94be1db2fc021bd3e85227ea771bc76361e138"
+          "sha256": "e9e82c3676c56389a591509e987a04421d341d92c716208036908d631e7c0474"
         },
         {
           "path": "0.1.0/examples/generic-attestation.jsonld",
           "entryPoint": "Attestation",
           "valid": true,
-          "sha256": "6af9c8e4fc990bc9e81dcf46842f27376a63f5fa5002f1dd8df5adaa1b3e5df9"
+          "sha256": "23c499ee6626f88fd384fcf97a3046bb7073edaa89c93f8e97f6c63645701c9a"
         },
         {
           "path": "0.1.0/examples/generic-claim-revision.jsonld",
           "entryPoint": "Claim",
           "valid": true,
-          "sha256": "4c393dc1e88dfd925a97471204fdd0450d63185dd105eb355cc1e1ecf057e2f9"
+          "sha256": "42be0954ed5e49fec083f9eba906e39c2b7395ec68f11eccbd47973de89e8d16"
         },
         {
           "path": "0.1.0/examples/generic-claim.jsonld",
           "entryPoint": "Claim",
           "valid": true,
-          "sha256": "fc6704a933cc39d242a8e2b7fb4ab87b5a3610cfbeee1de5261d1bd226faf5ce"
+          "sha256": "02b031cebc8f9e3e737ffc28d1b461ef4c2950ebb1cb7311406f428e5587a268"
         },
         {
           "path": "0.1.0/examples/registry-finding-attestation.jsonld",
           "entryPoint": "RegistryFindingAttestation",
           "valid": true,
-          "sha256": "83d74fbe8e4e97ced09a6fc5b4c7ae7c3df16121ae3fc21ac1575f9cc7bfdf37"
+          "sha256": "b1baa2925709806fa23256ce6fa1614d18b58a04fd4f5faa2d25eb03506e5150"
         },
         {
           "path": "0.1.0/examples/registry-review-attestation.jsonld",
           "entryPoint": "RegistryReviewAttestation",
           "valid": true,
-          "sha256": "b1bcc559927fa32b0da2130387b9063fb2e96a605e65ea07613d8ce061948888"
+          "sha256": "3a44624163122d36f6a0f6526524d3415efbe782548e2cf2bb8b139cd1f78808"
         }
       ]
     }

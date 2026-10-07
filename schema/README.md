@@ -130,9 +130,11 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
     a type-scoped context (JSON-LD 1.1) on its class: `File.description` (`dcterms:description`),
     `File.name` (`dcterms:title`) and `ReferenceId.identifier` (`rfs:identifier`);
   - enum terms are strings; they get `"@type": "@vocab"` and a scoped context mapping each value to
-    its `meaning`. An enum without meanings (BT01's) stays a string, as in the Turtle output. In an
-    enum where only some values have a meaning (`ImpactType`'s `UNKNOWN`), a value without one
-    expands against `@vocab` in JSON-LD, where the Turtle output has a string;
+    its `meaning`. An enum without meanings (BT01's) stays a string, as in the Turtle output. An
+    enum where only some values have a meaning cannot be expressed: JSON-LD would make every value
+    an IRI, while the Turtle output keeps a value without a meaning a string. The script refuses to
+    generate the context for one, so give every value a meaning (as `ImpactType`'s `UNKNOWN` has,
+    `rfs:UnknownImpact`);
   - `uri` and `uriorcurie` values are `xsd:anyURI` literals unless the context is generated with
     `--xsd-anyuri-as-iri`;
   - nested objects need an explicit `@type`, which `scripts/claim-examples.py` adds when it builds a
