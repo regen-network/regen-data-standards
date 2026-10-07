@@ -5,6 +5,9 @@ prefixes:
   rft:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/
+  rfs:
+    prefix_prefix: rfs
+    prefix_reference: https://framework.regen.network/schema/
 
 enums:
   ActivityType:
@@ -341,6 +344,7 @@ enums:
         title: ImprovedNutrientCycling
       UNKNOWN:
         text: UNKNOWN
+        meaning: rfs:UnknownImpact
         title: Unknown
   ClaimType:
     name: ClaimType

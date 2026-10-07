@@ -2602,7 +2602,7 @@ rfs:Impact a sh:NodeShape ;
             sh:order 0 ;
             sh:path schema1:name ],
         [ sh:description "Type of impact, such as ecological, social, or economic." ;
-            sh:in ( rft:ReducedFertilizerAmendments rft:AvoidedDeforestationDegradation rft:ImprovedCulturalHeritageAwareness rft:ImprovedBiodiversity rft:ImprovedEnvironmentalEducationOutreach rft:ReducedSoilErosion rft:ReducedHerbicideAmendments rft:ImprovedForestHealth rft:ImprovedCommunityHealth rft:ImprovedWildlifeHabitat rft:ImprovedSoilHealth rft:IncreasedForestCover rft:ReducedPesticideAmendments rft:ImprovedWaterInfiltration rft:ImprovedWaterHoldingCapacity rft:IncreasedCarbonSequestrationStorage rft:ReducedIrrigation rft:ImprovedSoilStructure rft:ImprovedNutrientCycling "UNKNOWN" ) ;
+            sh:in ( rft:ReducedFertilizerAmendments rft:AvoidedDeforestationDegradation rft:ImprovedCulturalHeritageAwareness rft:ImprovedBiodiversity rft:ImprovedEnvironmentalEducationOutreach rft:ReducedSoilErosion rft:ReducedHerbicideAmendments rft:ImprovedForestHealth rft:ImprovedCommunityHealth rft:ImprovedWildlifeHabitat rft:ImprovedSoilHealth rft:IncreasedForestCover rft:ReducedPesticideAmendments rft:ImprovedWaterInfiltration rft:ImprovedWaterHoldingCapacity rft:IncreasedCarbonSequestrationStorage rft:ReducedIrrigation rft:ImprovedSoilStructure rft:ImprovedNutrientCycling rfs:UnknownImpact ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:order 1 ;

@@ -428,7 +428,7 @@
         "REDUCED_IRRIGATION": "rft:ReducedIrrigation",
         "IMPROVED_SOIL_STRUCTURE": "rft:ImprovedSoilStructure",
         "IMPROVED_NUTRIENT_CYCLING": "rft:ImprovedNutrientCycling",
-        "UNKNOWN": null
+        "UNKNOWN": "rfs:UnknownImpact"
       }
     },
     "supportsSDG": {
