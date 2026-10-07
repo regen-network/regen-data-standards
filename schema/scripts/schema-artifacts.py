@@ -27,12 +27,14 @@ hash of src/), the generator versions, the files and their SHA-256 digests,
 the validation entry points and the examples.
 
 `check` checks the bundle offline: every file the manifest lists exists and
-has its digest; every entry point exists in the version's JSON Schema and
-SHACL shapes; every example of every version is accepted, or, if invalid,
-rejected only on the paths the manifest names, by both validators, with no
-network access. For the version src/schema.yaml declares, it also checks
-that src/ is the source the manifest records and that regenerating the
-artifacts gives the same bytes. With --base REF, every version in REF's
+has its digest, and every file in versions/ is listed; every entry point
+exists in the version's JSON Schema and SHACL shapes; every example of every
+version is accepted, or, if invalid, rejected only on the paths the manifest
+names, by both validators, with no network access. For the version
+src/schema.yaml declares, it also checks that src/ is the source the manifest
+records, that regenerating the artifacts gives the same bytes, that its
+examples are those of examples/, and that its manifest entry is the one
+`bundle` would write. With --base REF, every version in REF's
 manifest must be unchanged: a published version is immutable, so changed
 definitions need a new version.
 
@@ -279,30 +281,21 @@ def entry_points(view, version):
     return points
 
 
-def bundle(source, version, commit):
+def manifest_entry(source, version, commit):
+    """The manifest entry of a version, from its files in versions/<version>/."""
     out = VERSIONS / version
-    context = json.loads((out / ARTIFACTS["context"]).read_text())["@context"]
-    examples_dir = out / "examples"
-    if examples_dir.exists():
-        shutil.rmtree(examples_dir)
-    examples_dir.mkdir()
     examples = []
-    for example in sorted((source / "examples").glob("*.jsonld")):
-        document = json.loads(example.read_text())
-        document["@context"] = context
-        target = examples_dir / example.name
-        target.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n")
-        record = {"path": f"{version}/examples/{example.name}", "entryPoint": document["@type"]}
-        if example.name in INVALID_EXAMPLES:
+    for path in sorted((out / "examples").glob("*.jsonld")):
+        record = {"path": f"{version}/examples/{path.name}", "entryPoint": json.loads(path.read_text())["@type"]}
+        if path.name in INVALID_EXAMPLES:
             record["valid"] = False
-            record["violates"] = INVALID_EXAMPLES[example.name]
+            record["violates"] = INVALID_EXAMPLES[path.name]
         else:
             record["valid"] = True
-        record["sha256"] = sha256(target)
+        record["sha256"] = sha256(path)
         examples.append(record)
-
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
-    entry = {
+    return {
         "source": source_record(source, commit),
         "generators": {name: package_version(name) for name in GENERATORS},
         "files": {
@@ -312,8 +305,22 @@ def bundle(source, version, commit):
         "entryPoints": entry_points(view, version),
         "examples": examples,
     }
+
+
+def bundle(source, version, commit):
+    out = VERSIONS / version
+    context = json.loads((out / ARTIFACTS["context"]).read_text())["@context"]
+    examples_dir = out / "examples"
+    if examples_dir.exists():
+        shutil.rmtree(examples_dir)
+    examples_dir.mkdir()
+    for example in sorted((source / "examples").glob("*.jsonld")):
+        document = json.loads(example.read_text())
+        document["@context"] = context
+        target = examples_dir / example.name
+        target.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n")
     manifest = read_manifest()
-    manifest["versions"][version] = entry
+    manifest["versions"][version] = manifest_entry(source, version, commit)
     manifest["versions"] = dict(sorted(manifest["versions"].items(), key=lambda kv: version_key(kv[0])))
     manifest["latest"] = list(manifest["versions"])[-1]
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
@@ -424,12 +431,17 @@ def check_examples(version, entry, failures):
 
 def check_files(version, entry, failures):
     out = VERSIONS / version
+    listed = set()
     for record in [*entry["files"].values(), *entry["examples"]]:
         path = VERSIONS / record["path"]
+        listed.add(path)
         if not path.exists():
             failures.append(f"{path}: missing")
         elif sha256(path) != record["sha256"]:
             failures.append(f"{path}: SHA-256 differs from the manifest")
+    for path in sorted(p for p in out.rglob("*") if p.is_file()):
+        if path not in listed:
+            failures.append(f"{path}: not in {MANIFEST}")
     schema = json.loads((out / ARTIFACTS["json-schema"]).read_text())
     shapes = rdflib.Graph().parse(out / ARTIFACTS["shacl"], format="turtle")
     for name, point in entry["entryPoints"].items():
@@ -463,6 +475,22 @@ def check_current(version, entry, failures):
         expected = json.dumps(document, indent=2, ensure_ascii=False) + "\n"
         if not snapshot.exists() or snapshot.read_text() != expected:
             failures.append(f"{snapshot} differs from {example}: run make gen-schema-artifacts")
+    sources = {p.name for p in Path("examples").glob("*.jsonld")}
+    for snapshot in sorted((out / "examples").glob("*.jsonld")):
+        if snapshot.name not in sources:
+            failures.append(f"{snapshot} has no examples/{snapshot.name}: run make gen-schema-artifacts")
+    expected = manifest_entry(Path("."), version, entry["source"].get("commit"))
+    for key in expected:
+        if entry.get(key) != expected[key]:
+            if key == "examples":
+                listed = {e["path"] for e in entry.get(key, [])}
+                found = {e["path"] for e in expected[key]}
+                detail = f"unlisted {sorted(found - listed)}, listed without a file {sorted(listed - found)}"
+                if listed == found:
+                    detail = "records differ from the files"
+                failures.append(f"{MANIFEST}: examples of {version}: {detail}: run make gen-schema-artifacts")
+            else:
+                failures.append(f"{MANIFEST}: {key} of {version} differs from its files: run make gen-schema-artifacts")
 
 
 def check_base(base, manifest, failures):
@@ -488,6 +516,9 @@ def check(base):
         failures.append(f"{current} (declared in src/schema.yaml) is not in {MANIFEST}: run make gen-schema-artifacts")
     if manifest["latest"] != max(manifest["versions"], key=version_key):
         failures.append(f"{MANIFEST}: latest is not the highest version")
+    for folder in sorted(p for p in VERSIONS.iterdir() if p.is_dir()):
+        if folder.name not in manifest["versions"]:
+            failures.append(f"{folder}: not in {MANIFEST}")
     for version, entry in manifest["versions"].items():
         check_files(version, entry, failures)
         check_examples(version, entry, failures)
