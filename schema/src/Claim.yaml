@@ -113,11 +113,11 @@ slots:
       transcribed or submitted. It is never the time of an observation, or
       the time the Claim record was generated, submitted, published or
       ingested. The same content asserted at a different time is a different
-      Claim. Written in UTC with whole seconds, in the
-      XSD canonical form, for example 2026-05-02T07:30:00Z. A local offset is
-      not accepted.
+      Claim. Written in UTC with whole seconds and the offset +00:00, for
+      example 2026-05-02T07:30:00+00:00. No other offset is accepted, and
+      neither is the Z suffix.
     range: datetime
-    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"
     required: true
   hasSubject:
     slot_uri: rfs:hasSubject

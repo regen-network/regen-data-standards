@@ -18,18 +18,19 @@ its Turtle output:
 The check validates every document with both validators the schema generates:
 
 - JSON Schema (linkml-validate) over the authored YAML;
-- SHACL (gen-shacl, closed shapes) over the RDF graph of the authored JSON-LD,
-  parsed without rdflib's literal normalization so that lexical forms, such as
-  the Z suffix of assertedAt, are checked as written. One correction is applied
-  to the generated shapes: gen-shacl adds sh:class to reference slots (a class
-  range with an identifier, not inlined), but referenced IRIs are not typed in
-  the data, so every valid claim would fail. The correction removes that
-  sh:class and keeps sh:nodeKind sh:IRI.
+- SHACL (gen-shacl, closed shapes) over the RDF graph of the authored JSON-LD
+  and over the Turtle that gen-rdf publishes for the fixture, both parsed
+  without rdflib's literal normalization so that lexical forms are checked as
+  written (rdflib would otherwise rewrite an invalid Z in assertedAt as
+  +00:00). One correction is applied to the generated shapes: gen-shacl adds
+  sh:class to reference slots (a class range with an identifier, not inlined),
+  but referenced IRIs are not typed in the data, so every valid claim would
+  fail. The correction removes that sh:class and keeps sh:nodeKind sh:IRI.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
-Turtle output, and accepted by both validators. Every
-examples/claim.INVALID-*.yaml document must be rejected by both: by JSON Schema
-with the error named on its first line ("# expect: ..."), and by SHACL.
+published Turtle (run make gen-rdf first), and accepted by both validators.
+Every examples/claim.INVALID-*.yaml document must be rejected by both: by JSON
+Schema with the error named on its first line ("# expect: ..."), and by SHACL.
 """
 
 import glob
@@ -126,26 +127,21 @@ def build(view, context, source):
     return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
 
 
-def authored_graph(jsonld_text):
-    """Parse JSON-LD keeping lexical forms as written (no Z -> +00:00)."""
+def lexical_graph(text, format):
+    """Parse RDF keeping lexical forms as written (a Z stays Z, not +00:00)."""
     rdflib.NORMALIZE_LITERALS = False
     try:
-        return rdflib.Graph().parse(data=jsonld_text, format="json-ld")
+        return rdflib.Graph().parse(data=text, format=format)
     finally:
         rdflib.NORMALIZE_LITERALS = True
 
 
-def turtle_graph(fixture):
-    # --no-validate: validation would check LinkML's re-serialized objects,
-    # which rewrite Z as +00:00. The authored file is validated by
-    # json_schema_check instead.
-    result = run(
-        "linkml-convert", "-s", SCHEMA, "-C", TARGET_CLASS, "--no-validate",
-        "-f", "yaml", "-t", "ttl", fixture,
-    )
-    if result.returncode != 0:
-        sys.exit(f"{fixture}: conversion failed\n{result.stderr}")
-    return rdflib.Graph().parse(data=result.stdout, format="turtle")
+def published_turtle(fixture):
+    """Return the Turtle gen-rdf wrote for a fixture, which update-graph publishes."""
+    path = Path(fixture).with_suffix(".ttl")
+    if not path.exists():
+        sys.exit(f"{path} is missing: run make gen-rdf")
+    return path
 
 
 def json_schema_check(document):
@@ -180,18 +176,23 @@ def main(mode):
         else:
             print(f"❌ {fixture}: JSON Schema violations\n{output}")
             failures += 1
+        turtle = published_turtle(fixture)
         jsonld = rdflib.Graph().parse(data=text, format="json-ld")
-        if isomorphic(jsonld, turtle_graph(fixture)):
-            print(f"✅ {example}: RDF matches {fixture}")
+        if isomorphic(jsonld, rdflib.Graph().parse(turtle, format="turtle")):
+            print(f"✅ {example}: RDF matches {turtle}")
         else:
-            print(f"❌ {example}: RDF differs from the Turtle output of {fixture}")
+            print(f"❌ {example}: RDF differs from {turtle} (stale? run make gen-rdf)")
             failures += 1
-        conforms, messages = shacl_report(authored_graph(text), shapes)
-        if conforms:
-            print(f"✅ {example}: conforms to SHACL")
-        else:
-            print(f"❌ {example}: SHACL violations {messages}")
-            failures += 1
+        for document, graph in (
+            (example, lexical_graph(text, "json-ld")),
+            (turtle, lexical_graph(turtle.read_text(), "turtle")),
+        ):
+            conforms, messages = shacl_report(graph, shapes)
+            if conforms:
+                print(f"✅ {document}: conforms to SHACL")
+            else:
+                print(f"❌ {document}: SHACL violations {messages}")
+                failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):
         first_line = Path(invalid).read_text().splitlines()[0]
@@ -202,7 +203,7 @@ def main(mode):
         else:
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")
             failures += 1
-        conforms, messages = shacl_report(authored_graph(build(view, context, invalid)), shapes)
+        conforms, messages = shacl_report(lexical_graph(build(view, context, invalid), "json-ld"), shapes)
         if not conforms:
             print(f"✅ {invalid}: SHACL rejects it ({messages[0][:80]})")
         else:
