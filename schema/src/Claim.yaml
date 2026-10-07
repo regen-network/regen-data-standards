@@ -127,10 +127,13 @@ slots:
   hasSubject:
     slot_uri: rfs:hasSubject
     description: >-
-      What the claim is about, as a ClaimSubject node identified by its IRI:
-      a place, plot, project, organization, community, indicator, dataset or
-      another claim. Claims about the same subject share its IRI and can be
-      joined. Specialized claim schemas narrow the range to a subclass of
+      The one focal resource the claim is about, as a ClaimSubject node
+      identified by its IRI: a place, plot, project, organization, community,
+      indicator, dataset or another claim. It is not every participant the
+      assertion mentions: in a claim relating several parties, the others
+      appear in named roles defined by the claim-type schema, or the
+      relationship or activity itself is the subject. Claims about the same
+      subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of
       ClaimSubject. Not the claimant, and not necessarily the feature of
       interest of an observation inside the claim.
     range: ClaimSubject
