@@ -13,8 +13,21 @@ to check which fields are shared.
 
 ## What a Claim is
 
-A Claim is an attributed assertion: related statements that one or more claimants present together
-about a subject, at a stated time.
+A Claim is an assertion made or adopted by one or more claimants about one subject, at a stated
+time. It records what is asserted and may cite evidence.
+
+- **One assertion.** A Claim is one unit that can be accepted, rejected, evidenced or revised on its
+  own. It is not one sentence or one RDF triple: the statements naming a planting activity, its plot,
+  its period and its area together assert that the planting took place, and form one Claim. A
+  further statement that the planting increased soil carbon is normally another Claim, because a
+  reviewer could accept the planting and reject the carbon calculation. Parts that a reviewer could
+  judge separately are separate Claims.
+- **One unit of responsibility.** Each listed claimant takes responsibility for the whole assertion
+  (see [Claimant](#base-fields)). When different agents take responsibility for different parts,
+  those parts are separate Claims, not one Claim with all of them as claimants.
+- **Not every grouping or resource is a Claim.** A report or an application can group many Claims
+  without becoming one large Claim. Not every RDF resource, observation, dataset or triple needs a
+  Claim around it: a Claim is used where assertion-level attribution, evidence and review are needed.
 
 - **Asserted by definition.** A Claim needs a claimant and an assertion time. An unasserted authoring
   candidate, such as an extraction draft, is not a Claim and does not validate as one
