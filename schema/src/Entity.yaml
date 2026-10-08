@@ -25,6 +25,23 @@ classes:
       type:
         range: EntityTypes
         required: true
+      rid:
+        slot_uri: rfs:rid
+        description: >-
+          Stable, resolvable identifier for this Entity — a KOI entity URI or an
+          ORN RID (e.g. "orn:regen.entity:wsanec-leadership-council"). This is the
+          target that a reference-style slot resolves against.
+
+          Distinct from walletAddress, which binds an identity to a signing key
+          and is absent for most entities. This is the identity itself.
+        range: uriorcurie
+        comments:
+          - >-
+            Optional pending backfill. `identifier: true` is the intended end
+            state and is deferred, not rejected: an identifier is required by
+            implication, and no current instance carries a rid. Promotion is
+            tracked in the follow-up that defines identity keys and resolution
+            semantics for Entity and Claim together.
       walletAddress:
         slot_uri: rfs:walletAddress
         description: >-
@@ -32,6 +49,14 @@ classes:
           to signing capability. Used by the identity bridge to link KOI
           entity URIs to on-chain accounts for CLAMS and EAS interop.
         range: string
+    unique_keys:
+      rid_key:
+        description: >-
+          Where present, rid must be unique across Entity instances. This
+          encodes the uniqueness half of identifier semantics now, while the
+          required-by-implication half waits on the backfill.
+        unique_key_slots:
+          - rid
 
 enums:
   EntityTypes:
