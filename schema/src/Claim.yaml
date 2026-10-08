@@ -3,7 +3,8 @@ name: Claim
 description: >-
   The reusable base Claim: asserted content shared by every kind of claim.
   Claim-type schemas extend it (is_a: Claim) with domain content such as
-  impacts, quantities, methodologies or activities. Review state, anchoring
+  impacts, quantities, methodologies or activities; GenericClaim is the claim
+  type with base content only. Review state, anchoring
   state and identifiers derived from a Claim's own canonical form are not
   Claim content. See docs/claim-base.md.
 prefixes:
@@ -29,6 +30,7 @@ default_range: string
 classes:
   Claim:
     class_uri: rfs:Claim
+    abstract: true
     mixins:
       - ProvEntity
     description: >-
@@ -44,6 +46,10 @@ classes:
       resources that point to it. An unasserted authoring candidate, such as
       an extraction draft without a claimant, is not a Claim. Every version is
       immutable: a correction is a new Claim that states wasRevisionOf.
+      Abstract: a document is typed with a claim type, either GenericClaim or
+      a class from a claim-type schema. The constraints here apply to every
+      claim type, and a claim type may add fields to them, so the generated
+      SHACL shape for Claim is open; each claim type's own shape is closed.
     slots:
       - name
       - description
@@ -77,6 +83,15 @@ classes:
           follow-up observation, is a new Claim and is not a revision. The
           earlier version is unchanged, its attestations do not carry over, and
           selecting a current version happens outside the Claim.
+  GenericClaim:
+    is_a: Claim
+    class_uri: rfs:GenericClaim
+    description: >-
+      A Claim with base content only, for an assertion that needs no
+      claim-type schema, such as a self-attested stewardship claim. It adds
+      nothing to Claim, and its generated shapes are closed, so impacts,
+      quantities, activities and other domain content are rejected; they
+      belong to a claim-type schema.
 
 slots:
   hasClaimType:

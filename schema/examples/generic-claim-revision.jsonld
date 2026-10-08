@@ -96,6 +96,9 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -115,7 +118,7 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "Claim",
+  "@type": "GenericClaim",
   "name": "Hedgerow planting on plot A, spring 2026 (corrected length)",
   "description": "Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
   "hasClaimType": "ECOLOGICAL",

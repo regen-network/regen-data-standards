@@ -1,4 +1,4 @@
-# Synthetic example: an immutable revision of Claim-generic-001. The earlier
+# Synthetic example: an immutable revision of GenericClaim-001. The earlier
 # version is unchanged; this version names it by a labelled placeholder that
 # stands for the ClaimIRI derived under WP1-08 (regen-network/claims#1).
 name: Hedgerow planting on plot A, spring 2026 (corrected length)
