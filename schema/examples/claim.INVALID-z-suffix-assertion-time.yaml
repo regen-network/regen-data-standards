@@ -3,7 +3,6 @@
 # one instant has one lexical form. 2026-05-02T07:30:00+00:00 is the same
 # instant and is valid.
 name: Hedgerow planting on plot A, spring 2026
-hasClaimType: ECOLOGICAL
 hasClaimant:
   - name: Hedgerow Cooperative
     type: COMMUNITY

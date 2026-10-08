@@ -5,7 +5,6 @@
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "rfs": "https://framework.regen.network/schema/",
-    "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
@@ -32,17 +31,6 @@
     "hasClaimant": {
       "@type": "rfs:Entity",
       "@id": "hasClaimant"
-    },
-    "hasClaimType": {
-      "@id": "hasClaimType",
-      "@type": "@vocab",
-      "@context": {
-        "ECOLOGICAL": "rft:Ecological",
-        "SOCIAL": "rft:Social",
-        "FINANCIAL": "rft:Financial",
-        "GOVERNANCE": "rft:Governance",
-        "BIOCULTURAL": "rft:Biocultural"
-      }
     },
     "hasEvidence": {
       "@type": "rfs:Evidence",
@@ -121,7 +109,6 @@
   "@type": "GenericClaim",
   "name": "Hedgerow planting on plot A, spring 2026",
   "description": "Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
-  "hasClaimType": "ECOLOGICAL",
   "hasClaimant": [
     {
       "@type": "Entity",
