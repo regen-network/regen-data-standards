@@ -220,7 +220,7 @@ OpenCitations snapshots preserve historical descriptions (§2.1); JC's “Snapsh
 
 | Inspected design input | Recommendation or unresolved problem |
 | --- | --- |
-| [Claim][CLAIM] requires claimant and ecological impact; includes changing verification status and its hash/IRI. | Keep claimant; move domain-only requirements into extensions and changing status outside immutable content. Publish proposed PROV alignment. |
+| [Claim][CLAIM] requires claimant and ecological impact; includes changing verification status and its hash/IRI. | Keep claimant; move domain-only requirements into extensions. `verificationStatus`, `contentHash` and `dataIri` are to be removed from `Claim.yaml` (agreed July 2026; [ADR 0001 D1](https://github.com/DarrenZal/regen-data-standards/blob/630cd6225cabe8b1d5473a1c416e6989283a7b32/docs/adr/0001-claim-rdf-shape-and-provenance-boundaries.md#d1--define-asserted-content-separately-from-lifecycle-and-derived-identity)), implemented in [#85](https://github.com/regen-network/regen-data-standards/pull/85). Publish proposed PROV alignment. |
 | Existing `supersedes` | Separate genuine revision from selection of the current version. Only the first maps to PROV revision. |
 | JC's [domain model][JC] separates content, judgments and service observations. | Useful proposal; service history still counts as provenance. |
 | JC permits missing claimant and deferred validation. | Do not adopt as MVP defaults: these conflict with the planned attributed, validated workflow. |
