@@ -1,5 +1,5 @@
 # expect: 'verificationMethodDescriptor' is a required property
-# class: Attestation
+# class: Evaluation
 # shacl: not enforced
 # A verification method outside the enumeration is described, so the method is
 # never empty. This is a LinkML rule, which the generated JSON

@@ -1,10 +1,10 @@
-id: https://framework.regen.network/schema/Attestation
-name: Attestation
+id: https://framework.regen.network/schema/Evaluation
+name: Evaluation
 description: >-
-  The base Attestation: an issuer's dated, scoped judgment about claims or
-  other attestations. It holds only what every program's judgments share;
+  The base Evaluation: an issuer's dated, scoped judgment about claims or
+  other evaluations. It holds only what every program's judgments share;
   program-specific review vocabularies, such as Regen Registry's, extend it
-  with is_a Attestation. See docs/attestation-and-evidence.md.
+  with is_a Evaluation. See docs/evaluation-and-evidence.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -19,17 +19,17 @@ default_prefix: rfs
 default_range: string
 
 classes:
-  Attestation:
+  Evaluation:
     is_a: Claim
-    class_uri: rfs:Attestation
+    class_uri: rfs:Evaluation
     description: >-
       An issuer's judgment, made at a stated time, about what it targets:
-      exact versions of claims, of other attestations, or a snapshot of
+      exact versions of claims, of other evaluations, or a snapshot of
       claims. As a Claim it is attributed (hasClaimant names the issuer),
       immutable and revisable with wasRevisionOf; it is about a subject, such
       as a project or a plot, even when it judges a claim about that subject.
       It does not carry its own hash or IRI, anchoring state, or a status
-      that changes after it is made: a later judgment is a new Attestation.
+      that changes after it is made: a later judgment is a new Evaluation.
     slots:
       - hasTarget
       - reliesOn
@@ -72,7 +72,7 @@ classes:
       - description: >-
           A scope and unbounded are exclusive: a scope limits the judgment to
           the subjects it names, and unbounded states that the judgment has no
-          limits beyond its targets. An attestation with a scope does not
+          limits beyond its targets. An evaluation with a scope does not
           state unbounded. Enforced by the generated JSON Schema; the
           generated SHACL does not express LinkML rules.
         preconditions:
@@ -87,9 +87,9 @@ classes:
   Scope:
     class_uri: rfs:Scope
     description: >-
-      Where an attestation applies, as structured fields, so that a consumer
+      Where an evaluation applies, as structured fields, so that a consumer
       can check whether a subject falls inside it. A scope always names the
-      subjects it covers. An attestation without a scope applies only to what
+      subjects it covers. An evaluation without a scope applies only to what
       it targets, unless it states unbounded.
     slots:
       - appliesTo
@@ -143,6 +143,6 @@ slots:
     description: >-
       True when the issuer explicitly gives the judgment no limits beyond what
       it targets, so that an unlimited approval is a stated choice rather than
-      an omission. Stated only on an attestation without a scope: the two are
+      an omission. Stated only on an evaluation without a scope: the two are
       exclusive.
     range: boolean

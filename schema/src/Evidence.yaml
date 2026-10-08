@@ -1,7 +1,7 @@
 id: https://framework.regen.network/schema/Evidence
 name: Evidence
 description: >-
-  The evidence a Claim or Attestation cites: one exact version of a source,
+  The evidence a Claim or Evaluation cites: one exact version of a source,
   where its bytes can be fetched, the hash that lets a reader check them, and
   the usage terms that applied to that version. Current availability, access
   and the currently offered licence are not recorded here: they change after
@@ -32,7 +32,7 @@ classes:
       A source cited as evidence: a document, dataset, record or observation,
       identified by an IRI. The IRI names the exact version cited and may
       carry a fragment for a position inside it, for example a page. Whether
-      it actually supports a claim is judged separately, by attestations, and
+      it actually supports a claim is judged separately, by evaluations, and
       its current availability or access is not recorded here.
     slots:
       - name
@@ -95,7 +95,7 @@ slots:
     description: >-
       Hash of the bytes of the cited source version. This is the hash of the
       source, which a citation needs; it is not the hash of the Claim or
-      Attestation that cites it, which is never part of its own content.
+      Evaluation that cites it, which is never part of its own content.
     range: ContentDigest
     inlined: true
     required: true
@@ -180,7 +180,7 @@ enums:
     description: >-
       Outcomes a resolver reports when a consumer fetches cited evidence. They
       are reported at a point in time and are never stored in Claim or
-      Attestation content.
+      Evaluation content.
     permissible_values:
       EVIDENCE_INTACT:
         meaning: rfs:EvidenceIntact

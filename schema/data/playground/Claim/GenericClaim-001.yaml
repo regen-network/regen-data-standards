@@ -1,5 +1,5 @@
 # Synthetic example (example.org identifiers): a self-attested stewardship
-# claim with no credit class, impact or third-party attestation (#68 use case 1).
+# claim with no credit class, impact or third-party evaluation (#68 use case 1).
 name: Hedgerow planting on plot A, spring 2026
 claimStatement: >-
   Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern

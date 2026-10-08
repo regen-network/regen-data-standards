@@ -1,6 +1,6 @@
 # Synthetic example (example.org identifiers): a statement the project
 # developer makes in its project plan. A reviewer reads it; which requirement it
-# answers is recorded by the reviewer's attestation, not here.
+# answers is recorded by the reviewer's evaluation, not here.
 name: Participation in other crediting programs
 description: >-
   The project is not registered with, and is not seeking registration with, any

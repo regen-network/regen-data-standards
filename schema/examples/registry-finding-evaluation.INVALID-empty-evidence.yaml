@@ -1,5 +1,5 @@
 # expect: [] should be non-empty
-# class: RegistryFindingAttestation
+# class: RegistryFindingEvaluation
 # A finding cites at least one piece of evidence: an empty list
 # is rejected like a missing one.
 name: Clarification request on the crediting period structure

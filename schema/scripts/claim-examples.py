@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate and check the Claim, Attestation and C06 claim JSON-LD examples.
+"""Generate and check the Claim, Evaluation and C06 claim JSON-LD examples.
 
     python3 scripts/claim-examples.py generate   # rewrite examples/*.jsonld
     python3 scripts/claim-examples.py check      # fail if anything is stale or wrong
@@ -67,9 +67,9 @@ SCHEMA = "src/schema.yaml"
 # generated from that module and its imports.
 MODULES = {
     "GenericClaim": "src/Claim.yaml",
-    "Attestation": "src/Attestation.yaml",
-    "RegistryReviewAttestation": "src/RegistryReviewAttestation.yaml",
-    "RegistryFindingAttestation": "src/RegistryReviewAttestation.yaml",
+    "Evaluation": "src/Evaluation.yaml",
+    "RegistryReviewEvaluation": "src/RegistryReviewEvaluation.yaml",
+    "RegistryFindingEvaluation": "src/RegistryReviewEvaluation.yaml",
     "C06ProjectClaim": "src/C06Claim.yaml",
     "C06CohortClaim": "src/C06Claim.yaml",
     "C06SiteClaim": "src/C06Claim.yaml",
@@ -80,9 +80,9 @@ EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml": "examples/c06-mvp-claim.jsonld",
-    "data/playground/RegistryReviewAttestation/RegistryReviewAttestation-confirmation-001.yaml": "examples/registry-review-attestation.jsonld",
-    "data/playground/RegistryFindingAttestation/RegistryFindingAttestation-cl-001.yaml": "examples/registry-finding-attestation.jsonld",
-    "data/playground/Attestation/Attestation-generic-001.yaml": "examples/generic-attestation.jsonld",
+    "data/playground/RegistryReviewEvaluation/RegistryReviewEvaluation-confirmation-001.yaml": "examples/registry-review-evaluation.jsonld",
+    "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",
+    "data/playground/Evaluation/Evaluation-generic-001.yaml": "examples/generic-evaluation.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
