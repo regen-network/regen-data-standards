@@ -75,7 +75,9 @@ ARTIFACTS = {
     "shacl": "shacl.ttl",
     "linkml": "linkml.yaml",
 }
-GENERATORS = ("linkml", "linkml-runtime")
+# The packages whose versions shape the artifacts' bytes: rdflib serializes
+# shacl.ttl, PyYAML writes linkml.yaml.
+GENERATORS = ("linkml", "linkml-runtime", "rdflib", "PyYAML")
 # The slots each invalid JSON-LD example is expected to violate, and no other.
 INVALID_EXAMPLES = {
     "c06-mvp-claim-domain-invalid.jsonld": ["practices"],

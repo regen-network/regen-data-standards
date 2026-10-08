@@ -55,7 +55,9 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
   <commit>:schema/src` prints it for any commit with the same files, so it survives a squash merge),
   the git blob hash of each module, which pins the imported base and shared modules, and the commit
   it was taken from, where known;
-- `generators`: the `linkml` and `linkml-runtime` versions that generated it;
+- `generators`: the versions of the packages that shape the artifacts: `linkml`, `linkml-runtime`,
+  `rdflib` (which serializes `shacl.ttl`) and `PyYAML` (which writes `linkml.yaml`), all pinned in
+  `requirements.txt`;
 - `files`: each artifact's path and SHA-256, and the JSON Schema's `$id`;
 - `entryPoints`: `Claim` and every concrete class that specializes it, with its class IRI, JSON
   Schema location and SHACL shape;
