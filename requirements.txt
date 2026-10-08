@@ -4,3 +4,8 @@ linkml==1.11.1
 linkml-runtime==1.11.1
 # SHACL validation of the Claim examples (make -C schema check-claim-examples).
 pyshacl==0.40.1
+# They shape the bytes of the published schema artifacts (shacl.ttl is
+# serialized with rdflib, linkml.yaml with PyYAML), so they are pinned and
+# recorded in schema/versions/manifest.json with linkml.
+rdflib==7.6.0
+PyYAML==6.0.3

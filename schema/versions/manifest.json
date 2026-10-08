@@ -38,7 +38,9 @@
       },
       "generators": {
         "linkml": "1.11.1",
-        "linkml-runtime": "1.11.1"
+        "linkml-runtime": "1.11.1",
+        "rdflib": "7.6.0",
+        "PyYAML": "6.0.3"
       },
       "files": {
         "context": {
