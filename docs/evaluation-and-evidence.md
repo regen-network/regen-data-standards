@@ -1,9 +1,9 @@
-# Attestation, Evidence and the C06 claims
+# Evaluation, Evidence and the C06 claims
 
 This document describes the schemas added for
 [#73 (WP1-06)](https://github.com/regen-network/regen-data-standards/issues/73): the base
-[`Attestation`](../schema/src/Attestation.yaml), the Regen Registry review vocabulary
-[`RegistryReviewAttestation`](../schema/src/RegistryReviewAttestation.yaml), the full
+[`Evaluation`](../schema/src/Evaluation.yaml), the Regen Registry review vocabulary
+[`RegistryReviewEvaluation`](../schema/src/RegistryReviewEvaluation.yaml), the full
 [`Evidence`](../schema/src/Evidence.yaml) with the [`Activity`](../schema/src/Activity.yaml) that
 generated it, the shared terms added to
 [`ClaimVocabulary`](../schema/src/ClaimVocabulary.yaml), and the C06 claim schema
@@ -25,7 +25,7 @@ flowchart LR
       PLC[C06PlotClaim]
       PS[C06ProjectStatementClaim]
     end
-    A[Attestation]
+    A[Evaluation]
     E[Evidence]
     ACT[Activity]
     OP["Operator (Entity)"]
@@ -44,20 +44,20 @@ flowchart LR
 | Type | Produced by | Consumed by | Reuse decision |
 |---|---|---|---|
 | C06 claims | The project developer, as claimant, from its project plan and datasets | Registry review, rule evaluation (WP5), the verifier, auditors, graph queries (WP4), publication (WP7) | New `C06Claim` schema; classes `is_a Claim` |
-| C06 subjects | Defined once in the C06 claim schema; IRIs built from the keys the project's records use | Every claim and attestation about them | `is_a ClaimSubject` |
-| `Attestation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
-| `RegistryReviewAttestation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; `is_a Attestation` |
+| C06 subjects | Defined once in the C06 claim schema; IRIs built from the keys the project's records use | Every claim and evaluation about them | `is_a ClaimSubject` |
+| `Evaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
+| `RegistryReviewEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; `is_a Evaluation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
 | `Activity` | Whoever cites the evidence it generated | Reviewers checking when and by whom evidence was produced | New module; `ProvActivity` mixin |
 
 A project developer's response to a finding is a Claim by the developer (usually a revised C06
-claim with new evidence), not an attestation.
+claim with new evidence), not an evaluation.
 
-`hasTarget` names what an attestation judges or answers: an exact, immutable version of a claim, of
-another attestation, or of a snapshot (a fixed set of claim versions, identified by its SnapshotIRI,
+`hasTarget` names what an evaluation judges or answers: an exact, immutable version of a claim, of
+another evaluation, or of a snapshot (a fixed set of claim versions, identified by its SnapshotIRI,
 [claims#56](https://github.com/regen-network/claims/issues/56)). A snapshot is the target when a
 judgment covers a whole submission, such as a registration determination. `hasTarget` never names a
-logical label: a finding that runs over several review rounds is a series of dated attestations,
+logical label: a finding that runs over several review rounds is a series of dated evaluations,
 grouped by the issuer's `findingLabel`.
 
 ## Modules
@@ -68,21 +68,26 @@ grouped by the issuer's `findingLabel`.
 | `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `requirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, locator, licence reference, issue date and generating activity (`wasGeneratedBy`), and the integrity-outcome terms. | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
-| `Attestation.yaml` | Rewritten: `Attestation is_a Claim`, and `Scope`. | `Claim`, `ClaimVocabulary` |
-| `RegistryReviewAttestation.yaml` | New: `RegistryReviewAttestation is_a Attestation`, `Condition`, and the review enums. | `Attestation` |
+| `Evaluation.yaml` | Replaces `Attestation.yaml`: `Evaluation is_a Claim`, and `Scope`. | `Claim`, `ClaimVocabulary` |
+| `RegistryReviewEvaluation.yaml` | New: `RegistryReviewEvaluation is_a Evaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
 
 No `Requirement` class exists or is added: requirements belong to the rule set (WP5), and claims and
-attestations reference them by IRI. Inheritance follows #85: domain claims are `is_a Claim`, shared
+evaluations reference them by IRI. Inheritance follows #85: domain claims are `is_a Claim`, shared
 terms are imported from `ClaimVocabulary`.
 
-## Attestation
+## Evaluation
 
-An attestation is an issuer's dated, scoped judgment. It is a Claim: attributed (`hasClaimant` is the
+An evaluation is an issuer's dated, scoped judgment. It is a Claim: attributed (`hasClaimant` is the
 issuer), timed (`assertedAt`), about a subject, citing evidence, immutable, and revisable with
 `wasRevisionOf`. It is about a subject (a project, a plot) even when it judges a claim about that
 subject, because some judgments, such as a determination that a project meets a requirement, have no
 single target claim.
+
+It is called an evaluation, not an attestation, because it records the judgment itself. Attestation
+is left for an agent binding itself to exact content, which the data module's `MsgAttest` does on
+Regen Ledger: an attestor signs a record's Graph IRI. Any Claim or Evaluation can be attested that
+way; what to attest and who signs is [WP6-01 (claims#36)](https://github.com/regen-network/claims/issues/36).
 
 It comes in two layers: what every program's judgments share, and one program's review vocabulary:
 
@@ -92,7 +97,7 @@ classDiagram
     class Claim {
         <<base, #85>>
     }
-    class Attestation {
+    class Evaluation {
         <<every program>>
         hasTarget
         reliesOn
@@ -109,13 +114,13 @@ classDiagram
         exclusion
         limitation
     }
-    class RegistryReviewAttestation {
+    class RegistryReviewEvaluation {
         <<Regen Registry>>
         findingLabel
         issuerRole
         conditions
     }
-    class RegistryFindingAttestation {
+    class RegistryFindingEvaluation {
         findingType
     }
     class Condition {
@@ -123,19 +128,19 @@ classDiagram
         description
         milestone
     }
-    Claim <|-- Attestation
-    Attestation <|-- RegistryReviewAttestation
-    RegistryReviewAttestation <|-- RegistryFindingAttestation
-    Attestation *-- Scope
-    RegistryReviewAttestation *-- "0..*" Condition
+    Claim <|-- Evaluation
+    Evaluation <|-- RegistryReviewEvaluation
+    RegistryReviewEvaluation <|-- RegistryFindingEvaluation
+    Evaluation *-- Scope
+    RegistryReviewEvaluation *-- "0..*" Condition
 ```
 
-There is no attestation type field. Like `hasClaimType`, a single list of kinds of judgment would not
+There is no evaluation type field. Like `hasClaimType`, a single list of kinds of judgment would not
 fit every program; the program's subclass and its outcome vocabulary say what a judgment is. Findings
-are the one kind with their own subclass, `RegistryFindingAttestation`, because they have required
+are the one kind with their own subclass, `RegistryFindingEvaluation`, because they have required
 fields the other judgments do not: a finding type and at least one piece of evidence.
 
-### `Attestation`
+### `Evaluation`
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
@@ -146,29 +151,29 @@ fields the other judgments do not: a finding type and at least one piece of evid
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked. |
-| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/attestation.INVALID-other-method-without-descriptor.yaml)). |
+| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/evaluation.INVALID-other-method-without-descriptor.yaml)). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
 | `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets. Exclusive with `scope`. |
 
 **Scope.** `appliesTo` (subject IRIs, required: a scope always names the subjects it covers),
 `exclusion` (what it explicitly does not cover) and `limitation` (what the judgment is not, for example
-"confirms the project structure; does not validate its evidence"). An attestation without a scope
+"confirms the project structure; does not validate its evidence"). An evaluation without a scope
 applies only to what it targets; `unbounded: true` states explicitly that it has no limits, so an
 unlimited approval is never an omission
-([example](../schema/examples/attestation.INVALID-scope-without-subjects.yaml) of an empty scope being
-rejected). The two are exclusive: an attestation with a scope does not state `unbounded`, so a consumer
-never has to choose between them ([example](../schema/examples/attestation.INVALID-scope-and-unbounded.yaml),
-rejected by JSON Schema only; see [Known limitations](#known-limitations)). A scope is a blank node inside the attestation and part of its content. Checking whether a subject is covered is a query; for the
-[example](../schema/examples/registry-review-attestation.jsonld):
+([example](../schema/examples/evaluation.INVALID-scope-without-subjects.yaml) of an empty scope being
+rejected). The two are exclusive: an evaluation with a scope does not state `unbounded`, so a consumer
+never has to choose between them ([example](../schema/examples/evaluation.INVALID-scope-and-unbounded.yaml),
+rejected by JSON Schema only; see [Known limitations](#known-limitations)). A scope is a blank node inside the evaluation and part of its content. Checking whether a subject is covered is a query; for the
+[example](../schema/examples/registry-review-evaluation.jsonld):
 
 ```sparql
-ASK { ?attestation rfs:scope/rfs:appliesTo <https://example.org/c06/cohort/P-001-2024> }
+ASK { ?evaluation rfs:scope/rfs:appliesTo <https://example.org/c06/cohort/P-001-2024> }
 ```
 
-returns false, so a 2024 cohort is out of scope, and the attestation's `reliesOn` names the
+returns false, so a 2024 cohort is out of scope, and the evaluation's `reliesOn` names the
 enrolment-cutoff claim the approval depends on.
 
-### `RegistryReviewAttestation`
+### `RegistryReviewEvaluation`
 
 | Field | Range | Meaning |
 |---|---|---|
@@ -176,21 +181,21 @@ enrolment-cutoff claim the approval depends on.
 | `issuerRole` | `REGISTRY_AGENT`, `VVB`, `CREDIT_CLASS_ADMIN`, `OTHER` | Required. Lets a consumer check the issuer's authority. |
 | `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
 
-**`RegistryFindingAttestation`** (`is_a RegistryReviewAttestation`) is a finding: a corrective action,
+**`RegistryFindingEvaluation`** (`is_a RegistryReviewEvaluation`) is a finding: a corrective action,
 clarification or forward action request, or a material issue raised by the Registry Agent. It requires
 `findingType` (`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`) and at least one piece of evidence
-([example](../schema/examples/registry-finding-attestation.INVALID-without-evidence.yaml) of a finding
+([example](../schema/examples/registry-finding-evaluation.INVALID-without-evidence.yaml) of a finding
 without evidence being rejected). Later assessments of a finding, and replies to it, are
-`RegistryReviewAttestation`s that target it and carry the same `findingLabel`.
+`RegistryReviewEvaluation`s that target it and carry the same `findingLabel`.
 
 `outcome` values are the IRIs of the `RegistryReviewOutcome` terms: the four registration
 determinations (`rfs:ApprovedForRegistration`, `rfs:NotApproved`, `rfs:RequirementPending`,
 `rfs:NotApplicable`), the finding states (`rfs:FindingOpen`, `rfs:FindingClosed`), and the ratings the
 Program Guide gives a verification or validation report (`rfs:Acceptance`,
-`rfs:AcceptanceWithContingencies`, `rfs:Rejection`), each stated as of the attestation's date. `outcome` is required on every `RegistryReviewAttestation`: a review is recorded when
+`rfs:AcceptanceWithContingencies`, `rfs:Rejection`), each stated as of the evaluation's date. `outcome` is required on every `RegistryReviewEvaluation`: a review is recorded when
 there is a judgment, so a requirement that cannot yet be decided is `rfs:RequirementPending`, never an
-omitted outcome ([example](../schema/examples/registry-review-attestation.INVALID-without-outcome.yaml)
-of a review without one being rejected). On the base `Attestation`, which no program vocabulary
+omitted outcome ([example](../schema/examples/registry-review-evaluation.INVALID-without-outcome.yaml)
+of a review without one being rejected). On the base `Evaluation`, which no program vocabulary
 constrains, `outcome` stays optional.
 
 ## Evidence
@@ -247,9 +252,9 @@ spreadsheet or database, is cited through a captured export and its hash.
 
 **Verification method:** `SELF_ATTESTED`, `PEER_OR_COMMUNITY`, `LAB_MEASURED`,
 `SENSOR_DERIVED`, `MODEL_ESTIMATED`, `THIRD_PARTY_AUDITED`, `OTHER` with
-`verificationMethodDescriptor`. Required on attestations, one per attestation: its party and date are
-the issuer and `assertedAt`, so a subject checked by two methods has two attestations, each with its own
-party and date. A claim with no attestation is self-attested by the base Claim's definition. The
+`verificationMethodDescriptor`. Required on evaluations, one per evaluation: its party and date are
+the issuer and `assertedAt`, so a subject checked by two methods has two evaluations, each with its own
+party and date. A claim with no evaluation is self-attested by the base Claim's definition. The
 extension path is `OTHER` with a descriptor, then a new value in a later schema version.
 
 **Rule-set version** (`appliesRuleSet`) and **requirement** (`requirement`) references are IRIs
@@ -263,7 +268,7 @@ A C06 claim class adds fields only where a registration requirement needs a spec
 checked (a date, a period, an identifier, an area, a category). Requirements that only need the
 project plan to contain a statement use `C06ProjectStatementClaim`: the developer's words in
 `description` and the plan section as evidence. Which requirement a statement answers is recorded by
-the reviewer's attestation.
+the reviewer's evaluation.
 
 Subjects hold what identifies a thing and places it in the project; values that reviewers judge are
 on the claims, because a later plan version or another party can assert them differently.
@@ -290,7 +295,7 @@ The following are therefore not fields:
 
 - *Rules:* which practices an enrolled site must or may apply is the project's enrolment rule, not
   a fact a reviewer checks. A requirement checks the practices each site applies (`practices`).
-- *Reviewers' conclusions:* whether a plot is eligible is what an attestation decides. The claimant
+- *Reviewers' conclusions:* whether a plot is eligible is what an evaluation decides. The claimant
   delineates the land (`geometry`).
 - *Values computed from other claims:* the project's or a cohort's total area is the sum of its
   plots, and the project's ecosystem types are those of its sites.
@@ -298,13 +303,13 @@ The following are therefore not fields:
   land-use history, and the historic activity records of a site are cited as `Evidence`. The period
   those records cover is their generating activity's.
 - *Statements:* the basis of the aggregation, and that no sites are enrolled after a cutoff date,
-  are `C06ProjectStatementClaim`s. An attestation that depends on the cutoff names that claim in
+  are `C06ProjectStatementClaim`s. An evaluation that depends on the cutoff names that claim in
   `reliesOn`.
 - *Lifecycle:* whether a plot is still enrolled (see [Exclusions](#exclusions)).
 
 **Derived values.** No derivation reference is needed. When a value is derived from other records,
 such as a site start date taken from the first soil sampling, the claimant states the value and its
-basis (`startDateBasis`), and a reviewer who derives a value states it in an attestation.
+basis (`startDateBasis`), and a reviewer who derives a value states it in an evaluation.
 
 ## Examples
 
@@ -319,9 +324,9 @@ validators.
 | [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-statement-claim.jsonld`](../schema/examples/c06-project-statement-claim.jsonld) | A `C06ProjectStatementClaim` |
-| [`generic-attestation.jsonld`](../schema/examples/generic-attestation.jsonld) | A base `Attestation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
-| [`registry-review-attestation.jsonld`](../schema/examples/registry-review-attestation.jsonld) | A `RegistryReviewAttestation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
-| [`registry-finding-attestation.jsonld`](../schema/examples/registry-finding-attestation.jsonld) | A `RegistryFindingAttestation`: a clarification request with its type, label, target and evidence |
+| [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A base `Evaluation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
+| [`registry-review-evaluation.jsonld`](../schema/examples/registry-review-evaluation.jsonld) | A `RegistryReviewEvaluation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
+| [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: a clarification request with its type, label, target and evidence |
 | `*.INVALID-*.yaml` | Documents each validator must reject. The two that break a LinkML rule (an `OTHER` method without a descriptor, and a scope together with `unbounded`) are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules |
 
 ## Validation entry points
@@ -330,8 +335,8 @@ validators.
 handling, and that imported definitions are not separate whole-claim targets. As in
 [`docs/claim-base.md`](claim-base.md):
 
-1. The validator starts from the class the root node declares (`C06SiteClaim`, `Attestation`,
-   `RegistryReviewAttestation`…); each has one shape.
+1. The validator starts from the class the root node declares (`C06SiteClaim`, `Evaluation`,
+   `RegistryReviewEvaluation`…); each has one shape.
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
 3. Nested nodes (subjects, evidence and its activities, scope, conditions) are checked as values of the root, not as
@@ -354,9 +359,9 @@ it is made.
 
 | Excluded | Where it lives instead |
 |---|---|
-| An attestation's own hash or IRI (`contentHash`, `graphIri`, added by [#53](https://github.com/regen-network/regen-data-standards/pull/53)) | Computed by the service ([claims#1](https://github.com/regen-network/claims/issues/1)); anchoring state in WP6 ([example](../schema/examples/attestation.INVALID-own-content-hash.yaml)) |
-| `PENDING` as a placeholder verdict (#53: "no verdict has been rendered yet") | Not recorded: an attestation is made when there is a judgment. A dated determination that a requirement cannot yet be decided is `rfs:RequirementPending`. |
-| A finding's current status as an updated field | Each dated attestation states the status as of its date; the current status is computed |
+| An evaluation's own hash or IRI (`contentHash`, `graphIri`, added by [#53](https://github.com/regen-network/regen-data-standards/pull/53)) | Computed by the service ([claims#1](https://github.com/regen-network/claims/issues/1)); anchoring state in WP6 ([example](../schema/examples/evaluation.INVALID-own-content-hash.yaml)) |
+| `PENDING` as a placeholder verdict (#53: "no verdict has been rendered yet") | Not recorded: an evaluation is made when there is a judgment. A dated determination that a requirement cannot yet be decided is `rfs:RequirementPending`. |
+| A finding's current status as an updated field | Each dated evaluation states the status as of its date; the current status is computed |
 | Whether a version is controlling, superseded or stale; whether a confirmation is awaited | Computed by the services |
 | Current availability, access and licence of evidence | Reported by the resolver |
 | Whether a plot is still enrolled | Not a field: a cancelled plot is one the developer no longer claims in a later plan version |
@@ -368,9 +373,10 @@ the source.
 
 | Was | Now |
 |---|---|
+| `Attestation` (class), `Attestation.yaml` | `Evaluation`, `Evaluation.yaml`: the class records a judgment; attestation is left for binding an agent to content on the ledger. `RegistryReviewAttestation` and `RegistryFindingAttestation` became `RegistryReviewEvaluation` and `RegistryFindingEvaluation`. |
 | `Claim.hasClaimType` (required) | Removed: a single required enum could not cover every kind of claim ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). The kind of claim is the specialized class. |
 | `Attestation.attestsClaim` (string) | `hasTarget` (IRI, 0..*) |
-| `Attestation.hasReviewer` (Entity) | `hasClaimant` (inherited); the capacity is `RegistryReviewAttestation.issuerRole` |
+| `Attestation.hasReviewer` (Entity) | `hasClaimant` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
 | `Attestation.hasVerdict` (`VerdictType`) | `outcome` (IRI). `PENDING` dropped; the other values map to `RegistryReviewOutcome` terms. `VerdictType` remains in the taxonomy. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidence` (Evidence nodes, inherited) |
@@ -382,7 +388,7 @@ the source.
 
 - **Outcome values are not checked against the review vocabulary.** LinkML 1.11 cannot narrow an
   IRI-valued slot to an enum in a subclass (the generated Python model of the base class rejects the
-  enum value), so `RegistryReviewAttestation.outcome` accepts any IRI. The vocabulary is documented by
+  enum value), so `RegistryReviewEvaluation.outcome` accepts any IRI. The vocabulary is documented by
   the `RegistryReviewOutcome` enum.
 - **Two rules are enforced by JSON Schema only:** a descriptor with `OTHER` (the verification method is
   never empty), and a scope and `unbounded` being exclusive. Both are LinkML rules, and

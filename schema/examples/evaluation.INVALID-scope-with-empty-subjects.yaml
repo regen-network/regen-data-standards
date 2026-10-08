@@ -1,5 +1,5 @@
 # expect: [] should be non-empty
-# class: Attestation
+# class: Evaluation
 # A scope names the subjects it covers: an empty list of
 # subjects is rejected like a missing one.
 name: Steward review of the plot A hedgerow planting

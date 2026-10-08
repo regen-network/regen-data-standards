@@ -1,5 +1,5 @@
 # expect: 'outcome' is a required property
-# class: RegistryReviewAttestation
+# class: RegistryReviewEvaluation
 # A registry review is recorded when there is a judgment, so it states its
 # verdict. A requirement that cannot yet be decided is rfs:RequirementPending.
 name: Registry confirmation of the cohort-based crediting structure

@@ -1,4 +1,4 @@
-# Synthetic example (example.org identifiers): a base Attestation, with no
+# Synthetic example (example.org identifiers): a base Evaluation, with no
 # program vocabulary. A community steward reviews the generic hedgerow claim
 # (Claim-generic-001) after walking the planted boundary. The target is a
 # labelled placeholder for that claim's ClaimIRI (regen-network/claims#1).

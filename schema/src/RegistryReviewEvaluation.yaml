@@ -1,10 +1,10 @@
-id: https://framework.regen.network/schema/RegistryReviewAttestation
-name: RegistryReviewAttestation
+id: https://framework.regen.network/schema/RegistryReviewEvaluation
+name: RegistryReviewEvaluation
 description: >-
   Regen Registry's review vocabulary: the judgments a registry review and its
   independent verifier make (findings, determinations, confirmations,
   approved deviations, validation opinions), as a subclass of the base
-  Attestation. Another program would define its own subclass.
+  Evaluation. Another program would define its own subclass.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -12,15 +12,15 @@ prefixes:
 imports:
   - linkml:types
   - core
-  - Attestation
+  - Evaluation
 
 default_prefix: rfs
 default_range: string
 
 classes:
-  RegistryReviewAttestation:
-    is_a: Attestation
-    class_uri: rfs:RegistryReviewAttestation
+  RegistryReviewEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:RegistryReviewEvaluation
     description: >-
       A judgment made in a Regen Registry review by the Registry Agent, an
       independent verifier (VVB) or the Credit Class Admin.
@@ -40,15 +40,15 @@ classes:
       issuerRole:
         required: true
 
-  RegistryFindingAttestation:
-    is_a: RegistryReviewAttestation
-    class_uri: rfs:RegistryFindingAttestation
+  RegistryFindingEvaluation:
+    is_a: RegistryReviewEvaluation
+    class_uri: rfs:RegistryFindingEvaluation
     description: >-
       A finding raised in a Regen Registry review: a corrective action,
       clarification or forward action request, or a material issue raised by
       the Registry Agent. A finding states its type and cites at least one
       piece of evidence. Later assessments of the finding and
-      replies to it are RegistryReviewAttestations that target it and carry
+      replies to it are RegistryReviewEvaluations that target it and carry
       the same findingLabel.
     slots:
       - findingType

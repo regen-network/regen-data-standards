@@ -1,7 +1,7 @@
 # Synthetic example (example.org identifiers): a project developer's claim about
 # a whole aggregate project, as asserted in one project plan version. The rule
 # sets it applies are exact versions; the requested deviation's approval is a
-# separate attestation.
+# separate evaluation.
 name: Example project P-001 design
 description: >-
   Example project P-001 is an aggregate soil-carbon project of sites enrolled
