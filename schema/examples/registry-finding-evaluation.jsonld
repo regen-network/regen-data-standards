@@ -22,6 +22,13 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
     "conditionLabel": {
       "@id": "conditionLabel"
     },
@@ -80,10 +87,6 @@
         "OTHER": "rfs:OtherFindingType"
       }
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -101,6 +104,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "issued": {
       "@type": "xsd:date",
@@ -266,6 +272,9 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -296,15 +305,15 @@
   },
   "@type": "RegistryFindingEvaluation",
   "name": "Clarification request on the cohort-based crediting period",
-  "description": "The project plan assigns each cohort its own ten-year crediting period. The developer is asked to show how this structure meets the credit class's ten-year crediting term.",
-  "hasClaimant": [
+  "claimStatement": "The project plan assigns each cohort its own ten-year crediting period. The developer is asked to show how this structure meets the credit class's ten-year crediting term.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Verifier",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-03-02T00:00:00Z",
+  "assertedAt": "2026-03-02T00:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/c06/project/P-001",

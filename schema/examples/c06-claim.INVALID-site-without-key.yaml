@@ -3,10 +3,11 @@
 # A Site subject is identified by its key in the project's records, so that
 # every claim about the same site uses the same IRI.
 name: Site S-001 start date
-hasClaimant:
+claimStatement: Site S-001 start date
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-07-10T00:00:00Z"
+assertedAt: "2026-07-10T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/site/S-001
   name: Site S-001

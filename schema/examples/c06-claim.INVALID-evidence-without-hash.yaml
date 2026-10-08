@@ -3,10 +3,11 @@
 # Cited evidence carries the hash of the exact source version, so that a reader
 # can check the bytes the resolver returns.
 name: Site S-001 start date
-hasClaimant:
+claimStatement: Site S-001 start date
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-07-10T00:00:00Z"
+assertedAt: "2026-07-10T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/site/S-001
   name: Site S-001

@@ -25,7 +25,7 @@ classes:
     description: >-
       An issuer's judgment, made at a stated time, about what it targets:
       exact versions of claims, of other evaluations, or a snapshot of
-      claims. As a Claim it is attributed (hasClaimant names the issuer),
+      claims. As a Claim it is attributed (assertedBy names the issuer),
       immutable and revisable with wasRevisionOf; it is about a subject, such
       as a project or a plot, even when it judges a claim about that subject.
       It does not carry its own hash or IRI, anchoring state, or a status
@@ -42,7 +42,7 @@ classes:
       - scope
       - unbounded
     slot_usage:
-      hasClaimant:
+      assertedBy:
         description: >-
           The issuer: the party that makes the judgment and takes
           responsibility for it.

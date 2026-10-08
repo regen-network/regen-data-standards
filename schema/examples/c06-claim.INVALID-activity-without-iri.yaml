@@ -3,10 +3,11 @@
 # The activity that generated a piece of evidence is identified by an IRI, so
 # that every piece of evidence it produced names the same activity.
 name: Site S-001 practices
-hasClaimant:
+claimStatement: Site S-001 practices
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-07-10T00:00:00Z"
+assertedAt: "2026-07-10T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/site/S-001
   name: Site S-001

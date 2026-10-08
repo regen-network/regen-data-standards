@@ -74,7 +74,6 @@ MODULES = {
     "C06CohortClaim": "src/C06Claim.yaml",
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
-    "C06ProjectStatementClaim": "src/C06Claim.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
@@ -86,7 +85,7 @@ EXAMPLES = {
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
-    "data/playground/C06ProjectStatementClaim/C06ProjectStatementClaim-mvp-001.yaml": "examples/c06-project-statement-claim.jsonld",
+    "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
 INVALID_GLOB = "examples/*.INVALID-*.yaml"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")

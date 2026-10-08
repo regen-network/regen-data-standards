@@ -32,9 +32,16 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
     "baselineYear": {
       "@type": "xsd:integer",
       "@id": "baselineYear"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
     },
     "climateClass": {
       "@id": "climateClass"
@@ -133,10 +140,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -154,6 +157,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "isAggregateProject": {
       "@type": "xsd:boolean",
@@ -425,9 +431,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -454,6 +457,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
     },
     "Link": {
       "@id": "Link"
@@ -488,14 +494,15 @@
   },
   "@type": "C06PlotClaim",
   "name": "Plot S-001.0007 area, tenure and land-use history",
-  "hasClaimant": [
+  "claimStatement": "Plot S-001.0007 covers 12.75 ha within boundary feature 118, is held under a lease, and was not converted from a natural ecosystem in the ten years before its site's project start date.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Soil Carbon Developer",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-02-20T00:00:00Z",
+  "assertedAt": "2026-02-20T00:00:00+00:00",
   "hasSubject": {
     "@type": "Plot",
     "id": "https://example.org/c06/plot/S-001.0007",
