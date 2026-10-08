@@ -22,6 +22,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Generate RDF
         run: make -C schema gen-rdf
+      - name: Check OutputRecord conversion semantics
+        run: python -m unittest discover -s schema/tests -p test_output_record_conversion.py
       - name: Check if dataset exists
         id: check-dataset
         env:
