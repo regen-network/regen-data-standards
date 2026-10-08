@@ -13,7 +13,8 @@ versions/<version>/:
   so uri and uriorcurie values are IRI nodes), with the corrections described
   in corrected_context;
 - json-schema.json: the JSON Schema (gen-json-schema
-  --include-range-class-descendants, the options linkml-validate uses);
+  --include-range-class-descendants, the options linkml-validate uses), with
+  a $id unique to the version: <schema id>versions/<version>/json-schema.json;
 - shacl.ttl: the SHACL shapes (gen-shacl), unchanged except that the graph is
   serialized canonically, so that regenerating it gives the same bytes;
 - linkml.yaml: the schema with its imports merged (gen-linkml --mergeimports),
@@ -204,13 +205,26 @@ def corrected_context(view, context):
 # --- Generation --------------------------------------------------------------
 
 
-def generate_artifact(kind, schema):
+def json_schema_id(view, version):
+    """The $id of a version's JSON Schema: unique per version, so that a
+    validator can hold several versions at once."""
+    return f"{view.schema.id.rstrip('/')}/versions/{version}/{ARTIFACTS['json-schema']}"
+
+
+def generate_artifact(kind, schema, version=None):
     if kind == "context":
         context = json.loads(run("gen-jsonld-context", "--xsd-anyuri-as-iri", str(schema)))["@context"]
         document = {"@context": corrected_context(SchemaView(str(schema)), context)}
         return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
     if kind == "json-schema":
-        return run("gen-json-schema", "--include-range-class-descendants", str(schema))
+        # gen-json-schema gives every version the schema's id as $id; replace
+        # that one line, so the rest of the output is unchanged.
+        text = run("gen-json-schema", "--include-range-class-descendants", str(schema))
+        view = SchemaView(str(schema))
+        line = f'    "$id": {json.dumps(view.schema.id)},\n'
+        if version is None or text.count(line) != 1:
+            sys.exit(f"cannot set the $id of the JSON Schema of {schema} (version {version})")
+        return text.replace(line, f'    "$id": {json.dumps(json_schema_id(view, version))},\n')
     if kind == "shacl":
         graph = rdflib.Graph().parse(data=run("gen-shacl", str(schema)), format="turtle")
         canonical = rdflib.Graph()
@@ -228,7 +242,7 @@ def generate(source, version, kinds):
     out = VERSIONS / version
     out.mkdir(parents=True, exist_ok=True)
     for kind in kinds:
-        (out / ARTIFACTS[kind]).write_text(generate_artifact(kind, source / "src/schema.yaml"))
+        (out / ARTIFACTS[kind]).write_text(generate_artifact(kind, source / "src/schema.yaml", version))
         print(f"✅ {out / ARTIFACTS[kind]}")
 
 
@@ -295,13 +309,15 @@ def manifest_entry(source, version, commit):
         record["sha256"] = sha256(path)
         examples.append(record)
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
+    files = {
+        kind: {"path": f"{version}/{name}", "sha256": sha256(out / name)}
+        for kind, name in ARTIFACTS.items()
+    }
+    files["json-schema"]["id"] = json.loads((out / ARTIFACTS["json-schema"]).read_text())["$id"]
     return {
         "source": source_record(source, commit),
         "generators": {name: package_version(name) for name in GENERATORS},
-        "files": {
-            kind: {"path": f"{version}/{name}", "sha256": sha256(out / name)}
-            for kind, name in ARTIFACTS.items()
-        },
+        "files": files,
         "entryPoints": entry_points(view, version),
         "examples": examples,
     }
@@ -443,6 +459,9 @@ def check_files(version, entry, failures):
         if path not in listed:
             failures.append(f"{path}: not in {MANIFEST}")
     schema = json.loads((out / ARTIFACTS["json-schema"]).read_text())
+    expected_id = json_schema_id(SchemaView(str(out / ARTIFACTS["linkml"])), version)
+    if schema.get("$id") != expected_id or entry["files"]["json-schema"].get("id") != expected_id:
+        failures.append(f"{out / ARTIFACTS['json-schema']}: $id must be {expected_id}, in the file and the manifest")
     shapes = rdflib.Graph().parse(out / ARTIFACTS["shacl"], format="turtle")
     for name, point in entry["entryPoints"].items():
         if name not in schema["$defs"]:
@@ -465,7 +484,7 @@ def check_current(version, entry, failures):
         return
     out = VERSIONS / version
     for kind, name in ARTIFACTS.items():
-        if generate_artifact(kind, Path("src/schema.yaml")) != (out / name).read_text():
+        if generate_artifact(kind, Path("src/schema.yaml"), version) != (out / name).read_text():
             failures.append(f"{out / name} is stale: run make gen-schema-artifacts")
     context = json.loads((out / ARTIFACTS["context"]).read_text())["@context"]
     for example in sorted(Path("examples").glob("*.jsonld")):
@@ -545,6 +564,9 @@ def check(base):
     for folder in sorted(p for p in VERSIONS.iterdir() if p.is_dir()):
         if folder.name not in manifest["versions"]:
             failures.append(f"{folder}: not in {MANIFEST}")
+    ids = [entry["files"]["json-schema"].get("id") for entry in manifest["versions"].values()]
+    for duplicate in sorted({i for i in ids if ids.count(i) > 1}):
+        failures.append(f"{MANIFEST}: several versions have the JSON Schema $id {duplicate}")
     for version, entry in manifest["versions"].items():
         check_files(version, entry, failures)
         check_examples(version, entry, failures)
