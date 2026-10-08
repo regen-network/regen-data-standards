@@ -2,7 +2,6 @@
 # assertedAt is written in UTC with the offset +00:00, so one instant has one
 # lexical form. The same instant written as 2026-05-02T07:30:00+00:00 is valid.
 name: Hedgerow planting on plot A, spring 2026
-hasClaimType: ECOLOGICAL
 hasClaimant:
   - name: Hedgerow Cooperative
     type: COMMUNITY

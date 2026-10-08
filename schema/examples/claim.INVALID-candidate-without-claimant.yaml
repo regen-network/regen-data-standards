@@ -5,7 +5,6 @@
 # history, recorded outside the Claim (regen-network/claims#55).
 name: Draft extracted from planting log
 description: Hedgerow planted along the northern boundary of plot A.
-hasClaimType: ECOLOGICAL
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A

@@ -11,8 +11,8 @@ because this LinkML version's JSON-LD output does not produce the same RDF as
 its Turtle output:
 
 - enum-valued terms get "@type": "@vocab" and a scoped context mapping each
-  permissible value to its `meaning`, so "ECOLOGICAL" expands to rft:Ecological
-  instead of a string literal;
+  permissible value to its `meaning`, so a claimant's "COMMUNITY" expands to
+  rfs:Community instead of a string literal;
 - nested inlined objects get an explicit "@type", as in the Turtle output.
 
 The check validates every document with both validators the schema generates:

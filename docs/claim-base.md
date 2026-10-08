@@ -50,7 +50,6 @@ time. It records what is asserted and may cite evidence.
 | `name` | `schema:name` | string | 1 | Human-readable title. |
 | `description` | `schema:description` | string | 0..1 | The assertion in the claimant's words. It is asserted content, not a summary. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
-| `hasClaimType` | `rfs:hasClaimType` | `ClaimType` | 1 | Subject-matter classification. It does not declare a schema version or select a verification pathway. |
 | `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for the assertion. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | What the claim is about, as a typed subject node. |
@@ -159,7 +158,7 @@ the activity that generated it (`prov:wasGeneratedBy`), not on the Evidence, bec
 | Which version is current, and the logical claim a version belongs to | Maintained outside immutable versions ([research §3.5][R35]). |
 | Submission attempts, submitter, received bytes, ingestion time | Service records ([claims#55](https://github.com/regen-network/claims/issues/55), WP1-09). |
 | Evidence integrity, resolver, licence terms and current availability | Integrity, resolver and licence fields are added to [`Evidence`](../schema/src/Evidence.yaml) by [#73](https://github.com/regen-network/regen-data-standards/issues/73) (WP1-06). Current availability and access stay outside Claim content. |
-| Schema-version (conformance) declarations | Validation machinery. [claims#1](https://github.com/regen-network/claims/issues/1) decides whether they enter identity. `hasClaimType` is not one. |
+| Schema-version (conformance) declarations | Validation machinery. [claims#1](https://github.com/regen-network/claims/issues/1) decides whether they enter identity. |
 
 ## Shared vocabulary
 
@@ -337,8 +336,8 @@ JSON Schema must reject each invalid document with the error named on its first 
 
 The inline context is generated from `Claim.yaml` alone, with two corrections applied because
 `linkml-convert -t json-ld` output in LinkML 1.8.6 does not produce the same RDF as its Turtle output.
-Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so `"ECOLOGICAL"` becomes
-`rft:Ecological`, not a string. Nested objects carry `@type`. The context is not generated from
+Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so a claimant's `"COMMUNITY"`
+becomes `rfs:Community`, not a string. Nested objects carry `@type`. The context is not generated from
 `schema.yaml` because there `ProjectPost`'s `description` (`dcterms:description`) replaces
 `schema:description` for every class. Both issues affect all JSON-LD generated in this repository and
 are recorded for [#74](https://github.com/regen-network/regen-data-standards/issues/74) (WP1-07).
@@ -352,7 +351,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `Claim` (class) | Changed | Abstract, with an open generated shape. A claim with base content only is a `GenericClaim`, whose shape is closed. |
 | `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
 | `description` | Retained | Same term. Now documented as asserted content ([ADR D1][ADR-D1]: "a description may contain asserted meaning"). |
-| `hasClaimType` | Retained | Required. Its description, and the `ClaimType` enum's, no longer say it selects verification pathways. |
+| `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class ([ADR 0001][ADR-HCT], following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum stays in `taxonomy.yaml` for workflows that use it. |
 | `hasClaimant` | Retained, changed | Now a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe (see [Period](#base-fields)). Placement was open in ADR D1. |
@@ -398,6 +397,7 @@ records that use the prior fields and their RIDs.
   SHACL and context artifacts belong to #74; no OWL artifact is planned.
 
 [ADR-D1]: https://github.com/regen-network/regen-data-standards/blob/0cfe1c522754e4479baf7b931f272865d7c8f4e3/docs/adr/0001-claim-substance-canonicalization.md#d1--define-asserted-content-separately-from-lifecycle-and-derived-identity
+[ADR-HCT]: https://github.com/regen-network/regen-data-standards/blob/630cd6225cabe8b1d5473a1c416e6989283a7b32/docs/adr/0001-claim-rdf-shape-and-provenance-boundaries.md?plain=1#L30
 [RESEARCH]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md
 [R31]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md#31-what-constitutes-a-claim-and-who-asserts-it
 [R32]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md#32-asserted-content-versus-provenance
