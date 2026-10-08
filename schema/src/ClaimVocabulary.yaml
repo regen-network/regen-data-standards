@@ -50,9 +50,10 @@ slots:
     description: >-
       Language of the natural-language text of the resource, as a BCP 47 tag
       whose primary language subtag is a 2- or 3-letter ISO 639 code, such as
-      en, cs or pt-BR. Private-use (x-...) and grandfathered tags are not
-      accepted. The pattern checks the form of the tag, not that its subtags
-      are registered. A class that uses it says which of its texts the
+      en, cs or pt-BR. A tag that is only private use, such as x-regen, is
+      not accepted. The pattern checks the form of the tag, not that its
+      subtags are registered or current, so it also accepts some deprecated
+      grandfathered tags, such as zh-min. A class that uses it says which of its texts the
       language applies to.
     range: string
     pattern: "^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$"
