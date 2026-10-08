@@ -1,6 +1,6 @@
 # expect: 'appliesTo' is a required property
-# class: Attestation
-# A scope names the subjects it covers. An attestation with no
+# class: Evaluation
+# A scope names the subjects it covers. An evaluation with no
 # limits beyond its targets states unbounded: true instead of an empty scope.
 name: Steward review of the plot A hedgerow planting
 hasClaimant:

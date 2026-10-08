@@ -40,7 +40,7 @@ classes:
       a reviewer could judge separately, or that different agents take
       responsibility for, are separate Claims. A Claim is asserted by
       definition, so it is self-attested by its claimants and is
-      valid without any third-party attestation; later reviews are separate
+      valid without any third-party evaluation; later reviews are separate
       resources that point to it. An unasserted authoring candidate, such as
       an extraction draft without a claimant, is not a Claim. Every version is
       immutable: a correction is a new Claim that states wasRevisionOf.
@@ -85,7 +85,7 @@ classes:
           aspects of the same thing (alternateOf), so use it only for a revised
           version of the same assertion; a separate, later assertion, such as a
           follow-up observation, is a new Claim and is not a revision. The
-          earlier version is unchanged, its attestations do not carry over, and
+          earlier version is unchanged, its evaluations do not carry over, and
           selecting a current version happens outside the Claim.
   GenericClaim:
     is_a: Claim

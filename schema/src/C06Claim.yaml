@@ -170,7 +170,7 @@ classes:
       stakeholders were consulted, the basis of the aggregation, or that no
       sites are enrolled after a cutoff date. The assertion is in description and its
       location in the project plan is the evidence; which requirement it
-      answers is recorded by the reviewer's attestation.
+      answers is recorded by the reviewer's evaluation.
     slot_usage:
       description:
         required: true
@@ -206,7 +206,7 @@ classes:
     class_uri: rfs:DeviationRequest
     description: >-
       A project-specific deviation from a requirement that the project
-      developer requests. Whether it is approved is a separate attestation.
+      developer requests. Whether it is approved is a separate evaluation.
     slots:
       - requirement
       - replacedParameters
@@ -350,7 +350,7 @@ slots:
     description: >-
       Project-specific deviations from requirements that the project developer
       requests in its project plan, each naming the requirements it replaces.
-      Whether a deviation is approved is a separate attestation. Unordered
+      Whether a deviation is approved is a separate evaluation. Unordered
       set.
     range: DeviationRequest
     inlined: true

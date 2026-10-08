@@ -1,6 +1,6 @@
 # expect: 'verificationMethod' is a required property
-# class: Attestation
-# Every attestation states how the issuer checked what it judges, so that consumers can tell, for example, an audit from a desk check.
+# class: Evaluation
+# Every evaluation states how the issuer checked what it judges, so that consumers can tell, for example, an audit from a desk check.
 name: Registry confirmation of the cohort-based crediting structure
 hasClaimant:
   - name: Example Registry

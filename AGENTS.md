@@ -64,7 +64,7 @@ No mystery references — each is a real path that resolves.
 **This repo.**
 | Path | What it settles |
 |---|---|
-| [`schema/src/`](schema/src/) | LinkML source schemas — `Claim.yaml`, `Attestation.yaml`, `Entity.yaml`, `Impact.yaml`, `core.yaml` |
+| [`schema/src/`](schema/src/) | LinkML source schemas — `Claim.yaml`, `Evaluation.yaml`, `Entity.yaml`, `Impact.yaml`, `core.yaml` |
 | [`schema/README.md`](schema/README.md) | Schema build + generation instructions |
 
 Add an ADR directory to this source index when it exists on the target branch; until then,

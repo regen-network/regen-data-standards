@@ -27,8 +27,8 @@ imports:
   - Activity
   - ClaimVocabulary
   - ProvAlignment
-  - Attestation
-  - RegistryReviewAttestation
+  - Evaluation
+  - RegistryReviewEvaluation
   - C06Claim
   - BT01ProjectInfo
   - C01ProjectInfo

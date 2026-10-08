@@ -1,5 +1,5 @@
 # expect: should not be valid under {'required': ['unbounded']}
-# class: Attestation
+# class: Evaluation
 # shacl: not enforced
 # A scope limits the judgment to the subjects it names; unbounded states that it
 # has no limits beyond its targets. The two are exclusive.

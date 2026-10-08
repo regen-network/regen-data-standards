@@ -5,7 +5,7 @@ description: >-
   were responsible for, such as the soil sampling or the field operations that
   produced a piece of evidence. Evidence names the activity that generated it
   with wasGeneratedBy; the activity states when it took place and who carried
-  it out. See docs/attestation-and-evidence.md.
+  it out. See docs/evaluation-and-evidence.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/

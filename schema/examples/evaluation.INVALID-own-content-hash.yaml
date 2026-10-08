@@ -1,6 +1,6 @@
 # expect: 'contentHash', 'graphIri' were unexpected
-# class: Attestation
-# An attestation does not carry its own hash or IRI, nor anchoring state: its
+# class: Evaluation
+# An evaluation does not carry its own hash or IRI, nor anchoring state: its
 # identity is computed over its content (regen-network/claims#1), and these
 # fields of the earlier Attestation schema (#53) are removed.
 name: Registry confirmation of the cohort-based crediting structure
