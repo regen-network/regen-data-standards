@@ -65,7 +65,8 @@ classes:
           the assertion, which is claimStatement.
       inLanguage:
         description: >-
-          Language of claimStatement, as a BCP 47 tag such as en or cs. It
+          Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter
+          ISO 639 primary language subtag, such as en or cs. It
           says nothing about the language of the cited sources, which they
           record themselves, or about how a statement translated from a source
           was derived.
