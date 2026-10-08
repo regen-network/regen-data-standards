@@ -2,10 +2,14 @@
 # one enrolment cohort. The cohort's baseline year identifies it, so it is a
 # field of the Cohort subject; its periods are asserted here.
 name: Example project P-001, 2021 cohort periods
-hasClaimant:
+claimStatement: >-
+  The 2021 cohort of example project P-001 has a crediting period from 15 April
+  2021 to 14 April 2031 and a permanence period from 15 April 2031 to 14 April
+  2041.
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-02-20T00:00:00Z"
+assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/cohort/P-001-2021
   name: Example project P-001, 2021 cohort

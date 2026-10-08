@@ -5,9 +5,9 @@ description: >-
   The C06 claim schema (#73, WP1-06): the claims a project developer
   makes in an aggregate soil-carbon project registration under credit class
   C06, and the subjects they are about. Each claim class extends the base
-  Claim with the values that registration requirements check; requirements
-  that only need the project plan to contain a statement use
-  C06ProjectStatementClaim. Values reviewers judge are on the claims; the subject
+  Claim with the values that registration requirements check; a requirement
+  that only needs the project plan to contain a statement is answered by a
+  C06ProjectClaim whose assertion is its claimStatement alone. Values reviewers judge are on the claims; the subject
   classes only identify and place what the claims are about.
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -93,7 +93,10 @@ classes:
       The project developer's assertions about the whole project: the rule
       sets and methodologies it applies, that it is an aggregate project, its
       start and adoption dates, crediting and permanence periods, and the
-      deviations it requests.
+      deviations it requests. Its structured fields are optional: a claim
+      that only states something the project plan says, such as how local
+      stakeholders were consulted, carries its claimStatement alone, with the
+      plan section as evidence.
     slots:
       - appliesRuleSet
       - methodologyUse
@@ -161,21 +164,6 @@ classes:
       hasSubject:
         range: Plot
 
-  C06ProjectStatementClaim:
-    is_a: Claim
-    class_uri: rfs:C06ProjectStatementClaim
-    description: >-
-      A statement the project developer makes about the project that a
-      reviewer reads rather than checks as a value, such as how local
-      stakeholders were consulted, the basis of the aggregation, or that no
-      sites are enrolled after a cutoff date. The assertion is in description and its
-      location in the project plan is the evidence; which requirement it
-      answers is recorded by the reviewer's evaluation.
-    slot_usage:
-      description:
-        required: true
-      hasSubject:
-        range: Project
 
   # Inlined values
 

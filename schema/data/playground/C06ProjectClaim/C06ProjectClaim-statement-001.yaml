@@ -1,15 +1,16 @@
-# Synthetic example (example.org identifiers): a statement the project
-# developer makes in its project plan. A reviewer reads it; which requirement it
+# Synthetic example (example.org identifiers): a C06ProjectClaim whose
+# assertion is a statement the project developer makes in its project plan,
+# with no structured fields. A reviewer reads it; which requirement it
 # answers is recorded by the reviewer's evaluation, not here.
 name: Participation in other crediting programs
-description: >-
+claimStatement: >-
   The project is not registered with, and is not seeking registration with, any
   other greenhouse-gas or ecosystem-service crediting program, and no credits
   have been issued to it under any other program.
-hasClaimant:
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-02-20T00:00:00Z"
+assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/project/P-001
   name: Example project P-001

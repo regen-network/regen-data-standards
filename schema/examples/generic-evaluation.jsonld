@@ -22,6 +22,13 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
     "algorithm": {
       "@id": "algorithm",
       "@type": "@vocab",
@@ -59,10 +66,6 @@
     "exclusion": {
       "@id": "exclusion"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -80,6 +83,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "issued": {
       "@type": "xsd:date",
@@ -222,6 +228,9 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -246,15 +255,15 @@
   },
   "@type": "Evaluation",
   "name": "Steward review of the plot A hedgerow planting",
-  "description": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
-  "hasClaimant": [
+  "claimStatement": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Valley Stewards Circle",
       "type": "COMMUNITY"
     }
   ],
-  "assertedAt": "2026-06-10T09:00:00Z",
+  "assertedAt": "2026-06-10T09:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/A",
