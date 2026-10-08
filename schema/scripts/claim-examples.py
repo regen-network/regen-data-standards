@@ -37,7 +37,7 @@ abstract, so its shape is open: it checks the base content of every claim type
 and lets a claim type add fields. To check that, each example is also retyped
 as a claim type defined outside this schema, with a field of its own and the
 rdfs:subClassOf rfs:Claim triple that such a schema publishes with its data.
-The Claim shape must accept it, and must reject it without assertedAt.
+The Claim shape must accept it, and must reject it without hasClaimant.
 """
 
 import glob
@@ -225,11 +225,11 @@ def main(mode):
         else:
             print(f"❌ {example} as an outside claim type: SHACL violations {messages}")
             failures += 1
-        conforms, _ = shacl_report(as_extension(view, graph, without="assertedAt"), shapes)
+        conforms, _ = shacl_report(as_extension(view, graph, without="hasClaimant"), shapes)
         if not conforms:
-            print(f"✅ {example} as an outside claim type without assertedAt: the Claim shape rejects it")
+            print(f"✅ {example} as an outside claim type without hasClaimant: the Claim shape rejects it")
         else:
-            print(f"❌ {example} as an outside claim type without assertedAt: SHACL accepts it")
+            print(f"❌ {example} as an outside claim type without hasClaimant: SHACL accepts it")
             failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):
