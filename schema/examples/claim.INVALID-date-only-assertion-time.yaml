@@ -1,6 +1,7 @@
 # expect: '2026-05-02' is not a 'date-time'
 # assertedAt is the instant of asserting, not a date.
 name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY

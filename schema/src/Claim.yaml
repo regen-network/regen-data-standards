@@ -50,7 +50,8 @@ classes:
       SHACL shape for Claim is open; each claim type's own shape is closed.
     slots:
       - name
-      - description
+      - claimStatement
+      - inLanguage
       - url
       - assertedBy
       - assertedAt
@@ -59,13 +60,15 @@ classes:
       - wasRevisionOf
     slot_usage:
       name:
-        required: true
-        description: Human-readable title of the claim.
-      description:
         description: >-
-          The assertion as the claimant states it in natural language. This is
-          asserted content, not a presentational summary: changing it changes
-          the Claim.
+          Optional human-readable title of the claim, for display. It is not
+          the assertion, which is claimStatement.
+      inLanguage:
+        description: >-
+          Language of claimStatement, as a BCP 47 tag such as en or cs. It
+          says nothing about the language of the cited sources, which they
+          record themselves, or about how a statement translated from a source
+          was derived.
       url:
         description: >-
           Link to a page with more information about the claim. A pointer for
@@ -91,6 +94,20 @@ classes:
       belong to a claim-type schema.
 
 slots:
+  claimStatement:
+    is_a: description
+    slot_uri: rfs:claimStatement
+    description: >-
+      The assertion, as the claimants state it in natural language. It is
+      asserted content, not a presentational summary: changing it changes the
+      Claim. A claim type may also formalize the assertion, or add detail to
+      it, in structured fields; the statement and those fields are one
+      assertion and must agree. When they disagree, neither overrides the
+      other: the Claim is internally inconsistent and is corrected by a new
+      version before its evidence is evaluated. Specializes
+      schema:description.
+    range: string
+    required: true
   assertedBy:
     is_a: wasAttributedTo
     slot_uri: rfs:assertedBy

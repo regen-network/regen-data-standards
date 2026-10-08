@@ -2,6 +2,7 @@
 # Each piece of evidence is an Evidence node with its own IRI, not a bare
 # IRI, so evidence can be typed, queried and validated.
 name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY

@@ -48,7 +48,7 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 |---|---|
 | [`generic-claim.jsonld`](examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
-| [`claim.INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, bare-IRI subject and evidence, and domain fields on the base. |
+| [`claim.INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language that is not a BCP 47 tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, bare-IRI subject and evidence, and domain fields on the base. |
 
 The JSON-LD files are generated from the playground fixtures in
 [`data/playground/Claim/`](data/playground/Claim/), which `gen-rdf` validates, by

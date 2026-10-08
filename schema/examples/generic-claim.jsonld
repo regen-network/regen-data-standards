@@ -16,6 +16,9 @@
       "@type": "rfs:Entity",
       "@id": "assertedBy"
     },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
     "id": "@id",
     "description": {
       "@id": "schema:description"
@@ -45,6 +48,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "name": {
       "@id": "schema:name"
@@ -108,7 +114,8 @@
   },
   "@type": "GenericClaim",
   "name": "Hedgerow planting on plot A, spring 2026",
-  "description": "Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
+  "claimStatement": "Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern boundary of plot A between 1 March and 15 April 2026.",
+  "inLanguage": "en",
   "assertedBy": [
     {
       "@type": "Entity",
