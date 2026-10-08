@@ -50,7 +50,7 @@ time. It records what is asserted and may cite evidence.
 | `name` | `schema:name` | string | 1 | Human-readable title. |
 | `description` | `schema:description` | string | 0..1 | The assertion in the claimant's words. It is asserted content, not a summary. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
-| `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for the assertion. |
+| `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | What the claim is about, as a typed subject node. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
@@ -63,9 +63,13 @@ and each one serializes as repeated RDF triples, not an `rdf:List` (ADR D2).
 
 **Claimant.** Each listed claimant takes responsibility for the whole assertion. A collective that asserts
 as one body, such as a cooperative or community, is **one** claimant of type `COMMUNITY` or
-`ORGANIZATION`. Listing it does not make its members co-claimants. A service that extracted,
-generated or submitted the RDF is not a claimant unless it asserts the content itself
-([research §3.1][R31]). The slot declares `is_a: wasAttributedTo`, published as
+`ORGANIZATION`. Listing it does not make its members co-claimants. Taking responsibility for the
+assertion is distinct from writing, extracting, generating, transforming or submitting the content:
+a person, tool or service that only did that is not a claimant unless it takes responsibility for
+the assertion itself ([research §3.1][R31]). A claimant's capacity, such as project proponent or
+verifier, is a role in the context of the claim, not a subclass of `Entity`. Attribution records who
+takes responsibility, not who is authorized: whether a claimant may assert on behalf of a project,
+community or program is not stated by the Claim and needs its own record. The slot declares `is_a: wasAttributedTo`, published as
 `rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`. Instance data carries only
 `rfs:hasClaimant`, so a generic PROV attribution query must follow the published hierarchy
 ([Querying across the hierarchy](#querying-across-the-hierarchy)).
