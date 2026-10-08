@@ -84,8 +84,9 @@ identifier slot: a version's ClaimIRI is computed over its canonical form by
 ([#84](https://github.com/regen-network/regen-data-standards/issues/84)), such a value is an IRI node
 in the Turtle output and the generated SHACL requires `sh:nodeKind sh:IRI` with no class, which is
 that rule. By default the generated JSON-LD context and OWL still treat it as an `xsd:anyURI`
-literal; both generators need `--xsd-anyuri-as-iri` (see [Examples](#examples) and
-[PROV-O conformance](#prov-o-conformance)).
+literal; both generators need `--xsd-anyuri-as-iri` (see
+[Claim examples and checks](../schema/README.md#claim-examples-and-checks) for the context and
+[PROV-O in the schema](#prov-o-in-the-schema) for the OWL).
 
 ## PROV-O in the schema
 
