@@ -3,7 +3,7 @@
 # extends Claim (is_a: Claim). GenericClaim, the claim type with base content
 # only, is closed and rejects it.
 name: Hedgerow planting on plot A, spring 2026
-hasClaimant:
+assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY
 assertedAt: "2026-05-02T07:30:00+00:00"

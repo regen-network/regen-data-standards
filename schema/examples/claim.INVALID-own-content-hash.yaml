@@ -2,7 +2,7 @@
 # A Claim does not carry identifiers derived from its own canonical form.
 # Claim identity is computed over the Claim (regen-network/claims#1).
 name: Hedgerow planting on plot A, spring 2026
-hasClaimant:
+assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY
 assertedAt: "2026-05-02T07:30:00+00:00"

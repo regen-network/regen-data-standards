@@ -50,7 +50,7 @@ time. It records what is asserted and may cite evidence.
 | `name` | `schema:name` | string | 1 | Human-readable title. |
 | `description` | `schema:description` | string | 0..1 | The assertion in the claimant's words. It is asserted content, not a summary. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
-| `hasClaimant` | `rfs:hasClaimant` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
+| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | What the claim is about, as a typed subject node. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
@@ -70,8 +70,8 @@ the assertion itself ([research §3.1][R31]). A claimant's capacity, such as pro
 verifier, is a role in the context of the claim, not a subclass of `Entity`. Attribution records who
 takes responsibility, not who is authorized: whether a claimant may assert on behalf of a project,
 community or program is not stated by the Claim and needs its own record. The slot declares `is_a: wasAttributedTo`, published as
-`rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`. Instance data carries only
-`rfs:hasClaimant`, so a generic PROV attribution query must follow the published hierarchy
+`rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo`. Instance data carries only
+`rfs:assertedBy`, so a generic PROV attribution query must follow the published hierarchy
 ([Querying across the hierarchy](#querying-across-the-hierarchy)).
 PROV infers from an attribution that the agent was associated with an activity that generated the
 entity ([PROV-CONSTRAINTS, Inference 13][PROVC]). For a Claim, that activity is the act of asserting,
@@ -137,7 +137,7 @@ be queried and validated ([example](../schema/examples/claim.INVALID-bare-iri-ev
 IRI being rejected). The node's IRI names the exact version cited and may carry a fragment for a
 position inside it, such as `#page=2`. Whether a source actually supports the assertion is judged
 separately, by attestations. `hasEvidence` specializes `dcterms:references` (the same pattern as
-`hasClaimant` and `prov:wasAttributedTo`), so a generic Dublin Core citation query finds it when it
+`assertedBy` and `prov:wasAttributedTo`), so a generic Dublin Core citation query finds it when it
 follows the published hierarchy ([Querying across the hierarchy](#querying-across-the-hierarchy)). The
 skeleton has only an IRI, a title and a description.
 [#73](https://github.com/regen-network/regen-data-standards/issues/73) adds content hash and resolver,
@@ -172,7 +172,7 @@ slots it lists.
 
 | Slot | RDF term | Used by |
 |---|---|---|
-| `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `hasClaimant`. |
+| `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `assertedBy`. |
 | `references` | `dcterms:references` | Parent of `hasEvidence`: a plain citation. |
 | `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
 | `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity ([ADR D1][ADR-D1], [research §3.2][R32]). |
@@ -192,7 +192,7 @@ and [PROV-CONSTRAINTS][PROVC].
 
 | Term | PROV domain → range | Use here | What PROV infers |
 |---|---|---|---|
-| `prov:wasAttributedTo`, specialized by `rfs:hasClaimant` | Entity → Agent | Claim → claimant | The Claim is a `prov:Entity` and each claimant a `prov:Agent`. The claimant was associated with an activity that generated the Claim: the act of asserting (Inference 13). |
+| `prov:wasAttributedTo`, specialized by `rfs:assertedBy` | Entity → Agent | Claim → claimant | The Claim is a `prov:Entity` and each claimant a `prov:Agent`. The claimant was associated with an activity that generated the Claim: the act of asserting (Inference 13). |
 | `prov:wasRevisionOf` | Entity → Entity (⊑ `wasDerivedFrom`) | Claim version → earlier version | Also a derivation, and the two versions are alternates, i.e. aspects of the same thing (Inference 12). This is why it is reserved for revised versions of the same assertion. |
 | `prov:wasAssociatedWith` | Activity → Agent | Domain activity → operator | The subject is a `prov:Activity`. |
 
@@ -216,7 +216,7 @@ narrow PROV's own properties for all data, not just ours. Without `--no-use-nati
 mints `rfs:`-namespaced copies of these properties instead. No OWL artifact is built, published or
 planned: [#74](https://github.com/regen-network/regen-data-standards/issues/74) generates contexts,
 JSON Schema and SHACL only. If one is added, it should emit axioms only for `rfs:` terms, keeping
-`rfs:hasClaimant rdfs:subPropertyOf prov:wasAttributedTo`.
+`rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo`.
 
 ## Extending the base: claim-type schemas
 
@@ -331,7 +331,7 @@ both validators the schema generates on every document:
   that `sh:class` and keeps `sh:nodeKind sh:IRI`.
 - SHACL over each example retyped as a claim type defined outside this repository, with a field of
   its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
-  must reject it without `hasClaimant`.
+  must reject it without `assertedBy`.
 
 The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
 is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
@@ -356,7 +356,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
 | `description` | Retained | Same term. Now documented as asserted content ([ADR D1][ADR-D1]: "a description may contain asserted meaning"). |
 | `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class ([ADR 0001][ADR-HCT], following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum stays in `taxonomy.yaml` for workflows that use it. |
-| `hasClaimant` | Retained, changed | Now a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
+| `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe (see [Period](#base-fields)). Placement was open in ADR D1. |
 | — | Added | `assertedAt`, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |

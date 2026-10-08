@@ -1,4 +1,4 @@
-# expect: 'hasClaimant' is a required property
+# expect: 'assertedBy' is a required property
 # An unasserted authoring candidate: an extraction draft that nobody has yet
 # asserted. It has no claimant and no assertion time, so it is not a Claim.
 # How a confirmed Claim links back to its draft is authoring and submission
