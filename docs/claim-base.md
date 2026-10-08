@@ -39,7 +39,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 |---|---|---|---|---|
 | `name` | `schema:name` | string | 0..1 | A title, for display. It is not the assertion. |
 | `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
-| `inLanguage` | `schema:inLanguage` | BCP 47 tag | 0..1 | Language of `claimStatement`. |
+| `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. Private-use and grandfathered tags are not accepted. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
 | `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 1 | When the claimants make the assertion. |
@@ -214,7 +214,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `name` | Retained, changed | Same term, now optional: a title is for display and is not the assertion. |
 | `url` | Retained | Unchanged term, described as a pointer, not evidence. |
 | `description` | Renamed, changed | Now `claimStatement` (`rfs:claimStatement`, a subproperty of `schema:description`), required, and documented as asserted content that structured fields must agree with. |
-| — | Added | `inLanguage` (`schema:inLanguage`), the optional BCP 47 language of the statement. |
+| — | Added | `inLanguage` (`schema:inLanguage`), the optional language of the statement, as a BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag. |
 | `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class (following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum is removed from `taxonomy.yaml` too, since nothing else used it. |
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |

@@ -1,5 +1,7 @@
 # expect: 'English' does not match
-# inLanguage is a BCP 47 tag, such as en, not a language name.
+# inLanguage is a language tag, such as en, not a language name. "English" has
+# the form of an unregistered BCP 47 tag, but the accepted tags start with a
+# 2- or 3-letter ISO 639 code.
 claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 inLanguage: English
 assertedBy:
