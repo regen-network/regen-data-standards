@@ -355,7 +355,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `Claim` (class) | Changed | Abstract, with an open generated shape. A claim with base content only is a `GenericClaim`, whose shape is closed. |
 | `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
 | `description` | Retained | Same term. Now documented as asserted content ([ADR D1][ADR-D1]: "a description may contain asserted meaning"). |
-| `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class ([ADR 0001][ADR-HCT], following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum stays in `taxonomy.yaml` for workflows that use it. |
+| `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class ([ADR 0001][ADR-HCT], following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum is removed from `taxonomy.yaml` too, since nothing else used it. |
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe (see [Period](#base-fields)). Placement was open in ADR D1. |
@@ -364,7 +364,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith` ([ADR D1][ADR-D1]). |
 | `hasPrimaryImpact`, `hasCoBenefits`, `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule), `hasCreditClass` | Moved | To specialized claim schemas ([ADR D1][ADR-D1]), starting with #73. Their shape, including co-benefit collection semantics, is decided there. `Impact` and `SDG` remain available as shared modules. |
 | `usesMethodology` | Moved | To specialized claim schemas, starting with #73. It names a methodology document, such as a sampling protocol, which only some kinds of claim use. |
-| `verificationStatus` | Removed | Review state is not content ([ADR D1][ADR-D1], agreed July 2026). The `VerificationStatus` enum remains in the taxonomy until the review-state record is designed. |
+| `verificationStatus` | Removed | Review state is not content ([ADR D1][ADR-D1], agreed July 2026). The unused `VerificationStatus` enum is removed from `taxonomy.yaml` too; review states will be defined with the review-state record. |
 | `contentHash`, `dataIri` | Removed | Derived identity is not content (same agreement). |
 
 **Existing logical identifiers.** Earlier claim records, such as koi-processor `claim_rid` values and
