@@ -49,7 +49,7 @@ slots:
       PROV attribution: the ascribing of an entity to an agent. PROV infers
       that the agent was associated with an activity that generated the
       entity. Declared here so that narrower attribution relations, such as
-      hasClaimant, can specialize it (rdfs:subPropertyOf) instead of
+      assertedBy, can specialize it (rdfs:subPropertyOf) instead of
       redefining its meaning. Every value of a specializing slot therefore
       implies this relation; the reverse does not hold.
     range: Entity

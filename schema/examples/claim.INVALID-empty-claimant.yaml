@@ -1,7 +1,7 @@
 # expect: [] should be non-empty
 # At least one claimant must take responsibility for the assertion.
 name: Hedgerow planting on plot A, spring 2026
-hasClaimant: []
+assertedBy: []
 assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

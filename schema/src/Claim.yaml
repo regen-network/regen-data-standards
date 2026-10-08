@@ -52,7 +52,7 @@ classes:
       - name
       - description
       - url
-      - hasClaimant
+      - assertedBy
       - assertedAt
       - hasSubject
       - hasEvidence
@@ -91,9 +91,9 @@ classes:
       belong to a claim-type schema.
 
 slots:
-  hasClaimant:
+  assertedBy:
     is_a: wasAttributedTo
-    slot_uri: rfs:hasClaimant
+    slot_uri: rfs:assertedBy
     description: >-
       The agent or agents that take responsibility for asserting this exact
       content: an individual, organization or community. Each listed

@@ -5,7 +5,7 @@ name: Hedgerow planting on plot A, spring 2026 (corrected length)
 description: >-
   Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern
   boundary of plot A between 1 March and 15 April 2026.
-hasClaimant:
+assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY
 assertedAt: "2026-05-20T12:00:00+00:00"
