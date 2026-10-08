@@ -328,7 +328,7 @@ both validators the schema generates on every document:
   that `sh:class` and keeps `sh:nodeKind sh:IRI`.
 - SHACL over each example retyped as a claim type defined outside this repository, with a field of
   its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
-  must reject it without `assertedAt`.
+  must reject it without `hasClaimant`.
 
 The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
 is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
