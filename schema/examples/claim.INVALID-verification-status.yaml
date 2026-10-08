@@ -2,6 +2,7 @@
 # Mutable review state is not Claim content. Review outcomes are separate
 # resources that point to the Claim; a Claim without one is still valid.
 name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 assertedBy:
   - name: Hedgerow Cooperative
     type: COMMUNITY

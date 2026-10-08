@@ -4,7 +4,7 @@
 # How a confirmed Claim links back to its draft is authoring and submission
 # history, recorded outside the Claim (regen-network/claims#55).
 name: Draft extracted from planting log
-description: Hedgerow planted along the northern boundary of plot A.
+claimStatement: Hedgerow planted along the northern boundary of plot A.
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A

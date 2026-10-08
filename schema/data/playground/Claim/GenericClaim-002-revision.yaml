@@ -2,7 +2,7 @@
 # version is unchanged; this version names it by a labelled placeholder that
 # stands for the ClaimIRI derived under WP1-08 (regen-network/claims#1).
 name: Hedgerow planting on plot A, spring 2026 (corrected length)
-description: >-
+claimStatement: >-
   Hedgerow Cooperative planted 360 m of mixed native hedgerow along the northern
   boundary of plot A between 1 March and 15 April 2026.
 assertedBy:

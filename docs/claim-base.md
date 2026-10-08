@@ -37,14 +37,22 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 
 | Slot | RDF term | Range | Cardinality | Meaning |
 |---|---|---|---|---|
-| `name` | `schema:name` | string | 1 | Human-readable title. |
-| `description` | `schema:description` | string | 0..1 | The assertion in the claimant's words. It is asserted content, not a summary. |
+| `name` | `schema:name` | string | 0..1 | A title, for display. It is not the assertion. |
+| `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
+| `inLanguage` | `schema:inLanguage` | BCP 47 tag | 0..1 | Language of `claimStatement`. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
 | `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a typed subject node. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
+
+**Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
+in structured fields, such as an area and its unit. The statement and those fields are one assertion
+and must agree. Generated validators cannot compare prose with values, so agreement is checked where
+people see both: when the claimants confirm the Claim during authoring, and in review. When they
+disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a
+new version (`wasRevisionOf`) before its evidence is evaluated.
 
 Every resource a claim points to is written as a node with its own IRI and an RDF type, never as a
 bare IRI, so the generated JSON Schema and SHACL can validate it as generated and claims can be
@@ -203,8 +211,10 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | Prior slot | Change | Now |
 |---|---|---|
 | `Claim` (class) | Changed | Abstract, with an open generated shape. A claim with base content only is a `GenericClaim`, whose shape is closed. |
-| `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
-| `description` | Retained | Same term. Now documented as asserted content. |
+| `name` | Retained, changed | Same term, now optional: a title is for display and is not the assertion. |
+| `url` | Retained | Unchanged term, described as a pointer, not evidence. |
+| `description` | Renamed, changed | Now `claimStatement` (`rfs:claimStatement`, a subproperty of `schema:description`), required, and documented as asserted content that structured fields must agree with. |
+| — | Added | `inLanguage` (`schema:inLanguage`), the optional BCP 47 language of the statement. |
 | `hasClaimType` | Removed | A claim's kind is its class, such as `GenericClaim` or a claim-type class (following [#86](https://github.com/regen-network/regen-data-standards/issues/86)): a required subject-matter enum does not cover every assertion, for example an evaluation. The `ClaimType` enum is removed from `taxonomy.yaml` too, since nothing else used it. |
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node, which must have an IRI. |
