@@ -243,24 +243,31 @@ classes:
   silently drop the narrowing.
 - Declare set or sequence semantics on every new multivalued slot (ADR D2).
 
-The shape above was checked with a scratch schema. It validated, rejected its own fields under the
-base `Claim`, and produced the expected RDF. It is not committed, because domain schemas belong to #73.
+The shape above was checked with a scratch schema: it validated and produced the expected RDF. A
+scratch claim type also passed the open `Claim` shape, and its own closed shape rejected an
+undeclared field. It is not committed, because domain schemas belong to #73.
 
 ## Validation entry points
 
-- **Entry point:** the most specific claim class a document declares. For a generic claim that is
-  `Claim` (`linkml-validate -s schema/src/schema.yaml -C Claim`, or `sh:targetClass rfs:Claim` in
-  `gen-shacl` output). For a claim-type document it is its own class, such as `HedgerowClaim`.
-- **Target node:** the root claim node, typed with that one class. Do not also type a claim-type
-  instance `rfs:Claim`, because the base shape is closed and would reject the extension's fields.
-  Queries for all Claims follow the published class hierarchy instead
+- **Entry point:** the claim type a document declares. `Claim` is abstract, so a document is never
+  typed with it directly. A claim with base content only is a `GenericClaim`
+  (`linkml-validate -s schema/src/schema.yaml -C GenericClaim`, or `sh:targetClass rfs:GenericClaim`
+  in `gen-shacl` output). A claim-type document uses its own class, such as `HedgerowClaim`.
+- **Target node:** the root claim node, typed with its claim type. The data does not also state
+  `rfs:Claim`; queries for all Claims follow the published class hierarchy instead
   ([Querying across the hierarchy](#querying-across-the-hierarchy)).
+- **Base shape and claim-type shapes.** `gen-shacl` leaves the shape of an abstract class open, so
+  the `rfs:Claim` shape checks the base content of every claim type and lets a claim type add
+  fields, including one defined outside this repository. It applies to any node typed with a
+  subclass of `rfs:Claim` when the `rdfs:subClassOf` triple is in the validated graph, as it is in
+  the graph store. Each claim type's own shape is closed and includes the inherited fields.
 - **Nested and imported definitions:** `Entity`, `Methodology` and other imported classes are checked
   only as values reached from the entry point. Importing a module does not make its classes separate
   whole-claim targets.
-- **Additional fields are rejected.** Generated JSON Schema and SHACL shapes are closed
-  (`additionalProperties: false`, `sh:closed true`). New content requires a claim-type schema, which
-  keeps domain-authoring requirements from leaking into the generic admission floor
+- **Additional fields are rejected by the claim type.** The generated JSON Schema and SHACL shapes of
+  every claim type, `GenericClaim` included, are closed (`additionalProperties: false`,
+  `sh:closed true`). New content requires a claim-type schema, which keeps domain-authoring
+  requirements from leaking into the generic admission floor
   ([example](../schema/examples/claim.INVALID-domain-fields-on-base.yaml)).
 - **Service behaviour is not defined here.** Admission outcomes and error information are
   [claims#55](https://github.com/regen-network/claims/issues/55) (WP1-09). Runtime checks are
@@ -270,10 +277,10 @@ base `Claim`, and produced the expected RDF. It is not committed, because domain
 ## Querying across the hierarchy
 
 Instance data carries only the most specific class and property: a specialized claim is typed with
-its own class, for example `ex:CarbonEgClaim`, and evidence is linked with `rfs:hasEvidence`. The
-broader types and properties are not added to the data, because they would enter the Claim's hashed
-content and, for `rfs:Claim`, the closed base shape would reject the specialized fields. So a plain
-query for every `rfs:Claim`, or every `dcterms:references`, misses them.
+its own class, for example `ex:CarbonEgClaim` or `rfs:GenericClaim`, and evidence is linked with
+`rfs:hasEvidence`. The broader types and properties are not added to the data, because they would
+enter the Claim's hashed content. So a plain query for every `rfs:Claim`, or every
+`dcterms:references`, misses them.
 
 `make -C schema gen-hierarchy` reads the class and property hierarchy from the schema (`is_a` and
 mixins) and writes it as `rdfs:subClassOf` and `rdfs:subPropertyOf` triples to
@@ -314,11 +321,14 @@ The JSON-LD files are generated from the playground fixtures in
 both validators the schema generates on every document:
 
 - JSON Schema (`linkml-validate`) over the authored YAML;
-- SHACL (`gen-shacl`, closed shapes, run with pyshacl) over the RDF graph of the authored JSON-LD
-  and over the Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both
-  are parsed without rdflib's literal normalization, so lexical forms are checked as written.
-  `gen-shacl` adds `sh:class` to reference slots, but referenced IRIs are not typed in the data, so
-  the check removes that `sh:class` and keeps `sh:nodeKind sh:IRI`.
+- SHACL (`gen-shacl`, run with pyshacl) over the RDF graph of the authored JSON-LD and over the
+  Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both are parsed
+  without rdflib's literal normalization, so lexical forms are checked as written. `gen-shacl` adds
+  `sh:class` to reference slots, but referenced IRIs are not typed in the data, so the check removes
+  that `sh:class` and keeps `sh:nodeKind sh:IRI`.
+- SHACL over each example retyped as a claim type defined outside this repository, with a field of
+  its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
+  must reject it without `assertedAt`.
 
 The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
 is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
@@ -339,6 +349,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 
 | Prior slot | Change | Now |
 |---|---|---|
+| `Claim` (class) | Changed | Abstract, with an open generated shape. A claim with base content only is a `GenericClaim`, whose shape is closed. |
 | `name`, `url` | Retained | Unchanged terms. `url` is described as a pointer, not evidence. |
 | `description` | Retained | Same term. Now documented as asserted content ([ADR D1][ADR-D1]: "a description may contain asserted meaning"). |
 | `hasClaimType` | Retained | Required. Its description, and the `ClaimType` enum's, no longer say it selects verification pathways. |

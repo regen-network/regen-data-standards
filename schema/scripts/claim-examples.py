@@ -18,8 +18,8 @@ its Turtle output:
 The check validates every document with both validators the schema generates:
 
 - JSON Schema (linkml-validate) over the authored YAML;
-- SHACL (gen-shacl, closed shapes) over the RDF graph of the authored JSON-LD
-  and over the Turtle that gen-rdf publishes for the fixture, both parsed
+- SHACL (gen-shacl) over the RDF graph of the authored JSON-LD and over the
+  Turtle that gen-rdf publishes for the fixture, both parsed
   without rdflib's literal normalization so that lexical forms are checked as
   written (rdflib would otherwise rewrite an invalid Z in assertedAt as
   +00:00). One correction is applied to the generated shapes: gen-shacl adds
@@ -31,6 +31,13 @@ Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators.
 Every examples/claim.INVALID-*.yaml document must be rejected by both: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
+
+The examples are GenericClaims, whose shape is closed. The base Claim is
+abstract, so its shape is open: it checks the base content of every claim type
+and lets a claim type add fields. To check that, each example is also retyped
+as a claim type defined outside this schema, with a field of its own and the
+rdfs:subClassOf rfs:Claim triple that such a schema publishes with its data.
+The Claim shape must accept it, and must reject it without assertedAt.
 """
 
 import glob
@@ -44,17 +51,19 @@ import rdflib
 import yaml
 from pyshacl import validate as shacl_validate
 from rdflib.compare import isomorphic
-from rdflib.namespace import SH
+from rdflib.namespace import RDF, RDFS, SH
 from linkml_runtime.utils.schemaview import SchemaView
 
 SCHEMA = "src/schema.yaml"
 CONTEXT_SOURCE = "src/Claim.yaml"
-TARGET_CLASS = "Claim"
+TARGET_CLASS = "GenericClaim"
 EXAMPLES = {
-    "data/playground/Claim/Claim-generic-001.yaml": "examples/generic-claim.jsonld",
-    "data/playground/Claim/Claim-generic-002-revision.yaml": "examples/generic-claim-revision.jsonld",
+    "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
+    "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
 }
 INVALID_GLOB = "examples/claim.INVALID-*.yaml"
+EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
+EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
 
 # Ill-typed literals in the invalid examples are expected; they are reported
 # by the validators, not as parser warnings.
@@ -150,6 +159,22 @@ def json_schema_check(document):
     return result.returncode == 0, result.stdout + result.stderr
 
 
+def as_extension(view, graph, without=None):
+    """Retype the claim as a claim type defined outside this schema, with a field of its own."""
+    uri = lambda name: rdflib.URIRef(view.get_uri(view.get_element(name), expand=True))
+    out = rdflib.Graph()
+    for triple in graph:
+        out.add(triple)
+    root = next(out.subjects(RDF.type, uri(TARGET_CLASS)))
+    out.remove((root, RDF.type, uri(TARGET_CLASS)))
+    out.add((root, RDF.type, EXTENSION_CLASS))
+    out.add((EXTENSION_CLASS, RDFS.subClassOf, uri("Claim")))
+    out.add((root, EXTENSION_FIELD, rdflib.Literal("claim-type content")))
+    if without:
+        out.remove((root, uri(without), None))
+    return out
+
+
 def shacl_report(graph, shapes):
     conforms, results, _ = shacl_validate(graph, shacl_graph=shapes)
     messages = [str(m) for m in results.objects(None, SH.resultMessage)]
@@ -193,6 +218,19 @@ def main(mode):
             else:
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
+        graph = lexical_graph(text, "json-ld")
+        conforms, messages = shacl_report(as_extension(view, graph), shapes)
+        if conforms:
+            print(f"✅ {example} as an outside claim type: conforms to the open Claim shape")
+        else:
+            print(f"❌ {example} as an outside claim type: SHACL violations {messages}")
+            failures += 1
+        conforms, _ = shacl_report(as_extension(view, graph, without="assertedAt"), shapes)
+        if not conforms:
+            print(f"✅ {example} as an outside claim type without assertedAt: the Claim shape rejects it")
+        else:
+            print(f"❌ {example} as an outside claim type without assertedAt: SHACL accepts it")
+            failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):
         first_line = Path(invalid).read_text().splitlines()[0]
