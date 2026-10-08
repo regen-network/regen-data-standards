@@ -3,13 +3,13 @@
 # (Claim-generic-001) after walking the planted boundary. The target is a
 # labelled placeholder for that claim's ClaimIRI (regen-network/claims#1).
 name: Steward review of the plot A hedgerow planting
-description: >-
+claimStatement: >-
   The planted hedgerow along the northern boundary of plot A is present along
   its full length, as the planting log states.
-hasClaimant:
+assertedBy:
   - name: Valley Stewards Circle
     type: COMMUNITY
-assertedAt: "2026-06-10T09:00:00Z"
+assertedAt: "2026-06-10T09:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A

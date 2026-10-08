@@ -3,10 +3,11 @@
 # Fields the C06 claim schema does not define are rejected: new content needs a
 # schema version that defines it.
 name: Site S-001 start date
-hasClaimant:
+claimStatement: Site S-001 start date
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-07-10T00:00:00Z"
+assertedAt: "2026-07-10T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/site/S-001
   name: Site S-001

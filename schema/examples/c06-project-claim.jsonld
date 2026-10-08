@@ -32,9 +32,16 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
     "baselineYear": {
       "@type": "xsd:integer",
       "@id": "baselineYear"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
     },
     "climateClass": {
       "@id": "climateClass"
@@ -133,10 +140,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -154,6 +157,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "isAggregateProject": {
       "@type": "xsd:boolean",
@@ -425,9 +431,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -454,6 +457,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
     },
     "Link": {
       "@id": "Link"
@@ -488,15 +494,15 @@
   },
   "@type": "C06ProjectClaim",
   "name": "Example project P-001 design",
-  "description": "Example project P-001 is an aggregate soil-carbon project of sites enrolled from 2020 to 2023, started on 1 March 2020.",
-  "hasClaimant": [
+  "claimStatement": "Example project P-001 is an aggregate soil-carbon project of sites enrolled from 2020 to 2023, started on 1 March 2020.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Soil Carbon Developer",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-02-20T00:00:00Z",
+  "assertedAt": "2026-02-20T00:00:00+00:00",
   "hasSubject": {
     "@type": "Project",
     "id": "https://example.org/c06/project/P-001",

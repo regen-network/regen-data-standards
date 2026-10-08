@@ -23,7 +23,6 @@ flowchart LR
       CC[C06CohortClaim]
       SC[C06SiteClaim]
       PLC[C06PlotClaim]
-      PS[C06ProjectStatementClaim]
     end
     A[Evaluation]
     E[Evidence]
@@ -31,8 +30,8 @@ flowchart LR
     OP["Operator (Entity)"]
     S["Subjects: Project, Cohort, Site, Plot"]
 
-    PC & CC & SC & PLC & PS -- hasSubject --> S
-    PC & CC & SC & PLC & PS -- hasEvidence --> E
+    PC & CC & SC & PLC -- hasSubject --> S
+    PC & CC & SC & PLC -- hasEvidence --> E
     A -- "hasTarget (e.g. a verifier's finding → a developer's claim)" --> PC
     A -- "hasTarget (e.g. a registry's confirmation → the verifier's finding)" --> A
     A -- hasSubject --> S
@@ -78,7 +77,7 @@ terms are imported from `ClaimVocabulary`.
 
 ## Evaluation
 
-An evaluation is an issuer's dated, scoped judgment. It is a Claim: attributed (`hasClaimant` is the
+An evaluation is an issuer's dated, scoped judgment. It is a Claim: attributed (`assertedBy` is the
 issuer), timed (`assertedAt`), about a subject, citing evidence, immutable, and revisable with
 `wasRevisionOf`. It is about a subject (a project, a plot) even when it judges a claim about that
 subject, because some judgments, such as a determination that a project meets a requirement, have no
@@ -265,9 +264,10 @@ Neither is a schema-version declaration.
 ## C06 claims
 
 A C06 claim class adds fields only where a registration requirement needs a specific value to be
-checked (a date, a period, an identifier, an area, a category). Requirements that only need the
-project plan to contain a statement use `C06ProjectStatementClaim`: the developer's words in
-`description` and the plan section as evidence. Which requirement a statement answers is recorded by
+checked (a date, a period, an identifier, an area, a category). A requirement that only needs the
+project plan to contain a statement is answered by a `C06ProjectClaim` with no structured fields:
+the developer's words in `claimStatement` and the plan section as evidence. Every Claim requires a
+`claimStatement`, so no separate statement class is needed. Which requirement a statement answers is recorded by
 the reviewer's evaluation.
 
 Subjects hold what identifies a thing and places it in the project; values that reviewers judge are
@@ -286,7 +286,6 @@ on the claims, because a later plan version or another party can assert them dif
 | `C06CohortClaim` | `creditingPeriod`, `permanencePeriod` |
 | `C06SiteClaim` | `siteProjectStartDate`, `startDateBasis`, `creditingPeriod`, `ecosystemTypes`, `climateClass`, `soilGroup`, `practices`, `primaryLandUse`, `monitoringSampleDates`, `monitoringIntervalJustification` |
 | `C06PlotClaim` | `area`, `geometry`, `tenureBasis`, `convertedFromNaturalEcosystem` |
-| `C06ProjectStatementClaim` | none beyond the base Claim |
 
 Ecosystem types and practices reuse the taxonomy's `EnvironmentType` and `ActivityType`.
 
@@ -303,7 +302,7 @@ The following are therefore not fields:
   land-use history, and the historic activity records of a site are cited as `Evidence`. The period
   those records cover is their generating activity's.
 - *Statements:* the basis of the aggregation, and that no sites are enrolled after a cutoff date,
-  are `C06ProjectStatementClaim`s. An evaluation that depends on the cutoff names that claim in
+  are `C06ProjectClaim`s carrying only their `claimStatement`. An evaluation that depends on the cutoff names that claim in
   `reliesOn`.
 - *Lifecycle:* whether a plot is still enrolled (see [Exclusions](#exclusions)).
 
@@ -323,7 +322,7 @@ validators.
 | [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, a requested deviation, and evidence under a versioned licence |
 | [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
-| [`c06-project-statement-claim.jsonld`](../schema/examples/c06-project-statement-claim.jsonld) | A `C06ProjectStatementClaim` |
+| [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A base `Evaluation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`registry-review-evaluation.jsonld`](../schema/examples/registry-review-evaluation.jsonld) | A `RegistryReviewEvaluation`: a confirmation with targets, a relied-on claim, a rule-set version, a scope and a condition |
 | [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: a clarification request with its type, label, target and evidence |
@@ -376,7 +375,7 @@ the source.
 | `Attestation` (class), `Attestation.yaml` | `Evaluation`, `Evaluation.yaml`: the class records a judgment; attestation is left for binding an agent to content on the ledger. `RegistryReviewAttestation` and `RegistryFindingAttestation` became `RegistryReviewEvaluation` and `RegistryFindingEvaluation`. |
 | `Claim.hasClaimType` (required) | Removed: a single required enum could not cover every kind of claim ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). The kind of claim is the specialized class. |
 | `Attestation.attestsClaim` (string) | `hasTarget` (IRI, 0..*) |
-| `Attestation.hasReviewer` (Entity) | `hasClaimant` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
+| `Attestation.hasReviewer` (Entity) | `assertedBy` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
 | `Attestation.hasVerdict` (`VerdictType`) | `outcome` (IRI). `PENDING` dropped; the other values map to `RegistryReviewOutcome` terms. `VerdictType` remains in the taxonomy. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidence` (Evidence nodes, inherited) |

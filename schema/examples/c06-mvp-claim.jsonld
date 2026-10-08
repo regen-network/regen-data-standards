@@ -32,9 +32,16 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
     "baselineYear": {
       "@type": "xsd:integer",
       "@id": "baselineYear"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
     },
     "climateClass": {
       "@id": "climateClass"
@@ -133,10 +140,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -154,6 +157,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "isAggregateProject": {
       "@type": "xsd:boolean",
@@ -425,9 +431,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -454,6 +457,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
     },
     "Link": {
       "@id": "Link"
@@ -488,15 +494,15 @@
   },
   "@type": "C06SiteClaim",
   "name": "Site S-001 start date, crediting period and practices",
-  "description": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
-  "hasClaimant": [
+  "claimStatement": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Soil Carbon Developer",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-07-10T00:00:00Z",
+  "assertedAt": "2026-07-10T00:00:00+00:00",
   "hasSubject": {
     "@type": "Site",
     "id": "https://example.org/c06/site/S-001",

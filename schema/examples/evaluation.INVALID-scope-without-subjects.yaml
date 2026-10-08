@@ -3,10 +3,11 @@
 # A scope names the subjects it covers. An evaluation with no
 # limits beyond its targets states unbounded: true instead of an empty scope.
 name: Steward review of the plot A hedgerow planting
-hasClaimant:
+claimStatement: Steward review of the plot A hedgerow planting
+assertedBy:
   - name: Valley Stewards Circle
     type: COMMUNITY
-assertedAt: "2026-06-10T09:00:00Z"
+assertedAt: "2026-06-10T09:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
   name: Plot A

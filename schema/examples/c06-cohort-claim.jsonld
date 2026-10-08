@@ -32,9 +32,16 @@
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
     },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
     "baselineYear": {
       "@type": "xsd:integer",
       "@id": "baselineYear"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
     },
     "climateClass": {
       "@id": "climateClass"
@@ -133,10 +140,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -154,6 +157,9 @@
     },
     "image": {
       "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
     },
     "isAggregateProject": {
       "@type": "xsd:boolean",
@@ -425,9 +431,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -454,6 +457,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
     },
     "Link": {
       "@id": "Link"
@@ -488,14 +494,15 @@
   },
   "@type": "C06CohortClaim",
   "name": "Example project P-001, 2021 cohort periods",
-  "hasClaimant": [
+  "claimStatement": "The 2021 cohort of example project P-001 has a crediting period from 15 April 2021 to 14 April 2031 and a permanence period from 15 April 2031 to 14 April 2041.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Soil Carbon Developer",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-02-20T00:00:00Z",
+  "assertedAt": "2026-02-20T00:00:00+00:00",
   "hasSubject": {
     "@type": "Cohort",
     "id": "https://example.org/c06/cohort/P-001-2021",

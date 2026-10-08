@@ -3,10 +3,14 @@
 # boundary, tenure basis and land-use history are asserted here and checked by
 # reviewers. The land register extract and the land cover maps are evidence.
 name: Plot S-001.0007 area, tenure and land-use history
-hasClaimant:
+claimStatement: >-
+  Plot S-001.0007 covers 12.75 ha within boundary feature 118, is held under a
+  lease, and was not converted from a natural ecosystem in the ten years before
+  its site's project start date.
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-02-20T00:00:00Z"
+assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007
   name: Plot S-001.0007

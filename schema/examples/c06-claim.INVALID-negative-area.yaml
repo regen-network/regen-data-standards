@@ -3,10 +3,11 @@
 # A quantity value cannot be negative: the quantities stated so far are sizes
 # and areas.
 name: Plot S-001.0007 area
-hasClaimant:
+claimStatement: Plot S-001.0007 area
+assertedBy:
   - name: Example Soil Carbon Developer
     type: ORGANIZATION
-assertedAt: "2026-02-20T00:00:00Z"
+assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007
   name: Plot S-001.0007
