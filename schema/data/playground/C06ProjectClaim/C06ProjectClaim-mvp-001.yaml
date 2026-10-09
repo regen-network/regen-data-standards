@@ -34,7 +34,7 @@ permanencePeriod:
   startDate: "2030-03-01"
   endDate: "2044-02-28"
 requestedDeviations:
-  - requirement:
+  - addressesRequirement:
       - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/ML-020
     replacedParameters: >-
       A three-year historical lookback and a 5% productivity-decline trigger

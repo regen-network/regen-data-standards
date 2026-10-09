@@ -117,14 +117,27 @@ slots:
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
-  requirement:
-    slot_uri: rfs:requirement
+  appliesRequirement:
+    slot_uri: rfs:appliesRequirement
     description: >-
-      Identifier of a requirement within one version of a rule set or
-      checklist, for example a credit class registration requirement. The
-      identifier must name the checklist version as well as the requirement,
-      because the same short ID can name different requirements in different
-      versions. Unordered set.
+      Exact requirement versions an evaluation applies or judges, whether or
+      not the claimant named them. Each identifier names one immutable
+      requirement version within an exact rule-set version, such as a
+      checklist version: the same short ID can name different requirements in
+      different versions. The rule-set and requirement records themselves are
+      defined by WP5-01 (claims#30). Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  addressesRequirement:
+    slot_uri: rfs:addressesRequirement
+    description: >-
+      Exact requirement versions the claimant presents a Claim, or part of
+      it, as responding to, identified as for appliesRequirement. It records
+      the claimant's intent only: it implies neither that the requirement
+      applies nor that it is met, conformed to or accepted, which an
+      evaluation judges with appliesRequirement. Not on the base Claim: a
+      claim type selects it where it needs it. Unordered set.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false

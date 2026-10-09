@@ -196,11 +196,11 @@ classes:
       A project-specific deviation from a requirement that the project
       developer requests. Whether it is approved is a separate evaluation.
     slots:
-      - requirement
+      - addressesRequirement
       - replacedParameters
       - justification
     slot_usage:
-      requirement:
+      addressesRequirement:
         required: true
         minimum_cardinality: 1
       replacedParameters:
