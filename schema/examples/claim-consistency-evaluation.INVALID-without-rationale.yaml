@@ -1,0 +1,20 @@
+# expect: 'rationale' is a required property
+# class: ClaimConsistencyEvaluation
+# A consistency result says where the statement and the fields agree or
+# disagree.
+name: Consistency review of the plot B restoration claim
+claimStatement: >-
+  The restoration claim for plot B is internally inconsistent: its statement
+  and its area field give different restored areas.
+assertedBy:
+  - name: Example Registry
+    type: ORGANIZATION
+assertedAt: "2026-07-01T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/B
+  name: Plot B
+hasTarget:
+  - https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1
+claimConsistency: INTERNALLY_INCONSISTENT
+verificationMethod: OTHER
+verificationMethodDescriptor: Desk review of the claim record
