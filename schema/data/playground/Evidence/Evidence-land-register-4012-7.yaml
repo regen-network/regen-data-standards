@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Land register extract, parcel 4012/7, 10 February 2026, described once and cited by IRI.
+id: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+name: Land register extract, parcel 4012/7, 10 February 2026
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: ab7b53c54ef38ad04b05a4ec3f504d99916c4360983e4f9a9febc1da0b491f0a
+resolver:
+  - https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf

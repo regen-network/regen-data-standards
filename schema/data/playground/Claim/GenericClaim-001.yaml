@@ -13,12 +13,10 @@ hasSubject:
   id: https://example.org/plot/A
   name: Plot A
 hasEvidence:
-  - id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
-    name: Planting log, spring 2026 (v1)
-    sourceType: TEXT
-    mediaType: application/pdf
-    contentHash:
-      algorithm: SHA_256
-      digestValue: 0565254fd498456cc07a7be4a379b6d38e849ef145dc0c122daaab8a9cb8cf46
-    resolver:
-      - https://example.org/evidence/planting-log-2026-v1.pdf
+  - https://example.org/evidence/planting-log-2026-v1.pdf
+hasEvidenceCitation:
+  - source: https://example.org/evidence/planting-log-2026-v1.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=2
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

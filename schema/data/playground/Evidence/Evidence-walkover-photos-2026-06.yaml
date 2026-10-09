@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Walkover photographs, June 2026, described once and cited by IRI.
+id: https://example.org/evidence/walkover-photos-2026-06.zip
+name: Walkover photographs, June 2026
+sourceType: STILL_IMAGE
+mediaType: application/zip
+contentHash:
+  algorithm: SHA_256
+  digestValue: cf4db0bb8dbb3cd83ff3e89c0006124b9cf07507af86255beebaffce8199cd51
+resolver:
+  - https://example.org/evidence/walkover-photos-2026-06.zip

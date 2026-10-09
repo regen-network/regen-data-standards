@@ -1,0 +1,12 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Example project plan v2.1, described once and cited by IRI.
+id: https://example.org/c06/project-plan-v2.1.pdf
+name: Example project plan v2.1
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9
+resolver:
+  - https://example.org/c06/project-plan-v2.1.pdf
+issued: "2026-07-10"

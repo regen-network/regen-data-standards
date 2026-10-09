@@ -17,7 +17,9 @@ version's JSON-LD output does not produce the same RDF as its Turtle output:
   permissible value to its `meaning`, so "COMMUNITY" expands to rfs:Community
   instead of a string literal. A slot whose range a class narrows to an enum
   (slot_usage) is mapped the same way;
-- nested inlined objects get an explicit "@type", as in the Turtle output.
+- nested inlined objects get an explicit "@type", as in the Turtle output. A
+  selector's "@type" is the class its selectorType names (oa:FragmentSelector
+  or oa:TextQuoteSelector), which then replaces selectorType.
 
 The check validates every document with both validators the schema generates:
 
@@ -25,7 +27,11 @@ The check validates every document with both validators the schema generates:
 - SHACL (gen-shacl, closed shapes) over the RDF graph of the authored JSON-LD,
   parsed without rdflib's literal normalization so that lexical forms, such as
   the Z suffix of assertedAt, are checked as written. The generated shapes are
-  used unchanged.
+  used unchanged. Claims and evaluations reference Evidence records by IRI,
+  and the shapes require each to be an rfs:Evidence, so each of them is
+  checked together with the Turtle gen-rdf wrote for the Evidence fixtures, as
+  the graph store holds them. An Evidence record references no other record
+  and is checked on its own.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 Turtle output, and accepted by both validators. The class of a fixture is the
@@ -35,7 +41,14 @@ Schema with the error named on its first line ("# expect: ..."), and by SHACL.
 Its class is named on a "# class: ..." line, and is Claim when there is none.
 A document that breaks a LinkML rule carries a "# shacl: not enforced" line:
 the generated SHACL does not express rules, so only JSON Schema must reject it,
-and the check reports that SHACL accepts it.
+and the check reports that SHACL accepts it. The line may give another reason
+in parentheses. A document marked "# graph: with the Evidence records" is valid
+on its own ("# expect: accepted alone"), and SHACL must reject it merged with
+the Evidence records, as the graph store merges it.
+
+For each example with citations, the check also changes a selector and
+requires that the cited Evidence IRIs and the Evidence records stay the same,
+while the citing document's graph changes.
 
 The generic examples are GenericClaims, whose shape is closed. The base Claim
 is abstract, so its shape is open: it checks the base content of every claim
@@ -67,6 +80,7 @@ SCHEMA = "src/schema.yaml"
 # generated from that module and its imports.
 MODULES = {
     "GenericClaim": "src/Claim.yaml",
+    "Evidence": "src/Evidence.yaml",
     "Evaluation": "src/Evaluation.yaml",
     "EvidenceEvaluation": "src/Evaluation.yaml",
     "ClaimConsistencyEvaluation": "src/Evaluation.yaml",
@@ -87,6 +101,7 @@ EXAMPLES = {
     "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",
     "data/playground/RegistryReportEvaluation/RegistryReportEvaluation-validation-001.yaml": "examples/registry-report-evaluation.jsonld",
     "data/playground/Evaluation/Evaluation-generic-001.yaml": "examples/generic-evaluation.jsonld",
+    "data/playground/Evidence/Evidence-field-records-S-001-2019-2021.yaml": "examples/evidence.jsonld",
     "data/playground/EvidenceEvaluation/EvidenceEvaluation-generic-001.yaml": "examples/evidence-evaluation.jsonld",
     "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
@@ -95,6 +110,8 @@ EXAMPLES = {
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
 INVALID_GLOB = "examples/*.INVALID-*.yaml"
+EVIDENCE_GLOB = "data/playground/Evidence/*.ttl"
+GRAPH_MARK = "# graph: with the Evidence records"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
 EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
 
@@ -145,10 +162,23 @@ def shacl_shapes(source):
     return rdflib.Graph().parse(data=result.stdout, format="turtle")
 
 
+def designated_class(view, class_name, data):
+    """Return the subclass a type designator (such as selectorType) names."""
+    for slot in view.class_induced_slots(class_name):
+        if slot.designates_type and slot.name in data:
+            for name in view.class_descendants(class_name):
+                if view.get_uri(view.get_class(name)) == data[slot.name]:
+                    return name, slot.name
+    return class_name, None
+
+
 def typed(view, class_name, data):
     """Return data with "@type" on this object and on nested inlined objects."""
+    class_name, designator = designated_class(view, class_name, data)
     out = {"@type": class_name}
     for key, value in data.items():
+        if key == designator:
+            continue  # stated by "@type"
         try:
             slot = view.induced_slot(key, class_name)
         except ValueError:
@@ -164,8 +194,9 @@ def typed(view, class_name, data):
     return out
 
 
-def build(module, class_name, source):
-    data = yaml.safe_load(Path(source).read_text())
+def build(module, class_name, source, data=None):
+    if data is None:
+        data = yaml.safe_load(Path(source).read_text())
     document = {"@context": module["context"], **typed(module["view"], class_name, data)}
     return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
 
@@ -209,6 +240,35 @@ def as_extension(view, graph, class_name, without=None):
     return out
 
 
+def evidence_store():
+    """The Evidence records as the graph store holds them: gen-rdf's Turtle."""
+    paths = sorted(glob.glob(EVIDENCE_GLOB))
+    if not paths:
+        sys.exit("No Evidence Turtle found: run make gen-rdf")
+    store = rdflib.Graph()
+    for path in paths:
+        store += lexical_graph(Path(path).read_text(), "turtle")
+    return store
+
+
+def with_store(graph, store, class_name=None):
+    if class_name == "Evidence":
+        return graph
+    merged = rdflib.Graph()
+    merged += graph
+    merged += store
+    return merged
+
+
+def change_selector(data):
+    """Return a copy of data whose first citation's first selector is changed."""
+    data = json.loads(json.dumps(data))
+    selector = data["hasEvidenceCitation"][0]["selector"][0]
+    key = "value" if "value" in selector else "exact"
+    selector[key] = selector[key] + "-changed"
+    return data
+
+
 def shacl_report(graph, shapes):
     conforms, results, _ = shacl_validate(graph, shacl_graph=shapes)
     messages = [str(m) for m in results.objects(None, SH.resultMessage)]
@@ -241,6 +301,7 @@ def main(mode):
         return modules[source]
 
     failures = 0
+    store = evidence_store()
 
     for fixture, example in EXAMPLES.items():
         class_name = fixture_class(fixture)
@@ -269,14 +330,25 @@ def main(mode):
             (example, lexical_graph(text, "json-ld")),
             (turtle, lexical_graph(turtle.read_text(), "turtle")),
         ):
-            conforms, messages = shacl_report(graph, module["shapes"])
+            conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
             if conforms:
                 print(f"✅ {document}: conforms to SHACL")
             else:
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
+        data = yaml.safe_load(Path(fixture).read_text())
+        if data.get("hasEvidenceCitation"):
+            graph = rdflib.Graph().parse(data=text, format="json-ld")
+            changed = rdflib.Graph().parse(data=build(module, class_name, fixture, change_selector(data)), format="json-ld")
+            cited = lambda g: set(g.objects(None, rdflib.URIRef(module["view"].get_uri(module["view"].get_slot("hasEvidence"), expand=True))))
+            records = lambda g: {t for t in with_store(g, store) if t[0] in cited(graph)}
+            if cited(changed) == cited(graph) and records(changed) == records(graph) and not isomorphic(changed, graph):
+                print(f"✅ {example}: changing a selector changes the citation, not the cited Evidence IRIs or records")
+            else:
+                print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
+                failures += 1
         if class_name == "GenericClaim":
-            graph = lexical_graph(text, "json-ld")
+            graph = with_store(lexical_graph(text, "json-ld"), store)
             conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
             if conforms:
                 print(f"✅ {example} as an outside claim type: conforms to the open Claim shape")
@@ -296,16 +368,25 @@ def main(mode):
         class_name = invalid_class(content)
         module = module_for(class_name)
         valid, output = json_schema_check(invalid, class_name)
-        if not valid and expected in output:
+        if GRAPH_MARK in content:
+            if valid:
+                print(f"✅ {invalid}: JSON Schema accepts it alone")
+            else:
+                print(f"❌ {invalid}: expected JSON Schema to accept it alone\n{output}")
+                failures += 1
+        elif not valid and expected in output:
             print(f"✅ {invalid}: JSON Schema rejects it ({expected})")
         else:
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")
             failures += 1
         graph = lexical_graph(build(module, class_name, invalid), "json-ld")
-        conforms, messages = shacl_report(graph, module["shapes"])
-        if "# shacl: not enforced" in content:
+        merged = with_store(graph, store, None if GRAPH_MARK in content else class_name)
+        conforms, messages = shacl_report(merged, module["shapes"])
+        mark = next((line for line in content.splitlines() if line.startswith("# shacl: not enforced")), None)
+        if mark:
+            reason = mark.removeprefix("# shacl: not enforced").strip() or "(a LinkML rule; not expressed in SHACL)"
             if conforms:
-                print(f"ℹ️  {invalid}: SHACL accepts it (a LinkML rule; not expressed in SHACL)")
+                print(f"ℹ️  {invalid}: SHACL accepts it {reason}")
             else:
                 print(f"❌ {invalid}: marked 'shacl: not enforced' but SHACL rejects it ({messages[0][:80]})")
                 failures += 1

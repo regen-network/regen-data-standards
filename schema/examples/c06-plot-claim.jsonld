@@ -3,8 +3,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -57,6 +59,10 @@
     "cohort": {
       "@type": "@id",
       "@id": "cohort"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -144,6 +150,9 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
@@ -151,6 +160,10 @@
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
@@ -183,9 +196,6 @@
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
-    },
-    "locator": {
-      "@id": "locator"
     },
     "mediaType": {
       "@id": "dcterms:format"
@@ -261,6 +271,9 @@
         "REFORESTATION": "rft:Reforestation"
       }
     },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
     "primaryLandUse": {
       "@id": "primaryLandUse",
       "@type": "@vocab",
@@ -318,6 +331,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "registryProjectId": {
       "@id": "registryProjectId"
     },
@@ -336,6 +353,14 @@
       "@type": "@id",
       "@id": "resolver"
     },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "site": {
       "@type": "@id",
       "@id": "site"
@@ -349,6 +374,10 @@
     },
     "soilGroup": {
       "@id": "soilGroup"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -375,6 +404,9 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "tenureBasis": {
       "@id": "tenureBasis",
       "@type": "@vocab",
@@ -387,6 +419,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "verificationMethod",
@@ -462,6 +497,12 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
     "GenericClaim": {
       "@id": "GenericClaim"
     },
@@ -489,8 +530,14 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
     "Site": {
       "@id": "Site"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -524,79 +571,10 @@
   "tenureBasis": "LEASE",
   "convertedFromNaturalEcosystem": false,
   "hasEvidence": [
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/boundaries-2026.gpkg",
-      "name": "Project boundary GeoPackage, 2026",
-      "sourceType": "DATASET",
-      "mediaType": "application/geopackage+sqlite3",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "f36af2c85a7b1a40806b1dd2836f6e4c9c18961c0b8ef2d7a7faf4de2fd3df81"
-      },
-      "resolver": [
-        "https://example.org/c06/boundaries-2026.gpkg"
-      ],
-      "licence": "https://example.org/c06/licences/project-data/v1"
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/tenure-2026-02.csv",
-      "name": "Land tenure workbook export, February 2026",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "013d8824c7e0c9ffc1486e012d18e82c907757b3d9eb05481332d9a1c64917de"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/tenure-2026-02.csv"
-      ]
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf",
-      "name": "Land register extract, parcel 4012/7, 10 February 2026",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "ab7b53c54ef38ad04b05a4ec3f504d99916c4360983e4f9a9febc1da0b491f0a"
-      },
-      "resolver": [
-        "https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf"
-      ]
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/land-cover/2012/v1",
-      "name": "Land cover map 2012",
-      "sourceType": "DATASET",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "85b72fc90622c632d6e5bb359395c77f43407597dfc27ba1b9509c3a0fb347ae"
-      },
-      "resolver": [
-        "https://example.org/land-cover/2012/v1/download"
-      ]
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/land-cover/2018/v1",
-      "name": "Land cover map 2018",
-      "sourceType": "DATASET",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "d28eb2dfbedfbb471da33c868655c6ec75c51d1707e8073c86cbffb114b1882e"
-      },
-      "resolver": [
-        "https://example.org/land-cover/2018/v1/download"
-      ]
-    }
+    "https://example.org/c06/boundaries-2026.gpkg",
+    "https://example.org/c06/exports/tenure-2026-02.csv",
+    "https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf",
+    "https://example.org/land-cover/2012/v1",
+    "https://example.org/land-cover/2018/v1"
   ]
 }

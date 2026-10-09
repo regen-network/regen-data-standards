@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Soil sampling export, May 2026, described once and cited by IRI.
+id: https://example.org/c06/exports/soil-sampling-2026-05.csv
+name: Soil sampling export, May 2026
+sourceType: DATASET
+mediaType: text/csv
+contentHash:
+  algorithm: SHA_256
+  digestValue: a69e3f990801846d6dc9f9ff81527e1ee7f54a65896654616551e34a53d87575
+resolver:
+  - https://example.org/c06/exports/soil-sampling-2026-05.csv

@@ -3,8 +3,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
@@ -64,6 +66,10 @@
       "@type": "@id",
       "@id": "conditions"
     },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
+    },
     "algorithm": {
       "@id": "algorithm",
       "@type": "@vocab",
@@ -115,6 +121,9 @@
         "NO_BEARING": "rfs:NoBearing"
       }
     },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "exclusion": {
       "@id": "exclusion"
     },
@@ -143,6 +152,10 @@
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
@@ -182,9 +195,6 @@
     "limitation": {
       "@id": "limitation"
     },
-    "locator": {
-      "@id": "locator"
-    },
     "mediaType": {
       "@id": "dcterms:format"
     },
@@ -205,6 +215,9 @@
       "@type": "@id",
       "@id": "outcome"
     },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
     "hasUnit": {
       "@type": "@id",
       "@id": "qudt:hasUnit"
@@ -219,6 +232,10 @@
     "references": {
       "@type": "@id",
       "@id": "dcterms:references"
+    },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
     },
     "reliesOn": {
       "@type": "@id",
@@ -250,6 +267,18 @@
       "@type": "@id",
       "@id": "scope"
     },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
+    },
     "sourceType": {
       "@id": "dcterms:type",
       "@type": "@vocab",
@@ -272,6 +301,9 @@
       "@type": "xsd:date",
       "@id": "schema:startDate"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "unbounded": {
       "@type": "xsd:boolean",
       "@id": "unbounded"
@@ -279,6 +311,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "verificationMethod",
@@ -342,8 +377,14 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
     "EvidenceEvaluation": {
       "@id": "EvidenceEvaluation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -378,6 +419,12 @@
     "Scope": {
       "@id": "Scope"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
@@ -411,20 +458,6 @@
   "verificationMethod": "THIRD_PARTY_AUDITED",
   "issuerRole": "VVB",
   "hasEvidence": [
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/validation-report-v1.pdf",
-      "name": "Example validation report v1",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "cf68b1198ce6384dabd9cee4589d46b9d5b8d86c572f200124eb3d2663f31481"
-      },
-      "resolver": [
-        "https://example.org/c06/validation-report-v1.pdf"
-      ]
-    }
+    "https://example.org/c06/validation-report-v1.pdf"
   ]
 }

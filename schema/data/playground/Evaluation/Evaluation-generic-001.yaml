@@ -20,12 +20,4 @@ rationale: The steward walked the boundary and compared it with the planting log
 verificationMethod: OTHER
 verificationMethodDescriptor: On-site walkover by a community steward
 hasEvidence:
-  - id: https://example.org/evidence/walkover-photos-2026-06.zip
-    name: Walkover photographs, June 2026
-    sourceType: STILL_IMAGE
-    mediaType: application/zip
-    contentHash:
-      algorithm: SHA_256
-      digestValue: 7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5
-    resolver:
-      - https://example.org/evidence/walkover-photos-2026-06.zip
+  - https://example.org/evidence/walkover-photos-2026-06.zip

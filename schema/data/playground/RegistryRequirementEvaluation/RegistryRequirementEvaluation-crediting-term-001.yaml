@@ -52,12 +52,4 @@ conditions:
       traceable.
     milestone: VERIFICATION
 hasEvidence:
-  - id: https://example.org/registry/confirmation-2026-03-12.pdf
-    name: Registry confirmation letter, 12 March 2026
-    sourceType: TEXT
-    mediaType: application/pdf
-    contentHash:
-      algorithm: SHA_256
-      digestValue: 06379123b857f6899002024e6a1d89eced2583a5ee1d09b8f3952f21e9bdc31f
-    resolver:
-      - https://example.org/registry/confirmation-2026-03-12.pdf
+  - https://example.org/registry/confirmation-2026-03-12.pdf

@@ -3,8 +3,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
@@ -32,6 +34,10 @@
     },
     "claimStatement": {
       "@id": "claimStatement"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -67,9 +73,16 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
@@ -96,14 +109,14 @@
       "@type": "@id",
       "@id": "dcterms:license"
     },
-    "locator": {
-      "@id": "locator"
-    },
     "mediaType": {
       "@id": "dcterms:format"
     },
     "name": {
       "@id": "schema:name"
+    },
+    "prefix": {
+      "@id": "oa:prefix"
     },
     "hasUnit": {
       "@type": "@id",
@@ -117,6 +130,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "reliesOn": {
       "@type": "@id",
       "@id": "reliesOn"
@@ -124,6 +141,18 @@
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -147,9 +176,15 @@
       "@type": "xsd:date",
       "@id": "schema:startDate"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "verificationMethod",
@@ -204,6 +239,12 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
     "GenericClaim": {
       "@id": "GenericClaim"
     },
@@ -221,6 +262,12 @@
     },
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
+    },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -243,19 +290,18 @@
     "name": "Plot A"
   },
   "hasEvidence": [
+    "https://example.org/evidence/planting-log-2026-v2.pdf"
+  ],
+  "hasEvidenceCitation": [
     {
-      "@type": "Evidence",
-      "id": "https://example.org/evidence/planting-log-2026-v2.pdf#page=2",
-      "name": "Planting log, spring 2026 (v2)",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5"
-      },
-      "resolver": [
-        "https://example.org/evidence/planting-log-2026-v2.pdf"
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/evidence/planting-log-2026-v2.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=2",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778"
+        }
       ]
     }
   ],

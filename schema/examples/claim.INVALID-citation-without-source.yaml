@@ -1,6 +1,6 @@
-# expect: 'https://example.org/evidence/planting-log-2026-v1.pdf' is not of type 'object'
-# Each piece of evidence is an Evidence node with its own IRI, not a bare
-# IRI, so evidence can be typed, queried and validated.
+# expect: 'source' is a required property
+# A citation names exactly one source: the Evidence record whose passage it
+# locates.
 name: Hedgerow planting on plot A, spring 2026
 claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 assertedBy:
@@ -12,3 +12,8 @@ hasSubject:
   name: Plot A
 hasEvidence:
   - https://example.org/evidence/planting-log-2026-v1.pdf
+hasEvidenceCitation:
+  - selector:
+      - selectorType: oa:FragmentSelector
+        value: page=2
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

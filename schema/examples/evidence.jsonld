@@ -1,6 +1,7 @@
 {
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "oa": "http://www.w3.org/ns/oa#",
@@ -12,45 +13,6 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
-    "addressesRequirement": {
-      "@type": "@id",
-      "@id": "addressesRequirement"
-    },
-    "appliesRequirement": {
-      "@type": "@id",
-      "@id": "appliesRequirement"
-    },
-    "appliesRuleSet": {
-      "@type": "@id",
-      "@id": "appliesRuleSet"
-    },
-    "appliesTo": {
-      "@type": "@id",
-      "@id": "appliesTo"
-    },
-    "assertedAt": {
-      "@type": "xsd:dateTime",
-      "@id": "assertedAt"
-    },
-    "assertedBy": {
-      "@type": "@id",
-      "@id": "assertedBy"
-    },
-    "assessedAgainst": {
-      "@type": "@id",
-      "@id": "assessedAgainst"
-    },
-    "claimConsistency": {
-      "@id": "claimConsistency",
-      "@type": "@vocab",
-      "@context": {
-        "CONSISTENT": "rfs:Consistent",
-        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
-      }
-    },
-    "claimStatement": {
-      "@id": "claimStatement"
-    },
     "conformsTo": {
       "@type": "@id",
       "@id": "dcterms:conformsTo"
@@ -89,53 +51,14 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
-    "evidenceSufficiency": {
-      "@id": "evidenceSufficiency",
-      "@type": "@vocab",
-      "@context": {
-        "SUFFICIENT": "rfs:Sufficient",
-        "INSUFFICIENT": "rfs:Insufficient"
-      }
-    },
-    "evidentialStance": {
-      "@id": "evidentialStance",
-      "@type": "@vocab",
-      "@context": {
-        "SUPPORTS": "rfs:Supports",
-        "CHALLENGES": "rfs:Challenges",
-        "NO_BEARING": "rfs:NoBearing"
-      }
-    },
     "exact": {
       "@id": "oa:exact"
-    },
-    "exclusion": {
-      "@id": "exclusion"
-    },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
-    "hasEvidenceCitation": {
-      "@type": "@id",
-      "@id": "hasEvidenceCitation"
-    },
-    "hasSubject": {
-      "@type": "@id",
-      "@id": "hasSubject"
-    },
-    "hasTarget": {
-      "@type": "@id",
-      "@id": "hasTarget"
     },
     "identifier": {
       "@id": "schema:identifier"
     },
     "image": {
       "@id": "schema:image"
-    },
-    "inLanguage": {
-      "@id": "schema:inLanguage"
     },
     "issued": {
       "@type": "xsd:date",
@@ -145,18 +68,11 @@
       "@type": "@id",
       "@id": "dcterms:license"
     },
-    "limitation": {
-      "@id": "limitation"
-    },
     "mediaType": {
       "@id": "dcterms:format"
     },
     "name": {
       "@id": "schema:name"
-    },
-    "outcome": {
-      "@type": "@id",
-      "@id": "outcome"
     },
     "prefix": {
       "@id": "oa:prefix"
@@ -169,28 +85,13 @@
       "@type": "xsd:float",
       "@id": "qudt:value"
     },
-    "rationale": {
-      "@id": "rationale"
-    },
-    "references": {
-      "@type": "@id",
-      "@id": "dcterms:references"
-    },
     "refinedBy": {
       "@type": "@id",
       "@id": "oa:refinedBy"
     },
-    "reliesOn": {
-      "@type": "@id",
-      "@id": "reliesOn"
-    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
-    },
-    "scope": {
-      "@type": "@id",
-      "@id": "scope"
     },
     "selector": {
       "@type": "@id",
@@ -229,32 +130,12 @@
     "suffix": {
       "@id": "oa:suffix"
     },
-    "unbounded": {
-      "@type": "xsd:boolean",
-      "@id": "unbounded"
-    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
     },
     "value": {
       "@id": "rdf:value"
-    },
-    "verificationMethod": {
-      "@id": "verificationMethod",
-      "@type": "@vocab",
-      "@context": {
-        "SELF_ATTESTED": "rfs:SelfAttested",
-        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
-        "LAB_MEASURED": "rfs:LabMeasured",
-        "SENSOR_DERIVED": "rfs:SensorDerived",
-        "MODEL_ESTIMATED": "rfs:ModelEstimated",
-        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
-        "OTHER": "rfs:OtherVerificationMethod"
-      }
-    },
-    "verificationMethodDescriptor": {
-      "@id": "verificationMethodDescriptor"
     },
     "version": {
       "@id": "schema:version"
@@ -263,29 +144,12 @@
       "@type": "@id",
       "@id": "prov:wasAssociatedWith"
     },
-    "wasAttributedTo": {
-      "@type": "@id",
-      "@id": "prov:wasAttributedTo"
-    },
     "wasGeneratedBy": {
       "@type": "@id",
       "@id": "prov:wasGeneratedBy"
     },
-    "wasRevisionOf": {
-      "@type": "@id",
-      "@id": "prov:wasRevisionOf"
-    },
     "Activity": {
       "@id": "Activity"
-    },
-    "Claim": {
-      "@id": "Claim"
-    },
-    "ClaimConsistencyEvaluation": {
-      "@id": "ClaimConsistencyEvaluation"
-    },
-    "ClaimSubject": {
-      "@id": "ClaimSubject"
     },
     "ContentDigest": {
       "@id": "ContentDigest"
@@ -293,23 +157,14 @@
     "Entity": {
       "@id": "Entity"
     },
-    "Evaluation": {
-      "@id": "Evaluation"
-    },
     "Evidence": {
       "@id": "Evidence"
     },
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
-    "EvidenceEvaluation": {
-      "@id": "EvidenceEvaluation"
-    },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
-    },
-    "GenericClaim": {
-      "@id": "GenericClaim"
     },
     "Link": {
       "@id": "Link"
@@ -326,9 +181,6 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
-    "Scope": {
-      "@id": "Scope"
-    },
     "Selector": {
       "@id": "oa:Selector"
     },
@@ -339,30 +191,31 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "Evaluation",
-  "name": "Steward review of the plot A hedgerow planting",
-  "claimStatement": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
-  "assertedBy": [
-    {
-      "@type": "Entity",
-      "name": "Valley Stewards Circle",
-      "type": "COMMUNITY"
-    }
-  ],
-  "assertedAt": "2026-06-10T09:00:00+00:00",
-  "hasSubject": {
-    "@type": "ClaimSubject",
-    "id": "https://example.org/plot/A",
-    "name": "Plot A"
+  "@type": "Evidence",
+  "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
+  "name": "Field management records, site S-001, 2019 to 2021",
+  "sourceType": "DATASET",
+  "mediaType": "text/csv",
+  "contentHash": {
+    "@type": "ContentDigest",
+    "algorithm": "SHA_256",
+    "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
   },
-  "hasTarget": [
-    "https://example.org/placeholder/claim-iri/generic-claim-v1"
+  "resolver": [
+    "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
   ],
-  "outcome": "https://example.org/vocab/review/confirmed",
-  "rationale": "The steward walked the boundary and compared it with the planting log.",
-  "verificationMethod": "OTHER",
-  "verificationMethodDescriptor": "On-site walkover by a community steward",
-  "hasEvidence": [
-    "https://example.org/evidence/walkover-photos-2026-06.zip"
-  ]
+  "wasGeneratedBy": {
+    "@type": "Activity",
+    "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
+    "name": "Field operations on site S-001, 2019 to 2021",
+    "startDate": "2019-01-01",
+    "endDate": "2021-12-31",
+    "wasAssociatedWith": [
+      {
+        "@type": "Entity",
+        "name": "Example Farm Operator",
+        "type": "INDIVIDUAL"
+      }
+    ]
+  }
 }

@@ -1,0 +1,15 @@
+# expect: does not match '^[^#]*$'
+# class: Evidence
+# shacl: not enforced (SHACL cannot match a pattern against the IRI of a node)
+# An Evidence IRI identifies the whole source. A position inside it, such as a
+# page, is a selector on the citation, so the source cited at several places
+# stays one record with one hash.
+id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
+name: Planting log, spring 2026 (v1)
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: 0565254fd498456cc07a7be4a379b6d38e849ef145dc0c122daaab8a9cb8cf46
+resolver:
+  - https://example.org/evidence/planting-log-2026-v1.pdf

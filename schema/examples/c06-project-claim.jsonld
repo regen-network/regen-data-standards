@@ -3,8 +3,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -57,6 +59,10 @@
     "cohort": {
       "@type": "@id",
       "@id": "cohort"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -144,6 +150,9 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
@@ -151,6 +160,10 @@
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
@@ -183,9 +196,6 @@
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
-    },
-    "locator": {
-      "@id": "locator"
     },
     "mediaType": {
       "@id": "dcterms:format"
@@ -261,6 +271,9 @@
         "REFORESTATION": "rft:Reforestation"
       }
     },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
     "primaryLandUse": {
       "@id": "primaryLandUse",
       "@type": "@vocab",
@@ -318,6 +331,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "registryProjectId": {
       "@id": "registryProjectId"
     },
@@ -336,6 +353,14 @@
       "@type": "@id",
       "@id": "resolver"
     },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "site": {
       "@type": "@id",
       "@id": "site"
@@ -349,6 +374,10 @@
     },
     "soilGroup": {
       "@id": "soilGroup"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -375,6 +404,9 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "tenureBasis": {
       "@id": "tenureBasis",
       "@type": "@vocab",
@@ -387,6 +419,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "verificationMethod",
@@ -462,6 +497,12 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
     "GenericClaim": {
       "@id": "GenericClaim"
     },
@@ -489,8 +530,14 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
     "Site": {
       "@id": "Site"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -555,22 +602,30 @@
     }
   ],
   "hasEvidence": [
+    "https://example.org/c06/project-plan-v2.0.pdf"
+  ],
+  "hasEvidenceCitation": [
     {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=8",
-      "name": "Example project plan v2.0",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6"
-      },
-      "resolver": [
-        "https://example.org/c06/project-plan-v2.0.pdf"
-      ],
-      "licence": "https://example.org/c06/licences/project-documents/v2",
-      "issued": "2026-02-20"
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/project-plan-v2.0.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=8",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778"
+        }
+      ]
+    },
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/project-plan-v2.0.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=16",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778"
+        }
+      ]
     }
   ]
 }
