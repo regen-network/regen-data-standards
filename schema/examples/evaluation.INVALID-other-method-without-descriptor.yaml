@@ -1,0 +1,18 @@
+# expect: 'verificationMethodDescriptor' is a required property
+# class: Evaluation
+# shacl: not enforced
+# A verification method outside the enumeration is described, so the method is
+# never empty. This is a LinkML rule, which the generated JSON
+# Schema enforces and the generated SHACL does not express.
+name: Steward review of the plot A hedgerow planting
+claimStatement: Steward review of the plot A hedgerow planting
+assertedBy:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-10T09:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/placeholder/claim-iri/generic-claim-v1
+verificationMethod: OTHER

@@ -1,0 +1,310 @@
+id: https://framework.regen.network/schema/RegistryReviewEvaluation
+name: RegistryReviewEvaluation
+description: >-
+  Regen Registry's review vocabulary: the judgments a registry review and its
+  independent verifier make (findings, determinations, confirmations,
+  approved deviations, validation opinions), as subclasses of the base
+  Evaluation, one per kind of judgment, each with its own verdict field.
+  Another program would define its own subclasses.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+  - Evaluation
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  RegistryReviewEvaluation:
+    is_a: Evaluation
+    abstract: true
+    class_uri: rfs:RegistryReviewEvaluation
+    description: >-
+      A judgment made in a Regen Registry review by the Registry Agent, an
+      independent verifier (VVB) or the Credit Class Admin. Abstract: every
+      review judgment is one of its kinds (a requirement, finding or report
+      evaluation), and each kind requires its own verdict field. An
+      evaluation records a judgment; it is neither the state of the review
+      workflow nor the Registry's institutional decision, such as approving a
+      project's registration, which it may inform.
+    slots:
+      - issuerRole
+      - conditions
+    slot_usage:
+      issuerRole:
+        required: true
+
+  RegistryRequirementEvaluation:
+    is_a: RegistryReviewEvaluation
+    class_uri: rfs:RegistryRequirementEvaluation
+    description: >-
+      The evaluator's finding, as of its date, on whether a project meets the
+      exact requirement versions it applies. It states whether the
+      requirement applies and, when it does, whether it is satisfied. A
+      satisfied requirement is not an approval of the project's registration,
+      which is an institutional decision.
+    slots:
+      - applicability
+      - requirementOutcome
+    slot_usage:
+      appliesRequirement:
+        required: true
+        minimum_cardinality: 1
+      applicability:
+        required: true
+    rules:
+      - description: >-
+          An applicable requirement has a verdict. Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              required: true
+      - description: >-
+          A requirement that does not apply has no verdict. Enforced by the
+          generated JSON Schema; the generated SHACL does not express LinkML
+          rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: NOT_APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              value_presence: ABSENT
+      - description: >-
+          An undetermined outcome is a finding, not a review in progress, so
+          the rationale says what is missing. Enforced by the generated JSON
+          Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            requirementOutcome:
+              equals_string: UNDETERMINED
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
+
+  RegistryFindingEvaluation:
+    is_a: RegistryReviewEvaluation
+    class_uri: rfs:RegistryFindingEvaluation
+    description: >-
+      A finding raised in a Regen Registry review (a corrective action,
+      clarification or forward action request, or a material issue raised by
+      the Registry Agent), or a later assessment of it. Each record states
+      the finding's state as of its date and carries the finding's label; the
+      current state is derived from the latest record, not stored on any of
+      them. A finding cites at least one piece of evidence.
+    slots:
+      - findingLabel
+      - findingType
+      - findingState
+    slot_usage:
+      findingLabel:
+        required: true
+      findingType:
+        required: true
+      findingState:
+        required: true
+      hasEvidence:
+        required: true
+        minimum_cardinality: 1
+
+  RegistryReportEvaluation:
+    is_a: RegistryReviewEvaluation
+    class_uri: rfs:RegistryReportEvaluation
+    description: >-
+      An independent verifier's rating of the project in its validation or
+      verification report, with the ratings the Program Guide (sections 12.4
+      and 12.5) gives such a report. It is the verifier's rating, not the
+      Registry's decision.
+    slots:
+      - reportRating
+    slot_usage:
+      reportRating:
+        required: true
+
+  Condition:
+    class_uri: rfs:Condition
+    description: >-
+      An obligation a judgment carries to a later milestone, such as a
+      follow-up action due before verification or a design condition binding
+      on future verifications.
+    slots:
+      - conditionLabel
+      - description
+      - milestone
+    slot_usage:
+      description:
+        required: true
+
+slots:
+  findingLabel:
+    slot_uri: rfs:findingLabel
+    description: >-
+      The issuer's own identifier for a finding, stable across review rounds,
+      such as "CL 07(1)". It groups the dated records about one finding; it is
+      not the identifier of any of them.
+    range: string
+  findingType:
+    slot_uri: rfs:findingType
+    description: The kind of finding.
+    range: FindingType
+  findingState:
+    is_a: outcome
+    slot_uri: rfs:findingState
+    description: >-
+      Whether the finding is open or closed as of this record's date. A
+      sub-property of outcome.
+    range: FindingState
+  applicability:
+    slot_uri: rfs:applicability
+    description: Whether the applied requirement applies to the subject.
+    range: Applicability
+  requirementOutcome:
+    is_a: outcome
+    slot_uri: rfs:requirementOutcome
+    description: >-
+      Whether the applied requirement is satisfied, as of this record's date.
+      A sub-property of outcome.
+    range: RequirementOutcome
+  reportRating:
+    is_a: outcome
+    slot_uri: rfs:reportRating
+    description: The verifier's rating in its report. A sub-property of outcome.
+    range: ReportRating
+  issuerRole:
+    slot_uri: rfs:issuerRole
+    description: >-
+      The capacity in which the issuer is recorded as acting for this judgment.
+      This value does not by itself establish the issuer's authority to act in that capacity.
+    range: IssuerRole
+  conditions:
+    slot_uri: rfs:conditions
+    description: >-
+      Obligations the judgment carries to a later milestone, such as follow-up
+      actions due before verification. Unordered set.
+    range: Condition
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  conditionLabel:
+    slot_uri: rfs:conditionLabel
+    description: The issuer's label for the condition, such as "RA-6".
+    range: string
+  milestone:
+    slot_uri: rfs:milestone
+    description: When the condition must be met.
+    range: Milestone
+
+enums:
+  FindingType:
+    permissible_values:
+      CAR:
+        meaning: rfs:CorrectiveActionRequest
+        description: >-
+          Corrective action request: a material non-conformity that must be
+          corrected.
+      CL:
+        meaning: rfs:ClarificationRequest
+        description: >-
+          Clarification request: evidence, wording or interpretation is
+          incomplete or ambiguous.
+      FAR:
+        meaning: rfs:ForwardActionRequest
+        description: >-
+          Forward action request: to be followed up at a future verification;
+          it does not prevent the current conclusion.
+      REGISTRY_ISSUE:
+        meaning: rfs:RegistryIssue
+        description: A material finding raised in the Registry Agent's review.
+      OTHER:
+        meaning: rfs:OtherFindingType
+  IssuerRole:
+    permissible_values:
+      REGISTRY_AGENT:
+        meaning: rfs:RegistryAgent
+      VVB:
+        meaning: rfs:ValidationVerificationBody
+        description: An independent validation and verification body.
+      CREDIT_CLASS_ADMIN:
+        meaning: rfs:CreditClassAdmin
+      OTHER:
+        meaning: rfs:OtherIssuerRole
+  Milestone:
+    permissible_values:
+      REGISTRATION:
+        meaning: rfs:RegistrationMilestone
+      PRE_ISSUANCE:
+        meaning: rfs:PreIssuanceMilestone
+      VERIFICATION:
+        meaning: rfs:VerificationMilestone
+      FUTURE_VERIFICATIONS:
+        meaning: rfs:FutureVerificationsMilestone
+  RequirementOutcome:
+    description: >-
+      Whether a requirement is satisfied, as the evaluator finds it on the
+      record's date. Each value is a finding: a review that has not started or
+      is still in progress is workflow state, recorded with no evaluation.
+    permissible_values:
+      SATISFIED:
+        meaning: rfs:Satisfied
+        description: The evidence shows the requirement is met.
+      NOT_SATISFIED:
+        meaning: rfs:NotSatisfied
+        description: >-
+          The evidence shows the requirement is not met, or the evidence it
+          requires is missing.
+      UNDETERMINED:
+        meaning: rfs:Undetermined
+        description: >-
+          As of this date, what is available is not enough to decide either
+          way, for example because records the requirement needs are due
+          later. The rationale, required with this value, says what is
+          missing.
+  Applicability:
+    permissible_values:
+      APPLICABLE:
+        meaning: rfs:Applicable
+      NOT_APPLICABLE:
+        meaning: rfs:NotApplicable
+        description: >-
+          The requirement does not apply to the subject, for example because
+          it applies only if a condition occurs and the condition has not
+          occurred.
+  FindingState:
+    permissible_values:
+      OPEN:
+        meaning: rfs:FindingOpen
+        description: The finding is not resolved as of this record.
+      CLOSED:
+        meaning: rfs:FindingClosed
+        description: The finding is resolved as of this record.
+  ReportRating:
+    description: >-
+      The ratings the Program Guide (sections 12.4 and 12.5) gives a
+      validation or verification report.
+    permissible_values:
+      ACCEPTANCE:
+        meaning: rfs:Acceptance
+        description: The verifier accepts the project as reported.
+      ACCEPTANCE_WITH_CONTINGENCIES:
+        meaning: rfs:AcceptanceWithContingencies
+        description: >-
+          Accepted once the project proponent provides the required
+          corrections and clarifications and the verifier resubmits the
+          report where required.
+      REJECTION:
+        meaning: rfs:Rejection
+        description: >-
+          Rejected. The project is on hold until the identified issues are
+          addressed.

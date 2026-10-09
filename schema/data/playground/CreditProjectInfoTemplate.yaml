@@ -29,7 +29,7 @@ hasReferenceId:
 # Project size and location details
 projectSize:
   numericValue:
-  unit: ""
+  hasUnit: ""
 
 # Geographic and environmental classifications
 environmentType:

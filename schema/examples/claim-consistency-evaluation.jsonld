@@ -1,0 +1,318 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
+    },
+    "appliesRuleSet": {
+      "@type": "@id",
+      "@id": "appliesRuleSet"
+    },
+    "appliesTo": {
+      "@type": "@id",
+      "@id": "appliesTo"
+    },
+    "assertedAt": {
+      "@type": "xsd:dateTime",
+      "@id": "assertedAt"
+    },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "assessedAgainst": {
+      "@type": "@id",
+      "@id": "assessedAgainst"
+    },
+    "claimConsistency": {
+      "@id": "claimConsistency",
+      "@type": "@vocab",
+      "@context": {
+        "CONSISTENT": "rfs:Consistent",
+        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+      }
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
+    "algorithm": {
+      "@id": "algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "evidenceSufficiency": {
+      "@id": "evidenceSufficiency",
+      "@type": "@vocab",
+      "@context": {
+        "SUFFICIENT": "rfs:Sufficient",
+        "INSUFFICIENT": "rfs:Insufficient"
+      }
+    },
+    "evidentialStance": {
+      "@id": "evidentialStance",
+      "@type": "@vocab",
+      "@context": {
+        "SUPPORTS": "rfs:Supports",
+        "CHALLENGES": "rfs:Challenges",
+        "NO_BEARING": "rfs:NoBearing"
+      }
+    },
+    "exclusion": {
+      "@id": "exclusion"
+    },
+    "hasEvidence": {
+      "@type": "@id",
+      "@id": "hasEvidence"
+    },
+    "hasSubject": {
+      "@type": "@id",
+      "@id": "hasSubject"
+    },
+    "hasTarget": {
+      "@type": "@id",
+      "@id": "hasTarget"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "limitation": {
+      "@id": "limitation"
+    },
+    "locator": {
+      "@id": "locator"
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "outcome": {
+      "@type": "@id",
+      "@id": "outcome"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "rationale": {
+      "@id": "rationale"
+    },
+    "references": {
+      "@type": "@id",
+      "@id": "dcterms:references"
+    },
+    "reliesOn": {
+      "@type": "@id",
+      "@id": "reliesOn"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "scope": {
+      "@type": "@id",
+      "@id": "scope"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "unbounded": {
+      "@type": "xsd:boolean",
+      "@id": "unbounded"
+    },
+    "url": {
+      "@type": "@id",
+      "@id": "schema:url"
+    },
+    "verificationMethod": {
+      "@id": "verificationMethod",
+      "@type": "@vocab",
+      "@context": {
+        "SELF_ATTESTED": "rfs:SelfAttested",
+        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
+        "LAB_MEASURED": "rfs:LabMeasured",
+        "SENSOR_DERIVED": "rfs:SensorDerived",
+        "MODEL_ESTIMATED": "rfs:ModelEstimated",
+        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
+        "OTHER": "rfs:OtherVerificationMethod"
+      }
+    },
+    "verificationMethodDescriptor": {
+      "@id": "verificationMethodDescriptor"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "@id",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "wasAttributedTo": {
+      "@type": "@id",
+      "@id": "prov:wasAttributedTo"
+    },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
+    "wasRevisionOf": {
+      "@type": "@id",
+      "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
+    },
+    "Claim": {
+      "@id": "Claim"
+    },
+    "ClaimConsistencyEvaluation": {
+      "@id": "ClaimConsistencyEvaluation"
+    },
+    "ClaimSubject": {
+      "@id": "ClaimSubject"
+    },
+    "ContentDigest": {
+      "@id": "ContentDigest"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "Evaluation": {
+      "@id": "Evaluation"
+    },
+    "Evidence": {
+      "@id": "Evidence"
+    },
+    "EvidenceEvaluation": {
+      "@id": "EvidenceEvaluation"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "Scope": {
+      "@id": "Scope"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "ClaimConsistencyEvaluation",
+  "name": "Consistency review of the plot B restoration claim",
+  "claimStatement": "The restoration claim for plot B is internally inconsistent: its statement and its area field give different restored areas.",
+  "assertedBy": [
+    {
+      "@type": "Entity",
+      "name": "Example Registry",
+      "type": "ORGANIZATION"
+    }
+  ],
+  "assertedAt": "2026-07-01T00:00:00+00:00",
+  "hasSubject": {
+    "@type": "ClaimSubject",
+    "id": "https://example.org/plot/B",
+    "name": "Plot B"
+  },
+  "hasTarget": [
+    "https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1"
+  ],
+  "claimConsistency": "INTERNALLY_INCONSISTENT",
+  "rationale": "The statement gives 12 ha restored; the area field gives 15 ha.",
+  "verificationMethod": "OTHER",
+  "verificationMethodDescriptor": "Desk review of the claim record"
+}

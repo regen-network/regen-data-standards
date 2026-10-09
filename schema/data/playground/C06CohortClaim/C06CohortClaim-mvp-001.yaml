@@ -1,0 +1,35 @@
+# Synthetic example (example.org identifiers): a project developer's claim about
+# one enrolment cohort. The cohort's baseline year identifies it, so it is a
+# field of the Cohort subject; its periods are asserted here.
+name: Example project P-001, 2021 cohort periods
+claimStatement: >-
+  The 2021 cohort of example project P-001 has a crediting period from 15 April
+  2021 to 14 April 2031 and a permanence period from 15 April 2031 to 14 April
+  2041.
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/cohort/P-001-2021
+  name: Example project P-001, 2021 cohort
+  baselineYear: 2021
+  project: https://example.org/c06/project/P-001
+creditingPeriod:
+  startDate: "2021-04-15"
+  endDate: "2031-04-14"
+permanencePeriod:
+  startDate: "2031-04-15"
+  endDate: "2041-04-14"
+hasEvidence:
+  - id: https://example.org/c06/project-plan-v2.0.pdf#page=8
+    name: Example project plan v2.0
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
+    resolver:
+      - https://example.org/c06/project-plan-v2.0.pdf
+    licence: https://example.org/c06/licences/project-documents/v2
+    issued: "2026-02-20"

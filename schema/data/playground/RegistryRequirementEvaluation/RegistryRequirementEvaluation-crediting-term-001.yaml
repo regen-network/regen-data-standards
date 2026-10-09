@@ -1,0 +1,63 @@
+# Synthetic example (example.org identifiers): a registry's written confirmation
+# that a rolling, cohort-based crediting structure satisfies the credit class's
+# crediting term, answering a verifier's clarification request. It is about the
+# project, applies one exact requirement version, targets the exact versions of
+# the two sub-findings it answers, relies on the developer's enrolment-cutoff
+# claim, and is scoped to the enrolled cohorts. It finds the requirement
+# satisfied; it does not approve the project's registration. The targeted and relied-on
+# identifiers are labelled placeholders for ClaimIRIs (regen-network/claims#1).
+name: Registry confirmation of the cohort-based crediting structure
+claimStatement: >-
+  The rolling cohort-based crediting and permanence structure described in the
+  project plan satisfies the credit class's crediting term for the cohorts
+  enrolled from 2020 to 2023, subject to the scope below.
+assertedBy:
+  - name: Example Registry
+    type: ORGANIZATION
+assertedAt: "2026-03-12T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+  name: Example project P-001
+hasTarget:
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-1
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-2
+reliesOn:
+  - https://example.org/placeholder/claim-iri/developer-enrolment-cutoff
+appliesRuleSet:
+  - https://example.org/rule-set/credit-class-c06/1.5.2
+appliesRequirement:
+  - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
+applicability: APPLICABLE
+requirementOutcome: SATISFIED
+rationale: >-
+  Each cohort keeps a full ten-year crediting period from its baseline sampling,
+  and the enrolment cutoff prevents open-ended expansion.
+verificationMethod: THIRD_PARTY_AUDITED
+scope:
+  appliesTo:
+    - https://example.org/c06/cohort/P-001-2020
+    - https://example.org/c06/cohort/P-001-2021
+    - https://example.org/c06/cohort/P-001-2022
+    - https://example.org/c06/cohort/P-001-2023
+  exclusion:
+    - Open-ended addition of plots, farms or project areas after the enrolment cutoff.
+  limitation: >-
+    Confirms the acceptability of the project structure; does not replace the
+    verifier's responsibility to validate the supporting evidence.
+issuerRole: REGISTRY_AGENT
+conditions:
+  - conditionLabel: C-1
+    description: >-
+      Each farm, cohort and project area remains individually identifiable and
+      traceable.
+    milestone: VERIFICATION
+hasEvidence:
+  - id: https://example.org/registry/confirmation-2026-03-12.pdf
+    name: Registry confirmation letter, 12 March 2026
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 06379123b857f6899002024e6a1d89eced2583a5ee1d09b8f3952f21e9bdc31f
+    resolver:
+      - https://example.org/registry/confirmation-2026-03-12.pdf

@@ -1,42 +1,51 @@
 #!/usr/bin/env python3
-"""Generate and check the base Claim JSON-LD examples.
+"""Generate and check the Claim, Evaluation and C06 claim JSON-LD examples.
 
     python3 scripts/claim-examples.py generate   # rewrite examples/*.jsonld
     python3 scripts/claim-examples.py check      # fail if anything is stale or wrong
 
 Run from the schema/ directory. Each example is built from a playground
 fixture (validated by gen-rdf in CI) plus an inline JSON-LD context generated
-from src/Claim.yaml with --xsd-anyuri-as-iri, so that uri- and
+from the module that defines the example's class (src/Claim.yaml for Claim,
+src/C06Claim.yaml for the C06 classes, and so on) with --xsd-anyuri-as-iri, so that uri- and
 uriorcurie-valued terms, such as wasRevisionOf, map to "@type": "@id" (an IRI
 node, as in the Turtle output) instead of an xsd:anyURI literal. Two
 corrections are applied to the generated context, because this LinkML
 version's JSON-LD output does not produce the same RDF as its Turtle output:
 
 - enum-valued terms get "@type": "@vocab" and a scoped context mapping each
-  permissible value to its `meaning`, so a claimant's "COMMUNITY" expands to
-  rfs:Community instead of a string literal;
+  permissible value to its `meaning`, so "COMMUNITY" expands to rfs:Community
+  instead of a string literal. A slot whose range a class narrows to an enum
+  (slot_usage) is mapped the same way;
 - nested inlined objects get an explicit "@type", as in the Turtle output.
 
 The check validates every document with both validators the schema generates:
 
 - JSON Schema (linkml-validate) over the authored YAML;
-- SHACL (gen-shacl) over the RDF graph of the authored JSON-LD and over the
-  Turtle that gen-rdf publishes for the fixture, both parsed
-  without rdflib's literal normalization so that lexical forms are checked as
-  written (rdflib would otherwise rewrite an invalid Z in assertedAt as
-  +00:00). The generated shapes are used unchanged.
+- SHACL (gen-shacl, closed shapes) over the RDF graph of the authored JSON-LD,
+  parsed without rdflib's literal normalization so that lexical forms, such as
+  the Z suffix of assertedAt, are checked as written. The generated shapes are
+  used unchanged.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
-published Turtle (run make gen-rdf first), and accepted by both validators.
-Every examples/claim.INVALID-*.yaml document must be rejected by both: by JSON
+Turtle output, and accepted by both validators. The class of a fixture is the
+part of its file name before the first "-", as in gen-rdf. Every
+examples/*.INVALID-*.yaml document must be rejected by both validators: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
+Its class is named on a "# class: ..." line, and is Claim when there is none.
+A document that breaks a LinkML rule carries a "# shacl: not enforced" line:
+the generated SHACL does not express rules, so only JSON Schema must reject it,
+and the check reports that SHACL accepts it.
 
-The examples are GenericClaims, whose shape is closed. The base Claim is
-abstract, so its shape is open: it checks the base content of every claim type
-and lets a claim type add fields. To check that, each example is also retyped
-as a claim type defined outside this schema, with a field of its own and the
-rdfs:subClassOf rfs:Claim triple that such a schema publishes with its data.
-The Claim shape must accept it, and must reject it without assertedBy.
+The generic examples are GenericClaims, whose shape is closed. The base Claim
+is abstract, so its shape is open: it checks the base content of every claim
+type and lets a claim type add fields. To check that, each GenericClaim example
+is also retyped as a claim type defined outside this schema, with a field of its
+own and the rdfs:subClassOf rfs:Claim triple that such a schema publishes with
+its data. The Claim shape must accept it, and must reject it without assertedBy.
+Each example's JSON-LD graph must also be isomorphic to the Turtle that gen-rdf
+publishes for its fixture (run make gen-rdf first), and both are checked with
+SHACL, parsed without rdflib's literal normalization.
 """
 
 import glob
@@ -54,13 +63,38 @@ from rdflib.namespace import RDF, RDFS, SH
 from linkml_runtime.utils.schemaview import SchemaView
 
 SCHEMA = "src/schema.yaml"
-CONTEXT_SOURCE = "src/Claim.yaml"
-TARGET_CLASS = "GenericClaim"
+# The module that defines each class: its JSON-LD context and SHACL shapes are
+# generated from that module and its imports.
+MODULES = {
+    "GenericClaim": "src/Claim.yaml",
+    "Evaluation": "src/Evaluation.yaml",
+    "EvidenceEvaluation": "src/Evaluation.yaml",
+    "ClaimConsistencyEvaluation": "src/Evaluation.yaml",
+    "RegistryReviewEvaluation": "src/RegistryReviewEvaluation.yaml",
+    "RegistryRequirementEvaluation": "src/RegistryReviewEvaluation.yaml",
+    "RegistryFindingEvaluation": "src/RegistryReviewEvaluation.yaml",
+    "RegistryReportEvaluation": "src/RegistryReviewEvaluation.yaml",
+    "C06ProjectClaim": "src/C06Claim.yaml",
+    "C06CohortClaim": "src/C06Claim.yaml",
+    "C06SiteClaim": "src/C06Claim.yaml",
+    "C06PlotClaim": "src/C06Claim.yaml",
+}
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
+    "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml": "examples/c06-mvp-claim.jsonld",
+    "data/playground/RegistryRequirementEvaluation/RegistryRequirementEvaluation-crediting-term-001.yaml": "examples/registry-requirement-evaluation.jsonld",
+    "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",
+    "data/playground/RegistryReportEvaluation/RegistryReportEvaluation-validation-001.yaml": "examples/registry-report-evaluation.jsonld",
+    "data/playground/Evaluation/Evaluation-generic-001.yaml": "examples/generic-evaluation.jsonld",
+    "data/playground/EvidenceEvaluation/EvidenceEvaluation-generic-001.yaml": "examples/evidence-evaluation.jsonld",
+    "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
+    "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
+    "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
+    "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
+    "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
-INVALID_GLOB = "examples/claim.INVALID-*.yaml"
+INVALID_GLOB = "examples/*.INVALID-*.yaml"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
 EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
 
@@ -73,17 +107,29 @@ def run(*args):
     return subprocess.run(args, capture_output=True, text=True)
 
 
-def inline_context(view):
-    result = run("gen-jsonld-context", "--xsd-anyuri-as-iri", CONTEXT_SOURCE)
+def enum_ranges(view):
+    """Yield (slot name, enum) for every slot whose range is an enum, including
+    a range a class narrows with slot_usage."""
+    for slot in view.all_slots().values():
+        if slot.range and view.get_enum(slot.range):
+            yield slot.name, view.get_enum(slot.range)
+    for class_name in view.all_classes():
+        for slot in view.class_induced_slots(class_name):
+            if slot.range and view.get_enum(slot.range):
+                yield slot.name, view.get_enum(slot.range)
+
+
+def inline_context(view, source):
+    result = run("gen-jsonld-context", "--xsd-anyuri-as-iri", source)
     if result.returncode != 0:
         sys.exit(result.stderr)
     context = json.loads(result.stdout)["@context"]
-    for slot in view.all_slots().values():
-        enum = view.get_enum(slot.range) if slot.range else None
-        if enum is None or slot.name not in context:
+    for name, enum in enum_ranges(view):
+        if name not in context:
             continue
-        context[slot.name] = {
-            "@id": context[slot.name]["@id"],
+        term = context[name]
+        context[name] = {
+            "@id": term["@id"] if isinstance(term, dict) else term,
             "@type": "@vocab",
             "@context": {
                 text: pv.meaning for text, pv in enum.permissible_values.items()
@@ -92,8 +138,8 @@ def inline_context(view):
     return context
 
 
-def shacl_shapes():
-    result = run("gen-shacl", CONTEXT_SOURCE)
+def shacl_shapes(source):
+    result = run("gen-shacl", source)
     if result.returncode != 0:
         sys.exit(result.stderr)
     return rdflib.Graph().parse(data=result.stdout, format="turtle")
@@ -118,9 +164,9 @@ def typed(view, class_name, data):
     return out
 
 
-def build(view, context, source):
+def build(module, class_name, source):
     data = yaml.safe_load(Path(source).read_text())
-    document = {"@context": context, **typed(view, TARGET_CLASS, data)}
+    document = {"@context": module["context"], **typed(module["view"], class_name, data)}
     return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
 
 
@@ -141,20 +187,20 @@ def published_turtle(fixture):
     return path
 
 
-def json_schema_check(document):
+def json_schema_check(document, class_name):
     """Validate an authored YAML document with JSON Schema (linkml-validate)."""
-    result = run("linkml-validate", "-s", SCHEMA, "-C", TARGET_CLASS, document)
+    result = run("linkml-validate", "-s", SCHEMA, "-C", class_name, document)
     return result.returncode == 0, result.stdout + result.stderr
 
 
-def as_extension(view, graph, without=None):
+def as_extension(view, graph, class_name, without=None):
     """Retype the claim as a claim type defined outside this schema, with a field of its own."""
     uri = lambda name: rdflib.URIRef(view.get_uri(view.get_element(name), expand=True))
     out = rdflib.Graph()
     for triple in graph:
         out.add(triple)
-    root = next(out.subjects(RDF.type, uri(TARGET_CLASS)))
-    out.remove((root, RDF.type, uri(TARGET_CLASS)))
+    root = next(out.subjects(RDF.type, uri(class_name)))
+    out.remove((root, RDF.type, uri(class_name)))
     out.add((root, RDF.type, EXTENSION_CLASS))
     out.add((EXTENSION_CLASS, RDFS.subClassOf, uri("Claim")))
     out.add((root, EXTENSION_FIELD, rdflib.Literal("claim-type content")))
@@ -169,21 +215,44 @@ def shacl_report(graph, shapes):
     return conforms, messages
 
 
+def fixture_class(fixture):
+    return Path(fixture).name.split("-", 1)[0]
+
+
+def invalid_class(text):
+    for line in text.splitlines():
+        if line.startswith("# class:"):
+            return line.removeprefix("# class:").strip()
+    return "GenericClaim"
+
+
 def main(mode):
-    view = SchemaView(CONTEXT_SOURCE)
-    context = inline_context(view)
-    shapes = shacl_shapes()
+    modules = {}
+
+    def module_for(class_name):
+        source = MODULES[class_name]
+        if source not in modules:
+            view = SchemaView(source)
+            modules[source] = {
+                "view": view,
+                "context": inline_context(view, source),
+                "shapes": shacl_shapes(source),
+            }
+        return modules[source]
+
     failures = 0
 
     for fixture, example in EXAMPLES.items():
-        text = build(view, context, fixture)
+        class_name = fixture_class(fixture)
+        module = module_for(class_name)
+        text = build(module, class_name, fixture)
         if mode == "generate":
             Path(example).write_text(text)
         elif not Path(example).exists() or Path(example).read_text() != text:
             print(f"❌ {example} is stale: run make gen-claim-examples")
             failures += 1
             continue
-        valid, output = json_schema_check(fixture)
+        valid, output = json_schema_check(fixture, class_name)
         if valid:
             print(f"✅ {fixture}: conforms to JSON Schema")
         else:
@@ -200,44 +269,54 @@ def main(mode):
             (example, lexical_graph(text, "json-ld")),
             (turtle, lexical_graph(turtle.read_text(), "turtle")),
         ):
-            conforms, messages = shacl_report(graph, shapes)
+            conforms, messages = shacl_report(graph, module["shapes"])
             if conforms:
                 print(f"✅ {document}: conforms to SHACL")
             else:
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
-        graph = lexical_graph(text, "json-ld")
-        conforms, messages = shacl_report(as_extension(view, graph), shapes)
-        if conforms:
-            print(f"✅ {example} as an outside claim type: conforms to the open Claim shape")
-        else:
-            print(f"❌ {example} as an outside claim type: SHACL violations {messages}")
-            failures += 1
-        conforms, _ = shacl_report(as_extension(view, graph, without="assertedBy"), shapes)
-        if not conforms:
-            print(f"✅ {example} as an outside claim type without assertedBy: the Claim shape rejects it")
-        else:
-            print(f"❌ {example} as an outside claim type without assertedBy: SHACL accepts it")
-            failures += 1
+        if class_name == "GenericClaim":
+            graph = lexical_graph(text, "json-ld")
+            conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
+            if conforms:
+                print(f"✅ {example} as an outside claim type: conforms to the open Claim shape")
+            else:
+                print(f"❌ {example} as an outside claim type: SHACL violations {messages}")
+                failures += 1
+            conforms, _ = shacl_report(as_extension(module["view"], graph, class_name, without="assertedBy"), module["shapes"])
+            if not conforms:
+                print(f"✅ {example} as an outside claim type without assertedBy: the Claim shape rejects it")
+            else:
+                print(f"❌ {example} as an outside claim type without assertedBy: SHACL accepts it")
+                failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):
-        first_line = Path(invalid).read_text().splitlines()[0]
-        expected = first_line.removeprefix("# expect:").strip()
-        valid, output = json_schema_check(invalid)
+        content = Path(invalid).read_text()
+        expected = content.splitlines()[0].removeprefix("# expect:").strip()
+        class_name = invalid_class(content)
+        module = module_for(class_name)
+        valid, output = json_schema_check(invalid, class_name)
         if not valid and expected in output:
             print(f"✅ {invalid}: JSON Schema rejects it ({expected})")
         else:
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")
             failures += 1
-        conforms, messages = shacl_report(lexical_graph(build(view, context, invalid), "json-ld"), shapes)
-        if not conforms:
+        graph = lexical_graph(build(module, class_name, invalid), "json-ld")
+        conforms, messages = shacl_report(graph, module["shapes"])
+        if "# shacl: not enforced" in content:
+            if conforms:
+                print(f"ℹ️  {invalid}: SHACL accepts it (a LinkML rule; not expressed in SHACL)")
+            else:
+                print(f"❌ {invalid}: marked 'shacl: not enforced' but SHACL rejects it ({messages[0][:80]})")
+                failures += 1
+        elif not conforms:
             print(f"✅ {invalid}: SHACL rejects it ({messages[0][:80]})")
         else:
             print(f"❌ {invalid}: SHACL accepts it")
             failures += 1
 
     if failures:
-        sys.exit(f"{failures} Claim example check(s) failed")
+        sys.exit(f"{failures} example check(s) failed")
 
 
 if __name__ == "__main__":

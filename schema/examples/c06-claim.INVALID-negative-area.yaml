@@ -1,0 +1,18 @@
+# expect: -12.75 is less than the minimum of 0
+# class: C06PlotClaim
+# A quantity value cannot be negative: the quantities stated so far are sizes
+# and areas.
+name: Plot S-001.0007 area
+claimStatement: Plot S-001.0007 area
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/plot/S-001.0007
+  name: Plot S-001.0007
+  plotKey: S-001.0007
+  site: https://example.org/c06/site/S-001
+area:
+  numericValue: -12.75
+  hasUnit: unit:HA

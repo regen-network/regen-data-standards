@@ -4,6 +4,8 @@ name: Core
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
 
 default_prefix: rfs
 
@@ -51,6 +53,27 @@ classes:
     slot_usage:
       name:
         required: true
+  QuantityValue:
+    class_uri: qudt:QuantityValue
+    description: >-
+      A value that represents a quantity, with a numeric value and the unit
+      it is expressed in, as a QUDT quantity value.
+    attributes:
+      numericValue:
+        slot_uri: qudt:value
+        range: float
+        minimum_value: 0
+        required: true
+        description: >-
+          The numeric value of the quantity. It cannot be negative: the
+          quantities stated so far are sizes and areas.
+      hasUnit:
+        slot_uri: qudt:hasUnit
+        range: uriorcurie
+        required: true
+        description: >-
+          IRI of the unit in the QUDT unit vocabulary
+          (http://qudt.org/vocab/unit/), for example unit:HA (hectare).
 
 types:
   duration:

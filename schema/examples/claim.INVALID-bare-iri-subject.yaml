@@ -1,4 +1,4 @@
-# expect: 'https://example.org/plot/A' is not of type 'object'
+# expect: 'https://example.org/plot/A' is not valid under any of the given schemas
 # The subject is a typed ClaimSubject node with its own IRI, not a bare IRI,
 # so subjects can be typed, queried and validated.
 name: Hedgerow planting on plot A, spring 2026

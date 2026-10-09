@@ -1,0 +1,30 @@
+# expect: 'id' is a required property
+# class: C06SiteClaim
+# The activity that generated a piece of evidence is identified by an IRI, so
+# that every piece of evidence it produced names the same activity.
+name: Site S-001 practices
+claimStatement: Site S-001 practices
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-07-10T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/site/S-001
+  name: Site S-001
+  siteKey: S-001
+  project: https://example.org/c06/project/P-001
+practices:
+  - COVER_CROPPING
+hasEvidence:
+  - id: https://example.org/c06/exports/field-records-S-001-2019-2021.csv
+    name: Field management records, site S-001, 2019 to 2021
+    sourceType: DATASET
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c
+    resolver:
+      - https://example.org/c06/exports/field-records-S-001-2019-2021.csv
+    wasGeneratedBy:
+      name: Field operations on site S-001, 2019 to 2021
+      startDate: "2019-01-01"
+      endDate: "2021-12-31"

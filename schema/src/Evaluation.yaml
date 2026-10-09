@@ -1,0 +1,283 @@
+id: https://framework.regen.network/schema/Evaluation
+name: Evaluation
+description: >-
+  The base Evaluation: an issuer's dated, scoped judgment about claims,
+  other evaluations or evidence. It holds only what every program's
+  judgments share, and the kinds of judgment that are not specific to a
+  program (evidence and claim consistency evaluations). Program-specific
+  review vocabularies, such as Regen Registry's, extend it with is_a
+  Evaluation. See docs/evaluation-and-evidence.md.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+  - Claim
+  - ClaimVocabulary
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Evaluation:
+    is_a: Claim
+    class_uri: rfs:Evaluation
+    description: >-
+      An issuer's judgment, made at a stated time, about what it targets:
+      exact versions of claims, of other evaluations, or a snapshot of
+      claims. As a Claim it is attributed (assertedBy names the issuer),
+      immutable and revisable with wasRevisionOf; it is about a subject, such
+      as a project or a plot, even when it judges a claim about that subject.
+      It does not carry its own hash or IRI, anchoring state, or a status
+      that changes after it is made: a later judgment is a new Evaluation.
+    slots:
+      - hasTarget
+      - reliesOn
+      - appliesRequirement
+      - appliesRuleSet
+      - outcome
+      - rationale
+      - verificationMethod
+      - verificationMethodDescriptor
+      - scope
+      - unbounded
+    slot_usage:
+      assertedBy:
+        description: >-
+          The issuer: the party that makes the judgment and takes
+          responsibility for it.
+      assertedAt:
+        description: When the issuer made the judgment.
+      hasSubject:
+        description: >-
+          What the judgment is about: a project, plot or other subject. It is
+          stated even when it is also the subject of a targeted claim.
+      hasEvidence:
+        description: Sources the issuer relied on.
+      verificationMethod:
+        required: true
+    rules:
+      - description: >-
+          A verification method outside the enumeration is described, so the
+          method is never empty. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            verificationMethod:
+              equals_string: OTHER
+        postconditions:
+          slot_conditions:
+            verificationMethodDescriptor:
+              required: true
+      - description: >-
+          A scope and unbounded are exclusive: a scope limits the judgment to
+          the subjects it names, and unbounded states that the judgment has no
+          limits beyond its targets. An evaluation with a scope does not
+          state unbounded. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            scope:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            unbounded:
+              value_presence: ABSENT
+
+  EvidenceEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:EvidenceEvaluation
+    description: >-
+      What an identified body of evidence shows about one claim or
+      requirement: whether it supports or challenges it, and whether it is
+      enough to establish that. Stance and sufficiency are always relative to
+      what the evidence is assessed against, and apply to the targeted
+      evidence as a whole, not to each item in isolation.
+    slots:
+      - assessedAgainst
+      - evidentialStance
+      - evidenceSufficiency
+    slot_usage:
+      hasTarget:
+        description: >-
+          The Evidence records assessed, as one body of evidence. Unordered
+          set.
+        required: true
+        minimum_cardinality: 1
+      assessedAgainst:
+        required: true
+      evidentialStance:
+        required: true
+    rules:
+      - description: >-
+          Evidence with no bearing on what it is assessed against establishes
+          nothing, so it has no sufficiency. Enforced by the generated JSON
+          Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            evidentialStance:
+              equals_string: NO_BEARING
+        postconditions:
+          slot_conditions:
+            evidenceSufficiency:
+              value_presence: ABSENT
+
+  ClaimConsistencyEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:ClaimConsistencyEvaluation
+    description: >-
+      Whether a claim's statement and its structured fields express the same
+      assertion. The generated validators check structure only; they cannot
+      compare prose with values, so a reviewer records the result on the
+      exact claim version. An internally inconsistent claim is corrected by a
+      new version before its evidence is evaluated; neither the statement nor
+      the fields override the other.
+    slots:
+      - claimConsistency
+    slot_usage:
+      hasTarget:
+        description: >-
+          The exact claim versions whose statement and fields are compared.
+          Unordered set.
+        required: true
+        minimum_cardinality: 1
+      claimConsistency:
+        required: true
+      rationale:
+        description: >-
+          Where the statement and the fields agree or disagree, for example
+          "the statement gives 12 ha, the area field 15 ha".
+        required: true
+
+  Scope:
+    class_uri: rfs:Scope
+    description: >-
+      Where an evaluation applies, as structured fields, so that a consumer
+      can check whether a subject falls inside it. A scope always names the
+      subjects it covers. An evaluation without a scope applies only to what
+      it targets, unless it states unbounded.
+    slots:
+      - appliesTo
+      - exclusion
+      - limitation
+    slot_usage:
+      appliesTo:
+        required: true
+        minimum_cardinality: 1
+
+slots:
+  outcome:
+    slot_uri: rfs:outcome
+    description: >-
+      The verdict, as a term from the vocabulary of the program or rule set
+      the judgment is made under. A kind of evaluation with its own allowed
+      values declares its verdict as a sub-property of outcome with an
+      enumerated range, such as evidentialStance or a program's requirement
+      outcome, so that both validators check the value and a query for
+      outcome still finds it.
+    range: uriorcurie
+  assessedAgainst:
+    slot_uri: rfs:assessedAgainst
+    description: >-
+      What an evidence evaluation's stance and sufficiency are relative to:
+      the IRI of an exact claim version, or of an exact requirement version
+      as appliesRequirement names it. The schema has no Requirement class
+      (WP5-01), so neither validator checks what the IRI identifies.
+    range: uriorcurie
+  evidentialStance:
+    is_a: outcome
+    slot_uri: rfs:evidentialStance
+    description: >-
+      Whether the evidence supports or challenges what it is assessed
+      against, or has no bearing on it. A sub-property of outcome.
+    range: EvidentialStance
+  evidenceSufficiency:
+    is_a: outcome
+    slot_uri: rfs:evidenceSufficiency
+    description: >-
+      Whether the evidence is enough to establish its stance: sufficient
+      supporting evidence establishes the claim or requirement, and
+      sufficient challenging evidence contradicts it. A sub-property of
+      outcome.
+    range: EvidenceSufficiency
+  claimConsistency:
+    is_a: outcome
+    slot_uri: rfs:claimConsistency
+    description: >-
+      Whether the claim's statement and structured fields agree. A
+      sub-property of outcome.
+    range: ClaimConsistency
+  rationale:
+    slot_uri: rfs:rationale
+    description: Why the issuer reached the outcome.
+    range: string
+  scope:
+    slot_uri: rfs:scope
+    description: >-
+      Where the judgment applies: the subjects it covers, what it explicitly
+      excludes, and what it does not establish.
+    range: Scope
+    inlined: true
+  appliesTo:
+    slot_uri: rfs:appliesTo
+    description: >-
+      Identifiers of the subjects the judgment covers, for example the
+      enrolment cohorts an approval is limited to. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  exclusion:
+    slot_uri: rfs:exclusion
+    description: What the judgment explicitly does not cover. Unordered set.
+    range: string
+    multivalued: true
+    list_elements_ordered: false
+  limitation:
+    slot_uri: rfs:limitation
+    description: >-
+      What the judgment is not, for example that an approval of a project
+      structure is not a validation of its evidence.
+    range: string
+  unbounded:
+    slot_uri: rfs:unbounded
+    description: >-
+      True when the issuer explicitly gives the judgment no limits beyond what
+      it targets, so that an unlimited approval is a stated choice rather than
+      an omission. Stated only on an evaluation without a scope: the two are
+      exclusive.
+    range: boolean
+
+enums:
+  EvidentialStance:
+    permissible_values:
+      SUPPORTS:
+        meaning: rfs:Supports
+        description: The evidence supports what it is assessed against.
+      CHALLENGES:
+        meaning: rfs:Challenges
+        description: The evidence counts against what it is assessed against.
+      NO_BEARING:
+        meaning: rfs:NoBearing
+        description: >-
+          The evidence neither supports nor challenges what it is assessed
+          against, for example context or a source about another period.
+  EvidenceSufficiency:
+    permissible_values:
+      SUFFICIENT:
+        meaning: rfs:Sufficient
+        description: The evidence is enough to establish its stance.
+      INSUFFICIENT:
+        meaning: rfs:Insufficient
+        description: The evidence is not enough to establish its stance.
+  ClaimConsistency:
+    permissible_values:
+      CONSISTENT:
+        meaning: rfs:Consistent
+        description: The statement and the structured fields express the same assertion.
+      INTERNALLY_INCONSISTENT:
+        meaning: rfs:InternallyInconsistent
+        description: >-
+          The statement and the structured fields disagree. Neither overrides
+          the other; the claim is corrected by a new version.
