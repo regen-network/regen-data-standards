@@ -1,0 +1,26 @@
+# expect: 'assessedAgainst' is a required property
+# class: EvidenceEvaluation
+# A stance and a sufficiency are relative to the claim or requirement the
+# evidence is assessed against, so it is named.
+name: Steward assessment of the plot A hedgerow evidence
+claimStatement: >-
+  The planting log and the June walkover photographs support the claim that
+  400 m of hedgerow was planted on plot A, but are not enough to establish it:
+  the photographs cover about 250 m of the boundary.
+assertedBy:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-12T10:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/evidence/planting-log-2026-v1.pdf
+  - https://example.org/evidence/walkover-photos-2026-06.zip
+evidentialStance: SUPPORTS
+evidenceSufficiency: INSUFFICIENT
+rationale: >-
+  The log records 400 m planted; the photographs show the western 250 m of the
+  boundary only.
+verificationMethod: OTHER
+verificationMethodDescriptor: Desk review of the cited evidence by a community steward

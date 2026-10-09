@@ -34,15 +34,20 @@
       "@type": "@id",
       "@id": "assertedBy"
     },
+    "assessedAgainst": {
+      "@type": "@id",
+      "@id": "assessedAgainst"
+    },
+    "claimConsistency": {
+      "@id": "claimConsistency",
+      "@type": "@vocab",
+      "@context": {
+        "CONSISTENT": "rfs:Consistent",
+        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+      }
+    },
     "claimStatement": {
       "@id": "claimStatement"
-    },
-    "conditionLabel": {
-      "@id": "conditionLabel"
-    },
-    "conditions": {
-      "@type": "@id",
-      "@id": "conditions"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -78,22 +83,25 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
-    "exclusion": {
-      "@id": "exclusion"
-    },
-    "findingLabel": {
-      "@id": "findingLabel"
-    },
-    "findingType": {
-      "@id": "findingType",
+    "evidenceSufficiency": {
+      "@id": "evidenceSufficiency",
       "@type": "@vocab",
       "@context": {
-        "CAR": "rfs:CorrectiveActionRequest",
-        "CL": "rfs:ClarificationRequest",
-        "FAR": "rfs:ForwardActionRequest",
-        "REGISTRY_ISSUE": "rfs:RegistryIssue",
-        "OTHER": "rfs:OtherFindingType"
+        "SUFFICIENT": "rfs:Sufficient",
+        "INSUFFICIENT": "rfs:Insufficient"
       }
+    },
+    "evidentialStance": {
+      "@id": "evidentialStance",
+      "@type": "@vocab",
+      "@context": {
+        "SUPPORTS": "rfs:Supports",
+        "CHALLENGES": "rfs:Challenges",
+        "NO_BEARING": "rfs:NoBearing"
+      }
+    },
+    "exclusion": {
+      "@id": "exclusion"
     },
     "hasEvidence": {
       "@type": "@id",
@@ -120,16 +128,6 @@
       "@type": "xsd:date",
       "@id": "dcterms:issued"
     },
-    "issuerRole": {
-      "@id": "issuerRole",
-      "@type": "@vocab",
-      "@context": {
-        "REGISTRY_AGENT": "rfs:RegistryAgent",
-        "VVB": "rfs:ValidationVerificationBody",
-        "CREDIT_CLASS_ADMIN": "rfs:CreditClassAdmin",
-        "OTHER": "rfs:OtherIssuerRole"
-      }
-    },
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
@@ -142,16 +140,6 @@
     },
     "mediaType": {
       "@id": "dcterms:format"
-    },
-    "milestone": {
-      "@id": "milestone",
-      "@type": "@vocab",
-      "@context": {
-        "REGISTRATION": "rfs:RegistrationMilestone",
-        "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
-        "VERIFICATION": "rfs:VerificationMilestone",
-        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
-      }
     },
     "name": {
       "@id": "schema:name"
@@ -258,11 +246,11 @@
     "Claim": {
       "@id": "Claim"
     },
+    "ClaimConsistencyEvaluation": {
+      "@id": "ClaimConsistencyEvaluation"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
-    },
-    "Condition": {
-      "@id": "Condition"
     },
     "ContentDigest": {
       "@id": "ContentDigest"
@@ -275,6 +263,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "EvidenceEvaluation": {
+      "@id": "EvidenceEvaluation"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -294,12 +285,6 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
-    "RegistryFindingEvaluation": {
-      "@id": "RegistryFindingEvaluation"
-    },
-    "RegistryReviewEvaluation": {
-      "@id": "RegistryReviewEvaluation"
-    },
     "Scope": {
       "@id": "Scope"
     },
@@ -307,9 +292,9 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "RegistryReviewEvaluation",
-  "name": "Registry confirmation of the cohort-based crediting structure",
-  "claimStatement": "The registry accepts the rolling cohort-based crediting and permanence structure described in the project plan for the cohorts enrolled from 2020 to 2023, subject to the scope below.",
+  "@type": "ClaimConsistencyEvaluation",
+  "name": "Consistency review of the plot B restoration claim",
+  "claimStatement": "The restoration claim for plot B is internally inconsistent: its statement and its area field give different restored areas.",
   "assertedBy": [
     {
       "@type": "Entity",
@@ -317,62 +302,17 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-03-12T00:00:00+00:00",
+  "assertedAt": "2026-07-01T00:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
-    "id": "https://example.org/c06/project/P-001",
-    "name": "Example project P-001"
+    "id": "https://example.org/plot/B",
+    "name": "Plot B"
   },
   "hasTarget": [
-    "https://example.org/placeholder/claim-iri/verifier-finding-7-1",
-    "https://example.org/placeholder/claim-iri/verifier-finding-7-2"
+    "https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1"
   ],
-  "reliesOn": [
-    "https://example.org/placeholder/claim-iri/developer-enrolment-cutoff"
-  ],
-  "appliesRuleSet": [
-    "https://example.org/rule-set/credit-class-c06/1.5.2"
-  ],
-  "outcome": "rfs:ApprovedForRegistration",
-  "rationale": "Each cohort keeps a full ten-year crediting period from its baseline sampling, and the enrolment cutoff prevents open-ended expansion.",
-  "verificationMethod": "THIRD_PARTY_AUDITED",
-  "scope": {
-    "@type": "Scope",
-    "appliesTo": [
-      "https://example.org/c06/cohort/P-001-2020",
-      "https://example.org/c06/cohort/P-001-2021",
-      "https://example.org/c06/cohort/P-001-2022",
-      "https://example.org/c06/cohort/P-001-2023"
-    ],
-    "exclusion": [
-      "Open-ended addition of plots, farms or project areas after the enrolment cutoff."
-    ],
-    "limitation": "Confirms the acceptability of the project structure; does not replace the verifier's responsibility to validate the supporting evidence."
-  },
-  "issuerRole": "REGISTRY_AGENT",
-  "conditions": [
-    {
-      "@type": "Condition",
-      "conditionLabel": "C-1",
-      "description": "Each farm, cohort and project area remains individually identifiable and traceable.",
-      "milestone": "VERIFICATION"
-    }
-  ],
-  "hasEvidence": [
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/registry/confirmation-2026-03-12.pdf",
-      "name": "Registry confirmation letter, 12 March 2026",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "06379123b857f6899002024e6a1d89eced2583a5ee1d09b8f3952f21e9bdc31f"
-      },
-      "resolver": [
-        "https://example.org/registry/confirmation-2026-03-12.pdf"
-      ]
-    }
-  ]
+  "claimConsistency": "INTERNALLY_INCONSISTENT",
+  "rationale": "The statement gives 12 ha restored; the area field gives 15 ha.",
+  "verificationMethod": "OTHER",
+  "verificationMethodDescriptor": "Desk review of the claim record"
 }

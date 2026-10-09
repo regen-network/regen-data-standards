@@ -1,8 +1,8 @@
 # Synthetic example (example.org identifiers): a verifier's clarification
 # request about the developer's crediting period structure. It targets the exact
 # version of the claim it questions and cites the plan section it read. Later
-# assessments of it, and the registry's reply, are evaluations that target this
-# finding and carry the same findingLabel.
+# assessments of it are finding evaluations that target this one, carry the
+# same findingLabel and state the finding's state as of their own date.
 name: Clarification request on the cohort-based crediting period
 claimStatement: >-
   The project plan assigns each cohort its own ten-year crediting period. The
@@ -19,7 +19,7 @@ hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
-outcome: rfs:FindingOpen
+findingState: OPEN
 verificationMethod: THIRD_PARTY_AUDITED
 issuerRole: VVB
 findingType: CL

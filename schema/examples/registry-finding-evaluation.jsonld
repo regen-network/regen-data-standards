@@ -14,6 +14,14 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "applicability": {
+      "@id": "applicability",
+      "@type": "@vocab",
+      "@context": {
+        "APPLICABLE": "rfs:Applicable",
+        "NOT_APPLICABLE": "rfs:NotApplicable"
+      }
+    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -33,6 +41,18 @@
     "assertedBy": {
       "@type": "@id",
       "@id": "assertedBy"
+    },
+    "assessedAgainst": {
+      "@type": "@id",
+      "@id": "assessedAgainst"
+    },
+    "claimConsistency": {
+      "@id": "claimConsistency",
+      "@type": "@vocab",
+      "@context": {
+        "CONSISTENT": "rfs:Consistent",
+        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+      }
     },
     "claimStatement": {
       "@id": "claimStatement"
@@ -78,11 +98,36 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "evidenceSufficiency": {
+      "@id": "evidenceSufficiency",
+      "@type": "@vocab",
+      "@context": {
+        "SUFFICIENT": "rfs:Sufficient",
+        "INSUFFICIENT": "rfs:Insufficient"
+      }
+    },
+    "evidentialStance": {
+      "@id": "evidentialStance",
+      "@type": "@vocab",
+      "@context": {
+        "SUPPORTS": "rfs:Supports",
+        "CHALLENGES": "rfs:Challenges",
+        "NO_BEARING": "rfs:NoBearing"
+      }
+    },
     "exclusion": {
       "@id": "exclusion"
     },
     "findingLabel": {
       "@id": "findingLabel"
+    },
+    "findingState": {
+      "@id": "findingState",
+      "@type": "@vocab",
+      "@context": {
+        "OPEN": "rfs:FindingOpen",
+        "CLOSED": "rfs:FindingClosed"
+      }
     },
     "findingType": {
       "@id": "findingType",
@@ -179,6 +224,24 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
+    "reportRating": {
+      "@id": "reportRating",
+      "@type": "@vocab",
+      "@context": {
+        "ACCEPTANCE": "rfs:Acceptance",
+        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+        "REJECTION": "rfs:Rejection"
+      }
+    },
+    "requirementOutcome": {
+      "@id": "requirementOutcome",
+      "@type": "@vocab",
+      "@context": {
+        "SATISFIED": "rfs:Satisfied",
+        "NOT_SATISFIED": "rfs:NotSatisfied",
+        "UNDETERMINED": "rfs:Undetermined"
+      }
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -258,6 +321,9 @@
     "Claim": {
       "@id": "Claim"
     },
+    "ClaimConsistencyEvaluation": {
+      "@id": "ClaimConsistencyEvaluation"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
@@ -275,6 +341,9 @@
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "EvidenceEvaluation": {
+      "@id": "EvidenceEvaluation"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -296,6 +365,12 @@
     },
     "RegistryFindingEvaluation": {
       "@id": "RegistryFindingEvaluation"
+    },
+    "RegistryReportEvaluation": {
+      "@id": "RegistryReportEvaluation"
+    },
+    "RegistryRequirementEvaluation": {
+      "@id": "RegistryRequirementEvaluation"
     },
     "RegistryReviewEvaluation": {
       "@id": "RegistryReviewEvaluation"
@@ -329,7 +404,7 @@
   "appliesRuleSet": [
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ],
-  "outcome": "rfs:FindingOpen",
+  "findingState": "OPEN",
   "verificationMethod": "THIRD_PARTY_AUDITED",
   "issuerRole": "VVB",
   "findingType": "CL",

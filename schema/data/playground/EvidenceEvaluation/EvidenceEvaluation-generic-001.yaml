@@ -1,0 +1,28 @@
+# Synthetic example (example.org identifiers): a base-layer evidence evaluation.
+# A community steward assesses the planting log and walkover photographs
+# together, against the generic hedgerow claim (GenericClaim-001): they support
+# it, but are not enough to establish it. The claim identifier is a labelled
+# placeholder for its ClaimIRI (regen-network/claims#1).
+name: Steward assessment of the plot A hedgerow evidence
+claimStatement: >-
+  The planting log and the June walkover photographs support the claim that
+  400 m of hedgerow was planted on plot A, but are not enough to establish it:
+  the photographs cover about 250 m of the boundary.
+assertedBy:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-12T10:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/evidence/planting-log-2026-v1.pdf
+  - https://example.org/evidence/walkover-photos-2026-06.zip
+assessedAgainst: https://example.org/placeholder/claim-iri/generic-claim-v1
+evidentialStance: SUPPORTS
+evidenceSufficiency: INSUFFICIENT
+rationale: >-
+  The log records 400 m planted; the photographs show the western 250 m of the
+  boundary only.
+verificationMethod: OTHER
+verificationMethodDescriptor: Desk review of the cited evidence by a community steward
