@@ -1,187 +1,169 @@
 id: Claim
 name: Claim
+description: >-
+  The reusable base Claim: asserted content shared by every kind of claim.
+  Claim-type schemas extend it (is_a: Claim) with domain content such as
+  impacts, quantities, methodologies or activities; GenericClaim is the claim
+  type with base content only. Review state, anchoring
+  state and identifiers derived from a Claim's own canonical form are not
+  Claim content. See docs/claim-base.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
-  rft: https://framework.regen.network/taxonomy/
   schema: http://schema.org/
-  qudt: http://qudt.org/schema/qudt/
-  unit: http://qudt.org/vocab/unit/
+  prov: http://www.w3.org/ns/prov#
+  dcterms: http://purl.org/dc/terms/
 
 imports:
   - linkml:types
   - core
-  - taxonomy
   - Entity
-  - Impact
-  - SDG
-  - Methodology
+  - ClaimSubject
+  - ClaimVocabulary
+  - ProvAlignment
 
 default_prefix: rfs
 default_range: string
 
 classes:
   Claim:
+    class_uri: rfs:Claim
+    abstract: true
+    mixins:
+      - ProvEntity
     description: >-
-      A verifiable claim about ecological, social, or financial outcomes
-      associated with a place, practice, or project. Claims are the atomic
-      unit of the regenerative claims engine, linking a claimant's assertion
-      to a subject entity with typed impact and temporal bounds.
+      An assertion made or adopted by one or more claimants about one subject,
+      at a stated time. It records what is asserted and may cite evidence. A
+      Claim is one unit that can be accepted, rejected, evidenced or revised on
+      its own, and one unit of responsibility: each claimant takes
+      responsibility for all of it. It may span many RDF statements; parts that
+      a reviewer could judge separately, or that different agents take
+      responsibility for, are separate Claims. A Claim is asserted by
+      definition, so it is self-attested by its claimants and is
+      valid without any third-party attestation; later reviews are separate
+      resources that point to it. An unasserted authoring candidate, such as
+      an extraction draft without a claimant, is not a Claim. Every version is
+      immutable: a correction is a new Claim that states wasRevisionOf.
+      Abstract: a document is typed with a claim type, either GenericClaim or
+      a class from a claim-type schema. The constraints here apply to every
+      claim type, and a claim type may add fields to them, so the generated
+      SHACL shape for Claim is open; each claim type's own shape is closed.
     slots:
       - name
-      - description
+      - claimStatement
+      - inLanguage
       - url
+      - assertedBy
+      - assertedAt
+      - hasSubject
+      - hasEvidence
+      - wasRevisionOf
     slot_usage:
       name:
-        required: true
-        description: Human-readable title of the claim.
-    attributes:
-      hasClaimType:
-        slot_uri: rfs:hasClaimType
         description: >-
-          The primary category of the claim, drawn from the FWG ClaimType
-          taxonomy. Determines which verification pathways apply.
-        range: ClaimType
-        required: true
-      hasClaimant:
-        slot_uri: rfs:hasClaimant
+          Optional human-readable title of the claim, for display. It is not
+          the assertion, which is claimStatement.
+      inLanguage:
         description: >-
-          The entity making the claim. May be an individual, organization,
-          or community.
-        range: Entity
-        required: true
-        inlined: true
-      hasSubject:
-        slot_uri: rfs:hasSubject
+          Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter
+          ISO 639 primary language subtag, such as en or cs. It
+          says nothing about the language of the cited sources, which they
+          record themselves, or about how a statement translated from a source
+          was derived.
+      url:
         description: >-
-          The entity or place about which the claim is made. Often a project,
-          land steward, or community.
-        range: Entity
-        required: true
-        inlined: true
-      hasOperator:
-        slot_uri: rfs:hasOperator
+          Link to a page with more information about the claim. A pointer for
+          readers, not evidence; cite evidence with hasEvidence.
+      wasRevisionOf:
         description: >-
-          The entity responsible for operations that produced the claimed
-          outcome, if different from the claimant.
-        range: Entity
-        inlined: true
-      hasPrimaryImpact:
-        slot_uri: rfs:hasPrimaryImpact
-        description: The primary impact claimed.
-        range: Impact
-        required: true
-        inlined: true
-      hasCoBenefits:
-        slot_uri: rfs:hasCoBenefits
-        description: Secondary impacts or co-benefits associated with the claim.
-        range: Impact
-        multivalued: true
-        inlined: true
-        inlined_as_list: true
-      verificationStatus:
-        slot_uri: rfs:verificationStatus
-        description: >-
-          Current verification state of the claim, from self-reported through
-          ledger-anchored.
-        range: VerificationStatus
-        required: true
-      claimStartDate:
-        slot_uri: schema:startDate
-        description: The start date of the period covered by this claim.
-        range: date
-      claimEndDate:
-        slot_uri: schema:endDate
-        description: The end date of the period covered by this claim.
-        range: date
-      quantity:
-        slot_uri: rfs:quantity
-        description: >-
-          Numeric quantity associated with the claim (e.g., tonnes CO2e,
-          hectares restored).
-        range: float
-        comments:
-          - >-
-            Kept flat (quantity + quantityUnit) to preserve the Output Record
-            Contract instance shape. Upgrade trigger: adopt a QUDT-style
-            Quantity class (value + unit) the day quantity is needed on more
-            than one slot or ranges/uncertainty are required.
-      quantityUnit:
-        slot_uri: qudt:unit
-        description: >-
-          Unit of measurement for the quantity, as a QUDT unit code
-          (e.g., TONNE, HA).
-        range: QuantityUnit
-      usesMethodology:
-        slot_uri: rfs:usesMethodology
-        description: The methodology used to measure or verify the claimed outcome.
-        range: Methodology
-        multivalued: true
-        inlined: true
-        inlined_as_list: true
-      hasCreditClass:
-        slot_uri: rfs:hasCreditClass
-        description: >-
-          Credit class identifier (e.g., C01, C06) linking this claim to
-          a registered credit class on Regen Ledger.
-        range: string
-      contentHash:
-        slot_uri: rfs:contentHash
-        description: >-
-          BLAKE2b-256 content hash of the canonical claim representation,
-          used for on-chain anchoring via Regen Data Module.
-        range: string
-      dataIri:
-        slot_uri: rfs:dataIri
-        description: >-
-          Regen Data Module IRI derived from the content hash. Bridges the
-          off-chain claim to its on-chain anchor.
-        range: uri
-      supersedes:
-        slot_uri: rfs:supersedes
-        description: >-
-          IRI or RID of a previous claim that this claim supersedes,
-          forming a version chain. Accepts full IRIs and CURIE-form
-          identifiers such as ORN RIDs (orn:...).
-        range: uriorcurie
-    rules:
-      - description: >-
-          A quantity is ambiguous without its unit; quantityUnit is required
-          whenever quantity is present.
-        preconditions:
-          slot_conditions:
-            quantity:
-              value_presence: PRESENT
-        postconditions:
-          slot_conditions:
-            quantityUnit:
-              value_presence: PRESENT
-
-enums:
-  QuantityUnit:
+          Identifier of the exact, immutable earlier Claim version that this
+          Claim revises, typically its ClaimIRI. It never names a logical claim
+          or version family. In PROV a revision implies that both versions are
+          aspects of the same thing (alternateOf), so use it only for a revised
+          version of the same assertion; a separate, later assertion, such as a
+          follow-up observation, is a new Claim and is not a revision. The
+          earlier version is unchanged, its attestations do not carry over, and
+          selecting a current version happens outside the Claim.
+  GenericClaim:
+    is_a: Claim
+    class_uri: rfs:GenericClaim
     description: >-
-      Controlled vocabulary of measurement units for claim quantities.
-      Values are QUDT unit codes, each mapped to its QUDT unit IRI via
-      meaning. Extend as new claim types require additional units.
-    permissible_values:
-      TONNE:
-        description: Metric tonne (e.g., tonnes CO2e sequestered)
-        meaning: unit:TONNE
-      HA:
-        description: Hectare (e.g., hectares restored)
-        meaning: unit:HA
-      KILOGM:
-        description: Kilogram (QUDT code KiloGM)
-        meaning: unit:KiloGM
-      M3:
-        description: Cubic metre (e.g., water retained)
-        meaning: unit:M3
-      KILOM:
-        description: Kilometre (e.g., riparian length restored; QUDT code KiloM)
-        meaning: unit:KiloM
-      NUM:
-        description: Dimensionless count (e.g., trees planted)
-        meaning: unit:NUM
-      PERCENT:
-        description: Percentage (e.g., canopy cover change)
-        meaning: unit:PERCENT
+      A Claim with base content only, for an assertion that needs no
+      claim-type schema, such as a self-attested stewardship claim. It adds
+      nothing to Claim, and its generated shapes are closed, so impacts,
+      quantities, activities and other domain content are rejected; they
+      belong to a claim-type schema.
+
+slots:
+  claimStatement:
+    is_a: description
+    slot_uri: rfs:claimStatement
+    description: >-
+      The assertion, as the claimants state it in natural language. It is
+      asserted content, not a presentational summary: changing it changes the
+      Claim. A claim type may also formalize the assertion, or add detail to
+      it, in structured fields; the statement and those fields are one
+      assertion and must agree. When they disagree, neither overrides the
+      other: the Claim is internally inconsistent and is corrected by a new
+      version before its evidence is evaluated. Specializes
+      schema:description.
+    range: string
+    required: true
+  assertedBy:
+    is_a: wasAttributedTo
+    slot_uri: rfs:assertedBy
+    description: >-
+      The agent or agents that take responsibility for asserting this exact
+      content: an individual, organization or community. Each listed
+      claimant takes responsibility for the whole assertion. Taking that
+      responsibility is distinct from writing, extracting, generating,
+      transforming or submitting the content: a person, tool or service that
+      only did that is not a claimant unless it takes responsibility for the
+      assertion itself. A collective that asserts as one body is a single
+      claimant of type COMMUNITY or ORGANIZATION; listing it does not make
+      its members co-claimants. The capacity in which a claimant acts, such
+      as project proponent or verifier, is a role in the context of the
+      claim, not a kind of agent. Listing a claimant records who takes
+      responsibility; it does not by itself establish that the claimant is
+      authorized to assert on behalf of a project, community, program or
+      other party. Specializes
+      prov:wasAttributedTo, so under PROV each claimant is an agent associated
+      with the activity that generated the Claim, which is the act of
+      asserting. Unordered set.
+    range: Entity
+    required: true
+    multivalued: true
+    list_elements_ordered: false
+    minimum_cardinality: 1
+    inlined: true
+    inlined_as_list: true
+  assertedAt:
+    slot_uri: rfs:assertedAt
+    description: >-
+      When the claimants made this assertion. For an assertion they made in a
+      source document, such as a project plan, and that was transcribed
+      later, it is when they made it there, not when it was extracted,
+      transcribed or submitted. It is never the time of an observation, or
+      the time the Claim record was generated, submitted, published or
+      ingested. The same content asserted at a different time is a different
+      Claim. Written in UTC with whole seconds and the offset +00:00, for
+      example 2026-05-02T07:30:00+00:00. No other offset is accepted, and
+      neither is the Z suffix.
+    range: datetime
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"
+    required: true
+  hasSubject:
+    slot_uri: rfs:hasSubject
+    description: >-
+      The one focal resource the claim is about, as a ClaimSubject node
+      identified by its IRI: a place, plot, project, organization, community,
+      indicator, dataset or another claim. It is not every participant the
+      assertion mentions: in a claim relating several parties, the others
+      appear in named roles defined by the claim-type schema, or the
+      relationship or activity itself is the subject. Claims about the same
+      subject share its IRI and can be joined. Specialized claim schemas narrow the range to a subclass of
+      ClaimSubject. Not the claimant, and not necessarily the feature of
+      interest of an observation inside the claim.
+    range: ClaimSubject
+    inlined: true
+    required: true

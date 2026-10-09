@@ -1,0 +1,8 @@
+# expect: [] should be non-empty
+# At least one claimant must take responsibility for the assertion.
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy: []
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A

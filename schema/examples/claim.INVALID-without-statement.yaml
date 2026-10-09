@@ -1,0 +1,9 @@
+# expect: 'claimStatement' is a required property
+# A Claim states its assertion. A title alone does not say what is asserted.
+name: Hedgerow planting on plot A, spring 2026
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
