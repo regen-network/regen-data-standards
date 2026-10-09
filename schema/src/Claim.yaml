@@ -1,4 +1,4 @@
-id: Claim
+id: https://framework.regen.network/schema/Claim
 name: Claim
 description: >-
   The reusable base Claim: asserted content shared by every kind of claim.
@@ -77,7 +77,10 @@ classes:
       wasRevisionOf:
         description: >-
           Identifier of the exact, immutable earlier Claim version that this
-          Claim revises, typically its ClaimIRI. It never names a logical claim
+          Claim revises, typically its ClaimIRI. A Claim has no identifier
+          slot, because its ClaimIRI is computed over its canonical form
+          outside Claim content (regen-network/claims#1), so the value is a bare
+          IRI and the slot names no class. It never names a logical claim
           or version family. In PROV a revision implies that both versions are
           aspects of the same thing (alternateOf), so use it only for a revised
           version of the same assertion; a separate, later assertion, such as a

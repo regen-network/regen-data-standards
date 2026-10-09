@@ -13,7 +13,7 @@
       "@id": "assertedAt"
     },
     "assertedBy": {
-      "@type": "rfs:Entity",
+      "@type": "@id",
       "@id": "assertedBy"
     },
     "claimStatement": {
@@ -36,11 +36,11 @@
       "@id": "walletAddress"
     },
     "hasEvidence": {
-      "@type": "rfs:Evidence",
+      "@type": "@id",
       "@id": "hasEvidence"
     },
     "hasSubject": {
-      "@type": "rfs:ClaimSubject",
+      "@type": "@id",
       "@id": "hasSubject"
     },
     "identifier": {
@@ -60,18 +60,18 @@
       "@id": "dcterms:references"
     },
     "url": {
-      "@type": "xsd:anyURI",
+      "@type": "@id",
       "@id": "schema:url"
     },
     "version": {
       "@id": "schema:version"
     },
     "wasAssociatedWith": {
-      "@type": "rfs:Entity",
+      "@type": "@id",
       "@id": "prov:wasAssociatedWith"
     },
     "wasAttributedTo": {
-      "@type": "rfs:Entity",
+      "@type": "@id",
       "@id": "prov:wasAttributedTo"
     },
     "wasRevisionOf": {
@@ -104,9 +104,6 @@
     },
     "ProvEntity": {
       "@id": "prov:Entity"
-    },
-    "Resource": {
-      "@id": "Resource"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
