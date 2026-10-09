@@ -16,7 +16,9 @@ the playground data, and queries follow it with SPARQL property paths.
 The check loads every Turtle file gen-rdf wrote plus the hierarchy, and
 requires that, for every class and every specialized property in the schema,
 the property-path query returns every node and triple the schema's hierarchy
-implies. Run gen-rdf first.
+implies. A class that, like all its subclasses, belongs to another vocabulary
+(the Web Annotation selectors, for example) is skipped: that vocabulary
+publishes its own hierarchy. Run gen-rdf first.
 """
 
 import glob
@@ -65,6 +67,9 @@ def check(view):
 
     for name, cls in view.all_classes().items():
         types = {uri(view, view.get_class(d)) for d in view.class_descendants(name, mixins=True)}
+        if len(types) > 1 and not any(t.startswith(RFS) for t in types):
+            print(f"ℹ️  {name} ({uri(view, cls)}): its own vocabulary publishes its hierarchy")
+            continue
         expected = {node for t in types for node in graph.subjects(RDF.type, t)}
         if not expected:
             continue

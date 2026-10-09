@@ -1,11 +1,13 @@
 id: https://framework.regen.network/schema/Evidence
 name: Evidence
 description: >-
-  The evidence a Claim or Evaluation cites: one exact version of a source,
-  where its bytes can be fetched, the hash that lets a reader check them, and
-  the usage terms that applied to that version. Current availability, access
-  and the currently offered licence are not recorded here: they change after
-  the citation and are reported by the resolver.
+  The evidence a Claim or Evaluation cites. An Evidence record describes one
+  exact version of a source once: where its bytes can be fetched, the hash
+  that lets a reader check them, and the usage terms that applied to that
+  version. A Claim references it by IRI, and an EvidenceCitation says where
+  inside it the cited material is, using Web Annotation selectors. Current
+  availability, access and the currently offered licence are not recorded
+  here: they change after the citation and are reported by the resolver.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -13,6 +15,8 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   dcmitype: http://purl.org/dc/dcmitype/
   prov: http://www.w3.org/ns/prov#
+  oa: http://www.w3.org/ns/oa#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 
 imports:
   - linkml:types
@@ -30,10 +34,13 @@ classes:
       - ProvEntity
     description: >-
       A source cited as evidence: a document, dataset, record or observation,
-      identified by an IRI. The IRI names the exact version cited and may
-      carry a fragment for a position inside it, for example a page. Whether
-      it actually supports a claim is judged separately, by evaluations, and
-      its current availability or access is not recorded here.
+      identified by the IRI of the exact version cited. The IRI identifies
+      the whole source, never a position inside it: positions are on the
+      citation, so the same source cited at several places stays one
+      resource with one hash. A record is its own document, which claims and
+      evaluations reference by IRI. Whether it actually supports a claim is
+      judged separately, by evaluations, and its current availability or
+      access is not recorded here.
     slots:
       - name
       - description
@@ -41,7 +48,6 @@ classes:
       - mediaType
       - contentHash
       - resolver
-      - locator
       - licence
       - issued
       - wasGeneratedBy
@@ -54,15 +60,75 @@ classes:
       id:
         identifier: true
         range: uriorcurie
+        pattern: "^[^#]*$"
         description: >-
-          IRI or CURIE of the exact source version cited, for example
-          https://example.org/project-plan-v2.pdf#page=12.
+          IRI or CURIE of the exact source version cited, without a fragment,
+          for example https://example.org/project-plan-v2.pdf. A position
+          inside the source, such as a page, is a selector on the citation.
+
+  EvidenceCitation:
+    class_uri: rfs:EvidenceCitation
+    broad_mappings:
+      - oa:ResourceSelection
+    description: >-
+      Where inside one cited source the material a claim relies on is: a
+      local profile of a Web Annotation resource selection, with exactly one
+      source and zero or more selectors. Without a selector the whole source
+      is cited. Several selectors are alternative ways to locate the same
+      passage; distinct passages of one source are separate citations.
+      Changing a selector changes the citation, and so the citing record's
+      content, but never the source's IRI or hash.
+    slots:
+      - source
+      - selector
+    slot_usage:
+      source:
+        required: true
+
+  Selector:
+    class_uri: oa:Selector
+    abstract: true
+    description: >-
+      Web Annotation selector: how to locate a segment of the source. Its
+      kind is stated with selectorType.
+    slots:
+      - selectorType
+      - refinedBy
+
+  FragmentSelector:
+    is_a: Selector
+    class_uri: oa:FragmentSelector
+    description: >-
+      Locates a segment with a fragment identifier, such as page=16, in the
+      syntax conformsTo names, for example RFC 3778 for PDF pages.
+    slots:
+      - value
+      - conformsTo
+    slot_usage:
+      value:
+        required: true
+
+  TextQuoteSelector:
+    is_a: Selector
+    class_uri: oa:TextQuoteSelector
+    description: >-
+      Locates a passage by quoting it exactly, with the text just before and
+      after it to tell repeated passages apart. Used only when the quotation
+      itself locates the passage; a display excerpt, translation or
+      paraphrase is not a selector.
+    slots:
+      - exact
+      - prefix
+      - suffix
+    slot_usage:
+      exact:
+        required: true
 
   ContentDigest:
     class_uri: rfs:ContentDigest
     description: >-
       A cryptographic hash of the bytes of the cited source version: the whole
-      file, not the position a fragment points to. A reader recomputes it over
+      file, not a passage a citation selects. A reader recomputes it over
       the bytes the resolver returns to check that they are the bytes cited.
     attributes:
       algorithm:
@@ -110,12 +176,6 @@ slots:
     list_elements_ordered: false
     required: true
     minimum_cardinality: 1
-  locator:
-    slot_uri: rfs:locator
-    description: >-
-      Human-readable position inside the source, for example "section 1.9,
-      Table 2", when the IRI fragment is not enough.
-    range: string
   licence:
     slot_uri: dcterms:license
     description: >-
@@ -139,6 +199,72 @@ slots:
       produced by the same activity names the same activity IRI.
     range: Activity
     inlined: true
+
+  source:
+    slot_uri: oa:hasSource
+    description: >-
+      The cited source: the IRI of an Evidence record, which the citing
+      record also lists in hasEvidence.
+    range: Evidence
+    inlined: false
+  selector:
+    slot_uri: oa:hasSelector
+    description: >-
+      How to locate the cited segment of the source. Several selectors are
+      alternatives that locate the same segment. Unordered set.
+    range: Selector
+    any_of:
+      - range: FragmentSelector
+      - range: TextQuoteSelector
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  selectorType:
+    slot_uri: rdf:type
+    designates_type: true
+    description: >-
+      The kind of selector, as a CURIE: oa:FragmentSelector or
+      oa:TextQuoteSelector.
+    range: uriorcurie
+    required: true
+  refinedBy:
+    slot_uri: oa:refinedBy
+    description: >-
+      A selector applied to the segment this one selects, for example a
+      quotation within a page. Several are alternatives with the same result.
+      Unordered set.
+    range: Selector
+    any_of:
+      - range: FragmentSelector
+      - range: TextQuoteSelector
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  value:
+    slot_uri: rdf:value
+    description: The fragment identifier, without the leading "#", such as page=16.
+    range: string
+  conformsTo:
+    slot_uri: dcterms:conformsTo
+    description: >-
+      The specification of the fragment syntax, for example
+      http://tools.ietf.org/rfc/rfc3778 for PDF or
+      http://www.w3.org/TR/media-frags/ for audio and video.
+    range: uri
+  exact:
+    slot_uri: oa:exact
+    description: The exact text of the passage.
+    range: string
+  prefix:
+    slot_uri: oa:prefix
+    description: Text immediately before the passage.
+    range: string
+  suffix:
+    slot_uri: oa:suffix
+    description: Text immediately after the passage.
+    range: string
 
 enums:
   DCMIType:

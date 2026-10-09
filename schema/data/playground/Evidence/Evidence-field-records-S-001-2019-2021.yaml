@@ -1,0 +1,19 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Field management records, site S-001, 2019 to 2021, described once and cited by IRI.
+id: https://example.org/c06/exports/field-records-S-001-2019-2021.csv
+name: Field management records, site S-001, 2019 to 2021
+sourceType: DATASET
+mediaType: text/csv
+contentHash:
+  algorithm: SHA_256
+  digestValue: 9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c
+resolver:
+  - https://example.org/c06/exports/field-records-S-001-2019-2021.csv
+wasGeneratedBy:
+  id: https://example.org/c06/site/S-001/activity/field-operations-2019-2021
+  name: Field operations on site S-001, 2019 to 2021
+  startDate: "2019-01-01"
+  endDate: "2021-12-31"
+  wasAssociatedWith:
+    - name: Example Farm Operator
+      type: INDIVIDUAL

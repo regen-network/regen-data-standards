@@ -45,7 +45,8 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 0..1 | When the claimants make the assertion. |
 | `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
-| `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
+| `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | IRI of an `Evidence` record | 0..*, set | Sources the claimant presents as evidence. Each record is its own document, described once and never inlined. |
+| `hasEvidenceCitation` | `rfs:hasEvidenceCitation` | `EvidenceCitation` (inlined) | 0..*, set | Where inside a cited source the material is: one source and Web Annotation selectors. A source cited as a whole needs none. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Exact Claim or Evaluation versions this claim rests on, such as its premises. A Claim is never cited as evidence. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
 
@@ -64,11 +65,14 @@ new version (`wasRevisionOf`) before its evidence is evaluated.
 
 Every resource a claim points to is written as a node with its own IRI and an RDF type, never as a
 bare IRI, so the generated JSON Schema and SHACL can validate it as generated and claims can be
-queried by what they point to. `wasRevisionOf` and `reliesOn` are the exceptions (see
-[Shared vocabulary](#shared-vocabulary)). Claim-type schemas define the kinds of subject they need as
+queried by what they point to. There are three exceptions. `wasRevisionOf` and `reliesOn` name Claim
+or Evaluation versions (see [Shared vocabulary](#shared-vocabulary)). `hasEvidence` names an `Evidence`
+record that is its own document, so a source cited by many claims is described once; the record's type
+is checked where the records are stored together (`sh:class rfs:Evidence`). Claim-type schemas define the kinds of subject they need as
 subclasses of [`ClaimSubject`](../schema/src/ClaimSubject.yaml), for example `Plot is_a ClaimSubject`.
-Each [`Evidence`](../schema/src/Evidence.yaml) node carries the hash of the cited version, where to
-fetch it, its DCMI type, its licence reference and the activity that produced it; see
+Each [`Evidence`](../schema/src/Evidence.yaml) record carries the hash of the cited version, where to
+fetch it, its DCMI type, its licence reference and the activity that produced it, and a citation
+says where inside it the cited material is; see
 [`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md) (#73).
 
 ## Shared vocabulary
@@ -81,7 +85,7 @@ slots it lists.
 |---|---|---|
 | `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `assertedBy`. |
 | `references` | `dcterms:references` | Parent of `hasEvidence` and `reliesOn`: a plain citation. |
-| `hasEvidence`, `reliesOn`, `wasRevisionOf` | `rfs:hasEvidence`, `rfs:reliesOn`, `prov:wasRevisionOf` | Base Claim; reusable by evaluations. |
+| `hasEvidence`, `hasEvidenceCitation`, `reliesOn`, `wasRevisionOf` | `rfs:hasEvidence`, `rfs:hasEvidenceCitation`, `rfs:reliesOn`, `prov:wasRevisionOf` | Base Claim; reusable by evaluations. |
 | `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Defined with `Activity` in [`Activity.yaml`](../schema/src/Activity.yaml), which `ClaimVocabulary` imports ([#73](https://github.com/regen-network/regen-data-standards/issues/73)). It names who carried out an activity: the one that generated a piece of evidence, or a domain activity a claim-type schema describes, e.g. a restoration activity. |
 
 Two slots of the base Claim are plain IRI references: `wasRevisionOf` and `reliesOn`, with

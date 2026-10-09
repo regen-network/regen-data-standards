@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Land tenure workbook export, February 2026, described once and cited by IRI.
+id: https://example.org/c06/exports/tenure-2026-02.csv
+name: Land tenure workbook export, February 2026
+sourceType: DATASET
+mediaType: text/csv
+contentHash:
+  algorithm: SHA_256
+  digestValue: 013d8824c7e0c9ffc1486e012d18e82c907757b3d9eb05481332d9a1c64917de
+resolver:
+  - https://example.org/c06/exports/tenure-2026-02.csv

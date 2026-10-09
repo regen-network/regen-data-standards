@@ -1,7 +1,8 @@
 # Synthetic example (example.org identifiers): a project developer's claim about
 # a whole aggregate project, as asserted in one project plan version. The rule
 # sets it applies are exact versions; the requested deviation's approval is a
-# separate evaluation.
+# separate evaluation. It cites two passages of the same plan as two citations
+# of one Evidence record.
 name: Example project P-001 design
 claimStatement: >-
   Example project P-001 is an aggregate soil-carbon project of sites enrolled
@@ -43,14 +44,15 @@ requestedDeviations:
       Aligns the leakage assessment with the supplementary methodology used for
       the baseline.
 hasEvidence:
-  - id: https://example.org/c06/project-plan-v2.0.pdf#page=8
-    name: Example project plan v2.0
-    sourceType: TEXT
-    mediaType: application/pdf
-    contentHash:
-      algorithm: SHA_256
-      digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
-    resolver:
-      - https://example.org/c06/project-plan-v2.0.pdf
-    licence: https://example.org/c06/licences/project-documents/v2
-    issued: "2026-02-20"
+  - https://example.org/c06/project-plan-v2.0.pdf
+hasEvidenceCitation:
+  - source: https://example.org/c06/project-plan-v2.0.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=8
+        conformsTo: http://tools.ietf.org/rfc/rfc3778
+  - source: https://example.org/c06/project-plan-v2.0.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=16
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

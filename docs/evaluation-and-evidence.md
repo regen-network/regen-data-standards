@@ -32,6 +32,7 @@ flowchart LR
 
     PC & CC & SC & PLC -- hasSubject --> S
     PC & CC & SC & PLC -- hasEvidence --> E
+    PC & SC -- "hasEvidenceCitation (source + selectors)" --> E
     A -- "hasTarget (e.g. a verifier's finding → a developer's claim)" --> PC
     A -- "hasTarget (e.g. a registry's confirmation → the verifier's finding)" --> A
     A -- "hasTarget (an evidence evaluation → the evidence it assesses)" --> E
@@ -66,8 +67,8 @@ grouped by the issuer's `findingLabel`.
 | Module | Change | Imports |
 |---|---|---|
 | `Claim.yaml` | `hasClaimType` removed (see [Field migrations](#field-migrations)). | as before |
-| `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
-| `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, locator, licence reference, issue date and generating activity (`wasGeneratedBy`), and the integrity-outcome terms. | adds `Activity` |
+| `ClaimVocabulary.yaml` | `hasEvidence` references `Evidence` records by IRI instead of inlining them, and `hasEvidenceCitation` is added (both on the base Claim). Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
+| `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: `Evaluation is_a Claim`, `Scope`, and the program-agnostic kinds `EvidenceEvaluation` and `ClaimConsistencyEvaluation` with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the abstract `RegistryReviewEvaluation is_a Evaluation`, its kinds `RegistryRequirementEvaluation`, `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
@@ -272,29 +273,83 @@ verifier's rating, not the Registry's decision. The generic `outcome` does not r
 
 ## Evidence
 
-Evidence names one exact version of a source, says where to fetch it, lets a reader check the bytes,
-and states the usage terms that applied to that version.
+An `Evidence` record names one exact version of a source, says where to fetch it, lets a reader
+check the bytes, and states the usage terms that applied to that version. It is its own document:
+a claim or evaluation lists it in `hasEvidence` by IRI, never inlined, so a source cited by many
+claims is described once ([example](../schema/examples/claim.INVALID-inlined-evidence.yaml) of
+inlined evidence being rejected). Where inside the source the cited material is goes on a citation
+([Citations](#citations)), so the record identifies the whole source.
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `id` | — | IRI | 1 | The exact version cited, optionally with a fragment for a position. |
-| `name`, `description` | `schema:name`, `schema:description` | string | 0..1 | Title; what it is, in the citer's words. |
+| `id` | — | IRI without a fragment | 1 | The exact version cited, as a whole ([example](../schema/examples/evidence.INVALID-fragment-in-iri.yaml) with a page fragment, rejected by JSON Schema only). |
+| `name`, `description` | `schema:name`, `schema:description` | string | 0..1 | Title; what it is. |
 | `sourceType` | `dcterms:type` | DCMI Type Vocabulary | 1 | `TEXT`, `DATASET`, `STILL_IMAGE`… Finer kinds a program accepts belong to its rule set. |
 | `mediaType` | `dcterms:format` | string | 0..1 | For example `application/pdf`. |
-| `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version. |
+| `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version ([example](../schema/examples/evidence.INVALID-without-hash.yaml) without it). |
 | `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source. |
-| `locator` | `rfs:locator` | string | 0..1 | Position inside the source when the fragment is not enough. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
 | `wasGeneratedBy` | `prov:wasGeneratedBy` | `Activity` (inlined, with its IRI) | 0..1 | The activity that produced the source. |
 
-**Who produced it, and when.** `wasGeneratedBy` names the activity that produced the cited source,
+One IRI identifies one version, with one hash. Two records that give the same IRI different hashes
+merge, in the graph store, into one node with two, which SHACL rejects
+([example](../schema/examples/evidence.INVALID-second-digest.yaml): valid on its own, rejected merged
+with the published records).
+
+### Citations
+
+A citation (`hasEvidenceCitation`, an `EvidenceCitation`) says where inside one cited source the
+material a claim relies on is. It is a local profile of a W3C Web Annotation resource selection
+(`oa:ResourceSelection`), reusing the Web Annotation terms rather than minting `rfs:` ones:
+
+| Field | RDF term | Range | Card. | Meaning |
+|---|---|---|---|---|
+| `source` | `oa:hasSource` | IRI of an `Evidence` record | 1 | The cited source, also listed in `hasEvidence` ([example](../schema/examples/claim.INVALID-citation-without-source.yaml) without it). |
+| `selector` | `oa:hasSelector` | `FragmentSelector` or `TextQuoteSelector` | 0..*, set | How to locate the cited segment. Several are alternative ways to locate the same segment. |
+
+| Selector | Fields | Use |
+|---|---|---|
+| `FragmentSelector` (`oa:FragmentSelector`) | `value` (`rdf:value`, required), `conformsTo` (`dcterms:conformsTo`), `refinedBy` | A fragment identifier, such as `page=16`, in the syntax `conformsTo` names: RFC 3778 for PDF, Media Fragments for audio and video, RFC 7111 for CSV rows. |
+| `TextQuoteSelector` (`oa:TextQuoteSelector`) | `exact` (`oa:exact`, required), `prefix`, `suffix`, `refinedBy` | Only when the exact quotation locates the passage. A display excerpt, translation or paraphrase is not a selector. |
+
+Each selector states its kind with `selectorType` (`oa:FragmentSelector` or `oa:TextQuoteSelector`),
+which becomes its RDF type, and may be narrowed with `refinedBy` (`oa:refinedBy`), for example a
+page narrowed to a quotation. In JSON-LD a citation reads as Web Annotation JSON:
+
+```json
+"hasEvidenceCitation": [{
+  "@type": "EvidenceCitation",
+  "source": "https://example.org/c06/project-plan-v2.1.pdf",
+  "selector": [{
+    "@type": "FragmentSelector",
+    "value": "page=16",
+    "conformsTo": "http://tools.ietf.org/rfc/rfc3778",
+    "refinedBy": [{"@type": "TextQuoteSelector", "exact": "1.8 Project Start Date"}]
+  }]
+}]
+```
+
+- **Whole source:** listed in `hasEvidence`, with no citation (the land register extract and land
+  cover maps in [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld)).
+- **Several passages of one source:** separate citations with the same `source` (pages 8 and 16 of
+  the project plan in [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld)).
+- **A passage narrowed to a quotation:** a fragment selector refined by a quote selector
+  ([`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld)).
+
+Changing a selector changes the citation, and so the citing record's content, but never the cited
+`Evidence` IRI or record. `make -C schema check-claim-examples` checks this for every
+example with a citation.
+
+### Who produced it, and when
+
+`wasGeneratedBy` names the activity that produced the cited source,
 for example the soil sampling behind a results file, or the field operations a farm management
 record documents. The activity has its own IRI, its period (`startDate`, `endDate`, as dates) and
 who carried it out (`wasAssociatedWith`), who may differ from the claimant. The time a source was
 produced is the activity's, not a field of Evidence, because PROV-O declares activities and entities
 disjoint. Evidence produced by the same activity names the same activity IRI, so an activity always
-has one ([example](../schema/examples/c06-claim.INVALID-activity-without-iri.yaml) of an activity
+has one ([example](../schema/examples/evidence.INVALID-activity-without-iri.yaml) of an activity
 without an IRI being rejected). A claim reaches the
 activity through its evidence (claim → `hasEvidence` → `wasGeneratedBy` → activity); it does not
 describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
@@ -318,7 +373,9 @@ after the citation.
 **Evidence IRI.** Still open, to decide with WP6-04 and
 [claims#1](https://github.com/regen-network/claims/issues/1): the source's own versioned identifier, an
 IRI derived from its hash, or a storage IRI that includes a revision. An editable source, such as a
-spreadsheet or database, is cited through a captured export and its hash.
+spreadsheet or database, is cited through a captured export and its hash. Since a claim now holds only
+the IRI, the choice decides whether the claim's identity still pins the cited bytes: only an IRI
+derived from the hash does (see [Known limitations](#known-limitations)).
 
 ## Shared terms
 
@@ -402,11 +459,12 @@ validators.
 
 | Example | Shows |
 |---|---|
-| [`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) | A `C06SiteClaim`: base Claim fields, a `Site` subject with its identifying fields, C06 values, evidence as a document and datasets, and field records with the activity that generated them and its operator |
-| [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, a requested deviation, and evidence under a versioned licence |
+| [`c06-mvp-claim.jsonld`](../schema/examples/c06-mvp-claim.jsonld) | A `C06SiteClaim`: base Claim fields, a `Site` subject with its identifying fields, C06 values, evidence as a document and datasets, and a citation of a plan page narrowed to a quotation |
+| [`c06-project-claim.jsonld`](../schema/examples/c06-project-claim.jsonld) | A `C06ProjectClaim` with exact rule-set and methodology versions, periods, a requested deviation, and two citations of one plan |
 | [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
+| [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the activity that generated it |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A base `Evaluation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`evidence-evaluation.jsonld`](../schema/examples/evidence-evaluation.jsonld) | An `EvidenceEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
@@ -428,8 +486,11 @@ handling, and that imported definitions are not separate whole-claim targets. As
    service has to ([claims#55](https://github.com/regen-network/claims/issues/55)).
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
-3. Nested nodes (subjects, evidence and its activities, scope, conditions) are checked as values of the root, not as
-   documents of their own.
+3. Nested nodes (subjects, citations, scope, conditions) are checked as values of the root, not as
+   documents of their own. An `Evidence` record, with its activity, is a document of its own, with
+   `Evidence` as entry point. A claim's SHACL check that the IRIs in `hasEvidence` and `source` are
+   `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
+   are IRIs.
 4. Shapes are closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)).
 5. The root is typed with its own class only, not also `Claim`.
@@ -469,10 +530,12 @@ the source.
 | `Attestation.hasVerdict` (`VerdictType`) | The verdict field of each kind (`requirementOutcome`, `findingState`, `reportRating`, `evidentialStance`, `evidenceSufficiency`, `claimConsistency`), or `outcome` (IRI) on a base `Evaluation`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
 | `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingState`, `ReportRating`. A registration approval is an institutional decision, not a requirement outcome. |
 | `Attestation.rationale` | Unchanged |
-| `Attestation.evidenceReviewed` (bare URI) | `hasEvidence` (Evidence nodes, inherited) |
+| `Attestation.evidenceReviewed` (bare URI) | `hasEvidence` (IRIs of `Evidence` records, inherited) |
 | `Attestation.attestationDate` (date) | `assertedAt` (UTC datetime, inherited) |
 | `Attestation.contentHash`, `graphIri` | Removed |
 | `Evidence` (IRI, name, description) | Adds required `sourceType`, `contentHash` and `resolver`: existing evidence must state them |
+| `hasEvidence` (inlined `Evidence` nodes, #85) | IRIs of `Evidence` records, each its own document |
+| `Evidence` IRI with a fragment (`…pdf#page=16`), `Evidence.locator` | IRI without a fragment; the position is a selector on an `EvidenceCitation` (`hasEvidenceCitation`) |
 
 ## Known limitations
 
@@ -490,6 +553,19 @@ the source.
 - **Abstract classes are not rejected as entry points.** A document typed `RegistryReviewEvaluation`
   passes both generated validators (checked with LinkML 1.11.1), so a review judgment without its
   kind's verdict can only be caught by the service, as for a document typed `Claim`.
+- **A claim's identity no longer pins the cited bytes.** A claim holds the `Evidence` IRI, and the
+  hash is in the separate record, so the ClaimIRI covers the hash only if the `Evidence` IRI is
+  derived from it. The proposed ADR 0002 D9
+  ([claims#60 at 76e8932](https://github.com/regen-network/claims/blob/76e8932c77be0ccf66bd1339d5394a6bd7348481/docs/adr/0002-claim-and-snapshot-identity.md))
+  treats an evidence hash as content inside the Claim. Whether `Evidence` IRIs are content-derived is open (see
+  [Evidence IRI](#evidence)).
+- **Two digests and a duplicate look the same.** A digest is a blank node, so the same record loaded
+  twice into one merged graph also has two `contentHash` values, and SHACL rejects it like a
+  conflicting record. The graph store loads each record once, or keeps each document in its own
+  named graph.
+- **Not checked by either validator:** that a citation's `source` is also listed in `hasEvidence`;
+  that the `Evidence` IRI has no fragment (JSON Schema only: SHACL cannot match a pattern against a
+  node's IRI); and what `conformsTo` names.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
