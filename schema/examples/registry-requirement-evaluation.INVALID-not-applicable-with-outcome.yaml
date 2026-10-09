@@ -1,14 +1,14 @@
-# Synthetic example (example.org identifiers): a registry's written confirmation
-# that answers a verifier's clarification request about a rolling, cohort-based
-# crediting structure. It is about the project, targets the exact versions of
-# the two sub-findings it answers, relies on the developer's enrolment-cutoff
-# claim, and is scoped to the enrolled cohorts. The targeted and relied-on
-# identifiers are labelled placeholders for ClaimIRIs (regen-network/claims#1).
+# expect: should not be valid under {'required': ['requirementOutcome']}
+# class: RegistryRequirementEvaluation
+# shacl: not enforced
+# A requirement that does not apply has no verdict. This is a LinkML rule,
+# which the generated JSON Schema enforces and the generated SHACL does not
+# express.
 name: Registry confirmation of the cohort-based crediting structure
 claimStatement: >-
-  The registry accepts the rolling cohort-based crediting and permanence
-  structure described in the project plan for the cohorts enrolled from 2020 to
-  2023, subject to the scope below.
+  The rolling cohort-based crediting and permanence structure described in the
+  project plan satisfies the credit class's crediting term for the cohorts
+  enrolled from 2020 to 2023, subject to the scope below.
 assertedBy:
   - name: Example Registry
     type: ORGANIZATION
@@ -23,7 +23,10 @@ reliesOn:
   - https://example.org/placeholder/claim-iri/developer-enrolment-cutoff
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
-outcome: rfs:ApprovedForRegistration
+appliesRequirement:
+  - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
+applicability: NOT_APPLICABLE
+requirementOutcome: SATISFIED
 rationale: >-
   Each cohort keeps a full ten-year crediting period from its baseline sampling,
   and the enrolment cutoff prevents open-ended expansion.

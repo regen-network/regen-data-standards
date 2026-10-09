@@ -1,0 +1,21 @@
+# Synthetic example (example.org identifiers): a reviewer records that a claim's
+# statement and its structured fields disagree. The claim is corrected by a new
+# version before its evidence is evaluated. The claim identifier is a labelled
+# placeholder for its ClaimIRI (regen-network/claims#1).
+name: Consistency review of the plot B restoration claim
+claimStatement: >-
+  The restoration claim for plot B is internally inconsistent: its statement
+  and its area field give different restored areas.
+assertedBy:
+  - name: Example Registry
+    type: ORGANIZATION
+assertedAt: "2026-07-01T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/B
+  name: Plot B
+hasTarget:
+  - https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1
+claimConsistency: INTERNALLY_INCONSISTENT
+rationale: The statement gives 12 ha restored; the area field gives 15 ha.
+verificationMethod: OTHER
+verificationMethodDescriptor: Desk review of the claim record

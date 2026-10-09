@@ -112,7 +112,8 @@ slots:
     description: >-
       What an evaluation judges or answers: the identifier of an exact,
       immutable version of a claim, of another evaluation, or of a snapshot
-      (a fixed set of claim versions). Never a logical identifier or label.
+      (a fixed set of claim versions), or, for an evidence evaluation, of the
+      Evidence records it assesses. Never a logical identifier or label.
       Unordered set.
     range: uriorcurie
     multivalued: true

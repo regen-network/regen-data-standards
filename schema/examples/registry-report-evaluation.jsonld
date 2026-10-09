@@ -382,9 +382,9 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "RegistryFindingEvaluation",
-  "name": "Clarification request on the cohort-based crediting period",
-  "claimStatement": "The project plan assigns each cohort its own ten-year crediting period. The developer is asked to show how this structure meets the credit class's ten-year crediting term.",
+  "@type": "RegistryReportEvaluation",
+  "name": "Validation report rating for example project P-001",
+  "claimStatement": "The verifier accepts example project P-001 as described in project plan v2.0, once the project proponent closes the open clarification requests and the verifier resubmits the report.",
   "assertedBy": [
     {
       "@type": "Entity",
@@ -392,37 +392,38 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-03-02T00:00:00+00:00",
+  "assertedAt": "2026-04-15T00:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/c06/project/P-001",
     "name": "Example project P-001"
   },
-  "hasTarget": [
-    "https://example.org/placeholder/claim-iri/developer-crediting-period"
+  "reliesOn": [
+    "https://example.org/placeholder/claim-iri/verifier-finding-7-1",
+    "https://example.org/placeholder/claim-iri/verifier-finding-7-2"
   ],
   "appliesRuleSet": [
-    "https://example.org/rule-set/credit-class-c06/1.5.2"
+    "https://example.org/rule-set/credit-class-c06/1.5.2",
+    "https://example.org/rule-set/program-guide/1.1"
   ],
-  "findingState": "OPEN",
+  "reportRating": "ACCEPTANCE_WITH_CONTINGENCIES",
+  "rationale": "Two clarification requests on the crediting period structure remain open; the rest of the project design conforms.",
   "verificationMethod": "THIRD_PARTY_AUDITED",
   "issuerRole": "VVB",
-  "findingType": "CL",
-  "findingLabel": "CL 07(1)",
   "hasEvidence": [
     {
       "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=16",
-      "name": "Example project plan v2.0, crediting period",
+      "id": "https://example.org/c06/validation-report-v1.pdf",
+      "name": "Example validation report v1",
       "sourceType": "TEXT",
       "mediaType": "application/pdf",
       "contentHash": {
         "@type": "ContentDigest",
         "algorithm": "SHA_256",
-        "digestValue": "c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6"
+        "digestValue": "cf68b1198ce6384dabd9cee4589d46b9d5b8d86c572f200124eb3d2663f31481"
       },
       "resolver": [
-        "https://example.org/c06/project-plan-v2.0.pdf"
+        "https://example.org/c06/validation-report-v1.pdf"
       ]
     }
   ]

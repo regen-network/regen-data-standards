@@ -14,14 +14,6 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "applicability": {
-      "@id": "applicability",
-      "@type": "@vocab",
-      "@context": {
-        "APPLICABLE": "rfs:Applicable",
-        "NOT_APPLICABLE": "rfs:NotApplicable"
-      }
-    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -56,13 +48,6 @@
     },
     "claimStatement": {
       "@id": "claimStatement"
-    },
-    "conditionLabel": {
-      "@id": "conditionLabel"
-    },
-    "conditions": {
-      "@type": "@id",
-      "@id": "conditions"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -118,28 +103,6 @@
     "exclusion": {
       "@id": "exclusion"
     },
-    "findingLabel": {
-      "@id": "findingLabel"
-    },
-    "findingState": {
-      "@id": "findingState",
-      "@type": "@vocab",
-      "@context": {
-        "OPEN": "rfs:FindingOpen",
-        "CLOSED": "rfs:FindingClosed"
-      }
-    },
-    "findingType": {
-      "@id": "findingType",
-      "@type": "@vocab",
-      "@context": {
-        "CAR": "rfs:CorrectiveActionRequest",
-        "CL": "rfs:ClarificationRequest",
-        "FAR": "rfs:ForwardActionRequest",
-        "REGISTRY_ISSUE": "rfs:RegistryIssue",
-        "OTHER": "rfs:OtherFindingType"
-      }
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
@@ -165,16 +128,6 @@
       "@type": "xsd:date",
       "@id": "dcterms:issued"
     },
-    "issuerRole": {
-      "@id": "issuerRole",
-      "@type": "@vocab",
-      "@context": {
-        "REGISTRY_AGENT": "rfs:RegistryAgent",
-        "VVB": "rfs:ValidationVerificationBody",
-        "CREDIT_CLASS_ADMIN": "rfs:CreditClassAdmin",
-        "OTHER": "rfs:OtherIssuerRole"
-      }
-    },
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
@@ -187,16 +140,6 @@
     },
     "mediaType": {
       "@id": "dcterms:format"
-    },
-    "milestone": {
-      "@id": "milestone",
-      "@type": "@vocab",
-      "@context": {
-        "REGISTRATION": "rfs:RegistrationMilestone",
-        "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
-        "VERIFICATION": "rfs:VerificationMilestone",
-        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
-      }
     },
     "name": {
       "@id": "schema:name"
@@ -223,24 +166,6 @@
     "reliesOn": {
       "@type": "@id",
       "@id": "reliesOn"
-    },
-    "reportRating": {
-      "@id": "reportRating",
-      "@type": "@vocab",
-      "@context": {
-        "ACCEPTANCE": "rfs:Acceptance",
-        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
-        "REJECTION": "rfs:Rejection"
-      }
-    },
-    "requirementOutcome": {
-      "@id": "requirementOutcome",
-      "@type": "@vocab",
-      "@context": {
-        "SATISFIED": "rfs:Satisfied",
-        "NOT_SATISFIED": "rfs:NotSatisfied",
-        "UNDETERMINED": "rfs:Undetermined"
-      }
     },
     "resolver": {
       "@type": "@id",
@@ -327,9 +252,6 @@
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
-    "Condition": {
-      "@id": "Condition"
-    },
     "ContentDigest": {
       "@id": "ContentDigest"
     },
@@ -363,18 +285,6 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
-    "RegistryFindingEvaluation": {
-      "@id": "RegistryFindingEvaluation"
-    },
-    "RegistryReportEvaluation": {
-      "@id": "RegistryReportEvaluation"
-    },
-    "RegistryRequirementEvaluation": {
-      "@id": "RegistryRequirementEvaluation"
-    },
-    "RegistryReviewEvaluation": {
-      "@id": "RegistryReviewEvaluation"
-    },
     "Scope": {
       "@id": "Scope"
     },
@@ -382,48 +292,30 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "RegistryFindingEvaluation",
-  "name": "Clarification request on the cohort-based crediting period",
-  "claimStatement": "The project plan assigns each cohort its own ten-year crediting period. The developer is asked to show how this structure meets the credit class's ten-year crediting term.",
+  "@type": "EvidenceEvaluation",
+  "name": "Steward assessment of the plot A hedgerow evidence",
+  "claimStatement": "The planting log and the June walkover photographs support the claim that 400 m of hedgerow was planted on plot A, but are not enough to establish it: the photographs cover about 250 m of the boundary.",
   "assertedBy": [
     {
       "@type": "Entity",
-      "name": "Example Verifier",
-      "type": "ORGANIZATION"
+      "name": "Valley Stewards Circle",
+      "type": "COMMUNITY"
     }
   ],
-  "assertedAt": "2026-03-02T00:00:00+00:00",
+  "assertedAt": "2026-06-12T10:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
-    "id": "https://example.org/c06/project/P-001",
-    "name": "Example project P-001"
+    "id": "https://example.org/plot/A",
+    "name": "Plot A"
   },
   "hasTarget": [
-    "https://example.org/placeholder/claim-iri/developer-crediting-period"
+    "https://example.org/evidence/planting-log-2026-v1.pdf",
+    "https://example.org/evidence/walkover-photos-2026-06.zip"
   ],
-  "appliesRuleSet": [
-    "https://example.org/rule-set/credit-class-c06/1.5.2"
-  ],
-  "findingState": "OPEN",
-  "verificationMethod": "THIRD_PARTY_AUDITED",
-  "issuerRole": "VVB",
-  "findingType": "CL",
-  "findingLabel": "CL 07(1)",
-  "hasEvidence": [
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.0.pdf#page=16",
-      "name": "Example project plan v2.0, crediting period",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6"
-      },
-      "resolver": [
-        "https://example.org/c06/project-plan-v2.0.pdf"
-      ]
-    }
-  ]
+  "assessedAgainst": "https://example.org/placeholder/claim-iri/generic-claim-v1",
+  "evidentialStance": "SUPPORTS",
+  "evidenceSufficiency": "INSUFFICIENT",
+  "rationale": "The log records 400 m planted; the photographs show the western 250 m of the boundary only.",
+  "verificationMethod": "OTHER",
+  "verificationMethodDescriptor": "Desk review of the cited evidence by a community steward"
 }

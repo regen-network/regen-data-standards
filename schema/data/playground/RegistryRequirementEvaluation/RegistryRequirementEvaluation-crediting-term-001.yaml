@@ -1,12 +1,16 @@
-# expect: 'outcome' is a required property
-# class: RegistryReviewEvaluation
-# A registry review is recorded when there is a judgment, so it states its
-# verdict. A requirement that cannot yet be decided is rfs:RequirementPending.
+# Synthetic example (example.org identifiers): a registry's written confirmation
+# that a rolling, cohort-based crediting structure satisfies the credit class's
+# crediting term, answering a verifier's clarification request. It is about the
+# project, applies one exact requirement version, targets the exact versions of
+# the two sub-findings it answers, relies on the developer's enrolment-cutoff
+# claim, and is scoped to the enrolled cohorts. It finds the requirement
+# satisfied; it does not approve the project's registration. The targeted and relied-on
+# identifiers are labelled placeholders for ClaimIRIs (regen-network/claims#1).
 name: Registry confirmation of the cohort-based crediting structure
 claimStatement: >-
-  The registry accepts the rolling cohort-based crediting and permanence
-  structure described in the project plan for the cohorts enrolled from 2020 to
-  2023, subject to the scope below.
+  The rolling cohort-based crediting and permanence structure described in the
+  project plan satisfies the credit class's crediting term for the cohorts
+  enrolled from 2020 to 2023, subject to the scope below.
 assertedBy:
   - name: Example Registry
     type: ORGANIZATION
@@ -21,6 +25,10 @@ reliesOn:
   - https://example.org/placeholder/claim-iri/developer-enrolment-cutoff
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
+appliesRequirement:
+  - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
+applicability: APPLICABLE
+requirementOutcome: SATISFIED
 rationale: >-
   Each cohort keeps a full ten-year crediting period from its baseline sampling,
   and the enrolment cutoff prevents open-ended expansion.
