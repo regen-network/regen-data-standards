@@ -64,15 +64,16 @@ grouped by the issuer's `findingLabel`.
 | Module | Change | Imports |
 |---|---|---|
 | `Claim.yaml` | `hasClaimType` removed (see [Field migrations](#field-migrations)). | as before |
-| `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `requirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
+| `ClaimVocabulary.yaml` | Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, locator, licence reference, issue date and generating activity (`wasGeneratedBy`), and the integrity-outcome terms. | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: `Evaluation is_a Claim`, and `Scope`. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: `RegistryReviewEvaluation is_a Evaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
 
-No `Requirement` class exists or is added: requirements belong to the rule set (WP5), and claims and
-evaluations reference them by IRI. Inheritance follows #85: domain claims are `is_a Claim`, shared
+No `Requirement` class exists or is added: requirements belong to the rule set, whose format WP5-01
+([claims#30](https://github.com/regen-network/claims/issues/30)) defines, and claims and evaluations
+reference them by IRI. Inheritance follows #85: domain claims are `is_a Claim`, shared
 terms are imported from `ClaimVocabulary`.
 
 ## Evaluation
@@ -145,7 +146,7 @@ fields the other judgments do not: a finding type and at least one piece of evid
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | Exact versions judged or answered. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Versions the judgment depends on without judging them, such as a claim stating an enrolment cutoff. |
-| `requirement` | `rfs:requirement` | IRI | 0..*, set | Requirements judged, each named within a checklist version. |
+| `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
@@ -256,10 +257,21 @@ the issuer and `assertedAt`, so a subject checked by two methods has two evaluat
 party and date. A claim with no evaluation is self-attested by the base Claim's definition. The
 extension path is `OTHER` with a descriptor, then a new value in a later schema version.
 
-**Rule-set version** (`appliesRuleSet`) and **requirement** (`requirement`) references are IRIs
-of exact versions. A requirement IRI names its checklist version, because the same short ID can name
-different requirements in different versions; mapping historical IDs to current ones is rule-set data.
-Neither is a schema-version declaration.
+**Rule-set version** (`appliesRuleSet`) and **requirement** references are IRIs of exact versions.
+A requirement IRI identifies one immutable requirement version within an exact rule-set version,
+such as a checklist version, because the same short ID can name different requirements in different
+versions; mapping historical IDs to current ones is rule-set data. Neither is a schema-version
+declaration.
+
+Two relations reference requirements, from the two sides:
+
+- `appliesRequirement`, on an evaluation: the requirement versions it applies or judges, whether or
+  not the claimant named them.
+- `addressesRequirement`, where a claimant names a requirement: the requirement versions the claimant
+  presents a Claim, or part of it, as responding to. It records intent only and implies neither that
+  the requirement applies nor that it is met. It is not on the base Claim, since many claims respond
+  to no requirement; a claim type selects it, as `DeviationRequest` does for the requirements a
+  deviation replaces.
 
 ## C06 claims
 

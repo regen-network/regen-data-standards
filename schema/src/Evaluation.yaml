@@ -33,7 +33,7 @@ classes:
     slots:
       - hasTarget
       - reliesOn
-      - requirement
+      - appliesRequirement
       - appliesRuleSet
       - outcome
       - rationale

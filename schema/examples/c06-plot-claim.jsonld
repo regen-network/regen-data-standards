@@ -12,6 +12,10 @@
     "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -19,6 +23,10 @@
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
     },
     "appliesRuleSet": {
       "@type": "@id",
@@ -323,10 +331,6 @@
     "requestedDeviations": {
       "@type": "@id",
       "@id": "requestedDeviations"
-    },
-    "requirement": {
-      "@type": "@id",
-      "@id": "requirement"
     },
     "resolver": {
       "@type": "@id",

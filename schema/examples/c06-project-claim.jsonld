@@ -12,6 +12,10 @@
     "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -19,6 +23,10 @@
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
     },
     "appliesRuleSet": {
       "@type": "@id",
@@ -324,10 +332,6 @@
       "@type": "@id",
       "@id": "requestedDeviations"
     },
-    "requirement": {
-      "@type": "@id",
-      "@id": "requirement"
-    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -543,7 +547,7 @@
   "requestedDeviations": [
     {
       "@type": "DeviationRequest",
-      "requirement": [
+      "addressesRequirement": [
         "https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/ML-020"
       ],
       "replacedParameters": "A three-year historical lookback and a 5% productivity-decline trigger instead of a five-year rolling average and a 10% trigger.",
