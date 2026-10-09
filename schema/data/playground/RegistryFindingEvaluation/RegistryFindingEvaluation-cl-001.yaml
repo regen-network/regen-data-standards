@@ -25,12 +25,10 @@ issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)
 hasEvidence:
-  - id: https://example.org/c06/project-plan-v2.0.pdf#page=16
-    name: Example project plan v2.0, crediting period
-    sourceType: TEXT
-    mediaType: application/pdf
-    contentHash:
-      algorithm: SHA_256
-      digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
-    resolver:
-      - https://example.org/c06/project-plan-v2.0.pdf
+  - https://example.org/c06/project-plan-v2.0.pdf
+hasEvidenceCitation:
+  - source: https://example.org/c06/project-plan-v2.0.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=16
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

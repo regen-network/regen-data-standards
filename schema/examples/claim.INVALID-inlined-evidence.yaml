@@ -1,0 +1,23 @@
+# expect: is not of type 'string'
+# hasEvidence references an Evidence record by IRI. The record is its own
+# document, described once; inlining it would put its description into the
+# Claim's content.
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasEvidence:
+  - id: https://example.org/evidence/planting-log-2026-v1.pdf
+    name: Planting log, spring 2026 (v1)
+    sourceType: TEXT
+    mediaType: application/pdf
+    contentHash:
+      algorithm: SHA_256
+      digestValue: 0565254fd498456cc07a7be4a379b6d38e849ef145dc0c122daaab8a9cb8cf46
+    resolver:
+      - https://example.org/evidence/planting-log-2026-v1.pdf

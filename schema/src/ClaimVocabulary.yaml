@@ -86,11 +86,24 @@ slots:
     is_a: references
     slot_uri: rfs:hasEvidence
     description: >-
-      Sources the claimant presents as evidence for the assertion, each an
-      Evidence node identified by the IRI of the exact version cited. Whether
-      a source actually supports the assertion is judged separately, by
+      Sources the claimant presents as evidence for the assertion, each the
+      IRI of an Evidence record for the exact version cited. The record is
+      its own document, described once and never inlined. Where inside a
+      source the cited material is goes in hasEvidenceCitation. Whether a
+      source actually supports the assertion is judged separately, by
       evaluations. Specializes dcterms:references. Unordered set.
     range: Evidence
+    inlined: false
+    multivalued: true
+    list_elements_ordered: false
+  hasEvidenceCitation:
+    slot_uri: rfs:hasEvidenceCitation
+    description: >-
+      Where inside cited sources the material the assertion relies on is:
+      citations, each with one source listed in hasEvidence and the
+      selectors that locate the material. A source cited as a whole needs
+      no citation. Unordered set.
+    range: EvidenceCitation
     inlined: true
     inlined_as_list: true
     multivalued: true

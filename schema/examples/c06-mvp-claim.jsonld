@@ -3,8 +3,10 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -57,6 +59,10 @@
     "cohort": {
       "@type": "@id",
       "@id": "cohort"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "algorithm",
@@ -144,6 +150,9 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
@@ -151,6 +160,10 @@
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
@@ -183,9 +196,6 @@
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
-    },
-    "locator": {
-      "@id": "locator"
     },
     "mediaType": {
       "@id": "dcterms:format"
@@ -261,6 +271,9 @@
         "REFORESTATION": "rft:Reforestation"
       }
     },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
     "primaryLandUse": {
       "@id": "primaryLandUse",
       "@type": "@vocab",
@@ -318,6 +331,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "registryProjectId": {
       "@id": "registryProjectId"
     },
@@ -336,6 +353,14 @@
       "@type": "@id",
       "@id": "resolver"
     },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "site": {
       "@type": "@id",
       "@id": "site"
@@ -349,6 +374,10 @@
     },
     "soilGroup": {
       "@id": "soilGroup"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -375,6 +404,9 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "tenureBasis": {
       "@id": "tenureBasis",
       "@type": "@vocab",
@@ -387,6 +419,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "verificationMethod",
@@ -462,6 +497,12 @@
     "Evidence": {
       "@id": "Evidence"
     },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
     "GenericClaim": {
       "@id": "GenericClaim"
     },
@@ -489,8 +530,14 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
     "Site": {
       "@id": "Site"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -538,66 +585,27 @@
     "2024-04-02"
   ],
   "hasEvidence": [
+    "https://example.org/c06/project-plan-v2.1.pdf",
+    "https://example.org/c06/exports/soil-sampling-2026-05.csv",
+    "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
+  ],
+  "hasEvidenceCitation": [
     {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.1.pdf#page=16",
-      "name": "Example project plan v2.1, section 1.8",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9"
-      },
-      "resolver": [
-        "https://example.org/c06/project-plan-v2.1.pdf"
-      ],
-      "locator": "Section 1.8, Project Start Date",
-      "issued": "2026-07-10"
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/soil-sampling-2026-05.csv",
-      "name": "Soil sampling export, May 2026",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "a69e3f990801846d6dc9f9ff81527e1ee7f54a65896654616551e34a53d87575"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/soil-sampling-2026-05.csv"
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/project-plan-v2.1.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=16",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778",
+          "refinedBy": [
+            {
+              "@type": "TextQuoteSelector",
+              "exact": "1.8 Project Start Date"
+            }
+          ]
+        }
       ]
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
-      "name": "Field management records, site S-001, 2019 to 2021",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
-      ],
-      "wasGeneratedBy": {
-        "@type": "Activity",
-        "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
-        "name": "Field operations on site S-001, 2019 to 2021",
-        "startDate": "2019-01-01",
-        "endDate": "2021-12-31",
-        "wasAssociatedWith": [
-          {
-            "@type": "Entity",
-            "name": "Example Farm Operator",
-            "type": "INDIVIDUAL"
-          }
-        ]
-      }
     }
   ]
 }

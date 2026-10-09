@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Example validation report v1, described once and cited by IRI.
+id: https://example.org/c06/validation-report-v1.pdf
+name: Example validation report v1
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: cf68b1198ce6384dabd9cee4589d46b9d5b8d86c572f200124eb3d2663f31481
+resolver:
+  - https://example.org/c06/validation-report-v1.pdf

@@ -57,6 +57,7 @@ classes:
       - assertedAt
       - hasSubject
       - hasEvidence
+      - hasEvidenceCitation
       - wasRevisionOf
     slot_usage:
       name:
