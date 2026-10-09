@@ -10,6 +10,14 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
+    },
     "appliesRuleSet": {
       "@type": "@id",
       "@id": "appliesRuleSet"
@@ -112,10 +120,6 @@
     "reliesOn": {
       "@type": "@id",
       "@id": "reliesOn"
-    },
-    "requirement": {
-      "@type": "@id",
-      "@id": "requirement"
     },
     "resolver": {
       "@type": "@id",

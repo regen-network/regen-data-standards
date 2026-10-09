@@ -161,6 +161,21 @@ classes:
 - Declare set or sequence semantics on every new multivalued slot.
 - Put the period of a domain activity on the activity class, with `prov:startedAtTime` and
   `prov:endedAtTime` for timestamps or date-typed terms such as `schema:startDate` for dates.
+- A claim type that responds to requirements selects `addressesRequirement` from `ClaimVocabulary`:
+  a repeatable reference to exact requirement versions, recording the claimant's intent without
+  implying the requirement applies or is met (an evaluation judges that with `appliesRequirement`).
+  For example, a claim type whose purpose is to answer requirements can require it:
+
+  ```yaml
+  RequirementClaim:
+    is_a: Claim
+    slots: [addressesRequirement]
+    slot_usage:
+      addressesRequirement: {required: true, minimum_cardinality: 1}
+  ```
+
+  A shared `RequirementClaim`, and the requirement records themselves, belong to WP5
+  ([claims#30](https://github.com/regen-network/claims/issues/30)).
 
 The shape above was checked with a scratch schema: it validated and produced the expected RDF. A
 scratch claim type also passed the open `Claim` shape, and its own closed shape rejected an
