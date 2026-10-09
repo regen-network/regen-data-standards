@@ -126,8 +126,7 @@
   "assertedAt": "2026-05-02T07:30:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
-    "id": "https://example.org/plot/A",
-    "name": "Plot A"
+    "id": "https://example.org/plot/A"
   },
   "hasEvidence": [
     {

@@ -23,13 +23,12 @@ classes:
     description: >-
       What a Claim is about: a place, plot, project, organization, community,
       indicator, dataset or another claim, identified by an IRI so that claims
-      about the same subject can be joined. The IRI identifies the subject
-      itself; its full description lives on its own resource.
-    slots:
-      - name
-    slot_usage:
-      name:
-        description: Human-readable name of the subject.
+      about the same subject can be joined. In a Claim the node carries only
+      the subject's IRI and its type, the class a claim type's hasSubject
+      range names, so that the range can be checked in one document. Its
+      name and full description live on its own resource, not in each Claim
+      about it: otherwise every Claim would state its own name for the
+      subject, and the names would merge on the subject's IRI.
     attributes:
       id:
         identifier: true

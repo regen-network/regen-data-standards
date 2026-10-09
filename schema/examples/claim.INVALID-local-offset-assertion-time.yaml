@@ -9,4 +9,3 @@ assertedBy:
 assertedAt: "2026-05-02T09:30:00+02:00"
 hasSubject:
   id: https://example.org/plot/A
-  name: Plot A

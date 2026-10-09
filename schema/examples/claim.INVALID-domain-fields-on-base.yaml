@@ -10,7 +10,6 @@ assertedBy:
 assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
-  name: Plot A
 hasOperator:
   name: Hedgerow Cooperative
   type: COMMUNITY
