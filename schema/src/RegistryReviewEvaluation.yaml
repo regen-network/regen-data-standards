@@ -42,9 +42,11 @@ classes:
     is_a: RegistryReviewEvaluation
     class_uri: rfs:RegistryRequirementEvaluation
     description: >-
-      The evaluator's finding, as of its date, on whether a project meets the
-      exact requirement versions it applies. It states whether the
-      requirement applies and, when it does, whether it is satisfied. A
+      The evaluator's finding, as of its date, on whether a project meets one
+      exact requirement version. It states whether the requirement applies
+      and, when it does, whether it is satisfied. Each requirement judged is
+      its own evaluation, so every requirement has its own applicability and
+      outcome. A
       satisfied requirement is not an approval of the project's registration,
       which is an institutional decision.
     slots:
@@ -52,8 +54,12 @@ classes:
       - requirementOutcome
     slot_usage:
       appliesRequirement:
+        description: >-
+          The one exact requirement version judged. Exactly one, so that the
+          applicability and outcome are unambiguously that requirement's.
         required: true
         minimum_cardinality: 1
+        maximum_cardinality: 1
       applicability:
         required: true
     rules:

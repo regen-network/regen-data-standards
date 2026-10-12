@@ -244,7 +244,10 @@ each with its own required verdict. It holds what the kinds share:
 | `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
 
 **`RegistryRequirementEvaluation`**: the evaluator's finding, as of its date, on whether a project
-meets the exact requirement versions it applies (`appliesRequirement`, required).
+meets one exact requirement version (`appliesRequirement`, exactly one). Each requirement judged is
+its own evaluation, so a record cannot give two requirements one shared outcome
+([example](../schema/examples/registry-requirement-evaluation.INVALID-two-requirements.yaml) with two
+requirements).
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
