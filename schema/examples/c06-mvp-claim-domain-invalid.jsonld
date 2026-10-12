@@ -6,8 +6,10 @@
     "dcterms": "http://purl.org/dc/terms/",
     "geo": "http://www.opengis.net/ont/geosparql#",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -16,6 +18,10 @@
     "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -23,6 +29,18 @@
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
+    },
+    "applicability": {
+      "@id": "rfs:applicability",
+      "@type": "@vocab",
+      "@context": {
+        "APPLICABLE": "rfs:Applicable",
+        "NOT_APPLICABLE": "rfs:NotApplicable"
+      }
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
     },
     "appliesRuleSet": {
       "@type": "@id",
@@ -39,6 +57,14 @@
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
+    },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "assessedAgainst": {
+      "@type": "@id",
+      "@id": "assessedAgainst"
     },
     "asWKT": {
       "@id": "geo:asWKT"
@@ -118,6 +144,17 @@
       "@type": "xsd:duration",
       "@id": "hasPermanencePeriod"
     },
+    "claimConsistency": {
+      "@id": "rfs:claimConsistency",
+      "@type": "@vocab",
+      "@context": {
+        "CONSISTENT": "rfs:Consistent",
+        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+      }
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
     "climateClass": {
       "@id": "climateClass"
     },
@@ -131,6 +168,10 @@
     "conditions": {
       "@type": "@id",
       "@id": "conditions"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "rfs:algorithm",
@@ -335,6 +376,26 @@
         "COMMUNITY": "rfs:Community"
       }
     },
+    "evidenceSufficiency": {
+      "@id": "rfs:evidenceSufficiency",
+      "@type": "@vocab",
+      "@context": {
+        "SUFFICIENT": "rfs:Sufficient",
+        "INSUFFICIENT": "rfs:Insufficient"
+      }
+    },
+    "evidentialStance": {
+      "@id": "rfs:evidentialStance",
+      "@type": "@vocab",
+      "@context": {
+        "SUPPORTS": "rfs:Supports",
+        "CHALLENGES": "rfs:Challenges",
+        "NO_BEARING": "rfs:NoBearing"
+      }
+    },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "exclusion": {
       "@id": "exclusion"
     },
@@ -351,6 +412,14 @@
     },
     "findingLabel": {
       "@id": "findingLabel"
+    },
+    "findingState": {
+      "@id": "rfs:findingState",
+      "@type": "@vocab",
+      "@context": {
+        "OPEN": "rfs:FindingOpen",
+        "CLOSED": "rfs:FindingClosed"
+      }
     },
     "findingType": {
       "@id": "rfs:findingType",
@@ -375,13 +444,13 @@
       "@type": "@id",
       "@id": "geo:hasCentroid"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasGeometry": {
       "@type": "@id",
@@ -454,6 +523,9 @@
         "SDG_17": "https://sdgs.un.org/goals/goal17"
       }
     },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
     "isAggregateProject": {
       "@type": "xsd:boolean",
       "@id": "isAggregateProject"
@@ -481,9 +553,6 @@
     },
     "limitation": {
       "@id": "limitation"
-    },
-    "locator": {
-      "@id": "locator"
     },
     "extent": {
       "@type": "@id",
@@ -605,6 +674,9 @@
         "AFFORESTATION": "rft:Afforestation",
         "REFORESTATION": "rft:Reforestation"
       }
+    },
+    "prefix": {
+      "@id": "oa:prefix"
     },
     "primaryLandUse": {
       "@id": "rfs:primaryLandUse",
@@ -818,6 +890,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "registryProjectId": {
       "@id": "registryProjectId"
     },
@@ -828,13 +904,27 @@
     "replacedParameters": {
       "@id": "replacedParameters"
     },
+    "reportRating": {
+      "@id": "rfs:reportRating",
+      "@type": "@vocab",
+      "@context": {
+        "ACCEPTANCE": "rfs:Acceptance",
+        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+        "REJECTION": "rfs:Rejection"
+      }
+    },
     "requestedDeviations": {
       "@type": "@id",
       "@id": "requestedDeviations"
     },
-    "requirement": {
-      "@type": "@id",
-      "@id": "requirement"
+    "requirementOutcome": {
+      "@id": "rfs:requirementOutcome",
+      "@type": "@vocab",
+      "@context": {
+        "SATISFIED": "rfs:Satisfied",
+        "NOT_SATISFIED": "rfs:NotSatisfied",
+        "UNDETERMINED": "rfs:Undetermined"
+      }
     },
     "resolver": {
       "@type": "@id",
@@ -843,6 +933,14 @@
     "scope": {
       "@type": "@id",
       "@id": "scope"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
     },
     "site": {
       "@type": "@id",
@@ -857,6 +955,10 @@
     },
     "soilGroup": {
       "@id": "soilGroup"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -883,6 +985,9 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "tenureBasis": {
       "@id": "rfs:tenureBasis",
       "@type": "@vocab",
@@ -899,6 +1004,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "rfs:verificationMethod",
@@ -941,9 +1049,6 @@
     "Any": {
       "@id": "linkml:Any"
     },
-    "Attestation": {
-      "@id": "Attestation"
-    },
     "BT01ProjectInfo": {
       "@id": "BT01ProjectInfo"
     },
@@ -965,9 +1070,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -976,6 +1078,9 @@
     },
     "Claim": {
       "@id": "Claim"
+    },
+    "ClaimConsistencyEvaluation": {
+      "@id": "ClaimConsistencyEvaluation"
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
@@ -1010,8 +1115,17 @@
     "Entity": {
       "@id": "Entity"
     },
+    "Evaluation": {
+      "@id": "Evaluation"
+    },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "EvidenceEvaluation": {
+      "@id": "EvidenceEvaluation"
     },
     "Feature": {
       "@id": "geo:Feature"
@@ -1026,6 +1140,15 @@
           "@id": "dcterms:title"
         }
       }
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
+    "GenericEvaluation": {
+      "@id": "GenericEvaluation"
     },
     "Geometry": {
       "@id": "geo:Geometry"
@@ -1080,17 +1203,29 @@
     "Registry": {
       "@id": "Registry"
     },
-    "RegistryFindingAttestation": {
-      "@id": "RegistryFindingAttestation"
+    "RegistryFindingEvaluation": {
+      "@id": "RegistryFindingEvaluation"
     },
-    "RegistryReviewAttestation": {
-      "@id": "RegistryReviewAttestation"
+    "RegistryReportEvaluation": {
+      "@id": "RegistryReportEvaluation"
+    },
+    "RegistryRequirementEvaluation": {
+      "@id": "RegistryRequirementEvaluation"
+    },
+    "RegistryReviewEvaluation": {
+      "@id": "RegistryReviewEvaluation"
     },
     "Scope": {
       "@id": "Scope"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
     "Site": {
       "@id": "Site"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -1098,19 +1233,18 @@
   },
   "@type": "C06SiteClaim",
   "name": "Site S-001 start date, crediting period and practices",
-  "description": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
-  "hasClaimant": [
+  "claimStatement": "Site S-001 started on 15 March 2022, with its first baseline soil sampling, and has a ten-year crediting period. It is cropland under no-till and cover cropping, with activity records from 2019.",
+  "assertedBy": [
     {
       "@type": "Entity",
       "name": "Example Soil Carbon Developer",
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-07-10T00:00:00Z",
+  "assertedAt": "2026-07-10T00:00:00+00:00",
   "hasSubject": {
     "@type": "Site",
     "id": "https://example.org/c06/site/S-001",
-    "name": "Site S-001",
     "siteKey": "S-001",
     "country": "CZ",
     "project": "https://example.org/c06/project/P-001",
@@ -1138,66 +1272,27 @@
     "2024-04-02"
   ],
   "hasEvidence": [
+    "https://example.org/c06/project-plan-v2.1.pdf",
+    "https://example.org/c06/exports/soil-sampling-2026-05.csv",
+    "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
+  ],
+  "hasEvidenceCitation": [
     {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/project-plan-v2.1.pdf#page=16",
-      "name": "Example project plan v2.1, section 1.8",
-      "sourceType": "TEXT",
-      "mediaType": "application/pdf",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "d4d5bef22b2cf5f32803a1f0f96babab96acfca1aaed1cd1a51fb8327a678ab9"
-      },
-      "resolver": [
-        "https://example.org/c06/project-plan-v2.1.pdf"
-      ],
-      "locator": "Section 1.8, Project Start Date",
-      "issued": "2026-07-10"
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/soil-sampling-2026-05.csv",
-      "name": "Soil sampling export, May 2026",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "a69e3f990801846d6dc9f9ff81527e1ee7f54a65896654616551e34a53d87575"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/soil-sampling-2026-05.csv"
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/project-plan-v2.1.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=16",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778",
+          "refinedBy": [
+            {
+              "@type": "TextQuoteSelector",
+              "exact": "1.8 Project Start Date"
+            }
+          ]
+        }
       ]
-    },
-    {
-      "@type": "Evidence",
-      "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
-      "name": "Field management records, site S-001, 2019 to 2021",
-      "sourceType": "DATASET",
-      "mediaType": "text/csv",
-      "contentHash": {
-        "@type": "ContentDigest",
-        "algorithm": "SHA_256",
-        "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
-      },
-      "resolver": [
-        "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
-      ],
-      "wasGeneratedBy": {
-        "@type": "Activity",
-        "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
-        "name": "Field operations on site S-001, 2019 to 2021",
-        "startDate": "2019-01-01",
-        "endDate": "2021-12-31",
-        "wasAssociatedWith": [
-          {
-            "@type": "Entity",
-            "name": "Example Farm Operator",
-            "type": "INDIVIDUAL"
-          }
-        ]
-      }
     }
   ]
 }

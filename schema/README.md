@@ -47,7 +47,9 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
 | `json-schema.json` | `gen-json-schema --include-range-class-descendants`, with a `$id` unique to the version | JSON Schema; the entry point for a class is `#/$defs/<class>` |
 | `shacl.ttl` | `gen-shacl`, serialized canonically | SHACL shapes; the shape for a class has the class IRI and targets it |
 | `linkml.yaml` | `gen-linkml --mergeimports` | The schema with every import merged, including `linkml:types`, so generation and validation need no import lookups |
+| `hierarchy.ttl` | `scripts/gen-hierarchy.py`, serialized canonically | `rdfs:subClassOf` and `rdfs:subPropertyOf` triples of the `rfs:` classes and slots. Load it with the data: instances carry only their most specific class, and with it the open `Claim` and `Evaluation` shapes apply to every claim type and kind of evaluation |
 | `examples/` | Copies of `examples/*.jsonld` with this version's context | Valid examples, and invalid ones the manifest says what they violate |
+| `records/` | Copies of `examples/records/*.jsonld` with this version's context | The records the examples cite by IRI: `evidence.jsonld` holds every `Evidence` record, as one JSON-LD `@graph` |
 
 [`versions/manifest.json`](versions/manifest.json) maps each version to:
 
@@ -59,13 +61,14 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
   `rdflib` (which serializes `shacl.ttl`) and `PyYAML` (which writes `linkml.yaml`), all pinned in
   `requirements.txt`;
 - `files`: each artifact's path and SHA-256, and the JSON Schema's `$id`;
-- `entryPoints`: `Claim` and every concrete class that specializes it, with its class IRI, JSON
-  Schema location and SHACL shape;
+- `entryPoints`: every concrete class that specializes `Claim`, and `Evidence`, whose records are
+  documents of their own, each with its class IRI, JSON Schema location and SHACL shape;
 - `examples`: each example's entry point, whether it is valid, and, if not, the only slots it may
-  violate.
+  violate;
+- `records`: each records file, the class of its records and its SHA-256.
 
 `latest` names the highest version. The first version, `0.1.0`, is the schema with the base Claim,
-Attestation, Evidence and C06 claim modules
+Evaluation, Evidence and C06 claim modules
 ([#85](https://github.com/regen-network/regen-data-standards/pull/85),
 [#87](https://github.com/regen-network/regen-data-standards/pull/87),
 [#90](https://github.com/regen-network/regen-data-standards/pull/90)) and the existing credit class
@@ -88,7 +91,9 @@ make check-claim-examples    # check the examples and invalid documents with the
 - every file the manifest lists exists and has its SHA-256, and every entry point exists in the JSON
   Schema and SHACL shapes;
 - every example of every version is accepted by both validators, or, if invalid, rejected by both
-  and only on the slots the manifest names. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
+  and only on the slots the manifest names. SHACL checks each example as a graph store holds it:
+  with the version's `hierarchy.ttl` and, unless it is an `Evidence` record, with the version's
+  `records/`. Every record is checked too. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
   fields of `c06-mvp-claim.jsonld` and fails only the C06 constraint on `practices`;
 - for the current version, `src/` is the recorded source and regenerating every artifact gives the
   same bytes.
@@ -113,13 +118,18 @@ python3 scripts/schema-artifacts.py bundle --source <dir>/schema --version <vers
 The entry point is the class of the document's root node (its `@type`). Validate:
 
 - with SHACL: the RDF graph of the JSON-LD document, parsed with the version's context, against
-  `shacl.ttl`. Keep lexical forms as written: `assertedAt` must keep its `Z`;
-- with JSON Schema: the document with its JSON-LD keywords (`@context`, `@type`) removed, which is
-  its LinkML data form, against `json-schema.json#/$defs/<class>`.
+  `shacl.ttl`, together with `hierarchy.ttl` and the `Evidence` records the document cites by IRI
+  (`hasEvidence`): the shapes require each cited IRI to be an `rfs:Evidence`. An `Evidence` record is
+  validated on its own. Keep lexical forms as written: `assertedAt` must keep its `Z`;
+- with JSON Schema: the document's LinkML data form against `json-schema.json#/$defs/<class>`:
+  the document with its JSON-LD keywords (`@context`, `@type`) removed, except that a selector's
+  `@type` is written back as its `selectorType` (`"FragmentSelector"` becomes
+  `"selectorType": "oa:FragmentSelector"`), which the JSON Schema uses to tell the selector classes
+  apart.
 
 Imported definitions are not separate targets: they are checked as values reached from the root.
-Neither validation needs a network lookup: the context is inline, and the shapes and JSON Schema are
-self-contained.
+Neither validation needs a network lookup: the context is inline, and the shapes, hierarchy and JSON
+Schema are self-contained.
 
 A validator that holds several versions keeps them apart:
 
@@ -150,9 +160,15 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
   - nested objects need an explicit `@type`, which `scripts/claim-examples.py` adds when it builds a
     document.
 - **Class `rules` are not translated to SHACL** ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)),
-  so a constraint written as a rule is enforced by the JSON Schema only. In this schema, that is
-  `Attestation`'s two rules: a `verificationMethod` of `OTHER` requires a
-  `verificationMethodDescriptor`, and an attestation with a `scope` does not state `unbounded`.
+  so a constraint written as a rule is enforced by the JSON Schema only. In this schema, those are
+  `Evaluation`'s two rules (a `verificationMethod` of `OTHER` requires a
+  `verificationMethodDescriptor`; an evaluation with a `scope` does not state `unbounded`),
+  `EvidenceEvaluation`'s (an `evidentialStance` of `NO_BEARING` has no `evidenceSufficiency`) and
+  `RegistryRequirementEvaluation`'s three on `applicability`. Each has an invalid example marked
+  `# shacl: not enforced`.
+- **A `pattern` on an identifier slot is not checked by SHACL**, which cannot match a pattern
+  against the IRI of a node. `Evidence.id` must have no fragment (`^[^#]*$`); the JSON Schema
+  enforces it, and its invalid example is marked `# shacl: not enforced`.
 - **Class-level `any_of` is dropped by `gen-shacl`.** A slot-level `any_of` over enums is expressed
   in JSON Schema and SHACL, but the generated context leaves its values as strings, so SHACL rejects
   valid values, and `linkml-convert` fails on it.
@@ -165,7 +181,7 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
 - **`gen-shacl` output order varies between runs.** It is generated with `PYTHONHASHSEED=0` and
   serialized canonically, so it can be compared byte for byte.
 - **A typed node of a subclass fails `sh:class`** for its superclass unless the validator is given
-  the class hierarchy, so subject references are plain IRIs.
+  the class hierarchy, which is why each version publishes `hierarchy.ttl`.
 - **A `uriorcurie` slot cannot be narrowed to an enum in a subclass**: the generated Python model of
   the base class rejects the value.
 

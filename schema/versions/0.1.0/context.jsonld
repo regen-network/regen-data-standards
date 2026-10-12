@@ -6,8 +6,10 @@
     "dcterms": "http://purl.org/dc/terms/",
     "geo": "http://www.opengis.net/ont/geosparql#",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -16,6 +18,10 @@
     "unit": "http://qudt.org/vocab/unit/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -23,6 +29,18 @@
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
+    },
+    "applicability": {
+      "@id": "rfs:applicability",
+      "@type": "@vocab",
+      "@context": {
+        "APPLICABLE": "rfs:Applicable",
+        "NOT_APPLICABLE": "rfs:NotApplicable"
+      }
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
     },
     "appliesRuleSet": {
       "@type": "@id",
@@ -39,6 +57,14 @@
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
+    },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "assessedAgainst": {
+      "@type": "@id",
+      "@id": "assessedAgainst"
     },
     "asWKT": {
       "@id": "geo:asWKT"
@@ -118,6 +144,17 @@
       "@type": "xsd:duration",
       "@id": "hasPermanencePeriod"
     },
+    "claimConsistency": {
+      "@id": "rfs:claimConsistency",
+      "@type": "@vocab",
+      "@context": {
+        "CONSISTENT": "rfs:Consistent",
+        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+      }
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
     "climateClass": {
       "@id": "climateClass"
     },
@@ -131,6 +168,10 @@
     "conditions": {
       "@type": "@id",
       "@id": "conditions"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
     },
     "algorithm": {
       "@id": "rfs:algorithm",
@@ -335,6 +376,26 @@
         "COMMUNITY": "rfs:Community"
       }
     },
+    "evidenceSufficiency": {
+      "@id": "rfs:evidenceSufficiency",
+      "@type": "@vocab",
+      "@context": {
+        "SUFFICIENT": "rfs:Sufficient",
+        "INSUFFICIENT": "rfs:Insufficient"
+      }
+    },
+    "evidentialStance": {
+      "@id": "rfs:evidentialStance",
+      "@type": "@vocab",
+      "@context": {
+        "SUPPORTS": "rfs:Supports",
+        "CHALLENGES": "rfs:Challenges",
+        "NO_BEARING": "rfs:NoBearing"
+      }
+    },
+    "exact": {
+      "@id": "oa:exact"
+    },
     "exclusion": {
       "@id": "exclusion"
     },
@@ -351,6 +412,14 @@
     },
     "findingLabel": {
       "@id": "findingLabel"
+    },
+    "findingState": {
+      "@id": "rfs:findingState",
+      "@type": "@vocab",
+      "@context": {
+        "OPEN": "rfs:FindingOpen",
+        "CLOSED": "rfs:FindingClosed"
+      }
     },
     "findingType": {
       "@id": "rfs:findingType",
@@ -375,13 +444,13 @@
       "@type": "@id",
       "@id": "geo:hasCentroid"
     },
-    "hasClaimant": {
-      "@type": "@id",
-      "@id": "hasClaimant"
-    },
     "hasEvidence": {
       "@type": "@id",
       "@id": "hasEvidence"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasGeometry": {
       "@type": "@id",
@@ -454,6 +523,9 @@
         "SDG_17": "https://sdgs.un.org/goals/goal17"
       }
     },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
     "isAggregateProject": {
       "@type": "xsd:boolean",
       "@id": "isAggregateProject"
@@ -481,9 +553,6 @@
     },
     "limitation": {
       "@id": "limitation"
-    },
-    "locator": {
-      "@id": "locator"
     },
     "extent": {
       "@type": "@id",
@@ -605,6 +674,9 @@
         "AFFORESTATION": "rft:Afforestation",
         "REFORESTATION": "rft:Reforestation"
       }
+    },
+    "prefix": {
+      "@id": "oa:prefix"
     },
     "primaryLandUse": {
       "@id": "rfs:primaryLandUse",
@@ -818,6 +890,10 @@
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
     "registryProjectId": {
       "@id": "registryProjectId"
     },
@@ -828,13 +904,27 @@
     "replacedParameters": {
       "@id": "replacedParameters"
     },
+    "reportRating": {
+      "@id": "rfs:reportRating",
+      "@type": "@vocab",
+      "@context": {
+        "ACCEPTANCE": "rfs:Acceptance",
+        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+        "REJECTION": "rfs:Rejection"
+      }
+    },
     "requestedDeviations": {
       "@type": "@id",
       "@id": "requestedDeviations"
     },
-    "requirement": {
-      "@type": "@id",
-      "@id": "requirement"
+    "requirementOutcome": {
+      "@id": "rfs:requirementOutcome",
+      "@type": "@vocab",
+      "@context": {
+        "SATISFIED": "rfs:Satisfied",
+        "NOT_SATISFIED": "rfs:NotSatisfied",
+        "UNDETERMINED": "rfs:Undetermined"
+      }
     },
     "resolver": {
       "@type": "@id",
@@ -843,6 +933,14 @@
     "scope": {
       "@type": "@id",
       "@id": "scope"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
     },
     "site": {
       "@type": "@id",
@@ -857,6 +955,10 @@
     },
     "soilGroup": {
       "@id": "soilGroup"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
     },
     "sourceType": {
       "@id": "dcterms:type",
@@ -883,6 +985,9 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "tenureBasis": {
       "@id": "rfs:tenureBasis",
       "@type": "@vocab",
@@ -899,6 +1004,9 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "verificationMethod": {
       "@id": "rfs:verificationMethod",
@@ -941,9 +1049,6 @@
     "Any": {
       "@id": "linkml:Any"
     },
-    "Attestation": {
-      "@id": "Attestation"
-    },
     "BT01ProjectInfo": {
       "@id": "BT01ProjectInfo"
     },
@@ -965,9 +1070,6 @@
     "C06ProjectClaim": {
       "@id": "C06ProjectClaim"
     },
-    "C06ProjectStatementClaim": {
-      "@id": "C06ProjectStatementClaim"
-    },
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
@@ -976,6 +1078,9 @@
     },
     "Claim": {
       "@id": "Claim"
+    },
+    "ClaimConsistencyEvaluation": {
+      "@id": "ClaimConsistencyEvaluation"
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
@@ -1010,8 +1115,17 @@
     "Entity": {
       "@id": "Entity"
     },
+    "Evaluation": {
+      "@id": "Evaluation"
+    },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "EvidenceEvaluation": {
+      "@id": "EvidenceEvaluation"
     },
     "Feature": {
       "@id": "geo:Feature"
@@ -1026,6 +1140,15 @@
           "@id": "dcterms:title"
         }
       }
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
+    "GenericEvaluation": {
+      "@id": "GenericEvaluation"
     },
     "Geometry": {
       "@id": "geo:Geometry"
@@ -1080,17 +1203,29 @@
     "Registry": {
       "@id": "Registry"
     },
-    "RegistryFindingAttestation": {
-      "@id": "RegistryFindingAttestation"
+    "RegistryFindingEvaluation": {
+      "@id": "RegistryFindingEvaluation"
     },
-    "RegistryReviewAttestation": {
-      "@id": "RegistryReviewAttestation"
+    "RegistryReportEvaluation": {
+      "@id": "RegistryReportEvaluation"
+    },
+    "RegistryRequirementEvaluation": {
+      "@id": "RegistryRequirementEvaluation"
+    },
+    "RegistryReviewEvaluation": {
+      "@id": "RegistryReviewEvaluation"
     },
     "Scope": {
       "@id": "Scope"
     },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
     "Site": {
       "@id": "Site"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"

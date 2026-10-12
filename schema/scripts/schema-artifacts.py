@@ -19,19 +19,28 @@ versions/<version>/:
   serialized canonically, so that regenerating it gives the same bytes;
 - linkml.yaml: the schema with its imports merged (gen-linkml --mergeimports),
   so that generation and validation can be reproduced without fetching
-  imports.
+  imports;
+- hierarchy.ttl: the rdfs:subClassOf and rdfs:subPropertyOf triples of the
+  schema's rfs: classes and slots (scripts/gen-hierarchy.py), serialized
+  canonically. Instances carry only their most specific class: loaded with
+  them, the hierarchy lets the open base shapes (Claim, Evaluation) apply to
+  every claim type and kind of evaluation.
 
 `bundle` copies the JSON-LD examples (examples/*.jsonld) into
-versions/<version>/examples/ with the version's context, and writes the
-version's entry in versions/manifest.json: the source revision (the git tree
-hash of src/), the generator versions, the files and their SHA-256 digests,
-the validation entry points and the examples.
+versions/<version>/examples/, and the records they reference
+(examples/records/*.jsonld: the Evidence records that claims and evaluations
+cite by IRI) into versions/<version>/records/, with the version's context. It
+writes the version's entry in versions/manifest.json: the source revision (the
+git tree hash of src/), the generator versions, the files and their SHA-256
+digests, the validation entry points, the examples and the records.
 
 `check` checks the bundle offline: every file the manifest lists exists and
 has its digest, and every file in versions/ is listed; every entry point
 exists in the version's JSON Schema and SHACL shapes; every example of every
 version is accepted, or, if invalid, rejected only on the paths the manifest
-names, by both validators, with no network access. For the version
+names, by both validators, with no network access. SHACL checks each example
+with the version's records and hierarchy, as a graph store holds them; an
+Evidence record is checked on its own, and so is each record of records/. For the version
 src/schema.yaml declares, it also checks that src/ is the source the manifest
 records, that regenerating the artifacts gives the same bytes, that its
 examples are those of examples/, and that its manifest entry is the one
@@ -48,6 +57,7 @@ An older version is generated from a checkout of its source:
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
@@ -74,7 +84,11 @@ ARTIFACTS = {
     "json-schema": "json-schema.json",
     "shacl": "shacl.ttl",
     "linkml": "linkml.yaml",
+    "hierarchy": "hierarchy.ttl",
 }
+# Classes whose records are documents of their own, and so entry points, besides
+# Claim and its concrete subclasses: claims and evaluations cite Evidence by IRI.
+RECORD_CLASSES = ("Evidence",)
 # The packages whose versions shape the artifacts' bytes: rdflib serializes
 # shacl.ttl, PyYAML writes linkml.yaml.
 GENERATORS = ("linkml", "linkml-runtime", "rdflib", "PyYAML")
@@ -228,16 +242,32 @@ def generate_artifact(kind, schema, version=None):
             sys.exit(f"cannot set the $id of the JSON Schema of {schema} (version {version})")
         return text.replace(line, f'    "$id": {json.dumps(json_schema_id(view, version))},\n')
     if kind == "shacl":
-        graph = rdflib.Graph().parse(data=run("gen-shacl", str(schema)), format="turtle")
-        canonical = rdflib.Graph()
-        for triple in to_canonical_graph(graph):
-            canonical.add(triple)
-        for prefix, namespace in graph.namespaces():
-            canonical.bind(prefix, namespace)
-        return canonical.serialize(format="turtle")
+        return canonical_turtle(rdflib.Graph().parse(data=run("gen-shacl", str(schema)), format="turtle"))
     if kind == "linkml":
         return run("gen-linkml", "--mergeimports", "--no-metadata", "-f", "yaml", str(schema))
+    if kind == "hierarchy":
+        return canonical_turtle(script("gen-hierarchy").hierarchy(SchemaView(str(schema))))
     raise ValueError(kind)
+
+
+def canonical_turtle(graph):
+    """Turtle whose blank node labels and order depend only on the graph, so
+    that regenerating it gives the same bytes."""
+    canonical = rdflib.Graph()
+    for triple in to_canonical_graph(graph):
+        canonical.add(triple)
+    for prefix, namespace in graph.namespaces():
+        canonical.bind(prefix, namespace)
+    return canonical.serialize(format="turtle")
+
+
+def script(name):
+    """A script of this directory, loaded as a module (its file name has a dash)."""
+    path = Path(__file__).with_name(f"{name}.py")
+    spec = importlib.util.spec_from_file_location(name.replace("-", "_"), path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def generate(source, version, kinds):
@@ -284,9 +314,11 @@ def source_record(source, commit):
 
 
 def entry_points(view, version):
-    """Claim and every concrete class that specializes it."""
+    """Claim and every concrete class that specializes it, and the classes of
+    records that are documents of their own (RECORD_CLASSES)."""
     points = {}
-    for name in sorted(view.class_descendants("Claim")):
+    names = set(view.class_descendants("Claim")) | {n for n in RECORD_CLASSES if n in view.all_classes()}
+    for name in sorted(names):
         if view.get_class(name).abstract:
             continue
         points[name] = {
@@ -310,6 +342,10 @@ def manifest_entry(source, version, commit):
             record["valid"] = True
         record["sha256"] = sha256(path)
         examples.append(record)
+    records = [
+        {"path": f"{version}/records/{path.name}", "class": record_class(path), "sha256": sha256(path)}
+        for path in sorted((out / "records").glob("*.jsonld"))
+    ]
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
     files = {
         kind: {"path": f"{version}/{name}", "sha256": sha256(out / name)}
@@ -322,7 +358,16 @@ def manifest_entry(source, version, commit):
         "files": files,
         "entryPoints": entry_points(view, version),
         "examples": examples,
+        "records": records,
     }
+
+
+def record_class(path):
+    """The class of every record in a records file (a JSON-LD @graph)."""
+    classes = {node["@type"] for node in json.loads(Path(path).read_text())["@graph"]}
+    if len(classes) != 1:
+        sys.exit(f"{path}: expected records of one class, found {sorted(classes)}")
+    return classes.pop()
 
 
 def bundle(source, version, commit):
@@ -333,16 +378,28 @@ def bundle(source, version, commit):
         shutil.rmtree(examples_dir)
     examples_dir.mkdir()
     for example in sorted((source / "examples").glob("*.jsonld")):
-        document = json.loads(example.read_text())
-        document["@context"] = context
-        target = examples_dir / example.name
-        target.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n")
+        (examples_dir / example.name).write_text(with_context(example, context))
+    records_dir = out / "records"
+    if records_dir.exists():
+        shutil.rmtree(records_dir)
+    records = sorted((source / "examples" / "records").glob("*.jsonld"))
+    if records:
+        records_dir.mkdir()
+    for record in records:
+        (records_dir / record.name).write_text(with_context(record, context))
     manifest = read_manifest()
     manifest["versions"][version] = manifest_entry(source, version, commit)
     manifest["versions"] = dict(sorted(manifest["versions"].items(), key=lambda kv: version_key(kv[0])))
     manifest["latest"] = list(manifest["versions"])[-1]
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"✅ {MANIFEST}: {version}")
+
+
+def with_context(path, context):
+    """The JSON-LD document at path, with the version's context."""
+    document = json.loads(Path(path).read_text())
+    document["@context"] = context
+    return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
 
 
 def version_key(version):
@@ -371,13 +428,21 @@ def block_network():
     socket.create_connection = refuse
 
 
-def strip_keywords(value):
-    """The LinkML data form of a JSON-LD document: JSON-LD keywords removed."""
-    if isinstance(value, dict):
-        return {k: strip_keywords(v) for k, v in value.items() if not k.startswith("@")}
+def data_form(view, value):
+    """The LinkML data form of a JSON-LD document: JSON-LD keywords removed,
+    and the "@type" of a node whose class has a type designator (such as a
+    selector's selectorType) written back as that slot, as a CURIE."""
     if isinstance(value, list):
-        return [strip_keywords(v) for v in value]
-    return value
+        return [data_form(view, v) for v in value]
+    if not isinstance(value, dict):
+        return value
+    out = {k: data_form(view, v) for k, v in value.items() if not k.startswith("@")}
+    class_name = value.get("@type")
+    if isinstance(class_name, str) and class_name in view.all_classes():
+        for slot in view.class_induced_slots(class_name):
+            if slot.designates_type:
+                out[slot.name] = view.get_uri(view.get_class(class_name))
+    return out
 
 
 def json_schema_errors(schema, entry_point, document):
@@ -394,14 +459,17 @@ def json_schema_errors(schema, entry_point, document):
     return errors
 
 
-def shacl_results(shapes, jsonld_text):
-    """(message, path) of each SHACL result. Lexical forms are kept as written
-    (no Z -> +00:00)."""
+def lexical_graph(text, format):
+    """Parse RDF keeping lexical forms as written (a Z stays Z, not +00:00)."""
     rdflib.NORMALIZE_LITERALS = False
     try:
-        graph = rdflib.Graph().parse(data=jsonld_text, format="json-ld")
+        return rdflib.Graph().parse(data=text, format=format)
     finally:
         rdflib.NORMALIZE_LITERALS = True
+
+
+def shacl_results(shapes, graph):
+    """(message, path) of each SHACL result."""
     conforms, results, _ = shacl_validate(graph, shacl_graph=shapes)
     found = []
     for result in results.subjects(rdflib.RDF.type, SH.ValidationResult):
@@ -416,6 +484,25 @@ def check_examples(version, entry, failures):
     schema = json.loads((out / ARTIFACTS["json-schema"]).read_text())
     shapes = rdflib.Graph().parse(out / ARTIFACTS["shacl"], format="turtle")
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
+    hierarchy = lexical_graph((out / ARTIFACTS["hierarchy"]).read_text(), "turtle")
+    store = rdflib.Graph()
+    for record in entry.get("records", []):
+        path = VERSIONS / record["path"]
+        text = path.read_text()
+        graph = lexical_graph(text, "json-ld")
+        store += graph
+        errors = [
+            error
+            for node in json.loads(text)["@graph"]
+            for error in json_schema_errors(schema, record["class"], data_form(view, node))
+        ]
+        conforms, results = shacl_results(shapes, graph + hierarchy)
+        if errors:
+            failures.append(f"{path}: JSON Schema rejects a record: {errors[0][0]}")
+        if not conforms:
+            failures.append(f"{path}: SHACL rejects a record: {results[0][0][:100]}")
+        if not errors and conforms:
+            print(f"✅ {path}: every record valid for {record['class']} (JSON Schema, SHACL)")
     for example in entry["examples"]:
         path = VERSIONS / example["path"]
         text = path.read_text()
@@ -423,8 +510,13 @@ def check_examples(version, entry, failures):
         if entry_point not in entry["entryPoints"]:
             failures.append(f"{path}: entry point {entry_point} is not in the manifest")
             continue
-        errors = json_schema_errors(schema, entry_point, strip_keywords(json.loads(text)))
-        conforms, results = shacl_results(shapes, text)
+        errors = json_schema_errors(schema, entry_point, data_form(view, json.loads(text)))
+        # As a graph store holds it: with the hierarchy, and, unless it is a
+        # record of its own, with the records it cites.
+        graph = lexical_graph(text, "json-ld") + hierarchy
+        if entry_point not in RECORD_CLASSES:
+            graph += store
+        conforms, results = shacl_results(shapes, graph)
         if example["valid"]:
             if errors:
                 failures.append(f"{path}: JSON Schema rejects it: {errors[0][0]}")
@@ -450,7 +542,7 @@ def check_examples(version, entry, failures):
 def check_files(version, entry, failures):
     out = VERSIONS / version
     listed = set()
-    for record in [*entry["files"].values(), *entry["examples"]]:
+    for record in [*entry["files"].values(), *entry["examples"], *entry.get("records", [])]:
         path = VERSIONS / record["path"]
         listed.add(path)
         if not path.exists():
@@ -489,17 +581,15 @@ def check_current(version, entry, failures):
         if generate_artifact(kind, Path("src/schema.yaml"), version) != (out / name).read_text():
             failures.append(f"{out / name} is stale: run make gen-schema-artifacts")
     context = json.loads((out / ARTIFACTS["context"]).read_text())["@context"]
-    for example in sorted(Path("examples").glob("*.jsonld")):
-        snapshot = out / "examples" / example.name
-        document = json.loads(example.read_text())
-        document["@context"] = context
-        expected = json.dumps(document, indent=2, ensure_ascii=False) + "\n"
-        if not snapshot.exists() or snapshot.read_text() != expected:
-            failures.append(f"{snapshot} differs from {example}: run make gen-schema-artifacts")
-    sources = {p.name for p in Path("examples").glob("*.jsonld")}
-    for snapshot in sorted((out / "examples").glob("*.jsonld")):
-        if snapshot.name not in sources:
-            failures.append(f"{snapshot} has no examples/{snapshot.name}: run make gen-schema-artifacts")
+    for source_dir, bundled in ((Path("examples"), out / "examples"), (Path("examples/records"), out / "records")):
+        for source in sorted(source_dir.glob("*.jsonld")):
+            snapshot = bundled / source.name
+            if not snapshot.exists() or snapshot.read_text() != with_context(source, context):
+                failures.append(f"{snapshot} differs from {source}: run make gen-schema-artifacts")
+        sources = {p.name for p in source_dir.glob("*.jsonld")}
+        for snapshot in sorted(bundled.glob("*.jsonld")):
+            if snapshot.name not in sources:
+                failures.append(f"{snapshot} has no {source_dir}/{snapshot.name}: run make gen-schema-artifacts")
     expected = manifest_entry(Path("."), version, entry["source"].get("commit"))
     for key in expected:
         if entry.get(key) != expected[key]:
