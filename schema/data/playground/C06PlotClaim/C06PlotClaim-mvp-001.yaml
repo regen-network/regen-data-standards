@@ -13,7 +13,6 @@ assertedBy:
 assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007
-  name: Plot S-001.0007
   plotKey: S-001.0007
   parcelId: "4012/7"
   site: https://example.org/c06/site/S-001

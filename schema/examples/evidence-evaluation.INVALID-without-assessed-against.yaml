@@ -13,7 +13,6 @@ assertedBy:
 assertedAt: "2026-06-12T10:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
-  name: Plot A
 hasTarget:
   - https://example.org/evidence/planting-log-2026-v1.pdf
   - https://example.org/evidence/walkover-photos-2026-06.zip
