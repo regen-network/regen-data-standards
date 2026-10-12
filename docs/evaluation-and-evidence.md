@@ -188,7 +188,7 @@ WP5.
 | `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary, for an evaluation with no kind of its own. Kinds use a sub-property with an enum instead. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked. |
-| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string | 0..1 | Required with `OTHER` ([example](../schema/examples/evaluation.INVALID-other-method-without-descriptor.yaml)). |
+| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string with a non-whitespace character | 0..1 | Required with `OTHER` ([missing](../schema/examples/evaluation.INVALID-other-method-without-descriptor.yaml), [empty](../schema/examples/evaluation.INVALID-empty-method-descriptor.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-descriptor.yaml) examples). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
 | `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets. Exclusive with `scope`. |
 

@@ -1,0 +1,23 @@
+# expect: does not match '\\S'
+# class: GenericEvaluation
+# A method outside the enumeration is described: an empty descriptor leaves it
+# unspecified. Suggested by Darren on #90 (r4225894937).
+name: Steward review of the plot A hedgerow planting
+claimStatement: >-
+  The planted hedgerow along the northern boundary of plot A is present along
+  its full length, as the planting log states.
+assertedBy:
+  - name: Valley Stewards Circle
+    type: COMMUNITY
+assertedAt: "2026-06-10T09:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+  name: Plot A
+hasTarget:
+  - https://example.org/placeholder/claim-iri/generic-claim-v1
+outcome: https://example.org/vocab/review/confirmed
+rationale: The steward walked the boundary and compared it with the planting log.
+verificationMethod: OTHER
+verificationMethodDescriptor: ""
+hasEvidence:
+  - https://example.org/evidence/walkover-photos-2026-06.zip
