@@ -46,6 +46,7 @@ classes:
       - description
       - sourceType
       - mediaType
+      - inLanguage
       - contentHash
       - resolver
       - licence
@@ -56,6 +57,13 @@ classes:
         description: Title of the cited source.
       description:
         description: What the source is, in the citer's words.
+      inLanguage:
+        description: >-
+          Language of the source's text, as a BCP 47 tag with a 2- or 3-letter
+          ISO 639 primary language subtag, such as cs. It is recorded
+          separately from the language of the claims that cite the source,
+          which may be written in another language; it says nothing about how
+          a claim's statement was derived from the source.
     attributes:
       id:
         identifier: true
