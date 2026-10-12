@@ -96,7 +96,10 @@ make check-claim-examples    # check the examples and invalid documents with the
   `records/`. Every record is checked too. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
   fields of `c06-mvp-claim.jsonld` and fails only the C06 constraint on `practices`;
 - for the current version, `src/` is the recorded source and regenerating every artifact gives the
-  same bytes.
+  same bytes;
+- a version that records a commit has, at that commit, the recorded `schema/src` tree, when the
+  commit is in the local history. CI's shallow checkout usually lacks older commits; the check then
+  reports that it cannot compare, and `bundle` compared them when it recorded the commit.
 
 CI runs it on every pull request with `BASE` set to the base branch.
 
@@ -112,6 +115,10 @@ git -C .. archive <commit> schema | tar -x -C <dir>
 python3 scripts/schema-artifacts.py generate --source <dir>/schema --version <version>
 python3 scripts/schema-artifacts.py bundle --source <dir>/schema --version <version> --commit <commit>
 ```
+
+`bundle` records `--commit` as a full SHA, and stops without writing anything unless that commit's
+`schema/src` has the tree hash of `<dir>/schema/src`, so the manifest never names a commit its source
+did not come from.
 
 ### Validating a document
 

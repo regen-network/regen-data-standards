@@ -48,7 +48,10 @@ examples are those of examples/, and that its manifest entry is the one
 manifest must be unchanged: a published version is immutable, so changed
 definitions need a new version.
 
-An older version is generated from a checkout of its source:
+An older version is generated from a checkout of its source. bundle records
+--commit as a full SHA, and only if that commit's schema/src is the source's
+tree; check compares them again for every version whose commit is in the
+local history:
 
     git archive <commit> schema | tar -x -C <dir>
     python3 scripts/schema-artifacts.py generate --source <dir>/schema --version <v>
@@ -313,6 +316,35 @@ def source_record(source, commit):
     return record
 
 
+def git(*args):
+    return subprocess.run(["git", *args], capture_output=True, text=True)
+
+
+def commit_tree(commit):
+    """(full SHA, git tree hash of its schema/src), or None if the commit is
+    not in the local repository."""
+    sha = git("rev-parse", "--verify", "--quiet", f"{commit}^{{commit}}")
+    if sha.returncode != 0:
+        return None
+    sha = sha.stdout.strip()
+    tree = git("rev-parse", "--verify", "--quiet", f"{sha}:schema/src")
+    return sha, tree.stdout.strip() if tree.returncode == 0 else None
+
+
+def verified_commit(commit, source):
+    """The full SHA of commit, after checking that its schema/src is the
+    source a version is generated from, so the manifest never records a
+    commit its files did not come from."""
+    resolved = commit_tree(commit)
+    if resolved is None:
+        sys.exit(f"--commit {commit}: not a commit in this repository")
+    sha, tree = resolved
+    expected = git_tree(source / "src")
+    if tree != expected:
+        sys.exit(f"--commit {commit}: its schema/src is tree {tree}, but {source}/src is {expected}")
+    return sha
+
+
 def entry_points(view, version):
     """Claim and every concrete class that specializes it, and the classes of
     records that are documents of their own (RECORD_CLASSES)."""
@@ -371,6 +403,8 @@ def record_class(path):
 
 
 def bundle(source, version, commit):
+    if commit:
+        commit = verified_commit(commit, source)  # before anything is written
     out = VERSIONS / version
     context = json.loads((out / ARTIFACTS["context"]).read_text())["@context"]
     examples_dir = out / "examples"
@@ -604,13 +638,30 @@ def check_current(version, entry, failures):
                 failures.append(f"{MANIFEST}: {key} of {version} differs from its files: run make gen-schema-artifacts")
 
 
+def check_commit(version, entry, failures):
+    """A recorded commit must have the recorded source tree. CI's shallow
+    checkout usually lacks older commits: then it cannot be checked here,
+    and bundle checked it when it was recorded."""
+    commit = entry["source"].get("commit")
+    if not commit:
+        return
+    resolved = commit_tree(commit)
+    if resolved is None:
+        print(f"ℹ️  {version}: commit {commit} is not in the local history; its source tree is not compared")
+    elif resolved[0] != commit:
+        failures.append(f"{version}: commit {commit} is not a full SHA (it resolves to {resolved[0]})")
+    elif resolved[1] != entry["source"]["gitTree"]:
+        failures.append(
+            f"{version}: commit {commit} has schema/src tree {resolved[1]}, "
+            f"but the manifest records {entry['source']['gitTree']}"
+        )
+    else:
+        print(f"✅ {version}: commit {commit[:7]} has the recorded source tree")
+
+
 def check_base(base, manifest, failures):
     """Compare with the versions published in base. Only a base commit whose
     tree has no manifest skips the comparison; any failure to read it fails."""
-
-    def git(*args):
-        return subprocess.run(["git", *args], capture_output=True, text=True)
-
     path = f"schema/{MANIFEST}"
     commit = git("rev-parse", "--verify", "--quiet", f"{base}^{{commit}}")
     if commit.returncode != 0:
@@ -661,6 +712,7 @@ def check(base):
         failures.append(f"{MANIFEST}: several versions have the JSON Schema $id {duplicate}")
     for version, entry in manifest["versions"].items():
         check_files(version, entry, failures)
+        check_commit(version, entry, failures)
         check_examples(version, entry, failures)
         if version == current:
             check_current(version, entry, failures)
