@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Generate and check the Claim, Evaluation and C06 claim JSON-LD examples.
 
-    python3 scripts/claim-examples.py generate   # rewrite examples/*.jsonld
+    python3 scripts/claim-examples.py generate   # rewrite examples/*.jsonld, without checking
     python3 scripts/claim-examples.py check      # fail if anything is stale or wrong
+
+generate only writes the examples, so it runs on a clean checkout. check also
+reads the Turtle that gen-rdf and gen-hierarchy write, so run those first.
 
 Run from the schema/ directory. Each example is built from a playground
 fixture (validated by gen-rdf in CI) plus an inline JSON-LD context generated
@@ -336,6 +339,13 @@ def main(mode):
             }
         return modules[source]
 
+    if mode == "generate":
+        for fixture, example in EXAMPLES.items():
+            class_name = fixture_class(fixture)
+            Path(example).write_text(build(module_for(class_name), class_name, fixture))
+            print(f"✅ wrote {example}")
+        return
+
     failures = 0
     store = evidence_store()
     classes = hierarchy()
@@ -344,9 +354,7 @@ def main(mode):
         class_name = fixture_class(fixture)
         module = module_for(class_name)
         text = build(module, class_name, fixture)
-        if mode == "generate":
-            Path(example).write_text(text)
-        elif not Path(example).exists() or Path(example).read_text() != text:
+        if not Path(example).exists() or Path(example).read_text() != text:
             print(f"❌ {example} is stale: run make gen-claim-examples")
             failures += 1
             continue
