@@ -23,6 +23,7 @@ default_range: string
 classes:
   Evaluation:
     is_a: Claim
+    abstract: true
     class_uri: rfs:Evaluation
     description: >-
       An issuer's judgment, made at a stated time, about what it targets:
@@ -32,6 +33,10 @@ classes:
       as a project or a plot, even when it judges a claim about that subject.
       It does not carry its own hash or IRI, anchoring state, or a status
       that changes after it is made: a later judgment is a new Evaluation.
+      Abstract, like Claim: its generated shape is open, so it checks the
+      base content of every kind of evaluation, including kinds another
+      program defines, and lets a kind add fields. A judgment with no
+      program vocabulary is a GenericEvaluation.
     slots:
       - hasTarget
       - reliesOn
@@ -85,6 +90,16 @@ classes:
           slot_conditions:
             unbounded:
               value_presence: ABSENT
+
+  GenericEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:GenericEvaluation
+    description: >-
+      An Evaluation with base content only, for a judgment made under no
+      program's review vocabulary, such as a community steward's review. Its
+      verdict, if any, is the generic outcome. It adds nothing to Evaluation,
+      and its generated shapes are closed: a program's fields belong to that
+      program's kind of evaluation.
 
   EvidenceEvaluation:
     is_a: Evaluation

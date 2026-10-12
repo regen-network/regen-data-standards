@@ -50,12 +50,20 @@ For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
 
-The generic examples are GenericClaims, whose shape is closed. The base Claim
-is abstract, so its shape is open: it checks the base content of every claim
-type and lets a claim type add fields. To check that, each GenericClaim example
-is also retyped as a claim type defined outside this schema, with a field of its
-own and the rdfs:subClassOf rfs:Claim triple that such a schema publishes with
-its data. The Claim shape must accept it, and must reject it without assertedBy.
+The generic examples are GenericClaims and GenericEvaluations, whose shapes are
+closed. The base Claim and Evaluation are abstract, so their shapes are open:
+they check the base content of every claim type or kind of evaluation and let it
+add fields. To check that, each generic example is also retyped as a class
+defined outside this schema, with a field of its own and the rdfs:subClassOf
+triple that such a schema publishes with its data. The open base shape must
+accept it, and must reject it without assertedBy.
+
+Every other example (a claim type or a kind of evaluation) is also checked as
+the graph store holds it, with the class hierarchy gen-hierarchy publishes, so
+the open base shapes apply to it as well as its own closed shape. It must
+conform, so the fields it inherits are accepted, and with an undeclared field it
+must be rejected by its own shape only, not by a base shape. Run gen-hierarchy
+first.
 Each example's JSON-LD graph must also be isomorphic to the Turtle that gen-rdf
 publishes for its fixture (run make gen-rdf first), and both are checked with
 SHACL, parsed without rdflib's literal normalization.
@@ -81,7 +89,7 @@ SCHEMA = "src/schema.yaml"
 MODULES = {
     "GenericClaim": "src/Claim.yaml",
     "Evidence": "src/Evidence.yaml",
-    "Evaluation": "src/Evaluation.yaml",
+    "GenericEvaluation": "src/Evaluation.yaml",
     "EvidenceEvaluation": "src/Evaluation.yaml",
     "ClaimConsistencyEvaluation": "src/Evaluation.yaml",
     "RegistryReviewEvaluation": "src/RegistryReviewEvaluation.yaml",
@@ -100,7 +108,7 @@ EXAMPLES = {
     "data/playground/RegistryRequirementEvaluation/RegistryRequirementEvaluation-crediting-term-001.yaml": "examples/registry-requirement-evaluation.jsonld",
     "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",
     "data/playground/RegistryReportEvaluation/RegistryReportEvaluation-validation-001.yaml": "examples/registry-report-evaluation.jsonld",
-    "data/playground/Evaluation/Evaluation-generic-001.yaml": "examples/generic-evaluation.jsonld",
+    "data/playground/Evaluation/GenericEvaluation-001.yaml": "examples/generic-evaluation.jsonld",
     "data/playground/Evidence/Evidence-field-records-S-001-2019-2021.yaml": "examples/evidence.jsonld",
     "data/playground/EvidenceEvaluation/EvidenceEvaluation-generic-001.yaml": "examples/evidence-evaluation.jsonld",
     "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
@@ -112,8 +120,11 @@ EXAMPLES = {
 INVALID_GLOB = "examples/*.INVALID-*.yaml"
 EVIDENCE_GLOB = "data/playground/Evidence/*.ttl"
 GRAPH_MARK = "# graph: with the Evidence records"
-EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
+HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
+# The abstract base each generic class stands for: its shape is open.
+OPEN_BASES = {"GenericClaim": "Claim", "GenericEvaluation": "Evaluation"}
 EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
+UNDECLARED_FIELD = rdflib.URIRef("https://example.org/schema/undeclaredField")
 
 # Ill-typed literals in the invalid examples are expected; they are reported
 # by the validators, not as parser warnings.
@@ -224,16 +235,22 @@ def json_schema_check(document, class_name):
     return result.returncode == 0, result.stdout + result.stderr
 
 
+def class_uri(view, name):
+    return rdflib.URIRef(view.get_uri(view.get_element(name), expand=True))
+
+
 def as_extension(view, graph, class_name, without=None):
-    """Retype the claim as a claim type defined outside this schema, with a field of its own."""
-    uri = lambda name: rdflib.URIRef(view.get_uri(view.get_element(name), expand=True))
+    """Retype the record as a class defined outside this schema, with a field of its own."""
+    uri = lambda name: class_uri(view, name)
+    base = OPEN_BASES[class_name]
+    extension = rdflib.URIRef(f"https://example.org/schema/Extension{base}")
     out = rdflib.Graph()
     for triple in graph:
         out.add(triple)
     root = next(out.subjects(RDF.type, uri(class_name)))
     out.remove((root, RDF.type, uri(class_name)))
-    out.add((root, RDF.type, EXTENSION_CLASS))
-    out.add((EXTENSION_CLASS, RDFS.subClassOf, uri("Claim")))
+    out.add((root, RDF.type, extension))
+    out.add((extension, RDFS.subClassOf, uri(base)))
     out.add((root, EXTENSION_FIELD, rdflib.Literal("claim-type content")))
     if without:
         out.remove((root, uri(without), None))
@@ -269,6 +286,25 @@ def change_selector(data):
     return data
 
 
+def hierarchy():
+    if not Path(HIERARCHY).exists():
+        sys.exit(f"{HIERARCHY} is missing: run make gen-hierarchy")
+    return rdflib.Graph().parse(HIERARCHY, format="turtle")
+
+
+def with_undeclared_field(view, graph, class_name):
+    out = rdflib.Graph()
+    out += graph
+    root = next(out.subjects(RDF.type, class_uri(view, class_name)))
+    out.add((root, UNDECLARED_FIELD, rdflib.Literal("undeclared")))
+    return out
+
+
+def rejecting_shapes(graph, shapes):
+    _, results, _ = shacl_validate(graph, shacl_graph=shapes)
+    return {results.value(r, SH.sourceShape) for r in results.subjects(RDF.type, SH.ValidationResult)}
+
+
 def shacl_report(graph, shapes):
     conforms, results, _ = shacl_validate(graph, shacl_graph=shapes)
     messages = [str(m) for m in results.objects(None, SH.resultMessage)]
@@ -302,6 +338,7 @@ def main(mode):
 
     failures = 0
     store = evidence_store()
+    classes = hierarchy()
 
     for fixture, example in EXAMPLES.items():
         class_name = fixture_class(fixture)
@@ -347,19 +384,35 @@ def main(mode):
             else:
                 print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
                 failures += 1
-        if class_name == "GenericClaim":
-            graph = with_store(lexical_graph(text, "json-ld"), store)
+        if class_name in OPEN_BASES:
+            base = OPEN_BASES[class_name]
+            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
             conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
             if conforms:
-                print(f"✅ {example} as an outside claim type: conforms to the open Claim shape")
+                print(f"✅ {example} as an outside {base} subclass: conforms to the open {base} shape")
             else:
-                print(f"❌ {example} as an outside claim type: SHACL violations {messages}")
+                print(f"❌ {example} as an outside {base} subclass: SHACL violations {messages}")
                 failures += 1
             conforms, _ = shacl_report(as_extension(module["view"], graph, class_name, without="assertedBy"), module["shapes"])
             if not conforms:
-                print(f"✅ {example} as an outside claim type without assertedBy: the Claim shape rejects it")
+                print(f"✅ {example} as an outside {base} subclass without assertedBy: the {base} shape rejects it")
             else:
-                print(f"❌ {example} as an outside claim type without assertedBy: SHACL accepts it")
+                print(f"❌ {example} as an outside {base} subclass without assertedBy: SHACL accepts it")
+                failures += 1
+        elif class_name != "Evidence":
+            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
+            conforms, messages = shacl_report(graph, module["shapes"])
+            if conforms:
+                print(f"✅ {example} with the class hierarchy: conforms to its own shape and the open base shapes")
+            else:
+                print(f"❌ {example} with the class hierarchy: SHACL violations {messages}")
+                failures += 1
+            own = class_uri(module["view"], class_name)
+            shapes = rejecting_shapes(with_undeclared_field(module["view"], graph, class_name), module["shapes"])
+            if shapes == {own}:
+                print(f"✅ {example} with an undeclared field: only the {class_name} shape rejects it")
+            else:
+                print(f"❌ {example} with an undeclared field: rejected by {sorted(map(str, shapes)) or 'no shape'}")
                 failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):

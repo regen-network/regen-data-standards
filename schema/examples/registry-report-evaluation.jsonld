@@ -389,6 +389,9 @@
     "GenericClaim": {
       "@id": "GenericClaim"
     },
+    "GenericEvaluation": {
+      "@id": "GenericEvaluation"
+    },
     "Link": {
       "@id": "Link"
     },

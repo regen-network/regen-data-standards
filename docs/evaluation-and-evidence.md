@@ -46,7 +46,7 @@ flowchart LR
 |---|---|---|---|
 | C06 claims | The project developer, as claimant, from its project plan and datasets | Registry review, rule evaluation (WP5), the verifier, auditors, graph queries (WP4), publication (WP7) | New `C06Claim` schema; classes `is_a Claim` |
 | C06 subjects | Defined once in the C06 claim schema; IRIs built from the keys the project's records use | Every claim and evaluation about them | `is_a ClaimSubject` |
-| `Evaluation`, `EvidenceEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
+| `Evaluation` (abstract), `GenericEvaluation`, `EvidenceEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
 | `RegistryRequirementEvaluation`, `RegistryFindingEvaluation`, `RegistryReportEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; `is_a RegistryReviewEvaluation` (abstract) `is_a Evaluation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
 | `Activity` | Whoever cites the evidence it generated | Reviewers checking when and by whom evidence was produced | New module; `ProvActivity` mixin |
@@ -71,7 +71,7 @@ grouped by the issuer's `findingLabel`.
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
-| `Evaluation.yaml` | Replaces `Attestation.yaml`: `Evaluation is_a Claim`, `Scope`, and the program-agnostic kinds `EvidenceEvaluation` and `ClaimConsistencyEvaluation` with their verdict enums. | `Claim`, `ClaimVocabulary` |
+| `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds `EvidenceEvaluation` and `ClaimConsistencyEvaluation` with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the abstract `RegistryReviewEvaluation is_a Evaluation`, its kinds `RegistryRequirementEvaluation`, `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
 
@@ -94,7 +94,10 @@ Regen Ledger: an attestor signs a record's Graph IRI. Any Claim or Evaluation ca
 way; what to attest and who signs is [WP6-01 (claims#36)](https://github.com/regen-network/claims/issues/36).
 
 It comes in two layers: what every program's judgments share, with the kinds of judgment that are
-not specific to a program, and one program's review kinds:
+not specific to a program, and one program's review kinds. `Evaluation` is abstract, like `Claim`:
+its generated shape is open, so it checks the base content of every kind, including kinds another
+program defines outside this schema, and lets a kind add fields. A judgment made under no program's
+vocabulary is a `GenericEvaluation`, whose shape is closed, as `GenericClaim` is for claims.
 
 ```mermaid
 classDiagram
@@ -103,7 +106,7 @@ classDiagram
         <<base, #85>>
     }
     class Evaluation {
-        <<every program>>
+        <<abstract, every program>>
         hasTarget
         reliesOn
         appliesRequirement
@@ -150,6 +153,7 @@ classDiagram
         milestone
     }
     Claim <|-- Evaluation
+    Evaluation <|-- GenericEvaluation
     Evaluation <|-- EvidenceEvaluation
     Evaluation <|-- ClaimConsistencyEvaluation
     Evaluation <|-- RegistryReviewEvaluation
@@ -467,7 +471,7 @@ validators.
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the activity that generated it |
-| [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A base `Evaluation` with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
+| [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
 | [`evidence-evaluation.jsonld`](../schema/examples/evidence-evaluation.jsonld) | An `EvidenceEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, rule-set and requirement versions, a scope and a condition |
@@ -481,10 +485,10 @@ validators.
 handling, and that imported definitions are not separate whole-claim targets. As in
 [`docs/claim-base.md`](claim-base.md):
 
-1. The validator starts from the class the root node declares (`C06SiteClaim`, `Evaluation`,
-   `RegistryRequirementEvaluation`…); each has one shape. `RegistryReviewEvaluation` is abstract,
-   like `Claim`, and is not an entry point: its shape is open and checks the fields the Registry
-   kinds share. Neither generated validator rejects a document typed with an abstract class, so the
+1. The validator starts from the class the root node declares (`C06SiteClaim`, `GenericEvaluation`,
+   `RegistryRequirementEvaluation`…); each has one shape. `Evaluation` and `RegistryReviewEvaluation`
+   are abstract, like `Claim`, and are not entry points: their shapes are open and check the fields
+   their kinds share. Neither generated validator rejects a document typed with an abstract class, so the
    service has to ([claims#55](https://github.com/regen-network/claims/issues/55)).
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
@@ -493,8 +497,14 @@ handling, and that imported definitions are not separate whole-claim targets. As
    `Evidence` as entry point. A claim's SHACL check that the IRIs in `hasEvidence` and `source` are
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
    are IRIs.
-4. Shapes are closed: fields the schema does not define are rejected
-   ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)).
+4. The shape of each entry point is closed: fields the schema does not define are rejected
+   ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)). The shapes of the
+   abstract bases are open. In the graph store, with the published class hierarchy, the open base
+   shapes apply to every claim type and kind of evaluation as well. `make -C schema
+   check-claim-examples` checks this for every example: with the hierarchy it conforms, so its
+   inherited fields are accepted; an undeclared field is rejected by its own shape only; and the
+   generic examples, retyped as a class defined outside this schema with a field of its own, are
+   accepted by the open `Claim` or `Evaluation` shape.
 5. The root is typed with its own class only, not also `Claim`.
 
 The service's responses to failing documents are
@@ -529,7 +539,7 @@ the source.
 | `Claim.hasClaimType` (required) | Removed: a single required enum could not cover every kind of claim ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). The kind of claim is the specialized class. |
 | `Attestation.attestsClaim` (string) | `hasTarget` (IRI, 0..*) |
 | `Attestation.hasReviewer` (Entity) | `assertedBy` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
-| `Attestation.hasVerdict` (`VerdictType`) | The verdict field of each kind (`requirementOutcome`, `findingState`, `reportRating`, `evidentialStance`, `evidenceSufficiency`, `claimConsistency`), or `outcome` (IRI) on a base `Evaluation`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
+| `Attestation.hasVerdict` (`VerdictType`) | The verdict field of each kind (`requirementOutcome`, `findingState`, `reportRating`, `evidentialStance`, `evidenceSufficiency`, `claimConsistency`), or `outcome` (IRI) on a `GenericEvaluation`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
 | `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingState`, `ReportRating`. A registration approval is an institutional decision, not a requirement outcome. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidence` (IRIs of `Evidence` records, inherited) |
@@ -553,8 +563,9 @@ the source.
   express them with `sh:or`. The other two conditional rules, evidence on a finding and a scope that
   names its subjects, are expressed as class and slot constraints, which both validators enforce.
 - **Abstract classes are not rejected as entry points.** A document typed `RegistryReviewEvaluation`
-  passes both generated validators (checked with LinkML 1.11.1), so a review judgment without its
-  kind's verdict can only be caught by the service, as for a document typed `Claim`.
+  or `Evaluation` passes both generated validators (checked with LinkML 1.11.1), so a review
+  judgment without its kind's verdict can only be caught by the service, as for a document typed
+  `Claim`.
 - **A claim's identity no longer pins the cited bytes.** A claim holds the `Evidence` IRI, and the
   hash is in the separate record, so the ClaimIRI covers the hash only if the `Evidence` IRI is
   derived from it. The proposed ADR 0002 D9
