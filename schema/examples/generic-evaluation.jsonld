@@ -311,6 +311,9 @@
     "GenericClaim": {
       "@id": "GenericClaim"
     },
+    "GenericEvaluation": {
+      "@id": "GenericEvaluation"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -339,7 +342,7 @@
       "@id": "VersionedLink"
     }
   },
-  "@type": "Evaluation",
+  "@type": "GenericEvaluation",
   "name": "Steward review of the plot A hedgerow planting",
   "claimStatement": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
   "assertedBy": [

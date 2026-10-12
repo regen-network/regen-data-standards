@@ -1,5 +1,5 @@
 # expect: 'appliesTo' is a required property
-# class: Evaluation
+# class: GenericEvaluation
 # A scope names the subjects it covers. An evaluation with no
 # limits beyond its targets states unbounded: true instead of an empty scope.
 name: Steward review of the plot A hedgerow planting

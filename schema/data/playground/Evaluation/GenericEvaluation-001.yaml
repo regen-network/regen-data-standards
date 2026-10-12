@@ -1,6 +1,6 @@
-# Synthetic example (example.org identifiers): a base Evaluation, with no
+# Synthetic example (example.org identifiers): a GenericEvaluation, with no
 # program vocabulary. A community steward reviews the generic hedgerow claim
-# (Claim-generic-001) after walking the planted boundary. The target is a
+# (GenericClaim-001) after walking the planted boundary. The target is a
 # labelled placeholder for that claim's ClaimIRI (regen-network/claims#1).
 name: Steward review of the plot A hedgerow planting
 claimStatement: >-
