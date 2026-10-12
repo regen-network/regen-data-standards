@@ -111,11 +111,13 @@ classDiagram
         reliesOn
         appliesRequirement
         appliesRuleSet
-        outcome
         rationale
         verificationMethod
         scope
         unbounded
+    }
+    class GenericEvaluation {
+        outcome
     }
     class Scope {
         appliesTo
@@ -170,7 +172,9 @@ because the kinds answer different questions: whether a requirement is satisfied
 is open, how a verifier rates its report, what evidence shows. Each verdict field is a sub-property
 of the generic `outcome` with an enumerated range, so both generated validators check its values (an
 enum in JSON Schema, `sh:in` in SHACL), and the OWL output declares `rdfs:subPropertyOf rfs:outcome`,
-so a query for `outcome` still finds every verdict when the class hierarchy is loaded.
+so a query for `outcome` still finds every verdict when the class hierarchy is loaded. A kind does
+not carry `outcome` itself, so it cannot state a second verdict that contradicts its own; only a
+`GenericEvaluation`, which has no verdict field of its own, uses `outcome` directly.
 
 An evaluation records a judgment. It is neither workflow state (a review that has not started or is
 in progress is recorded with no evaluation) nor an institutional decision, such as approving a
@@ -185,7 +189,7 @@ WP5.
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Versions the judgment depends on without judging them, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
-| `outcome` | `rfs:outcome` | IRI | 0..1 | The verdict, a term from the program's vocabulary, for an evaluation with no kind of its own. Kinds use a sub-property with an enum instead. |
+| `outcome` | `rfs:outcome` | IRI | 0..1 | On `GenericEvaluation` only: the verdict, a term from the program's vocabulary. Every other kind states its verdict with its own sub-property of `outcome` and cannot also state `outcome`. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked. |
 | `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string with a non-whitespace character | 0..1 | Required with `OTHER` ([missing](../schema/examples/evaluation.INVALID-other-method-without-descriptor.yaml), [empty](../schema/examples/evaluation.INVALID-empty-method-descriptor.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-descriptor.yaml) examples). |
@@ -276,8 +280,9 @@ state is derived from the latest one, not stored.
 **`RegistryReportEvaluation`**: an independent verifier's rating of the project in its validation or
 verification report, `reportRating` (⊑ `rfs:outcome`): `ACCEPTANCE`, `ACCEPTANCE_WITH_CONTINGENCIES`
 or `REJECTION`, the ratings the Program Guide (sections 12.4 and 12.5) gives such a report. It is the
-verifier's rating, not the Registry's decision. The generic `outcome` does not replace it
-([example](../schema/examples/registry-report-evaluation.INVALID-generic-outcome.yaml)).
+verifier's rating, not the Registry's decision. A report cannot state the generic `outcome` instead
+of its rating ([example](../schema/examples/registry-report-evaluation.INVALID-generic-outcome.yaml))
+or as well as it ([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
 
 ## Evidence
 
@@ -554,8 +559,6 @@ the source.
 
 ## Known limitations
 
-- **The generic `outcome` accepts any IRI**, also on the kinds that have their own verdict field.
-  The kinds' verdict fields are checked by both validators.
 - **Six rules are enforced by JSON Schema only:** a descriptor with `OTHER` (the verification method
   is never empty); a scope and `unbounded` being exclusive; a requirement outcome when the requirement
   applies, and none when it does not; a rationale with `UNDETERMINED`; no sufficiency for evidence
