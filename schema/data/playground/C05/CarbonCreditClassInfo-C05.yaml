@@ -26,9 +26,9 @@ hasBufferPoolAccounts:
 eligibleActivities:
   - BIOCHAR_PRODUCTION
 hasCreditProtocol:
-  url: >-
-    https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar
-  name: Credit Class for Carbon Removal through Biochar Production
+  - url: >-
+      https://www.registry.regen.network/crediting-protocols/kulshan-carbon-trust-biochar
+    name: Credit Class for Carbon Removal through Biochar Production
 hasApprovedMethodologies:
   - url: https://verra.org/wp-content/uploads/2023/07/VM44_v1.1_EC.pdf
     name: >-

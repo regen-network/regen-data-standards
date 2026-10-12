@@ -16,22 +16,28 @@ else
     AUTH=""
 fi
 
-# Set METHOD and GRAPH_PARAM based on GRAPH value
-# Use POST to append to default graph, and PUT to replace named graphs
+# Clear the graph once, then POST every file, which appends to it. PUT would
+# replace the graph's content with each file, so only the last file would
+# remain (SPARQL 1.1 Graph Store Protocol).
+METHOD=POST
 if [ "$GRAPH" = "default" ]; then
-    METHOD=POST
     GRAPH_PARAM="?default"
 else
-    METHOD=PUT
     GRAPH_PARAM="?graph=$GRAPH"
 fi
 
-# First, clear the graph.
-if ! curl -s -X DELETE -f $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM" ; then
-    echo "❌ Failed to delete content in graph: $GRAPH"
-else
-    echo "✅ Deleted content in graph: $GRAPH with $file"
-fi
+# First, clear the graph. Stop if it may still hold old triples: uploading
+# would leave them beside the new data. 404 means the graph does not exist
+# yet, so it is empty.
+status=$(curl -s -o /dev/null -w '%{http_code}' -X DELETE $AUTH "$GRAPH_STORE_URL$GRAPH_PARAM")
+case "$status" in
+    200|204) echo "✅ Deleted content in graph: $GRAPH" ;;
+    404) echo "✅ Graph $GRAPH does not exist yet; nothing to delete" ;;
+    *)
+        echo "❌ Failed to delete content in graph: $GRAPH (HTTP $status); nothing uploaded"
+        exit 1
+        ;;
+esac
 
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern

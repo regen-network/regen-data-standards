@@ -1,0 +1,12 @@
+# expect: 'assertedBy' is a required property
+# An unasserted authoring candidate: an extraction draft that nobody has yet
+# asserted. It has no claimant and no assertion time, so it is not a Claim.
+# How a confirmed Claim links back to its draft is authoring and submission
+# history, recorded outside the Claim (regen-network/claims#55).
+name: Draft extracted from planting log
+claimStatement: Hedgerow planted along the northern boundary of plot A.
+hasSubject:
+  id: https://example.org/plot/A
+hasEvidence:
+  - id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
+    name: Planting log, spring 2026 (v1)

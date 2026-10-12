@@ -1,0 +1,12 @@
+# expect: '2026-05-02T07:30:00Z' does not match
+# UTC is written with the offset +00:00, the form LinkML and rdflib write, so
+# one instant has one lexical form. 2026-05-02T07:30:00+00:00 is the same
+# instant and is valid.
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00Z"
+hasSubject:
+  id: https://example.org/plot/A

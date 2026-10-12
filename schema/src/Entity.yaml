@@ -7,12 +7,15 @@ prefixes:
 imports:
   - linkml:types
   - core
+  - ProvAlignment
 
 default_prefix: rfs
 default_range: string
 
 classes:
   Entity:
+    mixins:
+      - ProvAgent
     slots:
       - name
       - description
