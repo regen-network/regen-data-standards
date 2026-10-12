@@ -12,7 +12,6 @@ assertedBy:
 assertedAt: "2026-07-01T00:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/B
-  name: Plot B
 hasTarget:
   - https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1
 claimConsistency: INTERNALLY_INCONSISTENT

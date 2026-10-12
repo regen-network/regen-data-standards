@@ -355,8 +355,7 @@
   "assertedAt": "2026-06-12T10:00:00+00:00",
   "hasSubject": {
     "@type": "ClaimSubject",
-    "id": "https://example.org/plot/A",
-    "name": "Plot A"
+    "id": "https://example.org/plot/A"
   },
   "hasTarget": [
     "https://example.org/evidence/planting-log-2026-v1.pdf",
