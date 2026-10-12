@@ -56,7 +56,10 @@ classes:
       name:
         description: Title of the cited source.
       description:
-        description: What the source is, in the citer's words.
+        description: >-
+          What the source is. The record is shared by every claim that cites
+          the source, so it describes the source itself, not one citer's use
+          of it; where a claim relies on it goes on the citation.
       inLanguage:
         description: >-
           Language of the source's text, as a BCP 47 tag with a 2- or 3-letter
