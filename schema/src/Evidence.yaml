@@ -1,4 +1,4 @@
-id: Evidence
+id: https://framework.regen.network/schema/Evidence
 name: Evidence
 description: >-
   Skeleton of the evidence a Claim cites. It gives every cited source a typed,
