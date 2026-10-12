@@ -68,7 +68,8 @@ grouped by the issuer's `findingLabel`.
 |---|---|---|
 | `Claim.yaml` | `hasClaimType` removed (see [Field migrations](#field-migrations)). | as before |
 | `ClaimVocabulary.yaml` | `hasEvidence` references `Evidence` records by IRI instead of inlining them, and `hasEvidenceCitation` is added (both on the base Claim). Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
-| `Evidence.yaml` | Adds the source hash, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
+| `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
+| `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: `Evaluation is_a Claim`, `Scope`, and the program-agnostic kinds `EvidenceEvaluation` and `ClaimConsistencyEvaluation` with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the abstract `RegistryReviewEvaluation is_a Evaluation`, its kinds `RegistryRequirementEvaluation`, `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
@@ -286,6 +287,7 @@ inlined evidence being rejected). Where inside the source the cited material is 
 | `name`, `description` | `schema:name`, `schema:description` | string | 0..1 | Title; what it is. |
 | `sourceType` | `dcterms:type` | DCMI Type Vocabulary | 1 | `TEXT`, `DATASET`, `STILL_IMAGE`… Finer kinds a program accepts belong to its rule set. |
 | `mediaType` | `dcterms:format` | string | 0..1 | For example `application/pdf`. |
+| `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of the source's text, such as `cs` for the land register extract a claim in English cites. It says nothing about how a claim's statement was derived from the source ([example](../schema/examples/evidence.INVALID-language-name.yaml) with a language name). |
 | `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version ([example](../schema/examples/evidence.INVALID-without-hash.yaml) without it). |
 | `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |

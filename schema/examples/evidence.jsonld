@@ -60,6 +60,9 @@
     "image": {
       "@id": "schema:image"
     },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
