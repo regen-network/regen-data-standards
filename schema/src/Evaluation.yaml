@@ -42,7 +42,6 @@ classes:
       - reliesOn
       - appliesRequirement
       - appliesRuleSet
-      - outcome
       - rationale
       - verificationMethod
       - verificationMethodDescriptor
@@ -97,9 +96,12 @@ classes:
     description: >-
       An Evaluation with base content only, for a judgment made under no
       program's review vocabulary, such as a community steward's review. Its
-      verdict, if any, is the generic outcome. It adds nothing to Evaluation,
-      and its generated shapes are closed: a program's fields belong to that
-      program's kind of evaluation.
+      verdict, if any, is the generic outcome, which only this class carries:
+      every other kind states its verdict with its own sub-property of
+      outcome, so it cannot state two verdicts. Its generated shapes are
+      closed: a program's fields belong to that program's kind of evaluation.
+    slots:
+      - outcome
 
   EvidenceEvaluation:
     is_a: Evaluation
@@ -186,12 +188,14 @@ slots:
   outcome:
     slot_uri: rfs:outcome
     description: >-
-      The verdict, as a term from the vocabulary of the program or rule set
-      the judgment is made under. A kind of evaluation with its own allowed
-      values declares its verdict as a sub-property of outcome with an
-      enumerated range, such as evidentialStance or a program's requirement
-      outcome, so that both validators check the value and a query for
-      outcome still finds it.
+      The verdict of a GenericEvaluation, as a term from the vocabulary of
+      the program or rule set the judgment is made under. A kind of
+      evaluation with its own allowed values declares its verdict as a
+      sub-property of outcome with an enumerated range, such as
+      evidentialStance or a program's requirement outcome, and does not
+      carry outcome itself: both validators check the value, the kind cannot
+      state a second, conflicting verdict, and a query for outcome still
+      finds every verdict.
     range: uriorcurie
   assessedAgainst:
     slot_uri: rfs:assessedAgainst
