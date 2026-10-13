@@ -21,5 +21,6 @@ evidenceSufficiency: INSUFFICIENT
 rationale: >-
   The log records 400 m planted; the photographs show the western 250 m of the
   boundary only.
-verificationMethod: OTHER
-verificationMethodDescriptor: Desk review of the cited evidence by a community steward
+evaluationMethod:
+  - rfs:DocumentReview
+evaluationMethodDescription: Desk review of the cited evidence by a community steward

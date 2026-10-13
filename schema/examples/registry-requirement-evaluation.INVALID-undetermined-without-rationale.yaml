@@ -26,7 +26,8 @@ appliesRequirement:
   - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
 applicability: APPLICABLE
 requirementOutcome: UNDETERMINED
-verificationMethod: THIRD_PARTY_AUDITED
+evaluationMethod:
+  - rfs:DocumentReview
 scope:
   appliesTo:
     - https://example.org/c06/cohort/P-001-2020

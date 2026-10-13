@@ -15,5 +15,6 @@ hasSubject:
 hasTarget:
   - https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1
 claimConsistency: INTERNALLY_INCONSISTENT
-verificationMethod: OTHER
-verificationMethodDescriptor: Desk review of the claim record
+evaluationMethod:
+  - rfs:DocumentReview
+evaluationMethodDescription: Desk review of the claim record

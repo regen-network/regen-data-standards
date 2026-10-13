@@ -22,7 +22,8 @@ reportRating: ACCEPTANCE_WITH_CONTINGENCIES
 rationale: >-
   Two clarification requests on the crediting period structure remain open; the
   rest of the project design conforms.
-verificationMethod: THIRD_PARTY_AUDITED
+evaluationMethod:
+  - rfs:DocumentReview
 issuerRole: VVB
 hasEvidenceCitation:
   - source: https://example.org/c06/validation-report-v1.pdf

@@ -1,7 +1,7 @@
 # expect: does not match '\\S'
 # class: RegistryFindingEvaluation
-# The descriptor check is on the shared slot, so every kind of evaluation gets
-# it: a whitespace-only descriptor is rejected like an empty one.
+# The description check is on the shared slot, so every kind of evaluation gets
+# it: a whitespace-only description is rejected like an empty one.
 name: Clarification request on the cohort-based crediting period
 claimStatement: >-
   The project plan assigns each cohort its own ten-year crediting period. The
@@ -18,8 +18,9 @@ hasTarget:
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 findingState: OPEN
-verificationMethod: OTHER
-verificationMethodDescriptor: "   "
+evaluationMethod:
+  - rfs:DocumentReview
+evaluationMethodDescription: "   "
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)

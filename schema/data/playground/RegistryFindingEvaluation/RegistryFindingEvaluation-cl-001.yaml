@@ -19,7 +19,8 @@ hasTarget:
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 findingState: OPEN
-verificationMethod: THIRD_PARTY_AUDITED
+evaluationMethod:
+  - rfs:DocumentReview
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)

@@ -1,7 +1,7 @@
 # expect: does not match '\\S'
 # class: GenericEvaluation
-# A method outside the enumeration is described: an empty descriptor leaves it
-# unspecified. Suggested by Darren on #90 (r4225894937).
+# An evaluation method description has content: an empty one would stand in
+# for no description. Suggested by Darren on #90 (r4225894937).
 name: Steward review of the plot A hedgerow planting
 claimStatement: >-
   The planted hedgerow along the northern boundary of plot A is present along
@@ -16,7 +16,8 @@ hasTarget:
   - https://example.org/placeholder/claim-iri/generic-claim-v1
 outcome: https://example.org/vocab/review/confirmed
 rationale: The steward walked the boundary and compared it with the planting log.
-verificationMethod: OTHER
-verificationMethodDescriptor: ""
+evaluationMethod:
+  - rfs:DocumentReview
+evaluationMethodDescription: ""
 hasEvidenceCitation:
   - source: https://example.org/evidence/walkover-photos-2026-06.zip

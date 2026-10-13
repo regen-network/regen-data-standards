@@ -89,6 +89,13 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "evaluationMethod": {
+      "@type": "@id",
+      "@id": "evaluationMethod"
+    },
+    "evaluationMethodDescription": {
+      "@id": "evaluationMethodDescription"
+    },
     "evidenceSufficiency": {
       "@id": "evidenceSufficiency",
       "@type": "@vocab",
@@ -236,22 +243,6 @@
     "value": {
       "@id": "rdf:value"
     },
-    "verificationMethod": {
-      "@id": "verificationMethod",
-      "@type": "@vocab",
-      "@context": {
-        "SELF_ATTESTED": "rfs:SelfAttested",
-        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
-        "LAB_MEASURED": "rfs:LabMeasured",
-        "SENSOR_DERIVED": "rfs:SensorDerived",
-        "MODEL_ESTIMATED": "rfs:ModelEstimated",
-        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
-        "OTHER": "rfs:OtherVerificationMethod"
-      }
-    },
-    "verificationMethodDescriptor": {
-      "@id": "verificationMethodDescriptor"
-    },
     "version": {
       "@id": "schema:version"
     },
@@ -361,6 +352,8 @@
   "evidentialStance": "SUPPORTS",
   "evidenceSufficiency": "INSUFFICIENT",
   "rationale": "The log records 400 m planted; the photographs show the western 250 m of the boundary only.",
-  "verificationMethod": "OTHER",
-  "verificationMethodDescriptor": "Desk review of the cited evidence by a community steward"
+  "evaluationMethod": [
+    "rfs:DocumentReview"
+  ],
+  "evaluationMethodDescription": "Desk review of the cited evidence by a community steward"
 }

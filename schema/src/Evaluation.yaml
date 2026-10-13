@@ -46,8 +46,8 @@ classes:
       - appliesRequirement
       - appliesRuleSet
       - rationale
-      - verificationMethod
-      - verificationMethodDescriptor
+      - evaluationMethod
+      - evaluationMethodDescription
       - scope
       - unbounded
     slot_usage:
@@ -63,21 +63,7 @@ classes:
           plot, organization, activity, dataset or other resource.
       hasEvidenceCitation:
         description: Evidence the issuer relied on, as citations.
-      verificationMethod:
-        required: true
     rules:
-      - description: >-
-          A verification method outside the enumeration is described, so the
-          method is never empty. Enforced by the generated JSON Schema; the
-          generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            verificationMethod:
-              equals_string: OTHER
-        postconditions:
-          slot_conditions:
-            verificationMethodDescriptor:
-              required: true
       - description: >-
           A scope and unbounded are exclusive: a scope limits the judgment to
           the subjects it names, and unbounded states that the judgment has no

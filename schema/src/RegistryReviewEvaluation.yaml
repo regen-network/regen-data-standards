@@ -37,6 +37,12 @@ classes:
     slot_usage:
       issuerRole:
         required: true
+      evaluationMethod:
+        description: >-
+          The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.
+        required: true
+        minimum_cardinality: 1
 
   RegistryRequirementEvaluation:
     is_a: RegistryReviewEvaluation

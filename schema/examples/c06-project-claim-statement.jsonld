@@ -150,6 +150,13 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
+    "evaluationMethod": {
+      "@type": "@id",
+      "@id": "evaluationMethod"
+    },
+    "evaluationMethodDescription": {
+      "@id": "evaluationMethodDescription"
+    },
     "exact": {
       "@id": "oa:exact"
     },
@@ -418,22 +425,6 @@
     },
     "value": {
       "@id": "rdf:value"
-    },
-    "verificationMethod": {
-      "@id": "verificationMethod",
-      "@type": "@vocab",
-      "@context": {
-        "SELF_ATTESTED": "rfs:SelfAttested",
-        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
-        "LAB_MEASURED": "rfs:LabMeasured",
-        "SENSOR_DERIVED": "rfs:SensorDerived",
-        "MODEL_ESTIMATED": "rfs:ModelEstimated",
-        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
-        "OTHER": "rfs:OtherVerificationMethod"
-      }
-    },
-    "verificationMethodDescriptor": {
-      "@id": "verificationMethodDescriptor"
     },
     "version": {
       "@id": "schema:version"

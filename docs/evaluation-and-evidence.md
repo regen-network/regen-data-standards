@@ -70,7 +70,7 @@ grouped by the issuer's `findingLabel`.
 | Module | Change | Imports |
 |---|---|---|
 | `Claim.yaml` | `hasClaimType` removed (see [Field migrations](#field-migrations)). | as before |
-| `ClaimVocabulary.yaml` | `hasEvidence` is replaced by `hasEvidenceCitation` on the base Claim: citations that name `Evidence` records by IRI, instead of inlining them, with optional selectors. Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `verificationMethod`, `verificationMethodDescriptor` and the `VerificationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
+| `ClaimVocabulary.yaml` | `hasEvidence` is replaced by `hasEvidenceCitation` on the base Claim: citations that name `Evidence` records by IRI, instead of inlining them, with optional selectors. Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRuleSet`, `evaluationMethod`, `evaluationMethodDescription` and the `EvaluationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
@@ -136,7 +136,7 @@ classDiagram
         appliesRequirement
         appliesRuleSet
         rationale
-        verificationMethod
+        evaluationMethod
         scope
         unbounded
     }
@@ -215,8 +215,8 @@ WP5.
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
 | `outcome` | `rfs:outcome` | IRI | 0..1 | On `GenericEvaluation` only: the verdict, a term from the program's vocabulary. Every other kind states its verdict with its own sub-property of `outcome` and cannot also state `outcome`. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
-| `verificationMethod` | `rfs:verificationMethod` | `VerificationMethodType` | 1 | How the issuer checked. |
-| `verificationMethodDescriptor` | `rfs:verificationMethodDescriptor` | string with a non-whitespace character | 0..1 | Required with `OTHER` ([missing](../schema/examples/evaluation.INVALID-other-method-without-descriptor.yaml), [empty](../schema/examples/evaluation.INVALID-empty-method-descriptor.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-descriptor.yaml) examples). |
+| `evaluationMethod` | `rfs:evaluationMethod` | IRI | 0..*, set | The procedures used to reach the assessment, such as `rfs:DocumentReview` or `rfs:SiteInspection` (the recommended shared values are the `EvaluationMethodType` meanings). Required on Registry reviews ([example](../schema/examples/registry-finding-evaluation.INVALID-without-method.yaml) without it). |
+| `evaluationMethodDescription` | `rfs:evaluationMethodDescription` | string with a non-whitespace character | 0..1 | How the evaluator reached the assessment, in their words ([empty](../schema/examples/evaluation.INVALID-empty-method-description.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-description.yaml) examples). |
 | `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
 | `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets. Exclusive with `scope`. |
 
@@ -420,12 +420,16 @@ derived from the hash does (see [Known limitations](#known-limitations)).
 
 ## Shared terms
 
-**Verification method:** `SELF_ATTESTED`, `PEER_OR_COMMUNITY`, `LAB_MEASURED`,
-`SENSOR_DERIVED`, `MODEL_ESTIMATED`, `THIRD_PARTY_AUDITED`, `OTHER` with
-`verificationMethodDescriptor`. Required on evaluations, one per evaluation: its party and date are
-the issuer and `assertedAt`, so a subject checked by two methods has two evaluations, each with its own
-party and date. A claim with no evaluation is self-attested by the base Claim's definition. The
-extension path is `OTHER` with a descriptor, then a new value in a later schema version.
+**Evaluation method** (`evaluationMethod`, `evaluationMethodDescription`): the procedures the
+evaluator used to reach the assessment, as method IRIs, with an optional description in the
+evaluator's words. The recommended shared methods are the `EvaluationMethodType` values (document
+review, site inspection, record comparison, recalculation); a program can use its own method IRIs
+without a schema change. Three questions that a single "verification method" used to mix are kept
+apart ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4254906674)):
+how the evaluator reached the assessment (`evaluationMethod`), who evaluated and in what capacity
+(`assertedBy`, and a role such as `issuerRole`), and how the evidence was produced (the evidence's
+generating activity, `wasGeneratedBy`). A claim with no evaluation is self-attested by the base
+Claim's definition.
 
 **Rule-set version** (`appliesRuleSet`) and **requirement** references are IRIs of exact versions.
 A requirement IRI identifies one immutable requirement version within an exact rule-set version,
@@ -506,7 +510,7 @@ validators.
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the activity that generated it |
-| [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and a verification method outside the enumeration (`OTHER` with a descriptor) |
+| [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-evaluation.jsonld`](../schema/examples/evidence-evaluation.jsonld) | An `EvidenceEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, rule-set and requirement versions, a scope and a condition |
@@ -582,12 +586,12 @@ the source.
 | `Attestation.contentHash`, `graphIri` | Removed |
 | `Evidence` (IRI, name, description) | Adds required `sourceType`, `contentHash` and `resolver`: existing evidence must state them |
 | `hasEvidence` (inlined `Evidence` nodes, #85) | Removed. Evidence is cited with `hasEvidenceCitation`: each citation names an `Evidence` record, its own document, by IRI, with optional selectors ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4254686250)) |
+| `verificationMethod` (`VerificationMethodType`, required), `verificationMethodDescriptor` | `evaluationMethod` (method IRIs, optional; required on Registry reviews) and `evaluationMethodDescription`. Who evaluated is `assertedBy` and its role; how evidence was produced is its generating activity |
 | `Evidence` IRI with a fragment (`…pdf#page=16`), `Evidence.locator` | IRI without a fragment; the position is a selector on an `EvidenceCitation` (`hasEvidenceCitation`) |
 
 ## Known limitations
 
-- **Six rules are enforced by JSON Schema only:** a descriptor with `OTHER` (the verification method
-  is never empty); a scope and `unbounded` being exclusive; a requirement outcome when the requirement
+- **Five rules are enforced by JSON Schema only:** a scope and `unbounded` being exclusive; a requirement outcome when the requirement
   applies, and none when it does not; a rationale with `UNDETERMINED`; no sufficiency for evidence
   with no bearing. They are LinkML
   rules, and LinkML's SHACL generator does not translate rules: 1.11.1 ignores them, and the
