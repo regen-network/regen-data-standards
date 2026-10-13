@@ -53,12 +53,16 @@ flowchart LR
 A project developer's response to a finding is a Claim by the developer (usually a revised C06
 claim with new evidence), not an evaluation.
 
-`hasTarget` names what an evaluation judges or answers: an exact, immutable version of a claim, of
-another evaluation, or of a snapshot (a fixed set of claim versions, identified by its SnapshotIRI,
-[claims#56](https://github.com/regen-network/claims/issues/56)). A snapshot is the target when a
-judgment covers a whole submission, such as a verifier's report rating. An evidence evaluation
-targets `Evidence` records instead (see [`EvidenceEvaluation`](#evidenceevaluation)). `hasTarget` never names a
-logical label: a finding that runs over several review rounds is a series of dated evaluations,
+`hasTarget` names the exact resources an evaluation directly examines or assesses in reaching its
+conclusion. When a resource can change, the target is the particular version or snapshot assessed: an
+exact claim or evaluation version, an `Evidence` record, or a snapshot (a fixed set of claim
+versions, identified by its SnapshotIRI, [claims#56](https://github.com/regen-network/claims/issues/56)),
+for example when a judgment covers a whole submission. It is distinct from the focal subject and
+from the criteria applied: a land-tenure evaluation may have a project as its `hasSubject`, directly
+assess particular tenure claims or `Evidence` records through `hasTarget`, and name the governing
+requirement through `appliesRequirement`. The base slot accepts any resource; a kind of evaluation
+may require it or restrict it, as [`EvidenceEvaluation`](#evidenceevaluation) does to `Evidence`
+records. `hasTarget` never names a logical label: a finding that runs over several review rounds is a series of dated evaluations,
 grouped by the issuer's `findingLabel`.
 
 ## Modules
@@ -205,7 +209,7 @@ WP5.
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | Exact versions judged or answered. |
+| `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | The exact resources directly examined or assessed; a version or snapshot when the resource can change. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | An exact Claim or Evaluation whose asserted content or result is used in reaching the assessment, but which the evaluation does not itself assess, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
