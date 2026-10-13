@@ -16,8 +16,9 @@ hasSubject:
 hasTarget:
   - https://example.org/evidence/planting-log-2026-v1.pdf
   - https://example.org/evidence/walkover-photos-2026-06.zip
-evidentialStance: SUPPORTS
-evidenceSufficiency: INSUFFICIENT
+hasResult:
+  evidentialStance: SUPPORTS
+  evidenceSufficiency: INSUFFICIENT
 rationale: >-
   The log records 400 m planted; the photographs show the western 250 m of the
   boundary only.

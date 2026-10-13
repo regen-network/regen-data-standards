@@ -48,6 +48,7 @@ classes:
       - rationale
       - evaluationMethod
       - evaluationMethodDescription
+      - hasResult
     slot_usage:
       assertedBy:
         description: >-
@@ -66,19 +67,18 @@ classes:
     is_a: Evaluation
     class_uri: rfs:GenericEvaluation
     description: >-
-      An evaluation that uses only the shared Evaluation fields and the
-      generic outcome, for a judgment made under no program's vocabulary,
-      such as a community steward's review. It means no more than Evaluation.
-      Its verdict, if any, is the generic outcome, which only this class
-      carries: every other kind states its verdict with its own sub-property
-      of outcome, so it cannot state two verdicts.
+      An evaluation that uses only the shared Evaluation fields, for a
+      judgment made under no program's vocabulary, such as a community
+      steward's review. It means no more than Evaluation. Its result, if any,
+      is a GenericEvaluationResult with the generic outcome.
     comments:
       - >-
         Implementation: it exists as its own class so that such an evaluation
         is validated with a closed shape, which the open Evaluation base
         cannot give its direct instances.
-    slots:
-      - outcome
+    slot_usage:
+      hasResult:
+        range: GenericEvaluationResult
 
   RequirementEvaluation:
     is_a: Evaluation
@@ -95,8 +95,6 @@ classes:
         open and a program can specialize it with fields of its own, as
         RegistryRequirementEvaluation does.
     slots:
-      - applicability
-      - requirementOutcome
       - scope
     slot_usage:
       appliesRequirement:
@@ -106,40 +104,21 @@ classes:
         required: true
         minimum_cardinality: 1
         maximum_cardinality: 1
-      applicability:
+      hasResult:
+        range: RequirementAssessmentResult
         required: true
     rules:
-      - description: >-
-          An applicable requirement has a verdict. Enforced by the generated
-          JSON Schema; the generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            applicability:
-              equals_string: APPLICABLE
-        postconditions:
-          slot_conditions:
-            requirementOutcome:
-              required: true
-      - description: >-
-          A requirement that does not apply has no verdict. Enforced by the
-          generated JSON Schema; the generated SHACL does not express LinkML
-          rules.
-        preconditions:
-          slot_conditions:
-            applicability:
-              equals_string: NOT_APPLICABLE
-        postconditions:
-          slot_conditions:
-            requirementOutcome:
-              value_presence: ABSENT
       - description: >-
           An undetermined outcome is a finding, not a review in progress, so
           the rationale says what is missing. Enforced by the generated JSON
           Schema; the generated SHACL does not express LinkML rules.
         preconditions:
           slot_conditions:
-            requirementOutcome:
-              equals_string: UNDETERMINED
+            hasResult:
+              range_expression:
+                slot_conditions:
+                  requirementOutcome:
+                    equals_string: UNDETERMINED
         postconditions:
           slot_conditions:
             rationale:
@@ -157,8 +136,6 @@ classes:
       Requirement is a RequirementEvaluation instead.
     slots:
       - assessedAgainst
-      - evidentialStance
-      - evidenceSufficiency
     slot_usage:
       hasTarget:
         description: >-
@@ -168,21 +145,9 @@ classes:
         minimum_cardinality: 1
       assessedAgainst:
         required: true
-      evidentialStance:
+      hasResult:
+        range: EvidenceSupportResult
         required: true
-    rules:
-      - description: >-
-          Evidence with no bearing on what it is assessed against establishes
-          nothing, so it has no sufficiency. Enforced by the generated JSON
-          Schema; the generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            evidentialStance:
-              equals_string: NO_BEARING
-        postconditions:
-          slot_conditions:
-            evidenceSufficiency:
-              value_presence: ABSENT
 
   ClaimConsistencyEvaluation:
     is_a: Evaluation
@@ -194,8 +159,6 @@ classes:
       exact claim version. An internally inconsistent claim is corrected by a
       new version before its evidence is evaluated; neither the statement nor
       the fields override the other.
-    slots:
-      - claimConsistency
     slot_usage:
       hasTarget:
         description: >-
@@ -203,12 +166,115 @@ classes:
           Unordered set.
         required: true
         minimum_cardinality: 1
-      claimConsistency:
+      hasResult:
+        range: ClaimConsistencyResult
         required: true
       rationale:
         description: >-
           Where the statement and the fields agree or disagree, for example
           "the statement gives 12 ha, the area field 15 ha".
+        required: true
+
+  EvaluationResult:
+    abstract: true
+    class_uri: rfs:EvaluationResult
+    description: >-
+      The conclusion of an Evaluation: its principal outcome and any
+      qualifiers of that outcome. Each kind of evaluation has its own result
+      type, whose outcome field is a sub-property of outcome with the values
+      that kind allows. Attribution, time, subject, targets, method and
+      rationale stay on the Evaluation.
+    comments:
+      - >-
+        Implementation: abstract, so its generated shape is open. Each result
+        type narrows its own outcome sub-property rather than one shared
+        outcome field, because LinkML 1.11 cannot narrow an enum-valued slot
+        in a subclass without breaking the RDF conversion of its Python
+        model.
+
+  GenericEvaluationResult:
+    is_a: EvaluationResult
+    class_uri: rfs:GenericEvaluationResult
+    description: >-
+      The result of a GenericEvaluation: a generic outcome, as a term from the
+      vocabulary of whoever made the judgment.
+    slots:
+      - outcome
+
+  RequirementAssessmentResult:
+    is_a: EvaluationResult
+    class_uri: rfs:RequirementAssessmentResult
+    description: >-
+      The result of a RequirementEvaluation: whether the requirement applies
+      to the subject and, when it does, whether the subject satisfies it.
+    slots:
+      - applicability
+      - requirementOutcome
+    slot_usage:
+      applicability:
+        required: true
+    rules:
+      - description: >-
+          An applicable requirement has an outcome. Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              required: true
+      - description: >-
+          A requirement that does not apply has no outcome. Enforced by the
+          generated JSON Schema; the generated SHACL does not express LinkML
+          rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: NOT_APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              value_presence: ABSENT
+
+  EvidenceSupportResult:
+    is_a: EvaluationResult
+    class_uri: rfs:EvidenceSupportResult
+    description: >-
+      The result of an EvidenceSupportEvaluation: whether the evidence
+      supports, challenges or has no bearing on the claim and, where
+      assessed, whether it is sufficient to establish that stance.
+    slots:
+      - evidentialStance
+      - evidenceSufficiency
+    slot_usage:
+      evidentialStance:
+        required: true
+    rules:
+      - description: >-
+          Evidence with no bearing on the claim establishes nothing, so it has
+          no sufficiency. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            evidentialStance:
+              equals_string: NO_BEARING
+        postconditions:
+          slot_conditions:
+            evidenceSufficiency:
+              value_presence: ABSENT
+
+  ClaimConsistencyResult:
+    is_a: EvaluationResult
+    class_uri: rfs:ClaimConsistencyResult
+    description: >-
+      The result of a ClaimConsistencyEvaluation: whether the claim's
+      statement and structured fields express the same assertion.
+    slots:
+      - claimConsistency
+    slot_usage:
+      claimConsistency:
         required: true
 
   Scope:
@@ -228,17 +294,22 @@ classes:
         minimum_cardinality: 1
 
 slots:
+  hasResult:
+    slot_uri: rfs:hasResult
+    description: >-
+      The conclusion of the Evaluation, as a result whose type depends on the
+      kind of evaluation.
+    range: EvaluationResult
+    inlined: true
   outcome:
     slot_uri: rfs:outcome
     description: >-
-      The verdict of a GenericEvaluation, as a term from the vocabulary of
-      the program or rule set the judgment is made under. A kind of
-      evaluation with its own allowed values declares its verdict as a
-      sub-property of outcome with an enumerated range, such as
-      evidentialStance or a program's requirement outcome, and does not
-      carry outcome itself: both validators check the value, the kind cannot
-      state a second, conflicting verdict, and a query for outcome still
-      finds every verdict.
+      The principal conclusion of an evaluation result. A GenericEvaluationResult
+      states it as a term from the vocabulary of whoever made the judgment;
+      every other result type states it with its own sub-property of outcome
+      whose values that kind allows, such as requirementOutcome or
+      evidentialStance, so both validators check the value and a query for
+      outcome still finds every principal conclusion.
     range: uriorcurie
   assessedAgainst:
     slot_uri: rfs:assessedAgainst
@@ -254,13 +325,12 @@ slots:
       against, or has no bearing on it. A sub-property of outcome.
     range: EvidentialStance
   evidenceSufficiency:
-    is_a: outcome
     slot_uri: rfs:evidenceSufficiency
     description: >-
       Whether the evidence is enough to establish its stance: sufficient
-      supporting evidence establishes the claim or requirement, and
-      sufficient challenging evidence contradicts it. A sub-property of
-      outcome.
+      supporting evidence establishes the claim, and sufficient challenging
+      evidence contradicts it. It qualifies the stance; it is not a
+      conclusion of its own, so it is not a sub-property of outcome.
     range: EvidenceSufficiency
   claimConsistency:
     is_a: outcome
@@ -271,7 +341,7 @@ slots:
     range: ClaimConsistency
   rationale:
     slot_uri: rfs:rationale
-    description: Why the issuer reached the outcome.
+    description: Why the issuer reached the result.
     range: string
   scope:
     slot_uri: rfs:scope

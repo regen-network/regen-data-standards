@@ -131,6 +131,10 @@
       "@type": "@id",
       "@id": "hasEvidenceCitation"
     },
+    "hasResult": {
+      "@type": "@id",
+      "@id": "hasResult"
+    },
     "hasSubject": {
       "@type": "@id",
       "@id": "hasSubject"
@@ -284,6 +288,9 @@
     "ClaimConsistencyEvaluation": {
       "@id": "ClaimConsistencyEvaluation"
     },
+    "ClaimConsistencyResult": {
+      "@id": "ClaimConsistencyResult"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
@@ -296,6 +303,9 @@
     "Evaluation": {
       "@id": "Evaluation"
     },
+    "EvaluationResult": {
+      "@id": "EvaluationResult"
+    },
     "Evidence": {
       "@id": "Evidence"
     },
@@ -305,6 +315,9 @@
     "EvidenceSupportEvaluation": {
       "@id": "EvidenceSupportEvaluation"
     },
+    "EvidenceSupportResult": {
+      "@id": "EvidenceSupportResult"
+    },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
     },
@@ -313,6 +326,9 @@
     },
     "GenericEvaluation": {
       "@id": "GenericEvaluation"
+    },
+    "GenericEvaluationResult": {
+      "@id": "GenericEvaluationResult"
     },
     "Link": {
       "@id": "Link"
@@ -328,6 +344,9 @@
     },
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
+    },
+    "RequirementAssessmentResult": {
+      "@id": "RequirementAssessmentResult"
     },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
@@ -363,7 +382,10 @@
   "hasTarget": [
     "https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1"
   ],
-  "claimConsistency": "INTERNALLY_INCONSISTENT",
+  "hasResult": {
+    "@type": "ClaimConsistencyResult",
+    "claimConsistency": "INTERNALLY_INCONSISTENT"
+  },
   "rationale": "The statement gives 12 ha restored; the area field gives 15 ha.",
   "evaluationMethod": [
     "rfs:DocumentReview"

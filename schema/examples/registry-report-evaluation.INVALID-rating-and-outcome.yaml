@@ -2,7 +2,7 @@
 # class: RegistryReportEvaluation
 # A kind of evaluation states its verdict with its own field only: a report
 # rated REJECTION cannot also carry a generic outcome such as rfs:Acceptance.
-name: Validation report rating for example project P-001
+name: Validation opinion for example project P-001
 claimStatement: >-
   The verifier accepts example project P-001 as described in project plan v2.0,
   once the project proponent closes the open clarification requests and the
@@ -19,8 +19,9 @@ reliesOn:
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
   - https://example.org/rule-set/program-guide/1.1
-reportRating: REJECTION
-outcome: rfs:Acceptance
+hasResult:
+  outcome: rfs:Acceptance
+  verificationOpinion: REJECTION
 rationale: >-
   Two clarification requests on the crediting period structure remain open; the
   rest of the project design conforms.

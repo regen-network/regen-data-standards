@@ -110,7 +110,7 @@ vocabulary is a `GenericEvaluation`, whose shape is closed, as `GenericClaim` is
 
 `GenericClaim` is a claim that uses only the base fields, such as a written statement with its
 claimants, time, subject and evidence; `GenericEvaluation` is an evaluation that uses only the
-shared Evaluation fields and the generic `outcome`. Each means no more than its base. They exist as
+shared Evaluation fields, with a generic result if any. Each means no more than its base. They exist as
 their own classes so that such records are validated with a closed shape: a generated shape is open
 or closed for a class and all its subclasses alike, so an open base cannot also close its own direct
 instances. SHACL could express that with a hand-written SPARQL-based target, which `gen-shacl` does
@@ -137,10 +137,9 @@ classDiagram
         appliesRuleSet
         rationale
         evaluationMethod
+        hasResult
     }
-    class GenericEvaluation {
-        outcome
-    }
+    class GenericEvaluation
     class Scope {
         appliesTo
         exclusion
@@ -148,18 +147,12 @@ classDiagram
     }
     class RequirementEvaluation {
         <<abstract, every program>>
-        applicability
-        requirementOutcome
         scope
     }
     class EvidenceSupportEvaluation {
         assessedAgainst
-        evidentialStance
-        evidenceSufficiency
     }
-    class ClaimConsistencyEvaluation {
-        claimConsistency
-    }
+    class ClaimConsistencyEvaluation
     class RegistryReviewEvaluation {
         <<mixin, Regen Registry>>
         issuerRole
@@ -169,11 +162,8 @@ classDiagram
     class RegistryFindingEvaluation {
         findingLabel
         findingType
-        findingState
     }
-    class RegistryReportEvaluation {
-        reportRating
-    }
+    class RegistryReportEvaluation
     class Condition {
         conditionLabel
         description
@@ -191,18 +181,39 @@ classDiagram
     RegistryReviewEvaluation <|.. RegistryFindingEvaluation : mixin
     RegistryReviewEvaluation <|.. RegistryReportEvaluation : mixin
     RequirementEvaluation *-- Scope
+    Evaluation *-- EvaluationResult : hasResult
     RegistryReviewEvaluation *-- "0..*" Condition
 ```
 
 There is no evaluation type field. Like `hasClaimType`, a single list of kinds of judgment would not
-fit every program. Each kind of judgment is a subclass with its own verdict field and allowed values,
-because the kinds answer different questions: whether a requirement is satisfied, whether a finding
-is open, how a verifier rates its report, what evidence shows. Each verdict field is a sub-property
-of the generic `outcome` with an enumerated range, so both generated validators check its values (an
-enum in JSON Schema, `sh:in` in SHACL), and the OWL output declares `rdfs:subPropertyOf rfs:outcome`,
-so a query for `outcome` still finds every verdict when the class hierarchy is loaded. A kind does
-not carry `outcome` itself, so it cannot state a second verdict that contradicts its own; only a
-`GenericEvaluation`, which has no verdict field of its own, uses `outcome` directly.
+fit every program. Each kind of judgment is a subclass, because the kinds answer different questions:
+whether a requirement is satisfied, whether a finding is resolved, what a verifier's opinion of the
+project is, what evidence shows.
+
+**Results.** An evaluation's conclusion is a result node (`hasResult`), whose type depends on the
+kind, in the style of the W3C Evaluation and Report Language (EARL): attribution, time, subject,
+targets, method and rationale stay on the evaluation, and the result holds the principal outcome with
+any qualifiers of it ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255076742)).
+
+| Kind | Result | Principal outcome | Qualifiers |
+|---|---|---|---|
+| `GenericEvaluation` | `GenericEvaluationResult` (optional) | `outcome`: any IRI | — |
+| `RequirementEvaluation` | `RequirementAssessmentResult` | `requirementOutcome`: `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED` | `applicability` (required) |
+| `EvidenceSupportEvaluation` | `EvidenceSupportResult` | `evidentialStance`: `SUPPORTS`, `CHALLENGES`, `NO_BEARING` (required) | `evidenceSufficiency` |
+| `ClaimConsistencyEvaluation` | `ClaimConsistencyResult` | `claimConsistency`: `CONSISTENT`, `INTERNALLY_INCONSISTENT` (required) | — |
+| `RegistryFindingEvaluation` | `FindingResolutionResult` | `findingResolution`: `RESOLVED`, `UNRESOLVED` (required) | — |
+| `RegistryReportEvaluation` | `VerificationOpinionResult` | `verificationOpinion`: `ACCEPTANCE`, `ACCEPTANCE_WITH_CONTINGENCIES`, `REJECTION` (required) | — |
+
+Each principal outcome is a sub-property of `outcome` with the values its kind allows, so both
+generated validators check them (an enum in JSON Schema, `sh:in` in SHACL), and a query for every
+principal outcome is `?evaluation rfs:hasResult/?p ?value . ?p rdfs:subPropertyOf* rfs:outcome` with
+the published class hierarchy. Qualifiers are not sub-properties of `outcome`, so sufficiency and
+applicability are never read as conclusions of their own. A result type cannot carry `outcome`
+directly next to its own outcome
+([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
+Each result type narrows its own sub-property, rather than one shared `outcome` field being narrowed
+per type, because LinkML 1.11 cannot narrow an enum-valued slot in a subclass without breaking the
+RDF conversion of its Python model.
 
 An evaluation records a judgment. It is neither workflow state (a review that has not started or is
 in progress is recorded with no evaluation) nor an institutional decision, such as approving a
@@ -217,7 +228,7 @@ WP5.
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | An exact Claim or Evaluation whose asserted content or result is used in reaching the assessment, but which the evaluation does not itself assess, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
-| `outcome` | `rfs:outcome` | IRI | 0..1 | On `GenericEvaluation` only: the verdict, a term from the program's vocabulary. Every other kind states its verdict with its own sub-property of `outcome` and cannot also state `outcome`. |
+| `hasResult` | `rfs:hasResult` | an `EvaluationResult` (inlined) | 0..1 | The conclusion, as a result whose type depends on the kind (see Results above); required on every kind except `GenericEvaluation`. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `evaluationMethod` | `rfs:evaluationMethod` | IRI | 0..*, set | The procedures used to reach the assessment, such as `rfs:DocumentReview` or `rfs:SiteInspection` (the recommended shared values are the `EvaluationMethodType` meanings). Required on Registry reviews ([example](../schema/examples/registry-finding-evaluation.INVALID-without-method.yaml) without it). |
 | `evaluationMethodDescription` | `rfs:evaluationMethodDescription` | string with a non-whitespace character | 0..1 | How the evaluator reached the assessment, in their words ([empty](../schema/examples/evaluation.INVALID-empty-method-description.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-description.yaml) examples). |
@@ -233,15 +244,14 @@ subject satisfies a requirement is a [`RequirementEvaluation`](#requirementevalu
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 1..*, set | The `Evidence` records assessed, as one body of evidence. |
 | `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.INVALID-without-assessed-against.yaml) without it). |
-| `evidentialStance` | `rfs:evidentialStance` ⊑ `rfs:outcome` | `SUPPORTS`, `CHALLENGES`, `NO_BEARING` | 1 | Whether the evidence supports or challenges it, or has no bearing on it. |
-| `evidenceSufficiency` | `rfs:evidenceSufficiency` ⊑ `rfs:outcome` | `SUFFICIENT`, `INSUFFICIENT` | 0..1 | Whether the evidence is enough to establish its stance: sufficient challenging evidence contradicts the claim. Absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `evidentialStance` (⊑ `rfs:outcome`): whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
 
 ### `ClaimConsistencyEvaluation`
 
 Whether a claim's `claimStatement` and its structured fields express the same assertion. The
 generated validators cannot compare prose with values, so a reviewer records the result on the exact
-claim version (`hasTarget`, required). `claimConsistency` (⊑ `rfs:outcome`) is `CONSISTENT` or
-`INTERNALLY_INCONSISTENT`, and `rationale` is required: it says where they agree or disagree
+claim version (`hasTarget`, required). Its result's `claimConsistency` (⊑ `rfs:outcome`) is
+`CONSISTENT` or `INTERNALLY_INCONSISTENT`, and `rationale` is required: it says where they agree or disagree
 ([example](../schema/examples/claim-consistency-evaluation.INVALID-without-rationale.yaml) without
 it). Neither the statement nor the fields override the other: an internally inconsistent claim is
 corrected by a new version before its evidence is evaluated.
@@ -258,8 +268,7 @@ requirements).
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `applicability` | `rfs:applicability` | `APPLICABLE`, `NOT_APPLICABLE` | 1 | Whether the requirement applies to the subject. |
-| `requirementOutcome` | `rfs:requirementOutcome` ⊑ `rfs:outcome` | `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED` | 0..1 | Required when the requirement applies, absent when it does not ([example](../schema/examples/registry-requirement-evaluation.INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `RequirementAssessmentResult` | 1 | The result: `applicability` (`APPLICABLE`, `NOT_APPLICABLE`, required), whether the requirement applies to the subject; and `requirementOutcome` (⊑ `rfs:outcome`: `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED`), required when the requirement applies and absent when it does not ([example](../schema/examples/registry-requirement-evaluation.INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
 
 `UNDETERMINED` is a finding: the evaluator assessed the requirement and found that what is available
 is not yet enough to decide either way, for example because records it needs are due later. The
@@ -309,19 +318,21 @@ Registry review, with the Registry fields above.
 **`RegistryFindingEvaluation`**: a corrective action, clarification or forward action request, or a
 material issue raised by the Registry Agent, or a later assessment of one. Each record requires
 `findingLabel` (the issuer's identifier, stable across rounds, such as "CL 07(1)"), `findingType`
-(`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`), `findingState` (⊑ `rfs:outcome`: `OPEN` or `CLOSED`
-as of its date, [example](../schema/examples/registry-finding-evaluation.INVALID-without-state.yaml)
-without it) and at least one piece of evidence
+(`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`), a result whose `findingResolution` (⊑ `rfs:outcome`)
+is `RESOLVED` or `UNRESOLVED` as of its date
+([example](../schema/examples/registry-finding-evaluation.INVALID-without-result.yaml) without it),
+and at least one piece of evidence
 ([example](../schema/examples/registry-finding-evaluation.INVALID-without-evidence.yaml) without
-evidence). Later assessments target the earlier record and carry the same `findingLabel`; the current
-state is derived from the latest one, not stored.
+evidence). Later assessments target the earlier record and carry the same `findingLabel`; whether
+a finding is currently open is derived from the latest one, not stored.
 
-**`RegistryReportEvaluation`**: an independent verifier's rating of the project in its validation or
-verification report, `reportRating` (⊑ `rfs:outcome`): `ACCEPTANCE`, `ACCEPTANCE_WITH_CONTINGENCIES`
-or `REJECTION`, the ratings the Program Guide (sections 12.4 and 12.5) gives such a report. It is the
-verifier's rating, not the Registry's decision. A report cannot state the generic `outcome` instead
-of its rating ([example](../schema/examples/registry-report-evaluation.INVALID-generic-outcome.yaml))
-or as well as it ([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
+**`RegistryReportEvaluation`**: an independent verifier's opinion of the project in its validation
+or verification report, in a result whose `verificationOpinion` (⊑ `rfs:outcome`) is `ACCEPTANCE`,
+`ACCEPTANCE_WITH_CONTINGENCIES` or `REJECTION`, the opinions the Program Guide (sections 12.4 and
+12.5) provides. It is the verifier's opinion of the project, not a rating of the report document and
+not the Registry's decision. The result cannot state the generic `outcome` instead of the opinion
+([example](../schema/examples/registry-report-evaluation.INVALID-generic-outcome.yaml)) or as well
+as it ([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
 
 ## Evidence
 
@@ -593,8 +604,8 @@ the source.
 | `Claim.hasClaimType` (required) | Removed: a single required enum could not cover every kind of claim ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). The kind of claim is the specialized class. |
 | `Attestation.attestsClaim` (string) | `hasTarget` (IRI, 0..*) |
 | `Attestation.hasReviewer` (Entity) | `assertedBy` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
-| `Attestation.hasVerdict` (`VerdictType`) | The verdict field of each kind (`requirementOutcome`, `findingState`, `reportRating`, `evidentialStance`, `evidenceSufficiency`, `claimConsistency`), or `outcome` (IRI) on a `GenericEvaluation`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
-| `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingState`, `ReportRating`. A registration approval is an institutional decision, not a requirement outcome. |
+| `Attestation.hasVerdict` (`VerdictType`) | The principal outcome in each kind's result (`hasResult`: `requirementOutcome`, `findingResolution`, `verificationOpinion`, `evidentialStance`, `claimConsistency`), or `outcome` (IRI) in a `GenericEvaluationResult`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
+| `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingResolution` (`FindingOpen` → `UNRESOLVED`, `FindingClosed` → `RESOLVED`), `VerificationOpinion`. A registration approval is an institutional decision, not a requirement outcome. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidenceCitation` (citations naming `Evidence` records by IRI, inherited) |
 | `Attestation.attestationDate` (date) | `assertedAt` (UTC datetime, inherited) |

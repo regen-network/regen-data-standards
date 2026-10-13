@@ -1,7 +1,7 @@
-# Synthetic example (example.org identifiers): an independent verifier's rating
-# in its validation report. Acceptance with contingencies is the verifier's
-# rating; the Registry's decision on the project is separate.
-name: Validation report rating for example project P-001
+# Synthetic example (example.org identifiers): an independent verifier's opinion
+# in its validation report. Acceptance with contingencies is the verifier's opinion of the project;
+# the Registry's decision on the project is separate.
+name: Validation opinion for example project P-001
 claimStatement: >-
   The verifier accepts example project P-001 as described in project plan v2.0,
   once the project proponent closes the open clarification requests and the
@@ -18,7 +18,8 @@ reliesOn:
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
   - https://example.org/rule-set/program-guide/1.1
-reportRating: ACCEPTANCE_WITH_CONTINGENCIES
+hasResult:
+  verificationOpinion: ACCEPTANCE_WITH_CONTINGENCIES
 rationale: >-
   Two clarification requests on the crediting period structure remain open; the
   rest of the project design conforms.
