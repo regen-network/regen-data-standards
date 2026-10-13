@@ -1,6 +1,7 @@
-# expect: 'findingState' is a required property
+# expect: 'hasResult' is a required property
 # class: RegistryFindingEvaluation
-# Each record about a finding states the finding's state as of its date.
+# Each record about a finding states, in its result, whether the finding is
+# resolved as of its date.
 name: Clarification request on the cohort-based crediting period
 claimStatement: >-
   The project plan assigns each cohort its own ten-year crediting period. The

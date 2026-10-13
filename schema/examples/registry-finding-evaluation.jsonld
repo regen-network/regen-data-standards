@@ -137,12 +137,12 @@
     "findingLabel": {
       "@id": "findingLabel"
     },
-    "findingState": {
-      "@id": "findingState",
+    "findingResolution": {
+      "@id": "findingResolution",
       "@type": "@vocab",
       "@context": {
-        "OPEN": "rfs:FindingOpen",
-        "CLOSED": "rfs:FindingClosed"
+        "UNRESOLVED": "rfs:FindingUnresolved",
+        "RESOLVED": "rfs:FindingResolved"
       }
     },
     "findingType": {
@@ -159,6 +159,10 @@
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
+    },
+    "hasResult": {
+      "@type": "@id",
+      "@id": "hasResult"
     },
     "hasSubject": {
       "@type": "@id",
@@ -244,15 +248,6 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
-    "reportRating": {
-      "@id": "reportRating",
-      "@type": "@vocab",
-      "@context": {
-        "ACCEPTANCE": "rfs:Acceptance",
-        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
-        "REJECTION": "rfs:Rejection"
-      }
-    },
     "requirementOutcome": {
       "@id": "requirementOutcome",
       "@type": "@vocab",
@@ -314,6 +309,15 @@
     "value": {
       "@id": "rdf:value"
     },
+    "verificationOpinion": {
+      "@id": "verificationOpinion",
+      "@type": "@vocab",
+      "@context": {
+        "ACCEPTANCE": "rfs:Acceptance",
+        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+        "REJECTION": "rfs:Rejection"
+      }
+    },
     "version": {
       "@id": "schema:version"
     },
@@ -342,6 +346,9 @@
     "ClaimConsistencyEvaluation": {
       "@id": "ClaimConsistencyEvaluation"
     },
+    "ClaimConsistencyResult": {
+      "@id": "ClaimConsistencyResult"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
@@ -357,6 +364,9 @@
     "Evaluation": {
       "@id": "Evaluation"
     },
+    "EvaluationResult": {
+      "@id": "EvaluationResult"
+    },
     "Evidence": {
       "@id": "Evidence"
     },
@@ -366,6 +376,12 @@
     "EvidenceSupportEvaluation": {
       "@id": "EvidenceSupportEvaluation"
     },
+    "EvidenceSupportResult": {
+      "@id": "EvidenceSupportResult"
+    },
+    "FindingResolutionResult": {
+      "@id": "FindingResolutionResult"
+    },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
     },
@@ -374,6 +390,9 @@
     },
     "GenericEvaluation": {
       "@id": "GenericEvaluation"
+    },
+    "GenericEvaluationResult": {
+      "@id": "GenericEvaluationResult"
     },
     "Link": {
       "@id": "Link"
@@ -402,6 +421,9 @@
     "RegistryReviewEvaluation": {
       "@id": "RegistryReviewEvaluation"
     },
+    "RequirementAssessmentResult": {
+      "@id": "RequirementAssessmentResult"
+    },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
     },
@@ -413,6 +435,9 @@
     },
     "TextQuoteSelector": {
       "@id": "oa:TextQuoteSelector"
+    },
+    "VerificationOpinionResult": {
+      "@id": "VerificationOpinionResult"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -439,7 +464,10 @@
   "appliesRuleSet": [
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ],
-  "findingState": "OPEN",
+  "hasResult": {
+    "@type": "FindingResolutionResult",
+    "findingResolution": "UNRESOLVED"
+  },
   "evaluationMethod": [
     "rfs:DocumentReview"
   ],

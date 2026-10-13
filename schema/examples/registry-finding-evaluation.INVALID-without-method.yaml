@@ -17,7 +17,8 @@ hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
-findingState: OPEN
+hasResult:
+  findingResolution: UNRESOLVED
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)

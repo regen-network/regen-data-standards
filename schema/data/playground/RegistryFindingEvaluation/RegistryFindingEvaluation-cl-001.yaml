@@ -2,7 +2,7 @@
 # request about the developer's crediting period structure. It targets the exact
 # version of the claim it questions and cites the plan section it read. Later
 # assessments of it are finding evaluations that target this one, carry the
-# same findingLabel and state the finding's state as of their own date.
+# same findingLabel and state in their result whether it is resolved as of their own date.
 name: Clarification request on the cohort-based crediting period
 claimStatement: >-
   The project plan assigns each cohort its own ten-year crediting period. The
@@ -18,7 +18,8 @@ hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
 appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
-findingState: OPEN
+hasResult:
+  findingResolution: UNRESOLVED
 evaluationMethod:
   - rfs:DocumentReview
 issuerRole: VVB

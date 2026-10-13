@@ -26,8 +26,9 @@ appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 appliesRequirement:
   - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
-applicability: APPLICABLE
-requirementOutcome: SATISFIED
+hasResult:
+  applicability: APPLICABLE
+  requirementOutcome: SATISFIED
 rationale: >-
   Each cohort keeps a full ten-year crediting period from its baseline sampling,
   and the enrolment cutoff prevents open-ended expansion.

@@ -131,6 +131,10 @@
       "@type": "@id",
       "@id": "hasEvidenceCitation"
     },
+    "hasResult": {
+      "@type": "@id",
+      "@id": "hasResult"
+    },
     "hasSubject": {
       "@type": "@id",
       "@id": "hasSubject"
@@ -284,6 +288,9 @@
     "ClaimConsistencyEvaluation": {
       "@id": "ClaimConsistencyEvaluation"
     },
+    "ClaimConsistencyResult": {
+      "@id": "ClaimConsistencyResult"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
@@ -296,6 +303,9 @@
     "Evaluation": {
       "@id": "Evaluation"
     },
+    "EvaluationResult": {
+      "@id": "EvaluationResult"
+    },
     "Evidence": {
       "@id": "Evidence"
     },
@@ -305,6 +315,9 @@
     "EvidenceSupportEvaluation": {
       "@id": "EvidenceSupportEvaluation"
     },
+    "EvidenceSupportResult": {
+      "@id": "EvidenceSupportResult"
+    },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
     },
@@ -313,6 +326,9 @@
     },
     "GenericEvaluation": {
       "@id": "GenericEvaluation"
+    },
+    "GenericEvaluationResult": {
+      "@id": "GenericEvaluationResult"
     },
     "Link": {
       "@id": "Link"
@@ -328,6 +344,9 @@
     },
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
+    },
+    "RequirementAssessmentResult": {
+      "@id": "RequirementAssessmentResult"
     },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
@@ -365,8 +384,11 @@
     "https://example.org/evidence/walkover-photos-2026-06.zip"
   ],
   "assessedAgainst": "https://example.org/placeholder/claim-iri/generic-claim-v1",
-  "evidentialStance": "SUPPORTS",
-  "evidenceSufficiency": "INSUFFICIENT",
+  "hasResult": {
+    "@type": "EvidenceSupportResult",
+    "evidentialStance": "SUPPORTS",
+    "evidenceSufficiency": "INSUFFICIENT"
+  },
   "rationale": "The log records 400 m planted; the photographs show the western 250 m of the boundary only.",
   "evaluationMethod": [
     "rfs:DocumentReview"

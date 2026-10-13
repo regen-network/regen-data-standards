@@ -24,8 +24,9 @@ appliesRuleSet:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 appliesRequirement:
   - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
-applicability: APPLICABLE
-requirementOutcome: UNDETERMINED
+hasResult:
+  applicability: APPLICABLE
+  requirementOutcome: UNDETERMINED
 evaluationMethod:
   - rfs:DocumentReview
 scope:

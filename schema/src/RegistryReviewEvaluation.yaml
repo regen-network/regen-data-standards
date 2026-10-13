@@ -67,20 +67,21 @@ classes:
     description: >-
       A finding raised in a Regen Registry review (a corrective action,
       clarification or forward action request, or a material issue raised by
-      the Registry Agent), or a later assessment of it. Each record states
-      the finding's state as of its date and carries the finding's label; the
-      current state is derived from the latest record, not stored on any of
-      them. A finding cites at least one piece of evidence.
+      the Registry Agent), or a later assessment of it. Each record carries
+      the finding's label and, in its result, whether the finding is resolved
+      as of its date; whether a finding is currently open is derived from the
+      latest record, not stored on any of them. A finding cites at least one
+      piece of evidence.
     slots:
       - findingLabel
       - findingType
-      - findingState
     slot_usage:
       findingLabel:
         required: true
       findingType:
         required: true
-      findingState:
+      hasResult:
+        range: FindingResolutionResult
         required: true
       hasEvidenceCitation:
         required: true
@@ -92,14 +93,37 @@ classes:
       - RegistryReviewEvaluation
     class_uri: rfs:RegistryReportEvaluation
     description: >-
-      An independent verifier's rating of the project in its validation or
+      An independent verifier's opinion of the project in its validation or
       verification report, with the ratings the Program Guide (sections 12.4
-      and 12.5) gives such a report. It is the verifier's rating, not the
-      Registry's decision.
-    slots:
-      - reportRating
+      and 12.5) gives. It is the verifier's opinion of the project, not a
+      rating of the report document and not the Registry's decision.
     slot_usage:
-      reportRating:
+      hasResult:
+        range: VerificationOpinionResult
+        required: true
+
+  FindingResolutionResult:
+    is_a: EvaluationResult
+    class_uri: rfs:FindingResolutionResult
+    description: >-
+      The result of a RegistryFindingEvaluation: whether the finding is
+      resolved as of the record's date.
+    slots:
+      - findingResolution
+    slot_usage:
+      findingResolution:
+        required: true
+
+  VerificationOpinionResult:
+    is_a: EvaluationResult
+    class_uri: rfs:VerificationOpinionResult
+    description: >-
+      The result of a RegistryReportEvaluation: the verifier's opinion of the
+      project.
+    slots:
+      - verificationOpinion
+    slot_usage:
+      verificationOpinion:
         required: true
 
   Condition:
@@ -128,18 +152,20 @@ slots:
     slot_uri: rfs:findingType
     description: The kind of finding.
     range: FindingType
-  findingState:
+  findingResolution:
     is_a: outcome
-    slot_uri: rfs:findingState
+    slot_uri: rfs:findingResolution
     description: >-
-      Whether the finding is open or closed as of this record's date. A
-      sub-property of outcome.
-    range: FindingState
-  reportRating:
+      Whether the finding is resolved as of the record's date. A sub-property
+      of outcome.
+    range: FindingResolution
+  verificationOpinion:
     is_a: outcome
-    slot_uri: rfs:reportRating
-    description: The verifier's rating in its report. A sub-property of outcome.
-    range: ReportRating
+    slot_uri: rfs:verificationOpinion
+    description: >-
+      The verifier's opinion of the project in its report. A sub-property of
+      outcome.
+    range: VerificationOpinion
   issuerRole:
     slot_uri: rfs:issuerRole
     description: >-
@@ -209,18 +235,18 @@ enums:
         meaning: rfs:VerificationMilestone
       FUTURE_VERIFICATIONS:
         meaning: rfs:FutureVerificationsMilestone
-  FindingState:
+  FindingResolution:
     permissible_values:
-      OPEN:
-        meaning: rfs:FindingOpen
+      UNRESOLVED:
+        meaning: rfs:FindingUnresolved
         description: The finding is not resolved as of this record.
-      CLOSED:
-        meaning: rfs:FindingClosed
+      RESOLVED:
+        meaning: rfs:FindingResolved
         description: The finding is resolved as of this record.
-  ReportRating:
+  VerificationOpinion:
     description: >-
-      The ratings the Program Guide (sections 12.4 and 12.5) gives a
-      validation or verification report.
+      The opinions the Program Guide (sections 12.4 and 12.5) lets a verifier
+      give in a validation or verification report.
     permissible_values:
       ACCEPTANCE:
         meaning: rfs:Acceptance
