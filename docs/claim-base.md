@@ -142,6 +142,13 @@ quantities with units, activities and their operators, methodologies, and strict
 example, the C06 claim schema in [#73](https://github.com/regen-network/regen-data-standards/issues/73)
 carries several of the fields moved out of the base (below).
 
+The open `Claim` base lets anyone publish a claim type, in this repository or under their own
+namespace. Publishing one does not by itself mean Regen registers it, supports it in its tooling,
+admits its claims into a managed service, or endorses it. A claim that needs nothing beyond the base,
+such as a written statement with its claimants, time, subject and evidence, is a `GenericClaim`: it
+means no more than `Claim`, and exists as its own class so that such a claim is validated with a
+closed shape ([`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md)).
+
 ```yaml
 imports: [linkml:types, Claim, ClaimVocabulary, ClaimSubject]
 default_range: string          # required: core slots such as name have no explicit range

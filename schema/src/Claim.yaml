@@ -91,11 +91,12 @@ classes:
     is_a: Claim
     class_uri: rfs:GenericClaim
     description: >-
-      A Claim with base content only, for an assertion that needs no
-      claim-type schema, such as a self-attested stewardship claim. It adds
-      nothing to Claim, and its generated shapes are closed, so impacts,
-      quantities, activities and other domain content are rejected; they
-      belong to a claim-type schema.
+      A claim that uses only the base fields, such as a written statement
+      with its claimants, time, subject and evidence. It means no more than
+      Claim; it exists as its own class so that such a claim is validated
+      with a closed shape, which the open Claim base cannot give its direct
+      instances: impacts, quantities, activities and other domain content are
+      rejected and belong to a claim-type schema.
 
 slots:
   claimStatement:
