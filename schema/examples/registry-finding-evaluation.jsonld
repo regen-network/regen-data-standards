@@ -214,8 +214,7 @@
       "@context": {
         "REGISTRATION": "rfs:RegistrationMilestone",
         "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
-        "VERIFICATION": "rfs:VerificationMilestone",
-        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
+        "VERIFICATION": "rfs:VerificationMilestone"
       }
     },
     "name": {
