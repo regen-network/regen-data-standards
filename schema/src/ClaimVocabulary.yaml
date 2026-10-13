@@ -123,10 +123,10 @@ slots:
     description: >-
       Exact requirement versions an evaluation applies or judges, whether or
       not the claimant named them. Each identifier names one immutable
-      requirement version within an exact rule-set version, such as a
+      requirement version within an exact requirement-set version, such as a
       checklist version: the same short ID can name different requirements in
-      different versions. The rule-set and requirement records themselves are
-      defined by WP5-01 (claims#30). Unordered set.
+      different versions. The requirement and requirement-set records
+      themselves are defined by WP5-01 (claims#30). Unordered set.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
@@ -142,14 +142,34 @@ slots:
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
-  appliesRuleSet:
-    slot_uri: rfs:appliesRuleSet
+  appliesRequirementSet:
+    slot_uri: rfs:appliesRequirementSet
     description: >-
-      Identifier of an exact version of a normative rule set applied, such as
-      a credit class, a methodology or a program guide version. It is content
-      and enters the identity of the record. It is distinct from a
-      schema-version declaration, which states which schema the RDF conforms
-      to. Unordered set.
+      Exact versions of requirement sets, such as a registration or
+      validation checklist version, that an evaluation applies or assesses as
+      a whole. An evaluation of one requirement names only that requirement
+      (appliesRequirement): its set is reached through the requirement's
+      membership, defined by WP5-01 (claims#30).
+    comments:
+      - >-
+        Implementation: each value is the IRI of one requirement-set version.
+        Repeatable and unordered.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  governedBy:
+    slot_uri: rfs:governedBy
+    description: >-
+      Exact versions of the governing documents a claim or evaluation is made
+      under, such as a credit class, a methodology or a program guide
+      version. A governing document is broader than a set of requirements,
+      which is named with appliesRequirementSet. It is content and enters the
+      identity of the record, and is distinct from a schema-version
+      declaration, which states which schema the RDF conforms to.
+    comments:
+      - >-
+        Implementation: each value is the IRI of one exact document version.
+        Repeatable and unordered.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false

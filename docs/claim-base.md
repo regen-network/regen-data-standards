@@ -277,7 +277,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith`. |
 | `hasPrimaryImpact`, `hasCoBenefits` | Removed | They describe the project or the credit class, which `ProjectInfo` and `CreditClassInfo` already do, not what a claim asserts. `Impact` and `SDG` remain available as shared modules. |
 | `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule) | Moved | To specialized claim schemas that state a quantity; `C06Claim` states areas with the shared `QuantityValue` in `core.yaml` (`area`). |
-| `hasCreditClass` | Replaced | By `appliesRuleSet` (`ClaimVocabulary`), the exact credit class version a claim applies, used by `C06ProjectClaim` (#73). |
+| `hasCreditClass` | Replaced | By `governedBy` (`ClaimVocabulary`), the exact versions of the governing documents, such as a credit class, a claim is made under, used by `C06ProjectClaim` (#73). |
 | `usesMethodology` | Moved | To `C06ProjectClaim.methodologyUse` (#73), which names each methodology version and its role. Only some kinds of claim use a methodology. |
 | `verificationStatus` | Removed | Review state is not content. The unused `VerificationStatus` enum is removed from `taxonomy.yaml` too; review states will be defined with the review-state record. |
 | `contentHash`, `dataIri` | Removed | Derived identity is not content. |
@@ -306,7 +306,7 @@ records that use the prior fields and their RIDs.
   PROV agent kinds, is [#95](https://github.com/regen-network/regen-data-standards/issues/95).
 - Whether a claimant is authorized to assert for another party is not recorded by the Claim:
   [#96](https://github.com/regen-network/regen-data-standards/issues/96).
-- Verification-method terms and normative rule-set version references, deferred from #71, are
+- Evaluation-method terms and references to exact governing-document and requirement-set versions, deferred from #71, are
   defined in `ClaimVocabulary` by #73 and used by `Evaluation` and the C06 claims; neither applies to
   every claim, so neither is on the base Claim. The evaluation and the full evidence shape are in
   [`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md). Generated JSON Schema, SHACL and

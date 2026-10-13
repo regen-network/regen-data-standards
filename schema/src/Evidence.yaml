@@ -161,7 +161,7 @@ slots:
       Genre of the cited source, from the DCMI Type Vocabulary, which the
       dcterms:type definition recommends. Finer kinds of evidence that a
       program accepts, such as a lease agreement, belong to that program's
-      rule set, not to Evidence.
+      requirements, not to Evidence.
     range: DCMIType
     required: true
   mediaType:

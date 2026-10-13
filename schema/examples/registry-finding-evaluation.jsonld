@@ -28,9 +28,9 @@
       "@type": "@id",
       "@id": "appliesRequirement"
     },
-    "appliesRuleSet": {
+    "appliesRequirementSet": {
       "@type": "@id",
-      "@id": "appliesRuleSet"
+      "@id": "appliesRequirementSet"
     },
     "appliesTo": {
       "@type": "@id",
@@ -155,6 +155,10 @@
         "REGISTRY_ISSUE": "rfs:RegistryIssue",
         "OTHER": "rfs:OtherFindingType"
       }
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
     },
     "hasEvidenceCitation": {
       "@type": "@id",
@@ -461,7 +465,7 @@
   "hasTarget": [
     "https://example.org/placeholder/claim-iri/developer-crediting-period"
   ],
-  "appliesRuleSet": [
+  "governedBy": [
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ],
   "hasResult": {

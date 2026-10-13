@@ -98,7 +98,7 @@ classes:
       stakeholders were consulted, carries its claimStatement alone, with the
       plan section as evidence.
     slots:
-      - appliesRuleSet
+      - governedBy
       - methodologyUse
       - isAggregateProject
       - aggregateStartDate
