@@ -30,9 +30,9 @@
       "@type": "@id",
       "@id": "appliesRequirement"
     },
-    "appliesRuleSet": {
+    "appliesRequirementSet": {
       "@type": "@id",
-      "@id": "appliesRuleSet"
+      "@id": "appliesRequirementSet"
     },
     "area": {
       "@type": "@id",
@@ -163,6 +163,10 @@
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
     },
     "hasEvidenceCitation": {
       "@type": "@id",

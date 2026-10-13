@@ -28,9 +28,9 @@
       "@type": "@id",
       "@id": "appliesRequirement"
     },
-    "appliesRuleSet": {
+    "appliesRequirementSet": {
       "@type": "@id",
-      "@id": "appliesRuleSet"
+      "@id": "appliesRequirementSet"
     },
     "appliesTo": {
       "@type": "@id",
@@ -126,6 +126,10 @@
     },
     "exclusion": {
       "@id": "exclusion"
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
     },
     "hasEvidenceCitation": {
       "@type": "@id",

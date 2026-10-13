@@ -44,7 +44,8 @@ classes:
       - hasTarget
       - reliesOn
       - appliesRequirement
-      - appliesRuleSet
+      - appliesRequirementSet
+      - governedBy
       - rationale
       - evaluationMethod
       - evaluationMethodDescription

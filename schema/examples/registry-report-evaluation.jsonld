@@ -28,9 +28,9 @@
       "@type": "@id",
       "@id": "appliesRequirement"
     },
-    "appliesRuleSet": {
+    "appliesRequirementSet": {
       "@type": "@id",
-      "@id": "appliesRuleSet"
+      "@id": "appliesRequirementSet"
     },
     "appliesTo": {
       "@type": "@id",
@@ -155,6 +155,10 @@
         "REGISTRY_ISSUE": "rfs:RegistryIssue",
         "OTHER": "rfs:OtherFindingType"
       }
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
     },
     "hasEvidenceCitation": {
       "@type": "@id",
@@ -462,9 +466,12 @@
     "https://example.org/placeholder/claim-iri/verifier-finding-7-1",
     "https://example.org/placeholder/claim-iri/verifier-finding-7-2"
   ],
-  "appliesRuleSet": [
+  "governedBy": [
     "https://example.org/rule-set/credit-class-c06/1.5.2",
     "https://example.org/rule-set/program-guide/1.1"
+  ],
+  "appliesRequirementSet": [
+    "https://example.org/rule-set/credit-class-c06/validation-checklist/2026-05"
   ],
   "hasResult": {
     "@type": "VerificationOpinionResult",

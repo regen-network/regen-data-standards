@@ -20,7 +20,7 @@ hasTarget:
   - https://example.org/placeholder/claim-iri/verifier-finding-7-2
 reliesOn:
   - https://example.org/placeholder/claim-iri/developer-enrolment-cutoff
-appliesRuleSet:
+governedBy:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 appliesRequirement:
   - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
