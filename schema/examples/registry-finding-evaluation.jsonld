@@ -307,10 +307,6 @@
     "suffix": {
       "@id": "oa:suffix"
     },
-    "unbounded": {
-      "@type": "xsd:boolean",
-      "@id": "unbounded"
-    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"

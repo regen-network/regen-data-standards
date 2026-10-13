@@ -1,7 +1,7 @@
 id: https://framework.regen.network/schema/Evaluation
 name: Evaluation
 description: >-
-  The base Evaluation: an issuer's dated, scoped judgment about claims,
+  The base Evaluation: an issuer's dated judgment about claims,
   other evaluations or evidence. It holds only what every program's
   judgments share, and the kinds of judgment that are not specific to a
   program (evidence and claim consistency evaluations). Program-specific
@@ -48,8 +48,6 @@ classes:
       - rationale
       - evaluationMethod
       - evaluationMethodDescription
-      - scope
-      - unbounded
     slot_usage:
       assertedBy:
         description: >-
@@ -63,21 +61,6 @@ classes:
           plot, organization, activity, dataset or other resource.
       hasEvidenceCitation:
         description: Evidence the issuer relied on, as citations.
-    rules:
-      - description: >-
-          A scope and unbounded are exclusive: a scope limits the judgment to
-          the subjects it names, and unbounded states that the judgment has no
-          limits beyond its targets. An evaluation with a scope does not
-          state unbounded. Enforced by the generated JSON Schema; the
-          generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            scope:
-              value_presence: PRESENT
-        postconditions:
-          slot_conditions:
-            unbounded:
-              value_presence: ABSENT
 
   GenericEvaluation:
     is_a: Evaluation
@@ -114,6 +97,7 @@ classes:
     slots:
       - applicability
       - requirementOutcome
+      - scope
     slot_usage:
       appliesRequirement:
         description: >-
@@ -230,10 +214,10 @@ classes:
   Scope:
     class_uri: rfs:Scope
     description: >-
-      Where an evaluation applies, as structured fields, so that a consumer
-      can check whether a subject falls inside it. A scope always names the
-      subjects it covers. An evaluation without a scope applies only to what
-      it targets, unless it states unbounded.
+      Where an evaluation's result applies, as structured fields, so that a
+      consumer can check whether a subject falls inside it. A scope always
+      names the subjects it covers. An evaluation without a scope asserts no
+      applicability beyond its focal subject.
     slots:
       - appliesTo
       - exclusion
@@ -292,8 +276,10 @@ slots:
   scope:
     slot_uri: rfs:scope
     description: >-
-      Where the judgment applies: the subjects it covers, what it explicitly
-      excludes, and what it does not establish.
+      The explicit subject or complete set of subjects across which the
+      Evaluation's result is asserted, when that applicability is not fully
+      expressed by its focal subject, with what it explicitly excludes and
+      what it does not establish.
     range: Scope
     inlined: true
   appliesTo:
@@ -316,14 +302,6 @@ slots:
       What the judgment is not, for example that an approval of a project
       structure is not a validation of its evidence.
     range: string
-  unbounded:
-    slot_uri: rfs:unbounded
-    description: >-
-      True when the issuer explicitly gives the judgment no limits beyond what
-      it targets, so that an unlimited approval is a stated choice rather than
-      an omission. Stated only on an evaluation without a scope: the two are
-      exclusive.
-    range: boolean
 
   applicability:
     slot_uri: rfs:applicability
