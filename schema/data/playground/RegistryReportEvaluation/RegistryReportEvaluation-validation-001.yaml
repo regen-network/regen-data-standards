@@ -1,0 +1,32 @@
+# Synthetic example (example.org identifiers): an independent verifier's opinion
+# in its validation report. Acceptance with contingencies is the verifier's opinion of the project;
+# the Registry's decision on the project is separate.
+name: Validation opinion for example project P-001
+claimStatement: >-
+  The verifier accepts example project P-001 as described in project plan v2.0,
+  once the project proponent closes the open clarification requests and the
+  verifier resubmits the report.
+assertedBy:
+  - name: Example Verifier
+    type: ORGANIZATION
+assertedAt: "2026-04-15T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+reliesOn:
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-1
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-2
+governedBy:
+  - https://example.org/rule-set/credit-class-c06/1.5.2
+  - https://example.org/rule-set/program-guide/1.1
+appliesRequirementSet:
+  - https://example.org/rule-set/credit-class-c06/validation-checklist/2026-05
+hasResult:
+  verificationOpinion: ACCEPTANCE_WITH_CONTINGENCIES
+rationale: >-
+  Two clarification requests on the crediting period structure remain open; the
+  rest of the project design conforms.
+evaluationMethod:
+  - rfs:DocumentReview
+issuerRole: VVB
+hasEvidenceCitation:
+  - source: https://example.org/c06/validation-report-v1.pdf

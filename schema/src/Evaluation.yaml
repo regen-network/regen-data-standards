@@ -1,0 +1,451 @@
+id: https://framework.regen.network/schema/Evaluation
+name: Evaluation
+description: >-
+  The base Evaluation: an issuer's dated judgment about claims,
+  other evaluations or evidence. It holds only what every program's
+  judgments share, and the kinds of judgment that are not specific to a
+  program (evidence and claim consistency evaluations). Program-specific
+  review vocabularies, such as Regen Registry's, extend it with is_a
+  Evaluation. See docs/evaluation-and-evidence.md.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+  - Claim
+  - ClaimVocabulary
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Evaluation:
+    is_a: Claim
+    abstract: true
+    class_uri: rfs:Evaluation
+    description: >-
+      A Claim that records an assessment made by an agent about one focal
+      subject. Its claimStatement states the assessment. As a Claim, an
+      Evaluation identifies the agent responsible for it and when it was
+      made. Depending on the kind of evaluation, it may also identify the
+      resources it directly assessed, the criteria it applied, the evidence
+      it relied on, the method it used and its result. It holds nothing that
+      changes after it is made: a later assessment is a new Evaluation, and a
+      correction is a new version linked through wasRevisionOf.
+    comments:
+      - >-
+        Implementation: abstract, like Claim, so its generated shape is open.
+        It checks the base content of every kind of evaluation, including
+        kinds another program defines, and lets a kind add fields. An
+        evaluation that uses only the shared fields is a GenericEvaluation.
+    slots:
+      - hasTarget
+      - reliesOn
+      - appliesRequirement
+      - appliesRequirementSet
+      - governedBy
+      - rationale
+      - evaluationMethod
+      - evaluationMethodDescription
+      - hasResult
+    slot_usage:
+      assertedBy:
+        description: >-
+          The issuer: the party that makes the judgment and takes
+          responsibility for it.
+      assertedAt:
+        description: When the issuer made the judgment.
+      hasSubject:
+        description: >-
+          The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
+      hasEvidenceCitation:
+        description: Evidence the issuer relied on, as citations.
+
+  GenericEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:GenericEvaluation
+    description: >-
+      An evaluation that uses only the shared Evaluation fields, for a
+      judgment made under no program's vocabulary, such as a community
+      steward's review. It means no more than Evaluation. Its result, if any,
+      is a GenericEvaluationResult with the generic outcome.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such an evaluation
+        is validated with a closed shape, which the open Evaluation base
+        cannot give its direct instances.
+    slot_usage:
+      hasResult:
+        range: GenericEvaluationResult
+
+  RequirementEvaluation:
+    is_a: Evaluation
+    abstract: true
+    class_uri: rfs:RequirementEvaluation
+    description: >-
+      An Evaluation of whether one focal subject satisfies one exact
+      Requirement version. It records whether the Requirement applies to the
+      subject and, when applicable, whether the subject satisfies it. Each
+      requirement assessed is its own evaluation.
+    comments:
+      - >-
+        Implementation: abstract, like Evaluation, so its generated shape is
+        open and a program can specialize it with fields of its own, as
+        RegistryRequirementEvaluation does.
+    slots:
+      - scope
+    slot_usage:
+      appliesRequirement:
+        description: >-
+          The exact Requirement version whose applicability to the subject
+          and, when applicable, satisfaction are assessed by this Evaluation.
+        required: true
+        minimum_cardinality: 1
+        maximum_cardinality: 1
+      hasResult:
+        range: RequirementAssessmentResult
+        required: true
+    rules:
+      - description: >-
+          An undetermined outcome is a finding, not a review in progress, so
+          the rationale says what is missing. Enforced by the generated JSON
+          Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            hasResult:
+              range_expression:
+                slot_conditions:
+                  requirementOutcome:
+                    equals_string: UNDETERMINED
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
+
+  EvidenceSupportEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:EvidenceSupportEvaluation
+    description: >-
+      An assessment of whether an exact body of Evidence supports,
+      challenges, or has no bearing on one exact Claim and, where assessed,
+      whether that Evidence is sufficient. Stance and sufficiency are
+      relative to that Claim, and apply to the targeted evidence as a whole,
+      not to each item in isolation. Whether a subject satisfies a
+      Requirement is a RequirementEvaluation instead.
+    slots:
+      - assessedAgainst
+    slot_usage:
+      hasTarget:
+        description: >-
+          The Evidence records assessed, as one body of evidence. Unordered
+          set.
+        required: true
+        minimum_cardinality: 1
+      assessedAgainst:
+        required: true
+      hasResult:
+        range: EvidenceSupportResult
+        required: true
+
+  ClaimConsistencyEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:ClaimConsistencyEvaluation
+    description: >-
+      Whether a claim's statement and its structured fields express the same
+      assertion. The generated validators check structure only; they cannot
+      compare prose with values, so a reviewer records the result on the
+      exact claim version. An internally inconsistent claim is corrected by a
+      new version before its evidence is evaluated; neither the statement nor
+      the fields override the other.
+    slot_usage:
+      hasTarget:
+        description: >-
+          The exact claim versions whose statement and fields are compared.
+          Unordered set.
+        required: true
+        minimum_cardinality: 1
+      hasResult:
+        range: ClaimConsistencyResult
+        required: true
+      rationale:
+        description: >-
+          Where the statement and the fields agree or disagree, for example
+          "the statement gives 12 ha, the area field 15 ha".
+        required: true
+
+  EvaluationResult:
+    abstract: true
+    class_uri: rfs:EvaluationResult
+    description: >-
+      The conclusion of an Evaluation: its principal outcome and any
+      qualifiers of that outcome. Each kind of evaluation has its own result
+      type, whose outcome field is a sub-property of outcome with the values
+      that kind allows. Attribution, time, subject, targets, method and
+      rationale stay on the Evaluation.
+    comments:
+      - >-
+        Implementation: abstract, so its generated shape is open. Each result
+        type narrows its own outcome sub-property rather than one shared
+        outcome field, because LinkML 1.11 cannot narrow an enum-valued slot
+        in a subclass without breaking the RDF conversion of its Python
+        model.
+
+  GenericEvaluationResult:
+    is_a: EvaluationResult
+    class_uri: rfs:GenericEvaluationResult
+    description: >-
+      The result of a GenericEvaluation: a generic outcome, as a term from the
+      vocabulary of whoever made the judgment.
+    slots:
+      - outcome
+
+  RequirementAssessmentResult:
+    is_a: EvaluationResult
+    class_uri: rfs:RequirementAssessmentResult
+    description: >-
+      The result of a RequirementEvaluation: whether the requirement applies
+      to the subject and, when it does, whether the subject satisfies it.
+    slots:
+      - applicability
+      - requirementOutcome
+    slot_usage:
+      applicability:
+        required: true
+    rules:
+      - description: >-
+          An applicable requirement has an outcome. Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              required: true
+      - description: >-
+          A requirement that does not apply has no outcome. Enforced by the
+          generated JSON Schema; the generated SHACL does not express LinkML
+          rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: NOT_APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              value_presence: ABSENT
+
+  EvidenceSupportResult:
+    is_a: EvaluationResult
+    class_uri: rfs:EvidenceSupportResult
+    description: >-
+      The result of an EvidenceSupportEvaluation: whether the evidence
+      supports, challenges or has no bearing on the claim and, where
+      assessed, whether it is sufficient to establish that stance.
+    slots:
+      - evidentialStance
+      - evidenceSufficiency
+    slot_usage:
+      evidentialStance:
+        required: true
+    rules:
+      - description: >-
+          Evidence with no bearing on the claim establishes nothing, so it has
+          no sufficiency. Enforced by the generated JSON Schema; the
+          generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            evidentialStance:
+              equals_string: NO_BEARING
+        postconditions:
+          slot_conditions:
+            evidenceSufficiency:
+              value_presence: ABSENT
+
+  ClaimConsistencyResult:
+    is_a: EvaluationResult
+    class_uri: rfs:ClaimConsistencyResult
+    description: >-
+      The result of a ClaimConsistencyEvaluation: whether the claim's
+      statement and structured fields express the same assertion.
+    slots:
+      - claimConsistency
+    slot_usage:
+      claimConsistency:
+        required: true
+
+  Scope:
+    class_uri: rfs:Scope
+    description: >-
+      Where an evaluation's result applies, as structured fields, so that a
+      consumer can check whether a subject falls inside it. A scope always
+      names the subjects it covers. An evaluation without a scope asserts no
+      applicability beyond its focal subject.
+    slots:
+      - appliesTo
+      - exclusion
+      - limitation
+    slot_usage:
+      appliesTo:
+        required: true
+        minimum_cardinality: 1
+
+slots:
+  hasResult:
+    slot_uri: rfs:hasResult
+    description: >-
+      The conclusion of the Evaluation, as a result whose type depends on the
+      kind of evaluation.
+    range: EvaluationResult
+    inlined: true
+  outcome:
+    slot_uri: rfs:outcome
+    description: >-
+      The principal conclusion of an evaluation result. A GenericEvaluationResult
+      states it as a term from the vocabulary of whoever made the judgment;
+      every other result type states it with its own sub-property of outcome
+      whose values that kind allows, such as requirementOutcome or
+      evidentialStance, so both validators check the value and a query for
+      outcome still finds every principal conclusion.
+    range: uriorcurie
+  assessedAgainst:
+    slot_uri: rfs:assessedAgainst
+    description: >-
+      The exact Claim version that an evidence support evaluation's stance
+      and sufficiency are relative to, as the IRI of that version.
+    range: uriorcurie
+  evidentialStance:
+    is_a: outcome
+    slot_uri: rfs:evidentialStance
+    description: >-
+      Whether the evidence supports or challenges what it is assessed
+      against, or has no bearing on it. A sub-property of outcome.
+    range: EvidentialStance
+  evidenceSufficiency:
+    slot_uri: rfs:evidenceSufficiency
+    description: >-
+      Whether the evidence is enough to establish its stance: sufficient
+      supporting evidence establishes the claim, and sufficient challenging
+      evidence contradicts it. It qualifies the stance; it is not a
+      conclusion of its own, so it is not a sub-property of outcome.
+    range: EvidenceSufficiency
+  claimConsistency:
+    is_a: outcome
+    slot_uri: rfs:claimConsistency
+    description: >-
+      Whether the claim's statement and structured fields agree. A
+      sub-property of outcome.
+    range: ClaimConsistency
+  rationale:
+    slot_uri: rfs:rationale
+    description: Why the issuer reached the result.
+    range: string
+  scope:
+    slot_uri: rfs:scope
+    description: >-
+      The explicit subject or complete set of subjects across which the
+      Evaluation's result is asserted, when that applicability is not fully
+      expressed by its focal subject, with what it explicitly excludes and
+      what it does not establish.
+    range: Scope
+    inlined: true
+  appliesTo:
+    slot_uri: rfs:appliesTo
+    description: >-
+      Identifiers of the subjects the judgment covers, for example the
+      enrolment cohorts an approval is limited to. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  exclusion:
+    slot_uri: rfs:exclusion
+    description: What the judgment explicitly does not cover. Unordered set.
+    range: string
+    multivalued: true
+    list_elements_ordered: false
+  limitation:
+    slot_uri: rfs:limitation
+    description: >-
+      What the judgment is not, for example that an approval of a project
+      structure is not a validation of its evidence.
+    range: string
+
+  applicability:
+    slot_uri: rfs:applicability
+    description: Whether the applied requirement applies to the subject.
+    range: Applicability
+  requirementOutcome:
+    is_a: outcome
+    slot_uri: rfs:requirementOutcome
+    description: >-
+      Whether the applied requirement is satisfied, as of this record's date.
+      A sub-property of outcome.
+    range: RequirementOutcome
+
+enums:
+  RequirementOutcome:
+    description: >-
+      Whether a requirement is satisfied, as the evaluator finds it on the
+      record's date. Each value is a finding: a review that has not started or
+      is still in progress is workflow state, recorded with no evaluation.
+    permissible_values:
+      SATISFIED:
+        meaning: rfs:Satisfied
+        description: The evidence shows the requirement is met.
+      NOT_SATISFIED:
+        meaning: rfs:NotSatisfied
+        description: >-
+          The evidence shows the requirement is not met, or the evidence it
+          requires is missing.
+      UNDETERMINED:
+        meaning: rfs:Undetermined
+        description: >-
+          As of this date, what is available is not enough to decide either
+          way, for example because records the requirement needs are due
+          later. The rationale, required with this value, says what is
+          missing.
+  Applicability:
+    permissible_values:
+      APPLICABLE:
+        meaning: rfs:Applicable
+      NOT_APPLICABLE:
+        meaning: rfs:NotApplicable
+        description: >-
+          The requirement does not apply to the subject, for example because
+          it applies only if a condition occurs and the condition has not
+          occurred.
+  EvidentialStance:
+    permissible_values:
+      SUPPORTS:
+        meaning: rfs:Supports
+        description: The evidence supports what it is assessed against.
+      CHALLENGES:
+        meaning: rfs:Challenges
+        description: The evidence counts against what it is assessed against.
+      NO_BEARING:
+        meaning: rfs:NoBearing
+        description: >-
+          The evidence neither supports nor challenges what it is assessed
+          against, for example context or a source about another period.
+  EvidenceSufficiency:
+    permissible_values:
+      SUFFICIENT:
+        meaning: rfs:Sufficient
+        description: The evidence is enough to establish its stance.
+      INSUFFICIENT:
+        meaning: rfs:Insufficient
+        description: The evidence is not enough to establish its stance.
+  ClaimConsistency:
+    permissible_values:
+      CONSISTENT:
+        meaning: rfs:Consistent
+        description: The statement and the structured fields express the same assertion.
+      INTERNALLY_INCONSISTENT:
+        meaning: rfs:InternallyInconsistent
+        description: >-
+          The statement and the structured fields disagree. Neither overrides
+          the other; the claim is corrected by a new version.

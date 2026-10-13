@@ -1,0 +1,53 @@
+# expect: is too long
+# class: RegistryRequirementEvaluation
+# A requirement evaluation judges one requirement: with two, its single
+# applicability and outcome could not say which requirement they belong to.
+name: Registry confirmation of the cohort-based crediting structure
+claimStatement: >-
+  The rolling cohort-based crediting and permanence structure described in the
+  project plan satisfies the credit class's crediting term for the cohorts
+  enrolled from 2020 to 2023, subject to the scope below.
+assertedBy:
+  - name: Example Registry
+    type: ORGANIZATION
+assertedAt: "2026-03-12T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/project/P-001
+hasTarget:
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-1
+  - https://example.org/placeholder/claim-iri/verifier-finding-7-2
+reliesOn:
+  - https://example.org/placeholder/claim-iri/developer-enrolment-cutoff
+governedBy:
+  - https://example.org/rule-set/credit-class-c06/1.5.2
+appliesRequirement:
+  - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
+  - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/permanence-term
+hasResult:
+  applicability: APPLICABLE
+  requirementOutcome: SATISFIED
+rationale: >-
+  Each cohort keeps a full ten-year crediting period from its baseline sampling,
+  and the enrolment cutoff prevents open-ended expansion.
+evaluationMethod:
+  - rfs:DocumentReview
+scope:
+  appliesTo:
+    - https://example.org/c06/cohort/P-001-2020
+    - https://example.org/c06/cohort/P-001-2021
+    - https://example.org/c06/cohort/P-001-2022
+    - https://example.org/c06/cohort/P-001-2023
+  exclusion:
+    - Open-ended addition of plots, farms or project areas after the enrolment cutoff.
+  limitation: >-
+    Confirms the acceptability of the project structure; does not replace the
+    verifier's responsibility to validate the supporting evidence.
+issuerRole: REGISTRY_AGENT
+conditions:
+  - conditionLabel: C-1
+    description: >-
+      Each farm, cohort and project area remains individually identifiable and
+      traceable.
+    milestone: VERIFICATION
+hasEvidenceCitation:
+  - source: https://example.org/registry/confirmation-2026-03-12.pdf

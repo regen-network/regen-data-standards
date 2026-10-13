@@ -3,11 +3,27 @@
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
     "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
+    },
+    "appliesRequirementSet": {
+      "@type": "@id",
+      "@id": "appliesRequirementSet"
+    },
     "assertedAt": {
       "@type": "xsd:dateTime",
       "@id": "assertedAt"
@@ -19,9 +35,31 @@
     "claimStatement": {
       "@id": "claimStatement"
     },
-    "id": "@id",
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
+    },
+    "algorithm": {
+      "@id": "algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
     "description": {
       "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
     },
     "type": {
       "@id": "type",
@@ -35,13 +73,31 @@
     "walletAddress": {
       "@id": "walletAddress"
     },
-    "hasEvidence": {
+    "evaluationMethod": {
       "@type": "@id",
-      "@id": "hasEvidence"
+      "@id": "evaluationMethod"
+    },
+    "evaluationMethodDescription": {
+      "@id": "evaluationMethodDescription"
+    },
+    "exact": {
+      "@id": "oa:exact"
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
     },
     "hasSubject": {
       "@type": "@id",
       "@id": "hasSubject"
+    },
+    "hasTarget": {
+      "@type": "@id",
+      "@id": "hasTarget"
     },
     "identifier": {
       "@id": "schema:identifier"
@@ -52,16 +108,90 @@
     "inLanguage": {
       "@id": "schema:inLanguage"
     },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
     "name": {
       "@id": "schema:name"
+    },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
     },
     "references": {
       "@type": "@id",
       "@id": "dcterms:references"
     },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
+    "reliesOn": {
+      "@type": "@id",
+      "@id": "reliesOn"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
     },
     "version": {
       "@id": "schema:version"
@@ -74,9 +204,16 @@
       "@type": "@id",
       "@id": "prov:wasAttributedTo"
     },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
     "wasRevisionOf": {
       "@type": "@id",
       "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
     },
     "Claim": {
       "@id": "Claim"
@@ -84,11 +221,20 @@
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
+    "ContentDigest": {
+      "@id": "ContentDigest"
+    },
     "Entity": {
       "@id": "Entity"
     },
     "Evidence": {
       "@id": "Evidence"
+    },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -104,6 +250,15 @@
     },
     "ProvEntity": {
       "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -124,11 +279,17 @@
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/A"
   },
-  "hasEvidence": [
+  "hasEvidenceCitation": [
     {
-      "@type": "Evidence",
-      "id": "https://example.org/evidence/planting-log-2026-v2.pdf#page=2",
-      "name": "Planting log, spring 2026 (v2)"
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/evidence/planting-log-2026-v2.pdf",
+      "selector": [
+        {
+          "@type": "FragmentSelector",
+          "value": "page=2",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778"
+        }
+      ]
     }
   ],
   "wasRevisionOf": "https://example.org/placeholder/claim-iri/generic-claim-v1"
