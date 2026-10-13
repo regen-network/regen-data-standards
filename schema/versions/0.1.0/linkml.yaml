@@ -832,40 +832,63 @@ enums:
         text: ACCESS_RESTRICTED
         description: The resolver refused access. Never reported as missing.
         meaning: rfs:EvidenceAccessRestricted
-  VerificationMethodType:
-    name: VerificationMethodType
-    description: Kinds of verification method. A program declares which methods it
-      accepts; this enumeration does not rank them.
+  EvaluationMethodType:
+    name: EvaluationMethodType
+    description: Recommended shared evaluation methods, used as evaluationMethod values
+      by their meaning IRIs. A program may use other method IRIs, or narrow the methods
+      it accepts.
     from_schema: https://framework.regen.network/schema/
     permissible_values:
-      SELF_ATTESTED:
-        text: SELF_ATTESTED
-        description: Asserted by the claimant without independent verification.
-        meaning: rfs:SelfAttested
-      PEER_OR_COMMUNITY:
-        text: PEER_OR_COMMUNITY
-        description: Checked by peers or a community of practice.
-        meaning: rfs:PeerOrCommunity
-      LAB_MEASURED:
-        text: LAB_MEASURED
-        description: Established by laboratory measurement of samples.
-        meaning: rfs:LabMeasured
-      SENSOR_DERIVED:
-        text: SENSOR_DERIVED
-        description: Derived from sensor or remote-sensing data.
-        meaning: rfs:SensorDerived
-      MODEL_ESTIMATED:
-        text: MODEL_ESTIMATED
-        description: Estimated with a model.
-        meaning: rfs:ModelEstimated
-      THIRD_PARTY_AUDITED:
-        text: THIRD_PARTY_AUDITED
-        description: Reviewed by an independent third party, such as a verifier.
-        meaning: rfs:ThirdPartyAudited
-      OTHER:
-        text: OTHER
-        description: Not in this list; verificationMethodDescriptor says what it is.
-        meaning: rfs:OtherVerificationMethod
+      DOCUMENT_REVIEW:
+        text: DOCUMENT_REVIEW
+        description: Review of submitted documents or records.
+        meaning: rfs:DocumentReview
+      SITE_INSPECTION:
+        text: SITE_INSPECTION
+        description: Inspection of the subject on site.
+        meaning: rfs:SiteInspection
+      RECORD_COMPARISON:
+        text: RECORD_COMPARISON
+        description: Comparison of values across records or sources.
+        meaning: rfs:RecordComparison
+      RECALCULATION:
+        text: RECALCULATION
+        description: Independent recalculation of a reported value.
+        meaning: rfs:Recalculation
+  RequirementOutcome:
+    name: RequirementOutcome
+    description: 'Whether a requirement is satisfied, as the evaluator finds it on
+      the record''s date. Each value is a finding: a review that has not started or
+      is still in progress is workflow state, recorded with no evaluation.'
+    from_schema: https://framework.regen.network/schema/
+    permissible_values:
+      SATISFIED:
+        text: SATISFIED
+        description: The evidence shows the requirement is met.
+        meaning: rfs:Satisfied
+      NOT_SATISFIED:
+        text: NOT_SATISFIED
+        description: The evidence shows the requirement is not met, or the evidence
+          it requires is missing.
+        meaning: rfs:NotSatisfied
+      UNDETERMINED:
+        text: UNDETERMINED
+        description: As of this date, what is available is not enough to decide either
+          way, for example because records the requirement needs are due later. The
+          rationale, required with this value, says what is missing.
+        meaning: rfs:Undetermined
+  Applicability:
+    name: Applicability
+    from_schema: https://framework.regen.network/schema/
+    permissible_values:
+      APPLICABLE:
+        text: APPLICABLE
+        meaning: rfs:Applicable
+      NOT_APPLICABLE:
+        text: NOT_APPLICABLE
+        description: The requirement does not apply to the subject, for example because
+          it applies only if a condition occurs and the condition has not occurred.
+        meaning: rfs:NotApplicable
   EvidentialStance:
     name: EvidentialStance
     from_schema: https://framework.regen.network/schema/
@@ -927,12 +950,10 @@ enums:
         description: 'Forward action request: to be followed up at a future verification;
           it does not prevent the current conclusion.'
         meaning: rfs:ForwardActionRequest
-      REGISTRY_ISSUE:
-        text: REGISTRY_ISSUE
-        description: A material finding raised in the Registry Agent's review.
-        meaning: rfs:RegistryIssue
       OTHER:
         text: OTHER
+        description: A finding whose record does not say which kind of request it
+          is.
         meaning: rfs:OtherFindingType
   IssuerRole:
     name: IssuerRole
@@ -964,59 +985,22 @@ enums:
       VERIFICATION:
         text: VERIFICATION
         meaning: rfs:VerificationMilestone
-      FUTURE_VERIFICATIONS:
-        text: FUTURE_VERIFICATIONS
-        meaning: rfs:FutureVerificationsMilestone
-  RequirementOutcome:
-    name: RequirementOutcome
-    description: 'Whether a requirement is satisfied, as the evaluator finds it on
-      the record''s date. Each value is a finding: a review that has not started or
-      is still in progress is workflow state, recorded with no evaluation.'
+  FindingResolution:
+    name: FindingResolution
     from_schema: https://framework.regen.network/schema/
     permissible_values:
-      SATISFIED:
-        text: SATISFIED
-        description: The evidence shows the requirement is met.
-        meaning: rfs:Satisfied
-      NOT_SATISFIED:
-        text: NOT_SATISFIED
-        description: The evidence shows the requirement is not met, or the evidence
-          it requires is missing.
-        meaning: rfs:NotSatisfied
-      UNDETERMINED:
-        text: UNDETERMINED
-        description: As of this date, what is available is not enough to decide either
-          way, for example because records the requirement needs are due later. The
-          rationale, required with this value, says what is missing.
-        meaning: rfs:Undetermined
-  Applicability:
-    name: Applicability
-    from_schema: https://framework.regen.network/schema/
-    permissible_values:
-      APPLICABLE:
-        text: APPLICABLE
-        meaning: rfs:Applicable
-      NOT_APPLICABLE:
-        text: NOT_APPLICABLE
-        description: The requirement does not apply to the subject, for example because
-          it applies only if a condition occurs and the condition has not occurred.
-        meaning: rfs:NotApplicable
-  FindingState:
-    name: FindingState
-    from_schema: https://framework.regen.network/schema/
-    permissible_values:
-      OPEN:
-        text: OPEN
+      UNRESOLVED:
+        text: UNRESOLVED
         description: The finding is not resolved as of this record.
-        meaning: rfs:FindingOpen
-      CLOSED:
-        text: CLOSED
+        meaning: rfs:FindingUnresolved
+      RESOLVED:
+        text: RESOLVED
         description: The finding is resolved as of this record.
-        meaning: rfs:FindingClosed
-  ReportRating:
-    name: ReportRating
-    description: The ratings the Program Guide (sections 12.4 and 12.5) gives a validation
-      or verification report.
+        meaning: rfs:FindingResolved
+  VerificationOpinion:
+    name: VerificationOpinion
+    description: The opinions the Program Guide (sections 12.4 and 12.5) lets a verifier
+      give in a validation or verification report.
     from_schema: https://framework.regen.network/schema/
     permissible_values:
       ACCEPTANCE:
@@ -1448,7 +1432,7 @@ slots:
     name: sourceType
     description: Genre of the cited source, from the DCMI Type Vocabulary, which the
       dcterms:type definition recommends. Finer kinds of evidence that a program accepts,
-      such as a lease agreement, belong to that program's rule set, not to Evidence.
+      such as a lease agreement, belong to that program's requirements, not to Evidence.
     from_schema: https://framework.regen.network/schema/
     slot_uri: dcterms:type
     domain_of:
@@ -1523,8 +1507,7 @@ slots:
     inlined: true
   source:
     name: source
-    description: 'The cited source: the IRI of an Evidence record, which the citing
-      record also lists in hasEvidence.'
+    description: 'The cited source: the IRI of an Evidence record.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: oa:hasSource
     domain_of:
@@ -1685,40 +1668,25 @@ slots:
     name: references
     description: 'Dublin Core citation: a resource the described resource references,
       cites or otherwise points to. Declared here so that narrower relations, such
-      as hasEvidence, can specialize it (rdfs:subPropertyOf); a citation alone asserts
+      as reliesOn, can specialize it (rdfs:subPropertyOf); a citation alone asserts
       neither derivation nor support. Each value is the IRI of the cited resource.
       A citation asserts nothing about that resource: its description, type and integrity
-      information live on the resource itself, shaped by its own schema. A subproperty
-      that describes the cited resource narrows the range to a class with an identifier
-      slot, as hasEvidence does with Evidence. Unordered set.'
+      information live on the resource itself, shaped by its own schema. Unordered
+      set.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: dcterms:references
     list_elements_ordered: false
     range: uriorcurie
     multivalued: true
-  hasEvidence:
-    name: hasEvidence
-    description: Sources the claimant presents as evidence for the assertion, each
-      the IRI of an Evidence record for the exact version cited. The record is its
-      own document, described once and never inlined. Where inside a source the cited
-      material is goes in hasEvidenceCitation. Whether a source actually supports
-      the assertion is judged separately, by evaluations. Specializes dcterms:references.
-      Unordered set.
-    from_schema: https://framework.regen.network/schema/
-    is_a: references
-    slot_uri: rfs:hasEvidence
-    list_elements_ordered: false
-    domain_of:
-    - Claim
-    range: Evidence
-    multivalued: true
-    inlined: false
   hasEvidenceCitation:
     name: hasEvidenceCitation
-    description: 'Where inside cited sources the material the assertion relies on
-      is: citations, each with one source listed in hasEvidence and the selectors
-      that locate the material. A source cited as a whole needs no citation. Unordered
-      set.'
+    description: The evidence the claimant presents for the assertion, as citations.
+      Each citation names one Evidence record by IRI (its source) and, optionally,
+      selectors that locate the cited material inside it; a citation without selectors
+      cites the whole source, and a source cited at several places has one citation
+      per passage. The Evidence records are their own documents, described once and
+      never inlined, and are reached through each citation's source. Whether the evidence
+      supports the assertion is judged separately, by evaluations. Unordered set.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:hasEvidenceCitation
     list_elements_ordered: false
@@ -1730,11 +1698,14 @@ slots:
     inlined_as_list: true
   reliesOn:
     name: reliesOn
-    description: Exact versions of claims or evaluations that a judgment depends on
-      without judging them, for example the claim stating an enrolment cutoff that
-      an approval relies on. Each value is the identifier of one immutable version.
-      Specializes dcterms:references, so it asserts neither derivation nor support.
-      Unordered set.
+    description: An exact Claim or Evaluation whose asserted content or result is
+      used in reaching this Evaluation's assessment, but which is not itself directly
+      assessed by the Evaluation, for example the claim stating an enrolment cutoff
+      that a confirmation relies on.
+    comments:
+    - 'Implementation: each value is the IRI of one immutable version, such as a ClaimIRI.
+      Repeatable and unordered. Specializes dcterms:references, so it asserts neither
+      derivation nor support.'
     from_schema: https://framework.regen.network/schema/
     is_a: references
     slot_uri: rfs:reliesOn
@@ -1745,10 +1716,16 @@ slots:
     multivalued: true
   hasTarget:
     name: hasTarget
-    description: 'What an evaluation judges or answers: the identifier of an exact,
-      immutable version of a claim, of another evaluation, or of a snapshot (a fixed
-      set of claim versions), or, for an evidence evaluation, of the Evidence records
-      it assesses. Never a logical identifier or label. Unordered set.'
+    description: The exact resource or resources directly examined or assessed in
+      reaching the Evaluation's conclusion. When a resource can change, the target
+      identifies the particular version or snapshot that was assessed. It is distinct
+      from the Evaluation's focal subject (hasSubject) and from the criteria it applies
+      (appliesRequirement).
+    comments:
+    - 'Implementation: each value is an IRI, never a logical identifier or label.
+      Repeatable and unordered. The base slot does not restrict what kind of resource
+      a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+      does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:hasTarget
     list_elements_ordered: false
@@ -1760,10 +1737,10 @@ slots:
     name: appliesRequirement
     description: 'Exact requirement versions an evaluation applies or judges, whether
       or not the claimant named them. Each identifier names one immutable requirement
-      version within an exact rule-set version, such as a checklist version: the same
-      short ID can name different requirements in different versions. The rule-set
-      and requirement records themselves are defined by WP5-01 (claims#30). Unordered
-      set.'
+      version within an exact requirement-set version, such as a checklist version:
+      the same short ID can name different requirements in different versions. The
+      requirement and requirement-set records themselves are defined by WP5-01 (claims#30).
+      Unordered set.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:appliesRequirement
     list_elements_ordered: false
@@ -1786,70 +1763,101 @@ slots:
     - DeviationRequest
     range: uriorcurie
     multivalued: true
-  appliesRuleSet:
-    name: appliesRuleSet
-    description: Identifier of an exact version of a normative rule set applied, such
-      as a credit class, a methodology or a program guide version. It is content and
-      enters the identity of the record. It is distinct from a schema-version declaration,
-      which states which schema the RDF conforms to. Unordered set.
+  appliesRequirementSet:
+    name: appliesRequirementSet
+    description: 'Exact versions of requirement sets, such as a registration or validation
+      checklist version, that an evaluation applies or assesses as a whole. An evaluation
+      of one requirement names only that requirement (appliesRequirement): its set
+      is reached through the requirement''s membership, defined by WP5-01 (claims#30).'
+    comments:
+    - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+      and unordered.'
     from_schema: https://framework.regen.network/schema/
-    slot_uri: rfs:appliesRuleSet
+    slot_uri: rfs:appliesRequirementSet
+    list_elements_ordered: false
+    domain_of:
+    - Evaluation
+    range: uriorcurie
+    multivalued: true
+  governedBy:
+    name: governedBy
+    description: Exact versions of the governing documents a claim or evaluation is
+      made under, such as a credit class, a methodology or a program guide version.
+      A governing document is broader than a set of requirements, which is named with
+      appliesRequirementSet. It is content and enters the identity of the record,
+      and is distinct from a schema-version declaration, which states which schema
+      the RDF conforms to.
+    comments:
+    - 'Implementation: each value is the IRI of one exact document version. Repeatable
+      and unordered.'
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: rfs:governedBy
     list_elements_ordered: false
     domain_of:
     - Evaluation
     - C06ProjectClaim
     range: uriorcurie
     multivalued: true
-  verificationMethod:
-    name: verificationMethod
-    description: 'How the assertion or judgment was established, as structured data,
-      so that a consumer can distinguish, for example, a lab-measured value from a
-      self-attested one. One method per record: its party and date are those of the
-      record that carries it (for an evaluation, its issuer and assertedAt), so a
-      subject checked by two methods has two records, each with its own party and
-      date. A value of OTHER must come with verificationMethodDescriptor.'
+  evaluationMethod:
+    name: evaluationMethod
+    description: The procedures the evaluator used to reach the assessment, such as
+      a document review or a site inspection. It is not who evaluated (that is assertedBy,
+      and any role a program records) nor how the evidence was produced (that is the
+      evidence's generating activity).
+    comments:
+    - 'Implementation: each value is the IRI of a method, so a method is defined once
+      and reused, and another program can use its own terms. EvaluationMethodType
+      lists the recommended shared methods by their meaning IRIs. Repeatable and unordered.'
     from_schema: https://framework.regen.network/schema/
-    slot_uri: rfs:verificationMethod
+    slot_uri: rfs:evaluationMethod
+    list_elements_ordered: false
     domain_of:
     - Evaluation
-    range: VerificationMethodType
-  verificationMethodDescriptor:
-    name: verificationMethodDescriptor
-    description: 'Free-text description of a verification method that the VerificationMethodType
-      enumeration does not cover; required when verificationMethod is OTHER. It must
-      contain a non-whitespace character, so an empty descriptor cannot leave the
-      method unspecified. It is the extension path: a method that recurs is added
-      to the enumeration in a later schema version.'
+    range: uriorcurie
+    multivalued: true
+  evaluationMethodDescription:
+    name: evaluationMethodDescription
+    description: How the evaluator reached the assessment, in their words, for example
+      which records were compared and how.
+    comments:
+    - 'Implementation: must contain a non-whitespace character, so an empty description
+      is rejected rather than standing in for none.'
     from_schema: https://framework.regen.network/schema/
-    slot_uri: rfs:verificationMethodDescriptor
+    slot_uri: rfs:evaluationMethodDescription
     domain_of:
     - Evaluation
     range: string
     pattern: \S
+  hasResult:
+    name: hasResult
+    description: The conclusion of the Evaluation, as a result whose type depends
+      on the kind of evaluation.
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: rfs:hasResult
+    domain_of:
+    - Evaluation
+    range: EvaluationResult
+    inlined: true
   outcome:
     name: outcome
-    description: 'The verdict of a GenericEvaluation, as a term from the vocabulary
-      of the program or rule set the judgment is made under. A kind of evaluation
-      with its own allowed values declares its verdict as a sub-property of outcome
-      with an enumerated range, such as evidentialStance or a program''s requirement
-      outcome, and does not carry outcome itself: both validators check the value,
-      the kind cannot state a second, conflicting verdict, and a query for outcome
-      still finds every verdict.'
+    description: The principal conclusion of an evaluation result. A GenericEvaluationResult
+      states it as a term from the vocabulary of whoever made the judgment; every
+      other result type states it with its own sub-property of outcome whose values
+      that kind allows, such as requirementOutcome or evidentialStance, so both validators
+      check the value and a query for outcome still finds every principal conclusion.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:outcome
     domain_of:
-    - GenericEvaluation
+    - GenericEvaluationResult
     range: uriorcurie
   assessedAgainst:
     name: assessedAgainst
-    description: 'What an evidence evaluation''s stance and sufficiency are relative
-      to: the IRI of an exact claim version, or of an exact requirement version as
-      appliesRequirement names it. The schema has no Requirement class (WP5-01), so
-      neither validator checks what the IRI identifies.'
+    description: The exact Claim version that an evidence support evaluation's stance
+      and sufficiency are relative to, as the IRI of that version.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:assessedAgainst
     domain_of:
-    - EvidenceEvaluation
+    - EvidenceSupportEvaluation
     range: uriorcurie
   evidentialStance:
     name: evidentialStance
@@ -1859,18 +1867,18 @@ slots:
     is_a: outcome
     slot_uri: rfs:evidentialStance
     domain_of:
-    - EvidenceEvaluation
+    - EvidenceSupportResult
     range: EvidentialStance
   evidenceSufficiency:
     name: evidenceSufficiency
     description: 'Whether the evidence is enough to establish its stance: sufficient
-      supporting evidence establishes the claim or requirement, and sufficient challenging
-      evidence contradicts it. A sub-property of outcome.'
+      supporting evidence establishes the claim, and sufficient challenging evidence
+      contradicts it. It qualifies the stance; it is not a conclusion of its own,
+      so it is not a sub-property of outcome.'
     from_schema: https://framework.regen.network/schema/
-    is_a: outcome
     slot_uri: rfs:evidenceSufficiency
     domain_of:
-    - EvidenceEvaluation
+    - EvidenceSupportResult
     range: EvidenceSufficiency
   claimConsistency:
     name: claimConsistency
@@ -1880,11 +1888,11 @@ slots:
     is_a: outcome
     slot_uri: rfs:claimConsistency
     domain_of:
-    - ClaimConsistencyEvaluation
+    - ClaimConsistencyResult
     range: ClaimConsistency
   rationale:
     name: rationale
-    description: Why the issuer reached the outcome.
+    description: Why the issuer reached the result.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:rationale
     domain_of:
@@ -1892,12 +1900,14 @@ slots:
     range: string
   scope:
     name: scope
-    description: 'Where the judgment applies: the subjects it covers, what it explicitly
-      excludes, and what it does not establish.'
+    description: The explicit subject or complete set of subjects across which the
+      Evaluation's result is asserted, when that applicability is not fully expressed
+      by its focal subject, with what it explicitly excludes and what it does not
+      establish.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:scope
     domain_of:
-    - Evaluation
+    - RequirementEvaluation
     range: Scope
     inlined: true
   appliesTo:
@@ -1930,16 +1940,24 @@ slots:
     domain_of:
     - Scope
     range: string
-  unbounded:
-    name: unbounded
-    description: 'True when the issuer explicitly gives the judgment no limits beyond
-      what it targets, so that an unlimited approval is a stated choice rather than
-      an omission. Stated only on an evaluation without a scope: the two are exclusive.'
+  applicability:
+    name: applicability
+    description: Whether the applied requirement applies to the subject.
     from_schema: https://framework.regen.network/schema/
-    slot_uri: rfs:unbounded
+    slot_uri: rfs:applicability
     domain_of:
-    - Evaluation
-    range: boolean
+    - RequirementAssessmentResult
+    range: Applicability
+  requirementOutcome:
+    name: requirementOutcome
+    description: Whether the applied requirement is satisfied, as of this record's
+      date. A sub-property of outcome.
+    from_schema: https://framework.regen.network/schema/
+    is_a: outcome
+    slot_uri: rfs:requirementOutcome
+    domain_of:
+    - RequirementAssessmentResult
+    range: RequirementOutcome
   findingLabel:
     name: findingLabel
     description: The issuer's own identifier for a finding, stable across review rounds,
@@ -1952,49 +1970,35 @@ slots:
     range: string
   findingType:
     name: findingType
-    description: The kind of finding.
+    description: 'What the finding asks for: a correction, a clarification or a follow-up
+      at a later verification. Who raised it is issuerRole, not the finding type,
+      so a finding the Registry Agent raises uses the same types as a verifier''s,
+      or OTHER when its record does not say which.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:findingType
     domain_of:
     - RegistryFindingEvaluation
     range: FindingType
-  findingState:
-    name: findingState
-    description: Whether the finding is open or closed as of this record's date. A
-      sub-property of outcome.
+  findingResolution:
+    name: findingResolution
+    description: Whether the finding is resolved as of the record's date. A sub-property
+      of outcome.
     from_schema: https://framework.regen.network/schema/
     is_a: outcome
-    slot_uri: rfs:findingState
+    slot_uri: rfs:findingResolution
     domain_of:
-    - RegistryFindingEvaluation
-    range: FindingState
-  applicability:
-    name: applicability
-    description: Whether the applied requirement applies to the subject.
-    from_schema: https://framework.regen.network/schema/
-    slot_uri: rfs:applicability
-    domain_of:
-    - RegistryRequirementEvaluation
-    range: Applicability
-  requirementOutcome:
-    name: requirementOutcome
-    description: Whether the applied requirement is satisfied, as of this record's
-      date. A sub-property of outcome.
+    - FindingResolutionResult
+    range: FindingResolution
+  verificationOpinion:
+    name: verificationOpinion
+    description: The verifier's opinion of the project in its report. A sub-property
+      of outcome.
     from_schema: https://framework.regen.network/schema/
     is_a: outcome
-    slot_uri: rfs:requirementOutcome
+    slot_uri: rfs:verificationOpinion
     domain_of:
-    - RegistryRequirementEvaluation
-    range: RequirementOutcome
-  reportRating:
-    name: reportRating
-    description: The verifier's rating in its report. A sub-property of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:reportRating
-    domain_of:
-    - RegistryReportEvaluation
-    range: ReportRating
+    - VerificationOpinionResult
+    range: VerificationOpinion
   issuerRole:
     name: issuerRole
     description: The capacity in which the issuer is recorded as acting for this judgment.
@@ -4195,7 +4199,6 @@ classes:
     - assertedBy
     - assertedAt
     - hasSubject
-    - hasEvidence
     - hasEvidenceCitation
     - wasRevisionOf
     slot_usage:
@@ -4212,7 +4215,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -4285,7 +4288,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -4368,30 +4371,16 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: Claim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -4423,10 +4412,14 @@ classes:
     class_uri: rfs:Claim
   GenericClaim:
     name: GenericClaim
-    description: A Claim with base content only, for an assertion that needs no claim-type
-      schema, such as a self-attested stewardship claim. It adds nothing to Claim,
-      and its generated shapes are closed, so impacts, quantities, activities and
-      other domain content are rejected; they belong to a claim-type schema.
+    description: A claim that uses only the base fields, such as a written statement
+      with its claimants, time, subject and evidence. It means no more than Claim.
+      Impacts, quantities, activities and other domain content belong to a claim-type
+      schema.
+    comments:
+    - 'Implementation: it exists as its own class so that such a claim is validated
+      with a closed shape, which the open Claim base cannot give its direct instances;
+      a GenericClaim with domain content is rejected.'
     from_schema: https://framework.regen.network/schema/
     is_a: Claim
     attributes:
@@ -4489,7 +4482,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -4572,30 +4565,16 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: GenericClaim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -4752,8 +4731,8 @@ classes:
         name: sourceType
         description: Genre of the cited source, from the DCMI Type Vocabulary, which
           the dcterms:type definition recommends. Finer kinds of evidence that a program
-          accepts, such as a lease agreement, belong to that program's rule set, not
-          to Evidence.
+          accepts, such as a lease agreement, belong to that program's requirements,
+          not to Evidence.
         from_schema: https://framework.regen.network/schema/
         slot_uri: dcterms:type
         owner: Evidence
@@ -4851,12 +4830,13 @@ classes:
     class_uri: rfs:Evidence
   EvidenceCitation:
     name: EvidenceCitation
-    description: 'Where inside one cited source the material a claim relies on is:
-      a local profile of a Web Annotation resource selection, with exactly one source
-      and zero or more selectors. Without a selector the whole source is cited. Several
-      selectors are alternative ways to locate the same passage; distinct passages
-      of one source are separate citations. Changing a selector changes the citation,
-      and so the citing record''s content, but never the source''s IRI or hash.'
+    description: 'One piece of evidence a claim cites: a local profile of a Web Annotation
+      resource selection, with exactly one source, the Evidence record, and zero or
+      more selectors that locate the cited material inside it. Without a selector
+      the whole source is cited. Several selectors are alternative ways to locate
+      the same passage; distinct passages of one source are separate citations. Changing
+      a selector changes the citation, and so the citing record''s content, but never
+      the source''s IRI or hash.'
     from_schema: https://framework.regen.network/schema/
     broad_mappings:
     - oa:ResourceSelection
@@ -4870,8 +4850,7 @@ classes:
     attributes:
       source:
         name: source
-        description: 'The cited source: the IRI of an Evidence record, which the citing
-          record also lists in hasEvidence.'
+        description: 'The cited source: the IRI of an Evidence record.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: oa:hasSource
         owner: EvidenceCitation
@@ -5236,16 +5215,18 @@ classes:
     class_uri: prov:Activity
   Evaluation:
     name: Evaluation
-    description: 'An issuer''s judgment, made at a stated time, about what it targets:
-      exact versions of claims, of other evaluations, or a snapshot of claims. As
-      a Claim it is attributed (assertedBy names the issuer), immutable and revisable
-      with wasRevisionOf; it is about a subject, such as a project or a plot, even
-      when it judges a claim about that subject. It does not carry its own hash or
-      IRI, anchoring state, or a status that changes after it is made: a later judgment
-      is a new Evaluation. Abstract, like Claim: its generated shape is open, so it
-      checks the base content of every kind of evaluation, including kinds another
-      program defines, and lets a kind add fields. A judgment with no program vocabulary
-      is a GenericEvaluation.'
+    description: 'A Claim that records an assessment made by an agent about one focal
+      subject. Its claimStatement states the assessment. As a Claim, an Evaluation
+      identifies the agent responsible for it and when it was made. Depending on the
+      kind of evaluation, it may also identify the resources it directly assessed,
+      the criteria it applied, the evidence it relied on, the method it used and its
+      result. It holds nothing that changes after it is made: a later assessment is
+      a new Evaluation, and a correction is a new version linked through wasRevisionOf.'
+    comments:
+    - 'Implementation: abstract, like Claim, so its generated shape is open. It checks
+      the base content of every kind of evaluation, including kinds another program
+      defines, and lets a kind add fields. An evaluation that uses only the shared
+      fields is a GenericEvaluation.'
     from_schema: https://framework.regen.network/schema/
     is_a: Claim
     abstract: true
@@ -5253,12 +5234,12 @@ classes:
     - hasTarget
     - reliesOn
     - appliesRequirement
-    - appliesRuleSet
+    - appliesRequirementSet
+    - governedBy
     - rationale
-    - verificationMethod
-    - verificationMethodDescriptor
-    - scope
-    - unbounded
+    - evaluationMethod
+    - evaluationMethodDescription
+    - hasResult
     slot_usage:
       assertedBy:
         name: assertedBy
@@ -5269,21 +5250,24 @@ classes:
         description: When the issuer made the judgment.
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-      verificationMethod:
-        name: verificationMethod
-        required: true
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
+      hasEvidenceCitation:
+        name: hasEvidenceCitation
+        description: Evidence the issuer relied on, as citations.
     attributes:
       hasTarget:
         name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -5294,11 +5278,14 @@ classes:
         multivalued: true
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -5312,10 +5299,10 @@ classes:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
           whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
+          requirement version within an exact requirement-set version, such as a checklist
           version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -5324,14 +5311,37 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: Evaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: Evaluation
         domain_of:
@@ -5341,65 +5351,57 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
         owner: Evaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: The procedures the evaluator used to reach the assessment, such
+          as a document review or a site inspection. It is not who evaluated (that
+          is assertedBy, and any role a program records) nor how the evidence was
+          produced (that is the evidence's generating activity).
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: Evaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
-        required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        range: uriorcurie
+        multivalued: true
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: Evaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: Evaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: EvaluationResult
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: Evaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -5459,7 +5461,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -5505,8 +5507,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: Evaluation
@@ -5515,25 +5517,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: Evaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -5563,69 +5549,34 @@ classes:
         - Claim
         range: uriorcurie
     class_uri: rfs:Evaluation
-    rules:
-    - preconditions:
-        slot_conditions:
-          verificationMethod:
-            name: verificationMethod
-            equals_string: OTHER
-      postconditions:
-        slot_conditions:
-          verificationMethodDescriptor:
-            name: verificationMethodDescriptor
-            required: true
-      description: A verification method outside the enumeration is described, so
-        the method is never empty. Enforced by the generated JSON Schema; the generated
-        SHACL does not express LinkML rules.
-    - preconditions:
-        slot_conditions:
-          scope:
-            name: scope
-            value_presence: PRESENT
-      postconditions:
-        slot_conditions:
-          unbounded:
-            name: unbounded
-            value_presence: ABSENT
-      description: 'A scope and unbounded are exclusive: a scope limits the judgment
-        to the subjects it names, and unbounded states that the judgment has no limits
-        beyond its targets. An evaluation with a scope does not state unbounded. Enforced
-        by the generated JSON Schema; the generated SHACL does not express LinkML
-        rules.'
   GenericEvaluation:
     name: GenericEvaluation
-    description: 'An Evaluation with base content only, for a judgment made under
-      no program''s review vocabulary, such as a community steward''s review. Its
-      verdict, if any, is the generic outcome, which only this class carries: every
-      other kind states its verdict with its own sub-property of outcome, so it cannot
-      state two verdicts. Its generated shapes are closed: a program''s fields belong
-      to that program''s kind of evaluation.'
+    description: An evaluation that uses only the shared Evaluation fields, for a
+      judgment made under no program's vocabulary, such as a community steward's review.
+      It means no more than Evaluation. Its result, if any, is a GenericEvaluationResult
+      with the generic outcome.
+    comments:
+    - 'Implementation: it exists as its own class so that such an evaluation is validated
+      with a closed shape, which the open Evaluation base cannot give its direct instances.'
     from_schema: https://framework.regen.network/schema/
     is_a: Evaluation
-    slots:
-    - outcome
+    slot_usage:
+      hasResult:
+        name: hasResult
+        range: GenericEvaluationResult
     attributes:
-      outcome:
-        name: outcome
-        description: 'The verdict of a GenericEvaluation, as a term from the vocabulary
-          of the program or rule set the judgment is made under. A kind of evaluation
-          with its own allowed values declares its verdict as a sub-property of outcome
-          with an enumerated range, such as evidentialStance or a program''s requirement
-          outcome, and does not carry outcome itself: both validators check the value,
-          the kind cannot state a second, conflicting verdict, and a query for outcome
-          still finds every verdict.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:outcome
-        owner: GenericEvaluation
-        domain_of:
-        - GenericEvaluation
-        range: uriorcurie
       hasTarget:
         name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -5636,11 +5587,14 @@ classes:
         multivalued: true
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -5654,10 +5608,10 @@ classes:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
           whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
+          requirement version within an exact requirement-set version, such as a checklist
           version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -5666,14 +5620,37 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: GenericEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: GenericEvaluation
         domain_of:
@@ -5683,65 +5660,57 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
         owner: GenericEvaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: The procedures the evaluator used to reach the assessment, such
+          as a document review or a site inspection. It is not who evaluated (that
+          is assertedBy, and any role a program records) nor how the evidence was
+          produced (that is the evidence's generating activity).
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: GenericEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
-        required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        range: uriorcurie
+        multivalued: true
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: GenericEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: GenericEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: GenericEvaluationResult
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: GenericEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -5801,7 +5770,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -5847,8 +5816,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: GenericEvaluation
@@ -5857,25 +5826,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: GenericEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -5905,126 +5858,134 @@ classes:
         - Claim
         range: uriorcurie
     class_uri: rfs:GenericEvaluation
-  EvidenceEvaluation:
-    name: EvidenceEvaluation
-    description: 'What an identified body of evidence shows about one claim or requirement:
-      whether it supports or challenges it, and whether it is enough to establish
-      that. Stance and sufficiency are always relative to what the evidence is assessed
-      against, and apply to the targeted evidence as a whole, not to each item in
-      isolation.'
+  RequirementEvaluation:
+    name: RequirementEvaluation
+    description: An Evaluation of whether one focal subject satisfies one exact Requirement
+      version. It records whether the Requirement applies to the subject and, when
+      applicable, whether the subject satisfies it. Each requirement assessed is its
+      own evaluation.
+    comments:
+    - 'Implementation: abstract, like Evaluation, so its generated shape is open and
+      a program can specialize it with fields of its own, as RegistryRequirementEvaluation
+      does.'
     from_schema: https://framework.regen.network/schema/
     is_a: Evaluation
+    abstract: true
     slots:
-    - assessedAgainst
-    - evidentialStance
-    - evidenceSufficiency
+    - scope
     slot_usage:
-      hasTarget:
-        name: hasTarget
-        description: The Evidence records assessed, as one body of evidence. Unordered
-          set.
+      appliesRequirement:
+        name: appliesRequirement
+        description: The exact Requirement version whose applicability to the subject
+          and, when applicable, satisfaction are assessed by this Evaluation.
         required: true
         minimum_cardinality: 1
-      assessedAgainst:
-        name: assessedAgainst
-        required: true
-      evidentialStance:
-        name: evidentialStance
+        maximum_cardinality: 1
+      hasResult:
+        name: hasResult
+        range: RequirementAssessmentResult
         required: true
     attributes:
-      assessedAgainst:
-        name: assessedAgainst
-        description: 'What an evidence evaluation''s stance and sufficiency are relative
-          to: the IRI of an exact claim version, or of an exact requirement version
-          as appliesRequirement names it. The schema has no Requirement class (WP5-01),
-          so neither validator checks what the IRI identifies.'
+      scope:
+        name: scope
+        description: The explicit subject or complete set of subjects across which
+          the Evaluation's result is asserted, when that applicability is not fully
+          expressed by its focal subject, with what it explicitly excludes and what
+          it does not establish.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:assessedAgainst
-        owner: EvidenceEvaluation
+        slot_uri: rfs:scope
+        owner: RequirementEvaluation
         domain_of:
-        - EvidenceEvaluation
-        range: uriorcurie
-        required: true
-      evidentialStance:
-        name: evidentialStance
-        description: Whether the evidence supports or challenges what it is assessed
-          against, or has no bearing on it. A sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:evidentialStance
-        owner: EvidenceEvaluation
-        domain_of:
-        - EvidenceEvaluation
-        range: EvidentialStance
-        required: true
-      evidenceSufficiency:
-        name: evidenceSufficiency
-        description: 'Whether the evidence is enough to establish its stance: sufficient
-          supporting evidence establishes the claim or requirement, and sufficient
-          challenging evidence contradicts it. A sub-property of outcome.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:evidenceSufficiency
-        owner: EvidenceEvaluation
-        domain_of:
-        - EvidenceEvaluation
-        range: EvidenceSufficiency
+        - RequirementEvaluation
+        range: Scope
+        inlined: true
       hasTarget:
         name: hasTarget
-        description: The Evidence records assessed, as one body of evidence. Unordered
-          set.
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         range: uriorcurie
-        required: true
         multivalued: true
-        minimum_cardinality: 1
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         range: uriorcurie
         multivalued: true
       appliesRequirement:
         name: appliesRequirement
-        description: 'Exact requirement versions an evaluation applies or judges,
-          whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
-          version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+        description: The exact Requirement version whose applicability to the subject
+          and, when applicable, satisfaction are assessed by this Evaluation.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        required: true
+        multivalued: true
+        minimum_cardinality: 1
+        maximum_cardinality: 1
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         - C06ProjectClaim
@@ -6032,65 +5993,58 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: The procedures the evaluator used to reach the assessment, such
+          as a document review or a site inspection. It is not who evaluated (that
+          is assertedBy, and any role a program records) nor how the evidence was
+          produced (that is the evidence's generating activity).
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
-        owner: EvidenceEvaluation
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
-        required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        range: uriorcurie
+        multivalued: true
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
-        owner: EvidenceEvaluation
+        slot_uri: rfs:evaluationMethodDescription
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
-        owner: EvidenceEvaluation
+        slot_uri: rfs:hasResult
+        owner: RequirementEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: RequirementAssessmentResult
+        required: true
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: EvidenceEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -6098,7 +6052,7 @@ classes:
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:name
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Link
         - ProjectInfo
@@ -6128,7 +6082,7 @@ classes:
         from_schema: https://framework.regen.network/schema/
         is_a: description
         slot_uri: rfs:claimStatement
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: string
@@ -6141,7 +6095,7 @@ classes:
           how a statement translated from a source was derived.
         from_schema: https://framework.regen.network/schema/
         slot_uri: schema:inLanguage
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         - Evidence
@@ -6150,11 +6104,11 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Link
         - ProjectInfo
@@ -6174,7 +6128,7 @@ classes:
         is_a: wasAttributedTo
         slot_uri: rfs:assertedBy
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: Entity
@@ -6188,7 +6142,7 @@ classes:
         description: When the issuer made the judgment.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:assertedAt
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: datetime
@@ -6196,39 +6150,23 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: EvidenceEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: EvidenceCitation
@@ -6249,25 +6187,359 @@ classes:
           happens outside the Claim.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: prov:wasRevisionOf
-        owner: EvidenceEvaluation
+        owner: RequirementEvaluation
         domain_of:
         - Claim
         range: uriorcurie
-    class_uri: rfs:EvidenceEvaluation
+    class_uri: rfs:RequirementEvaluation
     rules:
     - preconditions:
         slot_conditions:
-          evidentialStance:
-            name: evidentialStance
-            equals_string: NO_BEARING
+          hasResult:
+            name: hasResult
+            range_expression:
+              slot_conditions:
+                requirementOutcome:
+                  name: requirementOutcome
+                  equals_string: UNDETERMINED
       postconditions:
         slot_conditions:
-          evidenceSufficiency:
-            name: evidenceSufficiency
-            value_presence: ABSENT
-      description: Evidence with no bearing on what it is assessed against establishes
-        nothing, so it has no sufficiency. Enforced by the generated JSON Schema;
+          rationale:
+            name: rationale
+            required: true
+      description: An undetermined outcome is a finding, not a review in progress,
+        so the rationale says what is missing. Enforced by the generated JSON Schema;
         the generated SHACL does not express LinkML rules.
+  EvidenceSupportEvaluation:
+    name: EvidenceSupportEvaluation
+    description: An assessment of whether an exact body of Evidence supports, challenges,
+      or has no bearing on one exact Claim and, where assessed, whether that Evidence
+      is sufficient. Stance and sufficiency are relative to that Claim, and apply
+      to the targeted evidence as a whole, not to each item in isolation. Whether
+      a subject satisfies a Requirement is a RequirementEvaluation instead.
+    from_schema: https://framework.regen.network/schema/
+    is_a: Evaluation
+    slots:
+    - assessedAgainst
+    slot_usage:
+      hasTarget:
+        name: hasTarget
+        description: The Evidence records assessed, as one body of evidence. Unordered
+          set.
+        required: true
+        minimum_cardinality: 1
+      assessedAgainst:
+        name: assessedAgainst
+        required: true
+      hasResult:
+        name: hasResult
+        range: EvidenceSupportResult
+        required: true
+    attributes:
+      assessedAgainst:
+        name: assessedAgainst
+        description: The exact Claim version that an evidence support evaluation's
+          stance and sufficiency are relative to, as the IRI of that version.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:assessedAgainst
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - EvidenceSupportEvaluation
+        range: uriorcurie
+        required: true
+      hasTarget:
+        name: hasTarget
+        description: The Evidence records assessed, as one body of evidence. Unordered
+          set.
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:hasTarget
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        required: true
+        multivalued: true
+        minimum_cardinality: 1
+      reliesOn:
+        name: reliesOn
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      appliesRequirement:
+        name: appliesRequirement
+        description: 'Exact requirement versions an evaluation applies or judges,
+          whether or not the claimant named them. Each identifier names one immutable
+          requirement version within an exact requirement-set version, such as a checklist
+          version: the same short ID can name different requirements in different
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:appliesRequirement
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        - C06ProjectClaim
+        range: uriorcurie
+        multivalued: true
+      rationale:
+        name: rationale
+        description: Why the issuer reached the result.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:rationale
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: string
+      evaluationMethod:
+        name: evaluationMethod
+        description: The procedures the evaluator used to reach the assessment, such
+          as a document review or a site inspection. It is not who evaluated (that
+          is assertedBy, and any role a program records) nor how the evidence was
+          produced (that is the evidence's generating activity).
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:evaluationMethodDescription
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: string
+        pattern: \S
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:hasResult
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Evaluation
+        range: EvidenceSupportResult
+        required: true
+        inlined: true
+      name:
+        name: name
+        description: Optional human-readable title of the claim, for display. It is
+          not the assertion, which is claimStatement.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:name
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Link
+        - ProjectInfo
+        - Feature
+        - File
+        - Impact
+        - CreditingProgram
+        - CreditProtocol
+        - Methodology
+        - Registry
+        - BufferPoolAccount
+        - CreditClassInfo
+        - Claim
+        - Evidence
+        - Activity
+        - Entity
+        range: string
+      claimStatement:
+        name: claimStatement
+        description: 'The assertion, as the claimants state it in natural language.
+          It is asserted content, not a presentational summary: changing it changes
+          the Claim. A claim type may also formalize the assertion, or add detail
+          to it, in structured fields; the statement and those fields are one assertion
+          and must agree. When they disagree, neither overrides the other: the Claim
+          is internally inconsistent and is corrected by a new version before its
+          evidence is evaluated. Specializes schema:description.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: description
+        slot_uri: rfs:claimStatement
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: string
+        required: true
+      inLanguage:
+        name: inLanguage
+        description: Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter
+          ISO 639 primary language subtag, such as en or cs. It says nothing about
+          the language of the cited sources, which they record themselves, or about
+          how a statement translated from a source was derived.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: schema:inLanguage
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        - Evidence
+        range: string
+        pattern: ^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$
+      url:
+        name: url
+        description: Link to a page with more information about the claim. A pointer
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:url
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Link
+        - ProjectInfo
+        - CreditingProgram
+        - CreditProtocol
+        - Methodology
+        - Registry
+        - CreditClassInfo
+        - Claim
+        - Entity
+        range: uri
+      assertedBy:
+        name: assertedBy
+        description: 'The issuer: the party that makes the judgment and takes responsibility
+          for it.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: wasAttributedTo
+        slot_uri: rfs:assertedBy
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: Entity
+        required: true
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+        minimum_cardinality: 1
+      assertedAt:
+        name: assertedAt
+        description: When the issuer made the judgment.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:assertedAt
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: datetime
+        required: true
+        pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
+      hasSubject:
+        name: hasSubject
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:hasSubject
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: ClaimSubject
+        required: true
+        inlined: true
+      hasEvidenceCitation:
+        name: hasEvidenceCitation
+        description: Evidence the issuer relied on, as citations.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:hasEvidenceCitation
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: EvidenceCitation
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      wasRevisionOf:
+        name: wasRevisionOf
+        description: 'Identifier of the exact, immutable earlier Claim version that
+          this Claim revises: its ClaimIRI. A Claim has no identifier slot, because
+          its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1),
+          so the value is a bare IRI and the slot names no class. It never names a
+          logical claim or version family. In PROV a revision implies that both versions
+          are aspects of the same thing (alternateOf), so use it only for a revised
+          version of the same assertion; a separate, later assertion, such as a follow-up
+          observation, is a new Claim and is not a revision. The earlier version is
+          unchanged, its evaluations do not carry over, and selecting a current version
+          happens outside the Claim.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:wasRevisionOf
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+    class_uri: rfs:EvidenceSupportEvaluation
   ClaimConsistencyEvaluation:
     name: ClaimConsistencyEvaluation
     description: Whether a claim's statement and its structured fields express the
@@ -6277,8 +6549,6 @@ classes:
       is evaluated; neither the statement nor the fields override the other.
     from_schema: https://framework.regen.network/schema/
     is_a: Evaluation
-    slots:
-    - claimConsistency
     slot_usage:
       hasTarget:
         name: hasTarget
@@ -6286,8 +6556,9 @@ classes:
           Unordered set.
         required: true
         minimum_cardinality: 1
-      claimConsistency:
-        name: claimConsistency
+      hasResult:
+        name: hasResult
+        range: ClaimConsistencyResult
         required: true
       rationale:
         name: rationale
@@ -6295,22 +6566,15 @@ classes:
           "the statement gives 12 ha, the area field 15 ha".
         required: true
     attributes:
-      claimConsistency:
-        name: claimConsistency
-        description: Whether the claim's statement and structured fields agree. A
-          sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:claimConsistency
-        owner: ClaimConsistencyEvaluation
-        domain_of:
-        - ClaimConsistencyEvaluation
-        range: ClaimConsistency
-        required: true
       hasTarget:
         name: hasTarget
         description: The exact claim versions whose statement and fields are compared.
           Unordered set.
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -6323,11 +6587,14 @@ classes:
         minimum_cardinality: 1
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -6341,10 +6608,10 @@ classes:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
           whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
+          requirement version within an exact requirement-set version, such as a checklist
           version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -6353,14 +6620,37 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: ClaimConsistencyEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: ClaimConsistencyEvaluation
         domain_of:
@@ -6379,58 +6669,51 @@ classes:
         - Evaluation
         range: string
         required: true
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: The procedures the evaluator used to reach the assessment, such
+          as a document review or a site inspection. It is not who evaluated (that
+          is assertedBy, and any role a program records) nor how the evidence was
+          produced (that is the evidence's generating activity).
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: ClaimConsistencyEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
-        required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        range: uriorcurie
+        multivalued: true
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: ClaimConsistencyEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: ClaimConsistencyEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: ClaimConsistencyResult
+        required: true
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: ClaimConsistencyEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -6490,7 +6773,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -6536,8 +6819,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: ClaimConsistencyEvaluation
@@ -6546,25 +6829,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: ClaimConsistencyEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -6594,12 +6861,191 @@ classes:
         - Claim
         range: uriorcurie
     class_uri: rfs:ClaimConsistencyEvaluation
+  EvaluationResult:
+    name: EvaluationResult
+    description: 'The conclusion of an Evaluation: its principal outcome and any qualifiers
+      of that outcome. Each kind of evaluation has its own result type, whose outcome
+      field is a sub-property of outcome with the values that kind allows. Attribution,
+      time, subject, targets, method and rationale stay on the Evaluation.'
+    comments:
+    - 'Implementation: abstract, so its generated shape is open. Each result type
+      narrows its own outcome sub-property rather than one shared outcome field, because
+      LinkML 1.11 cannot narrow an enum-valued slot in a subclass without breaking
+      the RDF conversion of its Python model.'
+    from_schema: https://framework.regen.network/schema/
+    abstract: true
+    class_uri: rfs:EvaluationResult
+  GenericEvaluationResult:
+    name: GenericEvaluationResult
+    description: 'The result of a GenericEvaluation: a generic outcome, as a term
+      from the vocabulary of whoever made the judgment.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - outcome
+    attributes:
+      outcome:
+        name: outcome
+        description: The principal conclusion of an evaluation result. A GenericEvaluationResult
+          states it as a term from the vocabulary of whoever made the judgment; every
+          other result type states it with its own sub-property of outcome whose values
+          that kind allows, such as requirementOutcome or evidentialStance, so both
+          validators check the value and a query for outcome still finds every principal
+          conclusion.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:outcome
+        owner: GenericEvaluationResult
+        domain_of:
+        - GenericEvaluationResult
+        range: uriorcurie
+    class_uri: rfs:GenericEvaluationResult
+  RequirementAssessmentResult:
+    name: RequirementAssessmentResult
+    description: 'The result of a RequirementEvaluation: whether the requirement applies
+      to the subject and, when it does, whether the subject satisfies it.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - applicability
+    - requirementOutcome
+    slot_usage:
+      applicability:
+        name: applicability
+        required: true
+    attributes:
+      applicability:
+        name: applicability
+        description: Whether the applied requirement applies to the subject.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:applicability
+        owner: RequirementAssessmentResult
+        domain_of:
+        - RequirementAssessmentResult
+        range: Applicability
+        required: true
+      requirementOutcome:
+        name: requirementOutcome
+        description: Whether the applied requirement is satisfied, as of this record's
+          date. A sub-property of outcome.
+        from_schema: https://framework.regen.network/schema/
+        is_a: outcome
+        slot_uri: rfs:requirementOutcome
+        owner: RequirementAssessmentResult
+        domain_of:
+        - RequirementAssessmentResult
+        range: RequirementOutcome
+    class_uri: rfs:RequirementAssessmentResult
+    rules:
+    - preconditions:
+        slot_conditions:
+          applicability:
+            name: applicability
+            equals_string: APPLICABLE
+      postconditions:
+        slot_conditions:
+          requirementOutcome:
+            name: requirementOutcome
+            required: true
+      description: An applicable requirement has an outcome. Enforced by the generated
+        JSON Schema; the generated SHACL does not express LinkML rules.
+    - preconditions:
+        slot_conditions:
+          applicability:
+            name: applicability
+            equals_string: NOT_APPLICABLE
+      postconditions:
+        slot_conditions:
+          requirementOutcome:
+            name: requirementOutcome
+            value_presence: ABSENT
+      description: A requirement that does not apply has no outcome. Enforced by the
+        generated JSON Schema; the generated SHACL does not express LinkML rules.
+  EvidenceSupportResult:
+    name: EvidenceSupportResult
+    description: 'The result of an EvidenceSupportEvaluation: whether the evidence
+      supports, challenges or has no bearing on the claim and, where assessed, whether
+      it is sufficient to establish that stance.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - evidentialStance
+    - evidenceSufficiency
+    slot_usage:
+      evidentialStance:
+        name: evidentialStance
+        required: true
+    attributes:
+      evidentialStance:
+        name: evidentialStance
+        description: Whether the evidence supports or challenges what it is assessed
+          against, or has no bearing on it. A sub-property of outcome.
+        from_schema: https://framework.regen.network/schema/
+        is_a: outcome
+        slot_uri: rfs:evidentialStance
+        owner: EvidenceSupportResult
+        domain_of:
+        - EvidenceSupportResult
+        range: EvidentialStance
+        required: true
+      evidenceSufficiency:
+        name: evidenceSufficiency
+        description: 'Whether the evidence is enough to establish its stance: sufficient
+          supporting evidence establishes the claim, and sufficient challenging evidence
+          contradicts it. It qualifies the stance; it is not a conclusion of its own,
+          so it is not a sub-property of outcome.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:evidenceSufficiency
+        owner: EvidenceSupportResult
+        domain_of:
+        - EvidenceSupportResult
+        range: EvidenceSufficiency
+    class_uri: rfs:EvidenceSupportResult
+    rules:
+    - preconditions:
+        slot_conditions:
+          evidentialStance:
+            name: evidentialStance
+            equals_string: NO_BEARING
+      postconditions:
+        slot_conditions:
+          evidenceSufficiency:
+            name: evidenceSufficiency
+            value_presence: ABSENT
+      description: Evidence with no bearing on the claim establishes nothing, so it
+        has no sufficiency. Enforced by the generated JSON Schema; the generated SHACL
+        does not express LinkML rules.
+  ClaimConsistencyResult:
+    name: ClaimConsistencyResult
+    description: 'The result of a ClaimConsistencyEvaluation: whether the claim''s
+      statement and structured fields express the same assertion.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - claimConsistency
+    slot_usage:
+      claimConsistency:
+        name: claimConsistency
+        required: true
+    attributes:
+      claimConsistency:
+        name: claimConsistency
+        description: Whether the claim's statement and structured fields agree. A
+          sub-property of outcome.
+        from_schema: https://framework.regen.network/schema/
+        is_a: outcome
+        slot_uri: rfs:claimConsistency
+        owner: ClaimConsistencyResult
+        domain_of:
+        - ClaimConsistencyResult
+        range: ClaimConsistency
+        required: true
+    class_uri: rfs:ClaimConsistencyResult
   Scope:
     name: Scope
-    description: Where an evaluation applies, as structured fields, so that a consumer
-      can check whether a subject falls inside it. A scope always names the subjects
-      it covers. An evaluation without a scope applies only to what it targets, unless
-      it states unbounded.
+    description: Where an evaluation's result applies, as structured fields, so that
+      a consumer can check whether a subject falls inside it. A scope always names
+      the subjects it covers. An evaluation without a scope asserts no applicability
+      beyond its focal subject.
     from_schema: https://framework.regen.network/schema/
     slots:
     - appliesTo
@@ -6649,15 +7095,19 @@ classes:
     class_uri: rfs:Scope
   RegistryReviewEvaluation:
     name: RegistryReviewEvaluation
-    description: 'A judgment made in a Regen Registry review by the Registry Agent,
-      an independent verifier (VVB) or the Credit Class Admin. Abstract: every review
-      judgment is one of its kinds (a requirement, finding or report evaluation),
-      and each kind requires its own verdict field. An evaluation records a judgment;
-      it is neither the state of the review workflow nor the Registry''s institutional
-      decision, such as approving a project''s registration, which it may inform.'
+    description: 'What every judgment made in a Regen Registry review records, by
+      the Registry Agent, an independent verifier (VVB) or the Credit Class Admin:
+      the capacity in which the issuer acted, any conditions, and the method used.
+      An evaluation records a judgment; it is neither the state of the review workflow
+      nor the Registry''s institutional decision, such as approving a project''s registration,
+      which it may inform.'
+    comments:
+    - 'Implementation: a mixin, declared by each Registry kind (RegistryRequirementEvaluation,
+      RegistryFindingEvaluation, RegistryReportEvaluation), because a requirement
+      evaluation already has RequirementEvaluation as its parent. It is not an entry
+      point.'
     from_schema: https://framework.regen.network/schema/
-    is_a: Evaluation
-    abstract: true
+    mixin: true
     slots:
     - issuerRole
     - conditions
@@ -6665,6 +7115,12 @@ classes:
       issuerRole:
         name: issuerRole
         required: true
+      evaluationMethod:
+        name: evaluationMethod
+        description: 'The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.'
+        required: true
+        minimum_cardinality: 1
     attributes:
       issuerRole:
         name: issuerRole
@@ -6692,337 +7148,18 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
-      hasTarget:
-        name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:hasTarget
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      appliesRequirement:
-        name: appliesRequirement
-        description: 'Exact requirement versions an evaluation applies or judges,
-          whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
-          version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRequirement
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        - C06ProjectClaim
-        range: uriorcurie
-        multivalued: true
-      rationale:
-        name: rationale
-        description: Why the issuer reached the outcome.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:rationale
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: VerificationMethodType
-        required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: string
-        pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: Scope
-        inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
-      name:
-        name: name
-        description: Optional human-readable title of the claim, for display. It is
-          not the assertion, which is claimStatement.
-        from_schema: https://framework.regen.network/schema/
-        rank: 1
-        slot_uri: schema:name
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Link
-        - ProjectInfo
-        - Feature
-        - File
-        - Impact
-        - CreditingProgram
-        - CreditProtocol
-        - Methodology
-        - Registry
-        - BufferPoolAccount
-        - CreditClassInfo
-        - Claim
-        - Evidence
-        - Activity
-        - Entity
-        range: string
-      claimStatement:
-        name: claimStatement
-        description: 'The assertion, as the claimants state it in natural language.
-          It is asserted content, not a presentational summary: changing it changes
-          the Claim. A claim type may also formalize the assertion, or add detail
-          to it, in structured fields; the statement and those fields are one assertion
-          and must agree. When they disagree, neither overrides the other: the Claim
-          is internally inconsistent and is corrected by a new version before its
-          evidence is evaluated. Specializes schema:description.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: description
-        slot_uri: rfs:claimStatement
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: string
-        required: true
-      inLanguage:
-        name: inLanguage
-        description: Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter
-          ISO 639 primary language subtag, such as en or cs. It says nothing about
-          the language of the cited sources, which they record themselves, or about
-          how a statement translated from a source was derived.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: schema:inLanguage
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        - Evidence
-        range: string
-        pattern: ^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$
-      url:
-        name: url
-        description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
-        from_schema: https://framework.regen.network/schema/
-        rank: 1
-        slot_uri: schema:url
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Link
-        - ProjectInfo
-        - CreditingProgram
-        - CreditProtocol
-        - Methodology
-        - Registry
-        - CreditClassInfo
-        - Claim
-        - Entity
-        range: uri
-      assertedBy:
-        name: assertedBy
-        description: 'The issuer: the party that makes the judgment and takes responsibility
-          for it.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: wasAttributedTo
-        slot_uri: rfs:assertedBy
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: Entity
-        required: true
-        multivalued: true
-        inlined: true
-        inlined_as_list: true
-        minimum_cardinality: 1
-      assertedAt:
-        name: assertedAt
-        description: When the issuer made the judgment.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:assertedAt
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: datetime
-        required: true
-        pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
-      hasSubject:
-        name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:hasSubject
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: ClaimSubject
-        required: true
-        inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
-      hasEvidenceCitation:
-        name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:hasEvidenceCitation
-        list_elements_ordered: false
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: EvidenceCitation
-        multivalued: true
-        inlined: true
-        inlined_as_list: true
-      wasRevisionOf:
-        name: wasRevisionOf
-        description: 'Identifier of the exact, immutable earlier Claim version that
-          this Claim revises: its ClaimIRI. A Claim has no identifier slot, because
-          its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1),
-          so the value is a bare IRI and the slot names no class. It never names a
-          logical claim or version family. In PROV a revision implies that both versions
-          are aspects of the same thing (alternateOf), so use it only for a revised
-          version of the same assertion; a separate, later assertion, such as a follow-up
-          observation, is a new Claim and is not a revision. The earlier version is
-          unchanged, its evaluations do not carry over, and selecting a current version
-          happens outside the Claim.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: prov:wasRevisionOf
-        owner: RegistryReviewEvaluation
-        domain_of:
-        - Claim
-        range: uriorcurie
     class_uri: rfs:RegistryReviewEvaluation
   RegistryRequirementEvaluation:
     name: RegistryRequirementEvaluation
-    description: The evaluator's finding, as of its date, on whether a project meets
-      one exact requirement version. It states whether the requirement applies and,
-      when it does, whether it is satisfied. Each requirement judged is its own evaluation,
-      so every requirement has its own applicability and outcome. A satisfied requirement
-      is not an approval of the project's registration, which is an institutional
-      decision.
+    description: 'A requirement evaluation made in a Regen Registry review: a RequirementEvaluation
+      with the issuer role, conditions and method every Registry review records. A
+      satisfied requirement is not an approval of the project''s registration, which
+      is an institutional decision.'
     from_schema: https://framework.regen.network/schema/
-    is_a: RegistryReviewEvaluation
-    slots:
-    - applicability
-    - requirementOutcome
-    slot_usage:
-      appliesRequirement:
-        name: appliesRequirement
-        description: The one exact requirement version judged. Exactly one, so that
-          the applicability and outcome are unambiguously that requirement's.
-        required: true
-        minimum_cardinality: 1
-        maximum_cardinality: 1
-      applicability:
-        name: applicability
-        required: true
+    is_a: RequirementEvaluation
+    mixins:
+    - RegistryReviewEvaluation
     attributes:
-      applicability:
-        name: applicability
-        description: Whether the applied requirement applies to the subject.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:applicability
-        owner: RegistryRequirementEvaluation
-        domain_of:
-        - RegistryRequirementEvaluation
-        range: Applicability
-        required: true
-      requirementOutcome:
-        name: requirementOutcome
-        description: Whether the applied requirement is satisfied, as of this record's
-          date. A sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:requirementOutcome
-        owner: RegistryRequirementEvaluation
-        domain_of:
-        - RegistryRequirementEvaluation
-        range: RequirementOutcome
       issuerRole:
         name: issuerRole
         description: The capacity in which the issuer is recorded as acting for this
@@ -7049,12 +7186,31 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      scope:
+        name: scope
+        description: The explicit subject or complete set of subjects across which
+          the Evaluation's result is asserted, when that applicability is not fully
+          expressed by its focal subject, with what it explicitly excludes and what
+          it does not establish.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:scope
+        owner: RegistryRequirementEvaluation
+        domain_of:
+        - RequirementEvaluation
+        range: Scope
+        inlined: true
       hasTarget:
         name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -7065,11 +7221,14 @@ classes:
         multivalued: true
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -7081,8 +7240,8 @@ classes:
         multivalued: true
       appliesRequirement:
         name: appliesRequirement
-        description: The one exact requirement version judged. Exactly one, so that
-          the applicability and outcome are unambiguously that requirement's.
+        description: The exact Requirement version whose applicability to the subject
+          and, when applicable, satisfaction are assessed by this Evaluation.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -7094,14 +7253,37 @@ classes:
         multivalued: true
         minimum_cardinality: 1
         maximum_cardinality: 1
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: RegistryRequirementEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: RegistryRequirementEvaluation
         domain_of:
@@ -7111,65 +7293,58 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
         owner: RegistryRequirementEvaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: 'The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.'
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: RegistryRequirementEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
+        range: uriorcurie
         required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        multivalued: true
+        minimum_cardinality: 1
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: RegistryRequirementEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: RegistryRequirementEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: RequirementAssessmentResult
+        required: true
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: RegistryRequirementEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -7229,7 +7404,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -7275,8 +7450,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: RegistryRequirementEvaluation
@@ -7285,25 +7460,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: RegistryRequirementEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -7333,58 +7492,21 @@ classes:
         - Claim
         range: uriorcurie
     class_uri: rfs:RegistryRequirementEvaluation
-    rules:
-    - preconditions:
-        slot_conditions:
-          applicability:
-            name: applicability
-            equals_string: APPLICABLE
-      postconditions:
-        slot_conditions:
-          requirementOutcome:
-            name: requirementOutcome
-            required: true
-      description: An applicable requirement has a verdict. Enforced by the generated
-        JSON Schema; the generated SHACL does not express LinkML rules.
-    - preconditions:
-        slot_conditions:
-          applicability:
-            name: applicability
-            equals_string: NOT_APPLICABLE
-      postconditions:
-        slot_conditions:
-          requirementOutcome:
-            name: requirementOutcome
-            value_presence: ABSENT
-      description: A requirement that does not apply has no verdict. Enforced by the
-        generated JSON Schema; the generated SHACL does not express LinkML rules.
-    - preconditions:
-        slot_conditions:
-          requirementOutcome:
-            name: requirementOutcome
-            equals_string: UNDETERMINED
-      postconditions:
-        slot_conditions:
-          rationale:
-            name: rationale
-            required: true
-      description: An undetermined outcome is a finding, not a review in progress,
-        so the rationale says what is missing. Enforced by the generated JSON Schema;
-        the generated SHACL does not express LinkML rules.
   RegistryFindingEvaluation:
     name: RegistryFindingEvaluation
     description: A finding raised in a Regen Registry review (a corrective action,
-      clarification or forward action request, or a material issue raised by the Registry
-      Agent), or a later assessment of it. Each record states the finding's state
-      as of its date and carries the finding's label; the current state is derived
-      from the latest record, not stored on any of them. A finding cites at least
-      one piece of evidence.
+      clarification or forward action request, raised by the verifier or the Registry
+      Agent), or a later assessment of it. Each record carries the finding's label
+      and, in its result, whether the finding is resolved as of its date; whether
+      a finding is currently open is derived from the latest record, not stored on
+      any of them. A finding cites at least one piece of evidence.
     from_schema: https://framework.regen.network/schema/
-    is_a: RegistryReviewEvaluation
+    is_a: Evaluation
+    mixins:
+    - RegistryReviewEvaluation
     slots:
     - findingLabel
     - findingType
-    - findingState
     slot_usage:
       findingLabel:
         name: findingLabel
@@ -7392,11 +7514,12 @@ classes:
       findingType:
         name: findingType
         required: true
-      findingState:
-        name: findingState
+      hasResult:
+        name: hasResult
+        range: FindingResolutionResult
         required: true
-      hasEvidence:
-        name: hasEvidence
+      hasEvidenceCitation:
+        name: hasEvidenceCitation
         required: true
         minimum_cardinality: 1
     attributes:
@@ -7414,25 +7537,16 @@ classes:
         required: true
       findingType:
         name: findingType
-        description: The kind of finding.
+        description: 'What the finding asks for: a correction, a clarification or
+          a follow-up at a later verification. Who raised it is issuerRole, not the
+          finding type, so a finding the Registry Agent raises uses the same types
+          as a verifier''s, or OTHER when its record does not say which.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:findingType
         owner: RegistryFindingEvaluation
         domain_of:
         - RegistryFindingEvaluation
         range: FindingType
-        required: true
-      findingState:
-        name: findingState
-        description: Whether the finding is open or closed as of this record's date.
-          A sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:findingState
-        owner: RegistryFindingEvaluation
-        domain_of:
-        - RegistryFindingEvaluation
-        range: FindingState
         required: true
       issuerRole:
         name: issuerRole
@@ -7462,10 +7576,16 @@ classes:
         inlined_as_list: true
       hasTarget:
         name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -7476,11 +7596,14 @@ classes:
         multivalued: true
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -7494,10 +7617,10 @@ classes:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
           whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
+          requirement version within an exact requirement-set version, such as a checklist
           version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -7506,14 +7629,37 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: RegistryFindingEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: RegistryFindingEvaluation
         domain_of:
@@ -7523,65 +7669,58 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
         owner: RegistryFindingEvaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: 'The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.'
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: RegistryFindingEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
+        range: uriorcurie
         required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        multivalued: true
+        minimum_cardinality: 1
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: RegistryFindingEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: RegistryFindingEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: FindingResolutionResult
+        required: true
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: RegistryFindingEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -7641,7 +7780,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -7687,8 +7826,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: RegistryFindingEvaluation
@@ -7697,27 +7836,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: RegistryFindingEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        required: true
-        multivalued: true
-        inlined: false
-        minimum_cardinality: 1
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -7725,9 +7846,11 @@ classes:
         domain_of:
         - Claim
         range: EvidenceCitation
+        required: true
         multivalued: true
         inlined: true
         inlined_as_list: true
+        minimum_cardinality: 1
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -7749,29 +7872,20 @@ classes:
     class_uri: rfs:RegistryFindingEvaluation
   RegistryReportEvaluation:
     name: RegistryReportEvaluation
-    description: An independent verifier's rating of the project in its validation
+    description: An independent verifier's opinion of the project in its validation
       or verification report, with the ratings the Program Guide (sections 12.4 and
-      12.5) gives such a report. It is the verifier's rating, not the Registry's decision.
+      12.5) gives. It is the verifier's opinion of the project, not a rating of the
+      report document and not the Registry's decision.
     from_schema: https://framework.regen.network/schema/
-    is_a: RegistryReviewEvaluation
-    slots:
-    - reportRating
+    is_a: Evaluation
+    mixins:
+    - RegistryReviewEvaluation
     slot_usage:
-      reportRating:
-        name: reportRating
+      hasResult:
+        name: hasResult
+        range: VerificationOpinionResult
         required: true
     attributes:
-      reportRating:
-        name: reportRating
-        description: The verifier's rating in its report. A sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:reportRating
-        owner: RegistryReportEvaluation
-        domain_of:
-        - RegistryReportEvaluation
-        range: ReportRating
-        required: true
       issuerRole:
         name: issuerRole
         description: The capacity in which the issuer is recorded as acting for this
@@ -7800,10 +7914,16 @@ classes:
         inlined_as_list: true
       hasTarget:
         name: hasTarget
-        description: 'What an evaluation judges or answers: the identifier of an exact,
-          immutable version of a claim, of another evaluation, or of a snapshot (a
-          fixed set of claim versions), or, for an evidence evaluation, of the Evidence
-          records it assesses. Never a logical identifier or label. Unordered set.'
+        description: The exact resource or resources directly examined or assessed
+          in reaching the Evaluation's conclusion. When a resource can change, the
+          target identifies the particular version or snapshot that was assessed.
+          It is distinct from the Evaluation's focal subject (hasSubject) and from
+          the criteria it applies (appliesRequirement).
+        comments:
+        - 'Implementation: each value is an IRI, never a logical identifier or label.
+          Repeatable and unordered. The base slot does not restrict what kind of resource
+          a target is; a kind of evaluation may require it or restrict it, as EvidenceSupportEvaluation
+          does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
         list_elements_ordered: false
@@ -7814,11 +7934,14 @@ classes:
         multivalued: true
       reliesOn:
         name: reliesOn
-        description: Exact versions of claims or evaluations that a judgment depends
-          on without judging them, for example the claim stating an enrolment cutoff
-          that an approval relies on. Each value is the identifier of one immutable
-          version. Specializes dcterms:references, so it asserts neither derivation
-          nor support. Unordered set.
+        description: An exact Claim or Evaluation whose asserted content or result
+          is used in reaching this Evaluation's assessment, but which is not itself
+          directly assessed by the Evaluation, for example the claim stating an enrolment
+          cutoff that a confirmation relies on.
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
         from_schema: https://framework.regen.network/schema/
         is_a: references
         slot_uri: rfs:reliesOn
@@ -7832,10 +7955,10 @@ classes:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
           whether or not the claimant named them. Each identifier names one immutable
-          requirement version within an exact rule-set version, such as a checklist
+          requirement version within an exact requirement-set version, such as a checklist
           version: the same short ID can name different requirements in different
-          versions. The rule-set and requirement records themselves are defined by
-          WP5-01 (claims#30). Unordered set.'
+          versions. The requirement and requirement-set records themselves are defined
+          by WP5-01 (claims#30). Unordered set.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:appliesRequirement
         list_elements_ordered: false
@@ -7844,14 +7967,37 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      appliesRequirementSet:
+        name: appliesRequirementSet
+        description: 'Exact versions of requirement sets, such as a registration or
+          validation checklist version, that an evaluation applies or assesses as
+          a whole. An evaluation of one requirement names only that requirement (appliesRequirement):
+          its set is reached through the requirement''s membership, defined by WP5-01
+          (claims#30).'
+        comments:
+        - 'Implementation: each value is the IRI of one requirement-set version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:appliesRequirementSet
+        list_elements_ordered: false
+        owner: RegistryReportEvaluation
+        domain_of:
+        - Evaluation
+        range: uriorcurie
+        multivalued: true
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: RegistryReportEvaluation
         domain_of:
@@ -7861,65 +8007,58 @@ classes:
         multivalued: true
       rationale:
         name: rationale
-        description: Why the issuer reached the outcome.
+        description: Why the issuer reached the result.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:rationale
         owner: RegistryReportEvaluation
         domain_of:
         - Evaluation
         range: string
-      verificationMethod:
-        name: verificationMethod
-        description: 'How the assertion or judgment was established, as structured
-          data, so that a consumer can distinguish, for example, a lab-measured value
-          from a self-attested one. One method per record: its party and date are
-          those of the record that carries it (for an evaluation, its issuer and assertedAt),
-          so a subject checked by two methods has two records, each with its own party
-          and date. A value of OTHER must come with verificationMethodDescriptor.'
+      evaluationMethod:
+        name: evaluationMethod
+        description: 'The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.'
+        comments:
+        - 'Implementation: each value is the IRI of a method, so a method is defined
+          once and reused, and another program can use its own terms. EvaluationMethodType
+          lists the recommended shared methods by their meaning IRIs. Repeatable and
+          unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethod
+        slot_uri: rfs:evaluationMethod
+        list_elements_ordered: false
         owner: RegistryReportEvaluation
         domain_of:
         - Evaluation
-        range: VerificationMethodType
+        range: uriorcurie
         required: true
-      verificationMethodDescriptor:
-        name: verificationMethodDescriptor
-        description: 'Free-text description of a verification method that the VerificationMethodType
-          enumeration does not cover; required when verificationMethod is OTHER. It
-          must contain a non-whitespace character, so an empty descriptor cannot leave
-          the method unspecified. It is the extension path: a method that recurs is
-          added to the enumeration in a later schema version.'
+        multivalued: true
+        minimum_cardinality: 1
+      evaluationMethodDescription:
+        name: evaluationMethodDescription
+        description: How the evaluator reached the assessment, in their words, for
+          example which records were compared and how.
+        comments:
+        - 'Implementation: must contain a non-whitespace character, so an empty description
+          is rejected rather than standing in for none.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:verificationMethodDescriptor
+        slot_uri: rfs:evaluationMethodDescription
         owner: RegistryReportEvaluation
         domain_of:
         - Evaluation
         range: string
         pattern: \S
-      scope:
-        name: scope
-        description: 'Where the judgment applies: the subjects it covers, what it
-          explicitly excludes, and what it does not establish.'
+      hasResult:
+        name: hasResult
+        description: The conclusion of the Evaluation, as a result whose type depends
+          on the kind of evaluation.
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:scope
+        slot_uri: rfs:hasResult
         owner: RegistryReportEvaluation
         domain_of:
         - Evaluation
-        range: Scope
+        range: VerificationOpinionResult
+        required: true
         inlined: true
-      unbounded:
-        name: unbounded
-        description: 'True when the issuer explicitly gives the judgment no limits
-          beyond what it targets, so that an unlimited approval is a stated choice
-          rather than an omission. Stated only on an evaluation without a scope: the
-          two are exclusive.'
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:unbounded
-        owner: RegistryReportEvaluation
-        domain_of:
-        - Evaluation
-        range: boolean
       name:
         name: name
         description: Optional human-readable title of the claim, for display. It is
@@ -7979,7 +8118,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -8025,8 +8164,8 @@ classes:
         pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
       hasSubject:
         name: hasSubject
-        description: 'What the judgment is about: a project, plot or other subject.
-          It is stated even when it is also the subject of a targeted claim.'
+        description: The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasSubject
         owner: RegistryReportEvaluation
@@ -8035,25 +8174,9 @@ classes:
         range: ClaimSubject
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the issuer relied on.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: RegistryReportEvaluation
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: Evidence the issuer relied on, as citations.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -8083,11 +8206,63 @@ classes:
         - Claim
         range: uriorcurie
     class_uri: rfs:RegistryReportEvaluation
+  FindingResolutionResult:
+    name: FindingResolutionResult
+    description: 'The result of a RegistryFindingEvaluation: whether the finding is
+      resolved as of the record''s date.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - findingResolution
+    slot_usage:
+      findingResolution:
+        name: findingResolution
+        required: true
+    attributes:
+      findingResolution:
+        name: findingResolution
+        description: Whether the finding is resolved as of the record's date. A sub-property
+          of outcome.
+        from_schema: https://framework.regen.network/schema/
+        is_a: outcome
+        slot_uri: rfs:findingResolution
+        owner: FindingResolutionResult
+        domain_of:
+        - FindingResolutionResult
+        range: FindingResolution
+        required: true
+    class_uri: rfs:FindingResolutionResult
+  VerificationOpinionResult:
+    name: VerificationOpinionResult
+    description: 'The result of a RegistryReportEvaluation: the verifier''s opinion
+      of the project.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: EvaluationResult
+    slots:
+    - verificationOpinion
+    slot_usage:
+      verificationOpinion:
+        name: verificationOpinion
+        required: true
+    attributes:
+      verificationOpinion:
+        name: verificationOpinion
+        description: The verifier's opinion of the project in its report. A sub-property
+          of outcome.
+        from_schema: https://framework.regen.network/schema/
+        is_a: outcome
+        slot_uri: rfs:verificationOpinion
+        owner: VerificationOpinionResult
+        domain_of:
+        - VerificationOpinionResult
+        range: VerificationOpinion
+        required: true
+    class_uri: rfs:VerificationOpinionResult
   Condition:
     name: Condition
     description: An obligation a judgment carries to a later milestone, such as a
-      follow-up action due before verification or a design condition binding on future
-      verifications.
+      follow-up action due before issuance or a design condition to be checked at
+      verification.
     from_schema: https://framework.regen.network/schema/
     slots:
     - conditionLabel
@@ -8464,7 +8639,7 @@ classes:
     from_schema: https://framework.regen.network/schema/
     is_a: Claim
     slots:
-    - appliesRuleSet
+    - governedBy
     - methodologyUse
     - isAggregateProject
     - aggregateStartDate
@@ -8478,14 +8653,19 @@ classes:
         name: hasSubject
         range: Project
     attributes:
-      appliesRuleSet:
-        name: appliesRuleSet
-        description: Identifier of an exact version of a normative rule set applied,
-          such as a credit class, a methodology or a program guide version. It is
-          content and enters the identity of the record. It is distinct from a schema-version
-          declaration, which states which schema the RDF conforms to. Unordered set.
+      governedBy:
+        name: governedBy
+        description: Exact versions of the governing documents a claim or evaluation
+          is made under, such as a credit class, a methodology or a program guide
+          version. A governing document is broader than a set of requirements, which
+          is named with appliesRequirementSet. It is content and enters the identity
+          of the record, and is distinct from a schema-version declaration, which
+          states which schema the RDF conforms to.
+        comments:
+        - 'Implementation: each value is the IRI of one exact document version. Repeatable
+          and unordered.'
         from_schema: https://framework.regen.network/schema/
-        slot_uri: rfs:appliesRuleSet
+        slot_uri: rfs:governedBy
         list_elements_ordered: false
         owner: C06ProjectClaim
         domain_of:
@@ -8647,7 +8827,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -8730,30 +8910,16 @@ classes:
         range: Project
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: C06ProjectClaim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -8881,7 +9047,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -8964,30 +9130,16 @@ classes:
         range: Cohort
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: C06CohortClaim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -9206,7 +9358,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -9289,30 +9441,16 @@ classes:
         range: Site
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: C06SiteClaim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
@@ -9458,7 +9596,7 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidence.
+          for readers, not evidence; cite evidence with hasEvidenceCitation.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -9541,30 +9679,16 @@ classes:
         range: Plot
         required: true
         inlined: true
-      hasEvidence:
-        name: hasEvidence
-        description: Sources the claimant presents as evidence for the assertion,
-          each the IRI of an Evidence record for the exact version cited. The record
-          is its own document, described once and never inlined. Where inside a source
-          the cited material is goes in hasEvidenceCitation. Whether a source actually
-          supports the assertion is judged separately, by evaluations. Specializes
-          dcterms:references. Unordered set.
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:hasEvidence
-        list_elements_ordered: false
-        owner: C06PlotClaim
-        domain_of:
-        - Claim
-        range: Evidence
-        multivalued: true
-        inlined: false
       hasEvidenceCitation:
         name: hasEvidenceCitation
-        description: 'Where inside cited sources the material the assertion relies
-          on is: citations, each with one source listed in hasEvidence and the selectors
-          that locate the material. A source cited as a whole needs no citation. Unordered
-          set.'
+        description: The evidence the claimant presents for the assertion, as citations.
+          Each citation names one Evidence record by IRI (its source) and, optionally,
+          selectors that locate the cited material inside it; a citation without selectors
+          cites the whole source, and a source cited at several places has one citation
+          per passage. The Evidence records are their own documents, described once
+          and never inlined, and are reached through each citation's source. Whether
+          the evidence supports the assertion is judged separately, by evaluations.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasEvidenceCitation
         list_elements_ordered: false
