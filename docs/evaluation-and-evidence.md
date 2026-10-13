@@ -137,8 +137,6 @@ classDiagram
         appliesRuleSet
         rationale
         evaluationMethod
-        scope
-        unbounded
     }
     class GenericEvaluation {
         outcome
@@ -152,6 +150,7 @@ classDiagram
         <<abstract, every program>>
         applicability
         requirementOutcome
+        scope
     }
     class EvidenceSupportEvaluation {
         assessedAgainst
@@ -191,7 +190,7 @@ classDiagram
     RegistryReviewEvaluation <|.. RegistryRequirementEvaluation : mixin
     RegistryReviewEvaluation <|.. RegistryFindingEvaluation : mixin
     RegistryReviewEvaluation <|.. RegistryReportEvaluation : mixin
-    Evaluation *-- Scope
+    RequirementEvaluation *-- Scope
     RegistryReviewEvaluation *-- "0..*" Condition
 ```
 
@@ -222,26 +221,6 @@ WP5.
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
 | `evaluationMethod` | `rfs:evaluationMethod` | IRI | 0..*, set | The procedures used to reach the assessment, such as `rfs:DocumentReview` or `rfs:SiteInspection` (the recommended shared values are the `EvaluationMethodType` meanings). Required on Registry reviews ([example](../schema/examples/registry-finding-evaluation.INVALID-without-method.yaml) without it). |
 | `evaluationMethodDescription` | `rfs:evaluationMethodDescription` | string with a non-whitespace character | 0..1 | How the evaluator reached the assessment, in their words ([empty](../schema/examples/evaluation.INVALID-empty-method-description.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-description.yaml) examples). |
-| `scope` | `rfs:scope` | `Scope` (inlined) | 0..1 | Where the judgment applies. |
-| `unbounded` | `rfs:unbounded` | boolean | 0..1 | True when the issuer explicitly gives the judgment no limits beyond its targets. Exclusive with `scope`. |
-
-**Scope.** `appliesTo` (subject IRIs, required: a scope always names the subjects it covers),
-`exclusion` (what it explicitly does not cover) and `limitation` (what the judgment is not, for example
-"confirms the project structure; does not validate its evidence"). An evaluation without a scope
-applies only to what it targets; `unbounded: true` states explicitly that it has no limits, so an
-unlimited approval is never an omission
-([example](../schema/examples/evaluation.INVALID-scope-without-subjects.yaml) of an empty scope being
-rejected). The two are exclusive: an evaluation with a scope does not state `unbounded`, so a consumer
-never has to choose between them ([example](../schema/examples/evaluation.INVALID-scope-and-unbounded.yaml),
-rejected by JSON Schema only; see [Known limitations](#known-limitations)). A scope is a blank node inside the evaluation and part of its content. Checking whether a subject is covered is a query; for the
-[example](../schema/examples/registry-requirement-evaluation.jsonld):
-
-```sparql
-ASK { ?evaluation rfs:scope/rfs:appliesTo <https://example.org/c06/cohort/P-001-2024> }
-```
-
-returns false, so a 2024 cohort is out of scope, and the evaluation's `reliesOn` names the
-enrolment-cutoff claim the confirmation depends on.
 
 ### `EvidenceSupportEvaluation`
 
@@ -290,6 +269,27 @@ JSON Schema only). A review still in progress is recorded with no evaluation.
 `SATISFIED` is not an approval of the project's registration
 ([example](../schema/examples/registry-requirement-evaluation.INVALID-registration-approval.yaml) of
 a registration approval as a requirement outcome being rejected).
+
+**Scope** (`scope`, on requirement evaluations only): the explicit subject or complete set of
+subjects across which the result is asserted, when that is not fully expressed by the focal subject,
+for example a project-level requirement assessed across the sites or cohorts it covers. It has
+`appliesTo` (subject IRIs, required: a scope always names the subjects it covers), `exclusion`
+(what it explicitly does not cover) and `limitation` (what the evaluation is not, for example
+"confirms the project structure; does not validate its evidence"). An evaluation without a scope
+asserts nothing beyond its focal subject
+([example](../schema/examples/registry-requirement-evaluation.INVALID-scope-without-subjects.yaml)
+of a scope without subjects being rejected, and
+[example](../schema/examples/evaluation.INVALID-scope-on-generic.yaml) of a scope on a
+`GenericEvaluation`). A scope is a blank node inside the evaluation and part of its content. Checking
+whether a subject is covered is a query; for the
+[example](../schema/examples/registry-requirement-evaluation.jsonld):
+
+```sparql
+ASK { ?evaluation rfs:scope/rfs:appliesTo <https://example.org/c06/cohort/P-001-2024> }
+```
+
+returns false, so a 2024 cohort is out of scope, and the evaluation's `reliesOn` names the
+enrolment-cutoff claim the confirmation depends on.
 
 ### Regen Registry review kinds
 
@@ -606,7 +606,7 @@ the source.
 
 ## Known limitations
 
-- **Five rules are enforced by JSON Schema only:** a scope and `unbounded` being exclusive; a requirement outcome when the requirement
+- **Four rules are enforced by JSON Schema only:** a requirement outcome when the requirement
   applies, and none when it does not; a rationale with `UNDETERMINED`; no sufficiency for evidence
   with no bearing. They are LinkML
   rules, and LinkML's SHACL generator does not translate rules: 1.11.1 ignores them, and the
