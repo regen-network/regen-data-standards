@@ -16,6 +16,14 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "applicability": {
+      "@id": "applicability",
+      "@type": "@vocab",
+      "@context": {
+        "APPLICABLE": "rfs:Applicable",
+        "NOT_APPLICABLE": "rfs:NotApplicable"
+      }
+    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -187,6 +195,15 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
+    "requirementOutcome": {
+      "@id": "requirementOutcome",
+      "@type": "@vocab",
+      "@context": {
+        "SATISFIED": "rfs:Satisfied",
+        "NOT_SATISFIED": "rfs:NotSatisfied",
+        "UNDETERMINED": "rfs:Undetermined"
+      }
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -289,8 +306,8 @@
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
-    "EvidenceEvaluation": {
-      "@id": "EvidenceEvaluation"
+    "EvidenceSupportEvaluation": {
+      "@id": "EvidenceSupportEvaluation"
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
@@ -315,6 +332,9 @@
     },
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
+    },
+    "RequirementEvaluation": {
+      "@id": "RequirementEvaluation"
     },
     "Scope": {
       "@id": "Scope"

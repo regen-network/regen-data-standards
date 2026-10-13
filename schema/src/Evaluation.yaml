@@ -97,15 +97,80 @@ classes:
     slots:
       - outcome
 
-  EvidenceEvaluation:
+  RequirementEvaluation:
     is_a: Evaluation
-    class_uri: rfs:EvidenceEvaluation
+    abstract: true
+    class_uri: rfs:RequirementEvaluation
     description: >-
-      What an identified body of evidence shows about one claim or
-      requirement: whether it supports or challenges it, and whether it is
-      enough to establish that. Stance and sufficiency are always relative to
-      what the evidence is assessed against, and apply to the targeted
-      evidence as a whole, not to each item in isolation.
+      An Evaluation of whether one focal subject satisfies one exact
+      Requirement version. It records whether the Requirement applies to the
+      subject and, when applicable, whether the subject satisfies it. Each
+      requirement assessed is its own evaluation.
+    comments:
+      - >-
+        Implementation: abstract, like Evaluation, so its generated shape is
+        open and a program can specialize it with fields of its own, as
+        RegistryRequirementEvaluation does.
+    slots:
+      - applicability
+      - requirementOutcome
+    slot_usage:
+      appliesRequirement:
+        description: >-
+          The exact Requirement version whose applicability to the subject
+          and, when applicable, satisfaction are assessed by this Evaluation.
+        required: true
+        minimum_cardinality: 1
+        maximum_cardinality: 1
+      applicability:
+        required: true
+    rules:
+      - description: >-
+          An applicable requirement has a verdict. Enforced by the generated
+          JSON Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              required: true
+      - description: >-
+          A requirement that does not apply has no verdict. Enforced by the
+          generated JSON Schema; the generated SHACL does not express LinkML
+          rules.
+        preconditions:
+          slot_conditions:
+            applicability:
+              equals_string: NOT_APPLICABLE
+        postconditions:
+          slot_conditions:
+            requirementOutcome:
+              value_presence: ABSENT
+      - description: >-
+          An undetermined outcome is a finding, not a review in progress, so
+          the rationale says what is missing. Enforced by the generated JSON
+          Schema; the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            requirementOutcome:
+              equals_string: UNDETERMINED
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
+
+  EvidenceSupportEvaluation:
+    is_a: Evaluation
+    class_uri: rfs:EvidenceSupportEvaluation
+    description: >-
+      An assessment of whether an exact body of Evidence supports,
+      challenges, or has no bearing on one exact Claim and, where assessed,
+      whether that Evidence is sufficient. Stance and sufficiency are
+      relative to that Claim, and apply to the targeted evidence as a whole,
+      not to each item in isolation. Whether a subject satisfies a
+      Requirement is a RequirementEvaluation instead.
     slots:
       - assessedAgainst
       - evidentialStance
@@ -194,10 +259,8 @@ slots:
   assessedAgainst:
     slot_uri: rfs:assessedAgainst
     description: >-
-      What an evidence evaluation's stance and sufficiency are relative to:
-      the IRI of an exact claim version, or of an exact requirement version
-      as appliesRequirement names it. The schema has no Requirement class
-      (WP5-01), so neither validator checks what the IRI identifies.
+      The exact Claim version that an evidence support evaluation's stance
+      and sufficiency are relative to, as the IRI of that version.
     range: uriorcurie
   evidentialStance:
     is_a: outcome
@@ -262,7 +325,50 @@ slots:
       exclusive.
     range: boolean
 
+  applicability:
+    slot_uri: rfs:applicability
+    description: Whether the applied requirement applies to the subject.
+    range: Applicability
+  requirementOutcome:
+    is_a: outcome
+    slot_uri: rfs:requirementOutcome
+    description: >-
+      Whether the applied requirement is satisfied, as of this record's date.
+      A sub-property of outcome.
+    range: RequirementOutcome
+
 enums:
+  RequirementOutcome:
+    description: >-
+      Whether a requirement is satisfied, as the evaluator finds it on the
+      record's date. Each value is a finding: a review that has not started or
+      is still in progress is workflow state, recorded with no evaluation.
+    permissible_values:
+      SATISFIED:
+        meaning: rfs:Satisfied
+        description: The evidence shows the requirement is met.
+      NOT_SATISFIED:
+        meaning: rfs:NotSatisfied
+        description: >-
+          The evidence shows the requirement is not met, or the evidence it
+          requires is missing.
+      UNDETERMINED:
+        meaning: rfs:Undetermined
+        description: >-
+          As of this date, what is available is not enough to decide either
+          way, for example because records the requirement needs are due
+          later. The rationale, required with this value, says what is
+          missing.
+  Applicability:
+    permissible_values:
+      APPLICABLE:
+        meaning: rfs:Applicable
+      NOT_APPLICABLE:
+        meaning: rfs:NotApplicable
+        description: >-
+          The requirement does not apply to the subject, for example because
+          it applies only if a condition occurs and the condition has not
+          occurred.
   EvidentialStance:
     permissible_values:
       SUPPORTS:

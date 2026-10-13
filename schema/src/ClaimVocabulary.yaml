@@ -113,7 +113,7 @@ slots:
         Implementation: each value is an IRI, never a logical identifier or
         label. Repeatable and unordered. The base slot does not restrict what
         kind of resource a target is; a kind of evaluation may require it or
-        restrict it, as EvidenceEvaluation does to Evidence records and
+        restrict it, as EvidenceSupportEvaluation does to Evidence records and
         ClaimConsistencyEvaluation to claim versions.
     range: uriorcurie
     multivalued: true

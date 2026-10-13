@@ -367,8 +367,8 @@
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
-    "EvidenceEvaluation": {
-      "@id": "EvidenceEvaluation"
+    "EvidenceSupportEvaluation": {
+      "@id": "EvidenceSupportEvaluation"
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
@@ -405,6 +405,9 @@
     },
     "RegistryReviewEvaluation": {
       "@id": "RegistryReviewEvaluation"
+    },
+    "RequirementEvaluation": {
+      "@id": "RequirementEvaluation"
     },
     "Scope": {
       "@id": "Scope"
