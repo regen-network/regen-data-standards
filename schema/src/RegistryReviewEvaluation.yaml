@@ -20,17 +20,21 @@ default_range: string
 
 classes:
   RegistryReviewEvaluation:
-    is_a: Evaluation
-    abstract: true
+    mixin: true
     class_uri: rfs:RegistryReviewEvaluation
     description: >-
-      A judgment made in a Regen Registry review by the Registry Agent, an
-      independent verifier (VVB) or the Credit Class Admin. Abstract: every
-      review judgment is one of its kinds (a requirement, finding or report
-      evaluation), and each kind requires its own verdict field. An
-      evaluation records a judgment; it is neither the state of the review
-      workflow nor the Registry's institutional decision, such as approving a
-      project's registration, which it may inform.
+      What every judgment made in a Regen Registry review records, by the
+      Registry Agent, an independent verifier (VVB) or the Credit Class
+      Admin: the capacity in which the issuer acted, any conditions, and the
+      method used. An evaluation records a judgment; it is neither the state
+      of the review workflow nor the Registry's institutional decision, such
+      as approving a project's registration, which it may inform.
+    comments:
+      - >-
+        Implementation: a mixin, declared by each Registry kind
+        (RegistryRequirementEvaluation, RegistryFindingEvaluation,
+        RegistryReportEvaluation), because a requirement evaluation already
+        has RequirementEvaluation as its parent. It is not an entry point.
     slots:
       - issuerRole
       - conditions
@@ -45,68 +49,20 @@ classes:
         minimum_cardinality: 1
 
   RegistryRequirementEvaluation:
-    is_a: RegistryReviewEvaluation
+    is_a: RequirementEvaluation
+    mixins:
+      - RegistryReviewEvaluation
     class_uri: rfs:RegistryRequirementEvaluation
     description: >-
-      The evaluator's finding, as of its date, on whether a project meets one
-      exact requirement version. It states whether the requirement applies
-      and, when it does, whether it is satisfied. Each requirement judged is
-      its own evaluation, so every requirement has its own applicability and
-      outcome. A
-      satisfied requirement is not an approval of the project's registration,
-      which is an institutional decision.
-    slots:
-      - applicability
-      - requirementOutcome
-    slot_usage:
-      appliesRequirement:
-        description: >-
-          The one exact requirement version judged. Exactly one, so that the
-          applicability and outcome are unambiguously that requirement's.
-        required: true
-        minimum_cardinality: 1
-        maximum_cardinality: 1
-      applicability:
-        required: true
-    rules:
-      - description: >-
-          An applicable requirement has a verdict. Enforced by the generated
-          JSON Schema; the generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            applicability:
-              equals_string: APPLICABLE
-        postconditions:
-          slot_conditions:
-            requirementOutcome:
-              required: true
-      - description: >-
-          A requirement that does not apply has no verdict. Enforced by the
-          generated JSON Schema; the generated SHACL does not express LinkML
-          rules.
-        preconditions:
-          slot_conditions:
-            applicability:
-              equals_string: NOT_APPLICABLE
-        postconditions:
-          slot_conditions:
-            requirementOutcome:
-              value_presence: ABSENT
-      - description: >-
-          An undetermined outcome is a finding, not a review in progress, so
-          the rationale says what is missing. Enforced by the generated JSON
-          Schema; the generated SHACL does not express LinkML rules.
-        preconditions:
-          slot_conditions:
-            requirementOutcome:
-              equals_string: UNDETERMINED
-        postconditions:
-          slot_conditions:
-            rationale:
-              required: true
+      A requirement evaluation made in a Regen Registry review: a
+      RequirementEvaluation with the issuer role, conditions and method every
+      Registry review records. A satisfied requirement is not an approval of
+      the project's registration, which is an institutional decision.
 
   RegistryFindingEvaluation:
-    is_a: RegistryReviewEvaluation
+    is_a: Evaluation
+    mixins:
+      - RegistryReviewEvaluation
     class_uri: rfs:RegistryFindingEvaluation
     description: >-
       A finding raised in a Regen Registry review (a corrective action,
@@ -131,7 +87,9 @@ classes:
         minimum_cardinality: 1
 
   RegistryReportEvaluation:
-    is_a: RegistryReviewEvaluation
+    is_a: Evaluation
+    mixins:
+      - RegistryReviewEvaluation
     class_uri: rfs:RegistryReportEvaluation
     description: >-
       An independent verifier's rating of the project in its validation or
@@ -177,17 +135,6 @@ slots:
       Whether the finding is open or closed as of this record's date. A
       sub-property of outcome.
     range: FindingState
-  applicability:
-    slot_uri: rfs:applicability
-    description: Whether the applied requirement applies to the subject.
-    range: Applicability
-  requirementOutcome:
-    is_a: outcome
-    slot_uri: rfs:requirementOutcome
-    description: >-
-      Whether the applied requirement is satisfied, as of this record's date.
-      A sub-property of outcome.
-    range: RequirementOutcome
   reportRating:
     is_a: outcome
     slot_uri: rfs:reportRating
@@ -262,37 +209,6 @@ enums:
         meaning: rfs:VerificationMilestone
       FUTURE_VERIFICATIONS:
         meaning: rfs:FutureVerificationsMilestone
-  RequirementOutcome:
-    description: >-
-      Whether a requirement is satisfied, as the evaluator finds it on the
-      record's date. Each value is a finding: a review that has not started or
-      is still in progress is workflow state, recorded with no evaluation.
-    permissible_values:
-      SATISFIED:
-        meaning: rfs:Satisfied
-        description: The evidence shows the requirement is met.
-      NOT_SATISFIED:
-        meaning: rfs:NotSatisfied
-        description: >-
-          The evidence shows the requirement is not met, or the evidence it
-          requires is missing.
-      UNDETERMINED:
-        meaning: rfs:Undetermined
-        description: >-
-          As of this date, what is available is not enough to decide either
-          way, for example because records the requirement needs are due
-          later. The rationale, required with this value, says what is
-          missing.
-  Applicability:
-    permissible_values:
-      APPLICABLE:
-        meaning: rfs:Applicable
-      NOT_APPLICABLE:
-        meaning: rfs:NotApplicable
-        description: >-
-          The requirement does not apply to the subject, for example because
-          it applies only if a condition occurs and the condition has not
-          occurred.
   FindingState:
     permissible_values:
       OPEN:

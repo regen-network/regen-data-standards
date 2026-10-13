@@ -1,7 +1,8 @@
-# expect: 'assessedAgainst' is a required property
-# class: EvidenceEvaluation
-# A stance and a sufficiency are relative to the claim or requirement the
-# evidence is assessed against, so it is named.
+# Synthetic example (example.org identifiers): a base-layer evidence support evaluation.
+# A community steward assesses the planting log and walkover photographs
+# together, against the generic hedgerow claim (GenericClaim-001): they support
+# it, but are not enough to establish it. The claim identifier is a labelled
+# placeholder for its ClaimIRI (regen-network/claims#1).
 name: Steward assessment of the plot A hedgerow evidence
 claimStatement: >-
   The planting log and the June walkover photographs support the claim that
@@ -16,6 +17,7 @@ hasSubject:
 hasTarget:
   - https://example.org/evidence/planting-log-2026-v1.pdf
   - https://example.org/evidence/walkover-photos-2026-06.zip
+assessedAgainst: https://example.org/placeholder/claim-iri/generic-claim-v1
 evidentialStance: SUPPORTS
 evidenceSufficiency: INSUFFICIENT
 rationale: >-

@@ -1,9 +1,7 @@
-# expect: should not be valid under {'required': ['evidenceSufficiency']}
-# class: EvidenceEvaluation
-# shacl: not enforced
-# Evidence with no bearing on the claim establishes nothing, so it has no
-# sufficiency. This is a LinkML rule, which the generated JSON Schema enforces
-# and the generated SHACL does not express.
+# expect: 'assessedAgainst' is a required property
+# class: EvidenceSupportEvaluation
+# A stance and a sufficiency are relative to the claim or requirement the
+# evidence is assessed against, so it is named.
 name: Steward assessment of the plot A hedgerow evidence
 claimStatement: >-
   The planting log and the June walkover photographs support the claim that
@@ -18,8 +16,7 @@ hasSubject:
 hasTarget:
   - https://example.org/evidence/planting-log-2026-v1.pdf
   - https://example.org/evidence/walkover-photos-2026-06.zip
-assessedAgainst: https://example.org/placeholder/claim-iri/generic-claim-v1
-evidentialStance: NO_BEARING
+evidentialStance: SUPPORTS
 evidenceSufficiency: INSUFFICIENT
 rationale: >-
   The log records 400 m planted; the photographs show the western 250 m of the

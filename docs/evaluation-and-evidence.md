@@ -34,7 +34,7 @@ flowchart LR
     PC & CC & SC & PLC -- "hasEvidenceCitation (source + optional selectors)" --> E
     A -- "hasTarget (e.g. a verifier's finding → a developer's claim)" --> PC
     A -- "hasTarget (e.g. a registry's confirmation → the verifier's finding)" --> A
-    A -- "hasTarget (an evidence evaluation → the evidence it assesses)" --> E
+    A -- "hasTarget (an evidence support evaluation → the evidence it assesses)" --> E
     A -- hasSubject --> S
     A -- hasEvidenceCitation --> E
     E -- wasGeneratedBy --> ACT
@@ -45,8 +45,8 @@ flowchart LR
 |---|---|---|---|
 | C06 claims | The project developer, as claimant, from its project plan and datasets | Registry review, rule evaluation (WP5), the verifier, auditors, graph queries (WP4), publication (WP7) | New `C06Claim` schema; classes `is_a Claim` |
 | C06 subjects | Defined once in the C06 claim schema; IRIs built from the keys the project's records use | Every claim and evaluation about them | `is_a ClaimSubject` |
-| `Evaluation` (abstract), `GenericEvaluation`, `EvidenceEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
-| `RegistryRequirementEvaluation`, `RegistryFindingEvaluation`, `RegistryReportEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; `is_a RegistryReviewEvaluation` (abstract) `is_a Evaluation` |
+| `Evaluation` and `RequirementEvaluation` (abstract), `GenericEvaluation`, `EvidenceSupportEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
+| `RegistryRequirementEvaluation`, `RegistryFindingEvaluation`, `RegistryReportEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; each declares the `RegistryReviewEvaluation` mixin; `RegistryRequirementEvaluation is_a RequirementEvaluation`, the others `is_a Evaluation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
 | `Activity` | Whoever cites the evidence it generated | Reviewers checking when and by whom evidence was produced | New module; `ProvActivity` mixin |
 
@@ -61,7 +61,7 @@ for example when a judgment covers a whole submission. It is distinct from the f
 from the criteria applied: a land-tenure evaluation may have a project as its `hasSubject`, directly
 assess particular tenure claims or `Evidence` records through `hasTarget`, and name the governing
 requirement through `appliesRequirement`. The base slot accepts any resource; a kind of evaluation
-may require it or restrict it, as [`EvidenceEvaluation`](#evidenceevaluation) does to `Evidence`
+may require it or restrict it, as [`EvidenceSupportEvaluation`](#evidencesupportevaluation) does to `Evidence`
 records. `hasTarget` never names a logical label: a finding that runs over several review rounds is a series of dated evaluations,
 grouped by the issuer's `findingLabel`.
 
@@ -74,8 +74,8 @@ grouped by the issuer's `findingLabel`.
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
-| `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds `EvidenceEvaluation` and `ClaimConsistencyEvaluation` with their verdict enums. | `Claim`, `ClaimVocabulary` |
-| `RegistryReviewEvaluation.yaml` | New: the abstract `RegistryReviewEvaluation is_a Evaluation`, its kinds `RegistryRequirementEvaluation`, `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
+| `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. | `Claim`, `ClaimVocabulary` |
+| `RegistryReviewEvaluation.yaml` | New: the `RegistryReviewEvaluation` mixin (issuer role, conditions, required method), the kinds that declare it, `RegistryRequirementEvaluation` (`is_a RequirementEvaluation`), `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
 
 No `Requirement` class exists or is added: requirements belong to the rule set, whose format WP5-01
@@ -148,7 +148,12 @@ classDiagram
         exclusion
         limitation
     }
-    class EvidenceEvaluation {
+    class RequirementEvaluation {
+        <<abstract, every program>>
+        applicability
+        requirementOutcome
+    }
+    class EvidenceSupportEvaluation {
         assessedAgainst
         evidentialStance
         evidenceSufficiency
@@ -157,14 +162,11 @@ classDiagram
         claimConsistency
     }
     class RegistryReviewEvaluation {
-        <<abstract, Regen Registry>>
+        <<mixin, Regen Registry>>
         issuerRole
         conditions
     }
-    class RegistryRequirementEvaluation {
-        applicability
-        requirementOutcome
-    }
+    class RegistryRequirementEvaluation
     class RegistryFindingEvaluation {
         findingLabel
         findingType
@@ -180,12 +182,15 @@ classDiagram
     }
     Claim <|-- Evaluation
     Evaluation <|-- GenericEvaluation
-    Evaluation <|-- EvidenceEvaluation
+    Evaluation <|-- RequirementEvaluation
+    Evaluation <|-- EvidenceSupportEvaluation
     Evaluation <|-- ClaimConsistencyEvaluation
-    Evaluation <|-- RegistryReviewEvaluation
-    RegistryReviewEvaluation <|-- RegistryRequirementEvaluation
-    RegistryReviewEvaluation <|-- RegistryFindingEvaluation
-    RegistryReviewEvaluation <|-- RegistryReportEvaluation
+    RequirementEvaluation <|-- RegistryRequirementEvaluation
+    Evaluation <|-- RegistryFindingEvaluation
+    Evaluation <|-- RegistryReportEvaluation
+    RegistryReviewEvaluation <|.. RegistryRequirementEvaluation : mixin
+    RegistryReviewEvaluation <|.. RegistryFindingEvaluation : mixin
+    RegistryReviewEvaluation <|.. RegistryReportEvaluation : mixin
     Evaluation *-- Scope
     RegistryReviewEvaluation *-- "0..*" Condition
 ```
@@ -238,18 +243,19 @@ ASK { ?evaluation rfs:scope/rfs:appliesTo <https://example.org/c06/cohort/P-001-
 returns false, so a 2024 cohort is out of scope, and the evaluation's `reliesOn` names the
 enrolment-cutoff claim the confirmation depends on.
 
-### `EvidenceEvaluation`
+### `EvidenceSupportEvaluation`
 
-What an identified body of evidence shows about one claim or requirement. Stance and sufficiency are
-relative to that claim or requirement, and apply to the targeted evidence as a whole, not to each item
-in isolation.
+Whether an exact body of evidence supports, challenges, or has no bearing on one exact claim and,
+where assessed, whether that evidence is sufficient. Stance and sufficiency are relative to that
+claim, and apply to the targeted evidence as a whole, not to each item in isolation. Whether a
+subject satisfies a requirement is a [`RequirementEvaluation`](#requirementevaluation) instead.
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 1..*, set | The `Evidence` records assessed, as one body of evidence. |
-| `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim or requirement version the stance and sufficiency are relative to. A requirement is an IRI, as in `appliesRequirement` (see [Shared terms](#shared-terms)); neither validator checks what the IRI identifies ([example](../schema/examples/evidence-evaluation.INVALID-without-assessed-against.yaml) without it). |
+| `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.INVALID-without-assessed-against.yaml) without it). |
 | `evidentialStance` | `rfs:evidentialStance` ⊑ `rfs:outcome` | `SUPPORTS`, `CHALLENGES`, `NO_BEARING` | 1 | Whether the evidence supports or challenges it, or has no bearing on it. |
-| `evidenceSufficiency` | `rfs:evidenceSufficiency` ⊑ `rfs:outcome` | `SUFFICIENT`, `INSUFFICIENT` | 0..1 | Whether the evidence is enough to establish its stance: sufficient challenging evidence contradicts the claim. Absent with `NO_BEARING` ([example](../schema/examples/evidence-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
+| `evidenceSufficiency` | `rfs:evidenceSufficiency` ⊑ `rfs:outcome` | `SUFFICIENT`, `INSUFFICIENT` | 0..1 | Whether the evidence is enough to establish its stance: sufficient challenging evidence contradicts the claim. Absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
 
 ### `ClaimConsistencyEvaluation`
 
@@ -261,19 +267,13 @@ claim version (`hasTarget`, required). `claimConsistency` (⊑ `rfs:outcome`) is
 it). Neither the statement nor the fields override the other: an internally inconsistent claim is
 corrected by a new version before its evidence is evaluated.
 
-### Regen Registry review kinds
+### `RequirementEvaluation`
 
-`RegistryReviewEvaluation` is abstract: every Registry review judgment is one of its three kinds,
-each with its own required verdict. It holds what the kinds share:
-
-| Field | Range | Meaning |
-|---|---|---|
-| `issuerRole` | `REGISTRY_AGENT`, `VVB`, `CREDIT_CLASS_ADMIN`, `OTHER` | Required. The capacity in which the issuer is recorded as acting; it does not by itself establish the issuer's authority. |
-| `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
-
-**`RegistryRequirementEvaluation`**: the evaluator's finding, as of its date, on whether a project
-meets one exact requirement version (`appliesRequirement`, exactly one). Each requirement judged is
-its own evaluation, so a record cannot give two requirements one shared outcome
+Whether one focal subject satisfies one exact requirement version (`appliesRequirement`, exactly
+one): it records whether the requirement applies to the subject and, when it does, whether the subject
+satisfies it. It is abstract, like `Evaluation`, so a program specializes it, as
+`RegistryRequirementEvaluation` does. Each requirement assessed is its own evaluation, so a record
+cannot give two requirements one shared outcome
 ([example](../schema/examples/registry-requirement-evaluation.INVALID-two-requirements.yaml) with two
 requirements).
 
@@ -290,6 +290,21 @@ JSON Schema only). A review still in progress is recorded with no evaluation.
 `SATISFIED` is not an approval of the project's registration
 ([example](../schema/examples/registry-requirement-evaluation.INVALID-registration-approval.yaml) of
 a registration approval as a requirement outcome being rejected).
+
+### Regen Registry review kinds
+
+`RegistryReviewEvaluation` is a mixin that each Registry kind declares: it holds what every Registry
+review records. It is a mixin rather than a parent class because a Registry requirement evaluation
+already has `RequirementEvaluation` as its parent. It is not an entry point.
+
+| Field | Range | Meaning |
+|---|---|---|
+| `issuerRole` | `REGISTRY_AGENT`, `VVB`, `CREDIT_CLASS_ADMIN`, `OTHER` | Required. The capacity in which the issuer is recorded as acting; it does not by itself establish the issuer's authority. |
+| `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
+| `evaluationMethod` | IRI | Required on every Registry review. |
+
+**`RegistryRequirementEvaluation`** (`is_a RequirementEvaluation`): a requirement evaluation made in a
+Registry review, with the Registry fields above.
 
 **`RegistryFindingEvaluation`**: a corrective action, clarification or forward action request, or a
 material issue raised by the Registry Agent, or a later assessment of one. Each record requires
@@ -511,7 +526,7 @@ validators.
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the activity that generated it |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
-| [`evidence-evaluation.jsonld`](../schema/examples/evidence-evaluation.jsonld) | An `EvidenceEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
+| [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, rule-set and requirement versions, a scope and a condition |
 | [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: an open clarification request with its type, label, target and evidence |
@@ -525,9 +540,9 @@ handling, and that imported definitions are not separate whole-claim targets. As
 [`docs/claim-base.md`](claim-base.md):
 
 1. The validator starts from the class the root node declares (`C06SiteClaim`, `GenericEvaluation`,
-   `RegistryRequirementEvaluation`…); each has one shape. `Evaluation` and `RegistryReviewEvaluation`
-   are abstract, like `Claim`, and are not entry points: their shapes are open and check the fields
-   their kinds share. Neither generated validator rejects a document typed with an abstract class, so the
+   `RegistryRequirementEvaluation`…); each has one shape. `Evaluation` and `RequirementEvaluation`
+   are abstract, like `Claim`, and `RegistryReviewEvaluation` is a mixin; none is an entry point.
+   Their shapes are open and check the fields their kinds share. Neither generated validator rejects a document typed with an abstract class, so the
    service has to ([claims#55](https://github.com/regen-network/claims/issues/55)).
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
@@ -599,8 +614,8 @@ the source.
   patterns ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)). SHACL itself can
   express them with `sh:or`. The other two conditional rules, evidence on a finding and a scope that
   names its subjects, are expressed as class and slot constraints, which both validators enforce.
-- **Abstract classes are not rejected as entry points.** A document typed `RegistryReviewEvaluation`
-  or `Evaluation` passes both generated validators (checked with LinkML 1.11.1), so a review
+- **Abstract classes are not rejected as entry points.** A document typed `Evaluation`,
+  `RequirementEvaluation` or the `RegistryReviewEvaluation` mixin passes both generated validators (checked with LinkML 1.11.1), so a review
   judgment without its kind's verdict can only be caught by the service, as for a document typed
   `Claim`.
 - **A claim's identity no longer pins the cited bytes.** A claim holds the `Evidence` IRI, and the
