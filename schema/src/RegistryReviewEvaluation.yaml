@@ -66,8 +66,8 @@ classes:
     class_uri: rfs:RegistryFindingEvaluation
     description: >-
       A finding raised in a Regen Registry review (a corrective action,
-      clarification or forward action request, or a material issue raised by
-      the Registry Agent), or a later assessment of it. Each record carries
+      clarification or forward action request, raised by the verifier or the
+      Registry Agent), or a later assessment of it. Each record carries
       the finding's label and, in its result, whether the finding is resolved
       as of its date; whether a finding is currently open is derived from the
       latest record, not stored on any of them. A finding cites at least one
@@ -150,7 +150,11 @@ slots:
     range: string
   findingType:
     slot_uri: rfs:findingType
-    description: The kind of finding.
+    description: >-
+      What the finding asks for: a correction, a clarification or a follow-up
+      at a later verification. Who raised it is issuerRole, not the finding
+      type, so a finding the Registry Agent raises uses the same types as a
+      verifier's, or OTHER when its record does not say which.
     range: FindingType
   findingResolution:
     is_a: outcome
@@ -209,11 +213,10 @@ enums:
         description: >-
           Forward action request: to be followed up at a future verification;
           it does not prevent the current conclusion.
-      REGISTRY_ISSUE:
-        meaning: rfs:RegistryIssue
-        description: A material finding raised in the Registry Agent's review.
       OTHER:
         meaning: rfs:OtherFindingType
+        description: >-
+          A finding whose record does not say which kind of request it is.
   IssuerRole:
     permissible_values:
       REGISTRY_AGENT:

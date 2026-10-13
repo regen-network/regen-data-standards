@@ -317,10 +317,12 @@ already has `RequirementEvaluation` as its parent. It is not an entry point.
 **`RegistryRequirementEvaluation`** (`is_a RequirementEvaluation`): a requirement evaluation made in a
 Registry review, with the Registry fields above.
 
-**`RegistryFindingEvaluation`**: a corrective action, clarification or forward action request, or a
-material issue raised by the Registry Agent, or a later assessment of one. Each record requires
+**`RegistryFindingEvaluation`**: a corrective action, clarification or forward action request, raised
+by the verifier or the Registry Agent, or a later assessment of one. Each record requires
 `findingLabel` (the issuer's identifier, stable across rounds, such as "CL 07(1)"), `findingType`
-(`CAR`, `CL`, `FAR`, `REGISTRY_ISSUE`, `OTHER`), a result whose `findingResolution` (⊑ `rfs:outcome`)
+(`CAR`, `CL`, `FAR`, `OTHER`: what the finding asks for; who raised it is `issuerRole`, so a finding
+the Registry Agent raises uses the same types as a verifier's,
+[discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255283390)), a result whose `findingResolution` (⊑ `rfs:outcome`)
 is `RESOLVED` or `UNRESOLVED` as of its date
 ([example](../schema/examples/registry-finding-evaluation.INVALID-without-result.yaml) without it),
 and at least one piece of evidence
