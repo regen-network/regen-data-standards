@@ -81,11 +81,17 @@ terms are imported from `ClaimVocabulary`.
 
 ## Evaluation
 
-An evaluation is an issuer's dated, scoped judgment. It is a Claim: attributed (`assertedBy` is the
-issuer), timed (`assertedAt`), about a subject, citing evidence, immutable, and revisable with
-`wasRevisionOf`. It is about a subject (a project, a plot) even when it judges a claim about that
-subject, because some judgments, such as a determination that a project meets a requirement, have no
-single target claim.
+An evaluation is a Claim that records an assessment made by an agent about one focal subject. Its
+`claimStatement` states the assessment. As a Claim, it identifies the agent responsible for it
+(`assertedBy`) and when it was made (`assertedAt`). Depending on the kind of evaluation, it may also
+identify the resources it directly assessed (`hasTarget`), the criteria it applied
+(`appliesRequirement`, `appliesRuleSet`), the evidence it relied on (`hasEvidenceCitation`), the
+method it used and its result. It holds nothing that changes after it is made: a later assessment is
+a new evaluation, and a correction is a new version linked through `wasRevisionOf`.
+
+The focal subject (`hasSubject`), such as a project, plot, organization, activity or dataset, is
+stated even when the evaluation directly assesses a claim about it, because some assessments, such
+as whether a project meets a requirement, have no single target claim.
 
 It is called an evaluation, not an attestation, because it records the judgment itself. Attestation
 is left for an agent binding itself to exact content, which the data module's `MsgAttest` does on
