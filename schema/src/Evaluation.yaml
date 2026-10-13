@@ -94,12 +94,14 @@ classes:
     is_a: Evaluation
     class_uri: rfs:GenericEvaluation
     description: >-
-      An Evaluation with base content only, for a judgment made under no
-      program's review vocabulary, such as a community steward's review. Its
-      verdict, if any, is the generic outcome, which only this class carries:
-      every other kind states its verdict with its own sub-property of
-      outcome, so it cannot state two verdicts. Its generated shapes are
-      closed: a program's fields belong to that program's kind of evaluation.
+      An evaluation that uses only the shared Evaluation fields and the
+      generic outcome, for a judgment made under no program's vocabulary,
+      such as a community steward's review. It means no more than Evaluation;
+      it exists as its own class so that such an evaluation is validated with
+      a closed shape, which the open Evaluation base cannot give its direct
+      instances. Its verdict, if any, is the generic outcome, which only this
+      class carries: every other kind states its verdict with its own
+      sub-property of outcome, so it cannot state two verdicts.
     slots:
       - outcome
 

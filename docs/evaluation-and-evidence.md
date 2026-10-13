@@ -98,6 +98,21 @@ its generated shape is open, so it checks the base content of every kind, includ
 program defines outside this schema, and lets a kind add fields. A judgment made under no program's
 vocabulary is a `GenericEvaluation`, whose shape is closed, as `GenericClaim` is for claims.
 
+`GenericClaim` is a claim that uses only the base fields, such as a written statement with its
+claimants, time, subject and evidence; `GenericEvaluation` is an evaluation that uses only the
+shared Evaluation fields and the generic `outcome`. Each means no more than its base. They exist as
+their own classes so that such records are validated with a closed shape: a generated shape is open
+or closed for a class and all its subclasses alike, so an open base cannot also close its own direct
+instances. SHACL could express that with a hand-written SPARQL-based target, which `gen-shacl` does
+not generate. Once a schema version is published they are entry points like any
+other, and changing them means a new version.
+
+The open bases permit extension; they promise nothing more. Another program may publish a subclass
+of `Evaluation` or `Claim` with fields of its own, under its own namespace, and the base shapes
+accept it. That does not by itself mean Regen registers the profile, supports it in its tooling,
+admits its instances into a managed service, or endorses it: each of those is a separate decision,
+not made by this schema.
+
 ```mermaid
 classDiagram
     direction LR
