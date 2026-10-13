@@ -152,7 +152,6 @@
         "CAR": "rfs:CorrectiveActionRequest",
         "CL": "rfs:ClarificationRequest",
         "FAR": "rfs:ForwardActionRequest",
-        "REGISTRY_ISSUE": "rfs:RegistryIssue",
         "OTHER": "rfs:OtherFindingType"
       }
     },
