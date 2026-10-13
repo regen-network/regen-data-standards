@@ -1015,18 +1015,8 @@
                     ],
                     "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1066,7 +1056,7 @@
                     "description": "The period after the crediting period during which the carbon stored must be maintained."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1137,18 +1127,8 @@
                         "null"
                     ]
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1181,7 +1161,7 @@
                     "description": "The legal basis on which the plot is controlled during the crediting period: ownership, a lease, or another arrangement."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1225,16 +1205,6 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "assertedAt": {
                     "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds and the offset +00:00, for example 2026-05-02T07:30:00+00:00. No other offset is accepted, and neither is the Z suffix.",
                     "format": "date-time",
@@ -1264,8 +1234,8 @@
                     ],
                     "description": "The period during which credits can be issued for the subject. In an aggregate project, cohorts and sites may have their own."
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -1275,7 +1245,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1349,7 +1319,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1423,18 +1393,8 @@
                         "null"
                     ]
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1517,7 +1477,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1694,18 +1654,8 @@
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1750,7 +1700,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1785,52 +1735,10 @@
         },
         "ClaimConsistencyEvaluation": {
             "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
             "description": "Whether a claim's statement and its structured fields express the same assertion. The generated validators check structure only; they cannot compare prose with values, so a reviewer records the result on the exact claim version. An internally inconsistent claim is corrected by a new version before its evidence is evaluated; neither the statement nor the fields override the other.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -1839,8 +1747,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -1863,16 +1771,30 @@
                     "minItems": 1,
                     "type": "array"
                 },
-                "claimConsistency": {
-                    "$ref": "#/$defs/ClaimConsistency",
-                    "description": "Whether the claim's statement and structured fields agree. A sub-property of outcome."
-                },
                 "claimStatement": {
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethod": {
+                    "description": "The procedures the evaluator used to reach the assessment, such as a document review or a site inspection. It is not who evaluated (that is assertedBy, and any role a program records) nor how the evidence was produced (that is the evidence's generating activity).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -1882,7 +1804,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -1890,6 +1812,10 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/ClaimConsistencyResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -1909,7 +1835,7 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
                     "description": "The exact claim versions whose statement and fields are compared. Unordered set.",
@@ -1939,7 +1865,7 @@
                     "type": "string"
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -1948,39 +1874,9 @@
                         "null"
                     ]
                 },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -1995,16 +1891,30 @@
                 }
             },
             "required": [
-                "claimConsistency",
                 "hasTarget",
                 "rationale",
-                "verificationMethod",
+                "hasResult",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject"
             ],
             "title": "ClaimConsistencyEvaluation",
+            "type": "object"
+        },
+        "ClaimConsistencyResult": {
+            "additionalProperties": false,
+            "description": "The result of a ClaimConsistencyEvaluation: whether the claim's statement and structured fields express the same assertion.",
+            "properties": {
+                "claimConsistency": {
+                    "$ref": "#/$defs/ClaimConsistency",
+                    "description": "Whether the claim's statement and structured fields agree. A sub-property of outcome."
+                }
+            },
+            "required": [
+                "claimConsistency"
+            ],
+            "title": "ClaimConsistencyResult",
             "type": "object"
         },
         "ClaimSubject": {
@@ -2049,7 +1959,7 @@
         },
         "Condition": {
             "additionalProperties": false,
-            "description": "An obligation a judgment carries to a later milestone, such as a follow-up action due before verification or a design condition binding on future verifications.",
+            "description": "An obligation a judgment carries to a later milestone, such as a follow-up action due before issuance or a design condition to be checked at verification.",
             "properties": {
                 "conditionLabel": {
                     "description": "The issuer's label for the condition, such as \"RA-6\".",
@@ -2744,52 +2654,10 @@
         },
         "Evaluation": {
             "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
-            "description": "An issuer's judgment, made at a stated time, about what it targets: exact versions of claims, of other evaluations, or a snapshot of claims. As a Claim it is attributed (assertedBy names the issuer), immutable and revisable with wasRevisionOf; it is about a subject, such as a project or a plot, even when it judges a claim about that subject. It does not carry its own hash or IRI, anchoring state, or a status that changes after it is made: a later judgment is a new Evaluation. Abstract, like Claim: its generated shape is open, so it checks the base content of every kind of evaluation, including kinds another program defines, and lets a kind add fields. A judgment with no program vocabulary is a GenericEvaluation.",
+            "description": "A Claim that records an assessment made by an agent about one focal subject. Its claimStatement states the assessment. As a Claim, an Evaluation identifies the agent responsible for it and when it was made. Depending on the kind of evaluation, it may also identify the resources it directly assessed, the criteria it applied, the evidence it relied on, the method it used and its result. It holds nothing that changes after it is made: a later assessment is a new Evaluation, and a correction is a new version linked through wasRevisionOf.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -2798,8 +2666,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -2826,8 +2694,26 @@
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethod": {
+                    "description": "The procedures the evaluator used to reach the assessment, such as a document review or a site inspection. It is not who evaluated (that is assertedBy, and any role a program records) nor how the evidence was produced (that is the evidence's generating activity).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -2837,7 +2723,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -2845,6 +2731,32 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/GenericEvaluationResult"
+                        },
+                        {
+                            "$ref": "#/$defs/RequirementAssessmentResult"
+                        },
+                        {
+                            "$ref": "#/$defs/EvidenceSupportResult"
+                        },
+                        {
+                            "$ref": "#/$defs/ClaimConsistencyResult"
+                        },
+                        {
+                            "$ref": "#/$defs/FindingResolutionResult"
+                        },
+                        {
+                            "$ref": "#/$defs/VerificationOpinionResult"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -2864,10 +2776,10 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
                     "items": {
                         "type": "string"
                     },
@@ -2892,14 +2804,14 @@
                     ]
                 },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -2908,39 +2820,9 @@
                         "null"
                     ]
                 },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -2955,13 +2837,29 @@
                 }
             },
             "required": [
-                "verificationMethod",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject"
             ],
             "title": "Evaluation",
+            "type": "object"
+        },
+        "EvaluationMethodType": {
+            "description": "Recommended shared evaluation methods, used as evaluationMethod values by their meaning IRIs. A program may use other method IRIs, or narrow the methods it accepts.",
+            "enum": [
+                "DOCUMENT_REVIEW",
+                "SITE_INSPECTION",
+                "RECORD_COMPARISON",
+                "RECALCULATION"
+            ],
+            "title": "EvaluationMethodType",
+            "type": "string"
+        },
+        "EvaluationResult": {
+            "additionalProperties": false,
+            "description": "The conclusion of an Evaluation: its principal outcome and any qualifiers of that outcome. Each kind of evaluation has its own result type, whose outcome field is a sub-property of outcome with the values that kind allows. Attribution, time, subject, targets, method and rationale stay on the Evaluation.",
+            "title": "EvaluationResult",
             "type": "object"
         },
         "Evidence": {
@@ -3033,7 +2931,7 @@
                 },
                 "sourceType": {
                     "$ref": "#/$defs/DCMIType",
-                    "description": "Genre of the cited source, from the DCMI Type Vocabulary, which the dcterms:type definition recommends. Finer kinds of evidence that a program accepts, such as a lease agreement, belong to that program's rule set, not to Evidence."
+                    "description": "Genre of the cited source, from the DCMI Type Vocabulary, which the dcterms:type definition recommends. Finer kinds of evidence that a program accepts, such as a lease agreement, belong to that program's requirements, not to Evidence."
                 },
                 "wasGeneratedBy": {
                     "anyOf": [
@@ -3069,7 +2967,7 @@
         },
         "EvidenceCitation": {
             "additionalProperties": false,
-            "description": "Where inside one cited source the material a claim relies on is: a local profile of a Web Annotation resource selection, with exactly one source and zero or more selectors. Without a selector the whole source is cited. Several selectors are alternative ways to locate the same passage; distinct passages of one source are separate citations. Changing a selector changes the citation, and so the citing record's content, but never the source's IRI or hash.",
+            "description": "One piece of evidence a claim cites: a local profile of a Web Annotation resource selection, with exactly one source, the Evidence record, and zero or more selectors that locate the cited material inside it. Without a selector the whole source is cited. Several selectors are alternative ways to locate the same passage; distinct passages of one source are separate citations. Changing a selector changes the citation, and so the citing record's content, but never the source's IRI or hash.",
             "properties": {
                 "selector": {
                     "description": "How to locate the cited segment of the source. Several selectors are alternatives that locate the same segment. Unordered set.",
@@ -3089,7 +2987,7 @@
                     ]
                 },
                 "source": {
-                    "description": "The cited source: the IRI of an Evidence record, which the citing record also lists in hasEvidence.",
+                    "description": "The cited source: the IRI of an Evidence record.",
                     "type": "string"
                 }
             },
@@ -3099,76 +2997,21 @@
             "title": "EvidenceCitation",
             "type": "object"
         },
-        "EvidenceEvaluation": {
-            "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "evidentialStance": {
-                                "const": "NO_BEARING"
-                            }
-                        },
-                        "required": [
-                            "evidentialStance"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "evidenceSufficiency"
-                            ]
-                        },
-                        "properties": {
-                            "evidenceSufficiency": {}
-                        }
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
+        "EvidenceSufficiency": {
+            "description": "",
+            "enum": [
+                "SUFFICIENT",
+                "INSUFFICIENT"
             ],
-            "description": "What an identified body of evidence shows about one claim or requirement: whether it supports or challenges it, and whether it is enough to establish that. Stance and sufficiency are always relative to what the evidence is assessed against, and apply to the targeted evidence as a whole, not to each item in isolation.",
+            "title": "EvidenceSufficiency",
+            "type": "string"
+        },
+        "EvidenceSupportEvaluation": {
+            "additionalProperties": false,
+            "description": "An assessment of whether an exact body of Evidence supports, challenges, or has no bearing on one exact Claim and, where assessed, whether that Evidence is sufficient. Stance and sufficiency are relative to that Claim, and apply to the targeted evidence as a whole, not to each item in isolation. Whether a subject satisfies a Requirement is a RequirementEvaluation instead.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -3177,8 +3020,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -3202,23 +3045,33 @@
                     "type": "array"
                 },
                 "assessedAgainst": {
-                    "description": "What an evidence evaluation's stance and sufficiency are relative to: the IRI of an exact claim version, or of an exact requirement version as appliesRequirement names it. The schema has no Requirement class (WP5-01), so neither validator checks what the IRI identifies.",
+                    "description": "The exact Claim version that an evidence support evaluation's stance and sufficiency are relative to, as the IRI of that version.",
                     "type": "string"
                 },
                 "claimStatement": {
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "evidenceSufficiency": {
-                    "$ref": "#/$defs/EvidenceSufficiency",
-                    "description": "Whether the evidence is enough to establish its stance: sufficient supporting evidence establishes the claim or requirement, and sufficient challenging evidence contradicts it. A sub-property of outcome."
+                "evaluationMethod": {
+                    "description": "The procedures the evaluator used to reach the assessment, such as a document review or a site inspection. It is not who evaluated (that is assertedBy, and any role a program records) nor how the evidence was produced (that is the evidence's generating activity).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
-                "evidentialStance": {
-                    "$ref": "#/$defs/EvidentialStance",
-                    "description": "Whether the evidence supports or challenges what it is assessed against, or has no bearing on it. A sub-property of outcome."
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -3228,7 +3081,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -3236,6 +3089,10 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/EvidenceSupportResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -3255,7 +3112,7 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
                     "description": "The Evidence records assessed, as one body of evidence. Unordered set.",
@@ -3281,14 +3138,14 @@
                     ]
                 },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -3297,39 +3154,9 @@
                         "null"
                     ]
                 },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -3345,25 +3172,54 @@
             },
             "required": [
                 "assessedAgainst",
-                "evidentialStance",
                 "hasTarget",
-                "verificationMethod",
+                "hasResult",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject"
             ],
-            "title": "EvidenceEvaluation",
+            "title": "EvidenceSupportEvaluation",
             "type": "object"
         },
-        "EvidenceSufficiency": {
-            "description": "",
-            "enum": [
-                "SUFFICIENT",
-                "INSUFFICIENT"
+        "EvidenceSupportResult": {
+            "additionalProperties": false,
+            "description": "The result of an EvidenceSupportEvaluation: whether the evidence supports, challenges or has no bearing on the claim and, where assessed, whether it is sufficient to establish that stance.",
+            "if": {
+                "properties": {
+                    "evidentialStance": {
+                        "const": "NO_BEARING"
+                    }
+                },
+                "required": [
+                    "evidentialStance"
+                ]
+            },
+            "properties": {
+                "evidenceSufficiency": {
+                    "$ref": "#/$defs/EvidenceSufficiency",
+                    "description": "Whether the evidence is enough to establish its stance: sufficient supporting evidence establishes the claim, and sufficient challenging evidence contradicts it. It qualifies the stance; it is not a conclusion of its own, so it is not a sub-property of outcome."
+                },
+                "evidentialStance": {
+                    "$ref": "#/$defs/EvidentialStance",
+                    "description": "Whether the evidence supports or challenges what it is assessed against, or has no bearing on it. A sub-property of outcome."
+                }
+            },
+            "required": [
+                "evidentialStance"
             ],
-            "title": "EvidenceSufficiency",
-            "type": "string"
+            "then": {
+                "not": {
+                    "required": [
+                        "evidenceSufficiency"
+                    ]
+                },
+                "properties": {
+                    "evidenceSufficiency": {}
+                }
+            },
+            "title": "EvidenceSupportResult",
+            "type": "object"
         },
         "EvidentialStance": {
             "description": "",
@@ -3456,14 +3312,29 @@
             "title": "File",
             "type": "object"
         },
-        "FindingState": {
+        "FindingResolution": {
             "description": "",
             "enum": [
-                "OPEN",
-                "CLOSED"
+                "UNRESOLVED",
+                "RESOLVED"
             ],
-            "title": "FindingState",
+            "title": "FindingResolution",
             "type": "string"
+        },
+        "FindingResolutionResult": {
+            "additionalProperties": false,
+            "description": "The result of a RegistryFindingEvaluation: whether the finding is resolved as of the record's date.",
+            "properties": {
+                "findingResolution": {
+                    "$ref": "#/$defs/FindingResolution",
+                    "description": "Whether the finding is resolved as of the record's date. A sub-property of outcome."
+                }
+            },
+            "required": [
+                "findingResolution"
+            ],
+            "title": "FindingResolutionResult",
+            "type": "object"
         },
         "FindingType": {
             "description": "",
@@ -3471,7 +3342,6 @@
                 "CAR",
                 "CL",
                 "FAR",
-                "REGISTRY_ISSUE",
                 "OTHER"
             ],
             "title": "FindingType",
@@ -3527,7 +3397,7 @@
         },
         "GenericClaim": {
             "additionalProperties": false,
-            "description": "A Claim with base content only, for an assertion that needs no claim-type schema, such as a self-attested stewardship claim. It adds nothing to Claim, and its generated shapes are closed, so impacts, quantities, activities and other domain content are rejected; they belong to a claim-type schema.",
+            "description": "A claim that uses only the base fields, such as a written statement with its claimants, time, subject and evidence. It means no more than Claim. Impacts, quantities, activities and other domain content belong to a claim-type schema.",
             "properties": {
                 "assertedAt": {
                     "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds and the offset +00:00, for example 2026-05-02T07:30:00+00:00. No other offset is accepted, and neither is the Z suffix.",
@@ -3547,18 +3417,8 @@
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "hasEvidence": {
-                    "description": "Sources the claimant presents as evidence for the assertion, each the IRI of an Evidence record for the exact version cited. The record is its own document, described once and never inlined. Where inside a source the cited material is goes in hasEvidenceCitation. Whether a source actually supports the assertion is judged separately, by evaluations. Specializes dcterms:references. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "The evidence the claimant presents for the assertion, as citations. Each citation names one Evidence record by IRI (its source) and, optionally, selectors that locate the cited material inside it; a citation without selectors cites the whole source, and a source cited at several places has one citation per passage. The Evidence records are their own documents, described once and never inlined, and are reached through each citation's source. Whether the evidence supports the assertion is judged separately, by evaluations. Unordered set.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -3603,7 +3463,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -3629,52 +3489,10 @@
         },
         "GenericEvaluation": {
             "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
-            "description": "An Evaluation with base content only, for a judgment made under no program's review vocabulary, such as a community steward's review. Its verdict, if any, is the generic outcome, which only this class carries: every other kind states its verdict with its own sub-property of outcome, so it cannot state two verdicts. Its generated shapes are closed: a program's fields belong to that program's kind of evaluation.",
+            "description": "An evaluation that uses only the shared Evaluation fields, for a judgment made under no program's vocabulary, such as a community steward's review. It means no more than Evaluation. Its result, if any, is a GenericEvaluationResult with the generic outcome.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -3683,8 +3501,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -3711,8 +3529,26 @@
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethod": {
+                    "description": "The procedures the evaluator used to reach the assessment, such as a document review or a site inspection. It is not who evaluated (that is assertedBy, and any role a program records) nor how the evidence was produced (that is the evidence's generating activity).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -3722,7 +3558,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -3730,6 +3566,17 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/GenericEvaluationResult"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -3749,10 +3596,10 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
                     "items": {
                         "type": "string"
                     },
@@ -3776,22 +3623,15 @@
                         "null"
                     ]
                 },
-                "outcome": {
-                    "description": "The verdict of a GenericEvaluation, as a term from the vocabulary of the program or rule set the judgment is made under. A kind of evaluation with its own allowed values declares its verdict as a sub-property of outcome with an enumerated range, such as evidentialStance or a program's requirement outcome, and does not carry outcome itself: both validators check the value, the kind cannot state a second, conflicting verdict, and a query for outcome still finds every verdict.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -3800,39 +3640,9 @@
                         "null"
                     ]
                 },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -3847,13 +3657,27 @@
                 }
             },
             "required": [
-                "verificationMethod",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject"
             ],
             "title": "GenericEvaluation",
+            "type": "object"
+        },
+        "GenericEvaluationResult": {
+            "additionalProperties": false,
+            "description": "The result of a GenericEvaluation: a generic outcome, as a term from the vocabulary of whoever made the judgment.",
+            "properties": {
+                "outcome": {
+                    "description": "The principal conclusion of an evaluation result. A GenericEvaluationResult states it as a term from the vocabulary of whoever made the judgment; every other result type states it with its own sub-property of outcome whose values that kind allows, such as requirementOutcome or evidentialStance, so both validators check the value and a query for outcome still finds every principal conclusion.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "GenericEvaluationResult",
             "type": "object"
         },
         "Geometry": {
@@ -4083,8 +3907,7 @@
             "enum": [
                 "REGISTRATION",
                 "PRE_ISSUANCE",
-                "VERIFICATION",
-                "FUTURE_VERIFICATIONS"
+                "VERIFICATION"
             ],
             "title": "Milestone",
             "type": "string"
@@ -4485,52 +4308,10 @@
         },
         "RegistryFindingEvaluation": {
             "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
-            "description": "A finding raised in a Regen Registry review (a corrective action, clarification or forward action request, or a material issue raised by the Registry Agent), or a later assessment of it. Each record states the finding's state as of its date and carries the finding's label; the current state is derived from the latest record, not stored on any of them. A finding cites at least one piece of evidence.",
+            "description": "A finding raised in a Regen Registry review (a corrective action, clarification or forward action request, raised by the verifier or the Registry Agent), or a later assessment of it. Each record carries the finding's label and, in its result, whether the finding is resolved as of its date; whether a finding is currently open is derived from the latest record, not stored on any of them. A finding cites at least one piece of evidence.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -4539,8 +4320,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -4577,35 +4358,51 @@
                         "null"
                     ]
                 },
-                "findingLabel": {
-                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
-                    "type": "string"
-                },
-                "findingState": {
-                    "$ref": "#/$defs/FindingState",
-                    "description": "Whether the finding is open or closed as of this record's date. A sub-property of outcome."
-                },
-                "findingType": {
-                    "$ref": "#/$defs/FindingType",
-                    "description": "The kind of finding."
-                },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethod": {
+                    "description": "The procedures the reviewer used. Required on a Registry review: every review states how it was carried out.",
                     "items": {
                         "type": "string"
                     },
                     "minItems": 1,
                     "type": "array"
                 },
-                "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "findingLabel": {
+                    "description": "The issuer's own identifier for a finding, stable across review rounds, such as \"CL 07(1)\". It groups the dated records about one finding; it is not the identifier of any of them.",
+                    "type": "string"
+                },
+                "findingType": {
+                    "$ref": "#/$defs/FindingType",
+                    "description": "What the finding asks for: a correction, a clarification or a follow-up at a later verification. Who raised it is issuerRole, not the finding type, so a finding the Registry Agent raises uses the same types as a verifier's, or OTHER when its record does not say which."
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
-                        "$ref": "#/$defs/EvidenceCitation"
+                        "type": "string"
                     },
                     "type": [
                         "array",
                         "null"
                     ]
+                },
+                "hasEvidenceCitation": {
+                    "description": "Evidence the issuer relied on, as citations.",
+                    "items": {
+                        "$ref": "#/$defs/EvidenceCitation"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/FindingResolutionResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -4625,10 +4422,10 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
                     "items": {
                         "type": "string"
                     },
@@ -4657,14 +4454,14 @@
                     ]
                 },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -4673,39 +4470,9 @@
                         "null"
                     ]
                 },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -4722,66 +4489,24 @@
             "required": [
                 "findingLabel",
                 "findingType",
-                "findingState",
                 "issuerRole",
-                "verificationMethod",
+                "evaluationMethod",
+                "hasResult",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject",
-                "hasEvidence"
+                "hasEvidenceCitation"
             ],
             "title": "RegistryFindingEvaluation",
             "type": "object"
         },
         "RegistryReportEvaluation": {
             "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
-            "description": "An independent verifier's rating of the project in its validation or verification report, with the ratings the Program Guide (sections 12.4 and 12.5) gives such a report. It is the verifier's rating, not the Registry's decision.",
+            "description": "An independent verifier's opinion of the project in its validation or verification report, with the ratings the Program Guide (sections 12.4 and 12.5) gives. It is the verifier's opinion of the project, not a rating of the report document and not the Registry's decision.",
             "properties": {
                 "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
+                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact requirement-set version, such as a checklist version: the same short ID can name different requirements in different versions. The requirement and requirement-set records themselves are defined by WP5-01 (claims#30). Unordered set.",
                     "items": {
                         "type": "string"
                     },
@@ -4790,8 +4515,8 @@
                         "null"
                     ]
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -4828,8 +4553,24 @@
                         "null"
                     ]
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethod": {
+                    "description": "The procedures the reviewer used. Required on a Registry review: every review states how it was carried out.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -4839,7 +4580,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -4847,6 +4588,10 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/VerificationOpinionResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -4866,10 +4611,10 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
                     "items": {
                         "type": "string"
                     },
@@ -4898,14 +4643,14 @@
                     ]
                 },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -4914,43 +4659,9 @@
                         "null"
                     ]
                 },
-                "reportRating": {
-                    "$ref": "#/$defs/ReportRating",
-                    "description": "The verifier's rating in its report. A sub-property of outcome."
-                },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -4965,9 +4676,9 @@
                 }
             },
             "required": [
-                "reportRating",
                 "issuerRole",
-                "verificationMethod",
+                "evaluationMethod",
+                "hasResult",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
@@ -4977,6 +4688,254 @@
             "type": "object"
         },
         "RegistryRequirementEvaluation": {
+            "additionalProperties": false,
+            "description": "A requirement evaluation made in a Regen Registry review: a RequirementEvaluation with the issuer role, conditions and method every Registry review records. A satisfied requirement is not an approval of the project's registration, which is an institutional decision.",
+            "if": {
+                "properties": {
+                    "hasResult": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "requirementOutcome": {
+                                        "const": "UNDETERMINED"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "hasResult"
+                ]
+            },
+            "properties": {
+                "appliesRequirement": {
+                    "description": "The exact Requirement version whose applicability to the subject and, when applicable, satisfaction are assessed by this Evaluation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "assertedAt": {
+                    "description": "When the issuer made the judgment.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$",
+                    "type": "string"
+                },
+                "assertedBy": {
+                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "claimStatement": {
+                    "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "evaluationMethod": {
+                    "description": "The procedures the reviewer used. Required on a Registry review: every review states how it was carried out.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasEvidenceCitation": {
+                    "description": "Evidence the issuer relied on, as citations.",
+                    "items": {
+                        "$ref": "#/$defs/EvidenceCitation"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/RequirementAssessmentResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
+                },
+                "hasSubject": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClaimSubject"
+                        },
+                        {
+                            "$ref": "#/$defs/Project"
+                        },
+                        {
+                            "$ref": "#/$defs/Cohort"
+                        },
+                        {
+                            "$ref": "#/$defs/Site"
+                        },
+                        {
+                            "$ref": "#/$defs/Plot"
+                        }
+                    ],
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
+                },
+                "hasTarget": {
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "inLanguage": {
+                    "description": "Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter ISO 639 primary language subtag, such as en or cs. It says nothing about the language of the cited sources, which they record themselves, or about how a statement translated from a source was derived.",
+                    "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer is recorded as acting for this judgment. This value does not by itself establish the issuer's authority to act in that capacity."
+                },
+                "name": {
+                    "description": "Optional human-readable title of the claim, for display. It is not the assertion, which is claimStatement.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "rationale": {
+                    "description": "Why the issuer reached the result.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The explicit subject or complete set of subjects across which the Evaluation's result is asserted, when that applicability is not fully expressed by its focal subject, with what it explicitly excludes and what it does not establish."
+                },
+                "url": {
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "format": "uri",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasRevisionOf": {
+                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises: its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its evaluations do not carry over, and selecting a current version happens outside the Claim.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "issuerRole",
+                "appliesRequirement",
+                "evaluationMethod",
+                "hasResult",
+                "claimStatement",
+                "assertedBy",
+                "assertedAt",
+                "hasSubject"
+            ],
+            "then": {
+                "properties": {
+                    "rationale": {}
+                },
+                "required": [
+                    "rationale"
+                ]
+            },
+            "title": "RegistryRequirementEvaluation",
+            "type": "object"
+        },
+        "RegistryReviewEvaluation": {
+            "additionalProperties": false,
+            "description": "What every judgment made in a Regen Registry review records, by the Registry Agent, an independent verifier (VVB) or the Credit Class Admin: the capacity in which the issuer acted, any conditions, and the method used. An evaluation records a judgment; it is neither the state of the review workflow nor the Registry's institutional decision, such as approving a project's registration, which it may inform.",
+            "properties": {
+                "conditions": {
+                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                    "items": {
+                        "$ref": "#/$defs/Condition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "issuerRole": {
+                    "$ref": "#/$defs/IssuerRole",
+                    "description": "The capacity in which the issuer is recorded as acting for this judgment. This value does not by itself establish the issuer's authority to act in that capacity."
+                }
+            },
+            "required": [
+                "issuerRole"
+            ],
+            "title": "RegistryReviewEvaluation",
+            "type": "object"
+        },
+        "RequirementAssessmentResult": {
             "additionalProperties": false,
             "allOf": [
                 {
@@ -5020,76 +4979,49 @@
                             "requirementOutcome": {}
                         }
                     }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "requirementOutcome": {
-                                "const": "UNDETERMINED"
-                            }
-                        },
-                        "required": [
-                            "requirementOutcome"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "rationale": {}
-                        },
-                        "required": [
-                            "rationale"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
                 }
             ],
-            "description": "The evaluator's finding, as of its date, on whether a project meets one exact requirement version. It states whether the requirement applies and, when it does, whether it is satisfied. Each requirement judged is its own evaluation, so every requirement has its own applicability and outcome. A satisfied requirement is not an approval of the project's registration, which is an institutional decision.",
+            "description": "The result of a RequirementEvaluation: whether the requirement applies to the subject and, when it does, whether the subject satisfies it.",
             "properties": {
                 "applicability": {
                     "$ref": "#/$defs/Applicability",
                     "description": "Whether the applied requirement applies to the subject."
                 },
+                "requirementOutcome": {
+                    "$ref": "#/$defs/RequirementOutcome",
+                    "description": "Whether the applied requirement is satisfied, as of this record's date. A sub-property of outcome."
+                }
+            },
+            "required": [
+                "applicability"
+            ],
+            "title": "RequirementAssessmentResult",
+            "type": "object"
+        },
+        "RequirementEvaluation": {
+            "additionalProperties": false,
+            "description": "An Evaluation of whether one focal subject satisfies one exact Requirement version. It records whether the Requirement applies to the subject and, when applicable, whether the subject satisfies it. Each requirement assessed is its own evaluation.",
+            "if": {
+                "properties": {
+                    "hasResult": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "requirementOutcome": {
+                                        "const": "UNDETERMINED"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "hasResult"
+                ]
+            },
+            "properties": {
                 "appliesRequirement": {
-                    "description": "The one exact requirement version judged. Exactly one, so that the applicability and outcome are unambiguously that requirement's.",
+                    "description": "The exact Requirement version whose applicability to the subject and, when applicable, satisfaction are assessed by this Evaluation.",
                     "items": {
                         "type": "string"
                     },
@@ -5097,8 +5029,8 @@
                     "minItems": 1,
                     "type": "array"
                 },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
+                "appliesRequirementSet": {
+                    "description": "Exact versions of requirement sets, such as a registration or validation checklist version, that an evaluation applies or assesses as a whole. An evaluation of one requirement names only that requirement (appliesRequirement): its set is reached through the requirement's membership, defined by WP5-01 (claims#30).",
                     "items": {
                         "type": "string"
                     },
@@ -5125,18 +5057,26 @@
                     "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
                     "type": "string"
                 },
-                "conditions": {
-                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
+                "evaluationMethod": {
+                    "description": "The procedures the evaluator used to reach the assessment, such as a document review or a site inspection. It is not who evaluated (that is assertedBy, and any role a program records) nor how the evidence was produced (that is the evidence's generating activity).",
                     "items": {
-                        "$ref": "#/$defs/Condition"
+                        "type": "string"
                     },
                     "type": [
                         "array",
                         "null"
                     ]
                 },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
+                "evaluationMethodDescription": {
+                    "description": "How the evaluator reached the assessment, in their words, for example which records were compared and how.",
+                    "pattern": "\\S",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "governedBy": {
+                    "description": "Exact versions of the governing documents a claim or evaluation is made under, such as a credit class, a methodology or a program guide version. A governing document is broader than a set of requirements, which is named with appliesRequirementSet. It is content and enters the identity of the record, and is distinct from a schema-version declaration, which states which schema the RDF conforms to.",
                     "items": {
                         "type": "string"
                     },
@@ -5146,7 +5086,7 @@
                     ]
                 },
                 "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
+                    "description": "Evidence the issuer relied on, as citations.",
                     "items": {
                         "$ref": "#/$defs/EvidenceCitation"
                     },
@@ -5154,6 +5094,10 @@
                         "array",
                         "null"
                     ]
+                },
+                "hasResult": {
+                    "$ref": "#/$defs/RequirementAssessmentResult",
+                    "description": "The conclusion of the Evaluation, as a result whose type depends on the kind of evaluation."
                 },
                 "hasSubject": {
                     "anyOf": [
@@ -5173,10 +5117,10 @@
                             "$ref": "#/$defs/Plot"
                         }
                     ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
+                    "description": "The focal subject considered by the Evaluation, such as a project, plot, organization, activity, dataset or other resource."
                 },
                 "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
+                    "description": "The exact resource or resources directly examined or assessed in reaching the Evaluation's conclusion. When a resource can change, the target identifies the particular version or snapshot that was assessed. It is distinct from the Evaluation's focal subject (hasSubject) and from the criteria it applies (appliesRequirement).",
                     "items": {
                         "type": "string"
                     },
@@ -5193,10 +5137,6 @@
                         "null"
                     ]
                 },
-                "issuerRole": {
-                    "$ref": "#/$defs/IssuerRole",
-                    "description": "The capacity in which the issuer is recorded as acting for this judgment. This value does not by itself establish the issuer's authority to act in that capacity."
-                },
                 "name": {
                     "description": "Optional human-readable title of the claim, for display. It is not the assertion, which is claimStatement.",
                     "type": [
@@ -5205,14 +5145,14 @@
                     ]
                 },
                 "rationale": {
-                    "description": "Why the issuer reached the outcome.",
+                    "description": "Why the issuer reached the result.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
                     "items": {
                         "type": "string"
                     },
@@ -5220,10 +5160,6 @@
                         "array",
                         "null"
                     ]
-                },
-                "requirementOutcome": {
-                    "$ref": "#/$defs/RequirementOutcome",
-                    "description": "Whether the applied requirement is satisfied, as of this record's date. A sub-property of outcome."
                 },
                 "scope": {
                     "anyOf": [
@@ -5234,30 +5170,11 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "description": "The explicit subject or complete set of subjects across which the Evaluation's result is asserted, when that applicability is not fully expressed by its focal subject, with what it explicitly excludes and what it does not establish."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
                     "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
                     "type": [
                         "string",
                         "null"
@@ -5272,264 +5189,23 @@
                 }
             },
             "required": [
-                "applicability",
-                "issuerRole",
                 "appliesRequirement",
-                "verificationMethod",
+                "hasResult",
                 "claimStatement",
                 "assertedBy",
                 "assertedAt",
                 "hasSubject"
             ],
-            "title": "RegistryRequirementEvaluation",
-            "type": "object"
-        },
-        "RegistryReviewEvaluation": {
-            "additionalProperties": false,
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "verificationMethod": {
-                                "const": "OTHER"
-                            }
-                        },
-                        "required": [
-                            "verificationMethod"
-                        ]
-                    },
-                    "then": {
-                        "properties": {
-                            "verificationMethodDescriptor": {}
-                        },
-                        "required": [
-                            "verificationMethodDescriptor"
-                        ]
-                    }
+            "then": {
+                "properties": {
+                    "rationale": {}
                 },
-                {
-                    "if": {
-                        "properties": {
-                            "scope": {}
-                        },
-                        "required": [
-                            "scope"
-                        ]
-                    },
-                    "then": {
-                        "not": {
-                            "required": [
-                                "unbounded"
-                            ]
-                        },
-                        "properties": {
-                            "unbounded": {}
-                        }
-                    }
-                }
-            ],
-            "description": "A judgment made in a Regen Registry review by the Registry Agent, an independent verifier (VVB) or the Credit Class Admin. Abstract: every review judgment is one of its kinds (a requirement, finding or report evaluation), and each kind requires its own verdict field. An evaluation records a judgment; it is neither the state of the review workflow nor the Registry's institutional decision, such as approving a project's registration, which it may inform.",
-            "properties": {
-                "appliesRequirement": {
-                    "description": "Exact requirement versions an evaluation applies or judges, whether or not the claimant named them. Each identifier names one immutable requirement version within an exact rule-set version, such as a checklist version: the same short ID can name different requirements in different versions. The rule-set and requirement records themselves are defined by WP5-01 (claims#30). Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "appliesRuleSet": {
-                    "description": "Identifier of an exact version of a normative rule set applied, such as a credit class, a methodology or a program guide version. It is content and enters the identity of the record. It is distinct from a schema-version declaration, which states which schema the RDF conforms to. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "assertedAt": {
-                    "description": "When the issuer made the judgment.",
-                    "format": "date-time",
-                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$",
-                    "type": "string"
-                },
-                "assertedBy": {
-                    "description": "The issuer: the party that makes the judgment and takes responsibility for it.",
-                    "items": {
-                        "$ref": "#/$defs/Entity"
-                    },
-                    "minItems": 1,
-                    "type": "array"
-                },
-                "claimStatement": {
-                    "description": "The assertion, as the claimants state it in natural language. It is asserted content, not a presentational summary: changing it changes the Claim. A claim type may also formalize the assertion, or add detail to it, in structured fields; the statement and those fields are one assertion and must agree. When they disagree, neither overrides the other: the Claim is internally inconsistent and is corrected by a new version before its evidence is evaluated. Specializes schema:description.",
-                    "type": "string"
-                },
-                "conditions": {
-                    "description": "Obligations the judgment carries to a later milestone, such as follow-up actions due before verification. Unordered set.",
-                    "items": {
-                        "$ref": "#/$defs/Condition"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "hasEvidence": {
-                    "description": "Sources the issuer relied on.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "hasEvidenceCitation": {
-                    "description": "Where inside cited sources the material the assertion relies on is: citations, each with one source listed in hasEvidence and the selectors that locate the material. A source cited as a whole needs no citation. Unordered set.",
-                    "items": {
-                        "$ref": "#/$defs/EvidenceCitation"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "hasSubject": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/ClaimSubject"
-                        },
-                        {
-                            "$ref": "#/$defs/Project"
-                        },
-                        {
-                            "$ref": "#/$defs/Cohort"
-                        },
-                        {
-                            "$ref": "#/$defs/Site"
-                        },
-                        {
-                            "$ref": "#/$defs/Plot"
-                        }
-                    ],
-                    "description": "What the judgment is about: a project, plot or other subject. It is stated even when it is also the subject of a targeted claim."
-                },
-                "hasTarget": {
-                    "description": "What an evaluation judges or answers: the identifier of an exact, immutable version of a claim, of another evaluation, or of a snapshot (a fixed set of claim versions), or, for an evidence evaluation, of the Evidence records it assesses. Never a logical identifier or label. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "inLanguage": {
-                    "description": "Language of claimStatement, as a BCP 47 tag with a 2- or 3-letter ISO 639 primary language subtag, such as en or cs. It says nothing about the language of the cited sources, which they record themselves, or about how a statement translated from a source was derived.",
-                    "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "issuerRole": {
-                    "$ref": "#/$defs/IssuerRole",
-                    "description": "The capacity in which the issuer is recorded as acting for this judgment. This value does not by itself establish the issuer's authority to act in that capacity."
-                },
-                "name": {
-                    "description": "Optional human-readable title of the claim, for display. It is not the assertion, which is claimStatement.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "rationale": {
-                    "description": "Why the issuer reached the outcome.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "reliesOn": {
-                    "description": "Exact versions of claims or evaluations that a judgment depends on without judging them, for example the claim stating an enrolment cutoff that an approval relies on. Each value is the identifier of one immutable version. Specializes dcterms:references, so it asserts neither derivation nor support. Unordered set.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": [
-                        "array",
-                        "null"
-                    ]
-                },
-                "scope": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Scope"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "Where the judgment applies: the subjects it covers, what it explicitly excludes, and what it does not establish."
-                },
-                "unbounded": {
-                    "description": "True when the issuer explicitly gives the judgment no limits beyond what it targets, so that an unlimited approval is a stated choice rather than an omission. Stated only on an evaluation without a scope: the two are exclusive.",
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
-                "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidence.",
-                    "format": "uri",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "verificationMethod": {
-                    "$ref": "#/$defs/VerificationMethodType",
-                    "description": "How the assertion or judgment was established, as structured data, so that a consumer can distinguish, for example, a lab-measured value from a self-attested one. One method per record: its party and date are those of the record that carries it (for an evaluation, its issuer and assertedAt), so a subject checked by two methods has two records, each with its own party and date. A value of OTHER must come with verificationMethodDescriptor."
-                },
-                "verificationMethodDescriptor": {
-                    "description": "Free-text description of a verification method that the VerificationMethodType enumeration does not cover; required when verificationMethod is OTHER. It must contain a non-whitespace character, so an empty descriptor cannot leave the method unspecified. It is the extension path: a method that recurs is added to the enumeration in a later schema version.",
-                    "pattern": "\\S",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "wasRevisionOf": {
-                    "description": "Identifier of the exact, immutable earlier Claim version that this Claim revises: its ClaimIRI. A Claim has no identifier slot, because its ClaimIRI is computed over its canonical form outside Claim content (regen-network/claims#1), so the value is a bare IRI and the slot names no class. It never names a logical claim or version family. In PROV a revision implies that both versions are aspects of the same thing (alternateOf), so use it only for a revised version of the same assertion; a separate, later assertion, such as a follow-up observation, is a new Claim and is not a revision. The earlier version is unchanged, its evaluations do not carry over, and selecting a current version happens outside the Claim.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                }
+                "required": [
+                    "rationale"
+                ]
             },
-            "required": [
-                "issuerRole",
-                "verificationMethod",
-                "claimStatement",
-                "assertedBy",
-                "assertedAt",
-                "hasSubject"
-            ],
-            "title": "RegistryReviewEvaluation",
+            "title": "RequirementEvaluation",
             "type": "object"
-        },
-        "ReportRating": {
-            "description": "The ratings the Program Guide (sections 12.4 and 12.5) gives a validation or verification report.",
-            "enum": [
-                "ACCEPTANCE",
-                "ACCEPTANCE_WITH_CONTINGENCIES",
-                "REJECTION"
-            ],
-            "title": "ReportRating",
-            "type": "string"
         },
         "RequirementOutcome": {
             "description": "Whether a requirement is satisfied, as the evaluator finds it on the record's date. Each value is a finding: a review that has not started or is still in progress is workflow state, recorded with no evaluation.",
@@ -5567,7 +5243,7 @@
         },
         "Scope": {
             "additionalProperties": false,
-            "description": "Where an evaluation applies, as structured fields, so that a consumer can check whether a subject falls inside it. A scope always names the subjects it covers. An evaluation without a scope applies only to what it targets, unless it states unbounded.",
+            "description": "Where an evaluation's result applies, as structured fields, so that a consumer can check whether a subject falls inside it. A scope always names the subjects it covers. An evaluation without a scope asserts no applicability beyond its focal subject.",
             "properties": {
                 "appliesTo": {
                     "description": "Identifiers of the subjects the judgment covers, for example the enrolment cohorts an approval is limited to. Unordered set.",
@@ -5762,19 +5438,30 @@
             "title": "VerdictType",
             "type": "string"
         },
-        "VerificationMethodType": {
-            "description": "Kinds of verification method. A program declares which methods it accepts; this enumeration does not rank them.",
+        "VerificationOpinion": {
+            "description": "The opinions the Program Guide (sections 12.4 and 12.5) lets a verifier give in a validation or verification report.",
             "enum": [
-                "SELF_ATTESTED",
-                "PEER_OR_COMMUNITY",
-                "LAB_MEASURED",
-                "SENSOR_DERIVED",
-                "MODEL_ESTIMATED",
-                "THIRD_PARTY_AUDITED",
-                "OTHER"
+                "ACCEPTANCE",
+                "ACCEPTANCE_WITH_CONTINGENCIES",
+                "REJECTION"
             ],
-            "title": "VerificationMethodType",
+            "title": "VerificationOpinion",
             "type": "string"
+        },
+        "VerificationOpinionResult": {
+            "additionalProperties": false,
+            "description": "The result of a RegistryReportEvaluation: the verifier's opinion of the project.",
+            "properties": {
+                "verificationOpinion": {
+                    "$ref": "#/$defs/VerificationOpinion",
+                    "description": "The verifier's opinion of the project in its report. A sub-property of outcome."
+                }
+            },
+            "required": [
+                "verificationOpinion"
+            ],
+            "title": "VerificationOpinionResult",
+            "type": "object"
         },
         "VersionedLink": {
             "additionalProperties": false,

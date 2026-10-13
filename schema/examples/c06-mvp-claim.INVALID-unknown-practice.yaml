@@ -37,10 +37,6 @@ primaryLandUse: CROPLAND
 monitoringSampleDates:
   - "2022-03-15"
   - "2024-04-02"
-hasEvidence:
-  - https://example.org/c06/project-plan-v2.1.pdf
-  - https://example.org/c06/exports/soil-sampling-2026-05.csv
-  - https://example.org/c06/exports/field-records-S-001-2019-2021.csv
 hasEvidenceCitation:
   - source: https://example.org/c06/project-plan-v2.1.pdf
     selector:
@@ -50,3 +46,5 @@ hasEvidenceCitation:
         refinedBy:
           - selectorType: oa:TextQuoteSelector
             exact: 1.8 Project Start Date
+  - source: https://example.org/c06/exports/soil-sampling-2026-05.csv
+  - source: https://example.org/c06/exports/field-records-S-001-2019-2021.csv
