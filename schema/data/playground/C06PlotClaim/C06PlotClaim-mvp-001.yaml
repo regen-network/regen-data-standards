@@ -22,9 +22,9 @@ area:
 geometry: https://example.org/c06/boundaries-2026.gpkg#feature=118
 tenureBasis: LEASE
 convertedFromNaturalEcosystem: false
-hasEvidence:
-  - https://example.org/c06/boundaries-2026.gpkg
-  - https://example.org/c06/exports/tenure-2026-02.csv
-  - https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
-  - https://example.org/land-cover/2012/v1
-  - https://example.org/land-cover/2018/v1
+hasEvidenceCitation:
+  - source: https://example.org/c06/boundaries-2026.gpkg
+  - source: https://example.org/c06/exports/tenure-2026-02.csv
+  - source: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+  - source: https://example.org/land-cover/2012/v1
+  - source: https://example.org/land-cover/2018/v1

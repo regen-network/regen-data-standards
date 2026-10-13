@@ -5,8 +5,8 @@
     python3 scripts/gen-hierarchy.py check      # fail if hierarchy queries miss anything
 
 Run from the schema/ directory. Instance data carries only the most specific
-class and property, for example a claim typed ex:CarbonEgClaim or evidence
-linked with rfs:hasEvidence. Without the hierarchy, a query for every rfs:Claim
+class and property, for example a claim typed ex:CarbonEgClaim or a relied-on
+claim linked with rfs:reliesOn. Without the hierarchy, a query for every rfs:Claim
 or every dcterms:references misses them. The hierarchy is read from the schema
 (is_a and mixins of classes, is_a of slots) and written as rdfs:subClassOf and
 rdfs:subPropertyOf triples, only for subjects in the rfs: namespace, so nothing

@@ -4,8 +4,9 @@ description: >-
   The evidence a Claim or Evaluation cites. An Evidence record describes one
   exact version of a source once: where its bytes can be fetched, the hash
   that lets a reader check them, and the usage terms that applied to that
-  version. A Claim references it by IRI, and an EvidenceCitation says where
-  inside it the cited material is, using Web Annotation selectors. Current
+  version. A Claim cites it through an EvidenceCitation, which names the
+  record by IRI and can say where inside it the cited material is, using
+  Web Annotation selectors. Current
   availability, access and the currently offered licence are not recorded
   here: they change after the citation and are reported by the resolver.
 prefixes:
@@ -82,10 +83,10 @@ classes:
     broad_mappings:
       - oa:ResourceSelection
     description: >-
-      Where inside one cited source the material a claim relies on is: a
-      local profile of a Web Annotation resource selection, with exactly one
-      source and zero or more selectors. Without a selector the whole source
-      is cited. Several selectors are alternative ways to locate the same
+      One piece of evidence a claim cites: a local profile of a Web
+      Annotation resource selection, with exactly one source, the Evidence
+      record, and zero or more selectors that locate the cited material
+      inside it. Without a selector the whole source is cited. Several selectors are alternative ways to locate the same
       passage; distinct passages of one source are separate citations.
       Changing a selector changes the citation, and so the citing record's
       content, but never the source's IRI or hash.
@@ -214,8 +215,7 @@ slots:
   source:
     slot_uri: oa:hasSource
     description: >-
-      The cited source: the IRI of an Evidence record, which the citing
-      record also lists in hasEvidence.
+      The cited source: the IRI of an Evidence record.
     range: Evidence
     inlined: false
   selector:

@@ -281,9 +281,10 @@ def with_store(graph, store, class_name=None):
 
 
 def change_selector(data):
-    """Return a copy of data whose first citation's first selector is changed."""
+    """Return a copy of data whose first citation with a selector has that selector changed."""
     data = json.loads(json.dumps(data))
-    selector = data["hasEvidenceCitation"][0]["selector"][0]
+    citation = next(c for c in data["hasEvidenceCitation"] if c.get("selector"))
+    selector = citation["selector"][0]
     key = "value" if "value" in selector else "exact"
     selector[key] = selector[key] + "-changed"
     return data
@@ -382,10 +383,11 @@ def main(mode):
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
         data = yaml.safe_load(Path(fixture).read_text())
-        if data.get("hasEvidenceCitation"):
+        if any(c.get("selector") for c in data.get("hasEvidenceCitation", [])):
             graph = rdflib.Graph().parse(data=text, format="json-ld")
             changed = rdflib.Graph().parse(data=build(module, class_name, fixture, change_selector(data)), format="json-ld")
-            cited = lambda g: set(g.objects(None, rdflib.URIRef(module["view"].get_uri(module["view"].get_slot("hasEvidence"), expand=True))))
+            source = rdflib.URIRef(module["view"].get_uri(module["view"].get_slot("source"), expand=True))
+            cited = lambda g: set(g.objects(None, source))
             records = lambda g: {t for t in with_store(g, store) if t[0] in cited(graph)}
             if cited(changed) == cited(graph) and records(changed) == records(graph) and not isomorphic(changed, graph):
                 print(f"✅ {example}: changing a selector changes the citation, not the cited Evidence IRIs or records")

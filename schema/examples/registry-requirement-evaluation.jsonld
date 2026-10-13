@@ -149,10 +149,6 @@
         "OTHER": "rfs:OtherFindingType"
       }
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -486,7 +482,10 @@
       "milestone": "VERIFICATION"
     }
   ],
-  "hasEvidence": [
-    "https://example.org/registry/confirmation-2026-03-12.pdf"
+  "hasEvidenceCitation": [
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/registry/confirmation-2026-03-12.pdf"
+    }
   ]
 }

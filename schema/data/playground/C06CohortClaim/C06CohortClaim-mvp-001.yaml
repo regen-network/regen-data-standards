@@ -20,8 +20,6 @@ creditingPeriod:
 permanencePeriod:
   startDate: "2031-04-15"
   endDate: "2041-04-14"
-hasEvidence:
-  - https://example.org/c06/project-plan-v2.0.pdf
 hasEvidenceCitation:
   - source: https://example.org/c06/project-plan-v2.0.pdf
     selector:

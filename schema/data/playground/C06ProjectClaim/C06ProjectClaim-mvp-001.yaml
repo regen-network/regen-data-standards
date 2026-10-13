@@ -42,8 +42,6 @@ requestedDeviations:
     justification: >-
       Aligns the leakage assessment with the supplementary methodology used for
       the baseline.
-hasEvidence:
-  - https://example.org/c06/project-plan-v2.0.pdf
 hasEvidenceCitation:
   - source: https://example.org/c06/project-plan-v2.0.pdf
     selector:

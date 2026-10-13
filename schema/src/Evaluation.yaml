@@ -58,8 +58,8 @@ classes:
         description: >-
           What the judgment is about: a project, plot or other subject. It is
           stated even when it is also the subject of a targeted claim.
-      hasEvidence:
-        description: Sources the issuer relied on.
+      hasEvidenceCitation:
+        description: Evidence the issuer relied on, as citations.
       verificationMethod:
         required: true
     rules:

@@ -157,10 +157,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -599,9 +595,6 @@
       "replacedParameters": "A three-year historical lookback and a 5% productivity-decline trigger instead of a five-year rolling average and a 10% trigger.",
       "justification": "Aligns the leakage assessment with the supplementary methodology used for the baseline."
     }
-  ],
-  "hasEvidence": [
-    "https://example.org/c06/project-plan-v2.0.pdf"
   ],
   "hasEvidenceCitation": [
     {

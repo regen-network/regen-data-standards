@@ -56,7 +56,6 @@ classes:
       - assertedBy
       - assertedAt
       - hasSubject
-      - hasEvidence
       - hasEvidenceCitation
       - wasRevisionOf
     slot_usage:
@@ -74,7 +73,7 @@ classes:
       url:
         description: >-
           Link to a page with more information about the claim. A pointer for
-          readers, not evidence; cite evidence with hasEvidence.
+          readers, not evidence; cite evidence with hasEvidenceCitation.
       wasRevisionOf:
         description: >-
           Identifier of the exact, immutable earlier Claim version that this
