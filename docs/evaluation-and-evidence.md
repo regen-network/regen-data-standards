@@ -311,7 +311,7 @@ already has `RequirementEvaluation` as its parent. It is not an entry point.
 | Field | Range | Meaning |
 |---|---|---|
 | `issuerRole` | `REGISTRY_AGENT`, `VVB`, `CREDIT_CLASS_ADMIN`, `OTHER` | Required. The capacity in which the issuer is recorded as acting; it does not by itself establish the issuer's authority. |
-| `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance, verification or all future verifications. |
+| `conditions` | list of `Condition` (`conditionLabel`, `description`, `milestone`) | Obligations carried to registration, pre-issuance or verification. |
 | `evaluationMethod` | IRI | Required on every Registry review. |
 
 **`RegistryRequirementEvaluation`** (`is_a RequirementEvaluation`): a requirement evaluation made in a

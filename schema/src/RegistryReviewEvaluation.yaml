@@ -130,8 +130,8 @@ classes:
     class_uri: rfs:Condition
     description: >-
       An obligation a judgment carries to a later milestone, such as a
-      follow-up action due before verification or a design condition binding
-      on future verifications.
+      follow-up action due before issuance or a design condition to be checked
+      at verification.
     slots:
       - conditionLabel
       - description
@@ -236,8 +236,6 @@ enums:
         meaning: rfs:PreIssuanceMilestone
       VERIFICATION:
         meaning: rfs:VerificationMilestone
-      FUTURE_VERIFICATIONS:
-        meaning: rfs:FutureVerificationsMilestone
   FindingResolution:
     permissible_values:
       UNRESOLVED:
