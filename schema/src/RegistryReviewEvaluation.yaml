@@ -120,7 +120,7 @@ classes:
         required: true
       findingState:
         required: true
-      hasEvidence:
+      hasEvidenceCitation:
         required: true
         minimum_cardinality: 1
 

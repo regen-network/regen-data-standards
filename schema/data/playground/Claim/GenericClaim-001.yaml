@@ -11,8 +11,6 @@ assertedBy:
 assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
-hasEvidence:
-  - https://example.org/evidence/planting-log-2026-v1.pdf
 hasEvidenceCitation:
   - source: https://example.org/evidence/planting-log-2026-v1.pdf
     selector:

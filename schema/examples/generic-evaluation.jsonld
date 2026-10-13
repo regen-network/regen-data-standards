@@ -112,10 +112,6 @@
     "exclusion": {
       "@id": "exclusion"
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -364,7 +360,10 @@
   "rationale": "The steward walked the boundary and compared it with the planting log.",
   "verificationMethod": "OTHER",
   "verificationMethodDescriptor": "On-site walkover by a community steward",
-  "hasEvidence": [
-    "https://example.org/evidence/walkover-photos-2026-06.zip"
+  "hasEvidenceCitation": [
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/evidence/walkover-photos-2026-06.zip"
+    }
   ]
 }

@@ -96,7 +96,6 @@ classes:
       - assertedAt
       - assertedOn
       - hasSubject
-      - hasEvidence
       - hasEvidenceCitation
       - reliesOn
       - wasRevisionOf
@@ -115,9 +114,9 @@ classes:
       url:
         description: >-
           Link to a page with more information about the claim. A pointer for
-          readers, not evidence; cite evidence with hasEvidence. It is content,
-          so changing it makes a new Claim version; when the page moves, keep a
-          redirect from the old address instead.
+          readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
       wasRevisionOf:
         description: >-
           Identifier of the exact, immutable earlier Claim version that this

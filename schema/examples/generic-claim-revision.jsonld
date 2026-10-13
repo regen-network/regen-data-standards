@@ -80,10 +80,6 @@
     "exact": {
       "@id": "oa:exact"
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -292,9 +288,6 @@
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/A"
   },
-  "hasEvidence": [
-    "https://example.org/evidence/planting-log-2026-v2.pdf"
-  ],
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",

@@ -23,8 +23,6 @@ verificationMethod: THIRD_PARTY_AUDITED
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)
-hasEvidence:
-  - https://example.org/c06/project-plan-v2.0.pdf
 hasEvidenceCitation:
   - source: https://example.org/c06/project-plan-v2.0.pdf
     selector:

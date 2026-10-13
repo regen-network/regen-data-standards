@@ -157,10 +157,6 @@
       "@type": "@id",
       "@id": "geometry"
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -583,11 +579,6 @@
     "2022-03-15",
     "2024-04-02"
   ],
-  "hasEvidence": [
-    "https://example.org/c06/project-plan-v2.1.pdf",
-    "https://example.org/c06/exports/soil-sampling-2026-05.csv",
-    "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
-  ],
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
@@ -605,6 +596,14 @@
           ]
         }
       ]
+    },
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/exports/soil-sampling-2026-05.csv"
+    },
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
     }
   ]
 }

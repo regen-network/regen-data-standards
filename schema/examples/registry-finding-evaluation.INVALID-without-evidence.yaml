@@ -1,4 +1,4 @@
-# expect: 'hasEvidence' is a required property
+# expect: 'hasEvidenceCitation' is a required property
 # class: RegistryFindingEvaluation
 # A finding cites at least one piece of evidence.
 name: Clarification request on the crediting period structure

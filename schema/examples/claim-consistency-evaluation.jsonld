@@ -112,10 +112,6 @@
     "exclusion": {
       "@id": "exclusion"
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"

@@ -50,5 +50,5 @@ conditions:
       Each farm, cohort and project area remains individually identifiable and
       traceable.
     milestone: VERIFICATION
-hasEvidence:
-  - https://example.org/registry/confirmation-2026-03-12.pdf
+hasEvidenceCitation:
+  - source: https://example.org/registry/confirmation-2026-03-12.pdf

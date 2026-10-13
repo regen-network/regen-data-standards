@@ -149,10 +149,6 @@
         "OTHER": "rfs:OtherFindingType"
       }
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -459,7 +455,10 @@
   "rationale": "Two clarification requests on the crediting period structure remain open; the rest of the project design conforms.",
   "verificationMethod": "THIRD_PARTY_AUDITED",
   "issuerRole": "VVB",
-  "hasEvidence": [
-    "https://example.org/c06/validation-report-v1.pdf"
+  "hasEvidenceCitation": [
+    {
+      "@type": "EvidenceCitation",
+      "source": "https://example.org/c06/validation-report-v1.pdf"
+    }
   ]
 }

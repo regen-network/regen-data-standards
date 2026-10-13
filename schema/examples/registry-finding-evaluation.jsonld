@@ -149,10 +149,6 @@
         "OTHER": "rfs:OtherFindingType"
       }
     },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
-    },
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
@@ -458,9 +454,6 @@
   "issuerRole": "VVB",
   "findingType": "CL",
   "findingLabel": "CL 07(1)",
-  "hasEvidence": [
-    "https://example.org/c06/project-plan-v2.0.pdf"
-  ],
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
