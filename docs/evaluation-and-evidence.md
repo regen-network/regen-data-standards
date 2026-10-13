@@ -533,8 +533,9 @@ basis (`startDateBasis`), and a reviewer who derives a value states it in an eva
 ## Examples
 
 All examples are synthetic and generated from the playground fixtures by `make -C schema
-gen-claim-examples`; `make -C schema check-claim-examples` validates each with both generated
-validators.
+gen-claim-examples`, with the published context of the current schema version;
+`make -C schema check-claim-examples` validates each with its published JSON Schema and SHACL
+shapes (see [`schema/README.md`](../schema/README.md#published-schema-artifacts)).
 
 | Example | Shows |
 |---|---|
@@ -550,6 +551,7 @@ validators.
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, the governing credit class version and the requirement version, a scope and a condition |
 | [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: an open clarification request with its type, label, target and evidence |
 | [`registry-report-evaluation.jsonld`](../schema/examples/registry-report-evaluation.jsonld) | A `RegistryReportEvaluation`: a verifier's acceptance with contingencies, assessing the validation checklist version as a whole (`appliesRequirementSet`) |
+| [`c06-mvp-claim-domain-invalid.jsonld`](../schema/examples/c06-mvp-claim-domain-invalid.jsonld) | `c06-mvp-claim.jsonld` with a practice that is not an `ActivityType` term: its base Claim fields are valid, and only the C06 constraint on `practices` fails. Generated from [`c06-mvp-claim.INVALID-unknown-practice.yaml`](../schema/examples/c06-mvp-claim.INVALID-unknown-practice.yaml) |
 | `*.INVALID-*.yaml` | Documents each validator must reject. Those that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules (see [Known limitations](#known-limitations)) |
 
 ## Validation entry points
