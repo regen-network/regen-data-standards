@@ -42,9 +42,9 @@
       "@type": "@id",
       "@id": "appliesRequirement"
     },
-    "appliesRuleSet": {
+    "appliesRequirementSet": {
       "@type": "@id",
-      "@id": "appliesRuleSet"
+      "@id": "appliesRequirementSet"
     },
     "appliesTo": {
       "@type": "@id",
@@ -376,6 +376,13 @@
         "COMMUNITY": "rfs:Community"
       }
     },
+    "evaluationMethod": {
+      "@type": "@id",
+      "@id": "evaluationMethod"
+    },
+    "evaluationMethodDescription": {
+      "@id": "evaluationMethodDescription"
+    },
     "evidenceSufficiency": {
       "@id": "rfs:evidenceSufficiency",
       "@type": "@vocab",
@@ -413,12 +420,12 @@
     "findingLabel": {
       "@id": "findingLabel"
     },
-    "findingState": {
-      "@id": "rfs:findingState",
+    "findingResolution": {
+      "@id": "rfs:findingResolution",
       "@type": "@vocab",
       "@context": {
-        "OPEN": "rfs:FindingOpen",
-        "CLOSED": "rfs:FindingClosed"
+        "UNRESOLVED": "rfs:FindingUnresolved",
+        "RESOLVED": "rfs:FindingResolved"
       }
     },
     "findingType": {
@@ -428,13 +435,16 @@
         "CAR": "rfs:CorrectiveActionRequest",
         "CL": "rfs:ClarificationRequest",
         "FAR": "rfs:ForwardActionRequest",
-        "REGISTRY_ISSUE": "rfs:RegistryIssue",
         "OTHER": "rfs:OtherFindingType"
       }
     },
     "geometry": {
       "@type": "@id",
       "@id": "geometry"
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
     },
     "hasBoundingBox": {
       "@type": "@id",
@@ -443,10 +453,6 @@
     "hasCentroid": {
       "@type": "@id",
       "@id": "geo:hasCentroid"
-    },
-    "hasEvidence": {
-      "@type": "@id",
-      "@id": "hasEvidence"
     },
     "hasEvidenceCitation": {
       "@type": "@id",
@@ -459,6 +465,10 @@
     "hasReferenceId": {
       "@type": "@id",
       "@id": "hasReferenceId"
+    },
+    "hasResult": {
+      "@type": "@id",
+      "@id": "hasResult"
     },
     "hasSubject": {
       "@type": "@id",
@@ -618,8 +628,7 @@
       "@context": {
         "REGISTRATION": "rfs:RegistrationMilestone",
         "PRE_ISSUANCE": "rfs:PreIssuanceMilestone",
-        "VERIFICATION": "rfs:VerificationMilestone",
-        "FUTURE_VERIFICATIONS": "rfs:FutureVerificationsMilestone"
+        "VERIFICATION": "rfs:VerificationMilestone"
       }
     },
     "monitoringIntervalJustification": {
@@ -904,15 +913,6 @@
     "replacedParameters": {
       "@id": "replacedParameters"
     },
-    "reportRating": {
-      "@id": "rfs:reportRating",
-      "@type": "@vocab",
-      "@context": {
-        "ACCEPTANCE": "rfs:Acceptance",
-        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
-        "REJECTION": "rfs:Rejection"
-      }
-    },
     "requestedDeviations": {
       "@type": "@id",
       "@id": "requestedDeviations"
@@ -997,10 +997,6 @@
         "OTHER": "rfs:OtherTenure"
       }
     },
-    "unbounded": {
-      "@type": "xsd:boolean",
-      "@id": "unbounded"
-    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -1008,21 +1004,14 @@
     "value": {
       "@id": "rdf:value"
     },
-    "verificationMethod": {
-      "@id": "rfs:verificationMethod",
+    "verificationOpinion": {
+      "@id": "rfs:verificationOpinion",
       "@type": "@vocab",
       "@context": {
-        "SELF_ATTESTED": "rfs:SelfAttested",
-        "PEER_OR_COMMUNITY": "rfs:PeerOrCommunity",
-        "LAB_MEASURED": "rfs:LabMeasured",
-        "SENSOR_DERIVED": "rfs:SensorDerived",
-        "MODEL_ESTIMATED": "rfs:ModelEstimated",
-        "THIRD_PARTY_AUDITED": "rfs:ThirdPartyAudited",
-        "OTHER": "rfs:OtherVerificationMethod"
+        "ACCEPTANCE": "rfs:Acceptance",
+        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+        "REJECTION": "rfs:Rejection"
       }
-    },
-    "verificationMethodDescriptor": {
-      "@id": "verificationMethodDescriptor"
     },
     "version": {
       "@id": "schema:version"
@@ -1082,6 +1071,9 @@
     "ClaimConsistencyEvaluation": {
       "@id": "ClaimConsistencyEvaluation"
     },
+    "ClaimConsistencyResult": {
+      "@id": "ClaimConsistencyResult"
+    },
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
@@ -1118,14 +1110,20 @@
     "Evaluation": {
       "@id": "Evaluation"
     },
+    "EvaluationResult": {
+      "@id": "EvaluationResult"
+    },
     "Evidence": {
       "@id": "Evidence"
     },
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
-    "EvidenceEvaluation": {
-      "@id": "EvidenceEvaluation"
+    "EvidenceSupportEvaluation": {
+      "@id": "EvidenceSupportEvaluation"
+    },
+    "EvidenceSupportResult": {
+      "@id": "EvidenceSupportResult"
     },
     "Feature": {
       "@id": "geo:Feature"
@@ -1141,6 +1139,9 @@
         }
       }
     },
+    "FindingResolutionResult": {
+      "@id": "FindingResolutionResult"
+    },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
     },
@@ -1149,6 +1150,9 @@
     },
     "GenericEvaluation": {
       "@id": "GenericEvaluation"
+    },
+    "GenericEvaluationResult": {
+      "@id": "GenericEvaluationResult"
     },
     "Geometry": {
       "@id": "geo:Geometry"
@@ -1215,6 +1219,12 @@
     "RegistryReviewEvaluation": {
       "@id": "RegistryReviewEvaluation"
     },
+    "RequirementAssessmentResult": {
+      "@id": "RequirementAssessmentResult"
+    },
+    "RequirementEvaluation": {
+      "@id": "RequirementEvaluation"
+    },
     "Scope": {
       "@id": "Scope"
     },
@@ -1226,6 +1236,9 @@
     },
     "TextQuoteSelector": {
       "@id": "oa:TextQuoteSelector"
+    },
+    "VerificationOpinionResult": {
+      "@id": "VerificationOpinionResult"
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -1246,9 +1259,6 @@
     "@type": "Project",
     "id": "https://example.org/c06/project/P-001"
   },
-  "hasEvidence": [
-    "https://example.org/c06/project-plan-v2.0.pdf"
-  ],
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",

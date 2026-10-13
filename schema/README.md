@@ -126,7 +126,8 @@ The entry point is the class of the document's root node (its `@type`). Validate
 
 - with SHACL: the RDF graph of the JSON-LD document, parsed with the version's context, against
   `shacl.ttl`, together with `hierarchy.ttl` and the `Evidence` records the document cites by IRI
-  (`hasEvidence`): the shapes require each cited IRI to be an `rfs:Evidence`. An `Evidence` record is
+  (the `source` of each `hasEvidenceCitation`): the shapes require each cited IRI to be an
+  `rfs:Evidence`. An `Evidence` record is
   validated on its own. Keep lexical forms as written: `assertedAt` must keep its `Z`;
 - with JSON Schema: the document's LinkML data form against `json-schema.json#/$defs/<class>`:
   the document with its JSON-LD keywords (`@context`, `@type`) removed, except that a selector's
@@ -168,10 +169,10 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
     document.
 - **Class `rules` are not translated to SHACL** ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)),
   so a constraint written as a rule is enforced by the JSON Schema only. In this schema, those are
-  `Evaluation`'s two rules (a `verificationMethod` of `OTHER` requires a
-  `verificationMethodDescriptor`; an evaluation with a `scope` does not state `unbounded`),
-  `EvidenceEvaluation`'s (an `evidentialStance` of `NO_BEARING` has no `evidenceSufficiency`) and
-  `RegistryRequirementEvaluation`'s three on `applicability`. Each has an invalid example marked
+  four: a `RequirementEvaluation` whose `requirementOutcome` is `UNDETERMINED` states a
+  `rationale`; a `RequirementAssessmentResult` that is `APPLICABLE` states a `requirementOutcome`,
+  and one that is `NOT_APPLICABLE` states none; an `EvidenceSupportResult` whose `evidentialStance`
+  is `NO_BEARING` has no `evidenceSufficiency`. Each has an invalid example marked
   `# shacl: not enforced`.
 - **A `pattern` on an identifier slot is not checked by SHACL**, which cannot match a pattern
   against the IRI of a node. `Evidence.id` must have no fragment (`^[^#]*$`); the JSON Schema
