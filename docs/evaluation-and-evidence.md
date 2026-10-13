@@ -206,7 +206,7 @@ WP5.
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | Exact versions judged or answered. |
-| `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Versions the judgment depends on without judging them, such as a claim stating an enrolment cutoff. |
+| `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | An exact Claim or Evaluation whose asserted content or result is used in reaching the assessment, but which the evaluation does not itself assess, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRuleSet` | `rfs:appliesRuleSet` | IRI | 0..*, set | Exact rule-set versions applied. |
 | `outcome` | `rfs:outcome` | IRI | 0..1 | On `GenericEvaluation` only: the verdict, a term from the program's vocabulary. Every other kind states its verdict with its own sub-property of `outcome` and cannot also state `outcome`. |

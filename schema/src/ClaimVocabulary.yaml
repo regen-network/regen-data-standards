@@ -88,11 +88,15 @@ slots:
     is_a: references
     slot_uri: rfs:reliesOn
     description: >-
-      Exact versions of claims or evaluations that a judgment depends on
-      without judging them, for example the claim stating an enrolment cutoff
-      that an approval relies on. Each value is the identifier of one
-      immutable version. Specializes dcterms:references, so it asserts neither
-      derivation nor support. Unordered set.
+      An exact Claim or Evaluation whose asserted content or result is used
+      in reaching this Evaluation's assessment, but which is not itself
+      directly assessed by the Evaluation, for example the claim stating an
+      enrolment cutoff that a confirmation relies on.
+    comments:
+      - >-
+        Implementation: each value is the IRI of one immutable version, such
+        as a ClaimIRI. Repeatable and unordered. Specializes
+        dcterms:references, so it asserts neither derivation nor support.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
