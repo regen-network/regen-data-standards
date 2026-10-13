@@ -26,17 +26,20 @@ classes:
     abstract: true
     class_uri: rfs:Evaluation
     description: >-
-      An issuer's judgment, made at a stated time, about what it targets:
-      exact versions of claims, of other evaluations, or a snapshot of
-      claims. As a Claim it is attributed (assertedBy names the issuer),
-      immutable and revisable with wasRevisionOf; it is about a subject, such
-      as a project or a plot, even when it judges a claim about that subject.
-      It does not carry its own hash or IRI, anchoring state, or a status
-      that changes after it is made: a later judgment is a new Evaluation.
-      Abstract, like Claim: its generated shape is open, so it checks the
-      base content of every kind of evaluation, including kinds another
-      program defines, and lets a kind add fields. A judgment with no
-      program vocabulary is a GenericEvaluation.
+      A Claim that records an assessment made by an agent about one focal
+      subject. Its claimStatement states the assessment. As a Claim, an
+      Evaluation identifies the agent responsible for it and when it was
+      made. Depending on the kind of evaluation, it may also identify the
+      resources it directly assessed, the criteria it applied, the evidence
+      it relied on, the method it used and its result. It holds nothing that
+      changes after it is made: a later assessment is a new Evaluation, and a
+      correction is a new version linked through wasRevisionOf.
+    comments:
+      - >-
+        Implementation: abstract, like Claim, so its generated shape is open.
+        It checks the base content of every kind of evaluation, including
+        kinds another program defines, and lets a kind add fields. An
+        evaluation that uses only the shared fields is a GenericEvaluation.
     slots:
       - hasTarget
       - reliesOn
@@ -56,8 +59,8 @@ classes:
         description: When the issuer made the judgment.
       hasSubject:
         description: >-
-          What the judgment is about: a project, plot or other subject. It is
-          stated even when it is also the subject of a targeted claim.
+          The focal subject considered by the Evaluation, such as a project,
+          plot, organization, activity, dataset or other resource.
       hasEvidenceCitation:
         description: Evidence the issuer relied on, as citations.
       verificationMethod:
@@ -96,12 +99,15 @@ classes:
     description: >-
       An evaluation that uses only the shared Evaluation fields and the
       generic outcome, for a judgment made under no program's vocabulary,
-      such as a community steward's review. It means no more than Evaluation;
-      it exists as its own class so that such an evaluation is validated with
-      a closed shape, which the open Evaluation base cannot give its direct
-      instances. Its verdict, if any, is the generic outcome, which only this
-      class carries: every other kind states its verdict with its own
-      sub-property of outcome, so it cannot state two verdicts.
+      such as a community steward's review. It means no more than Evaluation.
+      Its verdict, if any, is the generic outcome, which only this class
+      carries: every other kind states its verdict with its own sub-property
+      of outcome, so it cannot state two verdicts.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such an evaluation
+        is validated with a closed shape, which the open Evaluation base
+        cannot give its direct instances.
     slots:
       - outcome
 
