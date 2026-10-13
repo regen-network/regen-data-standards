@@ -12,7 +12,8 @@ hasSubject:
   id: https://example.org/plot/A
 hasTarget:
   - https://example.org/placeholder/claim-iri/generic-claim-v1
-verificationMethod: PEER_OR_COMMUNITY
+evaluationMethod:
+  - rfs:DocumentReview
 scope:
   limitation: Confirms the planting only, not the survival of the plants.
   appliesTo: []

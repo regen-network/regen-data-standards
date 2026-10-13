@@ -153,53 +153,49 @@ slots:
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
-  verificationMethod:
-    slot_uri: rfs:verificationMethod
+  evaluationMethod:
+    slot_uri: rfs:evaluationMethod
     description: >-
-      How the assertion or judgment was established, as structured data, so
-      that a consumer can distinguish, for example, a lab-measured value from
-      a self-attested one. One method per record: its party and date are
-      those of the record that carries it (for an evaluation, its issuer and
-      assertedAt), so a subject checked by two methods has two records, each
-      with its own party and date. A value of OTHER must come with
-      verificationMethodDescriptor.
-    range: VerificationMethodType
-  verificationMethodDescriptor:
-    slot_uri: rfs:verificationMethodDescriptor
+      The procedures the evaluator used to reach the assessment, such as a
+      document review or a site inspection. It is not who evaluated (that is
+      assertedBy, and any role a program records) nor how the evidence was
+      produced (that is the evidence's generating activity).
+    comments:
+      - >-
+        Implementation: each value is the IRI of a method, so a method is
+        defined once and reused, and another program can use its own terms.
+        EvaluationMethodType lists the recommended shared methods by their
+        meaning IRIs. Repeatable and unordered.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  evaluationMethodDescription:
+    slot_uri: rfs:evaluationMethodDescription
     description: >-
-      Free-text description of a verification method that the
-      VerificationMethodType enumeration does not cover; required when
-      verificationMethod is OTHER. It must contain a non-whitespace character,
-      so an empty descriptor cannot leave the method unspecified. It is the
-      extension path: a method that recurs is added to the enumeration in a
-      later schema version.
+      How the evaluator reached the assessment, in their words, for example
+      which records were compared and how.
+    comments:
+      - >-
+        Implementation: must contain a non-whitespace character, so an empty
+        description is rejected rather than standing in for none.
     range: string
     pattern: "\\S"
-
 enums:
-  VerificationMethodType:
+  EvaluationMethodType:
     description: >-
-      Kinds of verification method. A program declares which
-      methods it accepts; this enumeration does not rank them.
+      Recommended shared evaluation methods, used as evaluationMethod values
+      by their meaning IRIs. A program may use other method IRIs, or narrow
+      the methods it accepts.
     permissible_values:
-      SELF_ATTESTED:
-        meaning: rfs:SelfAttested
-        description: Asserted by the claimant without independent verification.
-      PEER_OR_COMMUNITY:
-        meaning: rfs:PeerOrCommunity
-        description: Checked by peers or a community of practice.
-      LAB_MEASURED:
-        meaning: rfs:LabMeasured
-        description: Established by laboratory measurement of samples.
-      SENSOR_DERIVED:
-        meaning: rfs:SensorDerived
-        description: Derived from sensor or remote-sensing data.
-      MODEL_ESTIMATED:
-        meaning: rfs:ModelEstimated
-        description: Estimated with a model.
-      THIRD_PARTY_AUDITED:
-        meaning: rfs:ThirdPartyAudited
-        description: Reviewed by an independent third party, such as a verifier.
-      OTHER:
-        meaning: rfs:OtherVerificationMethod
-        description: Not in this list; verificationMethodDescriptor says what it is.
+      DOCUMENT_REVIEW:
+        meaning: rfs:DocumentReview
+        description: Review of submitted documents or records.
+      SITE_INSPECTION:
+        meaning: rfs:SiteInspection
+        description: Inspection of the subject on site.
+      RECORD_COMPARISON:
+        meaning: rfs:RecordComparison
+        description: Comparison of values across records or sources.
+      RECALCULATION:
+        meaning: rfs:Recalculation
+        description: Independent recalculation of a reported value.

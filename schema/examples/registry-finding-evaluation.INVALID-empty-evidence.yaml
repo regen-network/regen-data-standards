@@ -13,7 +13,8 @@ hasSubject:
 hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
 findingState: OPEN
-verificationMethod: THIRD_PARTY_AUDITED
+evaluationMethod:
+  - rfs:DocumentReview
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)
