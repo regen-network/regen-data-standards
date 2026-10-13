@@ -103,11 +103,18 @@ slots:
   hasTarget:
     slot_uri: rfs:hasTarget
     description: >-
-      What an evaluation judges or answers: the identifier of an exact,
-      immutable version of a claim, of another evaluation, or of a snapshot
-      (a fixed set of claim versions), or, for an evidence evaluation, of the
-      Evidence records it assesses. Never a logical identifier or label.
-      Unordered set.
+      The exact resource or resources directly examined or assessed in
+      reaching the Evaluation's conclusion. When a resource can change, the
+      target identifies the particular version or snapshot that was
+      assessed. It is distinct from the Evaluation's focal subject
+      (hasSubject) and from the criteria it applies (appliesRequirement).
+    comments:
+      - >-
+        Implementation: each value is an IRI, never a logical identifier or
+        label. Repeatable and unordered. The base slot does not restrict what
+        kind of resource a target is; a kind of evaluation may require it or
+        restrict it, as EvidenceEvaluation does to Evidence records and
+        ClaimConsistencyEvaluation to claim versions.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
