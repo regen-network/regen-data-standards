@@ -19,7 +19,7 @@ hasTarget:
   - https://example.org/evidence/walkover-photos-2026-06.zip
 assessedAgainst: https://example.org/placeholder/claim-iri/generic-claim-v1
 hasResult:
-  evidentialStance: SUPPORTS
+  outcome: SUPPORTS
   evidenceSufficiency: INSUFFICIENT
 rationale: >-
   The log records 400 m planted; the photographs show the western 250 m of the

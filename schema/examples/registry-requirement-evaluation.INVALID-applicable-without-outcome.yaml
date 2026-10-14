@@ -1,4 +1,4 @@
-# expect: 'requirementOutcome' is a required property
+# expect: 'outcome' is a required property
 # class: RegistryRequirementEvaluation
 # shacl: not enforced
 # An applicable requirement has a verdict: satisfied, not satisfied, or

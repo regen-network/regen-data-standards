@@ -48,14 +48,6 @@
       "@type": "@id",
       "@id": "assessedAgainst"
     },
-    "claimConsistency": {
-      "@id": "claimConsistency",
-      "@type": "@vocab",
-      "@context": {
-        "CONSISTENT": "rfs:Consistent",
-        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
-      }
-    },
     "claimStatement": {
       "@id": "claimStatement"
     },
@@ -110,15 +102,6 @@
       "@context": {
         "SUFFICIENT": "rfs:Sufficient",
         "INSUFFICIENT": "rfs:Insufficient"
-      }
-    },
-    "evidentialStance": {
-      "@id": "evidentialStance",
-      "@type": "@vocab",
-      "@context": {
-        "SUPPORTS": "rfs:Supports",
-        "CHALLENGES": "rfs:Challenges",
-        "NO_BEARING": "rfs:NoBearing"
       }
     },
     "exact": {
@@ -203,15 +186,6 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
-    "requirementOutcome": {
-      "@id": "requirementOutcome",
-      "@type": "@vocab",
-      "@context": {
-        "SATISFIED": "rfs:Satisfied",
-        "NOT_SATISFIED": "rfs:NotSatisfied",
-        "UNDETERMINED": "rfs:Undetermined"
-      }
-    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -286,6 +260,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Any": {
+      "@id": "linkml:Any"
+    },
     "Claim": {
       "@id": "Claim"
     },
@@ -293,7 +270,17 @@
       "@id": "ClaimConsistencyEvaluation"
     },
     "ClaimConsistencyResult": {
-      "@id": "ClaimConsistencyResult"
+      "@id": "ClaimConsistencyResult",
+      "@context": {
+        "outcome": {
+          "@id": "outcome",
+          "@type": "@vocab",
+          "@context": {
+            "CONSISTENT": "rfs:Consistent",
+            "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+          }
+        }
+      }
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
@@ -320,7 +307,18 @@
       "@id": "EvidenceSupportEvaluation"
     },
     "EvidenceSupportResult": {
-      "@id": "EvidenceSupportResult"
+      "@id": "EvidenceSupportResult",
+      "@context": {
+        "outcome": {
+          "@id": "outcome",
+          "@type": "@vocab",
+          "@context": {
+            "SUPPORTS": "rfs:Supports",
+            "CHALLENGES": "rfs:Challenges",
+            "NO_BEARING": "rfs:NoBearing"
+          }
+        }
+      }
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
@@ -332,7 +330,13 @@
       "@id": "GenericEvaluation"
     },
     "GenericEvaluationResult": {
-      "@id": "GenericEvaluationResult"
+      "@id": "GenericEvaluationResult",
+      "@context": {
+        "outcome": {
+          "@id": "outcome",
+          "@type": "@id"
+        }
+      }
     },
     "Link": {
       "@id": "Link"
@@ -350,7 +354,18 @@
       "@id": "qudt:QuantityValue"
     },
     "RequirementAssessmentResult": {
-      "@id": "RequirementAssessmentResult"
+      "@id": "RequirementAssessmentResult",
+      "@context": {
+        "outcome": {
+          "@id": "outcome",
+          "@type": "@vocab",
+          "@context": {
+            "SATISFIED": "rfs:Satisfied",
+            "NOT_SATISFIED": "rfs:NotSatisfied",
+            "UNDETERMINED": "rfs:Undetermined"
+          }
+        }
+      }
     },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"

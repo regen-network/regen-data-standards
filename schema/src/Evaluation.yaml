@@ -118,7 +118,7 @@ classes:
             hasResult:
               range_expression:
                 slot_conditions:
-                  requirementOutcome:
+                  outcome:
                     equals_string: UNDETERMINED
         postconditions:
           slot_conditions:
@@ -182,16 +182,18 @@ classes:
     description: >-
       The conclusion of an Evaluation: its principal outcome and any
       qualifiers of that outcome. Each kind of evaluation has its own result
-      type, whose outcome field is a sub-property of outcome with the values
-      that kind allows. Attribution, time, subject, targets, method and
-      rationale stay on the Evaluation.
+      type, which narrows outcome to the values that kind allows, so a query
+      for hasResult/outcome finds every principal conclusion. Attribution,
+      time, subject, targets, method and rationale stay on the Evaluation.
     comments:
       - >-
-        Implementation: abstract, so its generated shape is open. Each result
-        type narrows its own outcome sub-property rather than one shared
-        outcome field, because LinkML 1.11 cannot narrow an enum-valued slot
-        in a subclass without breaking the RDF conversion of its Python
-        model.
+        Implementation: abstract, so its generated shape is open. outcome has
+        range Any here, and each result type narrows it with slot_usage. A
+        base range that is an enum or uriorcurie would break the RDF
+        conversion of LinkML 1.11's Python model, which converts a narrowed
+        value back to the base range.
+    slots:
+      - outcome
 
   GenericEvaluationResult:
     is_a: EvaluationResult
@@ -199,8 +201,12 @@ classes:
     description: >-
       The result of a GenericEvaluation: a generic outcome, as a term from the
       vocabulary of whoever made the judgment.
-    slots:
-      - outcome
+    slot_usage:
+      outcome:
+        description: >-
+          The conclusion, as a term from the vocabulary of whoever made the
+          judgment.
+        range: uriorcurie
 
   RequirementAssessmentResult:
     is_a: EvaluationResult
@@ -210,10 +216,14 @@ classes:
       to the subject and, when it does, whether the subject satisfies it.
     slots:
       - applicability
-      - requirementOutcome
     slot_usage:
       applicability:
         required: true
+      outcome:
+        description: >-
+          Whether the applied requirement is satisfied, as of this record's
+          date.
+        range: RequirementOutcome
     rules:
       - description: >-
           An applicable requirement has an outcome. Enforced by the generated
@@ -224,7 +234,7 @@ classes:
               equals_string: APPLICABLE
         postconditions:
           slot_conditions:
-            requirementOutcome:
+            outcome:
               required: true
       - description: >-
           A requirement that does not apply has no outcome. Enforced by the
@@ -236,7 +246,7 @@ classes:
               equals_string: NOT_APPLICABLE
         postconditions:
           slot_conditions:
-            requirementOutcome:
+            outcome:
               value_presence: ABSENT
 
   EvidenceSupportResult:
@@ -247,10 +257,13 @@ classes:
       supports, challenges or has no bearing on the claim and, where
       assessed, whether it is sufficient to establish that stance.
     slots:
-      - evidentialStance
       - evidenceSufficiency
     slot_usage:
-      evidentialStance:
+      outcome:
+        description: >-
+          Whether the evidence supports or challenges what it is assessed
+          against, or has no bearing on it.
+        range: EvidentialStance
         required: true
     rules:
       - description: >-
@@ -259,7 +272,7 @@ classes:
           generated SHACL does not express LinkML rules.
         preconditions:
           slot_conditions:
-            evidentialStance:
+            outcome:
               equals_string: NO_BEARING
         postconditions:
           slot_conditions:
@@ -272,10 +285,11 @@ classes:
     description: >-
       The result of a ClaimConsistencyEvaluation: whether the claim's
       statement and structured fields express the same assertion.
-    slots:
-      - claimConsistency
     slot_usage:
-      claimConsistency:
+      outcome:
+        description: >-
+          Whether the claim's statement and structured fields agree.
+        range: ClaimConsistency
         required: true
 
   Scope:
@@ -305,41 +319,27 @@ slots:
   outcome:
     slot_uri: rfs:outcome
     description: >-
-      The principal conclusion of an evaluation result. A GenericEvaluationResult
-      states it as a term from the vocabulary of whoever made the judgment;
-      every other result type states it with its own sub-property of outcome
-      whose values that kind allows, such as requirementOutcome or
-      evidentialStance, so both validators check the value and a query for
-      outcome still finds every principal conclusion.
-    range: uriorcurie
+      The principal conclusion of an evaluation result. Each result type
+      narrows it to the values its kind of evaluation allows, such as
+      RequirementOutcome or EvidentialStance, so both validators check the
+      value; a GenericEvaluationResult states it as a term from the
+      vocabulary of whoever made the judgment. Qualifiers of the outcome,
+      such as applicability or evidenceSufficiency, are separate fields.
+    range: Any
   assessedAgainst:
     slot_uri: rfs:assessedAgainst
     description: >-
       The exact Claim version that an evidence support evaluation's stance
       and sufficiency are relative to, as the IRI of that version.
     range: uriorcurie
-  evidentialStance:
-    is_a: outcome
-    slot_uri: rfs:evidentialStance
-    description: >-
-      Whether the evidence supports or challenges what it is assessed
-      against, or has no bearing on it. A sub-property of outcome.
-    range: EvidentialStance
   evidenceSufficiency:
     slot_uri: rfs:evidenceSufficiency
     description: >-
       Whether the evidence is enough to establish its stance: sufficient
       supporting evidence establishes the claim, and sufficient challenging
       evidence contradicts it. It qualifies the stance; it is not a
-      conclusion of its own, so it is not a sub-property of outcome.
+      conclusion of its own.
     range: EvidenceSufficiency
-  claimConsistency:
-    is_a: outcome
-    slot_uri: rfs:claimConsistency
-    description: >-
-      Whether the claim's statement and structured fields agree. A
-      sub-property of outcome.
-    range: ClaimConsistency
   rationale:
     slot_uri: rfs:rationale
     description: Why the issuer reached the result.
@@ -378,13 +378,6 @@ slots:
     slot_uri: rfs:applicability
     description: Whether the applied requirement applies to the subject.
     range: Applicability
-  requirementOutcome:
-    is_a: outcome
-    slot_uri: rfs:requirementOutcome
-    description: >-
-      Whether the applied requirement is satisfied, as of this record's date.
-      A sub-property of outcome.
-    range: RequirementOutcome
 
 enums:
   RequirementOutcome:

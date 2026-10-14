@@ -18,7 +18,7 @@ hasTarget:
 governedBy:
   - https://example.org/rule-set/credit-class-c06/1.5.2
 hasResult:
-  findingResolution: UNRESOLVED
+  outcome: UNRESOLVED
 issuerRole: VVB
 findingType: CL
 findingLabel: CL 07(1)

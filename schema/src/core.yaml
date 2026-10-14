@@ -48,6 +48,11 @@ slots:
     slot_uri: schema:image
 
 classes:
+  Any:
+    class_uri: linkml:Any
+    description: >-
+      Any value. A slot with this range accepts any value, so that the
+      classes using it can narrow its range with slot_usage.
   Link:
     slots:
       - name
