@@ -13,7 +13,7 @@ hasSubject:
 hasTarget:
   - https://example.org/placeholder/claim-iri/developer-crediting-period
 hasResult:
-  findingResolution: UNRESOLVED
+  outcome: UNRESOLVED
 evaluationMethod:
   - rfs:DocumentReview
 issuerRole: VVB

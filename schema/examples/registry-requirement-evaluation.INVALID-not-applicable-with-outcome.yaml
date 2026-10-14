@@ -1,4 +1,4 @@
-# expect: should not be valid under {'required': ['requirementOutcome']}
+# expect: should not be valid under {'required': ['outcome']}
 # class: RegistryRequirementEvaluation
 # shacl: not enforced
 # A requirement that does not apply has no verdict. This is a LinkML rule,
@@ -26,7 +26,7 @@ appliesRequirement:
   - https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term
 hasResult:
   applicability: NOT_APPLICABLE
-  requirementOutcome: SATISFIED
+  outcome: SATISFIED
 rationale: >-
   Each cohort keeps a full ten-year crediting period from its baseline sampling,
   and the enrolment cutoff prevents open-ended expansion.

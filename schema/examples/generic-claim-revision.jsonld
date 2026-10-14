@@ -215,6 +215,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Any": {
+      "@id": "linkml:Any"
+    },
     "Claim": {
       "@id": "Claim"
     },

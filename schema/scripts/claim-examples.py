@@ -19,7 +19,10 @@ version's JSON-LD output does not produce the same RDF as its Turtle output:
 - enum-valued terms get "@type": "@vocab" and a scoped context mapping each
   permissible value to its `meaning`, so "COMMUNITY" expands to rfs:Community
   instead of a string literal. A slot whose range a class narrows to an enum
-  (slot_usage) is mapped the same way;
+  (slot_usage) is mapped the same way. Where the generated context gives that
+  class a type-scoped term instead, such as outcome on each EvaluationResult
+  type, the type-scoped term is mapped to the class's own enum, and a
+  type-scoped uriorcurie term gets "@type": "@id";
 - nested inlined objects get an explicit "@type", as in the Turtle output. A
   selector's "@type" is the class its selectorType names (oa:FragmentSelector
   or oa:TextQuoteSelector), which then replaces selectorType.
@@ -138,16 +141,39 @@ def run(*args):
     return subprocess.run(args, capture_output=True, text=True)
 
 
-def enum_ranges(view):
+def enum_ranges(view, scoped=()):
     """Yield (slot name, enum) for every slot whose range is an enum, including
-    a range a class narrows with slot_usage."""
+    a range a class narrows with slot_usage, unless the context scopes that
+    slot to the class."""
     for slot in view.all_slots().values():
         if slot.range and view.get_enum(slot.range):
             yield slot.name, view.get_enum(slot.range)
     for class_name in view.all_classes():
         for slot in view.class_induced_slots(class_name):
+            if (class_name, slot.name) in scoped:
+                continue
             if slot.range and view.get_enum(slot.range):
                 yield slot.name, view.get_enum(slot.range)
+
+
+def enum_term(term, enum):
+    return {
+        "@id": term["@id"] if isinstance(term, dict) else term,
+        "@type": "@vocab",
+        "@context": {
+            text: pv.meaning for text, pv in enum.permissible_values.items()
+        },
+    }
+
+
+def type_scoped(view, context):
+    """Yield (class name, slot) for every term the context scopes to a class."""
+    for class_name in view.all_classes():
+        term = context.get(class_name)
+        if isinstance(term, dict) and isinstance(term.get("@context"), dict):
+            for slot in view.class_induced_slots(class_name):
+                if slot.name in term["@context"]:
+                    yield class_name, slot
 
 
 def inline_context(view, source):
@@ -155,17 +181,16 @@ def inline_context(view, source):
     if result.returncode != 0:
         sys.exit(result.stderr)
     context = json.loads(result.stdout)["@context"]
-    for name, enum in enum_ranges(view):
-        if name not in context:
-            continue
-        term = context[name]
-        context[name] = {
-            "@id": term["@id"] if isinstance(term, dict) else term,
-            "@type": "@vocab",
-            "@context": {
-                text: pv.meaning for text, pv in enum.permissible_values.items()
-            },
-        }
+    scoped = list(type_scoped(view, context))
+    for name, enum in enum_ranges(view, {(c, slot.name) for c, slot in scoped}):
+        if name in context:
+            context[name] = enum_term(context[name], enum)
+    for class_name, slot in scoped:
+        terms = context[class_name]["@context"]
+        if view.get_enum(slot.range):
+            terms[slot.name] = enum_term(terms[slot.name], view.get_enum(slot.range))
+        elif slot.range in ("uri", "uriorcurie"):
+            terms[slot.name] = {**terms[slot.name], "@type": "@id"}
     return context
 
 

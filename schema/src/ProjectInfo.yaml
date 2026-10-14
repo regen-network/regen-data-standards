@@ -143,8 +143,6 @@ classes:
       referenceType:
         range: string
         description: An optional label that describes the identifier.
-  Any:
-    class_uri: linkml:Any
 
 slots:
   projectStartDate:

@@ -21,7 +21,7 @@ governedBy:
 appliesRequirementSet:
   - https://example.org/rule-set/credit-class-c06/validation-checklist/2026-05
 hasResult:
-  verificationOpinion: ACCEPTANCE_WITH_CONTINGENCIES
+  outcome: ACCEPTANCE_WITH_CONTINGENCIES
 rationale: >-
   Two clarification requests on the crediting period structure remain open; the
   rest of the project design conforms.

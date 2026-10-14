@@ -15,7 +15,7 @@ hasSubject:
 hasTarget:
   - https://example.org/placeholder/claim-iri/restoration-claim-plot-b-v1
 hasResult:
-  claimConsistency: INTERNALLY_INCONSISTENT
+  outcome: INTERNALLY_INCONSISTENT
 rationale: The statement gives 12 ha restored; the area field gives 15 ha.
 evaluationMethod:
   - rfs:DocumentReview

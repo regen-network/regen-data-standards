@@ -4,7 +4,7 @@ description: >-
   Regen Registry's review vocabulary: the judgments a registry review and its
   independent verifier make (findings, determinations, confirmations,
   approved deviations, validation opinions), as subclasses of the base
-  Evaluation, one per kind of judgment, each with its own verdict field.
+  Evaluation, one per kind of judgment, each with its own result type.
   Another program would define its own subclasses.
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -108,10 +108,10 @@ classes:
     description: >-
       The result of a RegistryFindingEvaluation: whether the finding is
       resolved as of the record's date.
-    slots:
-      - findingResolution
     slot_usage:
-      findingResolution:
+      outcome:
+        description: Whether the finding is resolved as of the record's date.
+        range: FindingResolution
         required: true
 
   VerificationOpinionResult:
@@ -120,10 +120,10 @@ classes:
     description: >-
       The result of a RegistryReportEvaluation: the verifier's opinion of the
       project.
-    slots:
-      - verificationOpinion
     slot_usage:
-      verificationOpinion:
+      outcome:
+        description: The verifier's opinion of the project in its report.
+        range: VerificationOpinion
         required: true
 
   Condition:
@@ -156,20 +156,6 @@ slots:
       type, so a finding the Registry Agent raises uses the same types as a
       verifier's, or OTHER when its record does not say which.
     range: FindingType
-  findingResolution:
-    is_a: outcome
-    slot_uri: rfs:findingResolution
-    description: >-
-      Whether the finding is resolved as of the record's date. A sub-property
-      of outcome.
-    range: FindingResolution
-  verificationOpinion:
-    is_a: outcome
-    slot_uri: rfs:verificationOpinion
-    description: >-
-      The verifier's opinion of the project in its report. A sub-property of
-      outcome.
-    range: VerificationOpinion
   issuerRole:
     slot_uri: rfs:issuerRole
     description: >-

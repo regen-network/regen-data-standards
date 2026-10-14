@@ -452,6 +452,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Any": {
+      "@id": "linkml:Any"
+    },
     "C06CohortClaim": {
       "@id": "C06CohortClaim"
     },

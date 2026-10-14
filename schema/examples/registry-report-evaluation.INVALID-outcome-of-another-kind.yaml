@@ -1,7 +1,8 @@
-# expect: 'outcome' was unexpected
+# expect: 'SATISFIED' is not one of
 # class: RegistryReportEvaluation
-# A kind of evaluation states its verdict with its own field only: a report
-# rated REJECTION cannot also carry a generic outcome such as rfs:Acceptance.
+# A report's result states the verifier's opinion: its outcome takes only the
+# opinions the Program Guide allows, not another kind's values such as a
+# requirement outcome. Both validators check the value.
 name: Validation opinion for example project P-001
 claimStatement: >-
   The verifier accepts example project P-001 as described in project plan v2.0,
@@ -20,8 +21,7 @@ governedBy:
   - https://example.org/rule-set/credit-class-c06/1.5.2
   - https://example.org/rule-set/program-guide/1.1
 hasResult:
-  outcome: rfs:Acceptance
-  verificationOpinion: REJECTION
+  outcome: SATISFIED
 rationale: >-
   Two clarification requests on the crediting period structure remain open; the
   rest of the project design conforms.

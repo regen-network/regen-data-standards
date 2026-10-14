@@ -196,25 +196,24 @@ kind, in the style of the W3C Evaluation and Report Language (EARL): attribution
 targets, method and rationale stay on the evaluation, and the result holds the principal outcome with
 any qualifiers of it ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255076742)).
 
-| Kind | Result | Principal outcome | Qualifiers |
+| Kind | Result | Principal outcome (`outcome`) | Qualifiers |
 |---|---|---|---|
-| `GenericEvaluation` | `GenericEvaluationResult` (optional) | `outcome`: any IRI | — |
-| `RequirementEvaluation` | `RequirementAssessmentResult` | `requirementOutcome`: `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED` | `applicability` (required) |
-| `EvidenceSupportEvaluation` | `EvidenceSupportResult` | `evidentialStance`: `SUPPORTS`, `CHALLENGES`, `NO_BEARING` (required) | `evidenceSufficiency` |
-| `ClaimConsistencyEvaluation` | `ClaimConsistencyResult` | `claimConsistency`: `CONSISTENT`, `INTERNALLY_INCONSISTENT` (required) | — |
-| `RegistryFindingEvaluation` | `FindingResolutionResult` | `findingResolution`: `RESOLVED`, `UNRESOLVED` (required) | — |
-| `RegistryReportEvaluation` | `VerificationOpinionResult` | `verificationOpinion`: `ACCEPTANCE`, `ACCEPTANCE_WITH_CONTINGENCIES`, `REJECTION` (required) | — |
+| `GenericEvaluation` | `GenericEvaluationResult` (optional) | any IRI | — |
+| `RequirementEvaluation` | `RequirementAssessmentResult` | `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED` | `applicability` (required) |
+| `EvidenceSupportEvaluation` | `EvidenceSupportResult` | `SUPPORTS`, `CHALLENGES`, `NO_BEARING` (required) | `evidenceSufficiency` |
+| `ClaimConsistencyEvaluation` | `ClaimConsistencyResult` | `CONSISTENT`, `INTERNALLY_INCONSISTENT` (required) | — |
+| `RegistryFindingEvaluation` | `FindingResolutionResult` | `RESOLVED`, `UNRESOLVED` (required) | — |
+| `RegistryReportEvaluation` | `VerificationOpinionResult` | `ACCEPTANCE`, `ACCEPTANCE_WITH_CONTINGENCIES`, `REJECTION` (required) | — |
 
-Each principal outcome is a sub-property of `outcome` with the values its kind allows, so both
-generated validators check them (an enum in JSON Schema, `sh:in` in SHACL), and a query for every
-principal outcome is `?evaluation rfs:hasResult/?p ?value . ?p rdfs:subPropertyOf* rfs:outcome` with
-the published class hierarchy. Qualifiers are not sub-properties of `outcome`, so sufficiency and
-applicability are never read as conclusions of their own. A result type cannot carry `outcome`
-directly next to its own outcome
-([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
-Each result type narrows its own sub-property, rather than one shared `outcome` field being narrowed
-per type, because LinkML 1.11 cannot narrow an enum-valued slot in a subclass without breaking the
-RDF conversion of its Python model.
+Every result type states its principal outcome with the one `outcome` field, narrowed to the values
+its kind allows, so both generated validators check them (an enum in JSON Schema, `sh:in` in SHACL;
+[example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml) with
+another kind's value), and a query for every principal outcome is
+`?evaluation rfs:hasResult/rfs:outcome ?value`, on the data alone
+([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4260646952)).
+Qualifiers are separate fields, so sufficiency and applicability are never read as conclusions of
+their own. `EvaluationResult` declares `outcome` with range `Any` and each result type narrows it: a
+base range that is an enum or `uriorcurie` breaks the RDF conversion of LinkML 1.11's Python model.
 
 An evaluation records a judgment. It is neither workflow state (a review that has not started or is
 in progress is recorded with no evaluation) nor an institutional decision, such as approving a
@@ -246,13 +245,13 @@ subject satisfies a requirement is a [`RequirementEvaluation`](#requirementevalu
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 1..*, set | The `Evidence` records assessed, as one body of evidence. |
 | `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.INVALID-without-assessed-against.yaml) without it). |
-| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `evidentialStance` (⊑ `rfs:outcome`): whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `outcome`, the evidential stance: whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
 
 ### `ClaimConsistencyEvaluation`
 
 Whether a claim's `claimStatement` and its structured fields express the same assertion. The
 generated validators cannot compare prose with values, so a reviewer records the result on the exact
-claim version (`hasTarget`, required). Its result's `claimConsistency` (⊑ `rfs:outcome`) is
+claim version (`hasTarget`, required). Its result's `outcome` is
 `CONSISTENT` or `INTERNALLY_INCONSISTENT`, and `rationale` is required: it says where they agree or disagree
 ([example](../schema/examples/claim-consistency-evaluation.INVALID-without-rationale.yaml) without
 it). Neither the statement nor the fields override the other: an internally inconsistent claim is
@@ -270,7 +269,7 @@ requirements).
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `hasResult` | `rfs:hasResult` | `RequirementAssessmentResult` | 1 | The result: `applicability` (`APPLICABLE`, `NOT_APPLICABLE`, required), whether the requirement applies to the subject; and `requirementOutcome` (⊑ `rfs:outcome`: `SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED`), required when the requirement applies and absent when it does not ([example](../schema/examples/registry-requirement-evaluation.INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `RequirementAssessmentResult` | 1 | The result: `applicability` (`APPLICABLE`, `NOT_APPLICABLE`, required), whether the requirement applies to the subject; and `outcome` (`SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED`), required when the requirement applies and absent when it does not ([example](../schema/examples/registry-requirement-evaluation.INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
 
 `UNDETERMINED` is a finding: the evaluator assessed the requirement and found that what is available
 is not yet enough to decide either way, for example because records it needs are due later. The
@@ -322,7 +321,7 @@ by the verifier or the Registry Agent, or a later assessment of one. Each record
 `findingLabel` (the issuer's identifier, stable across rounds, such as "CL 07(1)"), `findingType`
 (`CAR`, `CL`, `FAR`, `OTHER`: what the finding asks for; who raised it is `issuerRole`, so a finding
 the Registry Agent raises uses the same types as a verifier's,
-[discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255283390)), a result whose `findingResolution` (⊑ `rfs:outcome`)
+[discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255283390)), a result whose `outcome`
 is `RESOLVED` or `UNRESOLVED` as of its date
 ([example](../schema/examples/registry-finding-evaluation.INVALID-without-result.yaml) without it),
 and at least one piece of evidence
@@ -331,12 +330,11 @@ evidence). Later assessments target the earlier record and carry the same `findi
 a finding is currently open is derived from the latest one, not stored.
 
 **`RegistryReportEvaluation`**: an independent verifier's opinion of the project in its validation
-or verification report, in a result whose `verificationOpinion` (⊑ `rfs:outcome`) is `ACCEPTANCE`,
+or verification report, in a result whose `outcome` is `ACCEPTANCE`,
 `ACCEPTANCE_WITH_CONTINGENCIES` or `REJECTION`, the opinions the Program Guide (sections 12.4 and
 12.5) provides. It is the verifier's opinion of the project, not a rating of the report document and
-not the Registry's decision. The result cannot state the generic `outcome` instead of the opinion
-([example](../schema/examples/registry-report-evaluation.INVALID-generic-outcome.yaml)) or as well
-as it ([example](../schema/examples/registry-report-evaluation.INVALID-rating-and-outcome.yaml)).
+not the Registry's decision. The result's `outcome` cannot take another kind's value
+([example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml)).
 
 ## Evidence
 
@@ -595,7 +593,7 @@ it is made.
 | Excluded | Where it lives instead |
 |---|---|
 | An evaluation's own hash or IRI (`contentHash`, `graphIri`, added by [#53](https://github.com/regen-network/regen-data-standards/pull/53)) | Computed by the service ([claims#1](https://github.com/regen-network/claims/issues/1)); anchoring state in WP6 ([example](../schema/examples/evaluation.INVALID-own-content-hash.yaml)) |
-| `PENDING` as a placeholder verdict (#53: "no verdict has been rendered yet") | Not recorded: an evaluation is made when there is a judgment. A dated finding that a requirement cannot yet be decided is `requirementOutcome: UNDETERMINED`. |
+| `PENDING` as a placeholder verdict (#53: "no verdict has been rendered yet") | Not recorded: an evaluation is made when there is a judgment. A dated finding that a requirement cannot yet be decided is a `RequirementAssessmentResult` with `outcome: UNDETERMINED`. |
 | A finding's current status as an updated field | Each dated evaluation states the status as of its date; the current status is computed |
 | Whether a version is controlling, superseded or stale; whether a confirmation is awaited | Computed by the services |
 | Current availability, access and licence of evidence | Reported by the resolver |
@@ -612,7 +610,7 @@ the source.
 | `Claim.hasClaimType` (required) | Removed: a single required enum could not cover every kind of claim ([#86](https://github.com/regen-network/regen-data-standards/issues/86)). The kind of claim is the specialized class. |
 | `Attestation.attestsClaim` (string) | `hasTarget` (IRI, 0..*) |
 | `Attestation.hasReviewer` (Entity) | `assertedBy` (inherited); the capacity is `RegistryReviewEvaluation.issuerRole` |
-| `Attestation.hasVerdict` (`VerdictType`) | The principal outcome in each kind's result (`hasResult`: `requirementOutcome`, `findingResolution`, `verificationOpinion`, `evidentialStance`, `claimConsistency`), or `outcome` (IRI) in a `GenericEvaluationResult`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
+| `Attestation.hasVerdict` (`VerdictType`) | `outcome` in each kind's result (`hasResult`), narrowed to that kind's values; any IRI in a `GenericEvaluationResult`. `PENDING` dropped. `VerdictType` remains in the taxonomy. |
 | `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingResolution` (`FindingOpen` → `UNRESOLVED`, `FindingClosed` → `RESOLVED`), `VerificationOpinion`. A registration approval is an institutional decision, not a requirement outcome. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidenceCitation` (citations naming `Evidence` records by IRI, inherited) |
