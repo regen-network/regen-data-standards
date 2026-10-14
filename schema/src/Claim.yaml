@@ -40,7 +40,7 @@ classes:
       a reviewer could judge separately, or that different agents take
       responsibility for, are separate Claims. A Claim is asserted by
       definition, so it is self-attested by its claimants and is
-      valid without any third-party attestation; later reviews are separate
+      valid without any third-party evaluation; later reviews are separate
       resources that point to it. An unasserted authoring candidate, such as
       an extraction draft without a claimant, is not a Claim. Every version is
       immutable: a correction is a new Claim that states wasRevisionOf.
@@ -56,7 +56,7 @@ classes:
       - assertedBy
       - assertedAt
       - hasSubject
-      - hasEvidence
+      - hasEvidenceCitation
       - wasRevisionOf
     slot_usage:
       name:
@@ -73,7 +73,7 @@ classes:
       url:
         description: >-
           Link to a page with more information about the claim. A pointer for
-          readers, not evidence; cite evidence with hasEvidence.
+          readers, not evidence; cite evidence with hasEvidenceCitation.
       wasRevisionOf:
         description: >-
           Identifier of the exact, immutable earlier Claim version that this
@@ -85,17 +85,22 @@ classes:
           aspects of the same thing (alternateOf), so use it only for a revised
           version of the same assertion; a separate, later assertion, such as a
           follow-up observation, is a new Claim and is not a revision. The
-          earlier version is unchanged, its attestations do not carry over, and
+          earlier version is unchanged, its evaluations do not carry over, and
           selecting a current version happens outside the Claim.
   GenericClaim:
     is_a: Claim
     class_uri: rfs:GenericClaim
     description: >-
-      A Claim with base content only, for an assertion that needs no
-      claim-type schema, such as a self-attested stewardship claim. It adds
-      nothing to Claim, and its generated shapes are closed, so impacts,
-      quantities, activities and other domain content are rejected; they
-      belong to a claim-type schema.
+      A claim that uses only the base fields, such as a written statement
+      with its claimants, time, subject and evidence. It means no more than
+      Claim. Impacts, quantities, activities and other domain content belong
+      to a claim-type schema.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such a claim is
+        validated with a closed shape, which the open Claim base cannot give
+        its direct instances; a GenericClaim with domain content is
+        rejected.
 
 slots:
   claimStatement:

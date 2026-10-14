@@ -1,0 +1,227 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
+    },
+    "algorithm": {
+      "@id": "algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "exact": {
+      "@id": "oa:exact"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
+    "url": {
+      "@type": "@id",
+      "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "@id",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
+    "Activity": {
+      "@id": "Activity"
+    },
+    "Any": {
+      "@id": "linkml:Any"
+    },
+    "ContentDigest": {
+      "@id": "ContentDigest"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "Evidence": {
+      "@id": "Evidence"
+    },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "Evidence",
+  "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
+  "name": "Field management records, site S-001, 2019 to 2021",
+  "sourceType": "DATASET",
+  "mediaType": "text/csv",
+  "contentHash": {
+    "@type": "ContentDigest",
+    "algorithm": "SHA_256",
+    "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
+  },
+  "resolver": [
+    "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
+  ],
+  "wasGeneratedBy": {
+    "@type": "Activity",
+    "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
+    "name": "Field operations on site S-001, 2019 to 2021",
+    "startDate": "2019-01-01",
+    "endDate": "2021-12-31",
+    "wasAssociatedWith": [
+      {
+        "@type": "Entity",
+        "name": "Example Farm Operator",
+        "type": "INDIVIDUAL"
+      }
+    ]
+  }
+}

@@ -7,6 +7,9 @@ name: Draft extracted from planting log
 claimStatement: Hedgerow planted along the northern boundary of plot A.
 hasSubject:
   id: https://example.org/plot/A
-hasEvidence:
-  - id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
-    name: Planting log, spring 2026 (v1)
+hasEvidenceCitation:
+  - source: https://example.org/evidence/planting-log-2026-v1.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=2
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

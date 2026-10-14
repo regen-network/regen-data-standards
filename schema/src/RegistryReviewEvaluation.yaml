@@ -1,0 +1,251 @@
+id: https://framework.regen.network/schema/RegistryReviewEvaluation
+name: RegistryReviewEvaluation
+description: >-
+  Regen Registry's review vocabulary: the judgments a registry review and its
+  independent verifier make (findings, determinations, confirmations,
+  approved deviations, validation opinions), as subclasses of the base
+  Evaluation, one per kind of judgment, each with its own result type.
+  Another program would define its own subclasses.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+
+imports:
+  - linkml:types
+  - core
+  - Evaluation
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  RegistryReviewEvaluation:
+    mixin: true
+    class_uri: rfs:RegistryReviewEvaluation
+    description: >-
+      What every judgment made in a Regen Registry review records, by the
+      Registry Agent, an independent verifier (VVB) or the Credit Class
+      Admin: the capacity in which the issuer acted, any conditions, and the
+      method used. An evaluation records a judgment; it is neither the state
+      of the review workflow nor the Registry's institutional decision, such
+      as approving a project's registration, which it may inform.
+    comments:
+      - >-
+        Implementation: a mixin, declared by each Registry kind
+        (RegistryRequirementEvaluation, RegistryFindingEvaluation,
+        RegistryReportEvaluation), because a requirement evaluation already
+        has RequirementEvaluation as its parent. It is not an entry point.
+    slots:
+      - issuerRole
+      - conditions
+    slot_usage:
+      issuerRole:
+        required: true
+      evaluationMethod:
+        description: >-
+          The procedures the reviewer used. Required on a Registry review:
+          every review states how it was carried out.
+        required: true
+        minimum_cardinality: 1
+
+  RegistryRequirementEvaluation:
+    is_a: RequirementEvaluation
+    mixins:
+      - RegistryReviewEvaluation
+    class_uri: rfs:RegistryRequirementEvaluation
+    description: >-
+      A requirement evaluation made in a Regen Registry review: a
+      RequirementEvaluation with the issuer role, conditions and method every
+      Registry review records. A satisfied requirement is not an approval of
+      the project's registration, which is an institutional decision.
+
+  RegistryFindingEvaluation:
+    is_a: Evaluation
+    mixins:
+      - RegistryReviewEvaluation
+    class_uri: rfs:RegistryFindingEvaluation
+    description: >-
+      A finding raised in a Regen Registry review (a corrective action,
+      clarification or forward action request, raised by the verifier or the
+      Registry Agent), or a later assessment of it. Each record carries
+      the finding's label and, in its result, whether the finding is resolved
+      as of its date; whether a finding is currently open is derived from the
+      latest record, not stored on any of them. A finding cites at least one
+      piece of evidence.
+    slots:
+      - findingLabel
+      - findingType
+    slot_usage:
+      findingLabel:
+        required: true
+      findingType:
+        required: true
+      hasResult:
+        range: FindingResolutionResult
+        required: true
+      hasEvidenceCitation:
+        required: true
+        minimum_cardinality: 1
+
+  RegistryReportEvaluation:
+    is_a: Evaluation
+    mixins:
+      - RegistryReviewEvaluation
+    class_uri: rfs:RegistryReportEvaluation
+    description: >-
+      An independent verifier's opinion of the project in its validation or
+      verification report, with the ratings the Program Guide (sections 12.4
+      and 12.5) gives. It is the verifier's opinion of the project, not a
+      rating of the report document and not the Registry's decision.
+    slot_usage:
+      hasResult:
+        range: VerificationOpinionResult
+        required: true
+
+  FindingResolutionResult:
+    is_a: EvaluationResult
+    class_uri: rfs:FindingResolutionResult
+    description: >-
+      The result of a RegistryFindingEvaluation: whether the finding is
+      resolved as of the record's date.
+    slot_usage:
+      outcome:
+        description: Whether the finding is resolved as of the record's date.
+        range: FindingResolution
+        required: true
+
+  VerificationOpinionResult:
+    is_a: EvaluationResult
+    class_uri: rfs:VerificationOpinionResult
+    description: >-
+      The result of a RegistryReportEvaluation: the verifier's opinion of the
+      project.
+    slot_usage:
+      outcome:
+        description: The verifier's opinion of the project in its report.
+        range: VerificationOpinion
+        required: true
+
+  Condition:
+    class_uri: rfs:Condition
+    description: >-
+      An obligation a judgment carries to a later milestone, such as a
+      follow-up action due before issuance or a design condition to be checked
+      at verification.
+    slots:
+      - conditionLabel
+      - description
+      - milestone
+    slot_usage:
+      description:
+        required: true
+
+slots:
+  findingLabel:
+    slot_uri: rfs:findingLabel
+    description: >-
+      The issuer's own identifier for a finding, stable across review rounds,
+      such as "CL 07(1)". It groups the dated records about one finding; it is
+      not the identifier of any of them.
+    range: string
+  findingType:
+    slot_uri: rfs:findingType
+    description: >-
+      What the finding asks for: a correction, a clarification or a follow-up
+      at a later verification. Who raised it is issuerRole, not the finding
+      type, so a finding the Registry Agent raises uses the same types as a
+      verifier's, or OTHER when its record does not say which.
+    range: FindingType
+  issuerRole:
+    slot_uri: rfs:issuerRole
+    description: >-
+      The capacity in which the issuer is recorded as acting for this judgment.
+      This value does not by itself establish the issuer's authority to act in that capacity.
+    range: IssuerRole
+  conditions:
+    slot_uri: rfs:conditions
+    description: >-
+      Obligations the judgment carries to a later milestone, such as follow-up
+      actions due before verification. Unordered set.
+    range: Condition
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  conditionLabel:
+    slot_uri: rfs:conditionLabel
+    description: The issuer's label for the condition, such as "RA-6".
+    range: string
+  milestone:
+    slot_uri: rfs:milestone
+    description: When the condition must be met.
+    range: Milestone
+
+enums:
+  FindingType:
+    permissible_values:
+      CAR:
+        meaning: rfs:CorrectiveActionRequest
+        description: >-
+          Corrective action request: a material non-conformity that must be
+          corrected.
+      CL:
+        meaning: rfs:ClarificationRequest
+        description: >-
+          Clarification request: evidence, wording or interpretation is
+          incomplete or ambiguous.
+      FAR:
+        meaning: rfs:ForwardActionRequest
+        description: >-
+          Forward action request: to be followed up at a future verification;
+          it does not prevent the current conclusion.
+      OTHER:
+        meaning: rfs:OtherFindingType
+        description: >-
+          A finding whose record does not say which kind of request it is.
+  IssuerRole:
+    permissible_values:
+      REGISTRY_AGENT:
+        meaning: rfs:RegistryAgent
+      VVB:
+        meaning: rfs:ValidationVerificationBody
+        description: An independent validation and verification body.
+      CREDIT_CLASS_ADMIN:
+        meaning: rfs:CreditClassAdmin
+      OTHER:
+        meaning: rfs:OtherIssuerRole
+  Milestone:
+    permissible_values:
+      REGISTRATION:
+        meaning: rfs:RegistrationMilestone
+      PRE_ISSUANCE:
+        meaning: rfs:PreIssuanceMilestone
+      VERIFICATION:
+        meaning: rfs:VerificationMilestone
+  FindingResolution:
+    permissible_values:
+      UNRESOLVED:
+        meaning: rfs:FindingUnresolved
+        description: The finding is not resolved as of this record.
+      RESOLVED:
+        meaning: rfs:FindingResolved
+        description: The finding is resolved as of this record.
+  VerificationOpinion:
+    description: >-
+      The opinions the Program Guide (sections 12.4 and 12.5) lets a verifier
+      give in a validation or verification report.
+    permissible_values:
+      ACCEPTANCE:
+        meaning: rfs:Acceptance
+        description: The verifier accepts the project as reported.
+      ACCEPTANCE_WITH_CONTINGENCIES:
+        meaning: rfs:AcceptanceWithContingencies
+        description: >-
+          Accepted once the project proponent provides the required
+          corrections and clarifications and the verifier resubmits the
+          report where required.
+      REJECTION:
+        meaning: rfs:Rejection
+        description: >-
+          Rejected. The project is on hold until the identified issues are
+          addressed.

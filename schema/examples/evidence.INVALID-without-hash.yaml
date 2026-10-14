@@ -1,0 +1,10 @@
+# expect: 'contentHash' is a required property
+# class: Evidence
+# An Evidence record carries the hash of the exact source version, so that a
+# reader can check the bytes the resolver returns.
+id: https://example.org/c06/project-plan-v2.1.pdf
+name: Example project plan v2.1
+sourceType: TEXT
+mediaType: application/pdf
+resolver:
+  - https://example.org/c06/project-plan-v2.1.pdf
