@@ -28,6 +28,9 @@ Agent drafts → **human checks this list** → only then open the PR. Every ite
       sequence must be explicit.
 - [ ] `make -C schema lint` passes; `make -C schema all` runs clean if you changed generated output.
       (Bare `make -C schema` runs only the first target, `gen-taxonomy` — it is not a full check.)
+- [ ] If the change adds, renames or retypes a field, identifier, digest or timestamp that the WP7
+      Hypercerts/Lexicon projection maps (#97), the PR body says which record type is affected and whether
+      the change widens or narrows what can be published.
 
 **Provenance**
 - [ ] Every factual claim in the PR body traces to a file path, a `gh api` call, or a line of code — and you
