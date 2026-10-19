@@ -1,0 +1,16 @@
+# Synthetic example (example.org identifiers): a self-attested stewardship
+# claim with no credit class, impact or third-party attestation (#68 use case 1).
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: >-
+  Hedgerow Cooperative planted 400 m of mixed native hedgerow along the northern
+  boundary of plot A between 1 March and 15 April 2026.
+inLanguage: en
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+hasEvidence:
+  - id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
+    name: Planting log, spring 2026 (v1)

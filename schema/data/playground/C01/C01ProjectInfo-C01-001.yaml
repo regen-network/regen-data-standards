@@ -19,7 +19,7 @@ hasLinks:
     url: https://registry.verra.org/app/projectDetail/VCS/934
     description: Verra registry page for this project
 hasReferenceId:
-  - identifier: 934
+  - identifier: '934'
     referenceType: VCS Project ID
 projectSize:
   numericValue: 299640
