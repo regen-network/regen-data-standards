@@ -1,4 +1,4 @@
-id: ProvAlignment
+id: https://framework.regen.network/schema/ProvAlignment
 name: ProvAlignment
 description: >-
   Mixins that declare which of our classes are PROV-O classes, so that the
