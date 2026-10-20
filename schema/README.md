@@ -49,7 +49,7 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
 | `linkml.yaml` | `gen-linkml --mergeimports` | The schema with every import merged, including `linkml:types`, so generation and validation need no import lookups |
 | `hierarchy.ttl` | `scripts/gen-hierarchy.py`, serialized canonically | `rdfs:subClassOf` and `rdfs:subPropertyOf` triples of the `rfs:` classes and slots. Load it with the data: instances carry only their most specific class, and with it the open `Claim` and `Evaluation` shapes apply to every claim type and kind of evaluation |
 | `examples/` | Copies of `examples/*.jsonld` with this version's context | Valid examples, and invalid ones the manifest says what they violate |
-| `records/` | Copies of `examples/records/*.jsonld` with this version's context | The records the examples cite by IRI: `evidence.jsonld` holds every `Evidence` record, as one JSON-LD `@graph` |
+| `records/` | Copies of `examples/records/*.jsonld` with this version's context | The records the examples cite by IRI, one file per class, each one JSON-LD `@graph`: `evidence.jsonld` holds every `Evidence` record, `generic-activity.jsonld` and `capture.jsonld` the activity records those name |
 
 [`versions/manifest.json`](versions/manifest.json) maps each version to:
 
@@ -61,8 +61,8 @@ for the version `src/schema.yaml` declares (`version:`). Each version is in `ver
   `rdflib` (which serializes `shacl.ttl`) and `PyYAML` (which writes `linkml.yaml`), all pinned in
   `requirements.txt`;
 - `files`: each artifact's path and SHA-256, and the JSON Schema's `$id`;
-- `entryPoints`: every concrete class that specializes `Claim`, and `Evidence`, whose records are
-  documents of their own, each with its class IRI, JSON Schema location and SHACL shape;
+- `entryPoints`: every concrete class that specializes `Claim`, and `Evidence`, `GenericActivity`
+  and `Capture`, whose records are documents of their own, each with its class IRI, JSON Schema location and SHACL shape;
 - `examples`: each example's entry point, whether it is valid, and, if not, the only slots it may
   violate;
 - `records`: each records file, the class of its records and its SHA-256.
@@ -92,8 +92,9 @@ make check-claim-examples    # check the examples and invalid documents with the
   Schema and SHACL shapes;
 - every example of every version is accepted by both validators, or, if invalid, rejected by both
   and only on the slots the manifest names. SHACL checks each example as a graph store holds it:
-  with the version's `hierarchy.ttl` and, unless it is an `Evidence` record, with the version's
-  `records/`. Every record is checked too. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
+  with the version's `hierarchy.ttl` and the version's `records/` of every class but its own, since
+  merged with its own records a record would carry its digest twice. Every record is checked the
+  same way. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
   fields of `c06-mvp-claim.jsonld` and fails only the C06 constraint on `practices`;
 - for the current version, `src/` is the recorded source and regenerating every artifact gives the
   same bytes;
@@ -125,10 +126,11 @@ did not come from.
 The entry point is the class of the document's root node (its `@type`). Validate:
 
 - with SHACL: the RDF graph of the JSON-LD document, parsed with the version's context, against
-  `shacl.ttl`, together with `hierarchy.ttl` and the `Evidence` records the document cites by IRI
-  (the `source` of each `hasEvidenceCitation`): the shapes require each cited IRI to be an
-  `rfs:Evidence`. An `Evidence` record is
-  validated on its own. Keep lexical forms as written: `assertedAt` must keep its `Z`;
+  `shacl.ttl`, together with `hierarchy.ttl` and the records the document cites by IRI: the
+  `Evidence` records named by the `source` of each `hasEvidenceCitation`, and the `Activity`
+  records named by an `Evidence` record's `wasGeneratedBy`. The shapes require each cited IRI to be
+  an `rfs:Evidence` or an `rfs:Activity`; an activity record's type is a kind of `Activity`, which
+  only the hierarchy makes it. An `Activity` record is validated on its own. Keep lexical forms as written: `assertedAt` must keep its `Z`;
 - with JSON Schema: the document's LinkML data form against `json-schema.json#/$defs/<class>`:
   the document with its JSON-LD keywords (`@context`, `@type`) removed, except that a selector's
   `@type` is written back as its `selectorType` (`"FragmentSelector"` becomes

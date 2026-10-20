@@ -2,18 +2,10 @@
     "$defs": {
         "Activity": {
             "additionalProperties": false,
-            "description": "Something that took place over a period, identified by an IRI so that every piece of evidence it generated names the same activity. Its period is given as dates; prov:startedAtTime and prov:endedAtTime would require timestamps.",
+            "description": "Something that took place over a period, identified by an IRI so that every piece of evidence it generated names the same activity. An activity is a record of its own: Evidence names it by IRI and never inlines it, so one activity that generated several records is described once. Abstract: a record is a GenericActivity or a Capture.",
             "properties": {
                 "description": {
                     "description": "Description of the entity / resource.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "endDate": {
-                    "description": "Last day of the period, included.",
-                    "format": "date",
                     "type": [
                         "string",
                         "null"
@@ -25,14 +17,6 @@
                 },
                 "name": {
                     "description": "Name of the entity / resource.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "startDate": {
-                    "description": "First day of the period, included.",
-                    "format": "date",
                     "type": [
                         "string",
                         "null"
@@ -99,7 +83,7 @@
         },
         "Any": {
             "additionalProperties": true,
-            "description": "",
+            "description": "Any value. A slot with this range accepts any value, so that the classes using it can narrow its range with slot_usage.",
             "title": "Any",
             "type": [
                 "null",
@@ -1501,6 +1485,67 @@
             "title": "C06SiteClaim",
             "type": "object"
         },
+        "Capture": {
+            "additionalProperties": false,
+            "description": "A sensor or tool fetching an exact version of an upstream record, such as a meeting transcript or a spreadsheet export. The Evidence it generates is that version; the record it fetched is the one it used. Captures of the same upstream record name the same IRI in used, so the latest capture of a record is the one with the latest endedAtTime.",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endedAtTime": {
+                    "description": "When the capture ended: the time the version it generated was fetched. Written in UTC with whole seconds and the offset +00:00, as assertedAt is.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "IRI of the activity.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startedAtTime": {
+                    "description": "When the capture started. Written in UTC with whole seconds and the offset +00:00, as assertedAt is.",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "used": {
+                    "description": "The upstream record a capture fetched, by its stable IRI: the record itself, not the version captured, which is the Evidence the capture generated. For a source whose native identifier is not an IRI, such as a meeting identifier, it is the IRI of the record's landing page.",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "wasAssociatedWith": {
+                    "description": "Responsibility of an agent for an activity (PROV), for example the farm operator who carried out the field operations a record documents. Claim-type schemas that describe a domain activity, such as a restoration, name its operator the same way. Use it only on a class that represents an activity (its PROV domain is prov:Activity); such classes declare the ProvActivity mixin. It is not attribution of a Claim: the operator and the claimant may differ, and when they coincide both relations are still stated.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "used",
+                "endedAtTime",
+                "id"
+            ],
+            "title": "Capture",
+            "type": "object"
+        },
         "CarbonCreditClassInfo": {
             "additionalProperties": false,
             "description": "Off-chain metadata representation for credit classes where the credit type is Carbon (C)",
@@ -1906,13 +1951,13 @@
             "additionalProperties": false,
             "description": "The result of a ClaimConsistencyEvaluation: whether the claim's statement and structured fields express the same assertion.",
             "properties": {
-                "claimConsistency": {
+                "outcome": {
                     "$ref": "#/$defs/ClaimConsistency",
-                    "description": "Whether the claim's statement and structured fields agree. A sub-property of outcome."
+                    "description": "Whether the claim's statement and structured fields agree."
                 }
             },
             "required": [
-                "claimConsistency"
+                "outcome"
             ],
             "title": "ClaimConsistencyResult",
             "type": "object"
@@ -2858,7 +2903,20 @@
         },
         "EvaluationResult": {
             "additionalProperties": false,
-            "description": "The conclusion of an Evaluation: its principal outcome and any qualifiers of that outcome. Each kind of evaluation has its own result type, whose outcome field is a sub-property of outcome with the values that kind allows. Attribution, time, subject, targets, method and rationale stay on the Evaluation.",
+            "description": "The conclusion of an Evaluation: its principal outcome and any qualifiers of that outcome. Each kind of evaluation has its own result type, which narrows outcome to the values that kind allows, so a query for hasResult/outcome finds every principal conclusion. Attribution, time, subject, targets, method and rationale stay on the Evaluation.",
+            "properties": {
+                "outcome": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Any"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The principal conclusion of an evaluation result. Each result type narrows it to the values its kind of evaluation allows, such as RequirementOutcome or EvidentialStance, so both validators check the value; a GenericEvaluationResult states it as a term from the vocabulary of whoever made the judgment. Qualifiers of the outcome, such as applicability or evidenceSufficiency, are separate fields."
+                }
+            },
             "title": "EvaluationResult",
             "type": "object"
         },
@@ -2934,15 +2992,11 @@
                     "description": "Genre of the cited source, from the DCMI Type Vocabulary, which the dcterms:type definition recommends. Finer kinds of evidence that a program accepts, such as a lease agreement, belong to that program's requirements, not to Evidence."
                 },
                 "wasGeneratedBy": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Activity"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "The activity that produced the cited source, with its period and who carried it out: for example the soil sampling behind a results file, or the field operations a farm management record documents. When the evidence was produced is the activity's period, not a field of Evidence, because PROV-O declares activities and entities disjoint. Evidence produced by the same activity names the same activity IRI."
+                    "description": "The IRI of the activity that produced the cited version, an Activity record of its own: either the activity behind the content, such as the soil sampling behind a results file or the field operations a farm management record documents (a GenericActivity), or, for a captured copy of a source, the Capture that fetched it. Its type says which. When the evidence was produced is the activity's period, not a field of Evidence, because PROV-O declares activities and entities disjoint. Evidence produced by the same activity names the same activity IRI.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -3187,26 +3241,26 @@
             "description": "The result of an EvidenceSupportEvaluation: whether the evidence supports, challenges or has no bearing on the claim and, where assessed, whether it is sufficient to establish that stance.",
             "if": {
                 "properties": {
-                    "evidentialStance": {
+                    "outcome": {
                         "const": "NO_BEARING"
                     }
                 },
                 "required": [
-                    "evidentialStance"
+                    "outcome"
                 ]
             },
             "properties": {
                 "evidenceSufficiency": {
                     "$ref": "#/$defs/EvidenceSufficiency",
-                    "description": "Whether the evidence is enough to establish its stance: sufficient supporting evidence establishes the claim, and sufficient challenging evidence contradicts it. It qualifies the stance; it is not a conclusion of its own, so it is not a sub-property of outcome."
+                    "description": "Whether the evidence is enough to establish its stance: sufficient supporting evidence establishes the claim, and sufficient challenging evidence contradicts it. It qualifies the stance; it is not a conclusion of its own."
                 },
-                "evidentialStance": {
+                "outcome": {
                     "$ref": "#/$defs/EvidentialStance",
-                    "description": "Whether the evidence supports or challenges what it is assessed against, or has no bearing on it. A sub-property of outcome."
+                    "description": "Whether the evidence supports or challenges what it is assessed against, or has no bearing on it."
                 }
             },
             "required": [
-                "evidentialStance"
+                "outcome"
             ],
             "then": {
                 "not": {
@@ -3325,13 +3379,13 @@
             "additionalProperties": false,
             "description": "The result of a RegistryFindingEvaluation: whether the finding is resolved as of the record's date.",
             "properties": {
-                "findingResolution": {
+                "outcome": {
                     "$ref": "#/$defs/FindingResolution",
-                    "description": "Whether the finding is resolved as of the record's date. A sub-property of outcome."
+                    "description": "Whether the finding is resolved as of the record's date."
                 }
             },
             "required": [
-                "findingResolution"
+                "outcome"
             ],
             "title": "FindingResolutionResult",
             "type": "object"
@@ -3393,6 +3447,61 @@
                 "selectorType"
             ],
             "title": "FragmentSelector",
+            "type": "object"
+        },
+        "GenericActivity": {
+            "additionalProperties": false,
+            "description": "An activity behind the content of a source, such as the soil sampling behind a results file or the field operations a farm management record documents, with its period as dates.",
+            "properties": {
+                "description": {
+                    "description": "Description of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endDate": {
+                    "description": "Last day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "IRI of the activity.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the entity / resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "startDate": {
+                    "description": "First day of the period, included.",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "wasAssociatedWith": {
+                    "description": "Responsibility of an agent for an activity (PROV), for example the farm operator who carried out the field operations a record documents. Claim-type schemas that describe a domain activity, such as a restoration, name its operator the same way. Use it only on a class that represents an activity (its PROV domain is prov:Activity); such classes declare the ProvActivity mixin. It is not attribution of a Claim: the operator and the claimant may differ, and when they coincide both relations are still stated.",
+                    "items": {
+                        "$ref": "#/$defs/Entity"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "GenericActivity",
             "type": "object"
         },
         "GenericClaim": {
@@ -3670,7 +3779,7 @@
             "description": "The result of a GenericEvaluation: a generic outcome, as a term from the vocabulary of whoever made the judgment.",
             "properties": {
                 "outcome": {
-                    "description": "The principal conclusion of an evaluation result. A GenericEvaluationResult states it as a term from the vocabulary of whoever made the judgment; every other result type states it with its own sub-property of outcome whose values that kind allows, such as requirementOutcome or evidentialStance, so both validators check the value and a query for outcome still finds every principal conclusion.",
+                    "description": "The conclusion, as a term from the vocabulary of whoever made the judgment.",
                     "type": [
                         "string",
                         "null"
@@ -4696,7 +4805,7 @@
                         "allOf": [
                             {
                                 "properties": {
-                                    "requirementOutcome": {
+                                    "outcome": {
                                         "const": "UNDETERMINED"
                                     }
                                 }
@@ -4951,10 +5060,10 @@
                     },
                     "then": {
                         "properties": {
-                            "requirementOutcome": {}
+                            "outcome": {}
                         },
                         "required": [
-                            "requirementOutcome"
+                            "outcome"
                         ]
                     }
                 },
@@ -4972,11 +5081,11 @@
                     "then": {
                         "not": {
                             "required": [
-                                "requirementOutcome"
+                                "outcome"
                             ]
                         },
                         "properties": {
-                            "requirementOutcome": {}
+                            "outcome": {}
                         }
                     }
                 }
@@ -4987,9 +5096,9 @@
                     "$ref": "#/$defs/Applicability",
                     "description": "Whether the applied requirement applies to the subject."
                 },
-                "requirementOutcome": {
+                "outcome": {
                     "$ref": "#/$defs/RequirementOutcome",
-                    "description": "Whether the applied requirement is satisfied, as of this record's date. A sub-property of outcome."
+                    "description": "Whether the applied requirement is satisfied, as of this record's date."
                 }
             },
             "required": [
@@ -5007,7 +5116,7 @@
                         "allOf": [
                             {
                                 "properties": {
-                                    "requirementOutcome": {
+                                    "outcome": {
                                         "const": "UNDETERMINED"
                                     }
                                 }
@@ -5452,13 +5561,13 @@
             "additionalProperties": false,
             "description": "The result of a RegistryReportEvaluation: the verifier's opinion of the project.",
             "properties": {
-                "verificationOpinion": {
+                "outcome": {
                     "$ref": "#/$defs/VerificationOpinion",
-                    "description": "The verifier's opinion of the project in its report. A sub-property of outcome."
+                    "description": "The verifier's opinion of the project in its report."
                 }
             },
             "required": [
-                "verificationOpinion"
+                "outcome"
             ],
             "title": "VerificationOpinionResult",
             "type": "object"

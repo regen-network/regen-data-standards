@@ -144,14 +144,6 @@
       "@type": "xsd:duration",
       "@id": "hasPermanencePeriod"
     },
-    "claimConsistency": {
-      "@id": "rfs:claimConsistency",
-      "@type": "@vocab",
-      "@context": {
-        "CONSISTENT": "rfs:Consistent",
-        "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
-      }
-    },
     "claimStatement": {
       "@id": "claimStatement"
     },
@@ -367,6 +359,10 @@
       "@type": "xsd:date",
       "@id": "schema:endDate"
     },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -391,15 +387,6 @@
         "INSUFFICIENT": "rfs:Insufficient"
       }
     },
-    "evidentialStance": {
-      "@id": "rfs:evidentialStance",
-      "@type": "@vocab",
-      "@context": {
-        "SUPPORTS": "rfs:Supports",
-        "CHALLENGES": "rfs:Challenges",
-        "NO_BEARING": "rfs:NoBearing"
-      }
-    },
     "exact": {
       "@id": "oa:exact"
     },
@@ -419,14 +406,6 @@
     },
     "findingLabel": {
       "@id": "findingLabel"
-    },
-    "findingResolution": {
-      "@id": "rfs:findingResolution",
-      "@type": "@vocab",
-      "@context": {
-        "UNRESOLVED": "rfs:FindingUnresolved",
-        "RESOLVED": "rfs:FindingResolved"
-      }
     },
     "findingType": {
       "@id": "rfs:findingType",
@@ -917,15 +896,6 @@
       "@type": "@id",
       "@id": "requestedDeviations"
     },
-    "requirementOutcome": {
-      "@id": "rfs:requirementOutcome",
-      "@type": "@vocab",
-      "@context": {
-        "SATISFIED": "rfs:Satisfied",
-        "NOT_SATISFIED": "rfs:NotSatisfied",
-        "UNDETERMINED": "rfs:Undetermined"
-      }
-    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -985,6 +955,10 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
     "suffix": {
       "@id": "oa:suffix"
     },
@@ -1001,17 +975,12 @@
       "@type": "@id",
       "@id": "schema:url"
     },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
+    },
     "value": {
       "@id": "rdf:value"
-    },
-    "verificationOpinion": {
-      "@id": "rfs:verificationOpinion",
-      "@type": "@vocab",
-      "@context": {
-        "ACCEPTANCE": "rfs:Acceptance",
-        "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
-        "REJECTION": "rfs:Rejection"
-      }
     },
     "version": {
       "@id": "schema:version"
@@ -1062,6 +1031,9 @@
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
+    "Capture": {
+      "@id": "Capture"
+    },
     "CarbonCreditClassInfo": {
       "@id": "CarbonCreditClassInfo"
     },
@@ -1072,7 +1044,17 @@
       "@id": "ClaimConsistencyEvaluation"
     },
     "ClaimConsistencyResult": {
-      "@id": "ClaimConsistencyResult"
+      "@id": "ClaimConsistencyResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@vocab",
+          "@context": {
+            "CONSISTENT": "rfs:Consistent",
+            "INTERNALLY_INCONSISTENT": "rfs:InternallyInconsistent"
+          }
+        }
+      }
     },
     "ClaimSubject": {
       "@id": "ClaimSubject"
@@ -1123,7 +1105,18 @@
       "@id": "EvidenceSupportEvaluation"
     },
     "EvidenceSupportResult": {
-      "@id": "EvidenceSupportResult"
+      "@id": "EvidenceSupportResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@vocab",
+          "@context": {
+            "SUPPORTS": "rfs:Supports",
+            "CHALLENGES": "rfs:Challenges",
+            "NO_BEARING": "rfs:NoBearing"
+          }
+        }
+      }
     },
     "Feature": {
       "@id": "geo:Feature"
@@ -1140,10 +1133,23 @@
       }
     },
     "FindingResolutionResult": {
-      "@id": "FindingResolutionResult"
+      "@id": "FindingResolutionResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@vocab",
+          "@context": {
+            "UNRESOLVED": "rfs:FindingUnresolved",
+            "RESOLVED": "rfs:FindingResolved"
+          }
+        }
+      }
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -1152,7 +1158,13 @@
       "@id": "GenericEvaluation"
     },
     "GenericEvaluationResult": {
-      "@id": "GenericEvaluationResult"
+      "@id": "GenericEvaluationResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@id"
+        }
+      }
     },
     "Geometry": {
       "@id": "geo:Geometry"
@@ -1220,7 +1232,18 @@
       "@id": "RegistryReviewEvaluation"
     },
     "RequirementAssessmentResult": {
-      "@id": "RequirementAssessmentResult"
+      "@id": "RequirementAssessmentResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@vocab",
+          "@context": {
+            "SATISFIED": "rfs:Satisfied",
+            "NOT_SATISFIED": "rfs:NotSatisfied",
+            "UNDETERMINED": "rfs:Undetermined"
+          }
+        }
+      }
     },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
@@ -1238,7 +1261,18 @@
       "@id": "oa:TextQuoteSelector"
     },
     "VerificationOpinionResult": {
-      "@id": "VerificationOpinionResult"
+      "@id": "VerificationOpinionResult",
+      "@context": {
+        "outcome": {
+          "@id": "rfs:outcome",
+          "@type": "@vocab",
+          "@context": {
+            "ACCEPTANCE": "rfs:Acceptance",
+            "ACCEPTANCE_WITH_CONTINGENCIES": "rfs:AcceptanceWithContingencies",
+            "REJECTION": "rfs:Rejection"
+          }
+        }
+      }
     },
     "VersionedLink": {
       "@id": "VersionedLink"
@@ -1264,7 +1298,7 @@
   ],
   "hasResult": {
     "@type": "ClaimConsistencyResult",
-    "claimConsistency": "INTERNALLY_INCONSISTENT"
+    "outcome": "INTERNALLY_INCONSISTENT"
   },
   "rationale": "The statement gives 12 ha restored; the area field gives 15 ha.",
   "evaluationMethod": [

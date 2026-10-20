@@ -1493,18 +1493,20 @@ slots:
     range: date
   wasGeneratedBy:
     name: wasGeneratedBy
-    description: 'The activity that produced the cited source, with its period and
-      who carried it out: for example the soil sampling behind a results file, or
-      the field operations a farm management record documents. When the evidence was
-      produced is the activity''s period, not a field of Evidence, because PROV-O
-      declares activities and entities disjoint. Evidence produced by the same activity
-      names the same activity IRI.'
+    description: 'The IRI of the activity that produced the cited version, an Activity
+      record of its own: either the activity behind the content, such as the soil
+      sampling behind a results file or the field operations a farm management record
+      documents (a GenericActivity), or, for a captured copy of a source, the Capture
+      that fetched it. Its type says which. When the evidence was produced is the
+      activity''s period, not a field of Evidence, because PROV-O declares activities
+      and entities disjoint. Evidence produced by the same activity names the same
+      activity IRI.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: prov:wasGeneratedBy
     domain_of:
     - Evidence
     range: Activity
-    inlined: true
+    inlined: false
   source:
     name: source
     description: 'The cited source: the IRI of an Evidence record.'
@@ -1622,7 +1624,7 @@ slots:
     from_schema: https://framework.regen.network/schema/
     slot_uri: schema:startDate
     domain_of:
-    - Activity
+    - GenericActivity
     - DatePeriod
     range: date
   endDate:
@@ -1631,9 +1633,40 @@ slots:
     from_schema: https://framework.regen.network/schema/
     slot_uri: schema:endDate
     domain_of:
-    - Activity
+    - GenericActivity
     - DatePeriod
     range: date
+  used:
+    name: used
+    description: 'The upstream record a capture fetched, by its stable IRI: the record
+      itself, not the version captured, which is the Evidence the capture generated.
+      For a source whose native identifier is not an IRI, such as a meeting identifier,
+      it is the IRI of the record''s landing page.'
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: prov:used
+    domain_of:
+    - Capture
+    range: uri
+  startedAtTime:
+    name: startedAtTime
+    description: When the capture started. Written in UTC with whole seconds and the
+      offset +00:00, as assertedAt is.
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: prov:startedAtTime
+    domain_of:
+    - Capture
+    range: datetime
+    pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
+  endedAtTime:
+    name: endedAtTime
+    description: 'When the capture ended: the time the version it generated was fetched.
+      Written in UTC with whole seconds and the offset +00:00, as assertedAt is.'
+    from_schema: https://framework.regen.network/schema/
+    slot_uri: prov:endedAtTime
+    domain_of:
+    - Capture
+    range: datetime
+    pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
   wasAttributedTo:
     name: wasAttributedTo
     description: 'PROV attribution: the ascribing of an entity to an agent. PROV infers
@@ -1840,16 +1873,16 @@ slots:
     inlined: true
   outcome:
     name: outcome
-    description: The principal conclusion of an evaluation result. A GenericEvaluationResult
-      states it as a term from the vocabulary of whoever made the judgment; every
-      other result type states it with its own sub-property of outcome whose values
-      that kind allows, such as requirementOutcome or evidentialStance, so both validators
-      check the value and a query for outcome still finds every principal conclusion.
+    description: The principal conclusion of an evaluation result. Each result type
+      narrows it to the values its kind of evaluation allows, such as RequirementOutcome
+      or EvidentialStance, so both validators check the value; a GenericEvaluationResult
+      states it as a term from the vocabulary of whoever made the judgment. Qualifiers
+      of the outcome, such as applicability or evidenceSufficiency, are separate fields.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:outcome
     domain_of:
-    - GenericEvaluationResult
-    range: uriorcurie
+    - EvaluationResult
+    range: Any
   assessedAgainst:
     name: assessedAgainst
     description: The exact Claim version that an evidence support evaluation's stance
@@ -1859,37 +1892,16 @@ slots:
     domain_of:
     - EvidenceSupportEvaluation
     range: uriorcurie
-  evidentialStance:
-    name: evidentialStance
-    description: Whether the evidence supports or challenges what it is assessed against,
-      or has no bearing on it. A sub-property of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:evidentialStance
-    domain_of:
-    - EvidenceSupportResult
-    range: EvidentialStance
   evidenceSufficiency:
     name: evidenceSufficiency
     description: 'Whether the evidence is enough to establish its stance: sufficient
       supporting evidence establishes the claim, and sufficient challenging evidence
-      contradicts it. It qualifies the stance; it is not a conclusion of its own,
-      so it is not a sub-property of outcome.'
+      contradicts it. It qualifies the stance; it is not a conclusion of its own.'
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:evidenceSufficiency
     domain_of:
     - EvidenceSupportResult
     range: EvidenceSufficiency
-  claimConsistency:
-    name: claimConsistency
-    description: Whether the claim's statement and structured fields agree. A sub-property
-      of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:claimConsistency
-    domain_of:
-    - ClaimConsistencyResult
-    range: ClaimConsistency
   rationale:
     name: rationale
     description: Why the issuer reached the result.
@@ -1948,16 +1960,6 @@ slots:
     domain_of:
     - RequirementAssessmentResult
     range: Applicability
-  requirementOutcome:
-    name: requirementOutcome
-    description: Whether the applied requirement is satisfied, as of this record's
-      date. A sub-property of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:requirementOutcome
-    domain_of:
-    - RequirementAssessmentResult
-    range: RequirementOutcome
   findingLabel:
     name: findingLabel
     description: The issuer's own identifier for a finding, stable across review rounds,
@@ -1979,26 +1981,6 @@ slots:
     domain_of:
     - RegistryFindingEvaluation
     range: FindingType
-  findingResolution:
-    name: findingResolution
-    description: Whether the finding is resolved as of the record's date. A sub-property
-      of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:findingResolution
-    domain_of:
-    - FindingResolutionResult
-    range: FindingResolution
-  verificationOpinion:
-    name: verificationOpinion
-    description: The verifier's opinion of the project in its report. A sub-property
-      of outcome.
-    from_schema: https://framework.regen.network/schema/
-    is_a: outcome
-    slot_uri: rfs:verificationOpinion
-    domain_of:
-    - VerificationOpinionResult
-    range: VerificationOpinion
   issuerRole:
     name: issuerRole
     description: The capacity in which the issuer is recorded as acting for this judgment.
@@ -2353,6 +2335,12 @@ slots:
     - C06PlotClaim
     range: boolean
 classes:
+  Any:
+    name: Any
+    description: Any value. A slot with this range accepts any value, so that the
+      classes using it can narrow its range with slot_usage.
+    from_schema: https://framework.regen.network/schema/
+    class_uri: linkml:Any
   Link:
     name: Link
     from_schema: https://framework.regen.network/schema/
@@ -3140,10 +3128,6 @@ classes:
         domain_of:
         - ReferenceId
         range: string
-  Any:
-    name: Any
-    from_schema: https://framework.regen.network/schema/
-    class_uri: linkml:Any
   Feature:
     name: Feature
     description: A spatial feature, such as a project or area, with a defined geometry
@@ -4814,19 +4798,21 @@ classes:
         range: date
       wasGeneratedBy:
         name: wasGeneratedBy
-        description: 'The activity that produced the cited source, with its period
-          and who carried it out: for example the soil sampling behind a results file,
-          or the field operations a farm management record documents. When the evidence
-          was produced is the activity''s period, not a field of Evidence, because
-          PROV-O declares activities and entities disjoint. Evidence produced by the
-          same activity names the same activity IRI.'
+        description: 'The IRI of the activity that produced the cited version, an
+          Activity record of its own: either the activity behind the content, such
+          as the soil sampling behind a results file or the field operations a farm
+          management record documents (a GenericActivity), or, for a captured copy
+          of a source, the Capture that fetched it. Its type says which. When the
+          evidence was produced is the activity''s period, not a field of Evidence,
+          because PROV-O declares activities and entities disjoint. Evidence produced
+          by the same activity names the same activity IRI.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: prov:wasGeneratedBy
         owner: Evidence
         domain_of:
         - Evidence
         range: Activity
-        inlined: true
+        inlined: false
     class_uri: rfs:Evidence
   EvidenceCitation:
     name: EvidenceCitation
@@ -5085,17 +5071,18 @@ classes:
     class_uri: rfs:ContentDigest
   Activity:
     name: Activity
-    description: Something that took place over a period, identified by an IRI so
-      that every piece of evidence it generated names the same activity. Its period
-      is given as dates; prov:startedAtTime and prov:endedAtTime would require timestamps.
+    description: 'Something that took place over a period, identified by an IRI so
+      that every piece of evidence it generated names the same activity. An activity
+      is a record of its own: Evidence names it by IRI and never inlines it, so one
+      activity that generated several records is described once. Abstract: a record
+      is a GenericActivity or a Capture.'
     from_schema: https://framework.regen.network/schema/
+    abstract: true
     mixins:
     - ProvActivity
     slots:
     - name
     - description
-    - startDate
-    - endDate
     - wasAssociatedWith
     attributes:
       id:
@@ -5151,26 +5138,6 @@ classes:
         - Condition
         - Entity
         range: string
-      startDate:
-        name: startDate
-        description: First day of the period, included.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: schema:startDate
-        owner: Activity
-        domain_of:
-        - Activity
-        - DatePeriod
-        range: date
-      endDate:
-        name: endDate
-        description: Last day of the period, included.
-        from_schema: https://framework.regen.network/schema/
-        slot_uri: schema:endDate
-        owner: Activity
-        domain_of:
-        - Activity
-        - DatePeriod
-        range: date
       wasAssociatedWith:
         name: wasAssociatedWith
         description: 'Responsibility of an agent for an activity (PROV), for example
@@ -5191,6 +5158,245 @@ classes:
         inlined: true
         inlined_as_list: true
     class_uri: rfs:Activity
+  GenericActivity:
+    name: GenericActivity
+    description: An activity behind the content of a source, such as the soil sampling
+      behind a results file or the field operations a farm management record documents,
+      with its period as dates.
+    comments:
+    - 'Implementation: it exists as its own class so that such an activity is validated
+      with a closed shape, which the open Activity base cannot give its direct instances,
+      as GenericClaim does for Claim.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: Activity
+    slots:
+    - startDate
+    - endDate
+    attributes:
+      startDate:
+        name: startDate
+        description: First day of the period, included.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: schema:startDate
+        owner: GenericActivity
+        domain_of:
+        - GenericActivity
+        - DatePeriod
+        range: date
+      endDate:
+        name: endDate
+        description: Last day of the period, included.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: schema:endDate
+        owner: GenericActivity
+        domain_of:
+        - GenericActivity
+        - DatePeriod
+        range: date
+      name:
+        name: name
+        description: Name of the entity / resource.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:name
+        owner: GenericActivity
+        domain_of:
+        - Link
+        - ProjectInfo
+        - Feature
+        - File
+        - Impact
+        - CreditingProgram
+        - CreditProtocol
+        - Methodology
+        - Registry
+        - BufferPoolAccount
+        - CreditClassInfo
+        - Claim
+        - Evidence
+        - Activity
+        - Entity
+        range: string
+      description:
+        name: description
+        description: Description of the entity / resource.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:description
+        owner: GenericActivity
+        domain_of:
+        - Link
+        - ProjectInfo
+        - File
+        - CreditClassInfo
+        - Evidence
+        - Activity
+        - Condition
+        - Entity
+        range: string
+      wasAssociatedWith:
+        name: wasAssociatedWith
+        description: 'Responsibility of an agent for an activity (PROV), for example
+          the farm operator who carried out the field operations a record documents.
+          Claim-type schemas that describe a domain activity, such as a restoration,
+          name its operator the same way. Use it only on a class that represents an
+          activity (its PROV domain is prov:Activity); such classes declare the ProvActivity
+          mixin. It is not attribution of a Claim: the operator and the claimant may
+          differ, and when they coincide both relations are still stated.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:wasAssociatedWith
+        list_elements_ordered: false
+        owner: GenericActivity
+        domain_of:
+        - Activity
+        range: Entity
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      id:
+        name: id
+        description: IRI of the activity.
+        from_schema: https://framework.regen.network/schema/Activity
+        identifier: true
+        owner: GenericActivity
+        domain_of:
+        - ClaimSubject
+        - Evidence
+        - Activity
+        range: uriorcurie
+        required: true
+    class_uri: rfs:GenericActivity
+  Capture:
+    name: Capture
+    description: A sensor or tool fetching an exact version of an upstream record,
+      such as a meeting transcript or a spreadsheet export. The Evidence it generates
+      is that version; the record it fetched is the one it used. Captures of the same
+      upstream record name the same IRI in used, so the latest capture of a record
+      is the one with the latest endedAtTime.
+    from_schema: https://framework.regen.network/schema/
+    is_a: Activity
+    slots:
+    - used
+    - startedAtTime
+    - endedAtTime
+    slot_usage:
+      used:
+        name: used
+        required: true
+      endedAtTime:
+        name: endedAtTime
+        required: true
+    attributes:
+      used:
+        name: used
+        description: 'The upstream record a capture fetched, by its stable IRI: the
+          record itself, not the version captured, which is the Evidence the capture
+          generated. For a source whose native identifier is not an IRI, such as a
+          meeting identifier, it is the IRI of the record''s landing page.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:used
+        owner: Capture
+        domain_of:
+        - Capture
+        range: uri
+        required: true
+      startedAtTime:
+        name: startedAtTime
+        description: When the capture started. Written in UTC with whole seconds and
+          the offset +00:00, as assertedAt is.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:startedAtTime
+        owner: Capture
+        domain_of:
+        - Capture
+        range: datetime
+        pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
+      endedAtTime:
+        name: endedAtTime
+        description: 'When the capture ended: the time the version it generated was
+          fetched. Written in UTC with whole seconds and the offset +00:00, as assertedAt
+          is.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:endedAtTime
+        owner: Capture
+        domain_of:
+        - Capture
+        range: datetime
+        required: true
+        pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+00:00$
+      name:
+        name: name
+        description: Name of the entity / resource.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:name
+        owner: Capture
+        domain_of:
+        - Link
+        - ProjectInfo
+        - Feature
+        - File
+        - Impact
+        - CreditingProgram
+        - CreditProtocol
+        - Methodology
+        - Registry
+        - BufferPoolAccount
+        - CreditClassInfo
+        - Claim
+        - Evidence
+        - Activity
+        - Entity
+        range: string
+      description:
+        name: description
+        description: Description of the entity / resource.
+        from_schema: https://framework.regen.network/schema/
+        rank: 1
+        slot_uri: schema:description
+        owner: Capture
+        domain_of:
+        - Link
+        - ProjectInfo
+        - File
+        - CreditClassInfo
+        - Evidence
+        - Activity
+        - Condition
+        - Entity
+        range: string
+      wasAssociatedWith:
+        name: wasAssociatedWith
+        description: 'Responsibility of an agent for an activity (PROV), for example
+          the farm operator who carried out the field operations a record documents.
+          Claim-type schemas that describe a domain activity, such as a restoration,
+          name its operator the same way. Use it only on a class that represents an
+          activity (its PROV domain is prov:Activity); such classes declare the ProvActivity
+          mixin. It is not attribution of a Claim: the operator and the claimant may
+          differ, and when they coincide both relations are still stated.'
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: prov:wasAssociatedWith
+        list_elements_ordered: false
+        owner: Capture
+        domain_of:
+        - Activity
+        range: Entity
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+      id:
+        name: id
+        description: IRI of the activity.
+        from_schema: https://framework.regen.network/schema/Activity
+        identifier: true
+        owner: Capture
+        domain_of:
+        - ClaimSubject
+        - Evidence
+        - Activity
+        range: uriorcurie
+        required: true
+    class_uri: rfs:Capture
   ProvEntity:
     name: ProvEntity
     description: 'PROV-O Entity: a thing with some fixed aspects, such as a Claim
@@ -6199,8 +6405,8 @@ classes:
             name: hasResult
             range_expression:
               slot_conditions:
-                requirementOutcome:
-                  name: requirementOutcome
+                outcome:
+                  name: outcome
                   equals_string: UNDETERMINED
       postconditions:
         slot_conditions:
@@ -6864,16 +7070,34 @@ classes:
   EvaluationResult:
     name: EvaluationResult
     description: 'The conclusion of an Evaluation: its principal outcome and any qualifiers
-      of that outcome. Each kind of evaluation has its own result type, whose outcome
-      field is a sub-property of outcome with the values that kind allows. Attribution,
-      time, subject, targets, method and rationale stay on the Evaluation.'
+      of that outcome. Each kind of evaluation has its own result type, which narrows
+      outcome to the values that kind allows, so a query for hasResult/outcome finds
+      every principal conclusion. Attribution, time, subject, targets, method and
+      rationale stay on the Evaluation.'
     comments:
-    - 'Implementation: abstract, so its generated shape is open. Each result type
-      narrows its own outcome sub-property rather than one shared outcome field, because
-      LinkML 1.11 cannot narrow an enum-valued slot in a subclass without breaking
-      the RDF conversion of its Python model.'
+    - 'Implementation: abstract, so its generated shape is open. outcome has range
+      Any here, and each result type narrows it with slot_usage. A base range that
+      is an enum or uriorcurie would break the RDF conversion of LinkML 1.11''s Python
+      model, which converts a narrowed value back to the base range.'
     from_schema: https://framework.regen.network/schema/
     abstract: true
+    slots:
+    - outcome
+    attributes:
+      outcome:
+        name: outcome
+        description: The principal conclusion of an evaluation result. Each result
+          type narrows it to the values its kind of evaluation allows, such as RequirementOutcome
+          or EvidentialStance, so both validators check the value; a GenericEvaluationResult
+          states it as a term from the vocabulary of whoever made the judgment. Qualifiers
+          of the outcome, such as applicability or evidenceSufficiency, are separate
+          fields.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:outcome
+        owner: EvaluationResult
+        domain_of:
+        - EvaluationResult
+        range: Any
     class_uri: rfs:EvaluationResult
   GenericEvaluationResult:
     name: GenericEvaluationResult
@@ -6881,22 +7105,22 @@ classes:
       from the vocabulary of whoever made the judgment.'
     from_schema: https://framework.regen.network/schema/
     is_a: EvaluationResult
-    slots:
-    - outcome
+    slot_usage:
+      outcome:
+        name: outcome
+        description: The conclusion, as a term from the vocabulary of whoever made
+          the judgment.
+        range: uriorcurie
     attributes:
       outcome:
         name: outcome
-        description: The principal conclusion of an evaluation result. A GenericEvaluationResult
-          states it as a term from the vocabulary of whoever made the judgment; every
-          other result type states it with its own sub-property of outcome whose values
-          that kind allows, such as requirementOutcome or evidentialStance, so both
-          validators check the value and a query for outcome still finds every principal
-          conclusion.
+        description: The conclusion, as a term from the vocabulary of whoever made
+          the judgment.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:outcome
         owner: GenericEvaluationResult
         domain_of:
-        - GenericEvaluationResult
+        - EvaluationResult
         range: uriorcurie
     class_uri: rfs:GenericEvaluationResult
   RequirementAssessmentResult:
@@ -6907,11 +7131,15 @@ classes:
     is_a: EvaluationResult
     slots:
     - applicability
-    - requirementOutcome
     slot_usage:
       applicability:
         name: applicability
         required: true
+      outcome:
+        name: outcome
+        description: Whether the applied requirement is satisfied, as of this record's
+          date.
+        range: RequirementOutcome
     attributes:
       applicability:
         name: applicability
@@ -6923,16 +7151,15 @@ classes:
         - RequirementAssessmentResult
         range: Applicability
         required: true
-      requirementOutcome:
-        name: requirementOutcome
+      outcome:
+        name: outcome
         description: Whether the applied requirement is satisfied, as of this record's
-          date. A sub-property of outcome.
+          date.
         from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:requirementOutcome
+        slot_uri: rfs:outcome
         owner: RequirementAssessmentResult
         domain_of:
-        - RequirementAssessmentResult
+        - EvaluationResult
         range: RequirementOutcome
     class_uri: rfs:RequirementAssessmentResult
     rules:
@@ -6943,8 +7170,8 @@ classes:
             equals_string: APPLICABLE
       postconditions:
         slot_conditions:
-          requirementOutcome:
-            name: requirementOutcome
+          outcome:
+            name: outcome
             required: true
       description: An applicable requirement has an outcome. Enforced by the generated
         JSON Schema; the generated SHACL does not express LinkML rules.
@@ -6955,8 +7182,8 @@ classes:
             equals_string: NOT_APPLICABLE
       postconditions:
         slot_conditions:
-          requirementOutcome:
-            name: requirementOutcome
+          outcome:
+            name: outcome
             value_presence: ABSENT
       description: A requirement that does not apply has no outcome. Enforced by the
         generated JSON Schema; the generated SHACL does not express LinkML rules.
@@ -6968,43 +7195,43 @@ classes:
     from_schema: https://framework.regen.network/schema/
     is_a: EvaluationResult
     slots:
-    - evidentialStance
     - evidenceSufficiency
     slot_usage:
-      evidentialStance:
-        name: evidentialStance
-        required: true
-    attributes:
-      evidentialStance:
-        name: evidentialStance
+      outcome:
+        name: outcome
         description: Whether the evidence supports or challenges what it is assessed
-          against, or has no bearing on it. A sub-property of outcome.
-        from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:evidentialStance
-        owner: EvidenceSupportResult
-        domain_of:
-        - EvidenceSupportResult
+          against, or has no bearing on it.
         range: EvidentialStance
         required: true
+    attributes:
       evidenceSufficiency:
         name: evidenceSufficiency
         description: 'Whether the evidence is enough to establish its stance: sufficient
           supporting evidence establishes the claim, and sufficient challenging evidence
-          contradicts it. It qualifies the stance; it is not a conclusion of its own,
-          so it is not a sub-property of outcome.'
+          contradicts it. It qualifies the stance; it is not a conclusion of its own.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:evidenceSufficiency
         owner: EvidenceSupportResult
         domain_of:
         - EvidenceSupportResult
         range: EvidenceSufficiency
+      outcome:
+        name: outcome
+        description: Whether the evidence supports or challenges what it is assessed
+          against, or has no bearing on it.
+        from_schema: https://framework.regen.network/schema/
+        slot_uri: rfs:outcome
+        owner: EvidenceSupportResult
+        domain_of:
+        - EvaluationResult
+        range: EvidentialStance
+        required: true
     class_uri: rfs:EvidenceSupportResult
     rules:
     - preconditions:
         slot_conditions:
-          evidentialStance:
-            name: evidentialStance
+          outcome:
+            name: outcome
             equals_string: NO_BEARING
       postconditions:
         slot_conditions:
@@ -7020,23 +7247,21 @@ classes:
       statement and structured fields express the same assertion.'
     from_schema: https://framework.regen.network/schema/
     is_a: EvaluationResult
-    slots:
-    - claimConsistency
     slot_usage:
-      claimConsistency:
-        name: claimConsistency
+      outcome:
+        name: outcome
+        description: Whether the claim's statement and structured fields agree.
+        range: ClaimConsistency
         required: true
     attributes:
-      claimConsistency:
-        name: claimConsistency
-        description: Whether the claim's statement and structured fields agree. A
-          sub-property of outcome.
+      outcome:
+        name: outcome
+        description: Whether the claim's statement and structured fields agree.
         from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:claimConsistency
+        slot_uri: rfs:outcome
         owner: ClaimConsistencyResult
         domain_of:
-        - ClaimConsistencyResult
+        - EvaluationResult
         range: ClaimConsistency
         required: true
     class_uri: rfs:ClaimConsistencyResult
@@ -8212,23 +8437,21 @@ classes:
       resolved as of the record''s date.'
     from_schema: https://framework.regen.network/schema/
     is_a: EvaluationResult
-    slots:
-    - findingResolution
     slot_usage:
-      findingResolution:
-        name: findingResolution
+      outcome:
+        name: outcome
+        description: Whether the finding is resolved as of the record's date.
+        range: FindingResolution
         required: true
     attributes:
-      findingResolution:
-        name: findingResolution
-        description: Whether the finding is resolved as of the record's date. A sub-property
-          of outcome.
+      outcome:
+        name: outcome
+        description: Whether the finding is resolved as of the record's date.
         from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:findingResolution
+        slot_uri: rfs:outcome
         owner: FindingResolutionResult
         domain_of:
-        - FindingResolutionResult
+        - EvaluationResult
         range: FindingResolution
         required: true
     class_uri: rfs:FindingResolutionResult
@@ -8238,23 +8461,21 @@ classes:
       of the project.'
     from_schema: https://framework.regen.network/schema/
     is_a: EvaluationResult
-    slots:
-    - verificationOpinion
     slot_usage:
-      verificationOpinion:
-        name: verificationOpinion
+      outcome:
+        name: outcome
+        description: The verifier's opinion of the project in its report.
+        range: VerificationOpinion
         required: true
     attributes:
-      verificationOpinion:
-        name: verificationOpinion
-        description: The verifier's opinion of the project in its report. A sub-property
-          of outcome.
+      outcome:
+        name: outcome
+        description: The verifier's opinion of the project in its report.
         from_schema: https://framework.regen.network/schema/
-        is_a: outcome
-        slot_uri: rfs:verificationOpinion
+        slot_uri: rfs:outcome
         owner: VerificationOpinionResult
         domain_of:
-        - VerificationOpinionResult
+        - EvaluationResult
         range: VerificationOpinion
         required: true
     class_uri: rfs:VerificationOpinionResult
@@ -9737,7 +9958,7 @@ classes:
         slot_uri: schema:startDate
         owner: DatePeriod
         domain_of:
-        - Activity
+        - GenericActivity
         - DatePeriod
         range: date
         required: true
@@ -9748,7 +9969,7 @@ classes:
         slot_uri: schema:endDate
         owner: DatePeriod
         domain_of:
-        - Activity
+        - GenericActivity
         - DatePeriod
         range: date
     class_uri: rfs:DatePeriod
