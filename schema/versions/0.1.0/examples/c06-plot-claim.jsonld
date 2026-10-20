@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1301,29 +1302,29 @@
     "numericValue": 12.75,
     "hasUnit": "unit:HA"
   },
-  "geometry": "https://example.org/c06/boundaries-2026.gpkg#feature=118",
+  "geometry": "regen:114oiA3jx7NrDzstznVNYc4Ug23XZbKVpvR3QAfmaN3w9Q3DSmBe.raw#feature=118",
   "tenureBasis": "LEASE",
   "convertedFromNaturalEcosystem": false,
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/boundaries-2026.gpkg"
+      "source": "regen:114oiA3jx7NrDzstznVNYc4Ug23XZbKVpvR3QAfmaN3w9Q3DSmBe.raw"
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/exports/tenure-2026-02.csv"
+      "source": "regen:113fkZLhHjVUJsFCeZaTcpPVFcTGNWZY9ej1hzerXY7CXzRh74VC.csv"
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf"
+      "source": "regen:113aGCh9iwWMDS2UBDk1k9Y77t728MP7TqWiTxMoTZHrsxJ5gNGy.pdf"
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/land-cover/2012/v1"
+      "source": "regen:114W5TYc4wuJawtA342sLwwaBvj2qc4u4hx98BuHsXF8jRyxb5yL.raw"
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/land-cover/2018/v1"
+      "source": "regen:113zSXBVWLq5Dds9aiLYEoPkwT8kShf8EnXv5xdyU9Rza9R5oZsP.raw"
     }
   ]
 }

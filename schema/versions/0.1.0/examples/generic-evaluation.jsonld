@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1308,7 +1309,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/evidence/walkover-photos-2026-06.zip"
+      "source": "regen:113FyhiPnebgnQywYeA4JAsgbzmfK38BVzQo8A4KK1nj3DX6wcXT.raw"
     }
   ]
 }

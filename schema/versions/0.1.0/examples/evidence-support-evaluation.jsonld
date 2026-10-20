@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1294,8 +1295,8 @@
     "id": "https://example.org/plot/A"
   },
   "hasTarget": [
-    "https://example.org/evidence/planting-log-2026-v1.pdf",
-    "https://example.org/evidence/walkover-photos-2026-06.zip"
+    "regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf",
+    "regen:113FyhiPnebgnQywYeA4JAsgbzmfK38BVzQo8A4KK1nj3DX6wcXT.raw"
   ],
   "assessedAgainst": "https://example.org/placeholder/claim-iri/generic-claim-v1",
   "hasResult": {
