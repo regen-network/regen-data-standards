@@ -44,7 +44,7 @@ flowchart LR
 | Type | Produced by | Consumed by | Reuse decision |
 |---|---|---|---|
 | C06 claims | The project developer, as claimant, from its project plan and datasets | Registry review, rule evaluation (WP5), the verifier, auditors, graph queries (WP4), publication (WP7) | New `C06Claim` schema; classes `is_a Claim` |
-| C06 subjects | Defined once in the C06 claim schema; IRIs built from the keys the project's records use | Every claim and evaluation about them | `is_a ClaimSubject` |
+| C06 subjects | Defined once in the C06 claim schema. A subject's IRI is minted once and never built from a field a claim can correct, such as `siteKey`, so it stays the same when those fields are corrected; who mints it is for [claims#55](https://github.com/regen-network/claims/issues/55) | Every claim and evaluation about them | `is_a ClaimSubject` |
 | `Evaluation` and `RequirementEvaluation` (abstract), `GenericEvaluation`, `EvidenceSupportEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
 | `RegistryRequirementEvaluation`, `RegistryFindingEvaluation`, `RegistryReportEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; each declares the `RegistryReviewEvaluation` mixin; `RegistryRequirementEvaluation is_a RequirementEvaluation`, the others `is_a Evaluation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
