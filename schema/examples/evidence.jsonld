@@ -216,14 +216,14 @@
     }
   },
   "@type": "Evidence",
-  "id": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv",
+  "id": "regen:1131WnWNMmz2hpntyUvrMbs9ctwUrJ5e1Rr4jNzq46C7xQAV9PmF.csv",
   "name": "Field management records, site S-001, 2019 to 2021",
   "sourceType": "DATASET",
   "mediaType": "text/csv",
   "contentHash": {
     "@type": "ContentDigest",
-    "algorithm": "SHA_256",
-    "digestValue": "9cc1a28c53fb99bfab83d8874bd3e2a80bb21381d0b3cd7a412738739a011a5c"
+    "algorithm": "BLAKE2B_256",
+    "digestValue": "088ee75824c34892bba8a2c2d653bc13bca59886213dc9609dd0e6184e174949"
   },
   "resolver": [
     "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"

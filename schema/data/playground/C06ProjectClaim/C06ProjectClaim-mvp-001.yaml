@@ -43,12 +43,12 @@ requestedDeviations:
       Aligns the leakage assessment with the supplementary methodology used for
       the baseline.
 hasEvidenceCitation:
-  - source: https://example.org/c06/project-plan-v2.0.pdf
+  - source: regen:113c3me6ngiwmPw79cQooyuDXja2QfQxf1XWLcDLgc2STNDau9A7.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=8
         conformsTo: http://tools.ietf.org/rfc/rfc3778
-  - source: https://example.org/c06/project-plan-v2.0.pdf
+  - source: regen:113c3me6ngiwmPw79cQooyuDXja2QfQxf1XWLcDLgc2STNDau9A7.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=16

@@ -21,7 +21,7 @@ evaluationMethod:
   - rfs:SiteInspection
 evaluationMethodDescription: On-site walkover by a community steward
 hasEvidenceCitation:
-  - source: https://example.org/evidence/walkover-photos-2026-06.zip
+  - source: regen:113FyhiPnebgnQywYeA4JAsgbzmfK38BVzQo8A4KK1nj3DX6wcXT.raw
 scope:
   appliesTo:
     - https://example.org/plot/A

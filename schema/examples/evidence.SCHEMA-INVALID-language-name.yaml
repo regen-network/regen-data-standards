@@ -1,7 +1,7 @@
 # expect: 'Czech' does not match
 # class: Evidence
 # The language of a source is a BCP 47 tag, such as cs, not a language name.
-id: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+id: regen:113aGCh9iwWMDS2UBDk1k9Y77t728MP7TqWiTxMoTZHrsxJ5gNGy.pdf
 name: Land register extract, parcel 4012/7, 10 February 2026
 sourceType: TEXT
 mediaType: application/pdf
