@@ -29,7 +29,7 @@ versions/<version>/:
 `bundle` copies the JSON-LD examples (examples/*.jsonld) into
 versions/<version>/examples/, and the records they reference
 (examples/records/*.jsonld: the Evidence records that claims and evaluations
-cite by IRI) into versions/<version>/records/, with the version's context. It
+cite by IRI, and the Activity records that Evidence names by IRI) into versions/<version>/records/, with the version's context. It
 writes the version's entry in versions/manifest.json: the source revision (the
 git tree hash of src/), the generator versions, the files and their SHA-256
 digests, the validation entry points, the examples and the records.
@@ -39,8 +39,10 @@ has its digest, and every file in versions/ is listed; every entry point
 exists in the version's JSON Schema and SHACL shapes; every example of every
 version is accepted, or, if invalid, rejected only on the paths the manifest
 names, by both validators, with no network access. SHACL checks each example
-with the version's records and hierarchy, as a graph store holds them; an
-Evidence record is checked on its own, and so is each record of records/. For the version
+with the version's records and hierarchy, as a graph store holds them: a
+document of a record class, and each file of records/, with the records of
+every other class, since merged with its own records a record would carry
+its digest twice. For the version
 src/schema.yaml declares, it also checks that src/ is the source the manifest
 records, that regenerating the artifacts gives the same bytes, that its
 examples are those of examples/, and that its manifest entry is the one
@@ -90,8 +92,9 @@ ARTIFACTS = {
     "hierarchy": "hierarchy.ttl",
 }
 # Classes whose records are documents of their own, and so entry points, besides
-# Claim and its concrete subclasses: claims and evaluations cite Evidence by IRI.
-RECORD_CLASSES = ("Evidence",)
+# Claim and its concrete subclasses: claims and evaluations cite Evidence by IRI,
+# and Evidence names the Activity that generated it by IRI.
+RECORD_CLASSES = ("Evidence", "GenericActivity", "Capture")
 # The packages whose versions shape the artifacts' bytes: rdflib serializes
 # shacl.ttl, PyYAML writes linkml.yaml.
 GENERATORS = ("linkml", "linkml-runtime", "rdflib", "PyYAML")
@@ -213,6 +216,15 @@ def corrected_context(view, context):
             if other != chosen:
                 for class_name, slot in classes:
                     scoped.setdefault(class_name, {})[name] = definition(slot, other[1])
+    # gen-jsonld-context also scopes a term to a class whose slot_usage narrows
+    # the slot's range, but without the corrections above (a uriorcurie stays
+    # an xsd:anyURI literal): derive each such term again from the class.
+    for class_name in view.all_classes():
+        term = context.get(class_name)
+        if isinstance(term, dict) and isinstance(term.get("@context"), dict):
+            for slot in view.class_induced_slots(class_name):
+                if slot.name in term["@context"] and slot.name in uses:
+                    scoped.setdefault(class_name, {}).setdefault(slot.name, definition(slot, meaning(slot)[1]))
     for class_name, terms in sorted(scoped.items()):
         term = corrected[class_name]
         term = dict(term) if isinstance(term, dict) else {"@id": term}
@@ -519,18 +531,31 @@ def check_examples(version, entry, failures):
     shapes = rdflib.Graph().parse(out / ARTIFACTS["shacl"], format="turtle")
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
     hierarchy = lexical_graph((out / ARTIFACTS["hierarchy"]).read_text(), "turtle")
-    store = rdflib.Graph()
+    # The records of each class, as a graph store holds them. A document is
+    # checked with the records of every other class: merged with its own, a
+    # record would carry its digest (a blank node) twice.
+    stores = {}
+    for record in entry.get("records", []):
+        path = VERSIONS / record["path"]
+        stores[record["class"]] = stores.get(record["class"], rdflib.Graph()) + lexical_graph(path.read_text(), "json-ld")
+
+    def others(class_name):
+        merged = rdflib.Graph()
+        for name, graph in stores.items():
+            if name != class_name:
+                merged += graph
+        return merged
+
     for record in entry.get("records", []):
         path = VERSIONS / record["path"]
         text = path.read_text()
         graph = lexical_graph(text, "json-ld")
-        store += graph
         errors = [
             error
             for node in json.loads(text)["@graph"]
             for error in json_schema_errors(schema, record["class"], data_form(view, node))
         ]
-        conforms, results = shacl_results(shapes, graph + hierarchy)
+        conforms, results = shacl_results(shapes, graph + others(record["class"]) + hierarchy)
         if errors:
             failures.append(f"{path}: JSON Schema rejects a record: {errors[0][0]}")
         if not conforms:
@@ -545,11 +570,9 @@ def check_examples(version, entry, failures):
             failures.append(f"{path}: entry point {entry_point} is not in the manifest")
             continue
         errors = json_schema_errors(schema, entry_point, data_form(view, json.loads(text)))
-        # As a graph store holds it: with the hierarchy, and, unless it is a
-        # record of its own, with the records it cites.
-        graph = lexical_graph(text, "json-ld") + hierarchy
-        if entry_point not in RECORD_CLASSES:
-            graph += store
+        # As a graph store holds it: with the hierarchy and the records of
+        # every class but its own.
+        graph = lexical_graph(text, "json-ld") + hierarchy + others(entry_point)
         conforms, results = shacl_results(shapes, graph)
         if example["valid"]:
             if errors:

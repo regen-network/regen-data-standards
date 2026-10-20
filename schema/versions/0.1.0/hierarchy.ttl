@@ -3,8 +3,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rfs: <https://framework.regen.network/schema/> .
 
-rfs:Activity rdfs:subClassOf prov:Activity .
-
 rfs:BT01ProjectInfo rdfs:subClassOf rfs:CreditProjectInfo .
 
 rfs:C01ProjectInfo rdfs:subClassOf rfs:CreditProjectInfo .
@@ -18,6 +16,8 @@ rfs:C06PlotClaim rdfs:subClassOf rfs:Claim .
 rfs:C06ProjectClaim rdfs:subClassOf rfs:Claim .
 
 rfs:C06SiteClaim rdfs:subClassOf rfs:Claim .
+
+rfs:Capture rdfs:subClassOf rfs:Activity .
 
 rfs:CarbonCreditClassInfo rdfs:subClassOf rfs:CreditClassInfo .
 
@@ -36,6 +36,8 @@ rfs:EvidenceSupportEvaluation rdfs:subClassOf rfs:Evaluation .
 rfs:EvidenceSupportResult rdfs:subClassOf rfs:EvaluationResult .
 
 rfs:FindingResolutionResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:GenericActivity rdfs:subClassOf rfs:Activity .
 
 rfs:GenericClaim rdfs:subClassOf rfs:Claim .
 
@@ -66,21 +68,13 @@ rfs:VersionedLink rdfs:subClassOf rfs:Link .
 
 rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo .
 
-rfs:claimConsistency rdfs:subPropertyOf rfs:outcome .
-
 rfs:claimStatement rdfs:subPropertyOf <http://schema.org/description> .
-
-rfs:evidentialStance rdfs:subPropertyOf rfs:outcome .
-
-rfs:findingResolution rdfs:subPropertyOf rfs:outcome .
 
 rfs:reliesOn rdfs:subPropertyOf dcterms:references .
 
-rfs:requirementOutcome rdfs:subPropertyOf rfs:outcome .
-
-rfs:verificationOpinion rdfs:subPropertyOf rfs:outcome .
-
 rfs:RequirementEvaluation rdfs:subClassOf rfs:Evaluation .
+
+rfs:Activity rdfs:subClassOf prov:Activity .
 
 rfs:CreditProjectInfo rdfs:subClassOf rfs:ProjectInfo .
 
