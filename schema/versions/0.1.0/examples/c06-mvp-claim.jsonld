@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1321,7 +1322,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/project-plan-v2.1.pdf",
+      "source": "regen:113KtGPfjqcywXAFqgV5oL69iTPJpYrQhAENjaCmbZ88iigoMCea.pdf",
       "selector": [
         {
           "@type": "FragmentSelector",
@@ -1338,11 +1339,11 @@
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/exports/soil-sampling-2026-05.csv"
+      "source": "regen:114D79ZTRqtAMYFcLy2hbE9BqTr5rx5g5JPtzLDcDKnfDnbLfcbu.csv"
     },
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/exports/field-records-S-001-2019-2021.csv"
+      "source": "regen:1131WnWNMmz2hpntyUvrMbs9ctwUrJ5e1Rr4jNzq46C7xQAV9PmF.csv"
     }
   ]
 }

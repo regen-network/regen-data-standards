@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1296,7 +1297,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/evidence/planting-log-2026-v2.pdf",
+      "source": "regen:114Aa5w4ZtD87D6dKQbxt9GkBDCiFv1Pv4k9g6qqF3g2wLdoTNZo.pdf",
       "selector": [
         {
           "@type": "FragmentSelector",

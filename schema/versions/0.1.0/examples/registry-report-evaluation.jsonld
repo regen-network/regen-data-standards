@@ -10,6 +10,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "regen": "regen:",
     "rfs": "https://framework.regen.network/schema/",
     "rft": "https://framework.regen.network/taxonomy/",
     "schema": "http://schema.org/",
@@ -1316,7 +1317,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/c06/validation-report-v1.pdf"
+      "source": "regen:1137hGN7f9wpBmUetZd1AbptTkcWAAXHH1y7LSqEa4Ti4sfjsV3p.pdf"
     }
   ]
 }

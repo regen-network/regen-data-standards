@@ -5,7 +5,7 @@
     "0.1.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "a69fefa8cf472ae632c374a2e02e05416a7ada8f",
+        "gitTree": "f40b2c50dd123b842ecc22d24cbbfe8933467895",
         "files": {
           "Activity.yaml": "c9cbf3b64db947fcaf6e6227365052cfd3e90d14",
           "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
@@ -32,7 +32,7 @@
           "RegistryReviewEvaluation.yaml": "f1c0dae5ce10457917723af0e00155f6df9ad22b",
           "SDG.yaml": "045b7f48733a2883f435262b1760f1fca349e7e3",
           "core.yaml": "f5f55c3db39deed8646cad655d6d3b1fd5c30dd3",
-          "schema.yaml": "53f73919b44f1a32d8d26a8571d202908050edac",
+          "schema.yaml": "9814e281a154cd189e1947a23d7d08daa820bf9b",
           "taxonomy.yaml": "327af5756fee87b64607c696f60d0a97baf34f43"
         }
       },
@@ -45,7 +45,7 @@
       "files": {
         "context": {
           "path": "0.1.0/context.jsonld",
-          "sha256": "875d0b9f5b5509766845919dfb57d62438dbab50bd3f7c7852d7604e6d98610b"
+          "sha256": "e0adc9cddf1c6a668f3195009447df92dece3bc630de8fe6366b9df73544ccbe"
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
@@ -58,7 +58,7 @@
         },
         "linkml": {
           "path": "0.1.0/linkml.yaml",
-          "sha256": "ad9f7d908cee9c1c01dacfe98b515dbfdffe30b4aa9da69cb125b978abaa55f7"
+          "sha256": "31f99447d88a3363606315be74b72f7d0bbc91bf52b15fc6bdef93addf54ead5"
         },
         "hierarchy": {
           "path": "0.1.0/hierarchy.ttl",
@@ -142,7 +142,7 @@
           "path": "0.1.0/examples/c06-cohort-claim.jsonld",
           "entryPoint": "C06CohortClaim",
           "valid": true,
-          "sha256": "6c1f5f44bd216b51ea33e6518d2e3b44ccae20edde450f7519c93ff06497a9fd"
+          "sha256": "a23ec8534800cd4962fcfefbad4dabcaa9cd48227285459f9af2f16dacdc36be"
         },
         {
           "path": "0.1.0/examples/c06-mvp-claim-domain-invalid.jsonld",
@@ -151,120 +151,120 @@
           "violates": [
             "practices"
           ],
-          "sha256": "ef058ed359393e6525b327dc54d3083f631e7a988bba3444771c2c874c6f0458"
+          "sha256": "3aa9450524cff5f10f1f0bfbd90d722e8bac9242f80af319e959ae0858d51a14"
         },
         {
           "path": "0.1.0/examples/c06-mvp-claim.jsonld",
           "entryPoint": "C06SiteClaim",
           "valid": true,
-          "sha256": "b0e010caf282b82fdd2ef2dcae69239833e58fdee85a0fbda9eb19678efef65b"
+          "sha256": "af40741e6e0332f69812c09210c503f5884d62dc54ece35f927a278f78acee8c"
         },
         {
           "path": "0.1.0/examples/c06-plot-claim.jsonld",
           "entryPoint": "C06PlotClaim",
           "valid": true,
-          "sha256": "a9d8d5137e8bcd05d1127d2c688ad55964a6e34151a41c4e160a43aaff94d8ee"
+          "sha256": "e38d7f3dcb5c96aa942c2f7c62984bd26cdd6409d3b41554986fcb6477ec827d"
         },
         {
           "path": "0.1.0/examples/c06-project-claim-statement.jsonld",
           "entryPoint": "C06ProjectClaim",
           "valid": true,
-          "sha256": "39f757646ff676abf0329313c1f09b8cc9e28a114c5a1e7f33ee049bdc39a4cb"
+          "sha256": "0a8d15ad78f85a4bc870593d5d4b9ed81a84dcf50c615888b33244ecce5ecf6d"
         },
         {
           "path": "0.1.0/examples/c06-project-claim.jsonld",
           "entryPoint": "C06ProjectClaim",
           "valid": true,
-          "sha256": "6d693f3a3c41e28ff7c76a6ebb505c3f1e999746c1d340015b366b546539918b"
+          "sha256": "b74e29f04786e236d956364b4be7534facf11fbc973d001eaac2c47a9b7eb58a"
         },
         {
           "path": "0.1.0/examples/capture.jsonld",
           "entryPoint": "Capture",
           "valid": true,
-          "sha256": "fea377cc74c30793d62873083a9e51a2a0d914d91bc191d726c95a9a83d53068"
+          "sha256": "b9e20437261c0e476b82bba83251249313a7675ebc0efba2850c529ee78e6bd7"
         },
         {
           "path": "0.1.0/examples/claim-consistency-evaluation.jsonld",
           "entryPoint": "ClaimConsistencyEvaluation",
           "valid": true,
-          "sha256": "83e266f2bdd885afefe5d2c29c21270a1fd15d98721fe89cf2253430a0cdf3c3"
+          "sha256": "409a84fa684a00ac928a78758a9409d71578bd6f02b89d543240be41a436dedb"
         },
         {
           "path": "0.1.0/examples/evidence-capture.jsonld",
           "entryPoint": "Evidence",
           "valid": true,
-          "sha256": "8c9c61d1a904e39dc9b410de2a3ccc71a7207d5982eb53b7271423761e2e3ae1"
+          "sha256": "b4349365d6f7c9dbf7c7e5a33c0df85b2121238d5120e44fa542d74d20387c55"
         },
         {
           "path": "0.1.0/examples/evidence-support-evaluation.jsonld",
           "entryPoint": "EvidenceSupportEvaluation",
           "valid": true,
-          "sha256": "cac94618b5c80ab5ed9365fd11568c2aed19d6a39a06259d764f92c1d44d9d3e"
+          "sha256": "b41b74d3a17e1b94efbf01526300cf1f41556d25ba46870beb6ed1c79e562be8"
         },
         {
           "path": "0.1.0/examples/evidence.jsonld",
           "entryPoint": "Evidence",
           "valid": true,
-          "sha256": "ff5d619bbfbbe49c840f98596ef8f853926ff532d91093908b62aad77a081df1"
+          "sha256": "d7e716ca62c38c0a9e2a23c7bc0721b79c3027a35d1fd4499f53bf0b67ed2667"
         },
         {
           "path": "0.1.0/examples/generic-activity.jsonld",
           "entryPoint": "GenericActivity",
           "valid": true,
-          "sha256": "2e7b95e80f12ed7ffbf732484865dd0609ddce222cdc6a158079a2d9dfae1ece"
+          "sha256": "8ef3d3ea515a9dc8de8a99ee6a7ce05aa1a235ad2162413a6dd3dc65a2548dee"
         },
         {
           "path": "0.1.0/examples/generic-claim-revision.jsonld",
           "entryPoint": "GenericClaim",
           "valid": true,
-          "sha256": "fc8dcbe0e168bec6f6f17f3c5b7cc9c9e5fc04e5fa37cb2bea894a2712dfc924"
+          "sha256": "485e1c8774cdba280ce1cdc721caf06114c05c839810611a0cb9918ab01fb56e"
         },
         {
           "path": "0.1.0/examples/generic-claim.jsonld",
           "entryPoint": "GenericClaim",
           "valid": true,
-          "sha256": "338926fc3930ebe22b4c9b3d6c559e375acbfbbedc358951a93e79f10276d479"
+          "sha256": "d03ef992ce4e486263f3babc4529359ab363a146febc867d5a24d2bd4b76b1ee"
         },
         {
           "path": "0.1.0/examples/generic-evaluation.jsonld",
           "entryPoint": "GenericEvaluation",
           "valid": true,
-          "sha256": "7bd5e234c9dafcf4230dd30cf38c8cef1ec796f1cf52545a4289e68b150c2536"
+          "sha256": "37957e1872ae5b0acf033cb14e98cd8b41628612675f45169180243773c5c004"
         },
         {
           "path": "0.1.0/examples/registry-finding-evaluation.jsonld",
           "entryPoint": "RegistryFindingEvaluation",
           "valid": true,
-          "sha256": "8caf3678d691bc9ff85a27719360f1b2c68031b1358756cdbeee421476435c45"
+          "sha256": "98233f498a25647fb3f196ced7a855feb0990f5b69d59e5ff3cf2f77fd480d76"
         },
         {
           "path": "0.1.0/examples/registry-report-evaluation.jsonld",
           "entryPoint": "RegistryReportEvaluation",
           "valid": true,
-          "sha256": "6da130efe41752099e8a5a5eff0e2f5008d139d9311eb3f729e53d9594025142"
+          "sha256": "48ecdbfa2fa77508e1fc49292650dbc8e0ee961a9f4c7a67185d934c74190080"
         },
         {
           "path": "0.1.0/examples/registry-requirement-evaluation.jsonld",
           "entryPoint": "RegistryRequirementEvaluation",
           "valid": true,
-          "sha256": "cad6296e9d4655d8cb1245e0b52da92c0067510cc8e716cca4b1be3d9c044dba"
+          "sha256": "b66b322a3885c3c60f5f928fd42fa2c862554db2f985a946205f1f04e34641b6"
         }
       ],
       "records": [
         {
           "path": "0.1.0/records/capture.jsonld",
           "class": "Capture",
-          "sha256": "2e092bab7a098357258a3087fe6a459720bd1716f128d10d08f79362987430bc"
+          "sha256": "503881ce91befea7457528458d1706ca28dfb635ab311b09e1c09e1ae7fa9624"
         },
         {
           "path": "0.1.0/records/evidence.jsonld",
           "class": "Evidence",
-          "sha256": "663d0076b313d1378f14cea2d1767301e6cd8544a53b12c8d68bffe4b9d67622"
+          "sha256": "ab8745706dc230174e9cc64171374017f646debb07ca7ac5e8dcc1c31e4df6e1"
         },
         {
           "path": "0.1.0/records/generic-activity.jsonld",
           "class": "GenericActivity",
-          "sha256": "a56b387d1728460c2507b0cf83fd18ed712f6fba45843e9d21b5513efe60be01"
+          "sha256": "92edd429499d6b4360f7ff8aca0dd6b01fcf6ec4ef28d1f8443475862c6c557d"
         }
       ]
     }
