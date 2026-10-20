@@ -1,0 +1,124 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "linkml": "https://w3id.org/linkml/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "description": {
+      "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
+    "url": {
+      "@type": "@id",
+      "@id": "schema:url"
+    },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "@id",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "Activity": {
+      "@id": "Activity"
+    },
+    "Any": {
+      "@id": "linkml:Any"
+    },
+    "Capture": {
+      "@id": "Capture"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "GenericActivity",
+  "id": "https://example.org/c06/site/S-001/activity/field-operations-2019-2021",
+  "name": "Field operations on site S-001, 2019 to 2021",
+  "startDate": "2019-01-01",
+  "endDate": "2021-12-31",
+  "wasAssociatedWith": [
+    {
+      "@type": "Entity",
+      "name": "Example Farm Operator",
+      "type": "INDIVIDUAL"
+    }
+  ]
+}

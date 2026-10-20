@@ -1,0 +1,11 @@
+# expect: 'endDate', 'startDate' were unexpected
+# class: Capture
+# A capture gives its time as timestamps, startedAtTime and endedAtTime, so two
+# captures of one record on the same day can be ordered. Dates are for the
+# period of a GenericActivity.
+id: https://example.org/sensors/meeting-sensor/captures/0042-1
+name: Capture of the transcript of meeting 0042
+used: https://meetings.example.org/m/0042
+startDate: "2026-05-02"
+endDate: "2026-05-02"
+endedAtTime: "2026-05-02T09:14:07+00:00"

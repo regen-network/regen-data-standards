@@ -203,14 +203,16 @@ slots:
   wasGeneratedBy:
     slot_uri: prov:wasGeneratedBy
     description: >-
-      The activity that produced the cited source, with its period and who
-      carried it out: for example the soil sampling behind a results file, or
-      the field operations a farm management record documents. When the
-      evidence was produced is the activity's period, not a field of Evidence,
-      because PROV-O declares activities and entities disjoint. Evidence
-      produced by the same activity names the same activity IRI.
+      The IRI of the activity that produced the cited version, an Activity
+      record of its own: either the activity behind the content, such as the
+      soil sampling behind a results file or the field operations a farm
+      management record documents (a GenericActivity), or, for a captured
+      copy of a source, the Capture that fetched it. Its type says which.
+      When the evidence was produced is the activity's period, not a field of
+      Evidence, because PROV-O declares activities and entities disjoint.
+      Evidence produced by the same activity names the same activity IRI.
     range: Activity
-    inlined: true
+    inlined: false
 
   source:
     slot_uri: oa:hasSource

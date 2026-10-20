@@ -1,0 +1,8 @@
+# expect: '2026-05-02T09:14:07Z' does not match
+# class: Capture
+# A capture's times are written in UTC with the offset +00:00, as assertedAt
+# is, so one instant has one lexical form.
+id: https://example.org/sensors/meeting-sensor/captures/0042-1
+name: Capture of the transcript of meeting 0042
+used: https://meetings.example.org/m/0042
+endedAtTime: "2026-05-02T09:14:07Z"

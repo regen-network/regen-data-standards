@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): a sensor's capture of a meeting
+# transcript. The upstream record it used is the meeting; the version it
+# fetched is the Evidence record it generated.
+id: https://example.org/sensors/meeting-sensor/captures/0042-1
+name: Capture of the transcript of meeting 0042
+used: https://meetings.example.org/m/0042
+startedAtTime: "2026-05-02T09:14:05+00:00"
+endedAtTime: "2026-05-02T09:14:07+00:00"
+wasAssociatedWith:
+  - name: Example Sensor Operator
+    type: ORGANIZATION

@@ -48,7 +48,7 @@ flowchart LR
 | `Evaluation` and `RequirementEvaluation` (abstract), `GenericEvaluation`, `EvidenceSupportEvaluation`, `ClaimConsistencyEvaluation` | Any issuer of a judgment | Review workflows (WP5), verifiers, auditors, Ledger attestation (WP6-01), external mappings (WP7) | `Attestation.yaml` rewritten: `is_a Claim`, program-agnostic |
 | `RegistryRequirementEvaluation`, `RegistryFindingEvaluation`, `RegistryReportEvaluation` | The Registry Agent, an independent verifier (VVB), the Credit Class Admin | The same | New module; each declares the `RegistryReviewEvaluation` mixin; `RegistryRequirementEvaluation is_a RequirementEvaluation`, the others `is_a Evaluation` |
 | `Evidence` | Whoever cites a source | Reviewers, the resolver (WP6-04), auditors | The #85 skeleton, extended; no subclasses |
-| `Activity` | Whoever cites the evidence it generated | Reviewers checking when and by whom evidence was produced | New module; `ProvActivity` mixin |
+| `Activity` (abstract), `GenericActivity`, `Capture` | Whoever cites the evidence it generated; for a `Capture`, the sensor or tool that fetched a source | Reviewers checking when and by whom evidence was produced, and which capture of a source is the latest | New module; `ProvActivity` mixin; records of their own, referenced by IRI |
 
 A project developer's response to a finding is a Claim by the developer (usually a revised C06
 claim with new evidence), not an evaluation.
@@ -73,7 +73,7 @@ grouped by the issuer's `findingLabel`.
 | `ClaimVocabulary.yaml` | `hasEvidence` is replaced by `hasEvidenceCitation` on the base Claim: citations that name `Evidence` records by IRI, instead of inlining them, with optional selectors. Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRequirementSet`, `governedBy`, `evaluationMethod`, `evaluationMethodDescription` and the `EvaluationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
-| `Activity.yaml` | New: `Activity` (IRI, `name`, `description`, `startDate`, `endDate`, `wasAssociatedWith`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
+| `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the `RegistryReviewEvaluation` mixin (issuer role, conditions, required method), the kinds that declare it, `RegistryRequirementEvaluation` (`is_a RequirementEvaluation`), `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
@@ -356,7 +356,7 @@ citation ([Citations](#citations)), so the record identifies the whole source.
 | `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
-| `wasGeneratedBy` | `prov:wasGeneratedBy` | `Activity` (inlined, with its IRI) | 0..1 | The activity that produced the source. |
+| `wasGeneratedBy` | `prov:wasGeneratedBy` | IRI of an `Activity` record | 0..1 | The activity that produced the cited version: the activity behind the content, or the capture that fetched it. |
 
 One IRI identifies one version, with one hash. Two records that give the same IRI different hashes
 merge, in the graph store, into one node with two, which SHACL rejects
@@ -412,14 +412,29 @@ example with a citation.
 
 ### Who produced it, and when
 
-`wasGeneratedBy` names the activity that produced the cited source,
-for example the soil sampling behind a results file, or the field operations a farm management
-record documents. The activity has its own IRI, its period (`startDate`, `endDate`, as dates) and
-who carried it out (`wasAssociatedWith`), who may differ from the claimant. The time a source was
-produced is the activity's, not a field of Evidence, because PROV-O declares activities and entities
-disjoint. Evidence produced by the same activity names the same activity IRI, so an activity always
-has one ([example](../schema/examples/evidence.INVALID-activity-without-iri.yaml) of an activity
-without an IRI being rejected). A claim reaches the
+`wasGeneratedBy` names, by IRI, the activity that produced the cited version. An activity is a
+record of its own, like `Evidence`: one activity often generates several records, and inlined, each
+would describe it again and two descriptions would merge on its IRI
+([example](../schema/examples/evidence.INVALID-inlined-activity.yaml) of an inlined activity being
+rejected). `Activity` is abstract, with two kinds:
+
+- **`GenericActivity`**, the activity behind the content, for example the soil sampling behind a
+  results file, or the field operations a farm management record documents
+  ([example](../schema/examples/generic-activity.jsonld)). It has its period (`startDate`,
+  `endDate`, as dates) and who carried it out (`wasAssociatedWith`), who may differ from the
+  claimant.
+- **`Capture`**, a sensor or tool fetching an exact version of an upstream record, such as a meeting
+  transcript or a spreadsheet export ([example](../schema/examples/capture.jsonld), and the
+  [`Evidence` record it generated](../schema/examples/evidence-capture.jsonld)). It names the
+  upstream record it fetched by its stable IRI (`used`, `prov:used`), usually its landing page, and
+  gives its time as timestamps (`startedAtTime`, `endedAtTime`, `prov:startedAtTime` and
+  `prov:endedAtTime`, in UTC with `+00:00`) rather than dates, so two captures of one record on the
+  same day can be ordered. The latest capture of an upstream record is the one with the latest
+  `endedAtTime` among those that `used` it.
+
+For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
+as the meeting; the activity's type says which. The time a source was produced is the activity's,
+not a field of Evidence, because PROV-O declares activities and entities disjoint. A claim reaches the
 activity through its evidence (claim → `hasEvidenceCitation` → `source` → `wasGeneratedBy` → activity); it does not
 describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
 requirement checks who carried out a practice, only which practices a site applies (`practices`) and
@@ -541,7 +556,10 @@ validators.
 | [`c06-cohort-claim.jsonld`](../schema/examples/c06-cohort-claim.jsonld) | A `C06CohortClaim` |
 | [`c06-plot-claim.jsonld`](../schema/examples/c06-plot-claim.jsonld) | A `C06PlotClaim` with a tenure basis, a land-use history and a GeoPackage feature, and the land register extract and land cover maps as evidence |
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
-| [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the activity that generated it |
+| [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the IRI of the activity that generated it |
+| [`generic-activity.jsonld`](../schema/examples/generic-activity.jsonld) | A `GenericActivity`, its own record: the field operations behind that dataset, with their period and operator |
+| [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the upstream record it used and its timestamps |
+| [`evidence-capture.jsonld`](../schema/examples/evidence-capture.jsonld) | The `Evidence` record that capture generated |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
@@ -557,21 +575,22 @@ handling, and that imported definitions are not separate whole-claim targets. As
 [`docs/claim-base.md`](claim-base.md):
 
 1. The validator starts from the class the root node declares (`C06SiteClaim`, `GenericEvaluation`,
-   `RegistryRequirementEvaluation`…); each has one shape. `Evaluation` and `RequirementEvaluation`
-   are abstract, like `Claim`, and `RegistryReviewEvaluation` is a mixin; none is an entry point.
+   `RegistryRequirementEvaluation`, `Capture`…); each has one shape. `Evaluation`,
+   `RequirementEvaluation` and `Activity` are abstract, like `Claim`, and `RegistryReviewEvaluation`
+   is a mixin; none is an entry point.
    Their shapes are open and check the fields their kinds share. Neither generated validator rejects a document typed with an abstract class, so the
    service has to ([claims#55](https://github.com/regen-network/claims/issues/55)).
 2. That shape includes the base Claim's constraints, through `is_a`. C06 classes narrow
    `hasSubject` to their subject class.
 3. Nested nodes (subjects, citations, scope, conditions) are checked as values of the root, not as
-   documents of their own. An `Evidence` record, with its activity, is a document of its own, with
-   `Evidence` as entry point. A claim's SHACL check that the IRIs in its citations' `source` are
+   documents of their own. An `Evidence` record is a document of its own, with `Evidence` as entry
+   point, and so is an `Activity` record, with `GenericActivity` or `Capture` as entry point. A claim's SHACL check that the IRIs in its citations' `source` are
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
    are IRIs.
 4. The shape of each entry point is closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)). The shapes of the
    abstract bases are open. In the graph store, with the published class hierarchy, the open base
-   shapes apply to every claim type and kind of evaluation as well. `make -C schema
+   shapes apply to every claim type, kind of evaluation and kind of activity as well. `make -C schema
    check-claim-examples` checks this for every example: with the hierarchy it conforms, so its
    inherited fields are accepted; an undeclared field is rejected by its own shape only; and the
    generic examples, retyped as a class defined outside this schema with a field of its own, are
@@ -620,6 +639,7 @@ the source.
 | `hasEvidence` (inlined `Evidence` nodes, #85) | Removed. Evidence is cited with `hasEvidenceCitation`: each citation names an `Evidence` record, its own document, by IRI, with optional selectors ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4254686250)) |
 | `verificationMethod` (`VerificationMethodType`, required), `verificationMethodDescriptor` | `evaluationMethod` (method IRIs, optional; required on Registry reviews) and `evaluationMethodDescription`. Who evaluated is `assertedBy` and its role; how evidence was produced is its generating activity |
 | `Evidence` IRI with a fragment (`…pdf#page=16`), `Evidence.locator` | IRI without a fragment; the position is a selector on an `EvidenceCitation` (`hasEvidenceCitation`) |
+| `Evidence.wasGeneratedBy` (an inlined `Activity`) | The IRI of an `Activity` record of its own: a `GenericActivity`, or a `Capture` for a captured copy. `Activity` is abstract |
 
 ## Known limitations
 
@@ -634,7 +654,8 @@ the source.
 - **Abstract classes are not rejected as entry points.** A document typed `Evaluation`,
   `RequirementEvaluation` or the `RegistryReviewEvaluation` mixin passes both generated validators (checked with LinkML 1.11.1), so a review
   judgment without its kind's verdict can only be caught by the service, as for a document typed
-  `Claim`.
+  `Claim`. The same holds for a document typed `Activity`, which is neither a `GenericActivity` nor a
+  `Capture`.
 - **A claim's identity no longer pins the cited bytes.** A claim holds the `Evidence` IRI, and the
   hash is in the separate record, so the ClaimIRI covers the hash only if the `Evidence` IRI is
   derived from it. The proposed ADR 0002 D9

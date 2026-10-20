@@ -1,7 +1,8 @@
-# expect: 'id' is a required property
+# expect: is not of type 'string'
 # class: Evidence
-# The activity that generated a piece of evidence is identified by an IRI, so
-# that every piece of evidence it produced names the same activity.
+# wasGeneratedBy is the IRI of an Activity record. The activity is its own
+# record, described once for every piece of evidence it generated; inlining it
+# would describe it again in each.
 id: https://example.org/c06/exports/field-records-S-001-2019-2021.csv
 name: Field management records, site S-001, 2019 to 2021
 sourceType: DATASET

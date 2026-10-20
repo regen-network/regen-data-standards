@@ -138,6 +138,10 @@
       "@type": "xsd:date",
       "@id": "schema:endDate"
     },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -411,6 +415,10 @@
     "startDateBasis": {
       "@id": "startDateBasis"
     },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
     "suffix": {
       "@id": "oa:suffix"
     },
@@ -426,6 +434,10 @@
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
     },
     "value": {
       "@id": "rdf:value"
@@ -467,6 +479,9 @@
     "C06SiteClaim": {
       "@id": "C06SiteClaim"
     },
+    "Capture": {
+      "@id": "Capture"
+    },
     "Claim": {
       "@id": "Claim"
     },
@@ -496,6 +511,9 @@
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
     },
     "GenericClaim": {
       "@id": "GenericClaim"

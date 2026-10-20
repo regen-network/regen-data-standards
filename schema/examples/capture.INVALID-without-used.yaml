@@ -1,0 +1,7 @@
+# expect: 'used' is a required property
+# class: Capture
+# A capture names the upstream record it fetched, so that every capture of the
+# same record can be found and the latest one chosen.
+id: https://example.org/sensors/meeting-sensor/captures/0042-1
+name: Capture of the transcript of meeting 0042
+endedAtTime: "2026-05-02T09:14:07+00:00"
