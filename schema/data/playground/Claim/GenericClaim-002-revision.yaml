@@ -12,7 +12,7 @@ assertedAt: "2026-05-20T12:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
 hasEvidenceCitation:
-  - source: https://example.org/evidence/planting-log-2026-v2.pdf
+  - source: regen:114Aa5w4ZtD87D6dKQbxt9GkBDCiFv1Pv4k9g6qqF3g2wLdoTNZo.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=2

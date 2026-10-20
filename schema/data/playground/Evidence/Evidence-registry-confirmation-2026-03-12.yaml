@@ -1,11 +1,11 @@
 # Synthetic example (example.org identifiers): the Evidence record for
 # Registry confirmation letter, 12 March 2026, described once and cited by IRI.
-id: https://example.org/registry/confirmation-2026-03-12.pdf
+id: regen:114mYS8xzdfuURCqUvYBPQK6hWuXoJn1zLppHpY2UciBkmz8Fawk.pdf
 name: Registry confirmation letter, 12 March 2026
 sourceType: TEXT
 mediaType: application/pdf
 contentHash:
-  algorithm: SHA_256
-  digestValue: 06379123b857f6899002024e6a1d89eced2583a5ee1d09b8f3952f21e9bdc31f
+  algorithm: BLAKE2B_256
+  digestValue: f039eb2400e53afccc14e11fb35063ee6dad328c4b0c05c691b59f9681ed2dd9
 resolver:
   - https://example.org/registry/confirmation-2026-03-12.pdf

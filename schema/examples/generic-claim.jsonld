@@ -304,7 +304,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/evidence/planting-log-2026-v1.pdf",
+      "source": "regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf",
       "selector": [
         {
           "@type": "FragmentSelector",

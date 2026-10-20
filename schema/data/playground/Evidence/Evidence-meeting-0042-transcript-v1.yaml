@@ -1,6 +1,6 @@
 # Synthetic example (example.org identifiers): the Evidence record a sensor's
 # capture generated, the exact version of a meeting transcript it fetched.
-id: https://example.org/captures/meeting-0042-v1.txt
+id: regen:11429vEez5fWxy1X4EUPQtsmR4g1MnZgmsTKjrbAnJqukbwkDBaH.txt
 name: Transcript of meeting 0042, as captured on 2 May 2026
 sourceType: TEXT
 mediaType: text/plain

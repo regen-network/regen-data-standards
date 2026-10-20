@@ -12,7 +12,7 @@ hasSubject:
   id: https://example.org/plot/A
 hasEvidenceCitation:
   - source:
-      id: https://example.org/evidence/planting-log-2026-v1.pdf
+      id: regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf
       name: Planting log, spring 2026 (v1)
       sourceType: TEXT
       mediaType: application/pdf

@@ -1,13 +1,13 @@
 # Synthetic example (example.org identifiers): the Evidence record for
 # Land register extract, parcel 4012/7, 10 February 2026, described once and cited by IRI.
 # The extract is in Czech; the plot claim that cites it is in English.
-id: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+id: regen:113aGCh9iwWMDS2UBDk1k9Y77t728MP7TqWiTxMoTZHrsxJ5gNGy.pdf
 name: Land register extract, parcel 4012/7, 10 February 2026
 sourceType: TEXT
 mediaType: application/pdf
 inLanguage: cs
 contentHash:
-  algorithm: SHA_256
-  digestValue: ab7b53c54ef38ad04b05a4ec3f504d99916c4360983e4f9a9febc1da0b491f0a
+  algorithm: BLAKE2B_256
+  digestValue: 52eaf82fe3f4c8e3a106ea9d7b3f4145e2e498f5216f81349043504fdf48b7c6
 resolver:
   - https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf

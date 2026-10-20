@@ -389,7 +389,7 @@ page narrowed to a quotation. In JSON-LD a citation reads as Web Annotation JSON
 ```json
 "hasEvidenceCitation": [{
   "@type": "EvidenceCitation",
-  "source": "https://example.org/c06/project-plan-v2.1.pdf",
+  "source": "regen:113KtGPfjqcywXAFqgV5oL69iTPJpYrQhAENjaCmbZ88iigoMCea.pdf",
   "selector": [{
     "@type": "FragmentSelector",
     "value": "page=16",
@@ -454,12 +454,17 @@ first candidate to reuse.
 They are not stored in claims: current availability, access and the currently offered licence change
 after the citation.
 
-**Evidence IRI.** Still open, to decide with WP6-04 and
-[claims#1](https://github.com/regen-network/claims/issues/1): the source's own versioned identifier, an
-IRI derived from its hash, or a storage IRI that includes a revision. An editable source, such as a
-spreadsheet or database, is cited through a captured export and its hash. Since a claim now holds only
-the IRI, the choice decides whether the claim's identity still pins the cited bytes: only an IRI
-derived from the hash does (see [Known limitations](#known-limitations)).
+**Evidence IRI.** The schema requires an IRI without a fragment and accepts any such IRI, and
+both `SHA_256` and `BLAKE2B_256` digests, so the standard does not depend on one ledger. The claims
+service's proposed rule ([ADR 0002 D9](https://github.com/regen-network/claims/blob/f23af28ceff3bdd19591f2e1c73f034b7235726d/docs/adr/0002-claim-and-snapshot-identity.md#L62-L67), [claims#60](https://github.com/regen-network/claims/pull/60)) is stricter: the `Evidence` IRI is the Regen
+Ledger Raw IRI of the cited bytes, `regen:<base58check(0x00 ‖ 0x01 ‖ BLAKE2b-256 hash)>.<ext>`, with
+the extension taken from `mediaType` (`raw` when it maps to none of the ledger's canonical
+extensions), so the record carries a `BLAKE2B_256` digest. The examples follow that rule, so the
+service admits them; their synthetic digests are not hashes of real files. LinkML reads a `regen:`
+IRI as a CURIE, so `gen-rdf` passes the `regen` prefix, which expands to itself, to `linkml-convert`
+(see `schema/README.md`); the schema does not declare it, which would break JSON-LD processors. A Claim
+then pins the cited bytes through the IRI it cites. An editable source, such as a spreadsheet or
+database, is cited through a captured export and its hash.
 
 ## Shared terms
 
@@ -656,12 +661,10 @@ the source.
   judgment without its kind's verdict can only be caught by the service, as for a document typed
   `Claim`. The same holds for a document typed `Activity`, which is neither a `GenericActivity` nor a
   `Capture`.
-- **A claim's identity no longer pins the cited bytes.** A claim holds the `Evidence` IRI, and the
-  hash is in the separate record, so the ClaimIRI covers the hash only if the `Evidence` IRI is
-  derived from it. The proposed ADR 0002 D9
-  ([claims#60 at 76e8932](https://github.com/regen-network/claims/blob/76e8932c77be0ccf66bd1339d5394a6bd7348481/docs/adr/0002-claim-and-snapshot-identity.md))
-  treats an evidence hash as content inside the Claim. Whether `Evidence` IRIs are content-derived is open (see
-  [Evidence IRI](#evidence)).
+- **A claim's identity pins the cited bytes only through a hash-derived IRI.** A claim holds the
+  `Evidence` IRI, and the hash is in the separate record, so the ClaimIRI covers the hash only if the
+  `Evidence` IRI is derived from it, as the Raw IRIs of the examples are. The schema does not require
+  this (see [Evidence IRI](#evidence)).
 - **Two digests and a duplicate look the same.** A digest is a blank node, so the same record loaded
   twice into one merged graph also has two `contentHash` values, and SHACL rejects it like a
   conflicting record. The graph store loads each record once, or keeps each document in its own

@@ -21,7 +21,7 @@ permanencePeriod:
   startDate: "2031-04-15"
   endDate: "2041-04-14"
 hasEvidenceCitation:
-  - source: https://example.org/c06/project-plan-v2.0.pdf
+  - source: regen:113c3me6ngiwmPw79cQooyuDXja2QfQxf1XWLcDLgc2STNDau9A7.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=8
