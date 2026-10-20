@@ -3,9 +3,10 @@ name: Activity
 description: >-
   A PROV activity: something that took place over a period and that agents
   were responsible for, such as the soil sampling or the field operations that
-  produced a piece of evidence. Evidence names the activity that generated it
-  with wasGeneratedBy; the activity states when it took place and who carried
-  it out. See docs/evaluation-and-evidence.md.
+  produced a piece of evidence, or a sensor's capture of a source. An activity
+  is a record of its own, which Evidence names by IRI with wasGeneratedBy; the
+  activity states when it took place and who carried it out. See
+  docs/evaluation-and-evidence.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -23,25 +24,60 @@ default_range: string
 
 classes:
   Activity:
+    abstract: true
     class_uri: rfs:Activity
     mixins:
       - ProvActivity
     description: >-
       Something that took place over a period, identified by an IRI so that
-      every piece of evidence it generated names the same activity. Its period
-      is given as dates; prov:startedAtTime and prov:endedAtTime would require
-      timestamps.
+      every piece of evidence it generated names the same activity. An
+      activity is a record of its own: Evidence names it by IRI and never
+      inlines it, so one activity that generated several records is described
+      once. Abstract: a record is a GenericActivity or a Capture.
     slots:
       - name
       - description
-      - startDate
-      - endDate
       - wasAssociatedWith
     attributes:
       id:
         identifier: true
         range: uriorcurie
         description: IRI of the activity.
+
+  GenericActivity:
+    is_a: Activity
+    class_uri: rfs:GenericActivity
+    description: >-
+      An activity behind the content of a source, such as the soil sampling
+      behind a results file or the field operations a farm management record
+      documents, with its period as dates.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such an activity
+        is validated with a closed shape, which the open Activity base cannot
+        give its direct instances, as GenericClaim does for Claim.
+    slots:
+      - startDate
+      - endDate
+
+  Capture:
+    is_a: Activity
+    class_uri: rfs:Capture
+    description: >-
+      A sensor or tool fetching an exact version of an upstream record, such
+      as a meeting transcript or a spreadsheet export. The Evidence it
+      generates is that version; the record it fetched is the one it used.
+      Captures of the same upstream record name the same IRI in used, so the
+      latest capture of a record is the one with the latest endedAtTime.
+    slots:
+      - used
+      - startedAtTime
+      - endedAtTime
+    slot_usage:
+      used:
+        required: true
+      endedAtTime:
+        required: true
 
 slots:
   wasAssociatedWith:
@@ -70,3 +106,26 @@ slots:
     description: >-
       Last day of the period, included.
     range: date
+  used:
+    slot_uri: prov:used
+    description: >-
+      The upstream record a capture fetched, by its stable IRI: the record
+      itself, not the version captured, which is the Evidence the capture
+      generated. For a source whose native identifier is not an IRI, such as
+      a meeting identifier, it is the IRI of the record's landing page.
+    range: uri
+  startedAtTime:
+    slot_uri: prov:startedAtTime
+    description: >-
+      When the capture started. Written in UTC with whole seconds and the
+      offset +00:00, as assertedAt is.
+    range: datetime
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"
+  endedAtTime:
+    slot_uri: prov:endedAtTime
+    description: >-
+      When the capture ended: the time the version it generated was fetched.
+      Written in UTC with whole seconds and the offset +00:00, as assertedAt
+      is.
+    range: datetime
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"
