@@ -3,6 +3,10 @@ name: Schemas
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  # Regen Ledger data module IRIs, such as regen:13toVg...rdf, use regen as
+  # their scheme. The prefix expands to itself, so such an IRI is read as
+  # written rather than rejected as a CURIE with an unknown prefix.
+  regen: "regen:"
   rft: https://framework.regen.network/taxonomy/
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/

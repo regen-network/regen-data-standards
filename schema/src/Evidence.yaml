@@ -12,6 +12,7 @@ description: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  regen: "regen:"
   schema: http://schema.org/
   dcterms: http://purl.org/dc/terms/
   dcmitype: http://purl.org/dc/dcmitype/

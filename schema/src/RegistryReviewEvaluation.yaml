@@ -9,6 +9,7 @@ description: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  regen: "regen:"
 
 imports:
   - linkml:types
