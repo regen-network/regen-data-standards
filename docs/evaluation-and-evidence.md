@@ -433,7 +433,15 @@ rejected). `Activity` is abstract, with two kinds:
   `endedAtTime` among those that `used` it.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
-as the meeting; the activity's type says which. The time a source was produced is the activity's,
+as the meeting; the activity's type says which.
+
+One capture can generate several records. A meeting sensor fetches the transcript and the calendar
+entry, two `Evidence` records with the same `wasGeneratedBy`. What a record supports depends on what
+it is, and claims say so through what they cite: who spoke is a claim citing the transcript lines
+each speaker spoke ([example](../schema/examples/generic-claim-speakers.jsonld)), while who was invited
+is a claim citing the calendar entry ([example](../schema/examples/generic-claim-participants.jsonld)).
+An invitation is not attendance, so the second claim says less, and a reader can tell the two apart
+by their evidence. The time a source was produced is the activity's,
 not a field of Evidence, because PROV-O declares activities and entities disjoint. A claim reaches the
 activity through its evidence (claim → `hasEvidenceCitation` → `source` → `wasGeneratedBy` → activity); it does not
 describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
@@ -565,6 +573,8 @@ validators.
 | [`generic-activity.jsonld`](../schema/examples/generic-activity.jsonld) | A `GenericActivity`, its own record: the field operations behind that dataset, with their period and operator |
 | [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the upstream record it used and its timestamps |
 | [`evidence-capture.jsonld`](../schema/examples/evidence-capture.jsonld) | The `Evidence` record that capture generated |
+| [`generic-claim-speakers.jsonld`](../schema/examples/generic-claim-speakers.jsonld) | A `GenericClaim` that names who spoke in a meeting, citing the transcript lines each spoke |
+| [`generic-claim-participants.jsonld`](../schema/examples/generic-claim-participants.jsonld) | A `GenericClaim` that names who was invited to the same meeting, citing its calendar entry, a second record of the same capture |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
