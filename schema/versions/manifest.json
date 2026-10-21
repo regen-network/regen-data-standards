@@ -5,9 +5,9 @@
     "0.1.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "f40b2c50dd123b842ecc22d24cbbfe8933467895",
+        "gitTree": "2942e614d71494bbb2ee8b30cd4704fdd9ef6b96",
         "files": {
-          "Activity.yaml": "c9cbf3b64db947fcaf6e6227365052cfd3e90d14",
+          "Activity.yaml": "606e2ced3d2f1204421ae419a67167f841b15faa",
           "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
           "BufferPoolAccount.yaml": "59e19688da66066fdc14a2a27560a5c5b56a3fe5",
           "C01ProjectInfo.yaml": "994223f47da82e9d5721b12294989412a2f91b61",
@@ -49,7 +49,7 @@
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
-          "sha256": "12eea8a50df2fcd1ba38b4bc534d6e9e4d707f1cdf31ecc4529762af2898a67d",
+          "sha256": "3c3daa8d9d4fbefa36e4c3e14772d4adea318f401ed03ae17eb75a37940e9930",
           "id": "https://framework.regen.network/schema/versions/0.1.0/json-schema.json"
         },
         "shacl": {
@@ -58,7 +58,7 @@
         },
         "linkml": {
           "path": "0.1.0/linkml.yaml",
-          "sha256": "31f99447d88a3363606315be74b72f7d0bbc91bf52b15fc6bdef93addf54ead5"
+          "sha256": "31c8307269837cf8527a7d20fa5a2c30aaa8ffdfa89146b0a95fde668ddfaeed"
         },
         "hierarchy": {
           "path": "0.1.0/hierarchy.ttl",
@@ -214,10 +214,22 @@
           "sha256": "8ef3d3ea515a9dc8de8a99ee6a7ce05aa1a235ad2162413a6dd3dc65a2548dee"
         },
         {
+          "path": "0.1.0/examples/generic-claim-participants.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "d486a4401a090be7a4b4c15ac633622b90cac1b8b120164ed22a23a0c45fde1a"
+        },
+        {
           "path": "0.1.0/examples/generic-claim-revision.jsonld",
           "entryPoint": "GenericClaim",
           "valid": true,
           "sha256": "485e1c8774cdba280ce1cdc721caf06114c05c839810611a0cb9918ab01fb56e"
+        },
+        {
+          "path": "0.1.0/examples/generic-claim-speakers.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "2de35917a0634a88eb09ef344dad815c99f70e371ae311f8db0873dbea78c723"
         },
         {
           "path": "0.1.0/examples/generic-claim.jsonld",
@@ -259,7 +271,7 @@
         {
           "path": "0.1.0/records/evidence.jsonld",
           "class": "Evidence",
-          "sha256": "ab8745706dc230174e9cc64171374017f646debb07ca7ac5e8dcc1c31e4df6e1"
+          "sha256": "2ec82ec5d3106b5c776147d0ee43c608bebeab881a5b2de4de322e633bd90353"
         },
         {
           "path": "0.1.0/records/generic-activity.jsonld",

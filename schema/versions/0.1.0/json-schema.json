@@ -1524,7 +1524,6 @@
                 },
                 "used": {
                     "description": "The upstream record a capture fetched, by its stable IRI: the record itself, not the version captured, which is the Evidence the capture generated. For a source whose native identifier is not an IRI, such as a meeting identifier, it is the IRI of the record's landing page.",
-                    "format": "uri",
                     "type": "string"
                 },
                 "wasAssociatedWith": {
