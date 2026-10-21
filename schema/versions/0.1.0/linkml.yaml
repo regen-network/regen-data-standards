@@ -1649,7 +1649,7 @@ slots:
     slot_uri: prov:used
     domain_of:
     - Capture
-    range: uri
+    range: uriorcurie
   startedAtTime:
     name: startedAtTime
     description: When the capture started. Written in UTC with whole seconds and the
@@ -5301,7 +5301,7 @@ classes:
         owner: Capture
         domain_of:
         - Capture
-        range: uri
+        range: uriorcurie
         required: true
       startedAtTime:
         name: startedAtTime
