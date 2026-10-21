@@ -113,7 +113,7 @@ slots:
       itself, not the version captured, which is the Evidence the capture
       generated. For a source whose native identifier is not an IRI, such as
       a meeting identifier, it is the IRI of the record's landing page.
-    range: uri
+    range: uriorcurie
   startedAtTime:
     slot_uri: prov:startedAtTime
     description: >-
