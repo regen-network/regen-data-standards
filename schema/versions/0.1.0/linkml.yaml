@@ -8,6 +8,9 @@ prefixes:
   rfs:
     prefix_prefix: rfs
     prefix_reference: https://framework.regen.network/schema/
+  regen:
+    prefix_prefix: regen
+    prefix_reference: 'regen:'
   rft:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/
@@ -29,9 +32,6 @@ prefixes:
   sdgs:
     prefix_prefix: sdgs
     prefix_reference: https://sdgs.un.org/goals/
-  regen:
-    prefix_prefix: regen
-    prefix_reference: 'regen:'
   xsd:
     prefix_prefix: xsd
     prefix_reference: http://www.w3.org/2001/XMLSchema#
