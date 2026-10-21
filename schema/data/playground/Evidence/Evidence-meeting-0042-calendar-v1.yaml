@@ -1,0 +1,13 @@
+# Synthetic example (example.org identifiers): the calendar entry of meeting
+# 0042, which the same capture as the transcript fetched. It lists who was
+# invited, not who attended.
+id: regen:113AFcsdwJ2v5nzdNnV3g9dqwgs4xiU1TFJLseqU17BniEGK4tEJ.json
+name: Calendar entry of meeting 0042, as captured on 2 May 2026
+sourceType: DATASET
+mediaType: application/json
+contentHash:
+  algorithm: BLAKE2B_256
+  digestValue: 1c666c0f521d74fec901ada1e308d6a3b26948ea0032cb55a302e574988d9d40
+resolver:
+  - https://example.org/captures/meeting-0042-calendar-v1.json
+wasGeneratedBy: https://example.org/sensors/meeting-sensor/captures/0042-1
