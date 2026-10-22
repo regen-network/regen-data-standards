@@ -27,7 +27,7 @@ flowchart LR
     A[Evaluation]
     E[Evidence]
     ACT[Activity]
-    OP["Operator (Agent)"]
+    OP["Agent: an operator, or the sensor version for a Capture"]
     S["Subjects: Project, Cohort, Site, Plot"]
 
     PC & CC & SC & PLC -- hasSubject --> S
@@ -435,7 +435,11 @@ rejected). `Activity` is abstract, with two kinds:
   gives its time as timestamps (`startedAtTime`, `endedAtTime`, `prov:startedAtTime` and
   `prov:endedAtTime`, in UTC with `+00:00`) rather than dates, so two captures of one record on the
   same day can be ordered. `endedAtTime` is the time of the fetch, including when that time is
-  corrected; it is never the time a correction was submitted.
+  corrected; it is never the time a correction was submitted. Its agent (`wasAssociatedWith`) is
+  the version of the sensor that ran: a `SoftwareAgent` record for that version, with
+  `softwareVersion` (`schema:softwareVersion`) and the IRI of the sensor across its versions in
+  `isVersionOf` (`dcterms:isVersionOf`). A new version of the sensor is a new record, so no record
+  changes when it is updated.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
@@ -608,7 +612,7 @@ validators.
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the IRI of the activity that generated it |
 | [`generic-activity.jsonld`](../schema/examples/generic-activity.jsonld) | A `GenericActivity`, its own record: the field operations behind that dataset, with their period and operator |
-| [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the upstream record it used and its timestamps |
+| [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the sensor version that ran, the upstream record it used and its timestamps |
 | [`capture-correction.jsonld`](../schema/examples/capture-correction.jsonld), [`capture-correction-again.jsonld`](../schema/examples/capture-correction-again.jsonld) | Two successive corrections of the same capture, linked by `replaces`; timestamps describe the fetch, not the correction order |
 | [`capture-refetch.jsonld`](../schema/examples/capture-refetch.jsonld) | A separate fetch of the same source on the next day, without `replaces` |
 | [`generic-activity-correction.jsonld`](../schema/examples/generic-activity-correction.jsonld) | A correction of the field operations' end date, with `replaces` inherited from Activity |
@@ -741,6 +745,8 @@ the source.
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
 - **Operators have no IRI yet.** `wasAssociatedWith` names an `Agent`, which has no identifier until
   [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
-  activity is a node with a name and type and cannot be joined across activities.
+  activity, or the sensor version of a capture, is a node with a name and type and cannot be joined
+  across activities. A sensor version names the sensor across its versions by IRI (`isVersionOf`),
+  and the record for the sensor cannot carry that IRI until then.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.

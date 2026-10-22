@@ -79,7 +79,8 @@ classes:
       whose used names that record, using each capture's current corrected
       version. A capture fetches one record: a sensor that fetches several parts of a
       source, such as a meeting's transcript and its calendar entry, records
-      one capture for each.
+      one capture for each. The sensor that ran is named in wasAssociatedWith
+      by the SoftwareAgent record for its version.
     slots:
       - used
       - startedAtTime

@@ -52,6 +52,13 @@
       "@type": "@id",
       "@id": "dcterms:replaces"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
+    },
     "startDate": {
       "@type": "xsd:date",
       "@id": "schema:startDate"
@@ -133,8 +140,10 @@
   "endedAtTime": "2026-05-02T09:14:07+00:00",
   "wasAssociatedWith": [
     {
-      "@type": "Organization",
-      "name": "Example Sensor Operator"
+      "@type": "SoftwareAgent",
+      "name": "Example Meeting Sensor 1.4.2",
+      "softwareVersion": "1.4.2",
+      "isVersionOf": "https://example.org/sensors/meeting-sensor"
     }
   ]
 }
