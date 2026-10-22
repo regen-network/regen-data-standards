@@ -8,9 +8,6 @@ prefixes:
   rfs:
     prefix_prefix: rfs
     prefix_reference: https://framework.regen.network/schema/
-  regen:
-    prefix_prefix: regen
-    prefix_reference: 'regen:'
   rft:
     prefix_prefix: rft
     prefix_reference: https://framework.regen.network/taxonomy/

@@ -55,7 +55,7 @@ The check validates every document with both published validators:
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
-example is also converted to RDF with pyld, a JSON-LD processor that follows the
+example and record document is also converted to RDF with pyld, a JSON-LD processor that follows the
 JSON-LD 1.1 algorithms, and must give the same graph as rdflib: rdflib's parser
 accepts some contexts that conforming processors reject, such as a cyclic IRI
 mapping. The class of a fixture is the part of its file name before the first
@@ -121,6 +121,7 @@ import rdflib
 import yaml
 from jsonschema.exceptions import best_match
 from linkml_runtime.utils.schemaview import SchemaView
+from pyld import jsonld as pyld
 from pyshacl import validate as shacl_validate
 from rdflib.compare import isomorphic
 from rdflib.namespace import RDF, RDFS, SH
@@ -263,6 +264,21 @@ def build(bundle, class_name, source, data=None):
         data = yaml.safe_load(Path(source).read_text())
     document = {"@context": bundle.context, **typed(bundle.view, class_name, data)}
     return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
+
+
+def same_rdf_with_pyld(path, text):
+    """Convert a JSON-LD document with pyld and compare the RDF with rdflib's."""
+    try:
+        nquads = pyld.to_rdf(json.loads(text), {"format": "application/n-quads"})
+    except pyld.JsonLdError as error:
+        print(f"❌ {path}: pyld rejects it ({error.type}: {error})")
+        return False
+    if isomorphic(rdflib.Graph().parse(data=nquads, format="nquads"),
+                  rdflib.Graph().parse(data=text, format="json-ld")):
+        print(f"✅ {path}: pyld gives the same RDF as rdflib")
+        return True
+    print(f"❌ {path}: pyld and rdflib give different RDF")
+    return False
 
 
 def lexical_graph(text, format):
@@ -450,6 +466,8 @@ def examples(mode):
         if not Path(path).exists() or Path(path).read_text() != records_document(bundle, class_name, pattern):
             print(f"❌ {path} is stale: run make gen-claim-examples")
             failures += 1
+        elif not same_rdf_with_pyld(path, Path(path).read_text()):
+            failures += 1
 
     for fixture, example in EXAMPLES.items():
         class_name = fixture_class(fixture)
@@ -458,6 +476,8 @@ def examples(mode):
             print(f"❌ {example} is stale: run make gen-claim-examples")
             failures += 1
             continue
+        if not same_rdf_with_pyld(example, text):
+            failures += 1
         valid, output = json_schema_check(bundle, fixture, class_name)
         if valid:
             print(f"✅ {fixture}: conforms to JSON Schema")
