@@ -71,7 +71,8 @@ classes:
       latest capture of a record is the one with the latest endedAtTime. A
       capture fetches one record: a sensor that fetches several parts of a
       source, such as a meeting's transcript and its calendar entry, records
-      one capture for each.
+      one capture for each. The sensor that ran is named in wasAssociatedWith
+      by the SoftwareAgent record for its version.
     slots:
       - used
       - startedAtTime

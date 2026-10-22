@@ -1,6 +1,7 @@
 {
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
@@ -46,6 +47,13 @@
     "numericValue": {
       "@type": "xsd:float",
       "@id": "qudt:value"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
     },
     "startDate": {
       "@type": "xsd:date",
