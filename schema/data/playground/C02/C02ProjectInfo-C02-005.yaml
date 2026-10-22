@@ -51,10 +51,10 @@ hasCoBenefits:
 hasProjectDeveloper:
   name: Enrichmond Foundation
   description: Foundation supporting community development in Richmond, Virginia
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Ecofor LLC
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

@@ -22,6 +22,13 @@
       "@type": "xsd:date",
       "@id": "adoptionDate"
     },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
@@ -145,18 +152,6 @@
     "endedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:endedAtTime"
-    },
-    "type": {
-      "@id": "type",
-      "@type": "@vocab",
-      "@context": {
-        "INDIVIDUAL": "rfs:Individual",
-        "ORGANIZATION": "rfs:Organization",
-        "COMMUNITY": "rfs:Community"
-      }
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
     },
     "evaluationMethod": {
       "@type": "@id",
@@ -435,6 +430,10 @@
         "OTHER": "rfs:OtherTenure"
       }
     },
+    "type": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -468,6 +467,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Agent": {
+      "@id": "Agent"
+    },
     "Any": {
       "@id": "linkml:Any"
     },
@@ -495,6 +497,9 @@
     "Cohort": {
       "@id": "Cohort"
     },
+    "Community": {
+      "@id": "Community"
+    },
     "ContentDigest": {
       "@id": "ContentDigest"
     },
@@ -503,9 +508,6 @@
     },
     "DeviationRequest": {
       "@id": "DeviationRequest"
-    },
-    "Entity": {
-      "@id": "Entity"
     },
     "Evidence": {
       "@id": "Evidence"
@@ -527,6 +529,12 @@
     },
     "MethodologyUse": {
       "@id": "MethodologyUse"
+    },
+    "Organization": {
+      "@id": "prov:Organization"
+    },
+    "Person": {
+      "@id": "prov:Person"
     },
     "Plot": {
       "@id": "Plot"
@@ -552,6 +560,9 @@
     "Site": {
       "@id": "Site"
     },
+    "SoftwareAgent": {
+      "@id": "prov:SoftwareAgent"
+    },
     "TextQuoteSelector": {
       "@id": "oa:TextQuoteSelector"
     },
@@ -564,9 +575,8 @@
   "claimStatement": "Plot S-001.0007 covers 12.75 ha within boundary feature 118, is held under a lease, and was not converted from a natural ecosystem in the ten years before its site's project start date.",
   "assertedBy": [
     {
-      "@type": "Entity",
-      "name": "Example Soil Carbon Developer",
-      "type": "ORGANIZATION"
+      "@type": "Organization",
+      "name": "Example Soil Carbon Developer"
     }
   ],
   "assertedOn": "2026-02-20",

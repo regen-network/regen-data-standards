@@ -31,7 +31,7 @@ activity:
 hasProjectDeveloper:
   name: Wildlife Works Carbon LLC
   description: Wildlife Works is the world's leading REDD+ program development and management company.
-  type: ORGANIZATION
+  type: prov:Organization
 usesMethodology:
   - name: Methodology for Avoided Ecosystem Conversion
     url: https://verra.org/methodology/vm0009-methodology-for-avoided-ecosystem-conversion-v3-0/
