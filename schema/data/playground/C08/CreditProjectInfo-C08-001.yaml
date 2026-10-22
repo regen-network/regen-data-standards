@@ -58,22 +58,22 @@ activity:
 hasProjectDeveloper:
   name: Madison Metropolitan Sewerage District (MMSD)
   description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOperator:
   name: Madison Metropolitan Sewerage District (MMSD)
   description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
-  type: ORGANIZATION
+  type: prov:Organization
   url: https://www.madsewer.org/
 hasProjectPartner:
   name: Virridy Carbon LLC
   description: Virridy uses our proprietary technology and water and carbon markets expertise to improve global water resiliency.
-  type: ORGANIZATION
+  type: prov:Organization
   image: https://regen-registry.s3.amazonaws.com/profiles/353ec5b2-94c9-11f0-ac02-0afffa81c869/1765487766606/1765487766602-avatar.png
   url: https://virridy.com/
 hasProjectVerifier:
   name: Jason Quinn
   description: CEO of Sustainability Science and professor in the Mechanical Engineering Department Colorado State University.
-  type: INDIVIDUAL
+  type: prov:Person
   image: https://regen-registry.s3.amazonaws.com/projects/4942ea96-9994-11f0-8a46-0afffa81c869/1758752395276-avatar.jpg
   url: https://app.regen.network/profiles/f29d449c-9994-11f0-af55-0afffa81c869
 usesMethodology:

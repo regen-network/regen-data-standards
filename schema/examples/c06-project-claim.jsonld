@@ -22,6 +22,13 @@
       "@type": "xsd:date",
       "@id": "adoptionDate"
     },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
@@ -141,18 +148,6 @@
     "endedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:endedAtTime"
-    },
-    "type": {
-      "@id": "type",
-      "@type": "@vocab",
-      "@context": {
-        "INDIVIDUAL": "rfs:Individual",
-        "ORGANIZATION": "rfs:Organization",
-        "COMMUNITY": "rfs:Community"
-      }
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
     },
     "evaluationMethod": {
       "@type": "@id",
@@ -431,6 +426,10 @@
         "OTHER": "rfs:OtherTenure"
       }
     },
+    "type": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -464,6 +463,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Agent": {
+      "@id": "Agent"
+    },
     "Any": {
       "@id": "linkml:Any"
     },
@@ -491,6 +493,9 @@
     "Cohort": {
       "@id": "Cohort"
     },
+    "Community": {
+      "@id": "Community"
+    },
     "ContentDigest": {
       "@id": "ContentDigest"
     },
@@ -499,9 +504,6 @@
     },
     "DeviationRequest": {
       "@id": "DeviationRequest"
-    },
-    "Entity": {
-      "@id": "Entity"
     },
     "Evidence": {
       "@id": "Evidence"
@@ -523,6 +525,12 @@
     },
     "MethodologyUse": {
       "@id": "MethodologyUse"
+    },
+    "Organization": {
+      "@id": "prov:Organization"
+    },
+    "Person": {
+      "@id": "prov:Person"
     },
     "Plot": {
       "@id": "Plot"
@@ -548,6 +556,9 @@
     "Site": {
       "@id": "Site"
     },
+    "SoftwareAgent": {
+      "@id": "prov:SoftwareAgent"
+    },
     "TextQuoteSelector": {
       "@id": "oa:TextQuoteSelector"
     },
@@ -560,9 +571,8 @@
   "claimStatement": "Example project P-001 is an aggregate soil-carbon project of sites enrolled from 2020 to 2023, started on 1 March 2020.",
   "assertedBy": [
     {
-      "@type": "Entity",
-      "name": "Example Soil Carbon Developer",
-      "type": "ORGANIZATION"
+      "@type": "Organization",
+      "name": "Example Soil Carbon Developer"
     }
   ],
   "assertedAt": "2026-02-20T00:00:00+00:00",

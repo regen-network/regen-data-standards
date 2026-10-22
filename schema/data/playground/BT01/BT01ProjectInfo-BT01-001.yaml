@@ -48,9 +48,9 @@ hasManagementAreas:
       hasUnit: unit:HA
 hasEnvironmentalAuthority:
   - name: Environmental and Sustainable Development Ministry
-    type: ORGANIZATION
+    type: prov:Organization
   - name: Corantioquia
-    type: ORGANIZATION
+    type: prov:Organization
 environmentType:
   - TROPICAL_FOREST
 activity:
@@ -70,29 +70,29 @@ hasProjectDeveloper:
   description: Terrasos develops biodiversity conservation and restoration projects in Colombia
   url: https://terrasos.co/
   image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOperator:
   name: Reserva Natural El Globo
   description: Natural reserve managing conservation activities at El Globo
   url: https://www.elglobo.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/el-globo-stakeholder-logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOwner:
   name: Serna Family
   description: Landowner family committed to conservation
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectMonitor:
   name: EAFIT
   description: University institution providing monitoring services for biodiversity projects
   url: https://www.eafit.edu.co/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/eafit.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: KPMG Advisory
   description: International verification body for environmental projects
   url: https://kpmg.com/
   image: https://regen-registry.s3.amazonaws.com/profiles/9c621ff2-c485-11ee-b3e1-0a6e1e09fcad/Unknown-2
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V3.0
 marketType:
   - COMPLIANCE_MARKET

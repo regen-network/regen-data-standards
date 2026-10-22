@@ -1,0 +1,137 @@
+id: https://framework.regen.network/schema/Agent
+name: Agent
+description: >-
+  The agents that take responsibility in Regen data: the claimants of a
+  Claim, the issuer of an Evaluation, the agents associated with an activity
+  and the parties a project names in its roles. An Agent is a PROV Agent. Its
+  four kinds reuse the PROV classes where PROV has one (Person, Organization,
+  SoftwareAgent) and add a local Community. A capacity, such as project
+  proponent or verifier, is a role in the context of a record, not a kind of
+  agent. To say "a person, organization or community", a slot keeps range
+  Agent and adds the any_of pattern described on the Agent class.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+
+imports:
+  - linkml:types
+  - core
+  - ProvAlignment
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Agent:
+    abstract: true
+    class_uri: rfs:Agent
+    mixins:
+      - ProvAgent
+    description: >-
+      Something that bears responsibility (a PROV Agent): a person, an
+      organization, a software agent or a community. Abstract: a record is
+      typed with one of the four kinds, and its type field names that kind.
+    comments:
+      - >-
+        "A person, organization or community": a slot that accepts only these
+        kinds keeps range Agent and adds any_of with Person, Organization and
+        Community, in that order, as the ProjectInfo role slots do. A slot
+        that accepts any agent, such as assertedBy, lists all four kinds the
+        same way. LinkML then generates sh:or over the classes of the kinds
+        in SHACL, and JSON Schema accepts exactly those kinds. Range Agent
+        alone, or an abstract mixin class as the range, is not enough: the
+        generated SHACL checks it with sh:class, which a prov:Person fails
+        unless the data also states that prov:Person is a subclass of it,
+        and this repository states no axiom about PROV's classes.
+      - >-
+        Implementation: Person, Organization and SoftwareAgent are PROV
+        classes, so a record is typed prov:Person, prov:Organization or
+        prov:SoftwareAgent, and only Community is an rfs: class. The class
+        hierarchy published with the data makes rfs:Community a subclass of
+        rfs:Agent and rfs:Agent a subclass of prov:Agent, so a query for
+        every agent asks for prov:Agent, together with PROV-O's own hierarchy
+        for the PROV kinds. A query for rfs:Agent finds communities only.
+    slots:
+      - name
+      - description
+      - url
+      - image
+      - type
+    slot_usage:
+      name:
+        required: true
+    attributes:
+      did:
+        slot_uri: rfs:did
+        description: >-
+          The decentralized identifier (DID) that names this agent in AT
+          Protocol (atproto) records, such as the evaluators of a Hypercerts
+          evaluation, for example a did:plc or did:web identifier. The value
+          identifies the agent itself, not a key, an account or a document
+          about the agent.
+        range: uriorcurie
+      walletAddress:
+        slot_uri: rfs:walletAddress
+        description: >-
+          An on-chain account the agent controls, as a chain-qualified CAIP-10
+          account ID, for example cosmos:regen-1:regen1... for a Regen Ledger
+          account. It is not another name for the agent. A consumer uses it to
+          tie an on-chain act, such as an attestation the ledger records by
+          account, to the agent. An agent may control several accounts, on
+          one chain or on several. Unordered set: a record that inlines the
+          agent, such as a Claim naming its claimants, includes the accounts
+          in its content, and their order carries no meaning.
+        range: string
+        multivalued: true
+        list_elements_ordered: false
+        pattern: "^[-a-z0-9]{3,8}:[-_a-zA-Z0-9]{1,32}:[-.%a-zA-Z0-9]{1,128}$"
+
+  Person:
+    is_a: Agent
+    class_uri: prov:Person
+    description: >-
+      A person (PROV Person).
+
+  Organization:
+    is_a: Agent
+    class_uri: prov:Organization
+    description: >-
+      An organization, such as a company, a registry or a public authority
+      (PROV Organization).
+
+  SoftwareAgent:
+    is_a: Agent
+    class_uri: prov:SoftwareAgent
+    description: >-
+      Running software, such as a sensor that captures a source or a model
+      that evaluates a claim (PROV SoftwareAgent).
+
+  Community:
+    is_a: Agent
+    class_uri: rfs:Community
+    description: >-
+      A collective, such as a community, cooperative or indigenous group,
+      acting as one body for claims and governance. It sits directly under
+      Agent, not under Organization: a community acting as one body is not
+      always an institution.
+
+slots:
+  type:
+    slot_uri: rdf:type
+    designates_type: true
+    description: >-
+      The kind of agent, as the CURIE of its class: prov:Person,
+      prov:Organization, prov:SoftwareAgent or rfs:Community. It is written
+      as the agent's rdf:type, so the class names the kind.
+    comments:
+      - >-
+        Implementation: the range is uriorcurie, as for selectorType, so the
+        value is the class CURIE and the RDF says a prov:Person. A class name
+        (Person) or a full IRI is rejected. With range string, LinkML 1.11.1
+        accepts the class name but writes rdf:type as a string literal.
+        Declared as a schema-level slot, not an attribute of Agent: as an
+        attribute, LinkML 1.11.1's Python loader fails on every agent record.
+    range: uriorcurie
+    required: true

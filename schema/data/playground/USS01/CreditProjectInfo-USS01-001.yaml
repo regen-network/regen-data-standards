@@ -49,25 +49,25 @@ hasProjectDeveloper:
   description: ERA Brazil develops and implements regenerative projects focused on biodiversity conservation and ecosystem restoration in Brazil.
   url: https://erabrazil.org
   image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ERA_logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOperator:
   name: Instituto Homem Pantaneiro
   description: NGO dedicated to preserving the Brazilian Pantanal biome through conservation activities, research, and community engagement.
   url: https://ihp.org.br
   image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ihp_logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectMonitor:
   name: Okala
   description: Environmental monitoring organization providing verification and monitoring services for regenerative projects.
   url: https://okala.com
   image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/okala_logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Verifit
   description: Third-party verification body for environmental and biodiversity projects.
   url: https://verefit.com
   image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/verifit_logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

@@ -8,7 +8,7 @@ claimStatement: >-
   2041.
 assertedBy:
   - name: Example Soil Carbon Developer
-    type: ORGANIZATION
+    type: prov:Organization
 assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/cohort/P-001-2021

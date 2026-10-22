@@ -90,10 +90,10 @@ The inline context is generated from `Claim.yaml` alone, with `gen-jsonld-contex
 `@type: @id` and their values are IRI nodes, as in Turtle; without the flag they are `xsd:anyURI`
 literals. Two corrections are applied because the generated JSON-LD in LinkML 1.11.1 still does not
 produce the same RDF as the Turtle output.
-Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so a claimant's `"COMMUNITY"`
-becomes `rfs:Community`, not a string. Nested objects carry `@type`. The context is not generated from
-`schema.yaml` because there `ProjectPost`'s `description` (`dcterms:description`) replaces
-`schema:description` for every class. Both issues affect all JSON-LD generated in this repository and
+Enum terms use `@type: @vocab` with each value mapped to its `meaning`, so an Evidence record's
+`sourceType` `"TEXT"` becomes `dcmitype:Text`, not a string. Nested objects carry `@type`. The
+context is not generated from `schema.yaml` because there `ProjectPost`'s `description`
+(`dcterms:description`) replaces `schema:description` for every class. Both issues affect all JSON-LD generated in this repository and
 are recorded for [#74](https://github.com/regen-network/regen-data-standards/issues/74) (WP1-07).
 
 ### Timestamps

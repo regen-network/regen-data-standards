@@ -4,11 +4,18 @@
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "did": {
+      "@type": "@id",
+      "@id": "did"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
     "description": {
       "@id": "schema:description"
     },
@@ -19,18 +26,6 @@
     "endedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:endedAtTime"
-    },
-    "type": {
-      "@id": "type",
-      "@type": "@vocab",
-      "@context": {
-        "INDIVIDUAL": "rfs:Individual",
-        "ORGANIZATION": "rfs:Organization",
-        "COMMUNITY": "rfs:Community"
-      }
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
     },
     "identifier": {
       "@id": "schema:identifier"
@@ -60,6 +55,10 @@
       "@type": "xsd:dateTime",
       "@id": "prov:startedAtTime"
     },
+    "type": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
@@ -78,20 +77,29 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Agent": {
+      "@id": "Agent"
+    },
     "Any": {
       "@id": "linkml:Any"
     },
     "Capture": {
       "@id": "Capture"
     },
-    "Entity": {
-      "@id": "Entity"
+    "Community": {
+      "@id": "Community"
     },
     "GenericActivity": {
       "@id": "GenericActivity"
     },
     "Link": {
       "@id": "Link"
+    },
+    "Organization": {
+      "@id": "prov:Organization"
+    },
+    "Person": {
+      "@id": "prov:Person"
     },
     "ProvActivity": {
       "@id": "prov:Activity"
@@ -105,6 +113,9 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "SoftwareAgent": {
+      "@id": "prov:SoftwareAgent"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
@@ -117,9 +128,8 @@
   "endedAtTime": "2026-05-02T09:14:07+00:00",
   "wasAssociatedWith": [
     {
-      "@type": "Entity",
-      "name": "Example Sensor Operator",
-      "type": "ORGANIZATION"
+      "@type": "Organization",
+      "name": "Example Sensor Operator"
     }
   ]
 }

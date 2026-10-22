@@ -53,12 +53,12 @@ hasProjectDeveloper:
   name: SeaTrees
   description: SeaTrees is a program of Sustainable Surf that works to restore and protect coastal ecosystems
   url: https://seatrees.org/
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectPartner:
   name: COBEC (Community Based Environmental Conservation)
   description: Local community organization implementing mangrove restoration in coastal Kenya
   url: https://cobec.or.ke/
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

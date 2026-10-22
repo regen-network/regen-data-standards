@@ -54,10 +54,10 @@ hasProjectDeveloper:
   description: Nonprofit organization planting and caring for trees in Iowa communities
   url: https://treesforever.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/trees_forever_logo.gif
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Dr. Qingfu Xiao
-  type: INDIVIDUAL
+  type: prov:Person
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

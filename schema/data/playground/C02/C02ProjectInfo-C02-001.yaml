@@ -55,10 +55,10 @@ hasProjectDeveloper:
   description: County government department responsible for managing natural resources and parks in King County, Washington
   url: https://www.kingcounty.gov/depts/dnrp.aspx
   image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-001-profile-image.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Ecofor LLC
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

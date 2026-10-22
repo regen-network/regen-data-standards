@@ -9,7 +9,7 @@ claimStatement: >-
   the photographs cover about 250 m of the boundary.
 assertedBy:
   - name: Valley Stewards Circle
-    type: COMMUNITY
+    type: rfs:Community
 assertedAt: "2026-06-12T10:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A
