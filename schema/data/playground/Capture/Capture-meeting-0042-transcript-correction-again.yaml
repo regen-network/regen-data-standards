@@ -8,4 +8,4 @@ startedAtTime: "2026-05-02T09:14:04+00:00"
 endedAtTime: "2026-05-02T09:14:09+00:00"
 wasAssociatedWith:
   - name: Example Sensor Operator
-    type: ORGANIZATION
+    type: prov:Organization

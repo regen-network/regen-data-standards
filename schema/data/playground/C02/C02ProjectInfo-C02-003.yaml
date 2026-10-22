@@ -53,10 +53,10 @@ hasProjectDeveloper:
   description: Land trust protecting natural areas in the Pittsburgh region
   url: https://alleghenylandtrust.org/
   image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-003-profile-image.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Ecofor LLC
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

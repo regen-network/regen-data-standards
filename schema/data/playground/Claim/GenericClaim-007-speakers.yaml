@@ -7,7 +7,7 @@ claimStatement: >-
 inLanguage: en
 assertedBy:
   - name: Example Sensor Operator
-    type: ORGANIZATION
+    type: prov:Organization
 assertedAt: "2026-05-03T10:00:00+00:00"
 hasSubject:
   id: https://meetings.example.org/m/0042

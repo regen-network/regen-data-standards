@@ -16,7 +16,7 @@ imports:
   - Methodology
   - taxonomy
   - Impact
-  - Entity
+  - Agent
 
 default_prefix: rfs
 default_range: string
@@ -93,20 +93,49 @@ classes:
         inlined: true
         inlined_as_list: true
       hasProjectDeveloper:
-        range: Entity
-        description: The organization responsible for owning the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community responsible for developing
+          the project.
       hasProjectMonitor:
-        range: Entity
-        description: The organization responsible for monitoring the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community responsible for monitoring
+          the project.
       hasProjectOperator:
-        range: Entity
-        description: The organization responsible for operating the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community responsible for operating the
+          project.
       hasProjectOwner:
-        range: Entity
-        description: The organization that owns the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community that owns the project.
       hasProjectPartner:
-        range: Entity
-        description: The organization that is a partner for the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community that is a partner for the
+          project.
       usesMethodology:
         range: Methodology
         description: The methodology that the project uses.
@@ -125,8 +154,14 @@ classes:
         required: true
     attributes:
       hasProjectVerifier:
-        range: Entity
-        description: The organization responsible for owning the project.
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
+        description: >-
+          The person, organization or community responsible for verifying
+          the project.
       creditClassVersion:
         range: string
         description: The version of the credit class used for the project.

@@ -4,8 +4,8 @@ description: >-
   Mixins that declare which of our classes are PROV-O classes, so that the
   generated OWL states it (rdfs:subClassOf) without relying on inference from
   PROV-O property domains and ranges. They add no slots and do not change
-  instance data. Note the naming: our Entity class is a PROV Agent (an
-  individual, organization or community), while a Claim is a PROV Entity.
+  instance data. Our Agent class is a PROV Agent, and a Claim is a PROV
+  Entity.
   Activity classes declare the ProvActivity mixin: Activity (Activity.yaml),
   and the domain activities that specialized claim schemas define.
 prefixes:
@@ -29,7 +29,7 @@ classes:
     mixin: true
     description: >-
       PROV-O Agent: something that bears responsibility, such as a person,
-      organization or community.
+      an organization, a software agent or a community.
   ProvActivity:
     class_uri: prov:Activity
     mixin: true
