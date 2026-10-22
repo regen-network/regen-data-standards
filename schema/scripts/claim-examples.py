@@ -40,7 +40,10 @@ The check validates every document with both validators the schema generates:
   and is checked on its own.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
-Turtle output, and accepted by both validators. The class of a fixture is the
+Turtle output, and accepted by both validators. Each example is also converted
+to RDF with pyld, a JSON-LD processor that follows the JSON-LD 1.1 algorithms,
+and must give the same graph as rdflib: rdflib's parser accepts some contexts
+that conforming processors reject, such as a cyclic IRI mapping. The class of a fixture is the
 part of its file name before the first "-", as in gen-rdf. Every
 examples/*.INVALID-*.yaml document must be rejected by both validators: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
@@ -84,6 +87,7 @@ from pathlib import Path
 
 import rdflib
 import yaml
+from pyld import jsonld as pyld
 from pyshacl import validate as shacl_validate
 from rdflib.compare import isomorphic
 from rdflib.namespace import RDF, RDFS, SH
@@ -384,6 +388,17 @@ def main(mode):
             print(f"❌ {example} is stale: run make gen-claim-examples")
             failures += 1
             continue
+        try:
+            nquads = pyld.to_rdf(json.loads(text), {"format": "application/n-quads"})
+            if isomorphic(rdflib.Graph().parse(data=nquads, format="nquads"),
+                          rdflib.Graph().parse(data=text, format="json-ld")):
+                print(f"✅ {example}: pyld gives the same RDF as rdflib")
+            else:
+                print(f"❌ {example}: pyld and rdflib give different RDF")
+                failures += 1
+        except pyld.JsonLdError as error:
+            print(f"❌ {example}: pyld rejects it ({error.type}: {error})")
+            failures += 1
         valid, output = json_schema_check(fixture, class_name)
         if valid:
             print(f"✅ {fixture}: conforms to JSON Schema")
