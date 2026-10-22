@@ -205,6 +205,14 @@ There is a designated make task (`gen-rdf`) for validating and generating RDF da
 make gen-rdf
 ```
 
+A Regen Ledger data module IRI, such as `regen:13toVg…rdf`, uses `regen` as its scheme. LinkML's
+converter reads it as a CURIE and rejects the unknown `regen` prefix, so `gen-rdf` passes
+`-P regen=regen:` to `linkml-convert`: the prefix expands to itself and the IRI is kept as written.
+Pass the same option when converting such data with LinkML's tools yourself. The prefix is not
+declared in the schema, because it would then become a `"regen": "regen:"` term in the generated
+JSON-LD contexts, which JSON-LD processors reject as a cyclic IRI mapping. JSON-LD needs no term:
+`regen:` is already an IRI scheme.
+
 ## Claim examples and checks
 
 The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
@@ -226,6 +234,9 @@ of the current schema version (`versions/<version>/`) on every document:
   over the Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both are
   parsed without rdflib's literal normalization, so lexical forms are checked as written. The
   generated shapes are used unchanged.
+- pyld, a JSON-LD processor that follows the JSON-LD 1.1 algorithms, over each example and record
+  document: it must give the same RDF as rdflib, which accepts some contexts conforming processors
+  reject.
 - SHACL over each example retyped as a claim type defined outside this repository, with a field of
   its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
   must reject it without `assertedBy`.

@@ -4,6 +4,9 @@ linkml==1.11.1
 linkml-runtime==1.11.1
 # SHACL validation of the Claim examples (make -C schema check-claim-examples).
 pyshacl==0.40.1
+# A JSON-LD processor that follows the JSON-LD 1.1 algorithms, to parse every
+# example as conforming processors do (make -C schema check-claim-examples).
+pyld==3.3.0
 # They shape the bytes of the published schema artifacts (shacl.ttl is
 # serialized with rdflib, linkml.yaml with PyYAML), so they are pinned and
 # recorded in schema/versions/manifest.json with linkml.
