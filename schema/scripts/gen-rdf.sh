@@ -6,6 +6,13 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # Root directory for data (overrideable)
 DATA_DIR="${DATA_DIR:-${SCRIPT_DIR}/../data/playground}"
 SCHEMA_PATH="${SCHEMA_PATH:-${SCRIPT_DIR}/../src/schema.yaml}"
+# Regen Ledger data module IRIs, such as regen:13toVg...rdf, use regen as their
+# scheme, which LinkML's converter would otherwise reject as a CURIE with an
+# unknown prefix. The prefix expands to itself, so the IRI is kept as written.
+# It is passed here rather than declared in the schema: a schema prefix also
+# becomes a "regen": "regen:" term in the generated JSON-LD contexts, which
+# JSON-LD processors reject as a cyclic IRI mapping.
+PREFIXES=(-P regen=regen:)
 
 # Use globbing to iterate through the nested structure
 shopt -s nullglob # Handle cases where no files match pattern
@@ -36,7 +43,7 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         ((total_count++))
         # Create output filename by replacing .yaml extension with .jsonld
         output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" "${PREFIXES[@]}" --no-validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ JSON-LD conversion failed for: $yaml_file"
             ((failed_count++))
         else
@@ -46,7 +53,7 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         # Create output filename by replacing .yaml extension with .ttl
         output_file="${yaml_file%.yaml}.ttl"
         ((total_count++))
-        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" "${PREFIXES[@]}" --no-validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ TTL conversion failed for: $yaml_file"
             ((failed_count++))
         else

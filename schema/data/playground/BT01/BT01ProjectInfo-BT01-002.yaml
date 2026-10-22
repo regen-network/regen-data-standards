@@ -25,7 +25,7 @@ hasPrimaryImpact:
     - SDG_15
 projectSize:
   numericValue: 124.76
-  unit: unit:HA
+  hasUnit: unit:HA
 region: ANDEAN
 bioregion:
   - TROPICAL_DRY_FOREST
@@ -44,12 +44,12 @@ hasManagementAreas:
       - ECOSYSTEM_RESTORATION
     extent:
       numericValue: 25.7
-      unit: unit:HA
+      hasUnit: unit:HA
   - projectActivity:
       - CONSERVATION
     extent:
       numericValue: 89.29
-      unit: unit:HA
+      hasUnit: unit:HA
 hasEnvironmentalAuthority:
   - name: Environmental and Sustainable Development Ministry
     type: ORGANIZATION

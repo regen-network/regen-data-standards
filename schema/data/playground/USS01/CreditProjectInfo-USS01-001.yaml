@@ -20,7 +20,7 @@ projectStartDate: "2021-01-01"
 projectEndDate: "2028-12-31"
 projectSize:
   numericValue: 40613
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - WETLAND
 activity:

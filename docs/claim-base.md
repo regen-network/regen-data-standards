@@ -44,7 +44,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
-| `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
+| `hasEvidenceCitation` | `rfs:hasEvidenceCitation` | `EvidenceCitation` (inlined) | 0..*, set | The evidence the claimant presents, as citations: each names one `Evidence` record by IRI (`source`, `oa:hasSource`) and optionally locates the material inside it with Web Annotation selectors. A citation without selectors cites the whole source. The records are their own documents, described once and never inlined. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
@@ -56,25 +56,28 @@ new version (`wasRevisionOf`) before its evidence is evaluated.
 
 Every resource a claim points to is written as a node with its own IRI and an RDF type, never as a
 bare IRI, so the generated JSON Schema and SHACL can validate it as generated and claims can be
-queried by what they point to. `wasRevisionOf` is the one exception (see
-[Shared vocabulary](#shared-vocabulary)). Claim-type schemas define the kinds of subject they need as
+queried by what they point to. There are two exceptions. `wasRevisionOf` names a Claim version (see
+[Shared vocabulary](#shared-vocabulary)). A citation's `source` names an `Evidence` record that is its
+own document, so a source cited by many claims is described once; the record's type is checked where
+the records are stored together (`sh:class rfs:Evidence`). Claim-type schemas define the kinds of subject they need as
 subclasses of [`ClaimSubject`](../schema/src/ClaimSubject.yaml), for example `Plot is_a ClaimSubject`.
-The [`Evidence`](../schema/src/Evidence.yaml) skeleton has only an IRI, a title and a description;
-[#73](https://github.com/regen-network/regen-data-standards/issues/73) adds content hash and resolver,
-locator, producer, sources, place and licence terms.
+Each [`Evidence`](../schema/src/Evidence.yaml) record carries the hash of the cited version, where to
+fetch it, its DCMI type, its licence reference and the activity that produced it, and a citation
+says where inside it the cited material is; see
+[`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md) (#73).
 
 ## Shared vocabulary
 
 [`ClaimVocabulary.yaml`](../schema/src/ClaimVocabulary.yaml) defines terms that the base Claim,
-claim-type schemas and attestations reuse. Importing it attaches nothing; a class carries only the
+claim-type schemas and evaluations reuse. Importing it attaches nothing; a class carries only the
 slots it lists.
 
 | Slot | RDF term | Used by |
 |---|---|---|
 | `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `assertedBy`. |
-| `references` | `dcterms:references` | Parent of `hasEvidence`: a plain citation. |
-| `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
-| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity. |
+| `references` | `dcterms:references` | Parent of `reliesOn`: a plain reference to another resource by IRI. |
+| `hasEvidenceCitation`, `wasRevisionOf` | `rfs:hasEvidenceCitation`, `prov:wasRevisionOf` | Base Claim; reusable by evaluations. `hasEvidenceCitation` is not a subproperty of `dcterms:references`: its values are citations, not the cited resources. |
+| `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Defined with `Activity` in [`Activity.yaml`](../schema/src/Activity.yaml), which `ClaimVocabulary` imports ([#73](https://github.com/regen-network/regen-data-standards/issues/73)). It names who carried out an activity: the one that generated a piece of evidence, or a domain activity a claim-type schema describes, e.g. a restoration activity. |
 
 One slot of the base Claim is a plain IRI reference: `wasRevisionOf`, with `range: uriorcurie`
 (as is `references`, its unused sibling). Its value is always an earlier Claim version, so "must be
@@ -94,10 +97,14 @@ ADR 0001 decides the PROV-O alignment. In the schema it is implemented as follow
 
 - The mixins in [`ProvAlignment.yaml`](../schema/src/ProvAlignment.yaml) make the published hierarchy
   state `rfs:Claim rdfs:subClassOf prov:Entity` and `rfs:Entity rdfs:subClassOf prov:Agent`, and the
-  `ProvActivity` mixin does the same for the activity classes of claim-type schemas. The mixins add
-  no slots and do not change instance data.
+  `ProvActivity` mixin does the same for `Activity` and the activity classes of claim-type schemas.
+  The mixins add no slots and do not change instance data.
+- `Evidence.wasGeneratedBy` (`prov:wasGeneratedBy`) names the [`Activity`](../schema/src/Activity.yaml)
+  that produced a cited source, so the Evidence is a `prov:Entity` and the activity a `prov:Activity`
+  (#73). When a source was produced is the activity's period, not a field of the Evidence, because
+  PROV-O declares activities and entities disjoint.
 - Specialized relations declare `is_a` on the PROV or Dublin Core slot they narrow, for example
-  `assertedBy` on `wasAttributedTo` and `hasEvidence` on `references`, which publishes
+  `assertedBy` on `wasAttributedTo` and `reliesOn` on `references`, which publishes
   `rdfs:subPropertyOf` triples ([Querying across the hierarchy](#querying-across-the-hierarchy)).
 - The PROV slots declare no LinkML `domain:`, because `gen-owl` would turn it into an `rdfs:domain`
   axiom on PROV's own property (for example "every `prov:wasRevisionOf` subject is an `rfs:Claim`"),
@@ -113,9 +120,9 @@ do not own:
   `owl:DatatypeProperty` with `rdfs:range xsd:anyURI`. PROV-O declares `prov:wasRevisionOf` an
   `owl:ObjectProperty` from `prov:Entity` to `prov:Entity`, so loading both makes it both kinds of
   property, which OWL 2 DL forbids, and a reasoner infers that the earlier Claim version is both a
-  `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:hasEvidence`, an object
-  property, a subproperty of the datatype property `dcterms:references`. With the flag, both become
-  object properties without a range, as in PROV-O and DCMI Terms.
+  `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:reliesOn` and
+  `dcterms:references` datatype properties, although their values are resources. With the flag, they
+  become object properties without a range, as in PROV-O and DCMI Terms.
 - *Global narrowing, fixed by emitting only `rfs:` axioms.* `prov:wasAttributedTo rdfs:range
   rfs:Entity` (and the same for `prov:wasAssociatedWith`) remains. It is not a contradiction, but a
   reasoner applies it to all PROV data: any agent anyone attributes anything to becomes an
@@ -132,8 +139,15 @@ future OWL artifact needs both measures.
 
 A claim-type schema supplies whatever its kind of claim needs beyond the base: domain statements,
 quantities with units, activities and their operators, methodologies, and stricter constraints. For
-example, the CarbonEg schema in [#73](https://github.com/regen-network/regen-data-standards/issues/73)
-will carry the fields moved out of the base (below).
+example, the C06 claim schema in [#73](https://github.com/regen-network/regen-data-standards/issues/73)
+carries several of the fields moved out of the base (below).
+
+The open `Claim` base lets anyone publish a claim type, in this repository or under their own
+namespace. Publishing one does not by itself mean Regen registers it, supports it in its tooling,
+admits its claims into a managed service, or endorses it. A claim that needs nothing beyond the base,
+such as a written statement with its claimants, time, subject and evidence, is a `GenericClaim`: it
+means no more than `Claim`, and exists as its own class so that such a claim is validated with a
+closed shape ([`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md)).
 
 ```yaml
 imports: [linkml:types, Claim, ClaimVocabulary, ClaimSubject]
@@ -157,6 +171,21 @@ classes:
 - Declare set or sequence semantics on every new multivalued slot.
 - Put the period of a domain activity on the activity class, with `prov:startedAtTime` and
   `prov:endedAtTime` for timestamps or date-typed terms such as `schema:startDate` for dates.
+- A claim type that responds to requirements selects `addressesRequirement` from `ClaimVocabulary`:
+  a repeatable reference to exact requirement versions, recording the claimant's intent without
+  implying the requirement applies or is met (an evaluation judges that with `appliesRequirement`).
+  For example, a claim type whose purpose is to answer requirements can require it:
+
+  ```yaml
+  RequirementClaim:
+    is_a: Claim
+    slots: [addressesRequirement]
+    slot_usage:
+      addressesRequirement: {required: true, minimum_cardinality: 1}
+  ```
+
+  A shared `RequirementClaim`, and the requirement records themselves, belong to WP5
+  ([claims#30](https://github.com/regen-network/claims/issues/30)).
 
 The shape above was checked with a scratch schema: it validated and produced the expected RDF. A
 scratch claim type also passed the open `Claim` shape, and its own closed shape rejected an
@@ -194,8 +223,8 @@ undeclared field. It is not committed, because domain schemas belong to #73.
 ## Querying across the hierarchy
 
 Instance data carries only the most specific class and property: a specialized claim is typed with
-its own class, for example `ex:CarbonEgClaim` or `rfs:GenericClaim`, and evidence is linked with
-`rfs:hasEvidence`. The broader types and properties are not added to the data, because they would
+its own class, for example `rfs:C06SiteClaim` or `rfs:GenericClaim`, and evidence is linked with
+`rfs:reliesOn`. The broader types and properties are not added to the data, because they would
 enter the Claim's hashed content. So a plain query for every `rfs:Claim`, or every
 `dcterms:references`, misses them.
 
@@ -209,12 +238,16 @@ terms themselves. Queries follow the hierarchy with SPARQL property paths, witho
 PREFIX rfs: <https://framework.regen.network/schema/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX oa: <http://www.w3.org/ns/oa#>
 
 # Every Claim, including specialized claims
 SELECT ?claim WHERE { ?claim a/rdfs:subClassOf* rfs:Claim }
 
-# Every citation, including hasEvidence
-SELECT ?claim ?source WHERE { ?claim ?p ?source . ?p rdfs:subPropertyOf* dcterms:references }
+# Every resource a record references, including reliesOn
+SELECT ?record ?resource WHERE { ?record ?p ?resource . ?p rdfs:subPropertyOf* dcterms:references }
+
+# Every Evidence record a Claim cites
+SELECT ?claim ?evidence WHERE { ?claim rfs:hasEvidenceCitation/oa:hasSource ?evidence }
 ```
 
 A consumer that loads claims into another store loads `hierarchy.ttl` with them, or uses an RDFS
@@ -239,11 +272,13 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node with only its IRI and type. A name in each Claim would let claims give one subject different names, merged on its IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe. |
-| — | Added | `assertedAt`, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
+| — | Added | `assertedAt`, and evidence over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description): `hasEvidence` on #85, replaced on #90 by `hasEvidenceCitation`, citations naming `Evidence` records by IRI. |
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith`. |
-| `hasPrimaryImpact`, `hasCoBenefits`, `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule), `hasCreditClass` | Moved | To specialized claim schemas, starting with #73. Their shape, including co-benefit collection semantics, is decided there. `Impact` and `SDG` remain available as shared modules. |
-| `usesMethodology` | Moved | To specialized claim schemas, starting with #73. It names a methodology document, such as a sampling protocol, which only some kinds of claim use. |
+| `hasPrimaryImpact`, `hasCoBenefits` | Removed | They describe the project or the credit class, which `ProjectInfo` and `CreditClassInfo` already do, not what a claim asserts. `Impact` and `SDG` remain available as shared modules. |
+| `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule) | Moved | To specialized claim schemas that state a quantity; `C06Claim` states areas with the shared `QuantityValue` in `core.yaml` (`area`). |
+| `hasCreditClass` | Replaced | By `governedBy` (`ClaimVocabulary`), the exact versions of the governing documents, such as a credit class, a claim is made under, used by `C06ProjectClaim` (#73). |
+| `usesMethodology` | Moved | To `C06ProjectClaim.methodologyUse` (#73), which names each methodology version and its role. Only some kinds of claim use a methodology. |
 | `verificationStatus` | Removed | Review state is not content. The unused `VerificationStatus` enum is removed from `taxonomy.yaml` too; review states will be defined with the review-state record. |
 | `contentHash`, `dataIri` | Removed | Derived identity is not content. |
 
@@ -271,11 +306,11 @@ records that use the prior fields and their RIDs.
   PROV agent kinds, is [#95](https://github.com/regen-network/regen-data-standards/issues/95).
 - Whether a claimant is authorized to assert for another party is not recorded by the Claim:
   [#96](https://github.com/regen-network/regen-data-standards/issues/96).
-- Two items of the #71 checklist are deferred to #73, which has the first specialized schema to use
-  them: verification-method terms and normative rule-set version references. Neither applies to
-  every claim, so neither is on the base Claim.
-- The review-state record and the full evidence shape also belong to #73. Generated JSON Schema,
-  SHACL and context artifacts belong to #74; no OWL artifact is planned.
+- Evaluation-method terms and references to exact governing-document and requirement-set versions, deferred from #71, are
+  defined in `ClaimVocabulary` by #73 and used by `Evaluation` and the C06 claims; neither applies to
+  every claim, so neither is on the base Claim. The evaluation and the full evidence shape are in
+  [`docs/evaluation-and-evidence.md`](evaluation-and-evidence.md). Generated JSON Schema, SHACL and
+  context artifacts belong to #74; no OWL artifact is planned.
 
 [ADR]: adr/0001-claim-rdf-shape-and-provenance-boundaries.md
 [RESEARCH]: https://github.com/regen-network/regen-data-standards/blob/c133c146871cae275ce001a76d89c07e4bbd4ce1/docs/research/claims-and-provenance-models.md

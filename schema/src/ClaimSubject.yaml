@@ -1,10 +1,10 @@
 id: https://framework.regen.network/schema/ClaimSubject
 name: ClaimSubject
 description: >-
-  Skeleton of what a Claim is about. It gives every claim subject a typed,
-  identified node, so subjects can be queried and validated instead of being
-  bare IRIs. Specialized claim schemas define the kinds of subject they need as
-  subclasses (for example Plot is_a ClaimSubject) and add their fields there.
+  What a Claim is about. It gives every claim subject a typed, identified node,
+  so subjects can be queried and validated instead of being bare IRIs.
+  Specialized claim schemas define the kinds of subject they need as subclasses
+  (for example Plot is_a ClaimSubject) and add their identifying fields there.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/

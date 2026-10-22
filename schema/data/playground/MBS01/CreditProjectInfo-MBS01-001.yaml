@@ -17,7 +17,7 @@ hasPrimaryImpact:
     - SDG_15
 projectSize:
   numericValue: 500
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - MARINE
   - WETLAND

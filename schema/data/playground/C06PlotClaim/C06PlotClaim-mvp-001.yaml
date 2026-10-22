@@ -1,0 +1,30 @@
+# Synthetic example (example.org identifiers): a project developer's claim about
+# one plot. The plot's keys and site are fields of the Plot subject; its area,
+# boundary, tenure basis and land-use history are asserted here and checked by
+# reviewers. The land register extract and the land cover maps are evidence.
+name: Plot S-001.0007 area, tenure and land-use history
+claimStatement: >-
+  Plot S-001.0007 covers 12.75 ha within boundary feature 118, is held under a
+  lease, and was not converted from a natural ecosystem in the ten years before
+  its site's project start date.
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-02-20T00:00:00+00:00"
+hasSubject:
+  id: https://example.org/c06/plot/S-001.0007
+  plotKey: S-001.0007
+  parcelId: "4012/7"
+  site: https://example.org/c06/site/S-001
+area:
+  numericValue: 12.75
+  hasUnit: unit:HA
+geometry: https://example.org/c06/boundaries-2026.gpkg#feature=118
+tenureBasis: LEASE
+convertedFromNaturalEcosystem: false
+hasEvidenceCitation:
+  - source: https://example.org/c06/boundaries-2026.gpkg
+  - source: https://example.org/c06/exports/tenure-2026-02.csv
+  - source: https://example.org/land-register/parcel/4012-7/extract-2026-02-10.pdf
+  - source: https://example.org/land-cover/2012/v1
+  - source: https://example.org/land-cover/2018/v1
