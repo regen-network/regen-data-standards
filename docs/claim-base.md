@@ -99,8 +99,8 @@ ADR 0001 decides the PROV-O alignment. In the schema it is implemented as follow
   state `rfs:Claim rdfs:subClassOf prov:Entity` and `rfs:Entity rdfs:subClassOf prov:Agent`, and the
   `ProvActivity` mixin does the same for `Activity` and the activity classes of claim-type schemas.
   The mixins add no slots and do not change instance data.
-- `Evidence.wasGeneratedBy` (`prov:wasGeneratedBy`) names the [`Activity`](../schema/src/Activity.yaml)
-  that produced a cited source, so the Evidence is a `prov:Entity` and the activity a `prov:Activity`
+- `Evidence.wasGeneratedBy` (`prov:wasGeneratedBy`) names, by IRI, the [`Activity`](../schema/src/Activity.yaml)
+  record that produced a cited source, so the Evidence is a `prov:Entity` and the activity a `prov:Activity`
   (#73). When a source was produced is the activity's period, not a field of the Evidence, because
   PROV-O declares activities and entities disjoint.
 - Specialized relations declare `is_a` on the PROV or Dublin Core slot they narrow, for example

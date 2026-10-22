@@ -1,0 +1,20 @@
+# Synthetic example (example.org identifiers): who was invited to meeting
+# 0042, asserted from its calendar entry. An invitation is not attendance, so
+# this claim says less than the speakers claim, and cites other evidence.
+name: Participants invited to meeting 0042
+claimStatement: >-
+  Participant A, Participant B and Participant C were invited to meeting 0042
+  on 2 May 2026.
+inLanguage: en
+assertedBy:
+  - name: Example Sensor Operator
+    type: ORGANIZATION
+assertedAt: "2026-05-03T10:00:00+00:00"
+hasSubject:
+  id: https://meetings.example.org/m/0042
+hasEvidenceCitation:
+  - source: regen:113AFcsdwJ2v5nzdNnV3g9dqwgs4xiU1TFJLseqU17BniEGK4tEJ.json
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: /attendees
+        conformsTo: http://tools.ietf.org/rfc/rfc6901

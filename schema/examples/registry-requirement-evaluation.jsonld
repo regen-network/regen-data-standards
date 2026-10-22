@@ -84,6 +84,10 @@
       "@type": "xsd:date",
       "@id": "schema:endDate"
     },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -267,12 +271,20 @@
       "@type": "xsd:date",
       "@id": "schema:startDate"
     },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
     "suffix": {
       "@id": "oa:suffix"
     },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
     },
     "value": {
       "@id": "rdf:value"
@@ -301,6 +313,9 @@
     },
     "Any": {
       "@id": "linkml:Any"
+    },
+    "Capture": {
+      "@id": "Capture"
     },
     "Claim": {
       "@id": "Claim"
@@ -377,6 +392,9 @@
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -526,7 +544,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/registry/confirmation-2026-03-12.pdf"
+      "source": "regen:114mYS8xzdfuURCqUvYBPQK6hWuXoJn1zLppHpY2UciBkmz8Fawk.pdf"
     }
   ]
 }
