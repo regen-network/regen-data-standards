@@ -1,0 +1,284 @@
+{
+  "schema": "https://framework.regen.network/schema/",
+  "latest": "0.1.0",
+  "versions": {
+    "0.1.0": {
+      "source": {
+        "path": "schema/src",
+        "gitTree": "64f7ac6d7ec177fb817894409c886a9876f7b86d",
+        "files": {
+          "Activity.yaml": "606e2ced3d2f1204421ae419a67167f841b15faa",
+          "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
+          "BufferPoolAccount.yaml": "59e19688da66066fdc14a2a27560a5c5b56a3fe5",
+          "C01ProjectInfo.yaml": "994223f47da82e9d5721b12294989412a2f91b61",
+          "C02ProjectInfo.yaml": "61db8372cacf0f7a5568b22de85104def050e567",
+          "C06Claim.yaml": "cfe66f1c6e1a8b2d71e6e79fb9987e7805fad87c",
+          "Claim.yaml": "d3310830c1ba36aed0662e2ea5d91baf09197d30",
+          "ClaimSubject.yaml": "471f4c8af93679ae297789ac036612d16b2d2e53",
+          "ClaimVocabulary.yaml": "eb41ec6e17689e33439476c6c4fa99cbc554d129",
+          "CreditClassInfo.yaml": "270d8a1ff74272acbc347a8fd321ab5fb9338e85",
+          "CreditProtocol.yaml": "540e73eec30c609d0fc2dcd16ab5c5124b1e6973",
+          "CreditingProgram.yaml": "bd85707c5ee9176c54479a6f1e437f72aca78e2c",
+          "Entity.yaml": "e16f99fbe8ab57895a67ef27ea965d39ebfb1b8a",
+          "Evaluation.yaml": "dfd8feefd04f9b9b15032c2804643c8ac1f33299",
+          "Evidence.yaml": "2deb6f640af3c3e0860a577c0f31c9d1acd4c813",
+          "Geometry.yaml": "7b599825675e852fbbc399c38dba10f7aa08388a",
+          "Impact.yaml": "ce6fcefeb795cd32d4acb84a114518de4b056990",
+          "Methodology.yaml": "102ebb15fbc2e8940d131e1805898c4016d75f5d",
+          "ProjectInfo.yaml": "811debfa979f5d26d1e34a926d9a38c6cd47d6dd",
+          "ProjectPost.yaml": "114cb094d558747ab3296f240f051a58e918187c",
+          "ProvAlignment.yaml": "2f4d480fe07aa5503bdb063111305d535235868f",
+          "Registry.yaml": "8cf7f8bdeec4743bf22f21328fb1fdcddc2a6a26",
+          "RegistryReviewEvaluation.yaml": "f1c0dae5ce10457917723af0e00155f6df9ad22b",
+          "SDG.yaml": "045b7f48733a2883f435262b1760f1fca349e7e3",
+          "core.yaml": "f5f55c3db39deed8646cad655d6d3b1fd5c30dd3",
+          "schema.yaml": "53f73919b44f1a32d8d26a8571d202908050edac",
+          "taxonomy.yaml": "327af5756fee87b64607c696f60d0a97baf34f43"
+        }
+      },
+      "generators": {
+        "linkml": "1.11.1",
+        "linkml-runtime": "1.11.1",
+        "rdflib": "7.6.0",
+        "PyYAML": "6.0.3"
+      },
+      "files": {
+        "context": {
+          "path": "0.1.0/context.jsonld",
+          "sha256": "875d0b9f5b5509766845919dfb57d62438dbab50bd3f7c7852d7604e6d98610b"
+        },
+        "json-schema": {
+          "path": "0.1.0/json-schema.json",
+          "sha256": "3c3daa8d9d4fbefa36e4c3e14772d4adea318f401ed03ae17eb75a37940e9930",
+          "id": "https://framework.regen.network/schema/versions/0.1.0/json-schema.json"
+        },
+        "shacl": {
+          "path": "0.1.0/shacl.ttl",
+          "sha256": "b28834bf18afae0bb67dbd18391df7136150be249ad69b60bdd08fe381f15cdb"
+        },
+        "linkml": {
+          "path": "0.1.0/linkml.yaml",
+          "sha256": "cfb910244a8f63e30accf910e54a1b3ccb487a3e04c14f0e744c84e7008bfc94"
+        },
+        "hierarchy": {
+          "path": "0.1.0/hierarchy.ttl",
+          "sha256": "d4dc0be60b6c1c5beb919f1557f541c0b05580dfaa73094a6ebcbc4fcf0cd2a7"
+        }
+      },
+      "entryPoints": {
+        "C06CohortClaim": {
+          "class": "https://framework.regen.network/schema/C06CohortClaim",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/C06CohortClaim",
+          "shaclShape": "https://framework.regen.network/schema/C06CohortClaim"
+        },
+        "C06PlotClaim": {
+          "class": "https://framework.regen.network/schema/C06PlotClaim",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/C06PlotClaim",
+          "shaclShape": "https://framework.regen.network/schema/C06PlotClaim"
+        },
+        "C06ProjectClaim": {
+          "class": "https://framework.regen.network/schema/C06ProjectClaim",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/C06ProjectClaim",
+          "shaclShape": "https://framework.regen.network/schema/C06ProjectClaim"
+        },
+        "C06SiteClaim": {
+          "class": "https://framework.regen.network/schema/C06SiteClaim",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/C06SiteClaim",
+          "shaclShape": "https://framework.regen.network/schema/C06SiteClaim"
+        },
+        "Capture": {
+          "class": "https://framework.regen.network/schema/Capture",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/Capture",
+          "shaclShape": "https://framework.regen.network/schema/Capture"
+        },
+        "ClaimConsistencyEvaluation": {
+          "class": "https://framework.regen.network/schema/ClaimConsistencyEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/ClaimConsistencyEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/ClaimConsistencyEvaluation"
+        },
+        "Evidence": {
+          "class": "https://framework.regen.network/schema/Evidence",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/Evidence",
+          "shaclShape": "https://framework.regen.network/schema/Evidence"
+        },
+        "EvidenceSupportEvaluation": {
+          "class": "https://framework.regen.network/schema/EvidenceSupportEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/EvidenceSupportEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/EvidenceSupportEvaluation"
+        },
+        "GenericActivity": {
+          "class": "https://framework.regen.network/schema/GenericActivity",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/GenericActivity",
+          "shaclShape": "https://framework.regen.network/schema/GenericActivity"
+        },
+        "GenericClaim": {
+          "class": "https://framework.regen.network/schema/GenericClaim",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/GenericClaim",
+          "shaclShape": "https://framework.regen.network/schema/GenericClaim"
+        },
+        "GenericEvaluation": {
+          "class": "https://framework.regen.network/schema/GenericEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/GenericEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/GenericEvaluation"
+        },
+        "RegistryFindingEvaluation": {
+          "class": "https://framework.regen.network/schema/RegistryFindingEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/RegistryFindingEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/RegistryFindingEvaluation"
+        },
+        "RegistryReportEvaluation": {
+          "class": "https://framework.regen.network/schema/RegistryReportEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/RegistryReportEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/RegistryReportEvaluation"
+        },
+        "RegistryRequirementEvaluation": {
+          "class": "https://framework.regen.network/schema/RegistryRequirementEvaluation",
+          "jsonSchema": "0.1.0/json-schema.json#/$defs/RegistryRequirementEvaluation",
+          "shaclShape": "https://framework.regen.network/schema/RegistryRequirementEvaluation"
+        }
+      },
+      "examples": [
+        {
+          "path": "0.1.0/examples/c06-cohort-claim.jsonld",
+          "entryPoint": "C06CohortClaim",
+          "valid": true,
+          "sha256": "da33b095b074d4fa9b3a7f29585affec363620db92f8e0ebeead5257a4792d56"
+        },
+        {
+          "path": "0.1.0/examples/c06-mvp-claim-domain-invalid.jsonld",
+          "entryPoint": "C06SiteClaim",
+          "valid": false,
+          "violates": [
+            "practices"
+          ],
+          "sha256": "0163733488bd552dea96c0c21c2ee8d0722916b5c36ca5953b029b8886b937e7"
+        },
+        {
+          "path": "0.1.0/examples/c06-mvp-claim.jsonld",
+          "entryPoint": "C06SiteClaim",
+          "valid": true,
+          "sha256": "9bdcbef102edf884030c32c14c45c3267f07608ee3640c3772b96aeecc55c7ce"
+        },
+        {
+          "path": "0.1.0/examples/c06-plot-claim.jsonld",
+          "entryPoint": "C06PlotClaim",
+          "valid": true,
+          "sha256": "e69fa6a3376d80c2dfd66de9520078794f3a386426943ddbb120681be31c5e4c"
+        },
+        {
+          "path": "0.1.0/examples/c06-project-claim-statement.jsonld",
+          "entryPoint": "C06ProjectClaim",
+          "valid": true,
+          "sha256": "9c21bbd63e29cae462185fedf0eb54ee1b56f54bd0e51c8580071eee8515f18a"
+        },
+        {
+          "path": "0.1.0/examples/c06-project-claim.jsonld",
+          "entryPoint": "C06ProjectClaim",
+          "valid": true,
+          "sha256": "931c58b3640cd6b6a6a5a65693b9aefe5359a7d220ab2f7e61727e058f17c3a0"
+        },
+        {
+          "path": "0.1.0/examples/capture.jsonld",
+          "entryPoint": "Capture",
+          "valid": true,
+          "sha256": "fea377cc74c30793d62873083a9e51a2a0d914d91bc191d726c95a9a83d53068"
+        },
+        {
+          "path": "0.1.0/examples/claim-consistency-evaluation.jsonld",
+          "entryPoint": "ClaimConsistencyEvaluation",
+          "valid": true,
+          "sha256": "83e266f2bdd885afefe5d2c29c21270a1fd15d98721fe89cf2253430a0cdf3c3"
+        },
+        {
+          "path": "0.1.0/examples/evidence-capture.jsonld",
+          "entryPoint": "Evidence",
+          "valid": true,
+          "sha256": "943587ac9f74c733549a1046ec2341d395d3c5eb40e514cf014c893c897a6723"
+        },
+        {
+          "path": "0.1.0/examples/evidence-support-evaluation.jsonld",
+          "entryPoint": "EvidenceSupportEvaluation",
+          "valid": true,
+          "sha256": "7fac1a892347d21446ab47fd88a399c3e18d7ed12811c8217aa5cb39f50b23c2"
+        },
+        {
+          "path": "0.1.0/examples/evidence.jsonld",
+          "entryPoint": "Evidence",
+          "valid": true,
+          "sha256": "ab02283775a6546011fa84e4083533c51e7a813ad6792875bcf29653aae73829"
+        },
+        {
+          "path": "0.1.0/examples/generic-activity.jsonld",
+          "entryPoint": "GenericActivity",
+          "valid": true,
+          "sha256": "2e7b95e80f12ed7ffbf732484865dd0609ddce222cdc6a158079a2d9dfae1ece"
+        },
+        {
+          "path": "0.1.0/examples/generic-claim-participants.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "d0233fd904639a61b4c1e7631c538d85808827facde0515b8d51a298d52d17f3"
+        },
+        {
+          "path": "0.1.0/examples/generic-claim-revision.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "d41df66d52c60a5a52418b261e9208e38197aa5c42c3c9be7421721bbb5ff7de"
+        },
+        {
+          "path": "0.1.0/examples/generic-claim-speakers.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "104a5234442255f28ea23537b8db3a487d5665a142ae5ab3292309c45660b622"
+        },
+        {
+          "path": "0.1.0/examples/generic-claim.jsonld",
+          "entryPoint": "GenericClaim",
+          "valid": true,
+          "sha256": "8b529ce0288815e3c15fe5003526f7ac4720fdd242fd3cb1bfa49d38bfa45516"
+        },
+        {
+          "path": "0.1.0/examples/generic-evaluation.jsonld",
+          "entryPoint": "GenericEvaluation",
+          "valid": true,
+          "sha256": "c2827308211ccab6caf52fefb7139e86684037b93fe39f320b74a468d518c73d"
+        },
+        {
+          "path": "0.1.0/examples/registry-finding-evaluation.jsonld",
+          "entryPoint": "RegistryFindingEvaluation",
+          "valid": true,
+          "sha256": "2562826a8762aa0b85a94dadbfa131e85930d952397dee9f03c84bfe55357d43"
+        },
+        {
+          "path": "0.1.0/examples/registry-report-evaluation.jsonld",
+          "entryPoint": "RegistryReportEvaluation",
+          "valid": true,
+          "sha256": "d7644442cd66d82384a51fb9f6bd348c3b6dca743779642f00d2350deaaf4fff"
+        },
+        {
+          "path": "0.1.0/examples/registry-requirement-evaluation.jsonld",
+          "entryPoint": "RegistryRequirementEvaluation",
+          "valid": true,
+          "sha256": "a2b7ce6b34e2e8b45971787f9f6cd121109d2fa7f7940f02b4c8c824e5142556"
+        }
+      ],
+      "records": [
+        {
+          "path": "0.1.0/records/capture.jsonld",
+          "class": "Capture",
+          "sha256": "2e092bab7a098357258a3087fe6a459720bd1716f128d10d08f79362987430bc"
+        },
+        {
+          "path": "0.1.0/records/evidence.jsonld",
+          "class": "Evidence",
+          "sha256": "a0e5faea8b22b36f0b265dfc63ea147e0cae9d4ac7ab2d38be823f2ad3bbc51e"
+        },
+        {
+          "path": "0.1.0/records/generic-activity.jsonld",
+          "class": "GenericActivity",
+          "sha256": "a56b387d1728460c2507b0cf83fd18ed712f6fba45843e9d21b5513efe60be01"
+        }
+      ]
+    }
+  }
+}

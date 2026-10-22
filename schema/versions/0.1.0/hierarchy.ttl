@@ -1,0 +1,84 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rfs: <https://framework.regen.network/schema/> .
+
+rfs:BT01ProjectInfo rdfs:subClassOf rfs:CreditProjectInfo .
+
+rfs:C01ProjectInfo rdfs:subClassOf rfs:CreditProjectInfo .
+
+rfs:C02ProjectInfo rdfs:subClassOf rfs:CreditProjectInfo .
+
+rfs:C06CohortClaim rdfs:subClassOf rfs:Claim .
+
+rfs:C06PlotClaim rdfs:subClassOf rfs:Claim .
+
+rfs:C06ProjectClaim rdfs:subClassOf rfs:Claim .
+
+rfs:C06SiteClaim rdfs:subClassOf rfs:Claim .
+
+rfs:Capture rdfs:subClassOf rfs:Activity .
+
+rfs:CarbonCreditClassInfo rdfs:subClassOf rfs:CreditClassInfo .
+
+rfs:ClaimConsistencyEvaluation rdfs:subClassOf rfs:Evaluation .
+
+rfs:ClaimConsistencyResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:Cohort rdfs:subClassOf rfs:ClaimSubject .
+
+rfs:Entity rdfs:subClassOf prov:Agent .
+
+rfs:Evidence rdfs:subClassOf prov:Entity .
+
+rfs:EvidenceSupportEvaluation rdfs:subClassOf rfs:Evaluation .
+
+rfs:EvidenceSupportResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:FindingResolutionResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:GenericActivity rdfs:subClassOf rfs:Activity .
+
+rfs:GenericClaim rdfs:subClassOf rfs:Claim .
+
+rfs:GenericEvaluation rdfs:subClassOf rfs:Evaluation .
+
+rfs:GenericEvaluationResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:Plot rdfs:subClassOf rfs:ClaimSubject .
+
+rfs:Project rdfs:subClassOf rfs:ClaimSubject .
+
+rfs:RegistryFindingEvaluation rdfs:subClassOf rfs:Evaluation,
+        rfs:RegistryReviewEvaluation .
+
+rfs:RegistryReportEvaluation rdfs:subClassOf rfs:Evaluation,
+        rfs:RegistryReviewEvaluation .
+
+rfs:RegistryRequirementEvaluation rdfs:subClassOf rfs:RegistryReviewEvaluation,
+        rfs:RequirementEvaluation .
+
+rfs:RequirementAssessmentResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:Site rdfs:subClassOf rfs:ClaimSubject .
+
+rfs:VerificationOpinionResult rdfs:subClassOf rfs:EvaluationResult .
+
+rfs:VersionedLink rdfs:subClassOf rfs:Link .
+
+rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo .
+
+rfs:claimStatement rdfs:subPropertyOf <http://schema.org/description> .
+
+rfs:reliesOn rdfs:subPropertyOf dcterms:references .
+
+rfs:RequirementEvaluation rdfs:subClassOf rfs:Evaluation .
+
+rfs:Activity rdfs:subClassOf prov:Activity .
+
+rfs:CreditProjectInfo rdfs:subClassOf rfs:ProjectInfo .
+
+rfs:Claim rdfs:subClassOf prov:Entity .
+
+rfs:Evaluation rdfs:subClassOf rfs:Claim .
+
