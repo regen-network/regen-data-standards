@@ -14,6 +14,8 @@ prefixes:
   rfs: https://framework.regen.network/schema/
   prov: http://www.w3.org/ns/prov#
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  schema: http://schema.org/
+  dcterms: http://purl.org/dc/terms/
 
 imports:
   - linkml:types
@@ -106,7 +108,30 @@ classes:
     class_uri: prov:SoftwareAgent
     description: >-
       Running software, such as a sensor that captures a source or a model
-      that evaluates a claim (PROV SoftwareAgent).
+      that evaluates a claim (PROV SoftwareAgent). A record describes either
+      the software across its versions or one version of it. A version
+      record states softwareVersion and names the software across its
+      versions with isVersionOf. An activity or an evaluation that names the
+      version record, as a Capture does with wasAssociatedWith, says exactly
+      what ran, and no record changes when the software is updated: each
+      version is a new record.
+    attributes:
+      softwareVersion:
+        slot_uri: schema:softwareVersion
+        description: >-
+          The version of the software this record describes, as its
+          maintainers name it, such as a release tag or a model version.
+          Absent on a record that describes the software across its
+          versions.
+        range: string
+      isVersionOf:
+        slot_uri: dcterms:isVersionOf
+        description: >-
+          The IRI of the software agent this record is a version of: the
+          software across its versions, such as the sensor as a whole. Every
+          version record of the same software names the same IRI. Only on a
+          version record.
+        range: uriorcurie
 
   Community:
     is_a: Agent

@@ -378,6 +378,13 @@
       "@type": "xsd:date",
       "@id": "siteProjectStartDate"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
+    },
     "soilGroup": {
       "@id": "soilGroup"
     },

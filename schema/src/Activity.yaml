@@ -68,7 +68,9 @@ classes:
       as a meeting transcript or a spreadsheet export. The Evidence it
       generates is that version; the record it fetched is the one it used.
       Captures of the same upstream record name the same IRI in used, so the
-      latest capture of a record is the one with the latest endedAtTime.
+      latest capture of a record is the one with the latest endedAtTime. The
+      sensor that ran is named in wasAssociatedWith by the SoftwareAgent
+      record for its version.
     slots:
       - used
       - startedAtTime

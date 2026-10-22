@@ -240,6 +240,13 @@
       "@type": "@id",
       "@id": "rdf:type"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
+    },
     "source": {
       "@type": "@id",
       "@id": "oa:hasSource"
