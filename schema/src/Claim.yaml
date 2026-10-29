@@ -17,7 +17,7 @@ prefixes:
 imports:
   - linkml:types
   - core
-  - Entity
+  - Agent
   - ClaimSubject
   - ClaimVocabulary
   - ProvAlignment
@@ -122,13 +122,13 @@ slots:
     slot_uri: rfs:assertedBy
     description: >-
       The agent or agents that take responsibility for asserting this exact
-      content: an individual, organization or community. Each listed
-      claimant takes responsibility for the whole assertion. Taking that
-      responsibility is distinct from writing, extracting, generating,
+      content. Each listed claimant takes responsibility for the whole
+      assertion. Taking that responsibility is distinct from writing,
+      extracting, generating,
       transforming or submitting the content: a person, tool or service that
       only did that is not a claimant unless it takes responsibility for the
       assertion itself. A collective that asserts as one body is a single
-      claimant of type COMMUNITY or ORGANIZATION; listing it does not make
+      claimant, a Community or an Organization; listing it does not make
       its members co-claimants. The capacity in which a claimant acts, such
       as project proponent or verifier, is a role in the context of the
       claim, not a kind of agent. Listing a claimant records who takes
@@ -137,8 +137,14 @@ slots:
       other party. Specializes
       prov:wasAttributedTo, so under PROV each claimant is an agent associated
       with the activity that generated the Claim, which is the act of
-      asserting. Unordered set.
-    range: Entity
+      asserting. Claim types may narrow the kinds of agent, for example to
+      a person, organization or community (see Agent). Unordered set.
+    range: Agent
+    any_of:
+      - range: Person
+      - range: Organization
+      - range: SoftwareAgent
+      - range: Community
     required: true
     multivalued: true
     list_elements_ordered: false

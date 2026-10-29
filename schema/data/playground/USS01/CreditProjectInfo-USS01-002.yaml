@@ -46,22 +46,22 @@ hasProjectDeveloper:
   description: Project developer and coordinator for community-based conservation efforts
   url: https://www.pachamama.org.ec
   image: https://regen-registry.s3.amazonaws.com/profiles/0161027a-e26b-11ef-bc67-0afffa81c869/1738613547341/1738613547340-avatar.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOperator:
   name: Sharamentsa Community
   description: Local Indigenous community of the Achuar Nation responsible for project implementation
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectMonitor:
   name: Amazank Monitoring Team
   description: Community-based team conducting biodiversity and ecosystem monitoring
   url: https://www.instagram.com/sharam.conservacion/
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectPartner:
   name: Amazon Sacred Headwaters Alliance
   description: Alliance supporting Indigenous-led conservation in the Amazon
   url: https://cuencasagradas.org/
   image: https://regen-registry.s3.amazonaws.com/profiles/ff89fb80-d89a-11ee-88fc-0a6e1e09fcad/1709387126044/1709387126042-avatar.png
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V2.1
 marketType:
   - VOLUNTARY_MARKET

@@ -47,7 +47,7 @@ hasProjectDeveloper:
   description: Agricultural carbon project developer
   url: https://ecometric.co.uk/
   image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.5.1
 marketType:
 - VOLUNTARY_MARKET
@@ -61,10 +61,10 @@ hasProjectMonitor:
   description: Measured soil carbon capture
   url: https://ecometric.co.uk/
   image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Nova Cert
   description: NOVA CERT is a Validation and Verification Body (VVB) which validates and verifies projects that reduce greenhouse gases (GHG) emissions to the atmosphere.
   url: https://nova-cert.com/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/novacert.png
-  type: ORGANIZATION
+  type: prov:Organization

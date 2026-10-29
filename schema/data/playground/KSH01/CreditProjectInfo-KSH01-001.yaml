@@ -47,7 +47,7 @@ hasProjectDeveloper:
   description: This address issues credits for Credit Classes on Regen Registry where Credit Administration functions have been delegated to Regen Registry
   url: https://www.regen.network/
   image: https://regen-registry.s3.amazonaws.com/profiles/ad5a126e-d7bf-11ed-b9d8-0a6e1e09fcad/1681230075630/avatar.png
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

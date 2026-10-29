@@ -6,7 +6,7 @@ name: Plot S-001.0007 area
 claimStatement: Plot S-001.0007 area
 assertedBy:
   - name: Example Soil Carbon Developer
-    type: ORGANIZATION
+    type: prov:Organization
 assertedAt: "2026-02-20T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007

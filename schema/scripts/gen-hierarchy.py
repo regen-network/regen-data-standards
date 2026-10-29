@@ -18,7 +18,11 @@ requires that, for every class and every specialized property in the schema,
 the property-path query returns every node and triple the schema's hierarchy
 implies. A class that, like all its subclasses, belongs to another vocabulary
 (the Web Annotation selectors, for example) is skipped: that vocabulary
-publishes its own hierarchy. Run gen-rdf first.
+publishes its own hierarchy. A node typed with another vocabulary's class
+under one of ours, such as a prov:Person under Agent, is reported rather than
+required: reaching it would take an axiom about that vocabulary's class, which
+this file never states, so it is found through its own vocabulary's hierarchy
+(prov:Agent, for an agent). Run gen-rdf first.
 """
 
 import glob
@@ -70,7 +74,13 @@ def check(view):
         if len(types) > 1 and not any(t.startswith(RFS) for t in types):
             print(f"ℹ️  {name} ({uri(view, cls)}): its own vocabulary publishes its hierarchy")
             continue
-        expected = {node for t in types for node in graph.subjects(RDF.type, t)}
+        own = {t for t in types if t.startswith(RFS) or t == uri(view, cls)}
+        expected = {node for t in own for node in graph.subjects(RDF.type, t)}
+        elsewhere = {t: set(graph.subjects(RDF.type, t)) - expected for t in types - own}
+        elsewhere = {t: nodes for t, nodes in elsewhere.items() if nodes}
+        if elsewhere:
+            kinds = ", ".join(f"{graph.namespace_manager.normalizeUri(t)} ({len(n)})" for t, n in sorted(elsewhere.items()))
+            print(f"ℹ️  {name}: not required of this query, as instances of another vocabulary's class, found through its own hierarchy: {kinds}")
         if not expected:
             continue
         found = {row[0] for row in graph.query(

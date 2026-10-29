@@ -6,7 +6,7 @@ name: Site S-001 start date
 claimStatement: Site S-001 start date
 assertedBy:
   - name: Example Soil Carbon Developer
-    type: ORGANIZATION
+    type: prov:Organization
 assertedAt: "2026-07-10T00:00:00+00:00"
 hasSubject:
   id: https://example.org/c06/site/S-001

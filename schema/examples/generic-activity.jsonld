@@ -1,14 +1,22 @@
 {
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rfs": "https://framework.regen.network/schema/",
     "schema": "http://schema.org/",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "did": {
+      "@type": "@id",
+      "@id": "did"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
     "description": {
       "@id": "schema:description"
     },
@@ -19,18 +27,6 @@
     "endedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:endedAtTime"
-    },
-    "type": {
-      "@id": "type",
-      "@type": "@vocab",
-      "@context": {
-        "INDIVIDUAL": "rfs:Individual",
-        "ORGANIZATION": "rfs:Organization",
-        "COMMUNITY": "rfs:Community"
-      }
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
     },
     "identifier": {
       "@id": "schema:identifier"
@@ -52,6 +48,13 @@
       "@type": "xsd:float",
       "@id": "qudt:value"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
+    },
     "startDate": {
       "@type": "xsd:date",
       "@id": "schema:startDate"
@@ -59,6 +62,10 @@
     "startedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:startedAtTime"
+    },
+    "type": {
+      "@type": "@id",
+      "@id": "rdf:type"
     },
     "url": {
       "@type": "@id",
@@ -78,20 +85,29 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Agent": {
+      "@id": "Agent"
+    },
     "Any": {
       "@id": "linkml:Any"
     },
     "Capture": {
       "@id": "Capture"
     },
-    "Entity": {
-      "@id": "Entity"
+    "Community": {
+      "@id": "Community"
     },
     "GenericActivity": {
       "@id": "GenericActivity"
     },
     "Link": {
       "@id": "Link"
+    },
+    "Organization": {
+      "@id": "prov:Organization"
+    },
+    "Person": {
+      "@id": "prov:Person"
     },
     "ProvActivity": {
       "@id": "prov:Activity"
@@ -105,6 +121,9 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "SoftwareAgent": {
+      "@id": "prov:SoftwareAgent"
+    },
     "VersionedLink": {
       "@id": "VersionedLink"
     }
@@ -116,9 +135,8 @@
   "endDate": "2021-12-31",
   "wasAssociatedWith": [
     {
-      "@type": "Entity",
-      "name": "Example Farm Operator",
-      "type": "INDIVIDUAL"
+      "@type": "Person",
+      "name": "Example Farm Operator"
     }
   ]
 }

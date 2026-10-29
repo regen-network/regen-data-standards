@@ -27,7 +27,7 @@ flowchart LR
     A[Evaluation]
     E[Evidence]
     ACT[Activity]
-    OP["Operator (Entity)"]
+    OP["Agent: an operator, or the sensor version for a Capture"]
     S["Subjects: Project, Cohort, Site, Plot"]
 
     PC & CC & SC & PLC -- hasSubject --> S
@@ -73,7 +73,7 @@ grouped by the issuer's `findingLabel`.
 | `ClaimVocabulary.yaml` | `hasEvidence` is replaced by `hasEvidenceCitation` on the base Claim: citations that name `Evidence` records by IRI, instead of inlining them, with optional selectors. Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRequirementSet`, `governedBy`, `evaluationMethod`, `evaluationMethodDescription` and the `EvaluationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
-| `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
+| `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Agent`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the `RegistryReviewEvaluation` mixin (issuer role, conditions, required method), the kinds that declare it, `RegistryRequirementEvaluation` (`is_a RequirementEvaluation`), `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
@@ -430,7 +430,11 @@ rejected). `Activity` is abstract, with two kinds:
   gives its time as timestamps (`startedAtTime`, `endedAtTime`, `prov:startedAtTime` and
   `prov:endedAtTime`, in UTC with `+00:00`) rather than dates, so two captures of one record on the
   same day can be ordered. The latest capture of an upstream record is the one with the latest
-  `endedAtTime` among those that `used` it.
+  `endedAtTime` among those that `used` it. Its agent (`wasAssociatedWith`) is the version of the
+  sensor that ran: a `SoftwareAgent` record for that version, with `softwareVersion`
+  (`schema:softwareVersion`) and the IRI of the sensor across its versions in `isVersionOf`
+  (`dcterms:isVersionOf`). A new version of the sensor is a new record, so no record changes when
+  it is updated.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
@@ -571,7 +575,7 @@ validators.
 | [`c06-project-claim-statement.jsonld`](../schema/examples/c06-project-claim-statement.jsonld) | A `C06ProjectClaim` whose assertion is its statement alone |
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the IRI of the activity that generated it |
 | [`generic-activity.jsonld`](../schema/examples/generic-activity.jsonld) | A `GenericActivity`, its own record: the field operations behind that dataset, with their period and operator |
-| [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the upstream record it used and its timestamps |
+| [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the sensor version that ran, the upstream record it used and its timestamps |
 | [`evidence-capture.jsonld`](../schema/examples/evidence-capture.jsonld) | The `Evidence` record that capture generated |
 | [`generic-claim-speakers.jsonld`](../schema/examples/generic-claim-speakers.jsonld) | A `GenericClaim` that names who spoke in a meeting, citing the transcript lines each spoke |
 | [`generic-claim-participants.jsonld`](../schema/examples/generic-claim-participants.jsonld) | A `GenericClaim` that names who was invited to the same meeting, citing its calendar entry, a second record of the same capture |
@@ -695,8 +699,10 @@ the source.
   not check that the unit is an area unit. A richer quantity structure, with uncertainty and rate
   denominators, is open
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
-- **Operators have no IRI yet.** `wasAssociatedWith` names an `Entity`, which has no identifier until
+- **Operators have no IRI yet.** `wasAssociatedWith` names an `Agent`, which has no identifier until
   [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
-  activity is a node with a name and type and cannot be joined across activities.
+  activity, or the sensor version of a capture, is a node with a name and type and cannot be joined
+  across activities. A sensor version names the sensor across its versions by IRI (`isVersionOf`),
+  and the record for the sensor cannot carry that IRI until then.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.

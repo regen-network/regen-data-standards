@@ -16,7 +16,7 @@ prefixes:
 imports:
   - linkml:types
   - core
-  - Entity
+  - Agent
   - ProvAlignment
 
 default_prefix: rfs
@@ -68,7 +68,9 @@ classes:
       as a meeting transcript or a spreadsheet export. The Evidence it
       generates is that version; the record it fetched is the one it used.
       Captures of the same upstream record name the same IRI in used, so the
-      latest capture of a record is the one with the latest endedAtTime.
+      latest capture of a record is the one with the latest endedAtTime. The
+      sensor that ran is named in wasAssociatedWith by the SoftwareAgent
+      record for its version.
     slots:
       - used
       - startedAtTime
@@ -84,14 +86,20 @@ slots:
     slot_uri: prov:wasAssociatedWith
     description: >-
       Responsibility of an agent for an activity (PROV), for example the farm
-      operator who carried out the field operations a record documents.
-      Claim-type schemas that describe a domain activity, such as a
-      restoration, name its operator the same way. Use it only on a class that
+      operator who carried out the field operations a record documents, or
+      the sensor, a SoftwareAgent, that ran a capture. Claim-type schemas
+      that describe a domain activity, such as a restoration, name its
+      operator the same way. Use it only on a class that
       represents an activity (its PROV domain is prov:Activity); such classes
       declare the ProvActivity mixin. It is not attribution of a Claim: the
       operator and the claimant may differ, and when they coincide both
-      relations are still stated.
-    range: Entity
+      relations are still stated. Unordered set.
+    range: Agent
+    any_of:
+      - range: Person
+      - range: Organization
+      - range: SoftwareAgent
+      - range: Community
     multivalued: true
     list_elements_ordered: false
     inlined: true

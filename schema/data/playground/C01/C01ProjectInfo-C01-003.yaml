@@ -31,7 +31,7 @@ activity:
 hasProjectDeveloper:
   name: Ese´Eja Infierno Native Community
   description: Forest owners committed to work to protect and manage the forest under a REDD+ project.
-  type: ORGANIZATION
+  type: prov:Organization
 usesMethodology:
   - name: VM0007 REDD+ Methodology Framework
     url: https://verra.org/methodology/vm0007-redd-methodology-framework-redd-mf-v1-6/

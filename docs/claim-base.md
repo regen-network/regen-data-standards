@@ -41,7 +41,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
 | `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. A tag that is only private use, such as `x-regen`, is not accepted. The form is checked, not registration, so some deprecated grandfathered tags such as `zh-min` pass. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
-| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
+| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Agent` (inlined): a `Person`, `Organization`, `SoftwareAgent` or `Community` | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 1 | When the claimants make the assertion. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
 | `hasEvidenceCitation` | `rfs:hasEvidenceCitation` | `EvidenceCitation` (inlined) | 0..*, set | The evidence the claimant presents, as citations: each names one `Evidence` record by IRI (`source`, `oa:hasSource`) and optionally locates the material inside it with Web Annotation selectors. A citation without selectors cites the whole source. The records are their own documents, described once and never inlined. |
@@ -96,9 +96,10 @@ literal; both generators need `--xsd-anyuri-as-iri` (see
 ADR 0001 decides the PROV-O alignment. In the schema it is implemented as follows:
 
 - The mixins in [`ProvAlignment.yaml`](../schema/src/ProvAlignment.yaml) make the published hierarchy
-  state `rfs:Claim rdfs:subClassOf prov:Entity` and `rfs:Entity rdfs:subClassOf prov:Agent`, and the
+  state `rfs:Claim rdfs:subClassOf prov:Entity` and `rfs:Agent rdfs:subClassOf prov:Agent`, and the
   `ProvActivity` mixin does the same for `Activity` and the activity classes of claim-type schemas.
-  The mixins add no slots and do not change instance data.
+  The mixins add no slots and do not change instance data. `Person`, `Organization` and
+  `SoftwareAgent` are typed with PROV's own classes, which PROV-O already places under `prov:Agent`.
 - `Evidence.wasGeneratedBy` (`prov:wasGeneratedBy`) names, by IRI, the [`Activity`](../schema/src/Activity.yaml)
   record that produced a cited source, so the Evidence is a `prov:Entity` and the activity a `prov:Activity`
   (#73). When a source was produced is the activity's period, not a field of the Evidence, because
@@ -123,12 +124,13 @@ do not own:
   `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:reliesOn` and
   `dcterms:references` datatype properties, although their values are resources. With the flag, they
   become object properties without a range, as in PROV-O and DCMI Terms.
-- *Global narrowing, fixed by emitting only `rfs:` axioms.* `prov:wasAttributedTo rdfs:range
-  rfs:Entity` (and the same for `prov:wasAssociatedWith`) remains. It is not a contradiction, but a
-  reasoner applies it to all PROV data: any agent anyone attributes anything to becomes an
-  `rfs:Entity`. The published OWL should therefore drop every axiom whose subject is a non-`rfs:`
-  IRI, keeping the links from our terms, such as `rfs:assertedBy rdfs:subPropertyOf
-  prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf prov:Entity`.
+- *Global narrowing, fixed by emitting only `rfs:` axioms.* An `rdfs:range` built from `rfs:Agent`
+  and its kinds on `prov:wasAttributedTo` and on `prov:wasAssociatedWith`
+  remains. It is not a contradiction, but a reasoner applies it to all PROV data: any agent anyone
+  attributes anything to becomes an `rfs:Agent`. The published OWL should therefore drop every
+  axiom whose subject is a non-`rfs:` IRI, keeping the links from our terms, such as
+  `rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf
+  prov:Entity`.
 
 Checked with the OWL-RL reasoner over PROV-O plus the generated OWL: with both measures, the
 reasoner infers only what PROV-O itself implies. Without `--no-use-native-uris`, `gen-owl` mints
@@ -163,8 +165,10 @@ classes:
       hasActivity: {range: PlantingActivity, inlined: true, required: true}
 ```
 
-- Reuse shared terms (`Entity`, `ClaimSubject`, `Evidence`, `ClaimVocabulary`) instead of redefining
-  them. Put generic properties, such as a person's name, on the shared entity rather than on the Claim.
+- Reuse shared terms (`Agent`, `ClaimSubject`, `Evidence`, `ClaimVocabulary`) instead of redefining
+  them. Put generic properties, such as a person's name, on the agent rather than on the Claim. To
+  accept only some kinds of agent, such as a person, organization or community, use the `any_of`
+  pattern documented on the [`Agent`](../schema/src/Agent.yaml) class.
 - Narrow base slots with `slot_usage`. Base slots are top-level slots so that this works: if they
   were class attributes, LinkML 1.8.6 generators would log `slot_usage for undefined slot` and
   silently drop the narrowing.
@@ -205,7 +209,7 @@ undeclared field. It is not committed, because domain schemas belong to #73.
   fields, including one defined outside this repository. It applies to any node typed with a
   subclass of `rfs:Claim` when the `rdfs:subClassOf` triple is in the validated graph, as it is in
   the graph store. Each claim type's own shape is closed and includes the inherited fields.
-- **Nested and imported definitions:** `Entity`, `Methodology` and other imported classes are checked
+- **Nested and imported definitions:** `Agent`, `Methodology` and other imported classes are checked
   only as values reached from the entry point. Importing a module does not make its classes separate
   whole-claim targets.
 - **Additional fields are rejected by the claim type.** The generated JSON Schema and SHACL shapes of
@@ -253,7 +257,10 @@ SELECT ?claim ?evidence WHERE { ?claim rfs:hasEvidenceCitation/oa:hasSource ?evi
 A consumer that loads claims into another store loads `hierarchy.ttl` with them, or uses an RDFS
 reasoner. `make -C schema check-hierarchy`, run in CI after `gen-rdf`, checks that for every class
 and specialized property in the schema these queries return every instance and triple the schema's
-hierarchy implies. The same gap existed before the base Claim: project and credit-class fixtures are
+hierarchy implies. Agents are the exception: `Person`, `Organization` and `SoftwareAgent` are
+typed with PROV-O's own classes, so `hierarchy.ttl` states nothing about them, and a query for every
+`prov:Agent` also needs PROV-O loaded or must list the four kinds. `check-hierarchy` reports those
+instances instead of requiring them. The same gap existed before the base Claim: project and credit-class fixtures are
 typed with their specific classes, such as `rfs:C01ProjectInfo`, which a query for every
 `rfs:ProjectInfo` missed.
 
@@ -301,9 +308,8 @@ records that use the prior fields and their RIDs.
 
 ## Open, and where it is tracked
 
-- `Entity` has no identifier yet, so claimants remain blank nodes and cannot be joined across claims
-  ([#58](https://github.com/regen-network/regen-data-standards/pull/58)). Renaming it to `Agent`, with
-  PROV agent kinds, is [#95](https://github.com/regen-network/regen-data-standards/issues/95).
+- `Agent` has no identifier yet, so claimants remain blank nodes and cannot be joined across claims
+  ([#58](https://github.com/regen-network/regen-data-standards/pull/58)).
 - Whether a claimant is authorized to assert for another party is not recorded by the Claim:
   [#96](https://github.com/regen-network/regen-data-standards/issues/96).
 - Evaluation-method terms and references to exact governing-document and requirement-set versions, deferred from #71, are

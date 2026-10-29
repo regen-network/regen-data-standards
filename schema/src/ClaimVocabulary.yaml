@@ -19,7 +19,7 @@ prefixes:
 imports:
   - linkml:types
   - core
-  - Entity
+  - Agent
   - Activity
   - Evidence
 
@@ -36,7 +36,12 @@ slots:
       assertedBy, can specialize it (rdfs:subPropertyOf) instead of
       redefining its meaning. Every value of a specializing slot therefore
       implies this relation; the reverse does not hold.
-    range: Entity
+    range: Agent
+    any_of:
+      - range: Person
+      - range: Organization
+      - range: SoftwareAgent
+      - range: Community
     multivalued: true
     list_elements_ordered: false
     inlined: true

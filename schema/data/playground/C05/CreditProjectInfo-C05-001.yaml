@@ -37,13 +37,13 @@ hasProjectDeveloper:
   description: We work with local, state and federal partners to achieve regional targets for environmental sustainability.
   url: https://www.sanjuanislandscd.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/san_juan_conservation_district.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectMonitor:
   name: Kulshan Carbon Trust
   description: We are on a mission to conserve and sequester carbon through collaborative natural climate solutions in Northwest Washington.
   url: https://kulshancarbontrust.org/
   image: https://regen-registry.s3.amazonaws.com/profiles/772065bc-5334-11ef-a754-0afffa81c869/1724950434335/1724950434334-avatar.jpg
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.1
 marketType:
   - VOLUNTARY_MARKET

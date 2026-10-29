@@ -16,6 +16,13 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -64,18 +71,6 @@
     "endedAtTime": {
       "@type": "xsd:dateTime",
       "@id": "prov:endedAtTime"
-    },
-    "type": {
-      "@id": "type",
-      "@type": "@vocab",
-      "@context": {
-        "INDIVIDUAL": "rfs:Individual",
-        "ORGANIZATION": "rfs:Organization",
-        "COMMUNITY": "rfs:Community"
-      }
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
     },
     "evaluationMethod": {
       "@type": "@id",
@@ -161,6 +156,13 @@
       "@type": "@id",
       "@id": "rdf:type"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
+    "softwareVersion": {
+      "@id": "schema:softwareVersion"
+    },
     "source": {
       "@type": "@id",
       "@id": "oa:hasSource"
@@ -193,6 +195,10 @@
     },
     "suffix": {
       "@id": "oa:suffix"
+    },
+    "type": {
+      "@type": "@id",
+      "@id": "rdf:type"
     },
     "url": {
       "@type": "@id",
@@ -227,6 +233,9 @@
     "Activity": {
       "@id": "Activity"
     },
+    "Agent": {
+      "@id": "Agent"
+    },
     "Any": {
       "@id": "linkml:Any"
     },
@@ -239,11 +248,11 @@
     "ClaimSubject": {
       "@id": "ClaimSubject"
     },
+    "Community": {
+      "@id": "Community"
+    },
     "ContentDigest": {
       "@id": "ContentDigest"
-    },
-    "Entity": {
-      "@id": "Entity"
     },
     "Evidence": {
       "@id": "Evidence"
@@ -263,6 +272,12 @@
     "Link": {
       "@id": "Link"
     },
+    "Organization": {
+      "@id": "prov:Organization"
+    },
+    "Person": {
+      "@id": "prov:Person"
+    },
     "ProvActivity": {
       "@id": "prov:Activity"
     },
@@ -278,6 +293,9 @@
     "Selector": {
       "@id": "oa:Selector"
     },
+    "SoftwareAgent": {
+      "@id": "prov:SoftwareAgent"
+    },
     "TextQuoteSelector": {
       "@id": "oa:TextQuoteSelector"
     },
@@ -291,9 +309,8 @@
   "inLanguage": "en",
   "assertedBy": [
     {
-      "@type": "Entity",
-      "name": "Example Sensor Operator",
-      "type": "ORGANIZATION"
+      "@type": "Organization",
+      "name": "Example Sensor Operator"
     }
   ],
   "assertedAt": "2026-05-03T10:00:00+00:00",
