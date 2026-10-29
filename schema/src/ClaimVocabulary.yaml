@@ -37,6 +37,11 @@ slots:
       redefining its meaning. Every value of a specializing slot therefore
       implies this relation; the reverse does not hold.
     range: Agent
+    any_of:
+      - range: Person
+      - range: Organization
+      - range: SoftwareAgent
+      - range: Community
     multivalued: true
     list_elements_ordered: false
     inlined: true
