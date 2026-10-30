@@ -1,0 +1,23 @@
+# Synthetic example (example.org identifiers): a statement Participant A made
+# in meeting 0042. Participant A is the claimant because they made it. An
+# extraction service drafted the Claim from the transcript, and Participant A
+# confirmed the draft matches what they said. assertedAt is when they said it
+# in the meeting, not when they confirmed it. The citation locates the
+# transcript lines where they said it. The drafting software and the
+# confirmation are authoring history, not part of the Claim.
+name: Pond at site 2 dry on 28 April 2026
+claimStatement: >-
+  The pond at site 2 was dry on 28 April 2026.
+inLanguage: en
+assertedBy:
+  - name: Participant A
+    type: prov:Person
+assertedAt: "2026-05-02T08:42:00+00:00"
+hasSubject:
+  id: https://example.org/site/2
+hasEvidenceCitation:
+  - source: regen:11429vEez5fWxy1X4EUPQtsmR4g1MnZgmsTKjrbAnJqukbwkDBaH.txt
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: line=14,16
+        conformsTo: http://tools.ietf.org/rfc/rfc5147
