@@ -123,6 +123,7 @@ EXAMPLES = {
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/Claim/GenericClaim-003-speakers.yaml": "examples/generic-claim-speakers.jsonld",
     "data/playground/Claim/GenericClaim-004-participants.yaml": "examples/generic-claim-participants.jsonld",
+    "data/playground/Claim/GenericClaim-005-meeting-statement.yaml": "examples/generic-claim-meeting-statement.jsonld",
     "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml": "examples/c06-mvp-claim.jsonld",
     "data/playground/RegistryRequirementEvaluation/RegistryRequirementEvaluation-crediting-term-001.yaml": "examples/registry-requirement-evaluation.jsonld",
     "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",

@@ -579,6 +579,7 @@ validators.
 | [`evidence-capture.jsonld`](../schema/examples/evidence-capture.jsonld) | The `Evidence` record that capture generated |
 | [`generic-claim-speakers.jsonld`](../schema/examples/generic-claim-speakers.jsonld) | A `GenericClaim` that names who spoke in a meeting, citing the transcript lines each spoke |
 | [`generic-claim-participants.jsonld`](../schema/examples/generic-claim-participants.jsonld) | A `GenericClaim` that names who was invited to the same meeting, citing its calendar entry, a second record of the same capture |
+| [`generic-claim-meeting-statement.jsonld`](../schema/examples/generic-claim-meeting-statement.jsonld) | A `GenericClaim` that a participant made in the same meeting, with the participant as its claimant, the time they said it and the transcript lines they spoke |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |

@@ -1,0 +1,18 @@
+# expect: 'assertedBy' is a required property
+# The extraction draft behind GenericClaim-005-meeting-statement, as the
+# extraction service wrote it, with no claimant recorded. It differs from that
+# Claim only in having no claimant. An unasserted authoring candidate is not a
+# Claim, even when the rest of its content is complete.
+name: Pond at site 2 dry on 28 April 2026
+claimStatement: >-
+  The pond at site 2 was dry on 28 April 2026.
+inLanguage: en
+assertedAt: "2026-05-02T08:42:00+00:00"
+hasSubject:
+  id: https://example.org/site/2
+hasEvidenceCitation:
+  - source: regen:11429vEez5fWxy1X4EUPQtsmR4g1MnZgmsTKjrbAnJqukbwkDBaH.txt
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: line=14,16
+        conformsTo: http://tools.ietf.org/rfc/rfc5147
