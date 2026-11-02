@@ -101,6 +101,22 @@ classes:
       hasResult:
         range: VerificationOpinionResult
         required: true
+    rules:
+      - description: >-
+          A rejection says why, so the project proponent can address it.
+          Enforced by the generated JSON Schema; the generated SHACL does
+          not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            hasResult:
+              range_expression:
+                slot_conditions:
+                  outcome:
+                    equals_string: REJECTION
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
 
   FindingResolutionResult:
     is_a: EvaluationResult

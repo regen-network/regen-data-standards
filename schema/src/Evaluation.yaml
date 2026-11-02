@@ -124,6 +124,21 @@ classes:
           slot_conditions:
             rationale:
               required: true
+      - description: >-
+          A requirement found not satisfied says why, so the claimant can
+          answer it. Enforced by the generated JSON Schema; the generated
+          SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            hasResult:
+              range_expression:
+                slot_conditions:
+                  outcome:
+                    equals_string: NOT_SATISFIED
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
 
   EvidenceSupportEvaluation:
     is_a: Evaluation
@@ -149,6 +164,22 @@ classes:
       hasResult:
         range: EvidenceSupportResult
         required: true
+    rules:
+      - description: >-
+          A challenge says why, so the claimant can answer it. Enforced by
+          the generated JSON Schema; the generated SHACL does not express
+          LinkML rules.
+        preconditions:
+          slot_conditions:
+            hasResult:
+              range_expression:
+                slot_conditions:
+                  outcome:
+                    equals_string: CHALLENGES
+        postconditions:
+          slot_conditions:
+            rationale:
+              required: true
 
   ClaimConsistencyEvaluation:
     is_a: Evaluation

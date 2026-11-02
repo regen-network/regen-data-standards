@@ -245,7 +245,7 @@ subject satisfies a requirement is a [`RequirementEvaluation`](#requirementevalu
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 1..*, set | The `Evidence` records assessed, as one body of evidence. |
 | `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.INVALID-without-assessed-against.yaml) without it). |
-| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `outcome`, the evidential stance: whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `outcome`, the evidential stance: whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). A challenge requires a `rationale`, so the claimant can answer it ([example](../schema/examples/evidence-support-evaluation.INVALID-challenge-without-rationale.yaml), JSON Schema only). |
 
 ### `ClaimConsistencyEvaluation`
 
@@ -275,6 +275,8 @@ requirements).
 is not yet enough to decide either way, for example because records it needs are due later. The
 rationale, required with `UNDETERMINED`, says what is missing
 ([example](../schema/examples/registry-requirement-evaluation.INVALID-undetermined-without-rationale.yaml),
+JSON Schema only). `NOT_SATISFIED` requires a rationale too, so the claimant can answer it
+([example](../schema/examples/registry-requirement-evaluation.INVALID-not-satisfied-without-rationale.yaml),
 JSON Schema only). A review still in progress is recorded with no evaluation.
 `SATISFIED` is not an approval of the project's registration
 ([example](../schema/examples/registry-requirement-evaluation.INVALID-registration-approval.yaml) of
@@ -334,7 +336,10 @@ or verification report, in a result whose `outcome` is `ACCEPTANCE`,
 `ACCEPTANCE_WITH_CONTINGENCIES` or `REJECTION`, the opinions the Program Guide (sections 12.4 and
 12.5) provides. It is the verifier's opinion of the project, not a rating of the report document and
 not the Registry's decision. The result's `outcome` cannot take another kind's value
-([example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml)).
+([example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml)),
+and a `REJECTION` requires a `rationale`, so the project proponent can address it
+([example](../schema/examples/registry-report-evaluation.INVALID-rejection-without-rationale.yaml),
+JSON Schema only).
 
 ## Evidence
 
@@ -623,8 +628,9 @@ the source.
 
 ## Known limitations
 
-- **Four rules are enforced by JSON Schema only:** a requirement outcome when the requirement
-  applies, and none when it does not; a rationale with `UNDETERMINED`; no sufficiency for evidence
+- **Seven rules are enforced by JSON Schema only:** a requirement outcome when the requirement
+  applies, and none when it does not; a rationale with `UNDETERMINED` or `NOT_SATISFIED`, with an
+  evidence challenge (`CHALLENGES`) and with a report's `REJECTION`; no sufficiency for evidence
   with no bearing. They are LinkML
   rules, and LinkML's SHACL generator does not translate rules: 1.11.1 ignores them, and the
   unreleased support ([linkml/linkml#3451](https://github.com/linkml/linkml/pull/3451)) covers other
