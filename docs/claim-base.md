@@ -42,7 +42,8 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. A tag that is only private use, such as `x-regen`, is not accepted. The form is checked, not registration, so some deprecated grandfathered tags such as `zh-min` pass. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
 | `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
-| `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 1 | When the claimants make the assertion. |
+| `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 0..1 | When the claimants make the assertion. |
+| `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
@@ -219,7 +220,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node with only its IRI and type. A name in each Claim would let claims give one subject different names, merged on its IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe. |
-| — | Added | `assertedAt`, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
+| — | Added | `assertedAt` or `assertedOn` (exactly one), and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith`. |
 | `hasPrimaryImpact`, `hasCoBenefits`, `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule), `hasCreditClass` | Moved | To specialized claim schemas, starting with #73. Their shape, including co-benefit collection semantics, is decided there. `Impact` and `SDG` remain available as shared modules. |

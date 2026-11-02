@@ -48,7 +48,8 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 |---|---|
 | [`generic-claim.jsonld`](examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
-| [`claim.INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, bare-IRI subject and evidence, and domain fields on the base. |
+| [`generic-claim-dated.jsonld`](examples/generic-claim-dated.jsonld) | A claim from a dated project plan, whose assertion time is a date (`assertedOn`). |
+| [`claim.INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, bare-IRI subject and evidence, and domain fields on the base. |
 
 The JSON-LD files are generated from the playground fixtures in
 [`data/playground/Claim/`](data/playground/Claim/), which `gen-rdf` validates, by
@@ -68,7 +69,9 @@ generates on every document:
 The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
 is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
 validator rejects a valid example or its published Turtle, or if either accepts an invalid one.
-JSON Schema must reject each invalid document with the error named on its first line.
+JSON Schema must reject each invalid document with the error named on its first line. A document
+that breaks a LinkML rule is marked `# shacl: not enforced`, and only JSON Schema must reject it
+(see [Timestamps](#timestamps)).
 
 The inline context is generated from `Claim.yaml` alone, with two corrections applied because
 `linkml-convert -t json-ld` output in LinkML 1.8.6 does not produce the same RDF as its Turtle output.
@@ -101,6 +104,15 @@ text as written. So CI validates the authored files with `linkml-validate` rathe
 `linkml-convert --validate`, and `check-claim-examples` parses RDF with literal normalization off. How
 the identity recipe treats timestamp literals is decided in
 [claims#1](https://github.com/regen-network/claims/issues/1).
+
+When the source gives only a date, the assertion time is `assertedOn`, written `YYYY-MM-DD` with no
+time zone, for example `2026-02-20`, rather than an invented midnight in `assertedAt`. A Claim states
+exactly one of the two. That rule is a LinkML rule on `Claim`, which the generated JSON Schema
+enforces and the generated SHACL does not express. The counter-examples for it
+([both](examples/claim.INVALID-both-assertion-times.yaml),
+[neither](examples/claim.INVALID-without-assertion-time.yaml)) are marked `# shacl: not enforced`:
+`check-claim-examples` requires JSON Schema to reject them and reports that SHACL accepts them, so a
+service that validates with SHACL alone has to check the rule itself.
 
 [XSD-LEX]: https://www.w3.org/TR/xmlschema11-2/#rf-lexicalMappings-datetime
 [XSD-CANON]: https://www.w3.org/TR/xmlschema11-2/#dt-canonical-representation

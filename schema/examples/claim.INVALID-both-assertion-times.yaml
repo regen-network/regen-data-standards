@@ -1,0 +1,12 @@
+# expect: should not be valid under {'required': ['assertedOn']}
+# shacl: not enforced
+# One assertion has one assertion time, at one precision: assertedAt or
+# assertedOn, not both.
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00+00:00"
+assertedOn: "2026-05-02"
+hasSubject:
+  id: https://example.org/plot/A

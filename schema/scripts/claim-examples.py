@@ -31,6 +31,9 @@ Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators.
 Every examples/claim.INVALID-*.yaml document must be rejected by both: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
+A document that breaks a LinkML rule carries a "# shacl: not enforced" line:
+the generated SHACL does not express rules, so only JSON Schema must reject it,
+and the check reports that SHACL accepts it.
 
 The examples are GenericClaims, whose shape is closed. The base Claim is
 abstract, so its shape is open: it checks the base content of every claim type
@@ -60,6 +63,7 @@ TARGET_CLASS = "GenericClaim"
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
+    "data/playground/Claim/GenericClaim-003-dated.yaml": "examples/generic-claim-dated.jsonld",
 }
 INVALID_GLOB = "examples/claim.INVALID-*.yaml"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
@@ -242,7 +246,13 @@ def main(mode):
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")
             failures += 1
         conforms, messages = shacl_report(lexical_graph(build(view, context, invalid), "json-ld"), shapes)
-        if not conforms:
+        if "# shacl: not enforced" in Path(invalid).read_text():
+            if conforms:
+                print(f"ℹ️  {invalid}: SHACL accepts it (a LinkML rule; not expressed in SHACL)")
+            else:
+                print(f"❌ {invalid}: marked 'shacl: not enforced' but SHACL rejects it ({messages[0][:80]})")
+                failures += 1
+        elif not conforms:
             print(f"✅ {invalid}: SHACL rejects it ({messages[0][:80]})")
         else:
             print(f"❌ {invalid}: SHACL accepts it")

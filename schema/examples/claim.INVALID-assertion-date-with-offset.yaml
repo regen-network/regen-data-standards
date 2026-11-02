@@ -1,0 +1,10 @@
+# expect: '2026-05-02+02:00' does not match
+# assertedOn is the date as the source states it, written YYYY-MM-DD with no
+# time zone, so one date has one lexical form.
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedOn: "2026-05-02+02:00"
+hasSubject:
+  id: https://example.org/plot/A

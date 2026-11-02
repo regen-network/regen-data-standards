@@ -16,6 +16,10 @@
       "@type": "rfs:Entity",
       "@id": "assertedBy"
     },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
     "claimStatement": {
       "@id": "claimStatement"
     },

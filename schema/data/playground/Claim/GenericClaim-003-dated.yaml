@@ -1,0 +1,17 @@
+# Synthetic example (example.org identifiers): a claim transcribed from a dated
+# project plan. The plan gives the date it was signed but no time, so the
+# assertion time is stated with assertedOn rather than an invented midnight.
+name: Hedgerow maintenance commitment, plot A
+claimStatement: >-
+  Hedgerow Cooperative commits to maintaining the hedgerow on the northern
+  boundary of plot A for ten years from 1 March 2026.
+inLanguage: en
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedOn: "2026-02-20"
+hasSubject:
+  id: https://example.org/plot/A
+hasEvidence:
+  - id: https://example.org/evidence/project-plan-v2.pdf#page=4
+    name: Project plan v2
