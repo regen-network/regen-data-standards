@@ -46,6 +46,10 @@
       "@type": "@id",
       "@id": "assertedBy"
     },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
     "baselineYear": {
       "@type": "xsd:integer",
       "@id": "baselineYear"
