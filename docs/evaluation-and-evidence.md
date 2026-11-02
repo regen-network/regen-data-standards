@@ -87,8 +87,8 @@ terms are imported from `ClaimVocabulary`.
 
 An evaluation is a Claim that records an assessment made by an agent about one focal subject. Its
 `claimStatement` states the assessment. As a Claim, it identifies the agent responsible for it
-(`assertedBy`) and when it was made (`assertedAt`). Depending on the kind of evaluation, it may also
-identify the resources it directly assessed (`hasTarget`), the criteria it applied
+(`assertedBy`) and when it was made (`assertedAt`, or `assertedOn` when only the date is known).
+Depending on the kind of evaluation, it may also identify the resources it directly assessed (`hasTarget`), the criteria it applied
 (`appliesRequirement`, `appliesRequirementSet`) and the documents it is made under (`governedBy`), the evidence it relied on (`hasEvidenceCitation`), the
 method it used and its result. It holds nothing that changes after it is made: a later assessment is
 a new evaluation, and a correction is a new version linked through `wasRevisionOf`.
@@ -619,7 +619,7 @@ the source.
 | `RegistryReviewOutcome` (one enum for every Registry verdict, on `outcome`) | Split by kind: `RequirementOutcome` (`ApprovedForRegistration` → `SATISFIED`, `NotApproved` → `NOT_SATISFIED`, `RequirementPending` → `UNDETERMINED`), `Applicability` (`NotApplicable` → `NOT_APPLICABLE`), `FindingResolution` (`FindingOpen` → `UNRESOLVED`, `FindingClosed` → `RESOLVED`), `VerificationOpinion`. A registration approval is an institutional decision, not a requirement outcome. |
 | `Attestation.rationale` | Unchanged |
 | `Attestation.evidenceReviewed` (bare URI) | `hasEvidenceCitation` (citations naming `Evidence` records by IRI, inherited) |
-| `Attestation.attestationDate` (date) | `assertedAt` (UTC datetime, inherited) |
+| `Attestation.attestationDate` (date) | `assertedOn` (date, inherited), or `assertedAt` (UTC datetime) when the time is known |
 | `Attestation.contentHash`, `graphIri` | Removed |
 | `Evidence` (IRI, name, description) | Adds required `sourceType`, `contentHash` and `resolver`: existing evidence must state them |
 | `hasEvidence` (inlined `Evidence` nodes, #85) | Removed. Evidence is cited with `hasEvidenceCitation`: each citation names an `Evidence` record, its own document, by IRI, with optional selectors ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4254686250)) |

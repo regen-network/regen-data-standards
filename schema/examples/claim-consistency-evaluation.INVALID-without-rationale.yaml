@@ -9,7 +9,7 @@ claimStatement: >-
 assertedBy:
   - name: Example Registry
     type: ORGANIZATION
-assertedAt: "2026-07-01T00:00:00+00:00"
+assertedOn: "2026-07-01"
 hasSubject:
   id: https://example.org/plot/B
 hasTarget:
