@@ -62,6 +62,10 @@
       "@type": "@id",
       "@id": "assertedBy"
     },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
     "assessedAgainst": {
       "@type": "@id",
       "@id": "assessedAgainst"

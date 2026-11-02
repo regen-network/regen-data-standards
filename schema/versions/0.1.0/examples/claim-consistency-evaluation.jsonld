@@ -62,6 +62,10 @@
       "@type": "@id",
       "@id": "assertedBy"
     },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
     "assessedAgainst": {
       "@type": "@id",
       "@id": "assessedAgainst"
@@ -1288,7 +1292,7 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-07-01T00:00:00+00:00",
+  "assertedOn": "2026-07-01",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/plot/B"

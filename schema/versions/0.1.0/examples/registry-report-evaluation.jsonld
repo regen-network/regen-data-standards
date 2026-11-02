@@ -62,6 +62,10 @@
       "@type": "@id",
       "@id": "assertedBy"
     },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
     "assessedAgainst": {
       "@type": "@id",
       "@id": "assessedAgainst"
@@ -1288,7 +1292,7 @@
       "type": "ORGANIZATION"
     }
   ],
-  "assertedAt": "2026-04-15T00:00:00+00:00",
+  "assertedOn": "2026-04-15",
   "hasSubject": {
     "@type": "ClaimSubject",
     "id": "https://example.org/c06/project/P-001"
