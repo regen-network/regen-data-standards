@@ -45,6 +45,20 @@ classes:
             assertedOn:
               value_presence: PRESENT
       - description: >-
+          The same requirement stated from the other side: without assertedOn,
+          assertedAt is required. It adds no constraint, but a Claim with no
+          assertion time is then reported for both fields, not only for
+          assertedOn. Enforced by the generated JSON Schema; the generated
+          SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            assertedOn:
+              value_presence: ABSENT
+        postconditions:
+          slot_conditions:
+            assertedAt:
+              value_presence: PRESENT
+      - description: >-
           assertedAt and assertedOn are exclusive: one assertion has one
           assertion time, at one precision. Enforced by the generated JSON
           Schema; the generated SHACL does not express LinkML rules.
