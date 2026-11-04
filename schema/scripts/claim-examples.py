@@ -64,6 +64,7 @@ EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/Claim/GenericClaim-003-dated.yaml": "examples/generic-claim-dated.jsonld",
+    "data/playground/Claim/GenericClaim-004-premises.yaml": "examples/generic-claim-premises.jsonld",
 }
 INVALID_GLOB = "examples/claim.SCHEMA-INVALID-*.yaml"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")

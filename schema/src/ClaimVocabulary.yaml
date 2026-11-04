@@ -106,8 +106,27 @@ slots:
     description: >-
       Dublin Core citation: a resource the described resource references,
       cites or otherwise points to. Declared here so that narrower relations,
-      such as hasEvidence, can specialize it (rdfs:subPropertyOf); a citation
+      such as hasEvidence and reliesOn, can specialize it
+      (rdfs:subPropertyOf); a citation
       alone asserts neither derivation nor support. Unordered set.
+    range: Resource
+    inlined: false
+    multivalued: true
+    list_elements_ordered: false
+  reliesOn:
+    is_a: references
+    slot_uri: rfs:reliesOn
+    description: >-
+      An exact Claim or Evaluation whose asserted content or result this
+      record rests on, without assessing it or citing it as evidence: for a
+      Claim, a premise, such as the measurement claims a change claim is
+      derived from; for an Evaluation, a claim it uses but does not assess,
+      such as the claim stating an enrolment cutoff that a confirmation
+      relies on. If one of them is revised, this record should be
+      reconsidered. Each value is the identifier of one immutable version,
+      such as a ClaimIRI; a Claim is never cited as evidence, so its premises
+      use this relation, not hasEvidence. Specializes dcterms:references, so
+      it asserts neither derivation nor support. Unordered set.
     range: Resource
     inlined: false
     multivalued: true

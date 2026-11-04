@@ -46,6 +46,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
+| `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Exact Claim or Evaluation versions this claim rests on, such as its premises. A Claim is never cited as evidence. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
@@ -57,7 +58,7 @@ new version (`wasRevisionOf`) before its evidence is evaluated.
 
 Every resource a claim points to is written as a node with its own IRI and an RDF type, never as a
 bare IRI, so the generated JSON Schema and SHACL can validate it as generated and claims can be
-queried by what they point to. `wasRevisionOf` is the one exception (see
+queried by what they point to. `wasRevisionOf` and `reliesOn` are the exceptions (see
 [Shared vocabulary](#shared-vocabulary)). Claim-type schemas define the kinds of subject they need as
 subclasses of [`ClaimSubject`](../schema/src/ClaimSubject.yaml), for example `Plot is_a ClaimSubject`.
 The [`Evidence`](../schema/src/Evidence.yaml) skeleton has only an IRI, a title and a description;
@@ -73,14 +74,15 @@ slots it lists.
 | Slot | RDF term | Used by |
 |---|---|---|
 | `wasAttributedTo` | `prov:wasAttributedTo` | Parent of `assertedBy`. |
-| `references` | `dcterms:references` | Parent of `hasEvidence`: a plain citation. |
-| `hasEvidence`, `wasRevisionOf` | `rfs:hasEvidence`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
+| `references` | `dcterms:references` | Parent of `hasEvidence` and `reliesOn`: a plain citation. |
+| `hasEvidence`, `reliesOn`, `wasRevisionOf` | `rfs:hasEvidence`, `rfs:reliesOn`, `prov:wasRevisionOf` | Base Claim; reusable by attestations. |
 | `wasAssociatedWith` | `prov:wasAssociatedWith` | Not used by the base Claim. Provided for claim-type schemas such as CarbonEg ([#73](https://github.com/regen-network/regen-data-standards/issues/73)) to name the operator of a domain activity, e.g. a restoration activity. |
 
-One slot of the base Claim is still a plain IRI reference: `wasRevisionOf`, which ranges over
-`Resource`, an abstract class with only an `id`. Its value is always an earlier Claim version, so
-"must be an IRI" is the only rule that makes sense for it. The generated SHACL additionally requires a
-`rfs:Resource` type that the data never states, so `check-claim-examples` removes that one rule.
+Two slots of the base Claim are plain IRI references: `wasRevisionOf` and `reliesOn`, which range over
+`Resource`, an abstract class with only an `id`. Their values are always exact Claim or Evaluation
+versions, described by their own records, so "must be an IRI" is the only rule that makes sense for
+them. The generated SHACL additionally requires a
+`rfs:Resource` type that the data never states, so `check-claim-examples` removes that rule.
 LinkML 1.11 generates the right rule for `range: uriorcurie` (an IRI, no class), so both the
 `Resource` class and the correction go away with the upgrade in
 [#84](https://github.com/regen-network/regen-data-standards/issues/84).
@@ -194,7 +196,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 # Every Claim, including specialized claims
 SELECT ?claim WHERE { ?claim a/rdfs:subClassOf* rfs:Claim }
 
-# Every citation, including hasEvidence
+# Every citation, including hasEvidence and reliesOn
 SELECT ?claim ?source WHERE { ?claim ?p ?source . ?p rdfs:subPropertyOf* dcterms:references }
 ```
 
@@ -220,7 +222,7 @@ Prior definitions: [Claim.yaml at `0a4ba12a`][OLD].
 | `hasClaimant` | Renamed, changed | Now `assertedBy` (`rfs:assertedBy`), which pairs with `assertedAt` and reads correctly for every Claim subclass, including an evaluation's issuer. It is a set (1..*) and a subproperty of `prov:wasAttributedTo`. A single claimant is a one-element list. |
 | `hasSubject` | Retained, changed | Range changed from inline `Entity` to an inline `ClaimSubject` node with only its IRI and type. A name in each Claim would let claims give one subject different names, merged on its IRI. |
 | `claimStartDate`, `claimEndDate` | Moved | Off the base, to the domain activity that specialized claim schemas describe. |
-| — | Added | `assertedAt` or `assertedOn` (exactly one), and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
+| — | Added | `assertedAt` or `assertedOn` (exactly one), `reliesOn` for premises, and `hasEvidence` over a new [`Evidence`](../schema/src/Evidence.yaml) skeleton (IRI, title, description). |
 | `supersedes` | Replaced | By `wasRevisionOf` (`prov:wasRevisionOf`). It must name an exact version, not a logical identifier. |
 | `hasOperator` | Moved | Off the base, onto the domain activity in claim-type schemas via `wasAssociatedWith`. |
 | `hasPrimaryImpact`, `hasCoBenefits`, `quantity`, `quantityUnit` (with the `QuantityUnit` enum and its rule), `hasCreditClass` | Moved | To specialized claim schemas, starting with #73. Their shape, including co-benefit collection semantics, is decided there. `Impact` and `SDG` remain available as shared modules. |

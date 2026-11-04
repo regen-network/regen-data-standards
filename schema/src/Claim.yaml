@@ -97,6 +97,7 @@ classes:
       - assertedOn
       - hasSubject
       - hasEvidence
+      - reliesOn
       - wasRevisionOf
     slot_usage:
       name:

@@ -49,6 +49,7 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 | [`generic-claim.jsonld`](examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
 | [`generic-claim-dated.jsonld`](examples/generic-claim-dated.jsonld) | A claim from a dated project plan, whose assertion time is a date (`assertedOn`). |
+| [`generic-claim-premises.jsonld`](examples/generic-claim-premises.jsonld) | A change claim that rests on two measurement claims, named by placeholder ClaimIRIs with `reliesOn`. |
 | [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, bare-IRI subject and evidence, and domain fields on the base. |
 
 A schema-invalid document fails validation against the schema; that says nothing about whether the
