@@ -78,10 +78,13 @@ slots:
       derived from; for an Evaluation, a claim it uses but does not assess,
       such as the claim stating an enrolment cutoff that a confirmation
       relies on. If one of them is revised, this record should be
-      reconsidered. Each value is the identifier of one immutable version,
-      such as a ClaimIRI; a Claim is never cited as evidence, so its premises
-      use this relation, not hasEvidenceCitation. Specializes dcterms:references, so
-      it asserts neither derivation nor support. Unordered set.
+      reconsidered. A Claim is never cited as evidence, so its premises use
+      this relation, not hasEvidenceCitation.
+    comments:
+      - >-
+        Implementation: each value is the IRI of one immutable version, such
+        as a ClaimIRI. Repeatable and unordered. Specializes
+        dcterms:references, so it asserts neither derivation nor support.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false

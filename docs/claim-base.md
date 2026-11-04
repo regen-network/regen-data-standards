@@ -53,7 +53,9 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 excluded ([claims#1](https://github.com/regen-network/claims/issues/1)). So changing any field, including
 `url`, `reliesOn` and which sources it cites as evidence, makes a new Claim version and leaves the earlier one
 unchanged. A correction names the earlier version with `wasRevisionOf`. Which version is current is
-decided outside the Claim.
+decided outside the Claim. An `Evidence` record is its own document: a citation names it by its Raw
+IRI, derived from the cited bytes' digest and media type, so editing the record's description or moving the data
+(its `resolver`) does not change a Claim that cites it.
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
 in structured fields, such as an area and its unit. The statement and those fields are one assertion

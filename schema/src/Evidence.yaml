@@ -181,8 +181,10 @@ slots:
     slot_uri: rfs:resolver
     description: >-
       Where the bytes of the cited version can be fetched. The data can stay
-      where its owner keeps it; the claim stores only the hash and the
-      resolver. Unordered set.
+      where its owner keeps it; the Evidence record stores only the hash and
+      the resolver, and a citing Claim names the record by IRI. Moving the
+      data changes the resolver, not the record's IRI or any Claim citing
+      it. Unordered set.
     range: uri
     multivalued: true
     list_elements_ordered: false

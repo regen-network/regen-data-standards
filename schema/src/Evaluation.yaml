@@ -42,7 +42,6 @@ classes:
         evaluation that uses only the shared fields is a GenericEvaluation.
     slots:
       - hasTarget
-      - reliesOn
       - appliesRequirement
       - appliesRequirementSet
       - governedBy
