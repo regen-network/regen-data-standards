@@ -49,7 +49,11 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 | [`generic-claim.jsonld`](examples/generic-claim.jsonld) | A self-attested stewardship claim with an inline context. It has no credit class, impact or attestation. |
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
 | [`generic-claim-dated.jsonld`](examples/generic-claim-dated.jsonld) | A claim from a dated project plan, whose assertion time is a date (`assertedOn`). |
-| [`claim.INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, bare-IRI subject and evidence, and domain fields on the base. |
+| [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, bare-IRI subject and evidence, and domain fields on the base. |
+
+A schema-invalid document fails validation against the schema; that says nothing about whether the
+assertion it states is true, supported or accepted, and a schema-valid document is not thereby any of
+those.
 
 The JSON-LD files are generated from the playground fixtures in
 [`data/playground/Claim/`](data/playground/Claim/), which `gen-rdf` validates, by
@@ -68,8 +72,8 @@ generates on every document:
 
 The check reads that Turtle, so `gen-rdf` must run first, as it does in CI. It fails if an example
 is stale, if its JSON-LD graph is not isomorphic to the fixture's published Turtle, if either
-validator rejects a valid example or its published Turtle, or if either accepts an invalid one.
-JSON Schema must reject each invalid document with the error named on its first line. A document
+validator rejects a schema-valid example or its published Turtle, or if either accepts a
+schema-invalid one. JSON Schema must reject each schema-invalid document with the error named on its first line. A document
 that breaks a LinkML rule is marked `# shacl: not enforced`, and only JSON Schema must reject it
 (see [Timestamps](#timestamps)).
 
@@ -95,8 +99,8 @@ the same unless `NORMALIZE_LITERALS` is off. So the authored fixtures and the RD
 publishes both conform, with no rewriting step. A tool that writes `Z` by default, such as
 JavaScript's `Date.prototype.toISOString()`, must write `+00:00` instead. A pattern enforces the
 format in both JSON Schema and SHACL, so `Z` is rejected
-([example](examples/claim.INVALID-z-suffix-assertion-time.yaml)), and so is a local offset such as
-`+02:00` ([example](examples/claim.INVALID-local-offset-assertion-time.yaml)). This applies to
+([example](examples/claim.SCHEMA-INVALID-z-suffix-assertion-time.yaml)), and so is a local offset such as
+`+02:00` ([example](examples/claim.SCHEMA-INVALID-local-offset-assertion-time.yaml)). This applies to
 timestamps only: date-only values elsewhere stay dates and are not shifted to UTC.
 
 Because LinkML and rdflib would turn a rejected `Z` into an accepted `+00:00`, tools must check the
@@ -109,8 +113,8 @@ When the source gives only a date, the assertion time is `assertedOn`, written `
 time zone, for example `2026-02-20`, rather than an invented midnight in `assertedAt`. A Claim states
 exactly one of the two. That rule is a LinkML rule on `Claim`, which the generated JSON Schema
 enforces and the generated SHACL does not express. The counter-examples for it
-([both](examples/claim.INVALID-both-assertion-times.yaml),
-[neither](examples/claim.INVALID-without-assertion-time.yaml)) are marked `# shacl: not enforced`:
+([both](examples/claim.SCHEMA-INVALID-both-assertion-times.yaml),
+[neither](examples/claim.SCHEMA-INVALID-without-assertion-time.yaml)) are marked `# shacl: not enforced`:
 `check-claim-examples` requires JSON Schema to reject them and reports that SHACL accepts them, so a
 service that validates with SHACL alone has to check the rule itself.
 

@@ -21,15 +21,15 @@ The check validates every document with both validators the schema generates:
 - SHACL (gen-shacl) over the RDF graph of the authored JSON-LD and over the
   Turtle that gen-rdf publishes for the fixture, both parsed
   without rdflib's literal normalization so that lexical forms are checked as
-  written (rdflib would otherwise rewrite an invalid Z in assertedAt as
-  +00:00). One correction is applied to the generated shapes: gen-shacl adds
+  written (rdflib would otherwise rewrite a Z in assertedAt, which the
+  pattern rejects, as +00:00). One correction is applied to the generated shapes: gen-shacl adds
   sh:class to reference slots (a class range with an identifier, not inlined),
-  but referenced IRIs are not typed in the data, so every valid claim would
+  but referenced IRIs are not typed in the data, so every schema-valid claim would
   fail. The correction removes that sh:class and keeps sh:nodeKind sh:IRI.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators.
-Every examples/claim.INVALID-*.yaml document must be rejected by both: by JSON
+Every examples/claim.SCHEMA-INVALID-*.yaml document must be rejected by both: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
 A document that breaks a LinkML rule carries a "# shacl: not enforced" line:
 the generated SHACL does not express rules, so only JSON Schema must reject it,
@@ -65,11 +65,11 @@ EXAMPLES = {
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/Claim/GenericClaim-003-dated.yaml": "examples/generic-claim-dated.jsonld",
 }
-INVALID_GLOB = "examples/claim.INVALID-*.yaml"
+INVALID_GLOB = "examples/claim.SCHEMA-INVALID-*.yaml"
 EXTENSION_CLASS = rdflib.URIRef("https://example.org/schema/ExtensionClaim")
 EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
 
-# Ill-typed literals in the invalid examples are expected; they are reported
+# Ill-typed literals in the schema-invalid examples are expected; they are reported
 # by the validators, not as parser warnings.
 logging.getLogger("rdflib.term").setLevel(logging.ERROR)
 

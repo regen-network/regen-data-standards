@@ -164,7 +164,7 @@ undeclared field. It is not committed, because domain schemas belong to #73.
   every claim type, `GenericClaim` included, are closed (`additionalProperties: false`,
   `sh:closed true`). New content requires a claim-type schema, which keeps domain-authoring
   requirements from leaking into the generic admission floor
-  ([example](../schema/examples/claim.INVALID-domain-fields-on-base.yaml)).
+  ([example](../schema/examples/claim.SCHEMA-INVALID-domain-fields-on-base.yaml)).
 - **Timestamps are checked as written.** LinkML and rdflib can rewrite a timestamp's lexical form
   before it is checked; see [`schema/README.md`](../schema/README.md#timestamps).
 - **Service behaviour is not defined here.** Admission outcomes and error information are
