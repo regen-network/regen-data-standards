@@ -241,9 +241,11 @@ are not Claim version identifiers, and they do not appear in Claim content. Unde
 A migrated claim that corrects its legacy predecessor states `wasRevisionOf` only when that
 predecessor has itself been minted as an immutable version.
 
-**Mapping verification (proposed; confirm in review):** @blushi (WP1-05 assignee) verifies the
-schema-side mapping above. @DarrenZal (koi-processor, WP1-08) verifies it against the stored claim
-records that use the prior fields and their RIDs.
+**Mapping verification:** @blushi (WP1-05 assignee) verifies the schema-side mapping above in this
+PR. @DarrenZal (koi-processor, WP1-08) checks it against the stored claim records that use the prior
+fields and their RIDs after the PR merges, and reports the result on
+[claims#1](https://github.com/regen-network/claims/issues/1), as he confirmed in
+[review](https://github.com/regen-network/regen-data-standards/pull/85#discussion_r4418347060).
 
 ## Open, and where it is tracked
 
