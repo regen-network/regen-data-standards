@@ -207,7 +207,7 @@ any qualifiers of it ([discussion](https://github.com/regen-network/regen-data-s
 
 Every result type states its principal outcome with the one `outcome` field, narrowed to the values
 its kind allows, so both generated validators check them (an enum in JSON Schema, `sh:in` in SHACL;
-[example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml) with
+[example](../schema/examples/registry-report-evaluation.SCHEMA-INVALID-outcome-of-another-kind.yaml) with
 another kind's value), and a query for every principal outcome is
 `?evaluation rfs:hasResult/rfs:outcome ?value`, on the data alone
 ([discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4260646952)).
@@ -231,8 +231,8 @@ WP5.
 | `governedBy` | `rfs:governedBy` | IRI | 0..*, set | Exact versions of the governing documents the evaluation is made under, such as a credit class, methodology or program guide version; broader than a requirement set. |
 | `hasResult` | `rfs:hasResult` | an `EvaluationResult` (inlined) | 0..1 | The conclusion, as a result whose type depends on the kind (see Results above); required on every kind except `GenericEvaluation`. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
-| `evaluationMethod` | `rfs:evaluationMethod` | IRI | 0..*, set | The procedures used to reach the assessment, such as `rfs:DocumentReview` or `rfs:SiteInspection` (the recommended shared values are the `EvaluationMethodType` meanings). Required on Registry reviews ([example](../schema/examples/registry-finding-evaluation.INVALID-without-method.yaml) without it). |
-| `evaluationMethodDescription` | `rfs:evaluationMethodDescription` | string with a non-whitespace character | 0..1 | How the evaluator reached the assessment, in their words ([empty](../schema/examples/evaluation.INVALID-empty-method-description.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.INVALID-blank-method-description.yaml) examples). |
+| `evaluationMethod` | `rfs:evaluationMethod` | IRI | 0..*, set | The procedures used to reach the assessment, such as `rfs:DocumentReview` or `rfs:SiteInspection` (the recommended shared values are the `EvaluationMethodType` meanings). Required on Registry reviews ([example](../schema/examples/registry-finding-evaluation.SCHEMA-INVALID-without-method.yaml) without it). |
+| `evaluationMethodDescription` | `rfs:evaluationMethodDescription` | string with a non-whitespace character | 0..1 | How the evaluator reached the assessment, in their words ([empty](../schema/examples/evaluation.SCHEMA-INVALID-empty-method-description.yaml) and [whitespace-only](../schema/examples/registry-finding-evaluation.SCHEMA-INVALID-blank-method-description.yaml) examples). |
 
 ### `EvidenceSupportEvaluation`
 
@@ -244,8 +244,8 @@ subject satisfies a requirement is a [`RequirementEvaluation`](#requirementevalu
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
 | `hasTarget` | `rfs:hasTarget` | IRI | 1..*, set | The `Evidence` records assessed, as one body of evidence. |
-| `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.INVALID-without-assessed-against.yaml) without it). |
-| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `outcome`, the evidential stance: whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). A challenge requires a `rationale`, so the claimant can answer it ([example](../schema/examples/evidence-support-evaluation.INVALID-challenge-without-rationale.yaml), JSON Schema only). |
+| `assessedAgainst` | `rfs:assessedAgainst` | IRI | 1 | The exact claim version the stance and sufficiency are relative to ([example](../schema/examples/evidence-support-evaluation.SCHEMA-INVALID-without-assessed-against.yaml) without it). |
+| `hasResult` | `rfs:hasResult` | `EvidenceSupportResult` | 1 | `outcome`, the evidential stance: whether the evidence supports or challenges the claim, or has no bearing on it; and `evidenceSufficiency`: whether it is enough to establish that stance (sufficient challenging evidence contradicts the claim), absent with `NO_BEARING` ([example](../schema/examples/evidence-support-evaluation.SCHEMA-INVALID-no-bearing-with-sufficiency.yaml), JSON Schema only). A challenge requires a `rationale`, so the claimant can answer it ([example](../schema/examples/evidence-support-evaluation.SCHEMA-INVALID-challenge-without-rationale.yaml), JSON Schema only). |
 
 ### `ClaimConsistencyEvaluation`
 
@@ -253,7 +253,7 @@ Whether a claim's `claimStatement` and its structured fields express the same as
 generated validators cannot compare prose with values, so a reviewer records the result on the exact
 claim version (`hasTarget`, required). Its result's `outcome` is
 `CONSISTENT` or `INTERNALLY_INCONSISTENT`, and `rationale` is required: it says where they agree or disagree
-([example](../schema/examples/claim-consistency-evaluation.INVALID-without-rationale.yaml) without
+([example](../schema/examples/claim-consistency-evaluation.SCHEMA-INVALID-without-rationale.yaml) without
 it). Neither the statement nor the fields override the other: an internally inconsistent claim is
 corrected by a new version before its evidence is evaluated.
 
@@ -264,22 +264,22 @@ one): it records whether the requirement applies to the subject and, when it doe
 satisfies it. It is abstract, like `Evaluation`, so a program specializes it, as
 `RegistryRequirementEvaluation` does. Each requirement assessed is its own evaluation, so a record
 cannot give two requirements one shared outcome
-([example](../schema/examples/registry-requirement-evaluation.INVALID-two-requirements.yaml) with two
+([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-two-requirements.yaml) with two
 requirements).
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `hasResult` | `rfs:hasResult` | `RequirementAssessmentResult` | 1 | The result: `applicability` (`APPLICABLE`, `NOT_APPLICABLE`, required), whether the requirement applies to the subject; and `outcome` (`SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED`), required when the requirement applies and absent when it does not ([example](../schema/examples/registry-requirement-evaluation.INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
+| `hasResult` | `rfs:hasResult` | `RequirementAssessmentResult` | 1 | The result: `applicability` (`APPLICABLE`, `NOT_APPLICABLE`, required), whether the requirement applies to the subject; and `outcome` (`SATISFIED`, `NOT_SATISFIED`, `UNDETERMINED`), required when the requirement applies and absent when it does not ([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-applicable-without-outcome.yaml), [example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-not-applicable-with-outcome.yaml), JSON Schema only). |
 
 `UNDETERMINED` is a finding: the evaluator assessed the requirement and found that what is available
 is not yet enough to decide either way, for example because records it needs are due later. The
 rationale, required with `UNDETERMINED`, says what is missing
-([example](../schema/examples/registry-requirement-evaluation.INVALID-undetermined-without-rationale.yaml),
+([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-undetermined-without-rationale.yaml),
 JSON Schema only). `NOT_SATISFIED` requires a rationale too, so the claimant can answer it
-([example](../schema/examples/registry-requirement-evaluation.INVALID-not-satisfied-without-rationale.yaml),
+([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-not-satisfied-without-rationale.yaml),
 JSON Schema only). A review still in progress is recorded with no evaluation.
 `SATISFIED` is not an approval of the project's registration
-([example](../schema/examples/registry-requirement-evaluation.INVALID-registration-approval.yaml) of
+([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-registration-approval.yaml) of
 a registration approval as a requirement outcome being rejected).
 
 **Scope** (`scope`, on requirement evaluations only): the explicit subject or complete set of
@@ -289,9 +289,9 @@ for example a project-level requirement assessed across the sites or cohorts it 
 (what it explicitly does not cover) and `limitation` (what the evaluation is not, for example
 "confirms the project structure; does not validate its evidence"). An evaluation without a scope
 asserts nothing beyond its focal subject
-([example](../schema/examples/registry-requirement-evaluation.INVALID-scope-without-subjects.yaml)
+([example](../schema/examples/registry-requirement-evaluation.SCHEMA-INVALID-scope-without-subjects.yaml)
 of a scope without subjects being rejected, and
-[example](../schema/examples/evaluation.INVALID-scope-on-generic.yaml) of a scope on a
+[example](../schema/examples/evaluation.SCHEMA-INVALID-scope-on-generic.yaml) of a scope on a
 `GenericEvaluation`). A scope is a blank node inside the evaluation and part of its content. Checking
 whether a subject is covered is a query; for the
 [example](../schema/examples/registry-requirement-evaluation.jsonld):
@@ -325,9 +325,9 @@ by the verifier or the Registry Agent, or a later assessment of one. Each record
 the Registry Agent raises uses the same types as a verifier's,
 [discussion](https://github.com/regen-network/regen-data-standards/pull/90#discussion_r4255283390)), a result whose `outcome`
 is `RESOLVED` or `UNRESOLVED` as of its date
-([example](../schema/examples/registry-finding-evaluation.INVALID-without-result.yaml) without it),
+([example](../schema/examples/registry-finding-evaluation.SCHEMA-INVALID-without-result.yaml) without it),
 and at least one piece of evidence
-([example](../schema/examples/registry-finding-evaluation.INVALID-without-evidence.yaml) without
+([example](../schema/examples/registry-finding-evaluation.SCHEMA-INVALID-without-evidence.yaml) without
 evidence). Later assessments target the earlier record and carry the same `findingLabel`; whether
 a finding is currently open is derived from the latest one, not stored.
 
@@ -336,9 +336,9 @@ or verification report, in a result whose `outcome` is `ACCEPTANCE`,
 `ACCEPTANCE_WITH_CONTINGENCIES` or `REJECTION`, the opinions the Program Guide (sections 12.4 and
 12.5) provides. It is the verifier's opinion of the project, not a rating of the report document and
 not the Registry's decision. The result's `outcome` cannot take another kind's value
-([example](../schema/examples/registry-report-evaluation.INVALID-outcome-of-another-kind.yaml)),
+([example](../schema/examples/registry-report-evaluation.SCHEMA-INVALID-outcome-of-another-kind.yaml)),
 and a `REJECTION` requires a `rationale`, so the project proponent can address it
-([example](../schema/examples/registry-report-evaluation.INVALID-rejection-without-rationale.yaml),
+([example](../schema/examples/registry-report-evaluation.SCHEMA-INVALID-rejection-without-rationale.yaml),
 JSON Schema only).
 
 ## Evidence
@@ -346,18 +346,18 @@ JSON Schema only).
 An `Evidence` record names one exact version of a source, says where to fetch it, lets a reader
 check the bytes, and states the usage terms that applied to that version. It is its own document:
 a claim or evaluation cites it with a citation that names it by IRI, never inlined, so a source cited
-by many claims is described once ([example](../schema/examples/claim.INVALID-inlined-evidence.yaml)
+by many claims is described once ([example](../schema/examples/claim.SCHEMA-INVALID-inlined-evidence.yaml)
 of an inlined record being rejected). Where inside the source the cited material is goes on the
 citation ([Citations](#citations)), so the record identifies the whole source.
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `id` | — | IRI without a fragment | 1 | The exact version cited, as a whole ([example](../schema/examples/evidence.INVALID-fragment-in-iri.yaml) with a page fragment, rejected by JSON Schema only). |
+| `id` | — | IRI without a fragment | 1 | The exact version cited, as a whole ([example](../schema/examples/evidence.SCHEMA-INVALID-fragment-in-iri.yaml) with a page fragment, rejected by JSON Schema only). |
 | `name`, `description` | `schema:name`, `schema:description` | string | 0..1 | Title; what it is. |
 | `sourceType` | `dcterms:type` | DCMI Type Vocabulary | 1 | `TEXT`, `DATASET`, `STILL_IMAGE`… Finer kinds a program accepts belong to its requirements. |
 | `mediaType` | `dcterms:format` | string | 0..1 | For example `application/pdf`. |
-| `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of the source's text, such as `cs` for the land register extract a claim in English cites. It says nothing about how a claim's statement was derived from the source ([example](../schema/examples/evidence.INVALID-language-name.yaml) with a language name). |
-| `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version ([example](../schema/examples/evidence.INVALID-without-hash.yaml) without it). |
+| `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of the source's text, such as `cs` for the land register extract a claim in English cites. It says nothing about how a claim's statement was derived from the source ([example](../schema/examples/evidence.SCHEMA-INVALID-language-name.yaml) with a language name). |
+| `contentHash` | `rfs:contentHash` | `ContentDigest` (algorithm, hex digest) | 1 | Hash of the bytes of the whole cited version ([example](../schema/examples/evidence.SCHEMA-INVALID-without-hash.yaml) without it). |
 | `resolver` | `rfs:resolver` | URI | 1..*, set | Where the bytes can be fetched; the data can stay at its source. |
 | `licence` | `dcterms:license` | URI | 0..1 | The licence document or versioned terms in effect. |
 | `issued` | `dcterms:issued` | date | 0..1 | Date of the cited version. |
@@ -365,7 +365,7 @@ citation ([Citations](#citations)), so the record identifies the whole source.
 
 One IRI identifies one version, with one hash. Two records that give the same IRI different hashes
 merge, in the graph store, into one node with two, which SHACL rejects
-([example](../schema/examples/evidence.INVALID-second-digest.yaml): valid on its own, rejected merged
+([example](../schema/examples/evidence.SCHEMA-INVALID-second-digest.yaml): valid on its own, rejected merged
 with the published records).
 
 ### Citations
@@ -379,7 +379,7 @@ resource selection (`oa:ResourceSelection`), reusing the Web Annotation terms ra
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `source` | `oa:hasSource` | IRI of an `Evidence` record | 1 | The cited source ([example](../schema/examples/claim.INVALID-citation-without-source.yaml) without it). |
+| `source` | `oa:hasSource` | IRI of an `Evidence` record | 1 | The cited source ([example](../schema/examples/claim.SCHEMA-INVALID-citation-without-source.yaml) without it). |
 | `selector` | `oa:hasSelector` | `FragmentSelector` or `TextQuoteSelector` | 0..*, set | How to locate the cited segment. Several are alternative ways to locate the same segment. |
 
 | Selector | Fields | Use |
@@ -423,7 +423,7 @@ record documents. The activity has its own IRI, its period (`startDate`, `endDat
 who carried it out (`wasAssociatedWith`), who may differ from the claimant. The time a source was
 produced is the activity's, not a field of Evidence, because PROV-O declares activities and entities
 disjoint. Evidence produced by the same activity names the same activity IRI, so an activity always
-has one ([example](../schema/examples/evidence.INVALID-activity-without-iri.yaml) of an activity
+has one ([example](../schema/examples/evidence.SCHEMA-INVALID-activity-without-iri.yaml) of an activity
 without an IRI being rejected). A claim reaches the
 activity through its evidence (claim → `hasEvidenceCitation` → `source` → `wasGeneratedBy` → activity); it does not
 describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
@@ -553,7 +553,7 @@ validators.
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, the governing credit class version and the requirement version, a scope and a condition |
 | [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: an open clarification request with its type, label, target and evidence |
 | [`registry-report-evaluation.jsonld`](../schema/examples/registry-report-evaluation.jsonld) | A `RegistryReportEvaluation`: a verifier's acceptance with contingencies, assessing the validation checklist version as a whole (`appliesRequirementSet`) |
-| `*.INVALID-*.yaml` | Documents each validator must reject. Those that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules (see [Known limitations](#known-limitations)) |
+| `*.SCHEMA-INVALID-*.yaml` | Documents each validator must reject. Those that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules (see [Known limitations](#known-limitations)) |
 
 ## Validation entry points
 
@@ -574,7 +574,7 @@ handling, and that imported definitions are not separate whole-claim targets. As
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
    are IRIs.
 4. The shape of each entry point is closed: fields the schema does not define are rejected
-   ([example](../schema/examples/c06-claim.INVALID-undeclared-field.yaml)). The shapes of the
+   ([example](../schema/examples/c06-claim.SCHEMA-INVALID-undeclared-field.yaml)). The shapes of the
    abstract bases are open. In the graph store, with the published class hierarchy, the open base
    shapes apply to every claim type and kind of evaluation as well. `make -C schema
    check-claim-examples` checks this for every example: with the hierarchy it conforms, so its
@@ -597,7 +597,7 @@ it is made.
 
 | Excluded | Where it lives instead |
 |---|---|
-| An evaluation's own hash or IRI (`contentHash`, `graphIri`, added by [#53](https://github.com/regen-network/regen-data-standards/pull/53)) | Computed by the service ([claims#1](https://github.com/regen-network/claims/issues/1)); anchoring state in WP6 ([example](../schema/examples/evaluation.INVALID-own-content-hash.yaml)) |
+| An evaluation's own hash or IRI (`contentHash`, `graphIri`, added by [#53](https://github.com/regen-network/regen-data-standards/pull/53)) | Computed by the service ([claims#1](https://github.com/regen-network/claims/issues/1)); anchoring state in WP6 ([example](../schema/examples/evaluation.SCHEMA-INVALID-own-content-hash.yaml)) |
 | `PENDING` as a placeholder verdict (#53: "no verdict has been rendered yet") | Not recorded: an evaluation is made when there is a judgment. A dated finding that a requirement cannot yet be decided is a `RequirementAssessmentResult` with `outcome: UNDETERMINED`. |
 | A finding's current status as an updated field | Each dated evaluation states the status as of its date; the current status is computed |
 | Whether a version is controlling, superseded or stale; whether a confirmation is awaited | Computed by the services |

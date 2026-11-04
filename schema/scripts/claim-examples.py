@@ -47,7 +47,7 @@ example is also converted to RDF with pyld, a JSON-LD processor that follows the
 JSON-LD 1.1 algorithms, and must give the same graph as rdflib: rdflib's parser
 accepts some contexts that conforming processors reject, such as a cyclic IRI
 mapping. The class of a fixture is the part of its file name before the first
-"-", as in gen-rdf. Every schema-invalid examples/*INVALID-*.yaml document must
+"-", as in gen-rdf. Every schema-invalid examples/*.SCHEMA-INVALID-*.yaml document must
 be rejected by both validators: by JSON
 Schema with the error named on its first line ("# expect: ..."), and by SHACL.
 Its class is named on a "# class: ..." line, and is Claim when there is none.
@@ -132,7 +132,7 @@ EXAMPLES = {
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
-INVALID_GLOB = "examples/*INVALID-*.yaml"
+INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 EVIDENCE_GLOB = "data/playground/Evidence/*.ttl"
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
