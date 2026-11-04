@@ -40,7 +40,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `name` | `schema:name` | string | 0..1 | A title, for display. It is not the assertion. |
 | `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
 | `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. A tag that is only private use, such as `x-regen`, is not accepted. The form is checked, not registration, so some deprecated grandfathered tags such as `zh-min` pass. |
-| `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. |
+| `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. It is content, so changing it makes a new Claim version; when a page moves, keep a redirect from the old address instead. |
 | `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Entity` (inlined) | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 0..1 | When the claimants make the assertion. |
 | `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
@@ -48,6 +48,12 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `hasEvidence` | `rfs:hasEvidence` ⊑ `dcterms:references` | `Evidence` (inlined, with IRI) | 0..*, set | Sources the claimant presents as evidence, each a typed Evidence node. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | Exact Claim or Evaluation versions this claim rests on, such as its premises. A Claim is never cited as evidence. |
 | `wasRevisionOf` | `prov:wasRevisionOf` | IRI | 0..1 | The exact earlier Claim version this one revises. |
+
+**Every field is content.** The ClaimIRI of a version is computed over the whole Claim, with nothing
+excluded ([claims#1](https://github.com/regen-network/claims/issues/1)). So changing any field, including
+`url`, `reliesOn` and which sources it cites as evidence, makes a new Claim version and leaves the earlier one
+unchanged. A correction names the earlier version with `wasRevisionOf`. Which version is current is
+decided outside the Claim.
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
 in structured fields, such as an area and its unit. The statement and those fields are one assertion
