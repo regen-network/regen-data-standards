@@ -144,7 +144,7 @@ EXAMPLES = {
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
-INVALID_GLOB = "examples/*INVALID-*.yaml"
+INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 # The records documents reference by IRI, as the graph store holds them.
 RECORD_GLOBS = {
     "evidence": ["data/playground/Evidence/*.ttl"],
