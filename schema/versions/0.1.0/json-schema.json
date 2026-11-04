@@ -991,6 +991,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -1093,8 +1113,18 @@
                     ],
                     "description": "The period after the crediting period during which the carbon stored must be maintained."
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1137,6 +1167,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -1247,12 +1297,22 @@
                         "null"
                     ]
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "tenureBasis": {
                     "$ref": "#/$defs/TenureBasis",
                     "description": "The legal basis on which the plot is controlled during the crediting period: ownership, a lease, or another arrangement."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1295,6 +1355,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -1445,6 +1525,16 @@
                     ],
                     "description": "The period after the crediting period during which the carbon stored must be maintained."
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "requestedDeviations": {
                     "description": "Project-specific deviations from requirements that the project developer requests in its project plan, each naming the requirements it replaces. Whether a deviation is approved is a separate evaluation. Unordered set.",
                     "items": {
@@ -1463,7 +1553,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1506,6 +1596,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -1651,6 +1761,16 @@
                     "$ref": "#/$defs/EnvironmentType",
                     "description": "The site's primary land use, as a taxonomy term, which the site must maintain during its project period."
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "siteProjectStartDate": {
                     "description": "The site's own project start date. In an aggregate project each site defines its own, which may differ from the aggregate's; its basis is stated in startDateBasis.",
                     "format": "date",
@@ -1674,7 +1794,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -1913,6 +2033,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -1932,7 +2072,7 @@
                     }
                 }
             ],
-            "description": "An assertion made or adopted by one or more claimants about one subject, at a stated time. It records what is asserted and may cite evidence. A Claim is one unit that can be accepted, rejected, evidenced or revised on its own, and one unit of responsibility: each claimant takes responsibility for all of it. It may span many RDF statements; parts that a reviewer could judge separately, or that different agents take responsibility for, are separate Claims. A Claim is asserted by definition, so it is self-attested by its claimants and is valid without any third-party evaluation; later reviews are separate resources that point to it. An unasserted authoring candidate, such as an extraction draft without a claimant, is not a Claim. Every version is immutable: a correction is a new Claim that states wasRevisionOf. Abstract: a document is typed with a claim type, either GenericClaim or a class from a claim-type schema. The constraints here apply to every claim type, and a claim type may add fields to them, so the generated SHACL shape for Claim is open; each claim type's own shape is closed.",
+            "description": "An assertion made or adopted by one or more claimants about one subject, at a stated time. It records what is asserted and may cite evidence. A Claim is one unit that can be accepted, rejected, evidenced or revised on its own, and one unit of responsibility: each claimant takes responsibility for all of it. It may span many RDF statements; parts that a reviewer could judge separately, or that different agents take responsibility for, are separate Claims. A Claim is asserted by definition, so it is self-attested by its claimants and needs no third-party evaluation to be a complete Claim; later reviews are separate resources that point to it. An unasserted authoring candidate, such as an extraction draft without a claimant, is not a Claim. Every version is immutable: a correction is a new Claim that states wasRevisionOf. Abstract: a document is typed with a claim type, either GenericClaim or a class from a claim-type schema. The constraints here apply to every claim type, and a claim type may add fields to them, so the generated SHACL shape for Claim is open; each claim type's own shape is closed.",
             "properties": {
                 "assertedAt": {
                     "description": "When the claimants made this assertion. For an assertion they made in a source document, such as a project plan, and that was transcribed later, it is when they made it there, not when it was extracted, transcribed or submitted. It is never the time of an observation, or the time the Claim record was generated, submitted, published or ingested. The same content asserted at a different time is a different Claim. Written in UTC with whole seconds and the offset +00:00, for example 2026-05-02T07:30:00+00:00. No other offset is accepted, and neither is the Z suffix. A Claim states exactly one of assertedAt and assertedOn; use assertedOn when the source gives only a date.",
@@ -2009,8 +2149,18 @@
                         "null"
                     ]
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -2062,6 +2212,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -2228,7 +2398,7 @@
                     "type": "string"
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -2238,7 +2408,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -3039,6 +3209,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -3227,7 +3417,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -3237,7 +3427,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -3349,7 +3539,7 @@
                     ]
                 },
                 "resolver": {
-                    "description": "Where the bytes of the cited version can be fetched. The data can stay where its owner keeps it; the claim stores only the hash and the resolver. Unordered set.",
+                    "description": "Where the bytes of the cited version can be fetched. The data can stay where its owner keeps it; the Evidence record stores only the hash and the resolver, and a citing Claim names the record by IRI. Moving the data changes the resolver, not the record's IRI or any Claim citing it. Unordered set.",
                     "items": {
                         "format": "uri",
                         "type": "string"
@@ -3478,6 +3668,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -3651,7 +3861,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -3661,7 +3871,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -3980,6 +4190,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -4076,8 +4306,18 @@
                         "null"
                     ]
                 },
+                "reliesOn": {
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -4120,6 +4360,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -4298,7 +4558,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -4308,7 +4568,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -4997,6 +5257,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -5181,7 +5461,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -5191,7 +5471,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -5268,6 +5548,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -5451,7 +5751,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -5461,7 +5761,7 @@
                     ]
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -5563,6 +5863,26 @@
                         },
                         "required": [
                             "assertedOn"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
                         ]
                     }
                 },
@@ -5745,7 +6065,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -5766,7 +6086,7 @@
                     "description": "The explicit subject or complete set of subjects across which the Evaluation's result is asserted, when that applicability is not fully expressed by its focal subject, with what it explicitly excludes and what it does not establish."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",
@@ -5962,6 +6282,26 @@
                 },
                 {
                     "if": {
+                        "not": {
+                            "required": [
+                                "assertedOn"
+                            ]
+                        },
+                        "properties": {
+                            "assertedOn": {}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "assertedAt": {}
+                        },
+                        "required": [
+                            "assertedAt"
+                        ]
+                    }
+                },
+                {
+                    "if": {
                         "properties": {
                             "assertedAt": {}
                         },
@@ -6127,7 +6467,7 @@
                     ]
                 },
                 "reliesOn": {
-                    "description": "An exact Claim or Evaluation whose asserted content or result is used in reaching this Evaluation's assessment, but which is not itself directly assessed by the Evaluation, for example the claim stating an enrolment cutoff that a confirmation relies on.",
+                    "description": "An exact Claim or Evaluation whose asserted content or result this record rests on, without assessing it or citing it as evidence: for a Claim, a premise, such as the measurement claims a change claim is derived from; for an Evaluation, a claim it uses but does not assess, such as the claim stating an enrolment cutoff that a confirmation relies on. If one of them is revised, this record should be reconsidered. A Claim is never cited as evidence, so its premises use this relation, not hasEvidenceCitation.",
                     "items": {
                         "type": "string"
                     },
@@ -6148,7 +6488,7 @@
                     "description": "The explicit subject or complete set of subjects across which the Evaluation's result is asserted, when that applicability is not fully expressed by its focal subject, with what it explicitly excludes and what it does not establish."
                 },
                 "url": {
-                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation.",
+                    "description": "Link to a page with more information about the claim. A pointer for readers, not evidence; cite evidence with hasEvidenceCitation. It is content, so changing it makes a new Claim version; when the page moves, keep a redirect from the old address instead.",
                     "format": "uri",
                     "type": [
                         "string",

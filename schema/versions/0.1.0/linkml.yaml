@@ -1477,8 +1477,9 @@ slots:
   resolver:
     name: resolver
     description: Where the bytes of the cited version can be fetched. The data can
-      stay where its owner keeps it; the claim stores only the hash and the resolver.
-      Unordered set.
+      stay where its owner keeps it; the Evidence record stores only the hash and
+      the resolver, and a citing Claim names the record by IRI. Moving the data changes
+      the resolver, not the record's IRI or any Claim citing it. Unordered set.
     from_schema: https://framework.regen.network/schema/
     slot_uri: rfs:resolver
     list_elements_ordered: false
@@ -1726,6 +1727,27 @@ slots:
     list_elements_ordered: false
     range: uriorcurie
     multivalued: true
+  reliesOn:
+    name: reliesOn
+    description: 'An exact Claim or Evaluation whose asserted content or result this
+      record rests on, without assessing it or citing it as evidence: for a Claim,
+      a premise, such as the measurement claims a change claim is derived from; for
+      an Evaluation, a claim it uses but does not assess, such as the claim stating
+      an enrolment cutoff that a confirmation relies on. If one of them is revised,
+      this record should be reconsidered. A Claim is never cited as evidence, so its
+      premises use this relation, not hasEvidenceCitation.'
+    comments:
+    - 'Implementation: each value is the IRI of one immutable version, such as a ClaimIRI.
+      Repeatable and unordered. Specializes dcterms:references, so it asserts neither
+      derivation nor support.'
+    from_schema: https://framework.regen.network/schema/
+    is_a: references
+    slot_uri: rfs:reliesOn
+    list_elements_ordered: false
+    domain_of:
+    - Claim
+    range: uriorcurie
+    multivalued: true
   hasEvidenceCitation:
     name: hasEvidenceCitation
     description: The evidence the claimant presents for the assertion, as citations.
@@ -1744,24 +1766,6 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  reliesOn:
-    name: reliesOn
-    description: An exact Claim or Evaluation whose asserted content or result is
-      used in reaching this Evaluation's assessment, but which is not itself directly
-      assessed by the Evaluation, for example the claim stating an enrolment cutoff
-      that a confirmation relies on.
-    comments:
-    - 'Implementation: each value is the IRI of one immutable version, such as a ClaimIRI.
-      Repeatable and unordered. Specializes dcterms:references, so it asserts neither
-      derivation nor support.'
-    from_schema: https://framework.regen.network/schema/
-    is_a: references
-    slot_uri: rfs:reliesOn
-    list_elements_ordered: false
-    domain_of:
-    - Evaluation
-    range: uriorcurie
-    multivalued: true
   hasTarget:
     name: hasTarget
     description: The exact resource or resources directly examined or assessed in
@@ -4178,14 +4182,14 @@ classes:
       for all of it. It may span many RDF statements; parts that a reviewer could
       judge separately, or that different agents take responsibility for, are separate
       Claims. A Claim is asserted by definition, so it is self-attested by its claimants
-      and is valid without any third-party evaluation; later reviews are separate
-      resources that point to it. An unasserted authoring candidate, such as an extraction
-      draft without a claimant, is not a Claim. Every version is immutable: a correction
-      is a new Claim that states wasRevisionOf. Abstract: a document is typed with
-      a claim type, either GenericClaim or a class from a claim-type schema. The constraints
-      here apply to every claim type, and a claim type may add fields to them, so
-      the generated SHACL shape for Claim is open; each claim type''s own shape is
-      closed.'
+      and needs no third-party evaluation to be a complete Claim; later reviews are
+      separate resources that point to it. An unasserted authoring candidate, such
+      as an extraction draft without a claimant, is not a Claim. Every version is
+      immutable: a correction is a new Claim that states wasRevisionOf. Abstract:
+      a document is typed with a claim type, either GenericClaim or a class from a
+      claim-type schema. The constraints here apply to every claim type, and a claim
+      type may add fields to them, so the generated SHACL shape for Claim is open;
+      each claim type''s own shape is closed.'
     from_schema: https://framework.regen.network/schema/
     abstract: true
     mixins:
@@ -4200,6 +4204,7 @@ classes:
     - assertedOn
     - hasSubject
     - hasEvidenceCitation
+    - reliesOn
     - wasRevisionOf
     slot_usage:
       name:
@@ -4215,7 +4220,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -4288,7 +4295,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -4408,6 +4417,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: Claim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -4441,6 +4472,20 @@ classes:
       description: A Claim states when it was asserted, with assertedAt or assertedOn.
         Enforced by the generated JSON Schema; the generated SHACL does not express
         LinkML rules.
+    - preconditions:
+        slot_conditions:
+          assertedOn:
+            name: assertedOn
+            value_presence: ABSENT
+      postconditions:
+        slot_conditions:
+          assertedAt:
+            name: assertedAt
+            value_presence: PRESENT
+      description: 'The same requirement stated from the other side: without assertedOn,
+        assertedAt is required. It adds no constraint, but a Claim with no assertion
+        time is then reported for both fields, not only for assertedOn. Enforced by
+        the generated JSON Schema; the generated SHACL does not express LinkML rules.'
     - preconditions:
         slot_conditions:
           assertedAt:
@@ -4526,7 +4571,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -4646,6 +4693,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: GenericClaim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -4841,8 +4910,10 @@ classes:
       resolver:
         name: resolver
         description: Where the bytes of the cited version can be fetched. The data
-          can stay where its owner keeps it; the claim stores only the hash and the
-          resolver. Unordered set.
+          can stay where its owner keeps it; the Evidence record stores only the hash
+          and the resolver, and a citing Claim names the record by IRI. Moving the
+          data changes the resolver, not the record's IRI or any Claim citing it.
+          Unordered set.
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:resolver
         list_elements_ordered: false
@@ -5515,7 +5586,6 @@ classes:
     abstract: true
     slots:
     - hasTarget
-    - reliesOn
     - appliesRequirement
     - appliesRequirementSet
     - governedBy
@@ -5553,25 +5623,6 @@ classes:
           does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
-        list_elements_ordered: false
-        owner: Evaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
         list_elements_ordered: false
         owner: Evaluation
         domain_of:
@@ -5744,7 +5795,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -5828,6 +5881,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: Evaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -5877,25 +5952,6 @@ classes:
           does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
-        list_elements_ordered: false
-        owner: GenericEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
         list_elements_ordered: false
         owner: GenericEvaluation
         domain_of:
@@ -6068,7 +6124,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -6152,6 +6210,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: GenericEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -6226,25 +6306,6 @@ classes:
           does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
-        list_elements_ordered: false
-        owner: RequirementEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
         list_elements_ordered: false
         owner: RequirementEvaluation
         domain_of:
@@ -6417,7 +6478,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -6501,6 +6564,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: RequirementEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -6611,25 +6696,6 @@ classes:
         required: true
         multivalued: true
         minimum_cardinality: 1
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
-        list_elements_ordered: false
-        owner: EvidenceSupportEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
       appliesRequirement:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
@@ -6797,7 +6863,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -6881,6 +6949,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: EvidenceSupportEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -6962,25 +7052,6 @@ classes:
         required: true
         multivalued: true
         minimum_cardinality: 1
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
-        list_elements_ordered: false
-        owner: ClaimConsistencyEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
       appliesRequirement:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
@@ -7150,7 +7221,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -7234,6 +7307,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: ClaimConsistencyEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -7630,25 +7725,6 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
-        list_elements_ordered: false
-        owner: RegistryRequirementEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
       appliesRequirement:
         name: appliesRequirement
         description: The exact Requirement version whose applicability to the subject
@@ -7815,7 +7891,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -7899,6 +7977,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: RegistryRequirementEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -8020,25 +8120,6 @@ classes:
         - Evaluation
         range: uriorcurie
         multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
-        list_elements_ordered: false
-        owner: RegistryFindingEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
       appliesRequirement:
         name: appliesRequirement
         description: 'Exact requirement versions an evaluation applies or judges,
@@ -8206,7 +8287,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -8292,6 +8375,28 @@ classes:
         inlined: true
         inlined_as_list: true
         minimum_cardinality: 1
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: RegistryFindingEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -8367,25 +8472,6 @@ classes:
           does to Evidence records and ClaimConsistencyEvaluation to claim versions.'
         from_schema: https://framework.regen.network/schema/
         slot_uri: rfs:hasTarget
-        list_elements_ordered: false
-        owner: RegistryReportEvaluation
-        domain_of:
-        - Evaluation
-        range: uriorcurie
-        multivalued: true
-      reliesOn:
-        name: reliesOn
-        description: An exact Claim or Evaluation whose asserted content or result
-          is used in reaching this Evaluation's assessment, but which is not itself
-          directly assessed by the Evaluation, for example the claim stating an enrolment
-          cutoff that a confirmation relies on.
-        comments:
-        - 'Implementation: each value is the IRI of one immutable version, such as
-          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
-          it asserts neither derivation nor support.'
-        from_schema: https://framework.regen.network/schema/
-        is_a: references
-        slot_uri: rfs:reliesOn
         list_elements_ordered: false
         owner: RegistryReportEvaluation
         domain_of:
@@ -8559,7 +8645,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -8643,6 +8731,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: RegistryReportEvaluation
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -9297,7 +9407,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -9417,6 +9529,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: C06ProjectClaim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -9534,7 +9668,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -9654,6 +9790,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: C06CohortClaim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -9862,7 +10020,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -9982,6 +10142,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: C06SiteClaim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
@@ -10117,7 +10299,9 @@ classes:
       url:
         name: url
         description: Link to a page with more information about the claim. A pointer
-          for readers, not evidence; cite evidence with hasEvidenceCitation.
+          for readers, not evidence; cite evidence with hasEvidenceCitation. It is
+          content, so changing it makes a new Claim version; when the page moves,
+          keep a redirect from the old address instead.
         from_schema: https://framework.regen.network/schema/
         rank: 1
         slot_uri: schema:url
@@ -10237,6 +10421,28 @@ classes:
         multivalued: true
         inlined: true
         inlined_as_list: true
+      reliesOn:
+        name: reliesOn
+        description: 'An exact Claim or Evaluation whose asserted content or result
+          this record rests on, without assessing it or citing it as evidence: for
+          a Claim, a premise, such as the measurement claims a change claim is derived
+          from; for an Evaluation, a claim it uses but does not assess, such as the
+          claim stating an enrolment cutoff that a confirmation relies on. If one
+          of them is revised, this record should be reconsidered. A Claim is never
+          cited as evidence, so its premises use this relation, not hasEvidenceCitation.'
+        comments:
+        - 'Implementation: each value is the IRI of one immutable version, such as
+          a ClaimIRI. Repeatable and unordered. Specializes dcterms:references, so
+          it asserts neither derivation nor support.'
+        from_schema: https://framework.regen.network/schema/
+        is_a: references
+        slot_uri: rfs:reliesOn
+        list_elements_ordered: false
+        owner: C06PlotClaim
+        domain_of:
+        - Claim
+        range: uriorcurie
+        multivalued: true
       wasRevisionOf:
         name: wasRevisionOf
         description: 'Identifier of the exact, immutable earlier Claim version that
