@@ -150,15 +150,15 @@ EXAMPLES = {
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
-INVALID_GLOB = "examples/*INVALID-*.yaml"
+INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 # Invalid documents also published as JSON-LD, for consumers' tests.
 INVALID_JSONLD = {
-    "examples/c06-mvp-claim.INVALID-unknown-practice.yaml": "examples/c06-mvp-claim-domain-invalid.jsonld",
+    "examples/c06-mvp-claim.SCHEMA-INVALID-unknown-practice.yaml": "examples/c06-mvp-claim-domain-invalid.jsonld",
 }
 # Invalid documents derived from a valid fixture: (fixture, slot whose last
 # list item is replaced, the replacement, header lines).
 DERIVED_INVALID = {
-    "examples/c06-mvp-claim.INVALID-unknown-practice.yaml": (
+    "examples/c06-mvp-claim.SCHEMA-INVALID-unknown-practice.yaml": (
         "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml",
         "practices",
         "CONTINUOUS_TILLAGE",
