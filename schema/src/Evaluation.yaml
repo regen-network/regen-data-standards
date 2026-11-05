@@ -108,7 +108,8 @@ classes:
         range: RequirementAssessmentResult
         required: true
     rules:
-      - description: >-
+      - title: An undetermined outcome has a rationale saying what is missing.
+        description: >-
           An undetermined outcome is a finding, not a review in progress, so
           the rationale says what is missing. Enforced by the generated JSON
           Schema; the generated SHACL does not express LinkML rules.
@@ -123,7 +124,8 @@ classes:
           slot_conditions:
             rationale:
               required: true
-      - description: >-
+      - title: A requirement found not satisfied says why, so the claimant can answer it.
+        description: >-
           A requirement found not satisfied says why, so the claimant can
           answer it. Enforced by the generated JSON Schema; the generated
           SHACL does not express LinkML rules.
@@ -164,7 +166,8 @@ classes:
         range: EvidenceSupportResult
         required: true
     rules:
-      - description: >-
+      - title: A challenge says why, so the claimant can answer it.
+        description: >-
           A challenge says why, so the claimant can answer it. Enforced by
           the generated JSON Schema; the generated SHACL does not express
           LinkML rules.
@@ -255,7 +258,8 @@ classes:
           date.
         range: RequirementOutcome
     rules:
-      - description: >-
+      - title: An applicable requirement has an outcome.
+        description: >-
           An applicable requirement has an outcome. Enforced by the generated
           JSON Schema; the generated SHACL does not express LinkML rules.
         preconditions:
@@ -266,7 +270,8 @@ classes:
           slot_conditions:
             outcome:
               required: true
-      - description: >-
+      - title: A requirement that does not apply has no outcome.
+        description: >-
           A requirement that does not apply has no outcome. Enforced by the
           generated JSON Schema; the generated SHACL does not express LinkML
           rules.
@@ -296,7 +301,8 @@ classes:
         range: EvidentialStance
         required: true
     rules:
-      - description: >-
+      - title: Evidence with no bearing on the claim has no sufficiency.
+        description: >-
           Evidence with no bearing on the claim establishes nothing, so it has
           no sufficiency. Enforced by the generated JSON Schema; the
           generated SHACL does not express LinkML rules.

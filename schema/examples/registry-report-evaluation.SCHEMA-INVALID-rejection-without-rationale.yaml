@@ -1,4 +1,5 @@
 # expect: 'rationale' is a required property
+# rule: A rejection says why, so the project proponent can address it.
 # class: RegistryReportEvaluation
 # shacl: not enforced
 # A rejection says why, so the project proponent can address it. This is a

@@ -3,6 +3,9 @@ name: SDG
 
 prefixes:
   rfs: https://framework.regen.network/schema/
+  # The SDG meanings use it: without a declared prefix, LinkML drops a
+  # meaning written as a full IRI, and the Turtle output has a string.
+  sdgs: https://sdgs.un.org/goals/
 
 default_prefix: rfs
 
