@@ -1296,5 +1296,5 @@
   "resolver": [
     "https://example.org/captures/meeting-0042-v1.txt"
   ],
-  "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-1"
+  "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-transcript-1"
 }

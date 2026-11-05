@@ -92,9 +92,10 @@ make check-claim-examples    # check the examples and invalid documents with the
   Schema and SHACL shapes;
 - every example of every version is accepted by both validators, or, if invalid, rejected by both
   and only on the slots the manifest names. SHACL checks each example as a graph store holds it:
-  with the version's `hierarchy.ttl` and the version's `records/` of every class but its own, since
-  merged with its own records a record would carry its digest twice. Every record is checked the
-  same way. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
+  with the version's `hierarchy.ttl` and the `records/` it can reference, as `claim-examples.py`
+  does: a Claim or Evaluation with every record, an `Evidence` record with the `Activity` records,
+  and an `Activity` record with none. An `Evidence` record is not merged with the `Evidence` records,
+  which hold it already: it would carry its digest twice. Every record is checked the same way. `c06-mvp-claim-domain-invalid.jsonld` has the base Claim
   fields of `c06-mvp-claim.jsonld` and fails only the C06 constraint on `practices`;
 - for the current version, `src/` is the recorded source and regenerating every artifact gives the
   same bytes;

@@ -39,10 +39,12 @@ has its digest, and every file in versions/ is listed; every entry point
 exists in the version's JSON Schema and SHACL shapes; every example of every
 version is accepted, or, if invalid, rejected only on the paths the manifest
 names, by both validators, with no network access. SHACL checks each example
-with the version's records and hierarchy, as a graph store holds them: a
-document of a record class, and each file of records/, with the records of
-every other class, since merged with its own records a record would carry
-its digest twice. For the version
+with the version's records and hierarchy, as a graph store holds them, as
+claim-examples.py does: a Claim or Evaluation with every record, an Evidence
+document or records file with the Activity records it can name, and an
+Activity document or records file with none, since it references no record.
+An Evidence record is never merged with the Evidence records, which hold it
+already: merged with itself, it would carry its digest twice. For the version
 src/schema.yaml declares, it also checks that src/ is the source the manifest
 records, that regenerating the artifacts gives the same bytes, that its
 examples are those of examples/, and that its manifest entry is the one
@@ -95,6 +97,7 @@ ARTIFACTS = {
 # Claim and its concrete subclasses: claims and evaluations cite Evidence by IRI,
 # and Evidence names the Activity that generated it by IRI.
 RECORD_CLASSES = ("Evidence", "GenericActivity", "Capture")
+ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
 # The packages whose versions shape the artifacts' bytes: rdflib serializes
 # shacl.ttl, PyYAML writes linkml.yaml.
 GENERATORS = ("linkml", "linkml-runtime", "rdflib", "PyYAML")
@@ -532,17 +535,22 @@ def check_examples(version, entry, failures):
     view = SchemaView(str(out / ARTIFACTS["linkml"]))
     hierarchy = lexical_graph((out / ARTIFACTS["hierarchy"]).read_text(), "turtle")
     # The records of each class, as a graph store holds them. A document is
-    # checked with the records of every other class: merged with its own, a
-    # record would carry its digest (a blank node) twice.
+    # checked with the records it can reference, as claim-examples.py does:
+    # an Activity references none, an Evidence record names Activity records,
+    # and a Claim cites Evidence. An Evidence record is not merged with the
+    # Evidence records, which hold it already: merged with itself, its digest
+    # (a blank node) would be duplicated.
     stores = {}
     for record in entry.get("records", []):
         path = VERSIONS / record["path"]
         stores[record["class"]] = stores.get(record["class"], rdflib.Graph()) + lexical_graph(path.read_text(), "json-ld")
 
     def others(class_name):
+        if class_name in ACTIVITY_CLASSES:
+            return rdflib.Graph()
         merged = rdflib.Graph()
         for name, graph in stores.items():
-            if name != class_name:
+            if name in ACTIVITY_CLASSES or class_name != "Evidence":
                 merged += graph
         return merged
 
@@ -570,8 +578,8 @@ def check_examples(version, entry, failures):
             failures.append(f"{path}: entry point {entry_point} is not in the manifest")
             continue
         errors = json_schema_errors(schema, entry_point, data_form(view, json.loads(text)))
-        # As a graph store holds it: with the hierarchy and the records of
-        # every class but its own.
+        # As a graph store holds it: with the hierarchy and the records it
+        # can reference.
         graph = lexical_graph(text, "json-ld") + hierarchy + others(entry_point)
         conforms, results = shacl_results(shapes, graph)
         if example["valid"]:

@@ -1373,7 +1373,7 @@
       "resolver": [
         "https://example.org/captures/meeting-0042-calendar-v1.json"
       ],
-      "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-1"
+      "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-calendar-1"
     },
     {
       "@type": "Evidence",
@@ -1390,7 +1390,7 @@
       "resolver": [
         "https://example.org/captures/meeting-0042-v1.txt"
       ],
-      "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-1"
+      "wasGeneratedBy": "https://example.org/sensors/meeting-sensor/captures/0042-transcript-1"
     },
     {
       "@type": "Evidence",

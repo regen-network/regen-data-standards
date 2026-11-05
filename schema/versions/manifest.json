@@ -5,9 +5,9 @@
     "0.1.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "60c88d2c0263578dd3c9ca732b9cd53703dec4ae",
+        "gitTree": "d3e3ed9abe4e9af5200fad3116266e82c9cba3e0",
         "files": {
-          "Activity.yaml": "606e2ced3d2f1204421ae419a67167f841b15faa",
+          "Activity.yaml": "d67e2d3260e85a0849cc3c7da638da063260eb73",
           "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
           "BufferPoolAccount.yaml": "59e19688da66066fdc14a2a27560a5c5b56a3fe5",
           "C01ProjectInfo.yaml": "994223f47da82e9d5721b12294989412a2f91b61",
@@ -49,16 +49,16 @@
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
-          "sha256": "732c543ff5ec3294d8ae1dd5f1538e5dc447818f36f3f6ff8f5a6c818bf5dd75",
+          "sha256": "500497fb219551e869e31a13efd79a409ee5ea214aaef0e4e9358cfc865e5d12",
           "id": "https://framework.regen.network/schema/versions/0.1.0/json-schema.json"
         },
         "shacl": {
           "path": "0.1.0/shacl.ttl",
-          "sha256": "736d6c761a23235571de204ac507a3f2ff6f3a91aac716b70a2e8ee56b2ac212"
+          "sha256": "90bf9352daf47a74dbe00c3d3835b3382d75afa02f7f1c11bd5adcf1691e590a"
         },
         "linkml": {
           "path": "0.1.0/linkml.yaml",
-          "sha256": "ec11ac337efb0108fa9592e7be241aff0b82e90d7fa196a4bb9ac7b85a92277a"
+          "sha256": "aac3140e67459cb2427706384a4ba844744942bec2049e736003ebb7eebd6142"
         },
         "hierarchy": {
           "path": "0.1.0/hierarchy.ttl",
@@ -181,7 +181,7 @@
           "path": "0.1.0/examples/capture.jsonld",
           "entryPoint": "Capture",
           "valid": true,
-          "sha256": "e22bbaee61cd571fbfa9e669d720bc6177b1c685a4c2822dee6d556052d8e221"
+          "sha256": "80898a45c2febc84425418cc112270e959a8f430a4e7f884a8f0dfffc4dde11c"
         },
         {
           "path": "0.1.0/examples/claim-consistency-evaluation.jsonld",
@@ -193,7 +193,7 @@
           "path": "0.1.0/examples/evidence-capture.jsonld",
           "entryPoint": "Evidence",
           "valid": true,
-          "sha256": "4d8fa7525ba36cbba2db5fedef8f12199927b638b401fa009ce79451ec2f7932"
+          "sha256": "20bf5abb0cc374bd613a5ef8dec0fbd060ac58186bc8333ec8e3c3fdc06c467f"
         },
         {
           "path": "0.1.0/examples/evidence-support-evaluation.jsonld",
@@ -278,12 +278,12 @@
         {
           "path": "0.1.0/records/capture.jsonld",
           "class": "Capture",
-          "sha256": "c768470a0c9a4c27c515b203f9ceee4de482a86f7f8e8e82e164fc50b4d5642f"
+          "sha256": "9166c47b4048b9c1481da8768fdc691e7a69c6f7dd4bb7eb09c7e54c8f1624f9"
         },
         {
           "path": "0.1.0/records/evidence.jsonld",
           "class": "Evidence",
-          "sha256": "266e9104135e7b01a0ce6aa8b2e14949b6f1e638b12d0e52e7d4fc85706a7acd"
+          "sha256": "a589b7e3f138f32c91292d051f56dcbf57702f62d72fb4db59f0afc46bb2d22d"
         },
         {
           "path": "0.1.0/records/generic-activity.jsonld",
