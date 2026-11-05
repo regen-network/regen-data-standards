@@ -1,4 +1,5 @@
 # expect: 'rationale' is a required property
+# rule: An undetermined outcome has a rationale saying what is missing.
 # class: RegistryRequirementEvaluation
 # shacl: not enforced
 # An undetermined outcome is a finding that what is available is not yet

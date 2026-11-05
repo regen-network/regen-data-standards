@@ -14,7 +14,8 @@ versions/<version>/:
   in corrected_context;
 - json-schema.json: the JSON Schema (gen-json-schema
   --include-range-class-descendants, the options linkml-validate uses), with
-  a $id unique to the version: <schema id>versions/<version>/json-schema.json;
+  a $id unique to the version: <schema id>versions/<version>/json-schema.json,
+  and each rule's title on its then and else subschemas (titled_rules);
 - shacl.ttl: the SHACL shapes (gen-shacl), unchanged except that the graph is
   serialized canonically, so that regenerating it gives the same bytes;
 - linkml.yaml: the schema with its imports merged (gen-linkml --mergeimports),
@@ -252,13 +253,19 @@ def generate_artifact(kind, schema, version=None):
         return json.dumps(document, indent=2, ensure_ascii=False) + "\n"
     if kind == "json-schema":
         # gen-json-schema gives every version the schema's id as $id; replace
-        # that one line, so the rest of the output is unchanged.
+        # it, and add the rules' titles. The output is printed as
+        # gen-json-schema prints it, so nothing else changes.
         text = run("gen-json-schema", "--include-range-class-descendants", str(schema))
         view = SchemaView(str(schema))
-        line = f'    "$id": {json.dumps(view.schema.id)},\n'
-        if version is None or text.count(line) != 1:
+        document = json.loads(text)
+        ending = text[len(text.rstrip("\n")):]
+        if json.dumps(document, indent=4) + ending != text:
+            sys.exit("gen-json-schema no longer prints as json.dumps(indent=4): update generate_artifact")
+        if version is None or document.get("$id") != view.schema.id:
             sys.exit(f"cannot set the $id of the JSON Schema of {schema} (version {version})")
-        return text.replace(line, f'    "$id": {json.dumps(json_schema_id(view, version))},\n')
+        document["$id"] = json_schema_id(view, version)
+        titled_rules(view, document)
+        return json.dumps(document, indent=4) + ending
     if kind == "shacl":
         return canonical_turtle(rdflib.Graph().parse(data=run("gen-shacl", str(schema)), format="turtle"))
     if kind == "linkml":
@@ -266,6 +273,44 @@ def generate_artifact(kind, schema, version=None):
     if kind == "hierarchy":
         return canonical_turtle(script("gen-hierarchy").hierarchy(SchemaView(str(schema))))
     raise ValueError(kind)
+
+
+def titled_rules(view, schema):
+    """Copy each rule's title onto its then and else subschemas.
+
+    A rule fails only inside its then, or its else, so every error of a rule
+    passes through one of them, and the claim service names the rule from the
+    title of the nearest one (claims ADR 0003 D6). LinkML writes neither a
+    rule's title nor its description into the JSON Schema. Its
+    jsonschemagen.handle_class (1.8.6 and 1.11.1) takes a class's rules from
+    class_ancestors, the class first, each followed by its inverse when it is
+    bidirectional, and writes them as the first entries of the class's allOf,
+    or into the class's own subschema when there is only one. A class with
+    one rule has no subschema of the rule's own, and its subschema already
+    has the class's title, so the title goes on then and else."""
+    for name, subschema in schema["$defs"].items():
+        if name not in view.all_classes():
+            continue
+        rules = []
+        for ancestor in view.class_ancestors(name):
+            for rule in view.get_class(ancestor).rules or []:
+                if not rule.title:
+                    sys.exit(f"a rule of {ancestor} has no title: give it one written for the submitter")
+                rules += [rule] * (2 if rule.bidirectional else 1)
+        if not rules:
+            continue
+        if len(rules) == 1:
+            placed = [subschema]
+        else:
+            placed = subschema.get("allOf", [])[: len(rules)]
+            if any(set(entry) - {"if", "then", "else"} for entry in placed):
+                placed = []
+        if len(placed) != len(rules) or not all("then" in entry or "else" in entry for entry in placed):
+            sys.exit(f"cannot find the {len(rules)} rule(s) of {name} in the JSON Schema: has LinkML changed how it writes rules?")
+        for rule, entry in zip(rules, placed):
+            for branch in ("then", "else"):
+                if isinstance(entry.get(branch), dict):
+                    entry[branch]["title"] = rule.title
 
 
 def canonical_turtle(graph):

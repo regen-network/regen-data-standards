@@ -1,4 +1,5 @@
 # expect: should not be valid under {'required': ['outcome']}
+# rule: A requirement that does not apply has no outcome.
 # class: RegistryRequirementEvaluation
 # shacl: not enforced
 # A requirement that does not apply has no verdict. This is a LinkML rule,

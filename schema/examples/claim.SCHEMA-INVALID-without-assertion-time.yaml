@@ -1,4 +1,5 @@
 # expect: 'assertedOn' is a required property
+# rule: A Claim states when it was asserted, with assertedAt or assertedOn.
 # shacl: not enforced
 # A Claim states when it was asserted, with assertedAt or assertedOn. JSON
 # Schema reports both fields as required.

@@ -1,4 +1,5 @@
 # expect: should not be valid under {'required': ['evidenceSufficiency']}
+# rule: Evidence with no bearing on the claim has no sufficiency.
 # class: EvidenceSupportEvaluation
 # shacl: not enforced
 # Evidence with no bearing on the claim establishes nothing, so it has no

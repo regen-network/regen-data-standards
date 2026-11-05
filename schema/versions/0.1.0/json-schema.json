@@ -986,7 +986,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1006,7 +1007,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1026,7 +1028,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -1167,7 +1170,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1187,7 +1191,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1207,7 +1212,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -1355,7 +1361,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1375,7 +1382,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1395,7 +1403,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -1596,7 +1605,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1616,7 +1626,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -1636,7 +1647,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -2028,7 +2040,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -2048,7 +2061,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -2068,7 +2082,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -2212,7 +2227,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -2232,7 +2248,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -2252,7 +2269,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -3204,7 +3222,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -3224,7 +3243,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -3244,7 +3264,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -3648,7 +3669,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "A challenge says why, so the claimant can answer it."
                     }
                 },
                 {
@@ -3668,7 +3690,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -3688,7 +3711,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -3708,7 +3732,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -3931,7 +3956,8 @@
                 },
                 "properties": {
                     "evidenceSufficiency": {}
-                }
+                },
+                "title": "Evidence with no bearing on the claim has no sufficiency."
             },
             "title": "EvidenceSupportResult",
             "type": "object"
@@ -4185,7 +4211,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -4205,7 +4232,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -4225,7 +4253,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -4360,7 +4389,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -4380,7 +4410,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -4400,7 +4431,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -5252,7 +5284,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5272,7 +5305,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5292,7 +5326,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -5528,7 +5563,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "A rejection says why, so the project proponent can address it."
                     }
                 },
                 {
@@ -5548,7 +5584,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5568,7 +5605,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5588,7 +5626,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -5815,7 +5854,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "An undetermined outcome has a rationale saying what is missing."
                     }
                 },
                 {
@@ -5843,7 +5883,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "A requirement found not satisfied says why, so the claimant can answer it."
                     }
                 },
                 {
@@ -5863,7 +5904,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5883,7 +5925,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -5903,7 +5946,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],
@@ -6158,7 +6202,8 @@
                         },
                         "required": [
                             "outcome"
-                        ]
+                        ],
+                        "title": "An applicable requirement has an outcome."
                     }
                 },
                 {
@@ -6180,7 +6225,8 @@
                         },
                         "properties": {
                             "outcome": {}
-                        }
+                        },
+                        "title": "A requirement that does not apply has no outcome."
                     }
                 }
             ],
@@ -6229,7 +6275,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "An undetermined outcome has a rationale saying what is missing."
                     }
                 },
                 {
@@ -6257,7 +6304,8 @@
                         },
                         "required": [
                             "rationale"
-                        ]
+                        ],
+                        "title": "A requirement found not satisfied says why, so the claimant can answer it."
                     }
                 },
                 {
@@ -6277,7 +6325,8 @@
                         },
                         "required": [
                             "assertedOn"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -6297,7 +6346,8 @@
                         },
                         "required": [
                             "assertedAt"
-                        ]
+                        ],
+                        "title": "A Claim states when it was asserted, with assertedAt or assertedOn."
                     }
                 },
                 {
@@ -6317,7 +6367,8 @@
                         },
                         "properties": {
                             "assertedOn": {}
-                        }
+                        },
+                        "title": "A Claim has one assertion time: assertedAt or assertedOn, not both."
                     }
                 }
             ],

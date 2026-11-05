@@ -66,7 +66,10 @@ Its class is named on a "# class: ..." line, and is GenericClaim when there is
 none. A document that breaks a LinkML rule carries a "# shacl: not enforced"
 line: the generated SHACL does not express rules, so only JSON Schema must
 reject it, and the check reports that SHACL accepts it. The line may give
-another reason in parentheses. A document marked "# graph: with the Evidence
+another reason in parentheses. A document that breaks a rule names it on a
+"# rule: ..." line, by the rule's title, and the check finds that title on
+the nearest then or else of a JSON Schema error, as the claim service reads
+it; an error of a rule without a title fails the check. A document marked "# graph: with the Evidence
 records" is valid on its own ("# expect: accepted alone"), and SHACL must
 reject it merged with the Evidence records, as the graph store merges it. An
 invalid document listed in INVALID_JSONLD is also published as JSON-LD. One
@@ -311,6 +314,30 @@ def json_schema_check(bundle, document, class_name):
         error = best_match([error])
         messages.append(f"{error.message} in /{'/'.join(str(p) for p in error.absolute_path)}")
     return not messages, "\n".join(messages)
+
+
+def rule_titles(bundle, document, class_name):
+    """The title of the nearest then or else on each error's schema path, or
+    None for an error of a rule that has none, as the claim service reads it
+    (claims ADR 0003 D6). Errors outside a rule are left out."""
+    schema = bundle.json_schema
+    root = {"$schema": schema["$schema"], "$defs": schema["$defs"], "$ref": f"#/$defs/{class_name}"}
+    validator = jsonschema.Draft201909Validator(root, format_checker=jsonschema.Draft201909Validator.FORMAT_CHECKER)
+    titles = []
+    for error in validator.iter_errors(yaml.safe_load(Path(document).read_text())):
+        # jsonschema leaves the $ref hops out of absolute_schema_path; follow a
+        # $ref wherever the next key is not in the subschema, which gives the
+        # dereferenced path, the absoluteKeywordLocation the service reads.
+        node, found, in_rule = root, None, False
+        for key in error.absolute_schema_path:
+            while isinstance(node, dict) and key not in node and "$ref" in node:
+                node = schema["$defs"][node["$ref"].removeprefix("#/$defs/")]
+            parent, node = node, node[key]
+            if key in ("then", "else") and isinstance(parent, dict) and "if" in parent:
+                in_rule, found = True, node.get("title") if isinstance(node, dict) else None
+        if in_rule:
+            titles.append(found)
+    return titles
 
 
 def class_uri(view, name):
@@ -559,6 +586,19 @@ def examples(mode):
             print(f"✅ {invalid}: JSON Schema rejects it ({expected})")
         else:
             print(f"❌ {invalid}: expected JSON Schema rejection with '{expected}'\n{output}")
+            failures += 1
+        rule = next((line.removeprefix("# rule:").strip() for line in content.splitlines() if line.startswith("# rule:")), None)
+        titles = rule_titles(bundle, invalid, class_name)
+        if None in titles:
+            print(f"❌ {invalid}: a rule it breaks has no title in the JSON Schema")
+            failures += 1
+        elif rule and rule in titles:
+            print(f"✅ {invalid}: the rule it breaks is titled '{rule}'")
+        elif rule:
+            print(f"❌ {invalid}: expected a rule titled '{rule}', found {titles or 'no rule'}")
+            failures += 1
+        elif titles:
+            print(f"❌ {invalid}: it breaks a rule ({titles}), so it needs a '# rule:' line")
             failures += 1
         text = build(bundle, class_name, invalid)
         if invalid in INVALID_JSONLD:

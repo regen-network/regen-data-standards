@@ -49,7 +49,7 @@
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
-          "sha256": "500497fb219551e869e31a13efd79a409ee5ea214aaef0e4e9358cfc865e5d12",
+          "sha256": "59101c512b722bedbdf327bfc7c4815a5201c7df20de5b57202d258f58a0ef29",
           "id": "https://framework.regen.network/schema/versions/0.1.0/json-schema.json"
         },
         "shacl": {
