@@ -132,6 +132,31 @@ classes:
           version record of the same software names the same IRI. Only on a
           version record.
         range: uriorcurie
+    rules:
+      - description: >-
+          A version record names the software it is a version of. Enforced
+          by the generated JSON Schema; the generated SHACL does not express
+          LinkML rules.
+        preconditions:
+          slot_conditions:
+            softwareVersion:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            isVersionOf:
+              value_presence: PRESENT
+      - description: >-
+          A record that names the software it is a version of states which
+          version it is. Enforced by the generated JSON Schema; the generated
+          SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            isVersionOf:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            softwareVersion:
+              value_presence: PRESENT
 
   Community:
     is_a: Agent
