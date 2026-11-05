@@ -1,10 +1,10 @@
 # Synthetic example (example.org identifiers): the Evidence record for
 # Land cover map 2012, described once and cited by IRI.
-id: https://example.org/land-cover/2012/v1
+id: regen:114W5TYc4wuJawtA342sLwwaBvj2qc4u4hx98BuHsXF8jRyxb5yL.raw
 name: Land cover map 2012
 sourceType: DATASET
 contentHash:
-  algorithm: SHA_256
-  digestValue: 85b72fc90622c632d6e5bb359395c77f43407597dfc27ba1b9509c3a0fb347ae
+  algorithm: BLAKE2B_256
+  digestValue: cd1c605e0f5f0fef9856e2d7e62bfb410a8ed729e53c116c9568d3375cf861b4
 resolver:
   - https://example.org/land-cover/2012/v1/download

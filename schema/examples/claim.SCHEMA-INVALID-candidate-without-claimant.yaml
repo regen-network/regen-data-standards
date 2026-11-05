@@ -8,7 +8,7 @@ claimStatement: Hedgerow planted along the northern boundary of plot A.
 hasSubject:
   id: https://example.org/plot/A
 hasEvidenceCitation:
-  - source: https://example.org/evidence/planting-log-2026-v1.pdf
+  - source: regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=2

@@ -65,6 +65,10 @@
       "@type": "xsd:date",
       "@id": "schema:endDate"
     },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -187,12 +191,20 @@
       "@type": "xsd:date",
       "@id": "schema:startDate"
     },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
     "suffix": {
       "@id": "oa:suffix"
     },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
     },
     "value": {
       "@id": "rdf:value"
@@ -222,6 +234,9 @@
     "Any": {
       "@id": "linkml:Any"
     },
+    "Capture": {
+      "@id": "Capture"
+    },
     "Claim": {
       "@id": "Claim"
     },
@@ -242,6 +257,9 @@
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -290,7 +308,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/evidence/planting-log-2026-v1.pdf",
+      "source": "regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf",
       "selector": [
         {
           "@type": "FragmentSelector",
