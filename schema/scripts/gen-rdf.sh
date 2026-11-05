@@ -21,10 +21,22 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
     # Convert yaml files to RDF using linkml class schema
     for yaml_file in "$linkml_class_dir"*.yaml; do
 
+        # Validate the file as authored. linkml-convert --validate would check
+        # LinkML's re-serialized objects instead, which rewrite some values
+        # (a datetime's Z suffix becomes +00:00) before validating.
+        target_class="$(basename "$yaml_file")"
+        target_class="${target_class%%-*}"
+        if ! linkml-validate -s "$SCHEMA_PATH" -C "$target_class" "$yaml_file" ; then
+            echo "❌ Validation failed for: $yaml_file (JSON-LD and TTL conversions skipped)"
+            ((total_count += 2))
+            ((failed_count += 2))
+            continue
+        fi
+
         ((total_count++))
         # Create output filename by replacing .yaml extension with .jsonld
         output_file="${yaml_file%.yaml}.jsonld"
-        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format json-ld --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ JSON-LD conversion failed for: $yaml_file"
             ((failed_count++))
         else
@@ -34,7 +46,7 @@ for linkml_class_dir in "$DATA_DIR"/*/; do
         # Create output filename by replacing .yaml extension with .ttl
         output_file="${yaml_file%.yaml}.ttl"
         ((total_count++))
-        if ! linkml-convert -s "$SCHEMA_PATH" --validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
+        if ! linkml-convert -s "$SCHEMA_PATH" --no-validate --input-format yaml --output-format ttl --target-class-from-path --output "$output_file" "$yaml_file" ; then
             echo "❌ TTL conversion failed for: $yaml_file"
             ((failed_count++))
         else

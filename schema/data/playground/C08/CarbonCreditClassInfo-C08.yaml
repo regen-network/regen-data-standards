@@ -44,9 +44,9 @@ eligibleActivities:
   - CONSERVATION
   - ECOSYSTEM_RESTORATION
 hasCreditProtocol:
-  url: https://www.registry.regen.network/crediting-protocols/ghg-co-benefits-in-watershed-carbon-v1-0
-  name: GHG & Co-Benefits in Watershed Carbon v1.0
-  version: V1.0
+  - url: https://www.registry.regen.network/crediting-protocols/ghg-co-benefits-in-watershed-carbon-v1-0
+    name: GHG & Co-Benefits in Watershed Carbon v1.0
+    version: V1.0
 hasApprovedMethodologies:
   - name: Nature-Based and Green Infrastructure Activities Avoiding Emission from Water Management Gray Infrastructure Construction and Operations Methodology
     url: https://www.registry.regen.network/methodology/watershed-nature-based-and-green-infrastructure-activities-avoiding-emission-from-water-management-gray-infrastructure-construction-and-operations-methodology-v1-0

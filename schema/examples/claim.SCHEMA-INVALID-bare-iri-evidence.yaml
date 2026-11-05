@@ -1,0 +1,13 @@
+# expect: 'https://example.org/evidence/planting-log-2026-v1.pdf' is not of type 'object'
+# Each piece of evidence is an Evidence node with its own IRI, not a bare
+# IRI, so evidence can be typed, queried and validated.
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+hasEvidence:
+  - https://example.org/evidence/planting-log-2026-v1.pdf

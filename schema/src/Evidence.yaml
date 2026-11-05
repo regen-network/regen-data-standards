@@ -1,0 +1,47 @@
+id: Evidence
+name: Evidence
+description: >-
+  Skeleton of the evidence a Claim cites. It gives every cited source a typed,
+  identified node, so citations can be queried and validated instead of being
+  bare IRIs. It does not yet describe evidence in full: content hash and
+  resolver, locator, producer, sources, place and licence terms are to be
+  added.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - ProvAlignment
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Evidence:
+    class_uri: rfs:Evidence
+    mixins:
+      - ProvEntity
+    description: >-
+      A source cited as evidence: a document, dataset, record or observation,
+      identified by an IRI. The IRI names the exact version cited and may
+      carry a fragment for a position inside it, for example a page. Whether
+      it actually supports a claim is judged separately, by attestations, and
+      its current availability or access is not recorded here.
+    slots:
+      - name
+      - description
+    slot_usage:
+      name:
+        description: Title of the cited source.
+      description:
+        description: What the source is, in the citer's words.
+    attributes:
+      id:
+        identifier: true
+        range: uriorcurie
+        description: >-
+          IRI or CURIE of the exact source version cited, for example
+          https://example.org/project-plan-v2.pdf#page=12.

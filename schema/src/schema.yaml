@@ -21,6 +21,10 @@ imports:
   - Registry
   - CreditClassInfo
   - Claim
+  - ClaimSubject
+  - Evidence
+  - ClaimVocabulary
+  - ProvAlignment
   - Attestation
   - BT01ProjectInfo
   - C01ProjectInfo

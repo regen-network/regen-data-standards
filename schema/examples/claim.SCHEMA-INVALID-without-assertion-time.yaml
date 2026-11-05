@@ -1,0 +1,10 @@
+# expect: 'assertedOn' is a required property
+# shacl: not enforced
+# A Claim states when it was asserted, with assertedAt or assertedOn. JSON
+# Schema reports both fields as required.
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+hasSubject:
+  id: https://example.org/plot/A

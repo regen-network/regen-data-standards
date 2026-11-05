@@ -1,0 +1,20 @@
+# Synthetic example (example.org identifiers): a claim derived from two other
+# claims. The change in topsoil organic carbon rests on two measurement claims,
+# named by labelled placeholders that stand for their ClaimIRIs (derived under
+# WP1-08, regen-network/claims#1). They are premises, not evidence: if either is
+# revised, this claim is reconsidered. The lab reports behind them are the
+# evidence, cited by the measurement claims themselves.
+name: Topsoil organic carbon change on plot A, 2024 to 2026
+claimStatement: >-
+  Topsoil organic carbon on plot A rose by 0.3 percentage points between the
+  March 2024 and March 2026 measurements.
+inLanguage: en
+assertedBy:
+  - name: Hedgerow Cooperative
+    type: COMMUNITY
+assertedAt: "2026-04-10T09:00:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A
+reliesOn:
+  - https://example.org/placeholder/claim-iri/soc-measurement-2024-03
+  - https://example.org/placeholder/claim-iri/soc-measurement-2026-03

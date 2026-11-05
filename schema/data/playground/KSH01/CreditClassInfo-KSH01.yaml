@@ -32,6 +32,6 @@ hasCreditingPeriod: P1Y
 eligibleActivities:
   - PRESCRIBED_GRAZING
 hasCreditProtocol:
-  url: https://www.registry.regen.network/crediting-protocols/grazing-in-vineyard-systems
-  name: Grazing in Vineyard Systems
-  version: V1.0
+  - url: https://www.registry.regen.network/crediting-protocols/grazing-in-vineyard-systems
+    name: Grazing in Vineyard Systems
+    version: V1.0
