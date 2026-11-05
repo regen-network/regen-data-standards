@@ -1,0 +1,9 @@
+# expect: 'isVersionOf' is a required property
+# class: SoftwareAgent
+# shacl: not enforced
+# A version record names the software it is a version of. This is a LinkML
+# rule, which the generated JSON Schema enforces and the generated SHACL does
+# not express.
+name: Example Meeting Sensor 1.4.2
+type: prov:SoftwareAgent
+softwareVersion: "1.4.2"

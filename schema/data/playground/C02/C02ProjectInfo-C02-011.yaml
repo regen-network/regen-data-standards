@@ -52,10 +52,10 @@ hasProjectDeveloper:
   description: Public agency managing forest preserves and natural areas in Lake County, Illinois
   url: https://www.lcfpd.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/lake_county_logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Dr. Qingfu Xiao
-  type: INDIVIDUAL
+  type: prov:Person
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET
