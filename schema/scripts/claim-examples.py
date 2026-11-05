@@ -136,7 +136,7 @@ EXAMPLES = {
     "data/playground/Evidence/Evidence-field-records-S-001-2019-2021.yaml": "examples/evidence.jsonld",
     "data/playground/Evidence/Evidence-meeting-0042-transcript-v1.yaml": "examples/evidence-capture.jsonld",
     "data/playground/GenericActivity/GenericActivity-field-operations-S-001-2019-2021.yaml": "examples/generic-activity.jsonld",
-    "data/playground/Capture/Capture-meeting-0042-2026-05-02.yaml": "examples/capture.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-2026-05-02.yaml": "examples/capture.jsonld",
     "data/playground/EvidenceSupportEvaluation/EvidenceSupportEvaluation-generic-001.yaml": "examples/evidence-support-evaluation.jsonld",
     "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",

@@ -440,9 +440,10 @@ rejected). `Activity` is abstract, with two kinds:
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
 
-One capture can generate several records. A meeting sensor fetches the transcript and the calendar
-entry, two `Evidence` records with the same `wasGeneratedBy`. What a record supports depends on what
-it is, and claims say so through what they cite: who spoke is a claim citing the transcript lines
+A capture fetches one record. A meeting sensor that fetches the transcript and the calendar entry
+records two captures, each naming its part in `used` (the meeting's page with a fragment, such as
+`#transcript`), so fetching the transcript again later leaves the calendar entry's latest capture
+unchanged. What a record supports depends on what it is, and claims say so through what they cite: who spoke is a claim citing the transcript lines
 each speaker spoke ([example](../schema/examples/generic-claim-speakers.jsonld)), while who was invited
 is a claim citing the calendar entry ([example](../schema/examples/generic-claim-participants.jsonld)).
 An invitation is not attendance, so the second claim says less, and a reader can tell the two apart

@@ -110,9 +110,9 @@
     }
   },
   "@type": "Capture",
-  "id": "https://example.org/sensors/meeting-sensor/captures/0042-1",
+  "id": "https://example.org/sensors/meeting-sensor/captures/0042-transcript-1",
   "name": "Capture of the transcript of meeting 0042",
-  "used": "https://meetings.example.org/m/0042",
+  "used": "https://meetings.example.org/m/0042#transcript",
   "startedAtTime": "2026-05-02T09:14:05+00:00",
   "endedAtTime": "2026-05-02T09:14:07+00:00",
   "wasAssociatedWith": [
