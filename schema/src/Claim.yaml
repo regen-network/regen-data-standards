@@ -32,7 +32,8 @@ classes:
     mixins:
       - ProvEntity
     rules:
-      - description: >-
+      - title: A Claim states when it was asserted, with assertedAt or assertedOn.
+        description: >-
           A Claim states when it was asserted, with assertedAt or assertedOn.
           Enforced by the generated JSON Schema; the generated SHACL does not
           express LinkML rules.
@@ -44,7 +45,8 @@ classes:
           slot_conditions:
             assertedOn:
               value_presence: PRESENT
-      - description: >-
+      - title: A Claim states when it was asserted, with assertedAt or assertedOn.
+        description: >-
           The same requirement stated from the other side: without assertedOn,
           assertedAt is required. It adds no constraint, but a Claim with no
           assertion time is then reported for both fields, not only for
@@ -58,7 +60,8 @@ classes:
           slot_conditions:
             assertedAt:
               value_presence: PRESENT
-      - description: >-
+      - title: "A Claim has one assertion time: assertedAt or assertedOn, not both."
+        description: >-
           assertedAt and assertedOn are exclusive: one assertion has one
           assertion time, at one precision. Enforced by the generated JSON
           Schema; the generated SHACL does not express LinkML rules.

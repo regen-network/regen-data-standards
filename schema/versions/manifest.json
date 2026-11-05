@@ -5,7 +5,7 @@
     "0.1.0": {
       "source": {
         "path": "schema/src",
-        "gitTree": "d3e3ed9abe4e9af5200fad3116266e82c9cba3e0",
+        "gitTree": "ad99e62b13e2b7f0f35e5041fa1bda9c9e9e4dc3",
         "files": {
           "Activity.yaml": "d67e2d3260e85a0849cc3c7da638da063260eb73",
           "BT01ProjectInfo.yaml": "6c41036603c83b4301bd99efff94f515a78930da",
@@ -13,14 +13,14 @@
           "C01ProjectInfo.yaml": "994223f47da82e9d5721b12294989412a2f91b61",
           "C02ProjectInfo.yaml": "61db8372cacf0f7a5568b22de85104def050e567",
           "C06Claim.yaml": "cfe66f1c6e1a8b2d71e6e79fb9987e7805fad87c",
-          "Claim.yaml": "78263729f71f72367b045823b3584e3147b6c999",
+          "Claim.yaml": "049c38ad7f0cdda2652c1164a61f2114f42e5c9c",
           "ClaimSubject.yaml": "471f4c8af93679ae297789ac036612d16b2d2e53",
           "ClaimVocabulary.yaml": "bb989a3b8df59d335acd6f98de1048816f65dbd9",
           "CreditClassInfo.yaml": "270d8a1ff74272acbc347a8fd321ab5fb9338e85",
           "CreditProtocol.yaml": "540e73eec30c609d0fc2dcd16ab5c5124b1e6973",
           "CreditingProgram.yaml": "bd85707c5ee9176c54479a6f1e437f72aca78e2c",
           "Entity.yaml": "e16f99fbe8ab57895a67ef27ea965d39ebfb1b8a",
-          "Evaluation.yaml": "72dec7c77afdbf5105a5504f0f20f7d3d63c8142",
+          "Evaluation.yaml": "83b96ec9ab023901522b7a7ad785918d70f8a37a",
           "Evidence.yaml": "4449d2fe45f0b58a2347bfeaf2f64478c75baf51",
           "Geometry.yaml": "7b599825675e852fbbc399c38dba10f7aa08388a",
           "Impact.yaml": "ce6fcefeb795cd32d4acb84a114518de4b056990",
@@ -29,7 +29,7 @@
           "ProjectPost.yaml": "114cb094d558747ab3296f240f051a58e918187c",
           "ProvAlignment.yaml": "2f4d480fe07aa5503bdb063111305d535235868f",
           "Registry.yaml": "8cf7f8bdeec4743bf22f21328fb1fdcddc2a6a26",
-          "RegistryReviewEvaluation.yaml": "1f8f677827ea7ba7899199f6c6e27daed3c70d3a",
+          "RegistryReviewEvaluation.yaml": "4e79e60ed702eec2f4a6bd769dced98507c2b382",
           "SDG.yaml": "045b7f48733a2883f435262b1760f1fca349e7e3",
           "core.yaml": "f5f55c3db39deed8646cad655d6d3b1fd5c30dd3",
           "schema.yaml": "53f73919b44f1a32d8d26a8571d202908050edac",
@@ -58,7 +58,7 @@
         },
         "linkml": {
           "path": "0.1.0/linkml.yaml",
-          "sha256": "aac3140e67459cb2427706384a4ba844744942bec2049e736003ebb7eebd6142"
+          "sha256": "828f846121c911bad80aff7f427d8984ba184da297e262bb7df7454696b1a574"
         },
         "hierarchy": {
           "path": "0.1.0/hierarchy.ttl",
