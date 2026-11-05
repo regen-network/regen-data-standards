@@ -23,7 +23,7 @@ hasReferenceId:
     referenceType: VCS Project ID
 projectSize:
   numericValue: 169741
-  unit: unit:HA
+  hasUnit: unit:HA
 environmentType:
   - TROPICAL_FOREST
 activity:

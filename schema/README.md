@@ -46,6 +46,14 @@ There is a designated make task (`gen-rdf`) for validating and generating RDF da
 make gen-rdf
 ```
 
+A Regen Ledger data module IRI, such as `regen:13toVg…rdf`, uses `regen` as its scheme. LinkML's
+converter reads it as a CURIE and rejects the unknown `regen` prefix, so `gen-rdf` passes
+`-P regen=regen:` to `linkml-convert`: the prefix expands to itself and the IRI is kept as written.
+Pass the same option when converting such data with LinkML's tools yourself. The prefix is not
+declared in the schema, because it would then become a `"regen": "regen:"` term in the generated
+JSON-LD contexts, which JSON-LD processors reject as a cyclic IRI mapping. JSON-LD needs no term:
+`regen:` is already an IRI scheme.
+
 ## Claim examples and checks
 
 The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
@@ -56,7 +64,7 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
 | [`generic-claim-dated.jsonld`](examples/generic-claim-dated.jsonld) | A claim from a dated project plan, whose assertion time is a date (`assertedOn`). |
 | [`generic-claim-premises.jsonld`](examples/generic-claim-premises.jsonld) | A change claim that rests on two measurement claims, named by placeholder ClaimIRIs with `reliesOn`. |
-| [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, bare-IRI subject and evidence, and domain fields on the base. |
+| [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, a bare-IRI subject, inlined evidence, a citation without a source, and domain fields on the base. |
 
 A schema-invalid document fails validation against the schema; that says nothing about whether the
 assertion it states is true, supported or accepted, and a schema-valid document is not thereby any of
@@ -72,6 +80,8 @@ generates on every document:
   Turtle that `gen-rdf` writes for the fixture, which `update-graph` publishes. Both are parsed
   without rdflib's literal normalization, so lexical forms are checked as written. The generated
   shapes are used unchanged.
+- pyld, a JSON-LD processor that follows the JSON-LD 1.1 algorithms, over each example: it must
+  give the same RDF as rdflib, which accepts some contexts conforming processors reject.
 - SHACL over each example retyped as a claim type defined outside this repository, with a field of
   its own and its `rdfs:subClassOf rfs:Claim` triple. The open `Claim` shape must accept it, and
   must reject it without `assertedBy`.

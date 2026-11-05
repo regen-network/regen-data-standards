@@ -1,0 +1,15 @@
+# expect: accepted alone
+# class: Evidence
+# graph: with the Evidence records
+# Valid on its own, but it gives the planting log's IRI a second digest. In the
+# graph store the two records merge into one node with two hashes, which SHACL
+# rejects: one Evidence IRI identifies one exact version.
+id: https://example.org/evidence/planting-log-2026-v1.pdf
+name: Planting log, spring 2026 (v1)
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: "1111111111111111111111111111111111111111111111111111111111111111"
+resolver:
+  - https://example.org/evidence/planting-log-2026-v1.pdf

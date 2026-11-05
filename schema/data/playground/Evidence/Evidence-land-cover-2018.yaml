@@ -1,0 +1,10 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Land cover map 2018, described once and cited by IRI.
+id: https://example.org/land-cover/2018/v1
+name: Land cover map 2018
+sourceType: DATASET
+contentHash:
+  algorithm: SHA_256
+  digestValue: d28eb2dfbedfbb471da33c868655c6ec75c51d1707e8073c86cbffb114b1882e
+resolver:
+  - https://example.org/land-cover/2018/v1/download

@@ -12,6 +12,9 @@ assertedBy:
 assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/plot/A
-hasEvidence:
-  - id: https://example.org/evidence/project-plan-v2.pdf#page=4
-    name: Project plan v2
+hasEvidenceCitation:
+  - source: https://example.org/evidence/project-plan-v2.pdf
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: page=4
+        conformsTo: http://tools.ietf.org/rfc/rfc3778

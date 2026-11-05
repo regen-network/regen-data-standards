@@ -4,6 +4,8 @@ name: Core
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  qudt: http://qudt.org/schema/qudt/
+  unit: http://qudt.org/vocab/unit/
 
 default_prefix: rfs
 
@@ -24,6 +26,18 @@ slots:
     description: Link to a valid URL where more information can be found about the entity / resource.
     range: uri
     rank: 1
+  inLanguage:
+    slot_uri: schema:inLanguage
+    description: >-
+      Language of the natural-language text of the resource, as a BCP 47 tag
+      whose primary language subtag is a 2- or 3-letter ISO 639 code, such as
+      en, cs or pt-BR. A tag that is only private use, such as x-regen, is
+      not accepted. The pattern checks the form of the tag, not that its
+      subtags are registered or current, so it also accepts some deprecated
+      grandfathered tags, such as zh-min. A class that uses it says which of its texts the
+      language applies to.
+    range: string
+    pattern: "^[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*$"
   identifier:
     slot_uri: schema:identifier
     description: Unique identifier for the resource / entity.
@@ -34,6 +48,11 @@ slots:
     slot_uri: schema:image
 
 classes:
+  Any:
+    class_uri: linkml:Any
+    description: >-
+      Any value. A slot with this range accepts any value, so that the
+      classes using it can narrow its range with slot_usage.
   Link:
     slots:
       - name
@@ -51,6 +70,27 @@ classes:
     slot_usage:
       name:
         required: true
+  QuantityValue:
+    class_uri: qudt:QuantityValue
+    description: >-
+      A value that represents a quantity, with a numeric value and the unit
+      it is expressed in, as a QUDT quantity value.
+    attributes:
+      numericValue:
+        slot_uri: qudt:value
+        range: float
+        minimum_value: 0
+        required: true
+        description: >-
+          The numeric value of the quantity. It cannot be negative: the
+          quantities stated so far are sizes and areas.
+      hasUnit:
+        slot_uri: qudt:hasUnit
+        range: uriorcurie
+        required: true
+        description: >-
+          IRI of the unit in the QUDT unit vocabulary
+          (http://qudt.org/vocab/unit/), for example unit:HA (hectare).
 
 types:
   duration:

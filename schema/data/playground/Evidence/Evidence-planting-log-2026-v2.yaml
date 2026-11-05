@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the Evidence record for
+# Planting log, spring 2026 (v2), described once and cited by IRI.
+id: https://example.org/evidence/planting-log-2026-v2.pdf
+name: Planting log, spring 2026 (v2)
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: SHA_256
+  digestValue: 7ad54936431d88ca8a38d4b1f1423725bba6c921ef303f822e1c80df8157b7f5
+resolver:
+  - https://example.org/evidence/planting-log-2026-v2.pdf
