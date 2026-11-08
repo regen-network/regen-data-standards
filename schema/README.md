@@ -2,6 +2,8 @@
 
 [LinkML](https://linkml.io/) semantic schemas for Regen Network framework.
 
+> **Governance scope.** These schemas govern the **registry system** — the objects the ecocredit registry issues, holds, or verifies. Non-registry operational and knowledge schemas (RegenOS, Compass, work coordination) are governed by [`regen-network/koi-gov`](https://github.com/regen-network/koi-gov), along with the cross-cutting Access, Publication, RID, and ledger-anchoring rules that apply here too. See **[`GOVERNANCE.md`](./GOVERNANCE.md)** before adding or changing a schema that references identifiers from outside this repository.
+
 These schemas define the structure and semantics for credit class and project metadata in the Regen Network ecosystem. They provide a standardized way to describe:
 
 - **Credit Class Information**: Metadata for carbon and biodiversity credit classes, including protocols, methodologies, eligible activities, and environment types
