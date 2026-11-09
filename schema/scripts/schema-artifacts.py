@@ -73,6 +73,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+import uuid
 from collections import Counter
 from importlib.metadata import version as package_version
 from pathlib import Path
@@ -426,7 +427,8 @@ def manifest_entry(source, version, commit):
     out = VERSIONS / version
     examples = []
     for path in sorted((out / "examples").glob("*.jsonld")):
-        record = {"path": f"{version}/examples/{path.name}", "entryPoint": json.loads(path.read_text())["@type"]}
+        # .get: a root without @type is reported by check_examples, not a crash here.
+        record = {"path": f"{version}/examples/{path.name}", "entryPoint": json.loads(path.read_text()).get("@type")}
         if path.name in INVALID_EXAMPLES:
             record["valid"] = False
             record["violates"] = INVALID_EXAMPLES[path.name]
@@ -562,6 +564,32 @@ def lexical_graph(text, format):
         rdflib.NORMALIZE_LITERALS = True
 
 
+def has_root_type(document, class_iri):
+    """Whether the root node of a JSON-LD document has the RDF type class_iri.
+
+    Neither validator checks this. SHACL conforms when no node has the target
+    class, and the JSON Schema checks the LinkML data form, which has no
+    @type. So the root of a copy of the document is named with a fresh IRI,
+    and the copy's graph must give that node the type. A term the context
+    maps to @id, such as id, is dropped from the copy first: a node object
+    cannot have both. The published example is unchanged.
+    """
+    contexts = document.get("@context")
+    contexts = contexts if isinstance(contexts, list) else [contexts]
+    aliases = {
+        term
+        for context in contexts
+        if isinstance(context, dict)
+        for term, definition in context.items()
+        if definition == "@id" or (isinstance(definition, dict) and definition.get("@id") == "@id")
+    }
+    root = rdflib.URIRef(f"urn:uuid:{uuid.uuid4()}")
+    probe = {k: v for k, v in document.items() if k != "@id" and k not in aliases}
+    probe["@id"] = str(root)
+    graph = rdflib.Graph().parse(data=json.dumps(probe), format="json-ld")
+    return (root, rdflib.RDF.type, rdflib.URIRef(class_iri)) in graph
+
+
 def shacl_results(shapes, graph):
     """(message, path) of each SHACL result."""
     conforms, results, _ = shacl_validate(graph, shacl_graph=shapes)
@@ -622,7 +650,12 @@ def check_examples(version, entry, failures):
         if entry_point not in entry["entryPoints"]:
             failures.append(f"{path}: entry point {entry_point} is not in the manifest")
             continue
-        errors = json_schema_errors(schema, entry_point, data_form(view, json.loads(text)))
+        document = json.loads(text)
+        class_iri = entry["entryPoints"][entry_point]["class"]
+        if not has_root_type(document, class_iri):
+            failures.append(f"{path}: its root node does not have the entry point's type {class_iri}")
+            continue
+        errors = json_schema_errors(schema, entry_point, data_form(view, document))
         # As a graph store holds it: with the hierarchy and the records it
         # can reference.
         graph = lexical_graph(text, "json-ld") + hierarchy + others(entry_point)

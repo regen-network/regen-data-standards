@@ -90,6 +90,9 @@ make check-claim-examples    # check the examples and invalid documents with the
 
 - every file the manifest lists exists and has its SHA-256, and every entry point exists in the JSON
   Schema and SHACL shapes;
+- every example's root node has its entry point's type. Neither validator checks this: SHACL
+  conforms when no node has the target class, and the JSON Schema checks the document without
+  `@type`;
 - every example of every version is accepted by both validators, or, if invalid, rejected by both
   and only on the slots the manifest names. SHACL checks each example as a graph store holds it:
   with the version's `hierarchy.ttl` and the `records/` it can reference, as `claim-examples.py`
@@ -171,12 +174,17 @@ LinkML 1.11.1, checked with pyshacl 0.40.1:
   - nested objects need an explicit `@type`, which `scripts/claim-examples.py` adds when it builds a
     document.
 - **Class `rules` are not translated to SHACL** ([linkml/linkml#2464](https://github.com/linkml/linkml/issues/2464)),
-  so a constraint written as a rule is enforced by the JSON Schema only. In this schema, those are
-  four: a `RequirementEvaluation` whose `requirementOutcome` is `UNDETERMINED` states a
-  `rationale`; a `RequirementAssessmentResult` that is `APPLICABLE` states a `requirementOutcome`,
-  and one that is `NOT_APPLICABLE` states none; an `EvidenceSupportResult` whose `evidentialStance`
-  is `NO_BEARING` has no `evidenceSufficiency`. Each has an invalid example marked
-  `# shacl: not enforced`.
+  so a constraint written as a rule is enforced by the JSON Schema only. This schema has ten:
+  - `Claim`: one of `assertedAt` and `assertedOn` is present (two rules), and not both;
+  - `RequirementEvaluation`: a result whose `outcome` is `UNDETERMINED` or `NOT_SATISFIED` comes
+    with a `rationale` (two rules);
+  - `EvidenceSupportEvaluation`: a result whose `outcome` is `CHALLENGES` comes with a `rationale`;
+  - `RequirementAssessmentResult`: one whose `applicability` is `APPLICABLE` has an `outcome`, and
+    one that is `NOT_APPLICABLE` has none;
+  - `EvidenceSupportResult`: one whose `outcome` is `NO_BEARING` has no `evidenceSufficiency`;
+  - `RegistryReportEvaluation`: a result whose `outcome` is `REJECTION` comes with a `rationale`.
+
+  Each rule has a `*.SCHEMA-INVALID-*.yaml` example marked `# shacl: not enforced`.
 - **A `pattern` on an identifier slot is not checked by SHACL**, which cannot match a pattern
   against the IRI of a node. `Evidence.id` must have no fragment (`^[^#]*$`); the JSON Schema
   enforces it, and its invalid example is marked `# shacl: not enforced`.
