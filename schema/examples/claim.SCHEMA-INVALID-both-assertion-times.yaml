@@ -1,4 +1,5 @@
 # expect: should not be valid under {'required': ['assertedOn']}
+# rule: A Claim has one assertion time: assertedAt or assertedOn, not both.
 # shacl: not enforced
 # One assertion has one assertion time, at one precision: assertedAt or
 # assertedOn, not both.
