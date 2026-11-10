@@ -1,0 +1,11 @@
+# Synthetic example (example.org identifiers): the meeting sensor across its
+# versions. Each version that runs has its own record, such as
+# SoftwareAgent-meeting-sensor-1.4.2.yaml, which names this agent with
+# isVersionOf. Agents have no identifier slot yet (#58), so this record does
+# not carry the IRI its version records name,
+# https://example.org/sensors/meeting-sensor.
+name: Example Meeting Sensor
+type: prov:SoftwareAgent
+description: >-
+  Fetches the transcript and the calendar entry of a meeting as Evidence
+  records.

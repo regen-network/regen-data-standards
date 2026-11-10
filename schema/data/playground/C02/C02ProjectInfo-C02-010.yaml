@@ -54,10 +54,10 @@ hasProjectDeveloper:
   description: Nonprofit organization dedicated to planting and caring for trees in Central Texas
   url: https://www.treefolks.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TreeFolks-logo.png
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Dr. Qingfu Xiao
-  type: INDIVIDUAL
+  type: prov:Person
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

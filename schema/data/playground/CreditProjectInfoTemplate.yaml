@@ -59,35 +59,35 @@ hasProjectDeveloper:
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectOperator:
   name: ""
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectMonitor:
   name: ""
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectOwner:
   name: ""
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectPartner:
   name: ""
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 # Credit-specific fields (from CreditProjectInfo)
 hasProjectVerifier:
@@ -95,7 +95,7 @@ hasProjectVerifier:
   description: ""
   url: ""
   image: ""
-  type: "" # INDIVIDUAL or ORGANIZATION
+  type: "" # prov:Person, prov:Organization or rfs:Community
 
 creditClassVersion: ""
 

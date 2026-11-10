@@ -8,7 +8,7 @@ claimStatement: >-
 inLanguage: en
 assertedBy:
   - name: Hedgerow Cooperative
-    type: COMMUNITY
+    type: rfs:Community
 assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/plot/A
