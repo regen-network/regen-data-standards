@@ -1,0 +1,13 @@
+# Synthetic example (example.org identifiers): the same sensor's capture of the
+# calendar entry of meeting 0042, separate from the transcript's, so the latest
+# capture of each can be found even when only one of them is fetched again. Like
+# the transcript, the calendar entry has no IRI of its own and is named from the
+# meeting's page.
+id: https://example.org/sensors/meeting-sensor/captures/0042-calendar-1
+name: Capture of the calendar entry of meeting 0042
+used: https://meetings.example.org/m/0042#calendar
+startedAtTime: "2026-05-02T09:14:07+00:00"
+endedAtTime: "2026-05-02T09:14:08+00:00"
+wasAssociatedWith:
+  - name: Example Sensor Operator
+    type: ORGANIZATION

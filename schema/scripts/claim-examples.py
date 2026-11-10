@@ -35,11 +35,17 @@ The check validates every document with both validators the schema generates:
   without rdflib's literal normalization so that lexical forms are checked as
   written (rdflib would otherwise rewrite a Z in assertedAt, which the
   pattern rejects, as +00:00). The generated shapes are used unchanged.
-  Claims and evaluations reference Evidence records by IRI, and the shapes
-  require each to be an rfs:Evidence, so each of them is checked together
-  with the Turtle gen-rdf wrote for the Evidence fixtures, as the graph store
-  holds them. An Evidence record references no other record and is checked on
-  its own.
+  Claims and evaluations reference Evidence records by IRI, and Evidence
+  records reference Activity records by IRI (wasGeneratedBy); the shapes
+  require each to be an rfs:Evidence or an rfs:Activity. So each document is
+  checked together with the Turtle gen-rdf wrote for the records it can
+  reference, as the graph store holds them: a claim or evaluation with the
+  Evidence and Activity records, an Evidence record with the Activity records.
+  Activity records are typed with a kind of Activity (GenericActivity,
+  Capture), so they are merged together with the class hierarchy gen-hierarchy
+  publishes, which the store holds too. An Activity correction can reference
+  an earlier Activity with replaces, so it is checked with the other Activity
+  records, excluding its own stored copy.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
@@ -102,6 +108,8 @@ SCHEMA = "src/schema.yaml"
 MODULES = {
     "GenericClaim": "src/Claim.yaml",
     "Evidence": "src/Evidence.yaml",
+    "GenericActivity": "src/Activity.yaml",
+    "Capture": "src/Activity.yaml",
     "GenericEvaluation": "src/Evaluation.yaml",
     "EvidenceSupportEvaluation": "src/Evaluation.yaml",
     "ClaimConsistencyEvaluation": "src/Evaluation.yaml",
@@ -119,12 +127,21 @@ EXAMPLES = {
     "data/playground/Claim/GenericClaim-002-revision.yaml": "examples/generic-claim-revision.jsonld",
     "data/playground/Claim/GenericClaim-003-dated.yaml": "examples/generic-claim-dated.jsonld",
     "data/playground/Claim/GenericClaim-004-premises.yaml": "examples/generic-claim-premises.jsonld",
+    "data/playground/Claim/GenericClaim-007-speakers.yaml": "examples/generic-claim-speakers.jsonld",
+    "data/playground/Claim/GenericClaim-005-participants.yaml": "examples/generic-claim-participants.jsonld",
     "data/playground/C06SiteClaim/C06SiteClaim-mvp-001.yaml": "examples/c06-mvp-claim.jsonld",
     "data/playground/RegistryRequirementEvaluation/RegistryRequirementEvaluation-crediting-term-001.yaml": "examples/registry-requirement-evaluation.jsonld",
     "data/playground/RegistryFindingEvaluation/RegistryFindingEvaluation-cl-001.yaml": "examples/registry-finding-evaluation.jsonld",
     "data/playground/RegistryReportEvaluation/RegistryReportEvaluation-validation-001.yaml": "examples/registry-report-evaluation.jsonld",
     "data/playground/Evaluation/GenericEvaluation-001.yaml": "examples/generic-evaluation.jsonld",
     "data/playground/Evidence/Evidence-field-records-S-001-2019-2021.yaml": "examples/evidence.jsonld",
+    "data/playground/Evidence/Evidence-meeting-0042-transcript-v1.yaml": "examples/evidence-capture.jsonld",
+    "data/playground/GenericActivity/GenericActivity-field-operations-S-001-2019-2021.yaml": "examples/generic-activity.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-2026-05-02.yaml": "examples/capture.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-correction.yaml": "examples/capture-correction.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-correction-again.yaml": "examples/capture-correction-again.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-2026-05-03.yaml": "examples/capture-refetch.jsonld",
+    "data/playground/GenericActivity/GenericActivity-field-operations-S-001-correction.yaml": "examples/generic-activity-correction.jsonld",
     "data/playground/EvidenceSupportEvaluation/EvidenceSupportEvaluation-generic-001.yaml": "examples/evidence-support-evaluation.jsonld",
     "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
@@ -133,7 +150,12 @@ EXAMPLES = {
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
-EVIDENCE_GLOB = "data/playground/Evidence/*.ttl"
+# The records documents reference by IRI, as the graph store holds them.
+RECORD_GLOBS = {
+    "evidence": ["data/playground/Evidence/*.ttl"],
+    "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
+}
+ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
 # The abstract base each generic class stands for: its shape is open.
@@ -294,23 +316,45 @@ def as_extension(view, graph, class_name, without=None):
     return out
 
 
-def evidence_store():
-    """The Evidence records as the graph store holds them: gen-rdf's Turtle."""
-    paths = sorted(glob.glob(EVIDENCE_GLOB))
-    if not paths:
-        sys.exit("No Evidence Turtle found: run make gen-rdf")
-    store = rdflib.Graph()
-    for path in paths:
-        store += lexical_graph(Path(path).read_text(), "turtle")
+def record_store():
+    """The Evidence and Activity records as the graph store holds them: gen-rdf's Turtle."""
+    store = {}
+    for kind, patterns in RECORD_GLOBS.items():
+        paths = sorted(path for pattern in patterns for path in glob.glob(pattern))
+        if not paths:
+            sys.exit(f"No {kind} record Turtle found: run make gen-rdf")
+        store[kind] = rdflib.Graph()
+        store[kind + "_records"] = []
+        for path in paths:
+            record = lexical_graph(Path(path).read_text(), "turtle")
+            store[kind + "_records"].append(record)
+            store[kind] += record
+    # An activity record's type is a kind of Activity: sh:class rfs:Activity
+    # holds for it only with the class hierarchy.
+    store["activity"] += hierarchy()
     return store
 
 
 def with_store(graph, store, class_name=None):
-    if class_name == "Evidence":
-        return graph
+    """Return graph merged with the records a document of class_name can reference.
+
+    An Activity correction references an earlier Activity. Exclude its own
+    stored copy so nested blank nodes, such as its operator, are not duplicated.
+    An Evidence record references Activity
+    records, and is not merged with the Evidence records, which hold it already:
+    merged with itself, its digest (a blank node) would be duplicated."""
+    if class_name in ACTIVITY_CLASSES:
+        merged = graph + hierarchy()
+        own_iris = {s for s in graph.subjects() if isinstance(s, rdflib.URIRef)}
+        for record in store["activity_records"]:
+            if not own_iris.intersection(record.subjects()):
+                merged += record
+        return merged
     merged = rdflib.Graph()
     merged += graph
-    merged += store
+    merged += store["activity"]
+    if class_name != "Evidence":
+        merged += store["evidence"]
     return merged
 
 
@@ -382,7 +426,7 @@ def main(mode):
         return
 
     failures = 0
-    store = evidence_store()
+    store = record_store()
     classes = hierarchy()
 
     for fixture, example in EXAMPLES.items():
@@ -441,7 +485,7 @@ def main(mode):
                 failures += 1
         if class_name in OPEN_BASES:
             base = OPEN_BASES[class_name]
-            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
+            graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
             conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
             if conforms:
                 print(f"✅ {example} as an outside {base} subclass: conforms to the open {base} shape")
@@ -455,7 +499,7 @@ def main(mode):
                 print(f"❌ {example} as an outside {base} subclass without assertedBy: SHACL accepts it")
                 failures += 1
         elif class_name != "Evidence":
-            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
+            graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
             conforms, messages = shacl_report(graph, module["shapes"])
             if conforms:
                 print(f"✅ {example} with the class hierarchy: conforms to its own shape and the open base shapes")

@@ -1,0 +1,11 @@
+# A second correction of the same capture: it replaces the first correction,
+# not the original record. Replacement links, not timestamps, order corrections.
+id: https://example.org/sensors/meeting-sensor/captures/0042-transcript-1-correction-2
+name: Capture of the transcript of meeting 0042
+replaces: https://example.org/sensors/meeting-sensor/captures/0042-transcript-1-correction
+used: https://meetings.example.org/m/0042#transcript
+startedAtTime: "2026-05-02T09:14:04+00:00"
+endedAtTime: "2026-05-02T09:14:09+00:00"
+wasAssociatedWith:
+  - name: Example Sensor Operator
+    type: ORGANIZATION

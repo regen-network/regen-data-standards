@@ -4,7 +4,7 @@
 # Valid on its own, but it gives the planting log's IRI a second digest. In the
 # graph store the two records merge into one node with two hashes, which SHACL
 # rejects: one Evidence IRI identifies one exact version.
-id: https://example.org/evidence/planting-log-2026-v1.pdf
+id: regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf
 name: Planting log, spring 2026 (v1)
 sourceType: TEXT
 mediaType: application/pdf

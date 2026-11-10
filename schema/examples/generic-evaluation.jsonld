@@ -81,6 +81,10 @@
       "@type": "xsd:date",
       "@id": "schema:endDate"
     },
+    "endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:endedAtTime"
+    },
     "type": {
       "@id": "type",
       "@type": "@vocab",
@@ -190,6 +194,10 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
+    "replaces": {
+      "@type": "@id",
+      "@id": "dcterms:replaces"
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
@@ -232,12 +240,20 @@
       "@type": "xsd:date",
       "@id": "schema:startDate"
     },
+    "startedAtTime": {
+      "@type": "xsd:dateTime",
+      "@id": "prov:startedAtTime"
+    },
     "suffix": {
       "@id": "oa:suffix"
     },
     "url": {
       "@type": "@id",
       "@id": "schema:url"
+    },
+    "used": {
+      "@type": "@id",
+      "@id": "prov:used"
     },
     "value": {
       "@id": "rdf:value"
@@ -266,6 +282,9 @@
     },
     "Any": {
       "@id": "linkml:Any"
+    },
+    "Capture": {
+      "@id": "Capture"
     },
     "Claim": {
       "@id": "Claim"
@@ -326,6 +345,9 @@
     },
     "FragmentSelector": {
       "@id": "oa:FragmentSelector"
+    },
+    "GenericActivity": {
+      "@id": "GenericActivity"
     },
     "GenericClaim": {
       "@id": "GenericClaim"
@@ -417,7 +439,7 @@
   "hasEvidenceCitation": [
     {
       "@type": "EvidenceCitation",
-      "source": "https://example.org/evidence/walkover-photos-2026-06.zip"
+      "source": "regen:113FyhiPnebgnQywYeA4JAsgbzmfK38BVzQo8A4KK1nj3DX6wcXT.raw"
     }
   ]
 }

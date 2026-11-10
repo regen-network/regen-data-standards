@@ -1,0 +1,10 @@
+# expect: is not of type 'string'
+# class: Capture
+# A correction references the earlier record by IRI, never by an embedded record.
+id: https://example.org/sensors/meeting-sensor/captures/invalid-inlined-replacement
+used: https://meetings.example.org/m/0042#transcript
+endedAtTime: "2026-05-02T09:14:09+00:00"
+replaces:
+  name: Earlier capture embedded instead of referenced
+  used: https://meetings.example.org/m/0042#transcript
+  endedAtTime: "2026-05-02T09:14:07+00:00"

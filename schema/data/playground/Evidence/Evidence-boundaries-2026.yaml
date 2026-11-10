@@ -1,12 +1,12 @@
 # Synthetic example (example.org identifiers): the Evidence record for
 # Project boundary GeoPackage, 2026, described once and cited by IRI.
-id: https://example.org/c06/boundaries-2026.gpkg
+id: regen:114oiA3jx7NrDzstznVNYc4Ug23XZbKVpvR3QAfmaN3w9Q3DSmBe.raw
 name: Project boundary GeoPackage, 2026
 sourceType: DATASET
 mediaType: application/geopackage+sqlite3
 contentHash:
-  algorithm: SHA_256
-  digestValue: f36af2c85a7b1a40806b1dd2836f6e4c9c18961c0b8ef2d7a7faf4de2fd3df81
+  algorithm: BLAKE2B_256
+  digestValue: f525eade351219b4d2cf0fff57153d8acf99a4a03227c5c5b1ee1223aec92d8d
 resolver:
   - https://example.org/c06/boundaries-2026.gpkg
 licence: https://example.org/c06/licences/project-data/v1
