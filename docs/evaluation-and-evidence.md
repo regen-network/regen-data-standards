@@ -73,7 +73,7 @@ grouped by the issuer's `findingLabel`.
 | `ClaimVocabulary.yaml` | `hasEvidence` is replaced by `hasEvidenceCitation` on the base Claim: citations that name `Evidence` records by IRI, instead of inlining them, with optional selectors. Adds `hasTarget`, `reliesOn`, `appliesRequirement`, `addressesRequirement`, `appliesRequirementSet`, `governedBy`, `evaluationMethod`, `evaluationMethodDescription` and the `EvaluationMethodType` enum. `wasAssociatedWith` moves to `Activity.yaml`, which it imports, so importing `ClaimVocabulary` still provides it. | adds `Activity` |
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
-| `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
+| `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`, `replaces`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
 | `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. | `Claim`, `ClaimVocabulary` |
 | `RegistryReviewEvaluation.yaml` | New: the `RegistryReviewEvaluation` mixin (issuer role, conditions, required method), the kinds that declare it, `RegistryRequirementEvaluation` (`is_a RequirementEvaluation`), `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
@@ -434,15 +434,15 @@ rejected). `Activity` is abstract, with two kinds:
   upstream record it fetched by its stable IRI (`used`, `prov:used`), usually its landing page, and
   gives its time as timestamps (`startedAtTime`, `endedAtTime`, `prov:startedAtTime` and
   `prov:endedAtTime`, in UTC with `+00:00`) rather than dates, so two captures of one record on the
-  same day can be ordered. The latest capture of an upstream record is the one with the latest
-  `endedAtTime` among those that `used` it.
+  same day can be ordered. `endedAtTime` is the time of the fetch, including when that time is
+  corrected; it is never the time a correction was submitted.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
 
 A capture fetches one record. A meeting sensor that fetches the transcript and the calendar entry
 records two captures, each naming its part in `used` (the meeting's page with a fragment, such as
-`#transcript`), so fetching the transcript again later leaves the calendar entry's latest capture
+`#transcript`), so fetching the transcript again later leaves the calendar entry's most recent capture
 unchanged. What a record supports depends on what it is, and claims say so through what they cite: who spoke is a claim citing the transcript lines
 each speaker spoke ([example](../schema/examples/generic-claim-speakers.jsonld)), while who was invited
 is a claim citing the calendar entry ([example](../schema/examples/generic-claim-participants.jsonld)).
@@ -453,6 +453,37 @@ activity through its evidence (claim → `hasEvidenceCitation` → `source` → 
 describe the activity again. The C06 claims need no domain activity of their own: no C06 registration
 requirement checks who carried out a practice, only which practices a site applies (`practices`) and
 the records that support it.
+
+**Correcting an Activity record.** Activity has an optional, single-valued `replaces`
+(`dcterms:replaces`) reference. A correction is a new record with its own IRI that uses this
+reference to name the earlier Activity record. Both describe
+the same occurrence and have the same concrete class. A new sampling campaign or another fetch
+of the source is a separate activity without this link. `prov:wasRevisionOf` is not used for
+activities: its [domain and range are entities](https://www.w3.org/TR/2013/REC-prov-o-20130430/#wasRevisionOf),
+and PROV distinguishes entities from activities.
+The service enforces the matching class, permission to correct the record and one direct
+replacement per record. Those checks, including concurrent corrections and retries, belong in
+ADR 0003 D5 and D9 on [claims#63](https://github.com/regen-network/claims/pull/63); the schema alone
+cannot establish that two records describe the same occurrence.
+
+**Current corrected version.** Follow replacement links to the terminal record in the correction
+chain, without comparing timestamps. For example, the [first correction](../schema/examples/capture-correction.jsonld)
+corrects the May 2 transcript capture's end time, and the [second correction](../schema/examples/capture-correction-again.jsonld)
+replaces that correction to fix its start time. Both describe the same fetch. A lookup by a
+specific IRI still returns that exact record. The [GenericActivity correction](../schema/examples/generic-activity-correction.jsonld)
+shows the same relation for a date correction to field operations.
+
+**Most recent capture of a source.** Fetching the transcript again on May 3 is a
+[separate Capture](../schema/examples/capture-refetch.jsonld), with the same `used` IRI and no
+`replaces` link to the May 2 capture. Compare `endedAtTime` across separate captures whose `used`
+names the requested source, using each capture's current corrected version. Thus replacement
+links select a description of one fetch; timestamps compare different fetches.
+
+**Evidence retrieval.** The earlier records and the Evidence's `wasGeneratedBy` remain unchanged.
+A query displaying a corrected capture can retrieve associated Evidence whose `wasGeneratedBy`
+names that record or any predecessor in its correction chain. This traversal does not rewrite
+the Evidence record or assert that another fetch occurred. It does not resolve how Evidence
+metadata itself can be corrected, which remains ADR 0003 Q1.
 
 **Licence terms.** `licence` references the terms in effect by IRI: a standard licence document, or a
 versioned terms document whose IRI changes when the terms change, so a citation keeps the version it was
@@ -578,9 +609,12 @@ validators.
 | [`evidence.jsonld`](../schema/examples/evidence.jsonld) | An `Evidence` record, its own document: a dataset with its hash, resolver and the IRI of the activity that generated it |
 | [`generic-activity.jsonld`](../schema/examples/generic-activity.jsonld) | A `GenericActivity`, its own record: the field operations behind that dataset, with their period and operator |
 | [`capture.jsonld`](../schema/examples/capture.jsonld) | A `Capture`: a sensor fetching a meeting transcript, with the upstream record it used and its timestamps |
+| [`capture-correction.jsonld`](../schema/examples/capture-correction.jsonld), [`capture-correction-again.jsonld`](../schema/examples/capture-correction-again.jsonld) | Two successive corrections of the same capture, linked by `replaces`; timestamps describe the fetch, not the correction order |
+| [`capture-refetch.jsonld`](../schema/examples/capture-refetch.jsonld) | A separate fetch of the same source on the next day, without `replaces` |
+| [`generic-activity-correction.jsonld`](../schema/examples/generic-activity-correction.jsonld) | A correction of the field operations' end date, with `replaces` inherited from Activity |
 | [`evidence-capture.jsonld`](../schema/examples/evidence-capture.jsonld) | The `Evidence` record that capture generated |
 | [`generic-claim-speakers.jsonld`](../schema/examples/generic-claim-speakers.jsonld) | A `GenericClaim` that names who spoke in a meeting, citing the transcript lines each spoke |
-| [`generic-claim-participants.jsonld`](../schema/examples/generic-claim-participants.jsonld) | A `GenericClaim` that names who was invited to the same meeting, citing its calendar entry, a second record of the same capture |
+| [`generic-claim-participants.jsonld`](../schema/examples/generic-claim-participants.jsonld) | A `GenericClaim` that names who was invited to the same meeting, citing its calendar entry, fetched by a separate capture |
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
@@ -607,7 +641,10 @@ handling, and that imported definitions are not separate whole-claim targets. As
    documents of their own. An `Evidence` record is a document of its own, with `Evidence` as entry
    point, and so is an `Activity` record, with `GenericActivity` or `Capture` as entry point. A claim's SHACL check that the IRIs in its citations' `source` are
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
-   are IRIs.
+   are IRIs. An Activity correction's `replaces` is checked with the other Activity records
+   and the class hierarchy. The example checker excludes its own stored copy so nested blank
+   nodes, such as its operator, are not duplicated. Same-concrete-class, submitter and
+   one-direct-replacement checks are service admission rules, not generated schema constraints.
 4. The shape of each entry point is closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.SCHEMA-INVALID-undeclared-field.yaml)). The shapes of the
    abstract bases are open. In the graph store, with the published class hierarchy, the open base

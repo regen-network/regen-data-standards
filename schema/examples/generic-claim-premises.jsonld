@@ -153,6 +153,10 @@
       "@type": "@id",
       "@id": "reliesOn"
     },
+    "replaces": {
+      "@type": "@id",
+      "@id": "dcterms:replaces"
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"

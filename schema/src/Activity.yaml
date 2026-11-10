@@ -12,6 +12,7 @@ prefixes:
   rfs: https://framework.regen.network/schema/
   prov: http://www.w3.org/ns/prov#
   schema: http://schema.org/
+  dcterms: http://purl.org/dc/terms/
 
 imports:
   - linkml:types
@@ -33,11 +34,14 @@ classes:
       every piece of evidence it generated names the same activity. An
       activity is a record of its own: Evidence names it by IRI and never
       inlines it, so one activity that generated several records is described
-      once. Abstract: a record is a GenericActivity or a Capture.
+      once. A correction is a new record that replaces the earlier record
+      while describing the same occurrence. Abstract: a record is a
+      GenericActivity or a Capture.
     slots:
       - name
       - description
       - wasAssociatedWith
+      - replaces
     attributes:
       id:
         identifier: true
@@ -67,9 +71,13 @@ classes:
       A sensor or tool fetching an exact version of an upstream record, such
       as a meeting transcript or a spreadsheet export. The Evidence it
       generates is that version; the record it fetched is the one it used.
-      Captures of the same upstream record name the same IRI in used, so the
-      latest capture of a record is the one with the latest endedAtTime. A
-      capture fetches one record: a sensor that fetches several parts of a
+      A correction of this capture uses replaces; its current corrected
+      version is found by following replacement links, without comparing
+      timestamps. Fetching the source again is a separate capture, without a
+      replacement link to the earlier fetch. To find the most recent capture
+      of an upstream record, compare endedAtTime across the separate captures
+      whose used names that record, using each capture's current corrected
+      version. A capture fetches one record: a sensor that fetches several parts of a
       source, such as a meeting's transcript and its calendar entry, records
       one capture for each.
     slots:
@@ -83,6 +91,21 @@ classes:
         required: true
 
 slots:
+  replaces:
+    slot_uri: dcterms:replaces
+    description: >-
+      The IRI of the earlier Activity record whose description this record
+      corrects. Both records describe the same real-world occurrence and have
+      the same concrete class. A new occurrence, such as another sampling
+      campaign or a later fetch of the same source, is a separate activity
+      without this relation. The earlier record and Evidence references to
+      it stay unchanged. Further corrections replace the current corrected
+      record, forming a chain. The service enforces the matching class,
+      authorization and one direct replacement per record; the schema alone
+      cannot establish that two records describe the same occurrence.
+    range: Activity
+    inlined: false
+    multivalued: false
   wasAssociatedWith:
     slot_uri: prov:wasAssociatedWith
     description: >-

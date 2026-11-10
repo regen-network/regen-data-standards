@@ -1,6 +1,7 @@
 {
   "@context": {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
     "linkml": "https://w3id.org/linkml/",
     "prov": "http://www.w3.org/ns/prov#",
     "qudt": "http://qudt.org/schema/qudt/",
@@ -51,6 +52,10 @@
     "numericValue": {
       "@type": "xsd:float",
       "@id": "qudt:value"
+    },
+    "replaces": {
+      "@type": "@id",
+      "@id": "dcterms:replaces"
     },
     "startDate": {
       "@type": "xsd:date",

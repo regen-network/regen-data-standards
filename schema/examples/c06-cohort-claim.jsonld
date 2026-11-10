@@ -360,6 +360,10 @@
     "replacedParameters": {
       "@id": "replacedParameters"
     },
+    "replaces": {
+      "@type": "@id",
+      "@id": "dcterms:replaces"
+    },
     "requestedDeviations": {
       "@type": "@id",
       "@id": "requestedDeviations"

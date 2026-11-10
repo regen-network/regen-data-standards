@@ -43,8 +43,9 @@ The check validates every document with both validators the schema generates:
   Evidence and Activity records, an Evidence record with the Activity records.
   Activity records are typed with a kind of Activity (GenericActivity,
   Capture), so they are merged together with the class hierarchy gen-hierarchy
-  publishes, which the store holds too. An Activity record references no other
-  record and is checked on its own.
+  publishes, which the store holds too. An Activity correction can reference
+  an earlier Activity with replaces, so it is checked with the other Activity
+  records, excluding its own stored copy.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
@@ -137,6 +138,10 @@ EXAMPLES = {
     "data/playground/Evidence/Evidence-meeting-0042-transcript-v1.yaml": "examples/evidence-capture.jsonld",
     "data/playground/GenericActivity/GenericActivity-field-operations-S-001-2019-2021.yaml": "examples/generic-activity.jsonld",
     "data/playground/Capture/Capture-meeting-0042-transcript-2026-05-02.yaml": "examples/capture.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-correction.yaml": "examples/capture-correction.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-correction-again.yaml": "examples/capture-correction-again.jsonld",
+    "data/playground/Capture/Capture-meeting-0042-transcript-2026-05-03.yaml": "examples/capture-refetch.jsonld",
+    "data/playground/GenericActivity/GenericActivity-field-operations-S-001-correction.yaml": "examples/generic-activity-correction.jsonld",
     "data/playground/EvidenceSupportEvaluation/EvidenceSupportEvaluation-generic-001.yaml": "examples/evidence-support-evaluation.jsonld",
     "data/playground/ClaimConsistencyEvaluation/ClaimConsistencyEvaluation-generic-001.yaml": "examples/claim-consistency-evaluation.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-mvp-001.yaml": "examples/c06-project-claim.jsonld",
@@ -319,8 +324,11 @@ def record_store():
         if not paths:
             sys.exit(f"No {kind} record Turtle found: run make gen-rdf")
         store[kind] = rdflib.Graph()
+        store[kind + "_records"] = []
         for path in paths:
-            store[kind] += lexical_graph(Path(path).read_text(), "turtle")
+            record = lexical_graph(Path(path).read_text(), "turtle")
+            store[kind + "_records"].append(record)
+            store[kind] += record
     # An activity record's type is a kind of Activity: sh:class rfs:Activity
     # holds for it only with the class hierarchy.
     store["activity"] += hierarchy()
@@ -330,11 +338,18 @@ def record_store():
 def with_store(graph, store, class_name=None):
     """Return graph merged with the records a document of class_name can reference.
 
-    An Activity record references none. An Evidence record references Activity
+    An Activity correction references an earlier Activity. Exclude its own
+    stored copy so nested blank nodes, such as its operator, are not duplicated.
+    An Evidence record references Activity
     records, and is not merged with the Evidence records, which hold it already:
     merged with itself, its digest (a blank node) would be duplicated."""
     if class_name in ACTIVITY_CLASSES:
-        return graph
+        merged = graph + hierarchy()
+        own_iris = {s for s in graph.subjects() if isinstance(s, rdflib.URIRef)}
+        for record in store["activity_records"]:
+            if not own_iris.intersection(record.subjects()):
+                merged += record
+        return merged
     merged = rdflib.Graph()
     merged += graph
     merged += store["activity"]
@@ -470,7 +485,7 @@ def main(mode):
                 failures += 1
         if class_name in OPEN_BASES:
             base = OPEN_BASES[class_name]
-            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
+            graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
             conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
             if conforms:
                 print(f"✅ {example} as an outside {base} subclass: conforms to the open {base} shape")
@@ -484,7 +499,7 @@ def main(mode):
                 print(f"❌ {example} as an outside {base} subclass without assertedBy: SHACL accepts it")
                 failures += 1
         elif class_name != "Evidence":
-            graph = with_store(lexical_graph(text, "json-ld"), store) + classes
+            graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
             conforms, messages = shacl_report(graph, module["shapes"])
             if conforms:
                 print(f"✅ {example} with the class hierarchy: conforms to its own shape and the open base shapes")

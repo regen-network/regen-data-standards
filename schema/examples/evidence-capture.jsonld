@@ -96,6 +96,10 @@
       "@type": "@id",
       "@id": "oa:refinedBy"
     },
+    "replaces": {
+      "@type": "@id",
+      "@id": "dcterms:replaces"
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
