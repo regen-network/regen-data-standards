@@ -157,11 +157,18 @@ classes:
       isVersionOf:
         slot_uri: dcterms:isVersionOf
         description: >-
-          The IRI of the software agent this record is a version of: the
-          software across its versions, such as the sensor as a whole. Every
-          version record of the same software names the same IRI. Only on a
-          version record.
-        range: uriorcurie
+          The software agent this record is a version of, named by its rid:
+          the record for the software across its versions, such as the
+          sensor as a whole. Every version record of the same software names
+          the same record. Only on a version record.
+        comments:
+          - >-
+            Implementation: the generated SHACL checks the value with
+            sh:class prov:SoftwareAgent, so a version record conforms only
+            in a graph that also holds the record for its software, as the
+            graph store does.
+        range: SoftwareAgent
+        inlined: false
     rules:
       - description: >-
           A version record names the software it is a version of. Enforced

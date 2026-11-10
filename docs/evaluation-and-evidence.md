@@ -437,9 +437,9 @@ rejected). `Activity` is abstract, with two kinds:
   same day can be ordered. `endedAtTime` is the time of the fetch, including when that time is
   corrected; it is never the time a correction was submitted. Its agent (`wasAssociatedWith`) is
   the version of the sensor that ran: a `SoftwareAgent` record for that version, with
-  `softwareVersion` (`schema:softwareVersion`) and the IRI of the sensor across its versions in
-  `isVersionOf` (`dcterms:isVersionOf`). A new version of the sensor is a new record, so no record
-  changes when it is updated.
+  `softwareVersion` (`schema:softwareVersion`) and, in `isVersionOf` (`dcterms:isVersionOf`), the
+  `rid` of the `SoftwareAgent` record for the sensor across its versions. A new version of the
+  sensor is a new record, so no record changes when it is updated.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
@@ -729,6 +729,10 @@ the source.
   named graph.
 - **Not checked by either validator:** that the `Evidence` IRI has no fragment (JSON Schema only: SHACL cannot match a pattern against a
   node's IRI); and what `conformsTo` names.
+- **A version record is checked with the record for its software.** `isVersionOf` names a
+  `SoftwareAgent` by its `rid`, and the generated SHACL checks it with `sh:class prov:SoftwareAgent`,
+  so a validator needs that record in the graph, as the graph store holds it. `check-claim-examples`
+  merges every document with the `SoftwareAgent` records for this reason.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
