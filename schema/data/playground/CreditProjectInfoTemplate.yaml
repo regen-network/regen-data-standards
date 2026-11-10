@@ -55,6 +55,7 @@ hasCoBenefits:
 
 # Stakeholder entities (all optional)
 hasProjectDeveloper:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""
@@ -62,6 +63,7 @@ hasProjectDeveloper:
   type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectOperator:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""
@@ -69,6 +71,7 @@ hasProjectOperator:
   type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectMonitor:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""
@@ -76,6 +79,7 @@ hasProjectMonitor:
   type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectOwner:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""
@@ -83,6 +87,7 @@ hasProjectOwner:
   type: "" # prov:Person, prov:Organization or rfs:Community
 
 hasProjectPartner:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""
@@ -91,6 +96,7 @@ hasProjectPartner:
 
 # Credit-specific fields (from CreditProjectInfo)
 hasProjectVerifier:
+  rid: "" # https://framework.regen.network/agent/<ulid>, minted once per agent
   name: ""
   description: ""
   url: ""

@@ -51,12 +51,14 @@ hasCoBenefits:
       - SDG_11
       - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA6TR8VWATM43B0T8RS
   name: Treasure Valley Canopy Network
   description: Community organization dedicated to enhancing and protecting the urban forest in Idaho's Treasure Valley
   url: https://www.tvcanopy.net/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TVCN-Logo-Black-Footer%2BSmall.webp
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VMA58KTAV7MP0TBT33CX
   name: Dr. Qingfu Xiao
   type: prov:Person
 creditClassVersion: V1.0

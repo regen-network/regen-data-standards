@@ -12,6 +12,7 @@ description: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
+  rfa: https://framework.regen.network/agent/
   prov: http://www.w3.org/ns/prov#
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
   schema: http://schema.org/
@@ -48,6 +49,12 @@ classes:
         unless the data also states that prov:Person is a subclass of it,
         and this repository states no axiom about PROV's classes.
       - >-
+        Implementation: a slot that inlines agents states inlined: true on
+        the slot and on each kind in its any_of. Agent has an identifier
+        (rid), so LinkML 1.11.1's JSON Schema generator otherwise writes each
+        kind as a reference, a plain string, whatever the slot states, and
+        rejects every inlined agent.
+      - >-
         Implementation: Person, Organization and SoftwareAgent are PROV
         classes, so a record is typed prov:Person, prov:Organization or
         prov:SoftwareAgent, and only Community is an rfs: class. The class
@@ -65,6 +72,29 @@ classes:
       name:
         required: true
     attributes:
+      rid:
+        identifier: true
+        range: uriorcurie
+        description: >-
+          The agent's IRI, minted once as
+          https://framework.regen.network/agent/<ulid> (rfa:<ulid>), with an
+          opaque ULID that carries no name or kind. It never changes and is
+          never given to another agent. When two rids turn out to name the
+          same agent, both are kept and the merge is stated with owl:sameAs.
+          An identifier the agent already has, such as its did, a
+          walletAddress, a registry ID or a KOI URI, is never used as the
+          rid, so the rid does not depend on what is known about the agent
+          when it is minted, or on a domain that can change hands, as a
+          did:web does. A person has one rid, like any other agent. A record
+          that inlines the agent, such as a Claim naming its claimants,
+          includes the rid in its content, so giving an agent another rid
+          changes that record.
+        comments:
+          - >-
+            The minting rule is proposed in regen-network/claims ADR 0002
+            D6 (regen-network/claims#60), as an identity rule for the
+            records the claims service admits. This description restates it
+            for the schema.
       did:
         slot_uri: rfs:did
         description: >-
@@ -127,11 +157,18 @@ classes:
       isVersionOf:
         slot_uri: dcterms:isVersionOf
         description: >-
-          The IRI of the software agent this record is a version of: the
-          software across its versions, such as the sensor as a whole. Every
-          version record of the same software names the same IRI. Only on a
-          version record.
-        range: uriorcurie
+          The software agent this record is a version of, named by its rid:
+          the record for the software across its versions, such as the
+          sensor as a whole. Every version record of the same software names
+          the same record. Only on a version record.
+        comments:
+          - >-
+            Implementation: the generated SHACL checks the value with
+            sh:class prov:SoftwareAgent, so a version record conforms only
+            in a graph that also holds the record for its software, as the
+            graph store does.
+        range: SoftwareAgent
+        inlined: false
     rules:
       - description: >-
           A version record names the software it is a version of. Enforced

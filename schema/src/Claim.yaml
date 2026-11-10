@@ -185,9 +185,13 @@ slots:
     range: Agent
     any_of:
       - range: Person
+        inlined: true
       - range: Organization
+        inlined: true
       - range: SoftwareAgent
+        inlined: true
       - range: Community
+        inlined: true
     required: true
     multivalued: true
     list_elements_ordered: false

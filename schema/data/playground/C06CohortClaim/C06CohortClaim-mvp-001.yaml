@@ -7,7 +7,8 @@ claimStatement: >-
   2021 to 14 April 2031 and a permanence period from 15 April 2031 to 14 April
   2041.
 assertedBy:
-  - name: Example Soil Carbon Developer
+  - rid: https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+    name: Example Soil Carbon Developer
     type: prov:Organization
 assertedOn: "2026-02-20"
 hasSubject:

@@ -56,21 +56,25 @@ activity:
   - TREE_PLANTING
   - PRESCRIBED_GRAZING
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
   name: Madison Metropolitan Sewerage District (MMSD)
   description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
   type: prov:Organization
 hasProjectOperator:
+  rid: https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
   name: Madison Metropolitan Sewerage District (MMSD)
   description: Madison Metropolitan Sewerage District works to protect public health, the environment and local waters through service, reliability and sustainability.
   type: prov:Organization
   url: https://www.madsewer.org/
 hasProjectPartner:
+  rid: https://framework.regen.network/agent/01M728VMAJVJK8C62JZCMK7XG6
   name: Virridy Carbon LLC
   description: Virridy uses our proprietary technology and water and carbon markets expertise to improve global water resiliency.
   type: prov:Organization
   image: https://regen-registry.s3.amazonaws.com/profiles/353ec5b2-94c9-11f0-ac02-0afffa81c869/1765487766606/1765487766602-avatar.png
   url: https://virridy.com/
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VMAKJTNN9ADTPKF0MPNN
   name: Jason Quinn
   description: CEO of Sustainability Science and professor in the Mechanical Engineering Department Colorado State University.
   type: prov:Person

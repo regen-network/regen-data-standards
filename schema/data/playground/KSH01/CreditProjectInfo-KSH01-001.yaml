@@ -43,6 +43,7 @@ hasCoBenefits:
       - SDG_13
       - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMAT4R0P1CVVHYJA39FR
   name: Regen Registry Credit Issuer
   description: This address issues credits for Credit Classes on Regen Registry where Credit Administration functions have been delegated to Regen Registry
   url: https://www.regen.network/

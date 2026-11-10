@@ -41,7 +41,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
 | `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. A tag that is only private use, such as `x-regen`, is not accepted. The form is checked, not registration, so some deprecated grandfathered tags such as `zh-min` pass. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. It is content, so changing it makes a new Claim version; when a page moves, keep a redirect from the old address instead. |
-| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Agent` (inlined): a `Person`, `Organization`, `SoftwareAgent` or `Community` | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
+| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Agent` (inlined, with its `rid`): a `Person`, `Organization`, `SoftwareAgent` or `Community` | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 0..1 | When the claimants make the assertion. |
 | `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
@@ -55,7 +55,9 @@ excluded ([claims#1](https://github.com/regen-network/claims/issues/1)). So chan
 unchanged. A correction names the earlier version with `wasRevisionOf`. Which version is current is
 decided outside the Claim. An `Evidence` record is its own document: a citation names it by its Raw
 IRI, derived from the cited bytes' digest and media type, so editing the record's description or moving the data
-(its `resolver`) does not change a Claim that cites it.
+(its `resolver`) does not change a Claim that cites it. A claimant is inlined with its `rid`, the IRI minted once
+for the agent, so claims by the same agent can be joined, and the rid is content: a Claim that names the agent
+under another rid is a different Claim.
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
 in structured fields, such as an area and its unit. The statement and those fields are one assertion
@@ -321,8 +323,6 @@ fields and their RIDs after the PR merges, and reports the result on
 
 ## Open, and where it is tracked
 
-- `Agent` has no identifier yet, so claimants remain blank nodes and cannot be joined across claims
-  ([#58](https://github.com/regen-network/regen-data-standards/pull/58)).
 - Whether a claimant is authorized to assert for another party is not recorded by the Claim:
   [#96](https://github.com/regen-network/regen-data-standards/issues/96).
 - Evaluation-method terms and references to exact governing-document and requirement-set versions, deferred from #71, are

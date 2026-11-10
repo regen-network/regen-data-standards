@@ -20,6 +20,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -514,6 +515,7 @@
   "assertedBy": [
     {
       "@type": "Organization",
+      "rid": "https://framework.regen.network/agent/01M728VMAXJP02VYXHM214GRTA",
       "name": "Example Verifier"
     }
   ],

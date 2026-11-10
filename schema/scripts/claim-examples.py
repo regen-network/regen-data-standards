@@ -35,17 +35,22 @@ The check validates every document with both validators the schema generates:
   without rdflib's literal normalization so that lexical forms are checked as
   written (rdflib would otherwise rewrite a Z in assertedAt, which the
   pattern rejects, as +00:00). The generated shapes are used unchanged.
-  Claims and evaluations reference Evidence records by IRI, and Evidence
-  records reference Activity records by IRI (wasGeneratedBy); the shapes
-  require each to be an rfs:Evidence or an rfs:Activity. So each document is
-  checked together with the Turtle gen-rdf wrote for the records it can
-  reference, as the graph store holds them: a claim or evaluation with the
-  Evidence and Activity records, an Evidence record with the Activity records.
-  Activity records are typed with a kind of Activity (GenericActivity,
-  Capture), so they are merged together with the class hierarchy gen-hierarchy
-  publishes, which the store holds too. An Activity correction can reference
-  an earlier Activity with replaces, so it is checked with the other Activity
-  records, excluding its own stored copy.
+  Claims and evaluations reference Evidence records by IRI, Evidence
+  records reference Activity records by IRI (wasGeneratedBy), and a
+  SoftwareAgent version record names the record for its software by rid
+  (isVersionOf); the shapes require each to be an rfs:Evidence, an
+  rfs:Activity or a prov:SoftwareAgent. So each document is checked together
+  with the Turtle gen-rdf wrote for the records it can reference, as the
+  graph store holds them. Every document is merged with the SoftwareAgent
+  records, since a version record may be inlined in it or in an Activity
+  record merged with it, as a Capture inlines the sensor version. A claim or
+  evaluation is also merged with the Evidence and Activity records, and an
+  Evidence record with the Activity records. Activity records are typed with
+  a kind of Activity (GenericActivity, Capture), so they are merged together
+  with the class hierarchy gen-hierarchy publishes, which the store holds too.
+  An Activity correction can reference an earlier Activity with replaces, so
+  it is checked with the other Activity records, excluding its own stored
+  copy, found by its Activity IRI.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
@@ -67,6 +72,11 @@ the Evidence records, as the graph store merges it.
 For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
+
+The first generic claim example is also checked with a sensor's version
+record as its claimant. SHACL must accept it, which it does only merged with
+the SoftwareAgent records, because the version record names the record for
+its software by rid.
 
 The generic examples are GenericClaims and GenericEvaluations, whose shapes are
 closed. The base Claim and Evaluation are abstract, so their shapes are open:
@@ -155,8 +165,13 @@ INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 RECORD_GLOBS = {
     "evidence": ["data/playground/Evidence/*.ttl"],
     "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
+    "agent": ["data/playground/SoftwareAgent/*.ttl"],
 }
+# A version record, and the example checked with it as claimant.
+VERSION_RECORD = "data/playground/SoftwareAgent/SoftwareAgent-meeting-sensor-1.4.2.yaml"
+VERSION_CLAIMANT_FIXTURE = "data/playground/Claim/GenericClaim-001.yaml"
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
+ACTIVITY_TYPES = {rdflib.URIRef("https://framework.regen.network/schema/" + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
 # The abstract base each generic class stands for: its shape is open.
@@ -318,7 +333,7 @@ def as_extension(view, graph, class_name, without=None):
 
 
 def record_store():
-    """The Evidence and Activity records as the graph store holds them: gen-rdf's Turtle."""
+    """The Evidence, Activity and SoftwareAgent records as the graph store holds them: gen-rdf's Turtle."""
     store = {}
     for kind, patterns in RECORD_GLOBS.items():
         paths = sorted(path for pattern in patterns for path in glob.glob(pattern))
@@ -339,20 +354,26 @@ def record_store():
 def with_store(graph, store, class_name=None):
     """Return graph merged with the records a document of class_name can reference.
 
-    An Activity correction references an earlier Activity. Exclude its own
-    stored copy so nested blank nodes, such as its operator, are not duplicated.
-    An Evidence record references Activity
-    records, and is not merged with the Evidence records, which hold it already:
-    merged with itself, its digest (a blank node) would be duplicated."""
+    Every document is merged with the SoftwareAgent records: a version record,
+    inlined in the document or in an Activity record merged with it, names the
+    record for its software by rid. An Activity correction references an
+    earlier Activity, so it is merged with the other Activity records except
+    its own stored copy, found by the document's Activity IRI. Matching any
+    IRI it holds would also leave out the records it replaces: the agents it
+    names are IRIs (their rids), and other Activity records name the same
+    agents. An Evidence record references Activity records, and is not merged
+    with the Evidence records, which hold it already: merged with itself, its
+    digest (a blank node) would be duplicated."""
+    merged = rdflib.Graph()
+    merged += graph
+    merged += store["agent"]
     if class_name in ACTIVITY_CLASSES:
-        merged = graph + hierarchy()
-        own_iris = {s for s in graph.subjects() if isinstance(s, rdflib.URIRef)}
+        merged += hierarchy()
+        own_iris = {s for s, kind in graph.subject_objects(RDF.type) if kind in ACTIVITY_TYPES}
         for record in store["activity_records"]:
             if not own_iris.intersection(record.subjects()):
                 merged += record
         return merged
-    merged = rdflib.Graph()
-    merged += graph
     merged += store["activity"]
     if class_name != "Evidence":
         merged += store["evidence"]
@@ -483,6 +504,16 @@ def main(mode):
                 print(f"✅ {example}: changing a selector changes the citation, not the cited Evidence IRIs or records")
             else:
                 print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
+                failures += 1
+        if fixture == VERSION_CLAIMANT_FIXTURE:
+            data = yaml.safe_load(Path(fixture).read_text())
+            data["assertedBy"] = [yaml.safe_load(Path(VERSION_RECORD).read_text())]
+            graph = lexical_graph(build(module, class_name, fixture, data), "json-ld")
+            conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
+            if conforms:
+                print(f"✅ {example} with a software version as claimant: conforms to SHACL")
+            else:
+                print(f"❌ {example} with a software version as claimant: SHACL violations {messages}")
                 failures += 1
         if class_name in OPEN_BASES:
             base = OPEN_BASES[class_name]

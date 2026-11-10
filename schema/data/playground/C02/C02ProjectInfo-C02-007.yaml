@@ -50,12 +50,14 @@ hasCoBenefits:
       - SDG_3
       - SDG_11
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA4E3CNM36T8WTEK7HY
   name: Trees Forever
   description: Nonprofit organization planting and caring for trees in Iowa communities
   url: https://treesforever.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/trees_forever_logo.gif
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VMA58KTAV7MP0TBT33CX
   name: Dr. Qingfu Xiao
   type: prov:Person
 creditClassVersion: V1.0

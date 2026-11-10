@@ -437,9 +437,9 @@ rejected). `Activity` is abstract, with two kinds:
   same day can be ordered. `endedAtTime` is the time of the fetch, including when that time is
   corrected; it is never the time a correction was submitted. Its agent (`wasAssociatedWith`) is
   the version of the sensor that ran: a `SoftwareAgent` record for that version, with
-  `softwareVersion` (`schema:softwareVersion`) and the IRI of the sensor across its versions in
-  `isVersionOf` (`dcterms:isVersionOf`). A new version of the sensor is a new record, so no record
-  changes when it is updated.
+  `softwareVersion` (`schema:softwareVersion`) and, in `isVersionOf` (`dcterms:isVersionOf`), the
+  `rid` of the `SoftwareAgent` record for the sensor across its versions. A new version of the
+  sensor is a new record, so no record changes when it is updated.
 
 For a captured copy, `wasGeneratedBy` names the capture, not the activity behind the content, such
 as the meeting; the activity's type says which.
@@ -646,8 +646,8 @@ handling, and that imported definitions are not separate whole-claim targets. As
    point, and so is an `Activity` record, with `GenericActivity` or `Capture` as entry point. A claim's SHACL check that the IRIs in its citations' `source` are
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
    are IRIs. An Activity correction's `replaces` is checked with the other Activity records
-   and the class hierarchy. The example checker excludes its own stored copy so nested blank
-   nodes, such as its operator, are not duplicated. Same-concrete-class, submitter and
+   and the class hierarchy. The example checker excludes its own stored copy, found by its
+   Activity IRI, since other Activity records name the same agents by rid. Same-concrete-class, submitter and
    one-direct-replacement checks are service admission rules, not generated schema constraints.
 4. The shape of each entry point is closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.SCHEMA-INVALID-undeclared-field.yaml)). The shapes of the
@@ -729,6 +729,10 @@ the source.
   named graph.
 - **Not checked by either validator:** that the `Evidence` IRI has no fragment (JSON Schema only: SHACL cannot match a pattern against a
   node's IRI); and what `conformsTo` names.
+- **A version record is checked with the record for its software.** `isVersionOf` names a
+  `SoftwareAgent` by its `rid`, and the generated SHACL checks it with `sh:class prov:SoftwareAgent`,
+  so a validator needs that record in the graph, as the graph store holds it. `check-claim-examples`
+  merges every document with the `SoftwareAgent` records for this reason.
 - **Subject references are plain IRIs** (`appliesTo`, `project`, `cohort`, `site`), not typed nodes:
   a typed node of a `ClaimSubject` subclass would fail the generated `sh:class` check unless the
   validator is given the class hierarchy.
@@ -743,10 +747,5 @@ the source.
   not check that the unit is an area unit. A richer quantity structure, with uncertainty and rate
   denominators, is open
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
-- **Operators have no IRI yet.** `wasAssociatedWith` names an `Agent`, which has no identifier until
-  [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
-  activity, or the sensor version of a capture, is a node with a name and type and cannot be joined
-  across activities. A sensor version names the sensor across its versions by IRI (`isVersionOf`),
-  and the record for the sensor cannot carry that IRI until then.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.

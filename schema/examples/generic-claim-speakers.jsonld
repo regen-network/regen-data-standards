@@ -20,6 +20,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -318,6 +319,7 @@
   "assertedBy": [
     {
       "@type": "Organization",
+      "rid": "https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T",
       "name": "Example Sensor Operator"
     }
   ],

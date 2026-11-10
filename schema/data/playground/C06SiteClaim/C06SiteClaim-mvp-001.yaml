@@ -9,7 +9,8 @@ claimStatement: >-
   and has a ten-year crediting period. It is cropland under no-till and cover
   cropping, with activity records from 2019.
 assertedBy:
-  - name: Example Soil Carbon Developer
+  - rid: https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+    name: Example Soil Carbon Developer
     type: prov:Organization
 assertedOn: "2026-07-10"
 hasSubject:

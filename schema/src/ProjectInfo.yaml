@@ -94,45 +94,65 @@ classes:
         inlined_as_list: true
       hasProjectDeveloper:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community responsible for developing
           the project.
       hasProjectMonitor:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community responsible for monitoring
           the project.
       hasProjectOperator:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community responsible for operating the
           project.
       hasProjectOwner:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community that owns the project.
       hasProjectPartner:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community that is a partner for the
           project.
@@ -155,10 +175,14 @@ classes:
     attributes:
       hasProjectVerifier:
         range: Agent
+        inlined: true
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: >-
           The person, organization or community responsible for verifying
           the project.

@@ -39,12 +39,14 @@ hasCoBenefits:
     supportsSDG:
       - SDG_15
 hasProjectMonitor:
+  rid: https://framework.regen.network/agent/01M728VMAFE0N38BW9W8Y4VGQJ
   name: Regen Network Development
   description: Regen Network Development manages the implementation of CarbonPlus Grasslands projects
   url: https://www.regen.network/
   image: https://regen-registry.s3.amazonaws.com/profiles/ad5a126e-d7bf-11ed-b9d8-0a6e1e09fcad/1681230075630/avatar.png
   type: prov:Organization
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMAG059TMSD8JG289ZEN
   name: Impact Ag
   description: Impact Ag Partners is a specialist agricultural investment and development firm. With deep expertise and a proven track record – we lead the market in identifying, optimizing, and monetizing natural capital for agriculture.
   url: https://impactagpartners.com/

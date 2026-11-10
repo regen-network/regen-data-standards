@@ -26,6 +26,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -587,6 +588,7 @@
   "assertedBy": [
     {
       "@type": "Organization",
+      "rid": "https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK",
       "name": "Example Soil Carbon Developer"
     }
   ],

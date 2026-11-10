@@ -14,6 +14,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -141,6 +142,7 @@
   "wasAssociatedWith": [
     {
       "@type": "Person",
+      "rid": "https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49",
       "name": "Example Farm Operator"
     }
   ]

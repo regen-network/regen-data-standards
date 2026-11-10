@@ -14,6 +14,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -142,9 +143,10 @@
   "wasAssociatedWith": [
     {
       "@type": "SoftwareAgent",
+      "rid": "https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8",
       "name": "Example Meeting Sensor 1.4.2",
       "softwareVersion": "1.4.2",
-      "isVersionOf": "https://example.org/sensors/meeting-sensor"
+      "isVersionOf": "https://framework.regen.network/agent/01M728VMAYDB1VJ4EQSJ7AD4GJ"
     }
   ]
 }

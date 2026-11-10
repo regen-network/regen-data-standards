@@ -5,7 +5,8 @@
 name: Site S-001 start date
 claimStatement: Site S-001 start date
 assertedBy:
-  - name: Example Soil Carbon Developer
+  - rid: https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+    name: Example Soil Carbon Developer
     type: prov:Organization
 assertedOn: "2026-07-10"
 hasSubject:

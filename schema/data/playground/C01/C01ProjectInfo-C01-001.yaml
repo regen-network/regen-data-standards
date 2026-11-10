@@ -29,6 +29,7 @@ environmentType:
 activity:
   - CONSERVATION
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VM9VHQ07KQ3Q7SZF4M2Q
   name: Wildlife Works Carbon LLC
   description: Wildlife Works is the world's leading REDD+ program development and management company.
   type: prov:Organization

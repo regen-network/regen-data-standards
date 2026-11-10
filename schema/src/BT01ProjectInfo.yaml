@@ -51,8 +51,11 @@ classes:
         range: Agent
         any_of:
           - range: Person
+            inlined: true
           - range: Organization
+            inlined: true
           - range: Community
+            inlined: true
         description: The environmental authority associated with the project.
         multivalued: true
         inlined: true
