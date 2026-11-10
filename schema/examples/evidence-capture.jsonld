@@ -17,6 +17,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },

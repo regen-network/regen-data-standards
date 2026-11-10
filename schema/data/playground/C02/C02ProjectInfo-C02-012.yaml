@@ -50,12 +50,14 @@ hasCoBenefits:
       - SDG_4
       - SDG_11
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA909636XVFX8T0YMNX
   name: Kendall County Forest Preserve District
   description: Public agency managing forest preserves and natural areas in Kendall County, Illinois
   url: https://kendallforest.com/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/kendall_logo.png
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
   name: Ecofor LLC
   type: prov:Organization
 creditClassVersion: V1.0

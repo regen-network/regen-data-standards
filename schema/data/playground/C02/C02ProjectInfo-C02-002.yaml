@@ -48,12 +48,14 @@ hasCoBenefits:
     supportsSDG:
       - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VM9ZMHRAQDCCREDW4HMG
   name: Western Reserve Land Conservancy
   description: Land conservation organization protecting natural areas in Northeast Ohio
   url: https://www.wrlandconservancy.org/
   image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-002-profile-image.png
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
   name: Ecofor LLC
   type: prov:Organization
 creditClassVersion: V1.0

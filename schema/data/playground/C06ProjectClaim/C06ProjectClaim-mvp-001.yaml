@@ -8,7 +8,8 @@ claimStatement: >-
   Example project P-001 is an aggregate soil-carbon project of sites enrolled
   from 2020 to 2023, started on 1 March 2020.
 assertedBy:
-  - name: Example Soil Carbon Developer
+  - rid: https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+    name: Example Soil Carbon Developer
     type: prov:Organization
 assertedOn: "2026-02-20"
 hasSubject:

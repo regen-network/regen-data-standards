@@ -20,6 +20,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -433,6 +434,7 @@
   "assertedBy": [
     {
       "@type": "Organization",
+      "rid": "https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S",
       "name": "Example Registry"
     }
   ],

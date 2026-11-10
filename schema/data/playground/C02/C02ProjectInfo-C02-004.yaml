@@ -49,12 +49,14 @@ hasCoBenefits:
     supportsSDG:
       - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA1AKF9Z78A1CK7A5WK
   name: City of Issaquah
   description: Municipality in King County, Washington
   url: https://www.issaquahwa.gov/
   image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-004-profile-image.png
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
   name: Ecofor LLC
   type: prov:Organization
 creditClassVersion: V1.0

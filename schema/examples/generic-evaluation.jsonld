@@ -20,6 +20,7 @@
       "@type": "@id",
       "@id": "did"
     },
+    "rid": "@id",
     "walletAddress": {
       "@id": "walletAddress"
     },
@@ -433,6 +434,7 @@
   "assertedBy": [
     {
       "@type": "Community",
+      "rid": "https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18",
       "name": "Valley Stewards Circle"
     }
   ],

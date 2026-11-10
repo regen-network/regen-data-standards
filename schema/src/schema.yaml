@@ -4,6 +4,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
   rft: https://framework.regen.network/taxonomy/
+  rfa: https://framework.regen.network/agent/
   schema: http://schema.org/
   qudt: http://qudt.org/schema/qudt/
   unit: http://qudt.org/vocab/unit/

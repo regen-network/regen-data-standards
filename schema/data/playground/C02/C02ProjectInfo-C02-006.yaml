@@ -46,12 +46,14 @@ activity:
 environmentType:
   - URBAN_TREES
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA3WA98F9J5FB2Y9F62
   name: Lookout Mountain Conservancy
   description: Land conservancy protecting natural areas in the Chattanooga region
   url: https://lookoutmountainconservancy.org
   image: https://regen-registry.s3.amazonaws.com/projects/1f484f70-16cd-11ee-ab29-0a6e1e09fcad/1688078344082-LMC_logo.jpg
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
   name: Ecofor LLC
   type: prov:Organization
 creditClassVersion: V1.0

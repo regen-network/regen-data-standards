@@ -11,7 +11,8 @@ used: https://meetings.example.org/m/0042#transcript
 startedAtTime: "2026-05-02T09:14:05+00:00"
 endedAtTime: "2026-05-02T09:14:07+00:00"
 wasAssociatedWith:
-  - name: Example Meeting Sensor 1.4.2
+  - rid: https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8
+    name: Example Meeting Sensor 1.4.2
     type: prov:SoftwareAgent
     softwareVersion: "1.4.2"
-    isVersionOf: https://example.org/sensors/meeting-sensor
+    isVersionOf: https://framework.regen.network/agent/01M728VMAYDB1VJ4EQSJ7AD4GJ

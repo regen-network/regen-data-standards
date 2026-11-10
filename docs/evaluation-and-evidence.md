@@ -646,8 +646,8 @@ handling, and that imported definitions are not separate whole-claim targets. As
    point, and so is an `Activity` record, with `GenericActivity` or `Capture` as entry point. A claim's SHACL check that the IRIs in its citations' `source` are
    `Evidence` records runs where the records are stored with it; JSON Schema checks only that they
    are IRIs. An Activity correction's `replaces` is checked with the other Activity records
-   and the class hierarchy. The example checker excludes its own stored copy so nested blank
-   nodes, such as its operator, are not duplicated. Same-concrete-class, submitter and
+   and the class hierarchy. The example checker excludes its own stored copy, found by its
+   Activity IRI, since other Activity records name the same agents by rid. Same-concrete-class, submitter and
    one-direct-replacement checks are service admission rules, not generated schema constraints.
 4. The shape of each entry point is closed: fields the schema does not define are rejected
    ([example](../schema/examples/c06-claim.SCHEMA-INVALID-undeclared-field.yaml)). The shapes of the
@@ -743,10 +743,5 @@ the source.
   not check that the unit is an area unit. A richer quantity structure, with uncertainty and rate
   denominators, is open
   ([#86](https://github.com/regen-network/regen-data-standards/issues/86)).
-- **Operators have no IRI yet.** `wasAssociatedWith` names an `Agent`, which has no identifier until
-  [#58](https://github.com/regen-network/regen-data-standards/pull/58), so the operator of an
-  activity, or the sensor version of a capture, is a node with a name and type and cannot be joined
-  across activities. A sensor version names the sensor across its versions by IRI (`isVersionOf`),
-  and the record for the sensor cannot carry that IRI until then.
 - **Granularity** (one claim per plot, or site claims carrying plot records) and whether dataset rows
   are claims or evidence are open.

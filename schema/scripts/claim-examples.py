@@ -45,7 +45,7 @@ The check validates every document with both validators the schema generates:
   Capture), so they are merged together with the class hierarchy gen-hierarchy
   publishes, which the store holds too. An Activity correction can reference
   an earlier Activity with replaces, so it is checked with the other Activity
-  records, excluding its own stored copy.
+  records, excluding its own stored copy, found by its Activity IRI.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
@@ -157,6 +157,7 @@ RECORD_GLOBS = {
     "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
 }
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
+ACTIVITY_TYPES = {rdflib.URIRef("https://framework.regen.network/schema/" + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
 # The abstract base each generic class stands for: its shape is open.
@@ -339,14 +340,17 @@ def record_store():
 def with_store(graph, store, class_name=None):
     """Return graph merged with the records a document of class_name can reference.
 
-    An Activity correction references an earlier Activity. Exclude its own
-    stored copy so nested blank nodes, such as its operator, are not duplicated.
+    An Activity correction references an earlier Activity, so it is merged
+    with the other Activity records except its own stored copy, found by the
+    document's Activity IRI. Matching any IRI it holds would also leave out
+    the records it replaces: the agents it names are IRIs (their rids), and
+    other Activity records name the same agents.
     An Evidence record references Activity
     records, and is not merged with the Evidence records, which hold it already:
     merged with itself, its digest (a blank node) would be duplicated."""
     if class_name in ACTIVITY_CLASSES:
         merged = graph + hierarchy()
-        own_iris = {s for s in graph.subjects() if isinstance(s, rdflib.URIRef)}
+        own_iris = {s for s, kind in graph.subject_objects(RDF.type) if kind in ACTIVITY_TYPES}
         for record in store["activity_records"]:
             if not own_iris.intersection(record.subjects()):
                 merged += record

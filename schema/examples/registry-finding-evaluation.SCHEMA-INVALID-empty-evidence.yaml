@@ -5,7 +5,8 @@
 name: Clarification request on the crediting period structure
 claimStatement: Clarification request on the crediting period structure
 assertedBy:
-  - name: Example Verifier
+  - rid: https://framework.regen.network/agent/01M728VMAXJP02VYXHM214GRTA
+    name: Example Verifier
     type: prov:Organization
 assertedOn: "2026-03-02"
 hasSubject:

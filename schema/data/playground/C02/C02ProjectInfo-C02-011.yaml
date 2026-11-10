@@ -48,12 +48,14 @@ hasCoBenefits:
     supportsSDG:
       - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA86TK7T5G9N5C4W5FM
   name: Lake County Forest Preserve District
   description: Public agency managing forest preserves and natural areas in Lake County, Illinois
   url: https://www.lcfpd.org/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/lake_county_logo.png
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VMA58KTAV7MP0TBT33CX
   name: Dr. Qingfu Xiao
   type: prov:Person
 creditClassVersion: V1.0

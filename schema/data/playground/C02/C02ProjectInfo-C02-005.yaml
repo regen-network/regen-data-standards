@@ -49,10 +49,12 @@ hasCoBenefits:
       - SDG_3
       - SDG_11
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMA2KB393K30VT117XTF
   name: Enrichmond Foundation
   description: Foundation supporting community development in Richmond, Virginia
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
   name: Ecofor LLC
   type: prov:Organization
 creditClassVersion: V1.0

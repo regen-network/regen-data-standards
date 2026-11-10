@@ -8,7 +8,8 @@ claimStatement: >-
   400 m of hedgerow was planted on plot A, but are not enough to establish it:
   the photographs cover about 250 m of the boundary.
 assertedBy:
-  - name: Valley Stewards Circle
+  - rid: https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
+    name: Valley Stewards Circle
     type: rfs:Community
 assertedAt: "2026-06-12T10:00:00+00:00"
 hasSubject:

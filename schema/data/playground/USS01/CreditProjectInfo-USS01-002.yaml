@@ -42,21 +42,25 @@ hasCoBenefits:
       - SDG_4
       - SDG_13
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
   name: Fundación Pachamama
   description: Project developer and coordinator for community-based conservation efforts
   url: https://www.pachamama.org.ec
   image: https://regen-registry.s3.amazonaws.com/profiles/0161027a-e26b-11ef-bc67-0afffa81c869/1738613547341/1738613547340-avatar.png
   type: prov:Organization
 hasProjectOperator:
+  rid: https://framework.regen.network/agent/01M728VMB4DYVYV5GCN36HG18K
   name: Sharamentsa Community
   description: Local Indigenous community of the Achuar Nation responsible for project implementation
   type: prov:Organization
 hasProjectMonitor:
+  rid: https://framework.regen.network/agent/01M728VMB5YQNQB4KMV5DRKQE8
   name: Amazank Monitoring Team
   description: Community-based team conducting biodiversity and ecosystem monitoring
   url: https://www.instagram.com/sharam.conservacion/
   type: prov:Organization
 hasProjectPartner:
+  rid: https://framework.regen.network/agent/01M728VMB6MK81J1KCP7MS86TD
   name: Amazon Sacred Headwaters Alliance
   description: Alliance supporting Indigenous-led conservation in the Amazon
   url: https://cuencasagradas.org/

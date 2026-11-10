@@ -29,6 +29,7 @@ environmentType:
 activity:
   - CONSERVATION
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VM9W34EE1ZGP58HRTT60
   name: Ese´Eja Infierno Native Community
   description: Forest owners committed to work to protect and manage the forest under a REDD+ project.
   type: prov:Organization

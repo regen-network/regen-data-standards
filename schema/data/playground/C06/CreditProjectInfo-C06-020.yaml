@@ -42,6 +42,7 @@ hasCoBenefits:
   - SDG_3
   - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMACZYN2GQ80GN5H6FZQ
   name: Ecometric
   description: Agricultural carbon project developer
   url: https://ecometric.co.uk/
@@ -56,6 +57,7 @@ usesMethodology:
   url: https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems
   version: V1.2.2
 hasProjectMonitor:
+  rid: https://framework.regen.network/agent/01M728VMACZYN2GQ80GN5H6FZQ
   name: Ecometric
   description: Measured soil carbon capture
   url: https://ecometric.co.uk/

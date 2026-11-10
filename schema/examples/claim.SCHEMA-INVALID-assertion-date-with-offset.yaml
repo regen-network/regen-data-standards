@@ -3,7 +3,8 @@
 # time zone, so one date has one lexical form.
 claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
 assertedBy:
-  - name: Hedgerow Cooperative
+  - rid: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+    name: Hedgerow Cooperative
     type: rfs:Community
 assertedOn: "2026-05-02+02:00"
 hasSubject:

@@ -10,7 +10,8 @@ claimStatement: >-
   project plan satisfies the credit class's crediting term for the cohorts
   enrolled from 2020 to 2023, subject to the scope below.
 assertedBy:
-  - name: Example Registry
+  - rid: https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
+    name: Example Registry
     type: prov:Organization
 assertedOn: "2026-03-12"
 hasSubject:

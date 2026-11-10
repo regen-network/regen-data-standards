@@ -44,6 +44,7 @@ hasCoBenefits:
   - SDG_6
   - SDG_15
 hasProjectDeveloper:
+  rid: https://framework.regen.network/agent/01M728VMACZYN2GQ80GN5H6FZQ
   name: Ecometric
   description: Agricultural carbon project developer
   url: https://ecometric.co.uk/
@@ -58,12 +59,14 @@ usesMethodology:
   url: https://www.registry.regen.network/methodology/soil-organic-carbon-estimation-in-regenerative-cropping-managed-grassland-ecosystems
   version: V1.1
 hasProjectMonitor:
+  rid: https://framework.regen.network/agent/01M728VMACZYN2GQ80GN5H6FZQ
   name: Ecometric
   description: Measured soil carbon capture
   url: https://ecometric.co.uk/
   image: https://regen-registry.s3.amazonaws.com/profiles/6ac697e2-d7a5-11ee-a8c1-0a6e1e09fcad/1711050333550/1711050333548-avatar.jpg
   type: prov:Organization
 hasProjectVerifier:
+  rid: https://framework.regen.network/agent/01M728VMAD1B8QK1T05EW7FR25
   name: Nova Cert
   description: NOVA CERT is a Validation and Verification Body (VVB) which validates
     and verifies projects that reduce greenhouse gases (GHG) emissions to the atmosphere.

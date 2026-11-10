@@ -2,7 +2,8 @@
 # A Claim states its assertion. A title alone does not say what is asserted.
 name: Hedgerow planting on plot A, spring 2026
 assertedBy:
-  - name: Hedgerow Cooperative
+  - rid: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+    name: Hedgerow Cooperative
     type: rfs:Community
 assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
