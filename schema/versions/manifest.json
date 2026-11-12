@@ -49,8 +49,8 @@
         },
         "json-schema": {
           "path": "0.1.0/json-schema.json",
-          "sha256": "59101c512b722bedbdf327bfc7c4815a5201c7df20de5b57202d258f58a0ef29",
-          "id": "https://framework.regen.network/schema/versions/0.1.0/json-schema.json"
+          "sha256": "c3d0317b72d8f6ef821e82a2f783e4214da85e1e76a9e769680688ef2d777426",
+          "id": "https://framework.regen.network/versions/0.1.0/json-schema.json"
         },
         "shacl": {
           "path": "0.1.0/shacl.ttl",

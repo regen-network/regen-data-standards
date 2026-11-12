@@ -14,7 +14,8 @@ versions/<version>/:
   in corrected_context;
 - json-schema.json: the JSON Schema (gen-json-schema
   --include-range-class-descendants, the options linkml-validate uses), with
-  a $id unique to the version: <schema id>versions/<version>/json-schema.json,
+  a $id unique to the version, https://framework.regen.network/versions/
+  <version>/json-schema.json (see json_schema_id),
   and each rule's title on its then and else subschemas (titled_rules);
 - shacl.ttl: the SHACL shapes (gen-shacl), unchanged except that the graph is
   serialized canonically, so that regenerating it gives the same bytes;
@@ -243,8 +244,15 @@ def corrected_context(view, context):
 
 def json_schema_id(view, version):
     """The $id of a version's JSON Schema: unique per version, so that a
-    validator can hold several versions at once."""
-    return f"{view.schema.id.rstrip('/')}/versions/{version}/{ARTIFACTS['json-schema']}"
+    validator can hold several versions at once. It sits under
+    https://framework.regen.network/versions/, beside the schema's id
+    (https://framework.regen.network/schema/) rather than under it: the
+    schema's id is also the rfs: vocabulary namespace, where
+    .../schema/versions would be the IRI of a term named versions. The claim
+    service names each version's hierarchy graph under the same prefix
+    (claims ADR 0005 D5)."""
+    base = view.schema.id.rstrip("/").rsplit("/", 1)[0]
+    return f"{base}/versions/{version}/{ARTIFACTS['json-schema']}"
 
 
 def generate_artifact(kind, schema, version=None):

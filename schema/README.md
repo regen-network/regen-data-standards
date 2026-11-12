@@ -148,8 +148,12 @@ Schema are self-contained.
 A validator that holds several versions keeps them apart:
 
 - each version's JSON Schema has its own `$id`,
-  `https://framework.regen.network/schema/versions/<version>/json-schema.json`, so they can be
-  registered together. The `$id` identifies the schema; nothing is served at that URL;
+  `https://framework.regen.network/versions/<version>/json-schema.json`, so they can be
+  registered together. The `$id` identifies the schema; nothing is served at that URL. It is not
+  under `https://framework.regen.network/schema/`, the schema's id and the `rfs:` vocabulary
+  namespace, where `…/schema/versions` would read as the IRI of a term named `versions`. The
+  claim service names each version's hierarchy graph under the same `…/versions/<version>/`
+  prefix ([claims ADR 0005 D5](https://github.com/regen-network/claims/pull/68));
 - SHACL shapes are identified by their class IRI (`rfs:Claim`, …), which is the same in every
   version, so load each version's `shacl.ttl` into a graph of its own.
 
