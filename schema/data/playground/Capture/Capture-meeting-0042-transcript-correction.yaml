@@ -1,0 +1,11 @@
+# Synthetic correction of the May 2 capture's end time, not another fetch.
+# The Evidence still names 0042-transcript-1 in wasGeneratedBy.
+id: https://example.org/sensors/meeting-sensor/captures/0042-transcript-1-correction
+name: Capture of the transcript of meeting 0042
+replaces: https://example.org/sensors/meeting-sensor/captures/0042-transcript-1
+used: https://meetings.example.org/m/0042#transcript
+startedAtTime: "2026-05-02T09:14:05+00:00"
+endedAtTime: "2026-05-02T09:14:09+00:00"
+wasAssociatedWith:
+  - name: Example Sensor Operator
+    type: ORGANIZATION

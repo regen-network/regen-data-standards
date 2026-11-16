@@ -3,14 +3,16 @@ name: Activity
 description: >-
   A PROV activity: something that took place over a period and that agents
   were responsible for, such as the soil sampling or the field operations that
-  produced a piece of evidence. Evidence names the activity that generated it
-  with wasGeneratedBy; the activity states when it took place and who carried
-  it out. See docs/evaluation-and-evidence.md.
+  produced a piece of evidence, or a sensor's capture of a source. An activity
+  is a record of its own, which Evidence names by IRI with wasGeneratedBy; the
+  activity states when it took place and who carried it out. See
+  docs/evaluation-and-evidence.md.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
   prov: http://www.w3.org/ns/prov#
   schema: http://schema.org/
+  dcterms: http://purl.org/dc/terms/
 
 imports:
   - linkml:types
@@ -23,27 +25,87 @@ default_range: string
 
 classes:
   Activity:
+    abstract: true
     class_uri: rfs:Activity
     mixins:
       - ProvActivity
     description: >-
       Something that took place over a period, identified by an IRI so that
-      every piece of evidence it generated names the same activity. Its period
-      is given as dates; prov:startedAtTime and prov:endedAtTime would require
-      timestamps.
+      every piece of evidence it generated names the same activity. An
+      activity is a record of its own: Evidence names it by IRI and never
+      inlines it, so one activity that generated several records is described
+      once. A correction is a new record that replaces the earlier record
+      while describing the same occurrence. Abstract: a record is a
+      GenericActivity or a Capture.
     slots:
       - name
       - description
-      - startDate
-      - endDate
       - wasAssociatedWith
+      - replaces
     attributes:
       id:
         identifier: true
         range: uriorcurie
         description: IRI of the activity.
 
+  GenericActivity:
+    is_a: Activity
+    class_uri: rfs:GenericActivity
+    description: >-
+      An activity behind the content of a source, such as the soil sampling
+      behind a results file or the field operations a farm management record
+      documents, with its period as dates.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such an activity
+        is validated with a closed shape, which the open Activity base cannot
+        give its direct instances, as GenericClaim does for Claim.
+    slots:
+      - startDate
+      - endDate
+
+  Capture:
+    is_a: Activity
+    class_uri: rfs:Capture
+    description: >-
+      A sensor or tool fetching an exact version of an upstream record, such
+      as a meeting transcript or a spreadsheet export. The Evidence it
+      generates is that version; the record it fetched is the one it used.
+      A correction of this capture uses replaces; its current corrected
+      version is found by following replacement links, without comparing
+      timestamps. Fetching the source again is a separate capture, without a
+      replacement link to the earlier fetch. To find the most recent capture
+      of an upstream record, compare endedAtTime across the separate captures
+      whose used names that record, using each capture's current corrected
+      version. A capture fetches one record: a sensor that fetches several parts of a
+      source, such as a meeting's transcript and its calendar entry, records
+      one capture for each.
+    slots:
+      - used
+      - startedAtTime
+      - endedAtTime
+    slot_usage:
+      used:
+        required: true
+      endedAtTime:
+        required: true
+
 slots:
+  replaces:
+    slot_uri: dcterms:replaces
+    description: >-
+      The IRI of the earlier Activity record whose description this record
+      corrects. Both records describe the same real-world occurrence and have
+      the same concrete class. A new occurrence, such as another sampling
+      campaign or a later fetch of the same source, is a separate activity
+      without this relation. The earlier record and Evidence references to
+      it stay unchanged. Further corrections replace the current corrected
+      record, forming a chain. The service enforces the matching class,
+      authorization and one direct replacement per record; the schema alone
+      cannot establish that two records describe the same occurrence.
+    range: Activity
+    inlined: false
+    multivalued: false
   wasAssociatedWith:
     slot_uri: prov:wasAssociatedWith
     description: >-
@@ -70,3 +132,28 @@ slots:
     description: >-
       Last day of the period, included.
     range: date
+  used:
+    slot_uri: prov:used
+    description: >-
+      The upstream record a capture fetched, by its stable IRI: the record
+      itself, not the version captured, which is the Evidence the capture
+      generated. For a source whose native identifier is not an IRI, such as
+      a meeting identifier, it is the IRI of the record's landing page. A part
+      of a source with no IRI of its own, such as a meeting's transcript, is
+      named from that page with a fragment, the same on every capture.
+    range: uriorcurie
+  startedAtTime:
+    slot_uri: prov:startedAtTime
+    description: >-
+      When the capture started. Written in UTC with whole seconds and the
+      offset +00:00, as assertedAt is.
+    range: datetime
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"
+  endedAtTime:
+    slot_uri: prov:endedAtTime
+    description: >-
+      When the capture ended: the time the version it generated was fetched.
+      Written in UTC with whole seconds and the offset +00:00, as assertedAt
+      is.
+    range: datetime
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+00:00$"

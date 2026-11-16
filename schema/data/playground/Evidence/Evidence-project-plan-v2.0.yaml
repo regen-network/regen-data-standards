@@ -1,13 +1,13 @@
 # Synthetic example (example.org identifiers): the Evidence record for
 # Example project plan v2.0, described once and cited by IRI.
-id: https://example.org/c06/project-plan-v2.0.pdf
+id: regen:113c3me6ngiwmPw79cQooyuDXja2QfQxf1XWLcDLgc2STNDau9A7.pdf
 name: Example project plan v2.0
 sourceType: TEXT
 mediaType: application/pdf
 inLanguage: en
 contentHash:
-  algorithm: SHA_256
-  digestValue: c9b362409d2175e589db806ba32bb9a7d90d42a53ca800204a081a8b6fa953c6
+  algorithm: BLAKE2B_256
+  digestValue: 56f8ef3a9fefe2e2732738026f18e528ed3dfcdbaf2aa41ead30843148e27f5f
 resolver:
   - https://example.org/c06/project-plan-v2.0.pdf
 licence: https://example.org/c06/licences/project-documents/v2

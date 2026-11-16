@@ -1,0 +1,24 @@
+# Synthetic example (example.org identifiers): who spoke in meeting 0042,
+# asserted from the transcript a sensor captured. Each citation locates the
+# lines a speaker spoke, so the claim rests on what was observed.
+name: Speakers in meeting 0042
+claimStatement: >-
+  Participant A and Participant B spoke in meeting 0042 on 2 May 2026.
+inLanguage: en
+assertedBy:
+  - name: Example Sensor Operator
+    type: ORGANIZATION
+assertedAt: "2026-05-03T10:00:00+00:00"
+hasSubject:
+  id: https://meetings.example.org/m/0042
+hasEvidenceCitation:
+  - source: regen:11429vEez5fWxy1X4EUPQtsmR4g1MnZgmsTKjrbAnJqukbwkDBaH.txt
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: line=12,18
+        conformsTo: http://tools.ietf.org/rfc/rfc5147
+  - source: regen:11429vEez5fWxy1X4EUPQtsmR4g1MnZgmsTKjrbAnJqukbwkDBaH.txt
+    selector:
+      - selectorType: oa:FragmentSelector
+        value: line=19,25
+        conformsTo: http://tools.ietf.org/rfc/rfc5147

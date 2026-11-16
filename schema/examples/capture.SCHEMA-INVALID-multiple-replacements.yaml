@@ -1,0 +1,9 @@
+# expect: is not of type 'string'
+# class: Capture
+# One correction has one predecessor; it cannot merge two Activity records.
+id: https://example.org/sensors/meeting-sensor/captures/invalid-multiple-replacements
+used: https://meetings.example.org/m/0042#transcript
+endedAtTime: "2026-05-02T09:14:09+00:00"
+replaces:
+  - https://example.org/sensors/meeting-sensor/captures/0042-transcript-1
+  - https://example.org/sensors/meeting-sensor/captures/0042-transcript-2

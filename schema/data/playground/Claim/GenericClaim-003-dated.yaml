@@ -13,7 +13,7 @@ assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/plot/A
 hasEvidenceCitation:
-  - source: https://example.org/evidence/project-plan-v2.pdf
+  - source: regen:113FRBdDeqBkYTsjgQEBayqL23KpCzW9AiWhg4n439sConWHgaAh.pdf
     selector:
       - selectorType: oa:FragmentSelector
         value: page=4

@@ -4,7 +4,7 @@
 # An Evidence IRI identifies the whole source. A position inside it, such as a
 # page, is a selector on the citation, so the source cited at several places
 # stays one record with one hash.
-id: https://example.org/evidence/planting-log-2026-v1.pdf#page=2
+id: regen:1132H6LB5eo2x9ivXEryW2DBpgZ6qqZCtRmSC9PwvJREKbhdhXKG.pdf#page=2
 name: Planting log, spring 2026 (v1)
 sourceType: TEXT
 mediaType: application/pdf
