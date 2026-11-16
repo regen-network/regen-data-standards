@@ -55,8 +55,8 @@ claim with new evidence), not an evaluation.
 
 `hasTarget` names the exact resources an evaluation directly examines or assesses in reaching its
 conclusion. When a resource can change, the target is the particular version or snapshot assessed: an
-exact claim or evaluation version, an `Evidence` record, or a snapshot (a fixed set of claim
-versions, identified by its SnapshotIRI, [claims#56](https://github.com/regen-network/claims/issues/56)),
+exact claim or evaluation version, an `Evidence` record, or a claim set (a fixed set of claim
+versions, identified by its ClaimSetIRI, [claims#56](https://github.com/regen-network/claims/issues/56)),
 for example when a judgment covers a whole submission. It is distinct from the focal subject and
 from the criteria applied: a land-tenure evaluation may have a project as its `hasSubject`, directly
 assess particular tenure claims or `Evidence` records through `hasTarget`, and name the governing
