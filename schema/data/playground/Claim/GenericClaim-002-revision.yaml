@@ -7,7 +7,7 @@ claimStatement: >-
   boundary of plot A between 1 March and 15 April 2026.
 assertedBy:
   - name: Hedgerow Cooperative
-    type: COMMUNITY
+    type: rfs:Community
 assertedAt: "2026-05-20T12:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

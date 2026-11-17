@@ -50,10 +50,10 @@ hasProjectDeveloper:
   description: Land conservancy protecting natural areas in the Chattanooga region
   url: https://lookoutmountainconservancy.org
   image: https://regen-registry.s3.amazonaws.com/projects/1f484f70-16cd-11ee-ab29-0a6e1e09fcad/1688078344082-LMC_logo.jpg
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectVerifier:
   name: Ecofor LLC
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

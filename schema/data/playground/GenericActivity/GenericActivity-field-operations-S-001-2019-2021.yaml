@@ -7,4 +7,4 @@ startDate: "2019-01-01"
 endDate: "2021-12-31"
 wasAssociatedWith:
   - name: Example Farm Operator
-    type: INDIVIDUAL
+    type: prov:Person

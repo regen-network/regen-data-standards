@@ -17,7 +17,7 @@ corrections are applied to the generated context, because this LinkML
 version's JSON-LD output does not produce the same RDF as its Turtle output:
 
 - enum-valued terms get "@type": "@vocab" and a scoped context mapping each
-  permissible value to its `meaning`, so "COMMUNITY" expands to rfs:Community
+  permissible value to its `meaning`, so "TEXT" expands to dcmitype:Text
   instead of a string literal. A slot whose range a class narrows to an enum
   (slot_usage) is mapped the same way. Where the generated context gives that
   class a type-scoped term instead, such as outcome on each EvaluationResult
@@ -121,6 +121,7 @@ MODULES = {
     "C06CohortClaim": "src/C06Claim.yaml",
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
+    "SoftwareAgent": "src/Agent.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",

@@ -1,10 +1,15 @@
 # Synthetic new fetch of the same transcript on May 3. This is a separate
 # occurrence, so it has no replaces link to the May 2 capture or its corrections.
+# The agent is the version of the sensor that ran
+# (SoftwareAgent/SoftwareAgent-meeting-sensor-1.4.2.yaml), which names the
+# sensor across its versions with isVersionOf.
 id: https://example.org/sensors/meeting-sensor/captures/0042-transcript-2
 name: Second capture of the transcript of meeting 0042
 used: https://meetings.example.org/m/0042#transcript
 startedAtTime: "2026-05-03T09:14:05+00:00"
 endedAtTime: "2026-05-03T09:14:07+00:00"
 wasAssociatedWith:
-  - name: Example Sensor Operator
-    type: ORGANIZATION
+  - name: Example Meeting Sensor 1.4.2
+    type: prov:SoftwareAgent
+    softwareVersion: "1.4.2"
+    isVersionOf: https://example.org/sensors/meeting-sensor

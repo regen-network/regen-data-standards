@@ -52,7 +52,7 @@ hasManagementAreas:
       hasUnit: unit:HA
 hasEnvironmentalAuthority:
   - name: Environmental and Sustainable Development Ministry
-    type: ORGANIZATION
+    type: prov:Organization
 environmentType:
   - TROPICAL_FOREST
 activity:
@@ -72,13 +72,13 @@ hasProjectDeveloper:
   description: Terrasos develops biodiversity conservation and restoration projects in Colombia
   url: https://terrasos.co/
   image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
-  type: ORGANIZATION
+  type: prov:Organization
 hasProjectOwner:
   name: ALMASTER
   description: Landowner organization committed to conservation
   url: https://almaster.com/
   image: https://regen-registry.s3.us-east-1.amazonaws.com/Almaster.png
-  type: ORGANIZATION
+  type: prov:Organization
 creditClassVersion: V4.0
 marketType:
   - COMPLIANCE_MARKET

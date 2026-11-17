@@ -8,7 +8,7 @@ claimStatement: >-
   its full length, as the planting log states.
 assertedBy:
   - name: Valley Stewards Circle
-    type: COMMUNITY
+    type: rfs:Community
 assertedAt: "2026-06-10T09:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

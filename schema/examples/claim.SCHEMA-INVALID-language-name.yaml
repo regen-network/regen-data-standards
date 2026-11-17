@@ -6,7 +6,7 @@ claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on p
 inLanguage: English
 assertedBy:
   - name: Hedgerow Cooperative
-    type: COMMUNITY
+    type: rfs:Community
 assertedAt: "2026-05-02T07:30:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

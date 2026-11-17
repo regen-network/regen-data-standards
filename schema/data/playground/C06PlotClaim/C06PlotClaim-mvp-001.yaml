@@ -9,7 +9,7 @@ claimStatement: >-
   its site's project start date.
 assertedBy:
   - name: Example Soil Carbon Developer
-    type: ORGANIZATION
+    type: prov:Organization
 assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007

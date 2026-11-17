@@ -12,7 +12,7 @@ prefixes:
 imports:
   - linkml:types
   - ProjectInfo
-  - Entity
+  - Agent
 
 default_curi_maps:
   - semweb_context
@@ -48,7 +48,11 @@ classes:
         description: The social cultural index of the project.
       # Compliance Information
       hasEnvironmentalAuthority:
-        range: Entity
+        range: Agent
+        any_of:
+          - range: Person
+          - range: Organization
+          - range: Community
         description: The environmental authority associated with the project.
         multivalued: true
         inlined: true
