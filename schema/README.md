@@ -64,7 +64,11 @@ The base Claim is described in [`docs/claim-base.md`](../docs/claim-base.md).
 | [`generic-claim-revision.jsonld`](examples/generic-claim-revision.jsonld) | An immutable revision that names the earlier version by a labelled placeholder ClaimIRI. |
 | [`generic-claim-dated.jsonld`](examples/generic-claim-dated.jsonld) | A claim from a dated project plan, whose assertion time is a date (`assertedOn`). |
 | [`generic-claim-premises.jsonld`](examples/generic-claim-premises.jsonld) | A change claim that rests on two measurement claims, named by placeholder ClaimIRIs with `reliesOn`. |
-| [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, a bare-IRI subject, inlined evidence, a citation without a source, and domain fields on the base. |
+| [`agent-claim.jsonld`](examples/agent-claim.jsonld) | An agent's description of itself, with a Regen Ledger account. Its subject and its one claimant are the agent. |
+| [`agent-claim-revision.jsonld`](examples/agent-claim-revision.jsonld) | The same agent moves to a new account: a new AgentClaim that names the earlier one with `wasRevisionOf`. |
+| [`agent-claim-software-version.jsonld`](examples/agent-claim-software-version.jsonld) | A version of a sensor describes itself, with `softwareVersion` and the sensor it `isVersionOf`. |
+| [`agent-claim.SCHEMA-INVALID-*.yaml`](examples/) | AgentClaims that must be rejected: two claimants, a claimant that is not the subject, a date-only assertion time, a subject without its kind, and a version without its software. |
+| [`claim.SCHEMA-INVALID-*.yaml`](examples/) | Documents the base must reject: a candidate without a claimant, a claimant inlined instead of named by rid, a claim without a statement, a language name instead of a language tag, review state, the Claim's own hash/IRI, an empty claimant set, a date-only, local-offset or `Z` assertion time, both or neither of `assertedAt` and `assertedOn`, an assertion date with a time zone, a bare-IRI subject, inlined evidence, a citation without a source, and domain fields on the base. |
 
 A schema-invalid document fails validation against the schema; that says nothing about whether the
 assertion it states is true, supported or accepted, and a schema-valid document is not thereby any of
@@ -92,6 +96,12 @@ validator rejects a schema-valid example or its published Turtle, or if either a
 schema-invalid one. JSON Schema must reject each schema-invalid document with the error named on its first line. A document
 that breaks a LinkML rule is marked `# shacl: not enforced`, and only JSON Schema must reject it
 (see [Timestamps](#timestamps)).
+
+Every agent an example names in `assertedBy` must have an `AgentClaim` in
+[`data/playground/AgentClaim/`](data/playground/AgentClaim/), and every `AgentClaim` must name the agent it
+describes as its only claimant. Neither generated validator can compare `assertedBy` with `hasSubject`, so
+the check does: a document marked `# check: claimant is not the subject` must be accepted by both
+validators and rejected by this check.
 
 The inline context is generated from `Claim.yaml` alone, with `gen-jsonld-context
 --xsd-anyuri-as-iri`, so `uri` and `uriorcurie` terms (`url`, `wasRevisionOf`, `references`) map to
