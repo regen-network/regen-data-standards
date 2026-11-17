@@ -10,16 +10,13 @@
     "schema": "http://schema.org/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "rid": "@id",
+    "description": {
+      "@id": "schema:description"
+    },
     "did": {
       "@type": "@id",
       "@id": "did"
-    },
-    "rid": "@id",
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
-    "description": {
-      "@id": "schema:description"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -38,6 +35,10 @@
     "inLanguage": {
       "@id": "schema:inLanguage"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
     "name": {
       "@id": "schema:name"
     },
@@ -52,10 +53,6 @@
     "replaces": {
       "@type": "@id",
       "@id": "dcterms:replaces"
-    },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
     },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
@@ -82,6 +79,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",

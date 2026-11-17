@@ -22,14 +22,7 @@
       "@type": "xsd:date",
       "@id": "adoptionDate"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
     "rid": "@id",
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
@@ -104,6 +97,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "ecosystemTypes": {
       "@id": "ecosystemTypes",
@@ -200,6 +197,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "justification": {
       "@id": "justification"
@@ -387,10 +388,6 @@
       "@type": "xsd:date",
       "@id": "siteProjectStartDate"
     },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
-    },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
     },
@@ -459,6 +456,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -586,11 +586,7 @@
   "name": "Example project P-001, 2021 cohort periods",
   "claimStatement": "The 2021 cohort of example project P-001 has a crediting period from 15 April 2021 to 14 April 2031 and a permanence period from 15 April 2031 to 14 April 2041.",
   "assertedBy": [
-    {
-      "@type": "Organization",
-      "rid": "https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK",
-      "name": "Example Soil Carbon Developer"
-    }
+    "https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK"
   ],
   "assertedOn": "2026-02-20",
   "hasSubject": {

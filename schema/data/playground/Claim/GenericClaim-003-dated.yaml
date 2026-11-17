@@ -7,9 +7,7 @@ claimStatement: >-
   boundary of plot A for ten years from 1 March 2026.
 inLanguage: en
 assertedBy:
-  - rid: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
-    name: Hedgerow Cooperative
-    type: rfs:Community
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
 assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/plot/A

@@ -6,9 +6,7 @@
 name: Registry confirmation of the cohort-based crediting structure
 claimStatement: Registry confirmation of the cohort-based crediting structure
 assertedBy:
-  - rid: https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
-    name: Example Registry
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
 assertedOn: "2026-03-12"
 hasSubject:
   id: https://example.org/c06/project/P-001

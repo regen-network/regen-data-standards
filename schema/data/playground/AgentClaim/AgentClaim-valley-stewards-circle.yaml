@@ -1,0 +1,12 @@
+# Synthetic example (a minted agent rid): Valley Stewards Circle describes
+# itself.
+name: Valley Stewards Circle
+claimStatement: >-
+  Valley Stewards Circle is a community that restores land in its valley.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
+  agentKind: COMMUNITY

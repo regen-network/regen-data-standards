@@ -23,6 +23,7 @@ imports:
   - Registry
   - CreditClassInfo
   - Claim
+  - AgentClaim
   - ClaimSubject
   - Evidence
   - Activity

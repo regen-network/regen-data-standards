@@ -7,9 +7,7 @@ claimStatement: >-
   The planted hedgerow along the northern boundary of plot A is present along
   its full length, as the planting log states.
 assertedBy:
-  - rid: https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
-    name: Valley Stewards Circle
-    type: rfs:Community
+  - https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
 assertedAt: "2026-06-10T09:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

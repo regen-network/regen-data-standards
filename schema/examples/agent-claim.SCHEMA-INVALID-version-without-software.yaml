@@ -1,0 +1,16 @@
+# expect: 'isVersionOf' is a required property
+# class: AgentClaim
+# shacl: not enforced
+# A version of software names the software it is a version of. This is a
+# LinkML rule, which the generated JSON Schema enforces and the generated
+# SHACL does not express.
+name: Example Meeting Sensor 1.4.2
+claimStatement: >-
+  Example Meeting Sensor 1.4.2 is version 1.4.2 of Example Meeting Sensor.
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8
+  agentKind: SOFTWARE_AGENT
+softwareVersion: "1.4.2"

@@ -1,0 +1,18 @@
+# expect: is too long
+# class: AgentClaim
+# An AgentClaim has one claimant, the agent it describes. A second agent
+# cannot co-assert another agent's declaration.
+name: Hedgerow Cooperative
+claimStatement: >-
+  Hedgerow Cooperative is a community of farmers that plants native hedgerows.
+  It controls the Regen Ledger account
+  cosmos:regen-1:regen1examplehedgerowcooperativeaccounta.
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+  - https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+  agentKind: COMMUNITY
+walletAddress:
+  - cosmos:regen-1:regen1examplehedgerowcooperativeaccounta

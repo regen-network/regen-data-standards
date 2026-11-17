@@ -1,0 +1,24 @@
+# Synthetic example: Hedgerow Cooperative moves to a new Regen Ledger account.
+# A new AgentClaim revises AgentClaim-hedgerow-cooperative.yaml, which stays
+# unchanged, and names it by a labelled placeholder that stands for its
+# ClaimIRI (regen-network/claims#1). The rid stays the same, and so does every
+# Claim that names it. The claimant is again the agent itself.
+name: Hedgerow Cooperative
+description: >-
+  A cooperative of farmers that plants and maintains native hedgerows on its
+  members' land.
+url: https://example.org/hedgerow-cooperative
+claimStatement: >-
+  Hedgerow Cooperative is a community of farmers that plants native hedgerows.
+  It controls the Regen Ledger account
+  cosmos:regen-1:regen1examplehedgerowcooperativeaccountb.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+assertedAt: "2026-06-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+  agentKind: COMMUNITY
+walletAddress:
+  - cosmos:regen-1:regen1examplehedgerowcooperativeaccountb
+wasRevisionOf: https://example.org/placeholder/claim-iri/agent-claim-hedgerow-cooperative-v1

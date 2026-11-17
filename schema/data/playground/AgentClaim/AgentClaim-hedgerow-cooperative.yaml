@@ -1,0 +1,23 @@
+# Synthetic example (example.org identifiers, a minted agent rid and an
+# invented account): Hedgerow Cooperative, the claimant of the plot A claims,
+# describes itself and declares a Regen Ledger account. Its subject and its
+# one claimant are the same agent. AgentClaim-hedgerow-cooperative-revision.yaml
+# revises it.
+name: Hedgerow Cooperative
+description: >-
+  A cooperative of farmers that plants and maintains native hedgerows on its
+  members' land.
+url: https://example.org/hedgerow-cooperative
+claimStatement: >-
+  Hedgerow Cooperative is a community of farmers that plants native hedgerows.
+  It controls the Regen Ledger account
+  cosmos:regen-1:regen1examplehedgerowcooperativeaccounta.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+  agentKind: COMMUNITY
+walletAddress:
+  - cosmos:regen-1:regen1examplehedgerowcooperativeaccounta

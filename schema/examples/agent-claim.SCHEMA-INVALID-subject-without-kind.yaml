@@ -1,0 +1,15 @@
+# expect: 'agentKind' is a required property
+# class: AgentClaim
+# The subject of an AgentClaim states the agent's kind as well as its rid.
+name: Hedgerow Cooperative
+claimStatement: >-
+  Hedgerow Cooperative is a community of farmers that plants native hedgerows.
+  It controls the Regen Ledger account
+  cosmos:regen-1:regen1examplehedgerowcooperativeaccounta.
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+walletAddress:
+  - cosmos:regen-1:regen1examplehedgerowcooperativeaccounta

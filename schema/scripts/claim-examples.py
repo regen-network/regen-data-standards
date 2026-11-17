@@ -37,15 +37,16 @@ The check validates every document with both validators the schema generates:
   pattern rejects, as +00:00). The generated shapes are used unchanged.
   Claims and evaluations reference Evidence records by IRI, Evidence
   records reference Activity records by IRI (wasGeneratedBy), and a
-  SoftwareAgent version record names the record for its software by rid
-  (isVersionOf); the shapes require each to be an rfs:Evidence, an
-  rfs:Activity or a prov:SoftwareAgent. So each document is checked together
-  with the Turtle gen-rdf wrote for the records it can reference, as the
-  graph store holds them. Every document is merged with the SoftwareAgent
-  records, since a version record may be inlined in it or in an Activity
-  record merged with it, as a Capture inlines the sensor version. A claim or
-  evaluation is also merged with the Evidence and Activity records, and an
-  Evidence record with the Activity records. Activity records are typed with
+  SoftwareAgent version record, or an AgentClaim about a version, names the
+  record for its software by rid (isVersionOf); the shapes require each to
+  be an rfs:Evidence, an rfs:Activity or a prov:SoftwareAgent. So each
+  document is checked together with the Turtle gen-rdf wrote for the records
+  it can reference, as the graph store holds them. A document is merged with
+  the SoftwareAgent records of the agents it names by IRI, such as the
+  sensor version a Capture inlines and the sensor that version names, but
+  not the agent an AgentClaim describes. A claim or evaluation is also
+  merged with the Evidence and Activity records, and an Evidence record with
+  the Activity records. Activity records are typed with
   a kind of Activity (GenericActivity, Capture), so they are merged together
   with the class hierarchy gen-hierarchy publishes, which the store holds too.
   An Activity correction can reference an earlier Activity with replaces, so
@@ -73,10 +74,13 @@ For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
 
-The first generic claim example is also checked with a sensor's version
-record as its claimant. SHACL must accept it, which it does only merged with
-the SoftwareAgent records, because the version record names the record for
-its software by rid.
+A Claim names its claimants by rid (assertedBy), and each agent describes
+itself in AgentClaims. The check loads the AgentClaims gen-rdf wrote: every
+agent an example names in assertedBy must have one, and every AgentClaim must
+name the agent it describes (hasSubject) as its only claimant. Neither
+generated validator can compare the two slots, so a schema-invalid example
+marked "# check: claimant is not the subject" must be accepted by both and
+rejected by this check.
 
 The generic examples are GenericClaims and GenericEvaluations, whose shapes are
 closed. The base Claim and Evaluation are abstract, so their shapes are open:
@@ -132,6 +136,7 @@ MODULES = {
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
     "SoftwareAgent": "src/Agent.yaml",
+    "AgentClaim": "src/AgentClaim.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
@@ -159,6 +164,9 @@ EXAMPLES = {
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
+    "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative.yaml": "examples/agent-claim.jsonld",
+    "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative-revision.yaml": "examples/agent-claim-revision.jsonld",
+    "data/playground/AgentClaim/AgentClaim-meeting-sensor-1.4.2.yaml": "examples/agent-claim-software-version.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 # The records documents reference by IRI, as the graph store holds them.
@@ -166,12 +174,16 @@ RECORD_GLOBS = {
     "evidence": ["data/playground/Evidence/*.ttl"],
     "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
     "agent": ["data/playground/SoftwareAgent/*.ttl"],
+    "agent_claim": ["data/playground/AgentClaim/*.ttl"],
 }
-# A version record, and the example checked with it as claimant.
-VERSION_RECORD = "data/playground/SoftwareAgent/SoftwareAgent-meeting-sensor-1.4.2.yaml"
-VERSION_CLAIMANT_FIXTURE = "data/playground/Claim/GenericClaim-001.yaml"
+RFS = "https://framework.regen.network/schema/"
+AGENT_CLAIM = rdflib.URIRef(RFS + "AgentClaim")
+AGENT_SUBJECT = rdflib.URIRef(RFS + "AgentSubject")
+ASSERTED_BY = rdflib.URIRef(RFS + "assertedBy")
+HAS_SUBJECT = rdflib.URIRef(RFS + "hasSubject")
+CLAIMANT_MARK = "# check: claimant is not the subject"
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
-ACTIVITY_TYPES = {rdflib.URIRef("https://framework.regen.network/schema/" + name) for name in ACTIVITY_CLASSES}
+ACTIVITY_TYPES = {rdflib.URIRef(RFS + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
 # The abstract base each generic class stands for: its shape is open.
@@ -333,7 +345,7 @@ def as_extension(view, graph, class_name, without=None):
 
 
 def record_store():
-    """The Evidence, Activity and SoftwareAgent records as the graph store holds them: gen-rdf's Turtle."""
+    """The Evidence, Activity, SoftwareAgent and AgentClaim records as the graph store holds them: gen-rdf's Turtle."""
     store = {}
     for kind, patterns in RECORD_GLOBS.items():
         paths = sorted(path for pattern in patterns for path in glob.glob(pattern))
@@ -341,6 +353,7 @@ def record_store():
             sys.exit(f"No {kind} record Turtle found: run make gen-rdf")
         store[kind] = rdflib.Graph()
         store[kind + "_records"] = []
+        store[kind + "_paths"] = paths
         for path in paths:
             record = lexical_graph(Path(path).read_text(), "turtle")
             store[kind + "_records"].append(record)
@@ -354,30 +367,65 @@ def record_store():
 def with_store(graph, store, class_name=None):
     """Return graph merged with the records a document of class_name can reference.
 
-    Every document is merged with the SoftwareAgent records: a version record,
-    inlined in the document or in an Activity record merged with it, names the
-    record for its software by rid. An Activity correction references an
-    earlier Activity, so it is merged with the other Activity records except
-    its own stored copy, found by the document's Activity IRI. Matching any
-    IRI it holds would also leave out the records it replaces: the agents it
-    names are IRIs (their rids), and other Activity records name the same
-    agents. An Evidence record references Activity records, and is not merged
-    with the Evidence records, which hold it already: merged with itself, its
-    digest (a blank node) would be duplicated."""
+    An Activity correction references an earlier Activity, so it is merged
+    with the other Activity records except its own stored copy, found by the
+    document's Activity IRI. Matching any IRI it holds would also leave out
+    the records it replaces: the agents it names are IRIs (their rids), and
+    other Activity records name the same agents. An Evidence record
+    references Activity records, and is not merged with the Evidence records,
+    which hold it already: merged with itself, its digest (a blank node)
+    would be duplicated. Other documents are merged with the Activity and
+    Evidence records.
+
+    The result is then merged with the SoftwareAgent records of the agents
+    it names by IRI: a version record, inlined in the document or in an
+    Activity record merged with it, or an AgentClaim about a version, names
+    the record for its software by rid. The agent an AgentClaim describes is
+    left out, and an AgentClaim is merged with nothing else: the agent's
+    record, or an Activity record that inlines the agent (as a Capture
+    inlines its sensor version), would add the agent's description to the
+    AgentClaim's subject node, which carries only its rid and kind."""
     merged = rdflib.Graph()
     merged += graph
-    merged += store["agent"]
-    if class_name in ACTIVITY_CLASSES:
+    if class_name == "AgentClaim":
+        pass
+    elif class_name in ACTIVITY_CLASSES:
         merged += hierarchy()
         own_iris = {s for s, kind in graph.subject_objects(RDF.type) if kind in ACTIVITY_TYPES}
         for record in store["activity_records"]:
             if not own_iris.intersection(record.subjects()):
                 merged += record
-        return merged
-    merged += store["activity"]
-    if class_name != "Evidence":
-        merged += store["evidence"]
+    else:
+        merged += store["activity"]
+        if class_name != "Evidence":
+            merged += store["evidence"]
+    named = named_agents(merged)
+    for record in store["agent_records"]:
+        if named.intersection(record.subjects()):
+            merged += record
     return merged
+
+
+def named_agents(graph):
+    """The IRIs a document names, other than the subject of an AgentClaim."""
+    described = set(graph.subjects(RDF.type, AGENT_SUBJECT))
+    return {o for o in graph.objects() if isinstance(o, rdflib.URIRef)} - described
+
+
+def described_agents(store):
+    """The agents the AgentClaims describe: their hasSubject rids."""
+    return {o for record in store["agent_claim_records"] for o in record.objects(None, HAS_SUBJECT)}
+
+
+def claimant_problems(graph):
+    """For each AgentClaim in graph, what differs from one claimant that is its subject."""
+    problems = []
+    for claim in graph.subjects(RDF.type, AGENT_CLAIM):
+        claimants = set(graph.objects(claim, ASSERTED_BY))
+        subjects = set(graph.objects(claim, HAS_SUBJECT))
+        if len(subjects) != 1 or claimants != subjects:
+            problems.append(f"claimants {sorted(map(str, claimants))}, subject {sorted(map(str, subjects))}")
+    return problems
 
 
 def change_selector(data):
@@ -505,16 +553,15 @@ def main(mode):
             else:
                 print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
                 failures += 1
-        if fixture == VERSION_CLAIMANT_FIXTURE:
-            data = yaml.safe_load(Path(fixture).read_text())
-            data["assertedBy"] = [yaml.safe_load(Path(VERSION_RECORD).read_text())]
-            graph = lexical_graph(build(module, class_name, fixture, data), "json-ld")
-            conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
-            if conforms:
-                print(f"✅ {example} with a software version as claimant: conforms to SHACL")
-            else:
-                print(f"❌ {example} with a software version as claimant: SHACL violations {messages}")
-                failures += 1
+        claimants = set(jsonld.objects(None, ASSERTED_BY))
+        missing = claimants - described_agents(store)
+        if not claimants:
+            pass
+        elif not missing:
+            print(f"✅ {example}: every agent it names in assertedBy has an AgentClaim")
+        else:
+            print(f"❌ {example}: no AgentClaim describes {sorted(map(str, missing))}")
+            failures += 1
         if class_name in OPEN_BASES:
             base = OPEN_BASES[class_name]
             graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
@@ -546,12 +593,31 @@ def main(mode):
                 print(f"❌ {example} with an undeclared field: rejected by {sorted(map(str, shapes)) or 'no shape'}")
                 failures += 1
 
+    for record, path in zip(store["agent_claim_records"], store["agent_claim_paths"]):
+        problems = claimant_problems(record)
+        if not problems:
+            print(f"✅ {path}: its one claimant is the agent it describes")
+        else:
+            print(f"❌ {path}: an AgentClaim's claimant must be its subject ({problems[0]})")
+            failures += 1
+
     for invalid in sorted(glob.glob(INVALID_GLOB)):
         content = Path(invalid).read_text()
         expected = content.splitlines()[0].removeprefix("# expect:").strip()
         class_name = invalid_class(content)
         module = module_for(class_name)
         valid, output = json_schema_check(invalid, class_name)
+        if CLAIMANT_MARK in content:
+            graph = lexical_graph(build(module, class_name, invalid), "json-ld")
+            conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
+            problems = claimant_problems(graph)
+            if valid and conforms and problems:
+                print(f"✅ {invalid}: JSON Schema and SHACL accept it, and the claimant check rejects it ({problems[0]})")
+            else:
+                print(f"❌ {invalid}: expected JSON Schema and SHACL to accept it and the claimant check to reject it"
+                      f" (JSON Schema {valid}, SHACL {conforms}, claimant check {problems or 'accepts it'})\n{output}")
+                failures += 1
+            continue
         if GRAPH_MARK in content:
             if valid:
                 print(f"✅ {invalid}: JSON Schema accepts it alone")

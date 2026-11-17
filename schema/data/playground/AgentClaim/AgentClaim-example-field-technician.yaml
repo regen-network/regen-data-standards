@@ -1,0 +1,16 @@
+# Synthetic example (a minted agent rid and an invented account): a person's
+# own description, with a Regen Ledger account the person declares.
+name: Example Field Technician
+claimStatement: >-
+  Example Field Technician is a person who records field operations and
+  controls the Regen Ledger account
+  cosmos:regen-1:regen1examplefieldtechnicianaccount.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANBTGR6GW35K14R13C
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANBTGR6GW35K14R13C
+  agentKind: PERSON
+walletAddress:
+  - cosmos:regen-1:regen1examplefieldtechnicianaccount

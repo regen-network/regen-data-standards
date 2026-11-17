@@ -16,14 +16,7 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
     "rid": "@id",
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
     "applicability": {
       "@id": "applicability",
       "@type": "@vocab",
@@ -91,6 +84,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -177,6 +174,10 @@
         "OTHER": "rfs:OtherIssuerRole"
       }
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
     "licence": {
       "@type": "@id",
       "@id": "dcterms:license"
@@ -249,10 +250,6 @@
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
-    },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
     },
@@ -306,6 +303,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -513,11 +513,7 @@
   "name": "Registry confirmation of the cohort-based crediting structure",
   "claimStatement": "The rolling cohort-based crediting and permanence structure described in the project plan satisfies the credit class's crediting term for the cohorts enrolled from 2020 to 2023, subject to the scope below.",
   "assertedBy": [
-    {
-      "@type": "Organization",
-      "rid": "https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S",
-      "name": "Example Registry"
-    }
+    "https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S"
   ],
   "assertedOn": "2026-03-12",
   "hasSubject": {

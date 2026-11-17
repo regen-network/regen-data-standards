@@ -16,14 +16,7 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
     "rid": "@id",
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -68,6 +61,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -115,6 +112,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "licence": {
       "@type": "@id",
@@ -164,10 +165,6 @@
     "selectorType": {
       "@type": "@id",
       "@id": "rdf:type"
-    },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
     },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
@@ -222,6 +219,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -317,11 +317,7 @@
   "claimStatement": "Hedgerow Cooperative commits to maintaining the hedgerow on the northern boundary of plot A for ten years from 1 March 2026.",
   "inLanguage": "en",
   "assertedBy": [
-    {
-      "@type": "Community",
-      "rid": "https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK",
-      "name": "Hedgerow Cooperative"
-    }
+    "https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK"
   ],
   "assertedOn": "2026-02-20",
   "hasSubject": {

@@ -1,0 +1,19 @@
+# Synthetic example (example.org identifiers, a minted agent rid and an
+# invented account): the registry that issues the registry evaluations
+# describes itself, with a DID and a Regen Ledger account.
+name: Example Registry
+url: https://example.org/registry
+claimStatement: >-
+  Example Registry is an organization that reviews carbon projects. It is
+  identified by did:web:registry.example.org and controls the Regen Ledger
+  account cosmos:regen-1:regen1exampleregistrydaoaccount.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
+  agentKind: ORGANIZATION
+did: did:web:registry.example.org
+walletAddress:
+  - cosmos:regen-1:regen1exampleregistrydaoaccount

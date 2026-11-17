@@ -1,0 +1,13 @@
+# Synthetic example (a minted agent rid): the project developer of the C06
+# claims describes itself.
+name: Example Soil Carbon Developer
+claimStatement: >-
+  Example Soil Carbon Developer is an organization that develops soil carbon
+  projects.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
+  agentKind: ORGANIZATION

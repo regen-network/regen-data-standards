@@ -180,24 +180,22 @@ slots:
       other party. Specializes
       prov:wasAttributedTo, so under PROV each claimant is an agent associated
       with the activity that generated the Claim, which is the act of
-      asserting. Claim types may narrow the kinds of agent, for example to
-      a person, organization or community (see Agent). Unordered set.
-    range: Agent
-    any_of:
-      - range: Person
-        inlined: true
-      - range: Organization
-        inlined: true
-      - range: SoftwareAgent
-        inlined: true
-      - range: Community
-        inlined: true
+      asserting. Each claimant is named by its rid, a bare IRI. Its name,
+      accounts and other description are not content of this Claim: they
+      are asserted by the agent in AgentClaims, Claims of their own whose
+      subject is the agent, so describing an agent anew changes no Claim
+      that names it. Unordered set.
+    comments:
+      - >-
+        Implementation: inlined is false because wasAttributedTo, which this
+        slot specializes, inlines its agents, and LinkML 1.11.1 otherwise
+        carries that over to a slot whose range is not a class.
+    range: uriorcurie
+    inlined: false
     required: true
     multivalued: true
     list_elements_ordered: false
     minimum_cardinality: 1
-    inlined: true
-    inlined_as_list: true
   assertedAt:
     slot_uri: rfs:assertedAt
     description: >-

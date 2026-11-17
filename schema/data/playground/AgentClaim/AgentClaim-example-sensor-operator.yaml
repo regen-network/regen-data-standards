@@ -1,0 +1,12 @@
+# Synthetic example (a minted agent rid): the operator of the meeting sensor,
+# the claimant of the meeting claims, describes itself.
+name: Example Sensor Operator
+claimStatement: >-
+  Example Sensor Operator is an organization that runs the meeting sensor.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T
+  agentKind: ORGANIZATION

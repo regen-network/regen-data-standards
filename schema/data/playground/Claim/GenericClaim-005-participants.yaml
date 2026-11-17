@@ -7,9 +7,7 @@ claimStatement: >-
   on 2 May 2026.
 inLanguage: en
 assertedBy:
-  - rid: https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T
-    name: Example Sensor Operator
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T
 assertedAt: "2026-05-03T10:00:00+00:00"
 hasSubject:
   id: https://meetings.example.org/m/0042
