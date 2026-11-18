@@ -127,10 +127,12 @@ slots:
     description: >-
       Exact requirement versions an evaluation applies or judges, whether or
       not the claimant named them. Each identifier names one immutable
-      requirement version within an exact requirement-set version, such as a
-      checklist version: the same short ID can name different requirements in
-      different versions. The requirement and requirement-set records
-      themselves are defined by WP5-01 (claims#30). Unordered set.
+      Requirement version (Requirement.yaml), whose IRI is computed from its
+      content. An unchanged requirement keeps its IRI in every
+      requirement set version that lists it, so the requirement alone does
+      not say which set version applied: the evaluation's Review or its
+      appliesRequirementSet says that. The same code, such as SL-005, can
+      name different requirement versions. Unordered set.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false
@@ -149,11 +151,13 @@ slots:
   appliesRequirementSet:
     slot_uri: rfs:appliesRequirementSet
     description: >-
-      Exact versions of requirement sets, such as a registration or
-      validation checklist version, that an evaluation applies or assesses as
-      a whole. An evaluation of one requirement names only that requirement
-      (appliesRequirement): its set is reached through the requirement's
-      membership, defined by WP5-01 (claims#30).
+      Exact versions of requirement sets (RequirementSet in
+      Requirement.yaml), such as a registration or validation checklist
+      version, that a Review applies, or that an evaluation applies or
+      assesses as a whole. A requirement can be in several set versions, so
+      an evaluation of one requirement names the set version it applies here
+      when it was made outside any Review; one made in a Review takes the
+      Review's versions.
     comments:
       - >-
         Implementation: each value is the IRI of one requirement-set version.

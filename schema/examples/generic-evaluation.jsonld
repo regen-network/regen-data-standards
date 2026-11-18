@@ -11,6 +11,10 @@
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
+    "acceptsEvidence": {
+      "@type": "@id",
+      "@id": "acceptsEvidence"
+    },
     "id": "@id",
     "addressesRequirement": {
       "@type": "@id",
@@ -51,6 +55,9 @@
     "assessedAgainst": {
       "@type": "@id",
       "@id": "assessedAgainst"
+    },
+    "assessmentScope": {
+      "@id": "assessmentScope"
     },
     "claimStatement": {
       "@id": "claimStatement"
@@ -104,6 +111,9 @@
     "evaluationMethodDescription": {
       "@id": "evaluationMethodDescription"
     },
+    "evidenceAvailableQuery": {
+      "@id": "evidenceAvailableQuery"
+    },
     "evidenceSufficiency": {
       "@id": "evidenceSufficiency",
       "@type": "@vocab",
@@ -125,6 +135,10 @@
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
+    },
+    "hasRequirement": {
+      "@type": "@id",
+      "@id": "hasRequirement"
     },
     "hasResult": {
       "@type": "@id",
@@ -161,8 +175,17 @@
     "mediaType": {
       "@id": "dcterms:format"
     },
+    "missingEvidenceExplanation": {
+      "@id": "missingEvidenceExplanation"
+    },
     "name": {
       "@id": "schema:name"
+    },
+    "needsHumanReviewExplanation": {
+      "@id": "needsHumanReviewExplanation"
+    },
+    "needsHumanReviewQuery": {
+      "@id": "needsHumanReviewQuery"
     },
     "outcome": {
       "@type": "@id",
@@ -198,9 +221,26 @@
       "@type": "@id",
       "@id": "dcterms:replaces"
     },
+    "requirementCheck": {
+      "@type": "@id",
+      "@id": "requirementCheck"
+    },
+    "requirementSource": {
+      "@type": "@id",
+      "@id": "requirementSource"
+    },
+    "requirementStatement": {
+      "@id": "requirementStatement"
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
+    },
+    "satisfiedExplanation": {
+      "@id": "satisfiedExplanation"
+    },
+    "satisfiedQuery": {
+      "@id": "satisfiedQuery"
     },
     "scope": {
       "@type": "@id",
@@ -246,6 +286,9 @@
     },
     "suffix": {
       "@id": "oa:suffix"
+    },
+    "unmetExplanation": {
+      "@id": "unmetExplanation"
     },
     "url": {
       "@type": "@id",
@@ -326,6 +369,9 @@
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
+    "EvidenceKind": {
+      "@id": "EvidenceKind"
+    },
     "EvidenceSupportEvaluation": {
       "@id": "EvidenceSupportEvaluation"
     },
@@ -364,6 +410,9 @@
         }
       }
     },
+    "GenericRequirement": {
+      "@id": "GenericRequirement"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -379,6 +428,9 @@
     "QuantityValue": {
       "@id": "qudt:QuantityValue"
     },
+    "Requirement": {
+      "@id": "Requirement"
+    },
     "RequirementAssessmentResult": {
       "@id": "RequirementAssessmentResult",
       "@context": {
@@ -393,8 +445,17 @@
         }
       }
     },
+    "RequirementCheck": {
+      "@id": "RequirementCheck"
+    },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
+    },
+    "RequirementSet": {
+      "@id": "RequirementSet"
+    },
+    "Review": {
+      "@id": "Review"
     },
     "Scope": {
       "@id": "Scope"

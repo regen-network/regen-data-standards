@@ -1,0 +1,10 @@
+# Synthetic example: version 2026-05 of a C06 registration checklist. Its
+# requirement is named by a labelled placeholder for the requirement's
+# identifier, which is computed from its content (regen-network/claims#1).
+identifier: C06-REGISTRATION
+version: "2026-05"
+name: C06 registration checklist
+hasRequirement:
+  - https://example.org/placeholder/requirement-iri/c06-registration-sl-008
+governedBy:
+  - regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf

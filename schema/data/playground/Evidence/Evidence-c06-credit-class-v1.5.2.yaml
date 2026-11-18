@@ -1,0 +1,15 @@
+# The published Ecometric credit class v1.5.2 PDF, which requirements cite as
+# their source. Its digest is the BLAKE2b-256 hash of the published file, whose
+# SHA-256 regen-network/claims#30 pins
+# (3638d8df5432ed33b681e878d5a0d763d1b59d9ce60c1dd4438d3359d0faf93b).
+id: regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf
+name: >-
+  Ecometric - GHG Benefits in Managed Crop and Grassland Systems Credit Class,
+  version 1.5.2
+sourceType: TEXT
+mediaType: application/pdf
+contentHash:
+  algorithm: BLAKE2B_256
+  digestValue: 45be9a641a05bb084805443aec8ee878ac0bfd0f7a8404776161491d2975e950
+resolver:
+  - https://cdn.prod.website-files.com/65ae9262fbf418e225c9e4f0/69727f149ecba35f57b77447_Ecometric-%20GHG%20Benefits%20in%20Managed%20Crop%20and%20Grassland%20Systems%20Credit%20Class_Dec%202025_V1.5.2.pdf

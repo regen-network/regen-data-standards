@@ -16,6 +16,7 @@ imports:
   - core
   - Claim
   - ClaimVocabulary
+  - Requirement
 
 default_prefix: rfs
 default_range: string
@@ -49,6 +50,7 @@ classes:
       - evaluationMethod
       - evaluationMethodDescription
       - hasResult
+      - wasGeneratedBy
     slot_usage:
       assertedBy:
         description: >-
@@ -62,6 +64,12 @@ classes:
           plot, organization, activity, dataset or other resource.
       hasEvidenceCitation:
         description: Evidence the issuer relied on, as citations.
+      wasGeneratedBy:
+        description: >-
+          The Review the evaluation was made in, by its IRI. Its requirement
+          set versions are the ones the evaluation applies. Absent for an
+          evaluation made outside any review.
+        range: Review
 
   GenericEvaluation:
     is_a: Evaluation

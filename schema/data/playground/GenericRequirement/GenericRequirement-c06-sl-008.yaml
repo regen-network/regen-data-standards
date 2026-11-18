@@ -1,0 +1,98 @@
+# The C06 initial site crediting-period requirement, with the executable
+# check of regen-network/claims#30. The requirement and its source are real:
+# section 3.8 of Ecometric credit class v1.5.2, cited by the Raw IRI of the
+# published PDF (Evidence-c06-credit-class-v1.5.2). The inclusive-date
+# convention is an example interpretation for program review, not a policy
+# quoted from the credit class.
+identifier: C06-REGISTRATION-SL-008
+requirementStatement: >-
+  State the site crediting period in the Project Plan; the credit class
+  specifies a ten-year term with an option to renew.
+requirementSource:
+  source: regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf
+  selector:
+    - selectorType: oa:FragmentSelector
+      value: page=7
+      conformsTo: http://tools.ietf.org/rfc/rfc3778
+assessmentScope: >-
+  Checks only the structured initial period in one schema-valid C06SiteClaim
+  with a citation. Both dates are inclusive: end = start + ten calendar
+  years - one day, with February 29 clamped to February 28 at the
+  anniversary before subtracting one day. This convention is the example
+  interpretation, not a date convention specified by the source. Requires
+  the caller to establish that the cited accessible file is the relevant
+  Project Plan and that the dates faithfully transcribe it. Does not read
+  Evidence metadata, verify file type, authenticate the plan, judge evidence
+  support, authorize the claimant, establish initial-versus-renewal status,
+  or approve a project or renewal. Those prerequisite checks must not be
+  inferred from satisfied.
+acceptsEvidence:
+  - sourceType: TEXT
+    mediaType: application/pdf
+  - sourceType: TEXT
+    mediaType: text/plain
+requirementCheck:
+  evidenceAvailableQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    PREFIX oa: <http://www.w3.org/ns/oa#>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri a rfs:C06SiteClaim ; rfs:hasSubject ?site ;
+          rfs:creditingPeriod ?period ; rfs:hasEvidenceCitation ?citation .
+        ?site a rfs:Site .
+        ?period schema:startDate ?start ; schema:endDate ?end .
+        ?citation oa:hasSource ?source .
+        FILTER(isIRI(?source))
+        FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)
+      }
+    }
+  needsHumanReviewQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri a rfs:C06SiteClaim ; rfs:creditingPeriod ?first, ?second .
+        ?first schema:startDate ?firstStart ; schema:endDate ?firstEnd .
+        ?second schema:startDate ?secondStart ; schema:endDate ?secondEnd .
+        FILTER(?firstStart != ?secondStart || ?firstEnd != ?secondEnd)
+      }
+    }
+  satisfiedQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    PREFIX oa: <http://www.w3.org/ns/oa#>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri a rfs:C06SiteClaim ; rfs:hasSubject ?site ;
+          rfs:creditingPeriod ?period ; rfs:hasEvidenceCitation ?citation .
+        ?site a rfs:Site .
+        ?period schema:startDate ?start ; schema:endDate ?end .
+        ?citation oa:hasSource ?source .
+        FILTER(isIRI(?source))
+        FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)
+      }
+      FILTER(?end = (?start + "P10Y"^^xsd:yearMonthDuration - "P1D"^^xsd:dayTimeDuration))
+      FILTER NOT EXISTS {
+        GRAPH ?_claim_iri {
+          ?_claim_iri rfs:creditingPeriod ?other .
+          ?other schema:startDate ?otherStart ; schema:endDate ?otherEnd .
+          FILTER(?otherStart != ?start || ?otherEnd != ?end)
+        }
+      }
+    }
+  missingEvidenceExplanation: >-
+    The Claim lacks the required site type, complete typed period or
+    source citation for this check.
+  needsHumanReviewExplanation: >-
+    The Claim states two different crediting periods; a reviewer must decide
+    which one the Project Plan sets.
+  satisfiedExplanation: >-
+    The cited Claim states a ten-calendar-year initial period under the
+    inclusive-date convention; evidence support and project eligibility
+    are not established by this check.
+  unmetExplanation: >-
+    The stated period is not ten calendar years under the inclusive-date
+    convention.

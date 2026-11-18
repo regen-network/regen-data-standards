@@ -11,6 +11,10 @@
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
+    "acceptsEvidence": {
+      "@type": "@id",
+      "@id": "acceptsEvidence"
+    },
     "id": "@id",
     "addressesRequirement": {
       "@type": "@id",
@@ -51,6 +55,9 @@
     "assessedAgainst": {
       "@type": "@id",
       "@id": "assessedAgainst"
+    },
+    "assessmentScope": {
+      "@id": "assessmentScope"
     },
     "claimStatement": {
       "@id": "claimStatement"
@@ -111,6 +118,9 @@
     "evaluationMethodDescription": {
       "@id": "evaluationMethodDescription"
     },
+    "evidenceAvailableQuery": {
+      "@id": "evidenceAvailableQuery"
+    },
     "evidenceSufficiency": {
       "@id": "evidenceSufficiency",
       "@type": "@vocab",
@@ -145,6 +155,10 @@
     "hasEvidenceCitation": {
       "@type": "@id",
       "@id": "hasEvidenceCitation"
+    },
+    "hasRequirement": {
+      "@type": "@id",
+      "@id": "hasRequirement"
     },
     "hasResult": {
       "@type": "@id",
@@ -200,8 +214,17 @@
         "VERIFICATION": "rfs:VerificationMilestone"
       }
     },
+    "missingEvidenceExplanation": {
+      "@id": "missingEvidenceExplanation"
+    },
     "name": {
       "@id": "schema:name"
+    },
+    "needsHumanReviewExplanation": {
+      "@id": "needsHumanReviewExplanation"
+    },
+    "needsHumanReviewQuery": {
+      "@id": "needsHumanReviewQuery"
     },
     "outcome": {
       "@type": "@id",
@@ -237,9 +260,26 @@
       "@type": "@id",
       "@id": "dcterms:replaces"
     },
+    "requirementCheck": {
+      "@type": "@id",
+      "@id": "requirementCheck"
+    },
+    "requirementSource": {
+      "@type": "@id",
+      "@id": "requirementSource"
+    },
+    "requirementStatement": {
+      "@id": "requirementStatement"
+    },
     "resolver": {
       "@type": "@id",
       "@id": "resolver"
+    },
+    "satisfiedExplanation": {
+      "@id": "satisfiedExplanation"
+    },
+    "satisfiedQuery": {
+      "@id": "satisfiedQuery"
     },
     "scope": {
       "@type": "@id",
@@ -285,6 +325,9 @@
     },
     "suffix": {
       "@id": "oa:suffix"
+    },
+    "unmetExplanation": {
+      "@id": "unmetExplanation"
     },
     "url": {
       "@type": "@id",
@@ -368,6 +411,9 @@
     "EvidenceCitation": {
       "@id": "EvidenceCitation"
     },
+    "EvidenceKind": {
+      "@id": "EvidenceKind"
+    },
     "EvidenceSupportEvaluation": {
       "@id": "EvidenceSupportEvaluation"
     },
@@ -419,6 +465,9 @@
         }
       }
     },
+    "GenericRequirement": {
+      "@id": "GenericRequirement"
+    },
     "Link": {
       "@id": "Link"
     },
@@ -446,6 +495,9 @@
     "RegistryReviewEvaluation": {
       "@id": "RegistryReviewEvaluation"
     },
+    "Requirement": {
+      "@id": "Requirement"
+    },
     "RequirementAssessmentResult": {
       "@id": "RequirementAssessmentResult",
       "@context": {
@@ -460,8 +512,17 @@
         }
       }
     },
+    "RequirementCheck": {
+      "@id": "RequirementCheck"
+    },
     "RequirementEvaluation": {
       "@id": "RequirementEvaluation"
+    },
+    "RequirementSet": {
+      "@id": "RequirementSet"
+    },
+    "Review": {
+      "@id": "Review"
     },
     "Scope": {
       "@id": "Scope"
@@ -516,8 +577,9 @@
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ],
   "appliesRequirement": [
-    "https://example.org/rule-set/credit-class-c06/registration-checklist/2026-05/crediting-term"
+    "https://example.org/placeholder/requirement-iri/c06-registration-sl-008"
   ],
+  "wasGeneratedBy": "https://example.org/c06/project/P-001/review/registration",
   "hasResult": {
     "@type": "RequirementAssessmentResult",
     "applicability": "APPLICABLE",

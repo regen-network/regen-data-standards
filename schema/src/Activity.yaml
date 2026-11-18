@@ -36,7 +36,7 @@ classes:
       inlines it, so one activity that generated several records is described
       once. A correction is a new record that replaces the earlier record
       while describing the same occurrence. Abstract: a record is a
-      GenericActivity or a Capture.
+      GenericActivity, a Capture or a Review (Requirement.yaml).
     slots:
       - name
       - description

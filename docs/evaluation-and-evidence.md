@@ -74,14 +74,15 @@ grouped by the issuer's `findingLabel`.
 | `core.yaml` | `inLanguage` moves here from `ClaimVocabulary.yaml`, unchanged, so that `Evidence`, which `ClaimVocabulary` imports, can use it. | as before |
 | `Evidence.yaml` | Adds the source hash, language, resolver, DCMI type, format, licence reference, issue date and generating activity (`wasGeneratedBy`), the integrity-outcome terms, and the citation profile (`EvidenceCitation` with Web Annotation selectors). | adds `Activity` |
 | `Activity.yaml` | New: the abstract `Activity` (IRI, `name`, `description`, `wasAssociatedWith`, `replaces`), `GenericActivity` (`startDate`, `endDate`) and `Capture` (`used`, `startedAtTime`, `endedAtTime`). `startDate` and `endDate` move here from `C06Claim.yaml`. It is a separate module because `Evidence` needs it and `ClaimVocabulary` imports `Evidence`. | `Entity`, `ProvAlignment` |
-| `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. | `Claim`, `ClaimVocabulary` |
+| `Evaluation.yaml` | Replaces `Attestation.yaml`: the abstract `Evaluation is_a Claim`, `GenericEvaluation`, `Scope`, and the program-agnostic kinds: the abstract `RequirementEvaluation`, `EvidenceSupportEvaluation` and `ClaimConsistencyEvaluation`, with their verdict enums. An evaluation can name the `Review` it was made in (`wasGeneratedBy`). | `Claim`, `ClaimVocabulary`, `Requirement` |
+| `Requirement.yaml` | New: the abstract `Requirement`, `GenericRequirement`, `RequirementSet`, `RequirementCheck`, `EvidenceKind` and `Review` (`is_a Activity`). See [requirements.md](requirements.md). | `Activity`, `ClaimVocabulary`, `Evidence` |
 | `RegistryReviewEvaluation.yaml` | New: the `RegistryReviewEvaluation` mixin (issuer role, conditions, required method), the kinds that declare it, `RegistryRequirementEvaluation` (`is_a RequirementEvaluation`), `RegistryFindingEvaluation` and `RegistryReportEvaluation`, `Condition`, and the review enums. | `Evaluation` |
 | `C06Claim.yaml` | New, version 0.1.0: four subject classes, five claim classes. | `Claim`, `ClaimSubject`, `ClaimVocabulary`, `taxonomy` |
 
-No `Requirement` or `RequirementSet` class exists or is added: requirements and their sets, whose format WP5-01
-([claims#30](https://github.com/regen-network/claims/issues/30)) defines, and claims and evaluations
-reference them by IRI. Inheritance follows #85: domain claims are `is_a Claim`, shared
-terms are imported from `ClaimVocabulary`.
+Requirements and requirement sets are records of their own, defined in
+[`Requirement.yaml`](../schema/src/Requirement.yaml) and described in
+[requirements.md](requirements.md); claims and evaluations reference them by IRI. Inheritance follows
+#85: domain claims are `is_a Claim`, shared terms are imported from `ClaimVocabulary`.
 
 ## Evaluation
 
@@ -227,7 +228,8 @@ WP5.
 | `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | The exact resources directly examined or assessed; a version or snapshot when the resource can change. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | An exact Claim or Evaluation whose asserted content or result is used in reaching the assessment, but which the evaluation does not itself assess, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
-| `appliesRequirementSet` | `rfs:appliesRequirementSet` | IRI | 0..*, set | Exact requirement-set versions, such as a checklist version, applied or assessed as a whole. An evaluation of one requirement names only the requirement; its set is reached through membership (WP5-01). |
+| `appliesRequirementSet` | `rfs:appliesRequirementSet` | IRI | 0..*, set | Exact requirement-set versions, such as a checklist version, applied or assessed as a whole. A requirement can be in several set versions, so an evaluation made outside any Review names here the set version it applies. |
+| `wasGeneratedBy` | `prov:wasGeneratedBy` | IRI of a `Review` | 0..1 | The Review the evaluation was made in, whose requirement set versions it applies ([requirements.md](requirements.md#review)). |
 | `governedBy` | `rfs:governedBy` | IRI | 0..*, set | Exact versions of the governing documents the evaluation is made under, such as a credit class, methodology or program guide version; broader than a requirement set. |
 | `hasResult` | `rfs:hasResult` | an `EvaluationResult` (inlined) | 0..1 | The conclusion, as a result whose type depends on the kind (see Results above); required on every kind except `GenericEvaluation`. |
 | `rationale` | `rfs:rationale` | string | 0..1 | Why. |
@@ -530,9 +532,9 @@ kept apart ([discussion](https://github.com/regen-network/regen-data-standards/p
 methodology or program guide version); `appliesRequirementSet` names a set of requirements, such as a
 registration or validation checklist version, that an evaluation applies or assesses as a whole; and
 `appliesRequirement` names one requirement. A requirement IRI identifies one immutable requirement
-version within an exact requirement-set version, because the same short ID can name different
-requirements in different versions; mapping historical IDs to current ones is requirement-set data.
-None of them is a schema-version declaration.
+version, computed from its content: the same code, such as SL-005, can name different versions, and
+an unchanged requirement keeps its IRI in every set version that lists it
+([requirements.md](requirements.md#requirement)). None of them is a schema-version declaration.
 
 Two relations reference requirements, from the two sides:
 
@@ -618,7 +620,7 @@ validators.
 | [`generic-evaluation.jsonld`](../schema/examples/generic-evaluation.jsonld) | A `GenericEvaluation`, with no program vocabulary, and an evaluation method with a description in the steward's words |
 | [`evidence-support-evaluation.jsonld`](../schema/examples/evidence-support-evaluation.jsonld) | An `EvidenceSupportEvaluation`: two `Evidence` records that support a claim but are not enough to establish it |
 | [`claim-consistency-evaluation.jsonld`](../schema/examples/claim-consistency-evaluation.jsonld) | A `ClaimConsistencyEvaluation` recording that a claim's statement and area field disagree |
-| [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, the governing credit class version and the requirement version, a scope and a condition |
+| [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | A `RegistryRequirementEvaluation`: a confirmation that a requirement is satisfied, with targets, a relied-on claim, the governing credit class version and the requirement version, a scope, a condition, and the review it was made in |
 | [`registry-finding-evaluation.jsonld`](../schema/examples/registry-finding-evaluation.jsonld) | A `RegistryFindingEvaluation`: an open clarification request with its type, label, target and evidence |
 | [`registry-report-evaluation.jsonld`](../schema/examples/registry-report-evaluation.jsonld) | A `RegistryReportEvaluation`: a verifier's acceptance with contingencies, assessing the validation checklist version as a whole (`appliesRequirementSet`) |
 | `*.SCHEMA-INVALID-*.yaml` | Documents each validator must reject. Those that break a LinkML rule are marked `# shacl: not enforced`: JSON Schema rejects them, the generated SHACL does not express rules (see [Known limitations](#known-limitations)) |
