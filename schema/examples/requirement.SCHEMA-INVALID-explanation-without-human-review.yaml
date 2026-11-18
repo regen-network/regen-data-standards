@@ -6,13 +6,11 @@
 # generated SHACL does not express.
 # requirementCheck is optional, so its JSON Schema allows either the check or
 # null, and an error inside it is reported as matching neither.
-identifier: C06-REGISTRATION-SL-008
+identifier: EXAMPLE-REGISTRATION-CP-1
 requirementStatement: >-
-  State the site crediting period in the Project Plan; the credit class
-  specifies a ten-year term with an option to renew.
+  The project plan states each site's crediting period, which is ten years.
 assessmentScope: >-
-  Checks only the structured initial period in one C06SiteClaim with a
-  citation.
+  Checks only the length of the crediting period a C06SiteClaim states.
 requirementCheck:
   evidenceAvailableQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
   satisfiedQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }

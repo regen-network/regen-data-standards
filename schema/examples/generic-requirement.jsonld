@@ -327,8 +327,8 @@
     }
   },
   "@type": "GenericRequirement",
-  "identifier": "C06-REGISTRATION-SL-008",
-  "requirementStatement": "State the site crediting period in the Project Plan; the credit class specifies a ten-year term with an option to renew.",
+  "identifier": "EXAMPLE-REGISTRATION-CP-1",
+  "requirementStatement": "A site's crediting term is ten years, with an option to renew. Each renewal period is ten years, with no limit on the number of renewals.",
   "requirementSource": {
     "@type": "EvidenceCitation",
     "source": "regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf",
@@ -340,27 +340,22 @@
       }
     ]
   },
-  "assessmentScope": "Checks only the structured initial period in one schema-valid C06SiteClaim with a citation. Both dates are inclusive: end = start + ten calendar years - one day, with February 29 clamped to February 28 at the anniversary before subtracting one day. This convention is the example interpretation, not a date convention specified by the source. Requires the caller to establish that the cited accessible file is the relevant Project Plan and that the dates faithfully transcribe it. Does not read Evidence metadata, verify file type, authenticate the plan, judge evidence support, authorize the claimant, establish initial-versus-renewal status, or approve a project or renewal. Those prerequisite checks must not be inferred from satisfied.",
+  "assessmentScope": "Checks only the length of the crediting period a C06SiteClaim states, with both dates inclusive. It does not check that the cited plan states those dates, that the plan is authentic, or that a renewal was approved.",
   "acceptsEvidence": [
     {
       "@type": "EvidenceKind",
       "sourceType": "TEXT",
       "mediaType": "application/pdf"
-    },
-    {
-      "@type": "EvidenceKind",
-      "sourceType": "TEXT",
-      "mediaType": "text/plain"
     }
   ],
   "requirementCheck": {
     "@type": "RequirementCheck",
-    "evidenceAvailableQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX oa: <http://www.w3.org/ns/oa#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri a rfs:C06SiteClaim ; rfs:hasSubject ?site ;\n      rfs:creditingPeriod ?period ; rfs:hasEvidenceCitation ?citation .\n    ?site a rfs:Site .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n    ?citation oa:hasSource ?source .\n    FILTER(isIRI(?source))\n    FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)\n  }\n}",
-    "needsHumanReviewQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri a rfs:C06SiteClaim ; rfs:creditingPeriod ?first, ?second .\n    ?first schema:startDate ?firstStart ; schema:endDate ?firstEnd .\n    ?second schema:startDate ?secondStart ; schema:endDate ?secondEnd .\n    FILTER(?firstStart != ?secondStart || ?firstEnd != ?secondEnd)\n  }\n}",
-    "satisfiedQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX oa: <http://www.w3.org/ns/oa#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri a rfs:C06SiteClaim ; rfs:hasSubject ?site ;\n      rfs:creditingPeriod ?period ; rfs:hasEvidenceCitation ?citation .\n    ?site a rfs:Site .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n    ?citation oa:hasSource ?source .\n    FILTER(isIRI(?source))\n    FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)\n  }\n  FILTER(?end = (?start + \"P10Y\"^^xsd:yearMonthDuration - \"P1D\"^^xsd:dayTimeDuration))\n  FILTER NOT EXISTS {\n    GRAPH ?_claim_iri {\n      ?_claim_iri rfs:creditingPeriod ?other .\n      ?other schema:startDate ?otherStart ; schema:endDate ?otherEnd .\n      FILTER(?otherStart != ?start || ?otherEnd != ?end)\n    }\n  }\n}",
-    "missingEvidenceExplanation": "The Claim lacks the required site type, complete typed period or source citation for this check.",
-    "needsHumanReviewExplanation": "The Claim states two different crediting periods; a reviewer must decide which one the Project Plan sets.",
-    "satisfiedExplanation": "The cited Claim states a ten-calendar-year initial period under the inclusive-date convention; evidence support and project eligibility are not established by this check.",
-    "unmetExplanation": "The stated period is not ten calendar years under the inclusive-date convention."
+    "evidenceAvailableQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX oa: <http://www.w3.org/ns/oa#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri a rfs:C06SiteClaim ; rfs:creditingPeriod ?period ;\n      rfs:hasEvidenceCitation/oa:hasSource ?source .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n    FILTER(isIRI(?source))\n    FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)\n  }\n}",
+    "needsHumanReviewQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri rfs:creditingPeriod ?period .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n  }\n  FILTER(?end > (?start + \"P10Y\"^^xsd:yearMonthDuration - \"P1D\"^^xsd:dayTimeDuration))\n}",
+    "satisfiedQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri rfs:creditingPeriod ?period .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n  }\n  FILTER(?end = (?start + \"P10Y\"^^xsd:yearMonthDuration - \"P1D\"^^xsd:dayTimeDuration))\n}",
+    "missingEvidenceExplanation": "The claim states no complete crediting period with typed dates, or cites no source.",
+    "needsHumanReviewExplanation": "The stated period is longer than ten years, so it may include renewal periods; a reviewer must check that a renewal decision covers them.",
+    "satisfiedExplanation": "The claim states a ten-year crediting period. This does not establish that the cited plan states it.",
+    "unmetExplanation": "The stated period is shorter than ten years."
   }
 }

@@ -39,7 +39,7 @@ A requirement states one thing a program requires, as one exact version:
 
 | Field | RDF term | Card. | Meaning |
 |---|---|---|---|
-| `identifier` | `schema:identifier` | 1 | The program's code, such as `C06-REGISTRATION-SL-008`, which reviewers and findings use. A revised version keeps it. |
+| `identifier` | `schema:identifier` | 1 | The program's code, such as `EXAMPLE-REGISTRATION-CP-1`, which reviewers and findings use. A revised version keeps it. |
 | `requirementStatement` | `rfs:requirementStatement` ⊑ `schema:description` | 1 | The requirement in plain language. |
 | `requirementSource` | `rfs:requirementSource` | 0..1 | Where the program states it: an `EvidenceCitation` of the exact program document, with selectors for the passage. Absent when the statement is itself the program's text. |
 | `assessmentScope` | `rfs:assessmentScope` | 1 | What checking it establishes and what it leaves to another check or a person. |
@@ -50,9 +50,9 @@ A requirement states one thing a program requires, as one exact version:
 **Identity.** A requirement's IRI is computed from its content, as a Claim's is
 ([regen-network/claims#1](https://github.com/regen-network/claims/issues/1)), so the record does not
 contain it. Its `identifier` field is the program's code, not its IRI. A change to any field is a new
-version. An unchanged requirement keeps its IRI in every requirement set version that lists it: when a new version of a checklist
-changes only SL-005, SL-008 is the same record in both versions, and results about it stay about
-the same requirement. So a requirement alone does not say which set version an evaluation applied;
+version. An unchanged requirement keeps its IRI in every requirement set version that lists it:
+when a new version of a checklist changes only one requirement, every other requirement is the same
+record in both versions, and results about it stay about the same requirement. So a requirement alone does not say which set version an evaluation applied;
 the evaluation's Review, or its own `appliesRequirementSet`, says that.
 
 **Extension point.** `Requirement` is abstract and its generated shape is open, as for `Claim` and
@@ -69,7 +69,7 @@ this order:
 
 1. `evidenceAvailableQuery` false: the evidence the check needs is missing.
 2. `needsHumanReviewQuery`, if given, true: the check cannot decide and a person must, for example
-   because the claim states two different periods.
+   because the stated period may include renewal periods that need a separate decision.
 3. Otherwise `satisfiedQuery`: true means satisfied, false means not met.
 
 A query that fails, or an input record that cannot be read, is an error of the evaluation, never a
@@ -86,7 +86,7 @@ One exact version of a set of requirements, such as version 2026-05 of a registr
 
 | Field | RDF term | Card. | Meaning |
 |---|---|---|---|
-| `identifier` | `schema:identifier` | 1 | The program's code for the set, such as `C06-REGISTRATION`, shared by all its versions. Not unique across programs. |
+| `identifier` | `schema:identifier` | 1 | The program's code for the set, such as `EXAMPLE-REGISTRATION`, shared by all its versions. Not unique across programs. |
 | `version` | `schema:version` | 1 | The program's label for this version. Labels have no implied order. |
 | `name` | `schema:name` | 1 | Title. |
 | `hasRequirement` | `rfs:hasRequirement` | 1..*, set | The requirement versions in this version, by IRI. |
@@ -111,11 +111,11 @@ its evaluation names the set version with `appliesRequirementSet`.
 
 | Example | Shows |
 |---|---|
-| [`generic-requirement.jsonld`](../schema/examples/generic-requirement.jsonld) | The C06 initial site crediting-period requirement, citing section 3.8 of the published credit class PDF, with its executable check, including a query that sends a claim stating two different periods to a person |
-| [`requirement-set.jsonld`](../schema/examples/requirement-set.jsonld) | A version of a C06 registration checklist, listing that requirement |
+| [`generic-requirement.jsonld`](../schema/examples/generic-requirement.jsonld) | The crediting term of the public C06 credit class, citing page 7 of its version 1.5.2, with an executable check, including a query that sends a period longer than ten years, which may include renewals, to a person |
+| [`requirement-set.jsonld`](../schema/examples/requirement-set.jsonld) | A version of an invented registration checklist implementing that credit class, listing that requirement |
 | [`review.jsonld`](../schema/examples/review.jsonld) | The registration review of project P-001, applying that version |
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | An evaluation made in that review (`wasGeneratedBy`), applying the requirement |
 | `requirement.SCHEMA-INVALID-*.yaml`, `requirement-set.SCHEMA-INVALID-*.yaml`, `review.SCHEMA-INVALID-*.yaml` | A human-review query without its explanation and the reverse, a set without requirements, a review without a requirement set |
 
-The requirement and its source document are real; the set, the review and the IRIs computed from
-content are synthetic placeholders.
+The requirement cites the public C06 credit class document; its code, the checklist, the review and
+the project are invented, and the IRIs computed from content are labelled placeholders.

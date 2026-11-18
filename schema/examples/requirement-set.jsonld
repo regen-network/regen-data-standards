@@ -327,11 +327,11 @@
     }
   },
   "@type": "RequirementSet",
-  "identifier": "C06-REGISTRATION",
+  "identifier": "EXAMPLE-REGISTRATION",
   "version": "2026-05",
-  "name": "C06 registration checklist",
+  "name": "Example registration checklist",
   "hasRequirement": [
-    "https://example.org/placeholder/requirement-iri/c06-registration-sl-008"
+    "https://example.org/placeholder/requirement-iri/example-registration-cp-1"
   ],
   "governedBy": [
     "regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf"

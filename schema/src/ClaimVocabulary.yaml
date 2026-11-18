@@ -131,8 +131,8 @@ slots:
       content. An unchanged requirement keeps its IRI in every
       requirement set version that lists it, so the requirement alone does
       not say which set version applied: the evaluation's Review or its
-      appliesRequirementSet says that. The same code, such as SL-005, can
-      name different requirement versions. Unordered set.
+      appliesRequirementSet says that. The same program code can name
+      different requirement versions. Unordered set.
     range: uriorcurie
     multivalued: true
     list_elements_ordered: false

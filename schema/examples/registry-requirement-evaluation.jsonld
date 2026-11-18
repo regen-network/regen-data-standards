@@ -577,7 +577,7 @@
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ],
   "appliesRequirement": [
-    "https://example.org/placeholder/requirement-iri/c06-registration-sl-008"
+    "https://example.org/placeholder/requirement-iri/example-registration-cp-1"
   ],
   "wasGeneratedBy": "https://example.org/c06/project/P-001/review/registration",
   "hasResult": {

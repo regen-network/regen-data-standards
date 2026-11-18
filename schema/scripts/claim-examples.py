@@ -155,8 +155,8 @@ EXAMPLES = {
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
-    "data/playground/GenericRequirement/GenericRequirement-c06-sl-008.yaml": "examples/generic-requirement.jsonld",
-    "data/playground/RequirementSet/RequirementSet-c06-registration-2026-05.yaml": "examples/requirement-set.jsonld",
+    "data/playground/GenericRequirement/GenericRequirement-example-crediting-period.yaml": "examples/generic-requirement.jsonld",
+    "data/playground/RequirementSet/RequirementSet-example-registration-2026-05.yaml": "examples/requirement-set.jsonld",
     "data/playground/Review/Review-P-001-registration.yaml": "examples/review.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"

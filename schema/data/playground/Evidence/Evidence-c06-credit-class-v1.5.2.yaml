@@ -1,7 +1,7 @@
-# The published Ecometric credit class v1.5.2 PDF, which requirements cite as
-# their source. Its digest is the BLAKE2b-256 hash of the published file, whose
-# SHA-256 regen-network/claims#30 pins
-# (3638d8df5432ed33b681e878d5a0d763d1b59d9ce60c1dd4438d3359d0faf93b).
+# The published C06 credit class document, version 1.5.2, which the example
+# requirement cites as its source. It is public: the Regen Registry page of the
+# C06 credit class links it. Its digest is the BLAKE2b-256 hash of the
+# published file.
 id: regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf
 name: >-
   Ecometric - GHG Benefits in Managed Crop and Grassland Systems Credit Class,

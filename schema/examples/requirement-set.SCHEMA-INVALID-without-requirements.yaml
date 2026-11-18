@@ -1,6 +1,6 @@
 # expect: 'hasRequirement' is a required property
 # class: RequirementSet
 # A requirement set version lists at least one requirement.
-identifier: C06-REGISTRATION
+identifier: EXAMPLE-REGISTRATION
 version: "2026-05"
-name: C06 registration checklist
+name: Example registration checklist

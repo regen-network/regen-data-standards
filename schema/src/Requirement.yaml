@@ -64,7 +64,7 @@ classes:
       identifier:
         description: >-
           The program's code for the requirement, such as
-          C06-REGISTRATION-SL-008, which reviewers and findings use. It is
+          EXAMPLE-REGISTRATION-CP-1, which reviewers and findings use. It is
           unique within each requirement set version that lists the
           requirement, and a revised version keeps it. It is not the
           requirement's IRI, which is computed from its content.
@@ -111,7 +111,7 @@ classes:
     slot_usage:
       identifier:
         description: >-
-          The program's code for the set, such as C06-REGISTRATION, shared by
+          The program's code for the set, such as EXAMPLE-REGISTRATION, shared by
           all its versions. It helps people recognise the set; it is not
           unique across programs, so the versions of a set are linked with
           wasRevisionOf, not by this code.
@@ -264,7 +264,7 @@ slots:
     description: >-
       Where the program states the requirement: a citation of the exact
       version of the program document, with selectors locating the passage,
-      such as section 3.8 of a credit class version. Absent when the
+      such as a page of a credit class version. Absent when the
       statement is itself the program's text.
     range: EvidenceCitation
     inlined: true
@@ -320,7 +320,8 @@ slots:
     slot_uri: rfs:needsHumanReviewQuery
     description: >-
       SPARQL ASK query that is true when the check cannot decide and a person
-      must, for example because the claim states two different periods.
+      must, for example because a stated period may include renewal periods
+      that need a separate decision.
     range: string
   satisfiedQuery:
     slot_uri: rfs:satisfiedQuery
