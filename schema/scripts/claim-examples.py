@@ -74,13 +74,14 @@ For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
 
-A Claim names its claimants by rid (assertedBy), and each agent describes
-itself in AgentClaims. The check loads the AgentClaims gen-rdf wrote: every
-agent an example names in assertedBy must have one, and every AgentClaim must
-name the agent it describes (hasSubject) as its only claimant. Neither
-generated validator can compare the two slots, so a schema-invalid example
-marked "# check: claimant is not the subject" must be accepted by both and
-rejected by this check.
+A Claim names its claimants by rid (assertedBy), and each agent is described
+in AgentClaims. The check loads the AgentClaims gen-rdf wrote: every agent an
+example names in assertedBy must have one, and every AgentClaim that revises
+another (wasRevisionOf) must describe the same agent (hasSubject) as the
+AgentClaim it revises, which it names by a placeholder ClaimIRI listed in
+AGENT_CLAIM_IRIS. Neither generated validator can compare two records, so a
+schema-invalid example marked "# check: revision changes the subject" must be
+accepted by both and rejected by this check.
 
 The generic examples are GenericClaims and GenericEvaluations, whose shapes are
 closed. The base Claim and Evaluation are abstract, so their shapes are open:
@@ -176,12 +177,18 @@ RECORD_GLOBS = {
     "agent": ["data/playground/SoftwareAgent/*.ttl"],
     "agent_claim": ["data/playground/AgentClaim/*.ttl"],
 }
+# The AgentClaim each placeholder ClaimIRI stands for (regen-network/claims#1).
+AGENT_CLAIM_IRIS = {
+    "https://example.org/placeholder/claim-iri/agent-claim-hedgerow-cooperative-v1":
+        "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative.ttl",
+}
 RFS = "https://framework.regen.network/schema/"
 AGENT_CLAIM = rdflib.URIRef(RFS + "AgentClaim")
 AGENT_SUBJECT = rdflib.URIRef(RFS + "AgentSubject")
 ASSERTED_BY = rdflib.URIRef(RFS + "assertedBy")
 HAS_SUBJECT = rdflib.URIRef(RFS + "hasSubject")
-CLAIMANT_MARK = "# check: claimant is not the subject"
+WAS_REVISION_OF = rdflib.URIRef("http://www.w3.org/ns/prov#wasRevisionOf")
+REVISION_MARK = "# check: revision changes the subject"
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
 ACTIVITY_TYPES = {rdflib.URIRef(RFS + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
@@ -417,14 +424,27 @@ def described_agents(store):
     return {o for record in store["agent_claim_records"] for o in record.objects(None, HAS_SUBJECT)}
 
 
-def claimant_problems(graph):
-    """For each AgentClaim in graph, what differs from one claimant that is its subject."""
+def revisions(graph):
+    """The AgentClaims in graph that revise another, with the ClaimIRI each names."""
+    return [(claim, revised) for claim in graph.subjects(RDF.type, AGENT_CLAIM)
+            for revised in graph.objects(claim, WAS_REVISION_OF)]
+
+
+def revision_problems(graph, store):
+    """For each AgentClaim in graph that revises another, how its subject differs
+    from the subject of the AgentClaim it revises."""
     problems = []
-    for claim in graph.subjects(RDF.type, AGENT_CLAIM):
-        claimants = set(graph.objects(claim, ASSERTED_BY))
+    for claim, revised in revisions(graph):
+        path = AGENT_CLAIM_IRIS.get(str(revised))
+        if path not in store["agent_claim_paths"]:
+            problems.append(f"revises {revised}, which names no AgentClaim in AGENT_CLAIM_IRIS")
+            continue
+        earlier = store["agent_claim_records"][store["agent_claim_paths"].index(path)]
         subjects = set(graph.objects(claim, HAS_SUBJECT))
-        if len(subjects) != 1 or claimants != subjects:
-            problems.append(f"claimants {sorted(map(str, claimants))}, subject {sorted(map(str, subjects))}")
+        earlier_subjects = set(earlier.objects(None, HAS_SUBJECT))
+        if subjects != earlier_subjects:
+            problems.append(f"subject {sorted(map(str, subjects))}, revised AgentClaim's subject"
+                            f" {sorted(map(str, earlier_subjects))}")
     return problems
 
 
@@ -594,11 +614,13 @@ def main(mode):
                 failures += 1
 
     for record, path in zip(store["agent_claim_records"], store["agent_claim_paths"]):
-        problems = claimant_problems(record)
+        if not revisions(record):
+            continue
+        problems = revision_problems(record, store)
         if not problems:
-            print(f"✅ {path}: its one claimant is the agent it describes")
+            print(f"✅ {path}: describes the same agent as the AgentClaim it revises")
         else:
-            print(f"❌ {path}: an AgentClaim's claimant must be its subject ({problems[0]})")
+            print(f"❌ {path}: a revision must describe the same agent as the AgentClaim it revises ({problems[0]})")
             failures += 1
 
     for invalid in sorted(glob.glob(INVALID_GLOB)):
@@ -607,15 +629,15 @@ def main(mode):
         class_name = invalid_class(content)
         module = module_for(class_name)
         valid, output = json_schema_check(invalid, class_name)
-        if CLAIMANT_MARK in content:
+        if REVISION_MARK in content:
             graph = lexical_graph(build(module, class_name, invalid), "json-ld")
             conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
-            problems = claimant_problems(graph)
+            problems = revision_problems(graph, store)
             if valid and conforms and problems:
-                print(f"✅ {invalid}: JSON Schema and SHACL accept it, and the claimant check rejects it ({problems[0]})")
+                print(f"✅ {invalid}: JSON Schema and SHACL accept it, and the revision check rejects it ({problems[0]})")
             else:
-                print(f"❌ {invalid}: expected JSON Schema and SHACL to accept it and the claimant check to reject it"
-                      f" (JSON Schema {valid}, SHACL {conforms}, claimant check {problems or 'accepts it'})\n{output}")
+                print(f"❌ {invalid}: expected JSON Schema and SHACL to accept it and the revision check to reject it"
+                      f" (JSON Schema {valid}, SHACL {conforms}, revision check {problems or 'accepts it'})\n{output}")
                 failures += 1
             continue
         if GRAPH_MARK in content:

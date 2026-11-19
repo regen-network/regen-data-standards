@@ -1,11 +1,11 @@
 id: https://framework.regen.network/schema/AgentClaim
 name: AgentClaim
 description: >-
-  The Claim in which an agent describes itself. A Claim names its claimants
-  only by rid (assertedBy). What an agent is called, how it describes itself
-  and which on-chain accounts it controls is asserted in an AgentClaim, whose
-  subject is the agent, and revised by a new AgentClaim. Describing an agent
-  anew changes no Claim that names it.
+  The Claim that describes an agent. A Claim names its claimants only by rid
+  (assertedBy). What an agent is called, how it is described and which
+  on-chain accounts it controls is asserted in an AgentClaim, whose subject is
+  the agent, and revised by a new AgentClaim. Describing an agent anew changes
+  no Claim that names it.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -28,30 +28,31 @@ classes:
     is_a: Claim
     class_uri: rfs:AgentClaim
     description: >-
-      An agent's description of itself, asserted by that agent: its name,
-      description, web page, image, DID and on-chain accounts, and, for
-      software, its version and the software it is a version of. Its subject
-      is the agent, named by its rid with its kind. Its one claimant is the
-      same agent: assertedBy names exactly the rid that hasSubject names, in
-      every revision too. An update is a new AgentClaim, with its own
-      ClaimIRI, that names the AgentClaim it revises with wasRevisionOf. The
-      rid stays the same, and neither the earlier AgentClaim nor any Claim
-      that names the agent changes. Each AgentClaim states a full
-      assertedAt: a date alone cannot order a change of accounts and an
-      on-chain act on the same day.
+      A description of an agent: its name, description, web page, image, DID
+      and on-chain accounts, and, for software, its version and the software
+      it is a version of. Its subject is the agent, named by its rid with its
+      kind. It has one claimant: the agent itself, or another agent that
+      describes it, such as a project developer describing its monitor. An
+      update is a new AgentClaim, with its own ClaimIRI, that names the
+      AgentClaim it revises with wasRevisionOf and describes the same agent:
+      its hasSubject is the same rid. The rid stays the same, and neither the
+      earlier AgentClaim nor any Claim that names the agent changes. Each
+      AgentClaim states a full assertedAt: a date alone cannot order a change
+      of accounts and an on-chain act on the same day.
     comments:
       - >-
-        That the claimant is the subject says who makes the declaration. It
-        does not establish that whoever submitted the record may act for
-        the agent, or that a revision replaces an earlier version for a
-        given purpose. The application that uses the AgentClaims decides
-        that, under its own policy (regen-network/claims ADR 0003 D15).
+        The schema records who makes the declaration. Who may describe or
+        revise an agent, whether only the first claimant may revise an
+        AgentClaim, and whether a revision replaces an earlier version for a
+        given purpose are decided by the application that uses the
+        AgentClaims, under its own policy (regen-network/claims ADR 0003
+        D15).
       - >-
         Implementation: the generated JSON Schema and SHACL allow one
-        claimant but cannot compare it with the subject. make
-        check-claim-examples checks that every AgentClaim example names its
-        subject as its claimant, and that every agent a Claim example names
-        in assertedBy has an AgentClaim.
+        claimant, and cannot compare two records. make check-claim-examples
+        checks that every AgentClaim revision has the hasSubject of the
+        AgentClaim it revises, and that every agent a Claim example names in
+        assertedBy has an AgentClaim.
     slots:
       - description
       - image
@@ -75,14 +76,15 @@ classes:
           assertion and must agree.
       assertedBy:
         description: >-
-          The agent the AgentClaim describes, named by its rid: the same IRI
-          as hasSubject. It is the only claimant.
+          The one agent that asserts the description, named by its rid: the
+          agent described, or another agent that describes it.
         maximum_cardinality: 1
       assertedAt:
         required: true
       hasSubject:
         description: >-
-          The agent described, as its rid and its kind.
+          The agent described, as its rid and its kind. A revision has the
+          same hasSubject as the AgentClaim it revises.
         range: AgentSubject
       isVersionOf:
         description: >-

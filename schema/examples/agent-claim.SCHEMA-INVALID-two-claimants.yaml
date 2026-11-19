@@ -1,7 +1,7 @@
 # expect: is too long
 # class: AgentClaim
-# An AgentClaim has one claimant, the agent it describes. A second agent
-# cannot co-assert another agent's declaration.
+# An AgentClaim has one claimant: the agent it describes or another agent.
+# A second agent cannot co-assert it.
 name: Hedgerow Cooperative
 claimStatement: >-
   Hedgerow Cooperative is a community of farmers that plants native hedgerows.

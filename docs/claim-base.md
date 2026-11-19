@@ -59,14 +59,14 @@ IRI, derived from the cited bytes' digest and media type, so editing the record'
 for the agent, so claims by the same agent can be joined, and the rid is content: a Claim that names the agent
 under another rid is a different Claim.
 
-**Agents describe themselves in AgentClaims.** A Claim holds only its claimants' rids. An agent's name,
+**Agents are described in AgentClaims.** A Claim holds only its claimants' rids. An agent's name,
 description, web page, image, DID and on-chain accounts (`walletAddress`), and for software its
 `softwareVersion` and `isVersionOf`, are asserted in an `AgentClaim`: a Claim whose `hasSubject` is the
-agent, as its rid and kind (`AgentSubject`, with `agentKind`), and whose one claimant is that same agent, in
-every revision too. It states a full `assertedAt`. An update is a new `AgentClaim` that names the earlier one
-with `wasRevisionOf`, so describing an agent anew changes no Claim that names it. That the claimant is the
-subject says who makes the declaration. Whether whoever submitted it may act for the agent is decided by the
-application that uses it ([claims ADR 0003 D15](https://github.com/regen-network/claims/pull/63)).
+agent, as its rid and kind (`AgentSubject`, with `agentKind`), and which has one claimant, the agent itself
+or another agent that describes it. It states a full `assertedAt`. An update is a new `AgentClaim` that names
+the earlier one with `wasRevisionOf` and has the same `hasSubject`, so describing an agent anew changes no
+Claim that names it. Who may describe or revise an agent is decided by the application that uses the
+AgentClaims ([claims ADR 0003 D15](https://github.com/regen-network/claims/pull/63)).
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
 in structured fields, such as an area and its unit. The statement and those fields are one assertion

@@ -1,0 +1,17 @@
+# expect: accepted by JSON Schema and SHACL
+# class: AgentClaim
+# check: revision changes the subject
+# A revision describes the same agent as the AgentClaim it revises. This one
+# names Hedgerow Cooperative's AgentClaim with wasRevisionOf but describes
+# another agent, Valley Stewards Circle. Neither generated validator can
+# compare two records, so make check-claim-examples checks it.
+name: Valley Stewards Circle
+claimStatement: >-
+  Valley Stewards Circle is a community that restores land in its valley.
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+assertedAt: "2026-06-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18
+  agentKind: COMMUNITY
+wasRevisionOf: https://example.org/placeholder/claim-iri/agent-claim-hedgerow-cooperative-v1

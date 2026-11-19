@@ -1,13 +1,15 @@
-# Synthetic example (minted agent rids): version 1.4.2 of the meeting sensor
-# describes itself as a version of the sensor across its versions, which it
-# names by rid with isVersionOf. The version is its own agent, with its own
-# rid, as in SoftwareAgent/SoftwareAgent-meeting-sensor-1.4.2.yaml.
+# Synthetic example (minted agent rids): the sensor's operator describes
+# version 1.4.2 of the meeting sensor as a version of the sensor across its
+# versions, which it names by rid with isVersionOf. The version is its own
+# agent, with its own rid, as in
+# SoftwareAgent/SoftwareAgent-meeting-sensor-1.4.2.yaml. The claimant is the
+# operator, not the agent described.
 name: Example Meeting Sensor 1.4.2
 claimStatement: >-
   Example Meeting Sensor 1.4.2 is version 1.4.2 of Example Meeting Sensor.
 inLanguage: en
 assertedBy:
-  - https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8
+  - https://framework.regen.network/agent/01M728VMAPWA187TKNVBQXCH6T
 assertedAt: "2026-04-01T09:00:00+00:00"
 hasSubject:
   id: https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8
