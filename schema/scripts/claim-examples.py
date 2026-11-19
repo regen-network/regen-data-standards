@@ -66,9 +66,10 @@ in parentheses. A document marked "# graph: with the Evidence records" is valid
 on its own ("# expect: accepted alone"), and SHACL must reject it merged with
 the Evidence records, as the graph store merges it.
 
-For each example with citations, the check also changes a selector and
-requires that the cited Evidence IRIs and the Evidence records stay the same,
-while the citing document's graph changes.
+For each example with citations, a claim's hasEvidenceCitation or a
+requirement's requirementSource, the check also changes a selector and requires
+that the cited Evidence IRIs and the Evidence records stay the same, while the
+citing document's graph changes.
 
 The generic examples are GenericClaims, GenericEvaluations and
 GenericRequirements, whose shapes are closed. The base Claim, Evaluation and
@@ -377,10 +378,15 @@ def with_store(graph, store, class_name=None):
     return merged
 
 
+def citations(data):
+    """Return the citations of a record: a claim's evidence, a requirement's source."""
+    return data.get("hasEvidenceCitation", []) + ([data["requirementSource"]] if "requirementSource" in data else [])
+
+
 def change_selector(data):
     """Return a copy of data whose first citation with a selector has that selector changed."""
     data = json.loads(json.dumps(data))
-    citation = next(c for c in data["hasEvidenceCitation"] if c.get("selector"))
+    citation = next(c for c in citations(data) if c.get("selector"))
     selector = citation["selector"][0]
     key = "value" if "value" in selector else "exact"
     selector[key] = selector[key] + "-changed"
@@ -491,7 +497,7 @@ def main(mode):
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
         data = yaml.safe_load(Path(fixture).read_text())
-        if any(c.get("selector") for c in data.get("hasEvidenceCitation", [])):
+        if any(c.get("selector") for c in citations(data)):
             graph = rdflib.Graph().parse(data=text, format="json-ld")
             changed = rdflib.Graph().parse(data=build(module, class_name, fixture, change_selector(data)), format="json-ld")
             source = rdflib.URIRef(module["view"].get_uri(module["view"].get_slot("source"), expand=True))

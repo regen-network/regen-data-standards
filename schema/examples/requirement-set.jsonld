@@ -145,6 +145,10 @@
       "@type": "xsd:float",
       "@id": "qudt:value"
     },
+    "queryLanguage": {
+      "@type": "@id",
+      "@id": "queryLanguage"
+    },
     "references": {
       "@type": "@id",
       "@id": "dcterms:references"

@@ -97,9 +97,9 @@ classes:
       the record does not contain it and never changes: adding, removing
       or revising a requirement makes a new version, which states
       wasRevisionOf. The versions of a set are found by following those
-      links. Lifecycle state, such as whether a version is in force or which
-      version replaced it, changes over time and is kept by the service that
-      manages the set, not in the record. A Review names the versions it
+      links. Whether a version is approved for use, and which version
+      replaced it, change over time and are kept by the service that manages
+      the set, not in the record. A Review names the versions it
       applies with appliesRequirementSet.
     slots:
       - identifier
@@ -138,7 +138,8 @@ classes:
     class_uri: rfs:RequirementCheck
     description: >-
       An executable check of a requirement against one exact Claim version, as
-      SPARQL 1.1 ASK queries. Each query reads the exact Claim version through
+      queries that each answer true or false, written in the language that
+      queryLanguage names. Each query reads the exact Claim version through
       the variable ?_claim_iri, which the evaluator binds to that version's
       ClaimIRI. The evaluator runs the queries on a fixed set of records
       selected for that version, not on every record it can read. The queries
@@ -148,6 +149,8 @@ classes:
       a person must. Otherwise satisfiedQuery decides: true means satisfied
       and false means not met. A query that fails, or an input record that
       cannot be read, is an error of the evaluation, never a false answer.
+      An evaluator that does not support the queryLanguage does not run the
+      check, and reports an error.
       The explanation for each outcome says what the check established or
       what is missing; facts of a particular evaluation, such as which
       evidence it read, belong to its result.
@@ -159,6 +162,7 @@ classes:
         SERVICE clause and no NOW() or RAND(), is checked by the service that
         publishes the requirement set, not by this schema.
     slots:
+      - queryLanguage
       - evidenceAvailableQuery
       - needsHumanReviewQuery
       - satisfiedQuery
@@ -167,6 +171,8 @@ classes:
       - satisfiedExplanation
       - unmetExplanation
     slot_usage:
+      queryLanguage:
+        required: true
       evidenceAvailableQuery:
         required: true
       satisfiedQuery:
@@ -229,9 +235,11 @@ classes:
     description: >-
       A process that applies requirements, such as a project's registration
       review, a funder's vetting round covering several projects, or an
-      audit. It names the exact requirement set versions it applies, so
-      evaluations made in it keep to those versions after a newer version
-      replaces them. An assessment made outside any process, such as a
+      audit. It opens when the work it assesses is submitted for review, such
+      as the claims of a project's application; the reviewers' own work may
+      start later. It names the exact requirement set versions it applies,
+      fixed when it opens, so evaluations made in it keep to those versions
+      after a newer version replaces them. An assessment made outside any process, such as a
       one-off screening, needs no Review: its evaluations name the
       requirement set version they apply themselves.
     slots:
@@ -246,7 +254,9 @@ classes:
         required: true
         minimum_cardinality: 1
       startDate:
-        description: First day of the review, included.
+        description: >-
+          The day the review opened, such as the day the work it assesses was
+          submitted.
       endDate:
         description: Last day of the review, included. Absent while it is open.
 
@@ -310,22 +320,39 @@ slots:
     multivalued: true
     list_elements_ordered: false
     minimum_cardinality: 1
+  queryLanguage:
+    slot_uri: rfs:queryLanguage
+    description: >-
+      The exact language every query of the check is written in, with any
+      extension it relies on, as an IRI. QueryLanguageType lists the
+      recommended values by their meaning IRIs; another IRI can name another
+      language or tool. An evaluator that does not support the language
+      does not run the check and reports an error, so a query is never run
+      by an engine that could misread it.
+    comments:
+      - >-
+        Implementation: an IRI rather than a closed list, so a check written
+        for another language needs no schema change, only a value that names
+        it precisely.
+    range: uriorcurie
   evidenceAvailableQuery:
     slot_uri: rfs:evidenceAvailableQuery
     description: >-
-      SPARQL ASK query that is true when the evidence the check needs is
-      present.
+      Query that is true when the evidence the check needs is present. For
+      SPARQL, an ASK query.
     range: string
   needsHumanReviewQuery:
     slot_uri: rfs:needsHumanReviewQuery
     description: >-
-      SPARQL ASK query that is true when the check cannot decide and a person
-      must, for example because a stated period may include renewal periods
-      that need a separate decision.
+      Query that is true when the check cannot decide and a person must, for
+      example because a stated period may include renewal periods that need
+      a separate decision. For SPARQL, an ASK query.
     range: string
   satisfiedQuery:
     slot_uri: rfs:satisfiedQuery
-    description: SPARQL ASK query that is true when the requirement is met.
+    description: >-
+      Query that is true when the requirement is met. For SPARQL, an ASK
+      query.
     range: string
   missingEvidenceExplanation:
     slot_uri: rfs:missingEvidenceExplanation
@@ -346,3 +373,23 @@ slots:
     slot_uri: rfs:unmetExplanation
     description: What is not met when satisfiedQuery is false.
     range: string
+
+enums:
+  QueryLanguageType:
+    description: >-
+      Recommended query languages for a requirement check, used as
+      queryLanguage values by their meaning IRIs.
+    permissible_values:
+      SPARQL_11_XPATH_DATES:
+        meaning: rfs:Sparql11XPathDates
+        description: >-
+          SPARQL 1.1 queries, extended as its section 17.3.1 allows with the
+          XPath operators on dates and durations that it does not define:
+          comparison of xsd:date values (op:date-equal, op:date-less-than,
+          op:date-greater-than), op:add-yearMonthDuration-to-date,
+          op:add-dayTimeDuration-to-date and
+          op:subtract-dayTimeDuration-from-date. The queries are ASK queries.
+          An engine that lacks one of these operators does not fail a query
+          that uses it: the FILTER is false and the check gives a wrong
+          outcome, so an evaluator for this language must support all of
+          them.

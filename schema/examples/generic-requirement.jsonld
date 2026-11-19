@@ -145,6 +145,10 @@
       "@type": "xsd:float",
       "@id": "qudt:value"
     },
+    "queryLanguage": {
+      "@type": "@id",
+      "@id": "queryLanguage"
+    },
     "references": {
       "@type": "@id",
       "@id": "dcterms:references"
@@ -350,6 +354,7 @@
   ],
   "requirementCheck": {
     "@type": "RequirementCheck",
+    "queryLanguage": "rfs:Sparql11XPathDates",
     "evidenceAvailableQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX oa: <http://www.w3.org/ns/oa#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri a rfs:C06SiteClaim ; rfs:creditingPeriod ?period ;\n      rfs:hasEvidenceCitation/oa:hasSource ?source .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n    FILTER(isIRI(?source))\n    FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)\n  }\n}",
     "needsHumanReviewQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri rfs:creditingPeriod ?period .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n  }\n  FILTER(?end > (?start + \"P10Y\"^^xsd:yearMonthDuration - \"P1D\"^^xsd:dayTimeDuration))\n}",
     "satisfiedQuery": "PREFIX rfs: <https://framework.regen.network/schema/>\nPREFIX schema: <http://schema.org/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nASK {\n  GRAPH ?_claim_iri {\n    ?_claim_iri rfs:creditingPeriod ?period .\n    ?period schema:startDate ?start ; schema:endDate ?end .\n  }\n  FILTER(?end = (?start + \"P10Y\"^^xsd:yearMonthDuration - \"P1D\"^^xsd:dayTimeDuration))\n}",
