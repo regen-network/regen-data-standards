@@ -436,7 +436,7 @@ rejected). `Activity` is abstract, with two kinds:
   `prov:endedAtTime`, in UTC with `+00:00`) rather than dates, so two captures of one record on the
   same day can be ordered. `endedAtTime` is the time of the fetch, including when that time is
   corrected; it is never the time a correction was submitted. Its agent (`wasAssociatedWith`) is
-  the version of the sensor that ran: a `SoftwareAgent` record for that version, with
+  the version of the sensor that ran, named by its `rid`: a `SoftwareAgent` record for that version, with
   `softwareVersion` (`schema:softwareVersion`) and, in `isVersionOf` (`dcterms:isVersionOf`), the
   `rid` of the `SoftwareAgent` record for the sensor across its versions. A new version of the
   sensor is a new record, so no record changes when it is updated.

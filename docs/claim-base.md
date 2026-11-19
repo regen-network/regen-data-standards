@@ -146,10 +146,11 @@ do not own:
   `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:reliesOn` and
   `dcterms:references` datatype properties, although their values are resources. With the flag, they
   become object properties without a range, as in PROV-O and DCMI Terms.
-- *Global narrowing, fixed by emitting only `rfs:` axioms.* An `rdfs:range` built from `rfs:Agent`
-  and its kinds on `prov:wasAttributedTo` and on `prov:wasAssociatedWith`
-  remains. It is not a contradiction, but a reasoner applies it to all PROV data: any agent anyone
-  attributes anything to becomes an `rfs:Agent`. The published OWL should therefore drop every
+- *Global narrowing, fixed by emitting only `rfs:` axioms.* An `rdfs:range` on a property we reuse,
+  such as `prov:SoftwareAgent` on `dcterms:isVersionOf`, remains. (`prov:wasAttributedTo` and
+  `prov:wasAssociatedWith` no longer get one, since they name agents by rid.) It is not a
+  contradiction, but a reasoner applies it to all data that uses the property: anything anyone
+  calls a version of something makes that something a `prov:SoftwareAgent`. The published OWL should therefore drop every
   axiom whose subject is a non-`rfs:` IRI, keeping the links from our terms, such as
   `rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf
   prov:Entity`.

@@ -98,7 +98,10 @@ that breaks a LinkML rule is marked `# shacl: not enforced`, and only JSON Schem
 (see [Timestamps](#timestamps)).
 
 Every agent an example names in `assertedBy` must have an `AgentClaim` in
-[`data/playground/AgentClaim/`](data/playground/AgentClaim/), and every `AgentClaim` that revises another
+[`data/playground/AgentClaim/`](data/playground/AgentClaim/), and so must every agent a playground record
+names by rid in `assertedBy`, `wasAssociatedWith`, a ProjectInfo role slot or `hasEnvironmentalAuthority`.
+In the ProjectInfo fixtures, each project's developer describes itself and the other agents its projects
+name. Every `AgentClaim` that revises another
 must have the `hasSubject` of the one it revises. Neither generated validator can compare two records, so
 the check does: a document marked `# check: revision changes the subject` must be accepted by both
 validators and rejected by this check.
