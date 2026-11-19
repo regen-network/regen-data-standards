@@ -127,13 +127,15 @@ sets.
 
 ## Review
 
-A `Review` is an `Activity` that applies requirement set versions: a project's registration review,
-a funder's vetting round covering several projects, an audit. It names its versions with
-`appliesRequirementSet` (required) and may have a start and an end date. It opens when the work it
-assesses is submitted for review, such as the claims of a project's application; the reviewers' own
-work may start later. Its versions are fixed when it opens. An evaluation made in it names it with
-`wasGeneratedBy`, and so applies its versions, even after a newer version of the set replaces them. An assessment made outside any process, such as a one-off screening, needs no Review:
-its evaluation names the set version with `appliesRequirementSet`.
+A `Review` is the `Activity` of reviewing claims against requirements: a project's registration
+review, a funder's vetting round covering several projects, an audit. It starts when the reviewing
+starts, which can be long after an applicant submitted, and has no end date while it is open; an
+end date is added by a correction that `replaces` it. It names the versions it applies with
+`appliesRequirementSet` (required): for an application, the versions in force when the applicant
+started, even if a later version has been published since, so a Review may apply a retired version.
+The evaluations made in it name it with `wasGeneratedBy` as they are made, and so apply its versions.
+An assessment made outside any process, such as a one-off screening, needs no Review: its evaluation
+names the set version with `appliesRequirementSet`.
 
 ## Examples
 

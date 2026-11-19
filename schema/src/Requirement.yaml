@@ -233,15 +233,17 @@ classes:
     is_a: Activity
     class_uri: rfs:Review
     description: >-
-      A process that applies requirements, such as a project's registration
-      review, a funder's vetting round covering several projects, or an
-      audit. It opens when the work it assesses is submitted for review, such
-      as the claims of a project's application; the reviewers' own work may
-      start later. It names the exact requirement set versions it applies,
-      fixed when it opens, so evaluations made in it keep to those versions
-      after a newer version replaces them. An assessment made outside any process, such as a
-      one-off screening, needs no Review: its evaluations name the
-      requirement set version they apply themselves.
+      The activity of reviewing claims against requirements, such as a
+      project's registration review, a funder's vetting round covering
+      several projects, or an audit. It starts when the reviewing starts,
+      which can be long after an applicant submitted, and has no end date
+      while it is open. It names the exact requirement set versions it
+      applies: for an application, the versions in force when the applicant
+      started, even if a later version has been published since. The
+      evaluations made in it name it with wasGeneratedBy as they are made. An
+      assessment made outside any process, such as a one-off screening, needs
+      no Review: its evaluations name the requirement set version they apply
+      themselves.
     slots:
       - appliesRequirementSet
       - startDate
@@ -254,9 +256,7 @@ classes:
         required: true
         minimum_cardinality: 1
       startDate:
-        description: >-
-          The day the review opened, such as the day the work it assesses was
-          submitted.
+        description: The day the reviewing started, included.
       endDate:
         description: Last day of the review, included. Absent while it is open.
 
