@@ -64,10 +64,11 @@ classes:
       The claimants' statement that a claim set holds every Claim they
       present for a stated purpose, such as a project developer's
       registration package for one project. claimStatement states the
-      purpose. It records what the claimants present and take
-      responsibility for, not that the set meets a requirement set or is
-      accepted: a reviewer who judges the set makes an Evaluation that names
-      it in hasTarget. A later, fuller package is a new claim set and a new
+      purpose. Which requirements each member answers is stated on the
+      member, with addressesRequirement. It records what the claimants
+      present and take responsibility for, not that the set meets a
+      requirement set or is accepted: a reviewer who judges the set makes an
+      Evaluation that names it in hasTarget. A later, fuller package is a new claim set and a new
       ClaimSetCompletenessClaim, which states wasRevisionOf when it replaces
       the earlier one.
     comments:
@@ -76,7 +77,6 @@ classes:
         about, because its ClaimIRI is computed from content that contains
         the ClaimSetIRI.
     slots:
-      - addressesRequirementSet
       - governedBy
     slot_usage:
       hasSubject:
@@ -84,11 +84,6 @@ classes:
         description: >-
           The claim set the claimants present as complete, by its
           ClaimSetIRI.
-      addressesRequirementSet:
-        description: >-
-          Exact versions of the requirement sets, such as a registration
-          checklist version, that the claimants present the set as
-          answering. It does not mean the set meets them.
       governedBy:
         description: >-
           Exact versions of the governing documents the set is presented

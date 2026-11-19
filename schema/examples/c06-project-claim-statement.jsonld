@@ -18,10 +18,6 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "addressesRequirementSet": {
-      "@type": "@id",
-      "@id": "addressesRequirementSet"
-    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"

@@ -82,18 +82,16 @@ as a project developer's registration package for one project. `claimStatement` 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
 | `hasSubject` | `rfs:hasSubject` | `ClaimSetSubject` (inlined) | 1 | The claim set presented as complete, by its ClaimSetIRI. |
-| `addressesRequirementSet` | `rfs:addressesRequirementSet` | IRI | 0..*, set | Exact requirement-set versions, such as a registration checklist version, that the claimants present the set as answering. |
 | `governedBy` | `rfs:governedBy` | IRI | 0..*, set | Exact versions of the governing documents the set is presented under, such as a credit class version. |
 
 It also has every base Claim field (`claimStatement`, `assertedBy`, `assertedAt` or `assertedOn`,
 `hasEvidenceCitation`, `reliesOn`, `wasRevisionOf` and the rest).
 
-- **It states what the claimants present, not that the set is enough.** Like
-  `addressesRequirement`, the new `addressesRequirementSet` in
-  [`ClaimVocabulary.yaml`](../schema/src/ClaimVocabulary.yaml) records the claimants' intent: it
-  implies neither that the requirement set applies nor that the set meets it. A reviewer who judges
-  that makes an Evaluation with the same ClaimSetIRI in `hasTarget` and the requirement-set version
-  in `appliesRequirementSet`.
+- **Requirements are named on the members.** Which requirements each Claim in the set answers is
+  stated on that Claim, with `addressesRequirement`. The completeness claim does not repeat it.
+- **It states what the claimants present, not that the set is enough.** A reviewer who judges
+  whether the set meets a checklist makes an Evaluation with the same ClaimSetIRI in `hasTarget`
+  and the checklist version in `appliesRequirementSet`.
 - **The members stay in the ClaimSet record.** The completeness claim names the set; it cannot list
   members itself ([example](../schema/examples/claim-set-completeness-claim.SCHEMA-INVALID-member-list.yaml)).
 - **It cannot be a member of its own set.** Its ClaimIRI is computed from content that contains the
@@ -129,7 +127,7 @@ A type is added when a workflow needs it, not ahead of time.
 | Example | Shows |
 |---|---|
 | [`claim-set.jsonld`](../schema/examples/claim-set.jsonld) | A `ClaimSet` of the four C06 example claims, named by placeholder ClaimIRIs |
-| [`claim-set-completeness-claim.jsonld`](../schema/examples/claim-set-completeness-claim.jsonld) | A `ClaimSetCompletenessClaim`: the developer presents that set as its complete registration package for project P-001, answering an invented checklist version under the C06 credit class |
+| [`claim-set-completeness-claim.jsonld`](../schema/examples/claim-set-completeness-claim.jsonld) | A `ClaimSetCompletenessClaim`: the developer presents that set as its complete registration package for project P-001, under the C06 credit class |
 | `claim-set*.SCHEMA-INVALID-*.yaml` | An empty set, a set with a name, and a completeness claim that lists members instead of naming a set |
 
 `make -C schema check-claim-examples` checks both examples and the invalid documents with both

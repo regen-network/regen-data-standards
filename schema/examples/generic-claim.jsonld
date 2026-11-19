@@ -16,10 +16,6 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "addressesRequirementSet": {
-      "@type": "@id",
-      "@id": "addressesRequirementSet"
-    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"

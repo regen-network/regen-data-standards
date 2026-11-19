@@ -16,10 +16,6 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "addressesRequirementSet": {
-      "@type": "@id",
-      "@id": "addressesRequirementSet"
-    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -311,9 +307,6 @@
     "@type": "ClaimSetSubject",
     "id": "https://example.org/placeholder/claim-set-iri/p-001-registration-package"
   },
-  "addressesRequirementSet": [
-    "https://example.org/placeholder/requirement-set-iri/example-registration-2026-05"
-  ],
   "governedBy": [
     "https://example.org/rule-set/credit-class-c06/1.5.2"
   ]
