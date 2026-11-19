@@ -133,7 +133,7 @@ its evaluation names the set version with `appliesRequirementSet`.
 
 | Example | Shows |
 |---|---|
-| [`generic-requirement.jsonld`](../schema/examples/generic-requirement.jsonld) | The crediting term of the public C06 credit class, citing page 7 of its version 1.5.2, with an executable check, including a query that sends a period longer than ten years, which may include renewals, to a person |
+| [`generic-requirement.jsonld`](../schema/examples/generic-requirement.jsonld) | The crediting term of the public C06 credit class, citing page 7 of its version 1.5.2, with an executable check, including a query that sends a period of twenty years or more, which may include a renewal, to a person |
 | [`requirement-set.jsonld`](../schema/examples/requirement-set.jsonld) | A version of an invented registration checklist implementing that credit class, listing that requirement |
 | [`review.jsonld`](../schema/examples/review.jsonld) | The registration review of project P-001, applying that version |
 | [`registry-requirement-evaluation.jsonld`](../schema/examples/registry-requirement-evaluation.jsonld) | An evaluation made in that review (`wasGeneratedBy`), applying the requirement |

@@ -46,7 +46,7 @@ requirementCheck:
         ?_claim_iri rfs:creditingPeriod ?period .
         ?period schema:startDate ?start ; schema:endDate ?end .
       }
-      FILTER(?end > (?start + "P10Y"^^xsd:yearMonthDuration - "P1D"^^xsd:dayTimeDuration))
+      FILTER(?end >= (?start + "P20Y"^^xsd:yearMonthDuration - "P1D"^^xsd:dayTimeDuration))
     }
   satisfiedQuery: |-
     PREFIX rfs: <https://framework.regen.network/schema/>
@@ -63,9 +63,12 @@ requirementCheck:
     The claim states no complete crediting period with typed dates, or cites
     no source.
   needsHumanReviewExplanation: >-
-    The stated period is longer than ten years, so it may include renewal
-    periods; a reviewer must check that a renewal decision covers them.
+    The stated period is at least twenty years, so it may include ten-year
+    renewal periods; a reviewer must check that a renewal decision covers
+    them.
   satisfiedExplanation: >-
     The claim states a ten-year crediting period. This does not establish
     that the cited plan states it.
-  unmetExplanation: The stated period is shorter than ten years.
+  unmetExplanation: >-
+    The stated period is not ten years, and too short to include a ten-year
+    renewal period.
