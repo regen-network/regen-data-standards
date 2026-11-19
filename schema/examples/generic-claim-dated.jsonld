@@ -16,6 +16,10 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "addressesRequirementSet": {
+      "@type": "@id",
+      "@id": "addressesRequirementSet"
+    },
     "appliesRequirement": {
       "@type": "@id",
       "@id": "appliesRequirement"
@@ -254,6 +258,9 @@
     },
     "ProvAgent": {
       "@id": "prov:Agent"
+    },
+    "ProvCollection": {
+      "@id": "prov:Collection"
     },
     "ProvEntity": {
       "@id": "prov:Entity"

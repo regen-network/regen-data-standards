@@ -1,0 +1,11 @@
+# Synthetic example: the Claims that the developer of example project P-001
+# presents together for its registration, which are the C06 project, cohort,
+# site and plot claims of the C06 examples. Each member is named by a
+# labelled placeholder for its ClaimIRI, which is computed from its content
+# (regen-network/claims#1). The record lists the members only: who listed
+# them, when and why is said by Claims about the set.
+hasClaim:
+  - https://example.org/placeholder/claim-iri/c06-project-claim-mvp-001
+  - https://example.org/placeholder/claim-iri/c06-cohort-claim-mvp-001
+  - https://example.org/placeholder/claim-iri/c06-site-claim-mvp-001
+  - https://example.org/placeholder/claim-iri/c06-plot-claim-mvp-001

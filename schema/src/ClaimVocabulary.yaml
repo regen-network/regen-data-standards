@@ -109,8 +109,8 @@ slots:
     description: >-
       The exact resource or resources directly examined or assessed in
       reaching the Evaluation's conclusion. When a resource can change, the
-      target identifies the particular version or snapshot that was
-      assessed. It is distinct from the Evaluation's focal subject
+      target identifies the particular version that was assessed, or a
+      ClaimSet of exact versions. It is distinct from the Evaluation's focal subject
       (hasSubject) and from the criteria it applies (appliesRequirement).
     comments:
       - >-
@@ -154,6 +154,23 @@ slots:
       a whole. An evaluation of one requirement names only that requirement
       (appliesRequirement): its set is reached through the requirement's
       membership, defined by WP5-01 (claims#30).
+    comments:
+      - >-
+        Implementation: each value is the IRI of one requirement-set version.
+        Repeatable and unordered.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  addressesRequirementSet:
+    slot_uri: rfs:addressesRequirementSet
+    description: >-
+      Exact versions of requirement sets, such as a registration checklist
+      version, that the claimant presents a Claim, or the resource it is
+      about, as answering as a whole. Like addressesRequirement, it records
+      the claimant's intent only: it implies neither that the set applies
+      nor that it is met, which an evaluation judges with
+      appliesRequirementSet. Not on the base Claim: a claim type selects it
+      where it needs it, as ClaimSetCompletenessClaim does.
     comments:
       - >-
         Implementation: each value is the IRI of one requirement-set version.

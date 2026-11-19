@@ -54,9 +54,9 @@ A project developer's response to a finding is a Claim by the developer (usually
 claim with new evidence), not an evaluation.
 
 `hasTarget` names the exact resources an evaluation directly examines or assesses in reaching its
-conclusion. When a resource can change, the target is the particular version or snapshot assessed: an
-exact claim or evaluation version, an `Evidence` record, or a snapshot (a fixed set of claim
-versions, identified by its SnapshotIRI, [claims#56](https://github.com/regen-network/claims/issues/56)),
+conclusion. When a resource can change, the target is the particular version assessed: an
+exact claim or evaluation version, an `Evidence` record, or a claim set (a fixed set of claim
+versions, identified by its ClaimSetIRI; see [`docs/claim-sets.md`](claim-sets.md)),
 for example when a judgment covers a whole submission. It is distinct from the focal subject and
 from the criteria applied: a land-tenure evaluation may have a project as its `hasSubject`, directly
 assess particular tenure claims or `Evidence` records through `hasTarget`, and name the governing
@@ -224,7 +224,7 @@ WP5.
 
 | Field | RDF term | Range | Card. | Meaning |
 |---|---|---|---|---|
-| `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | The exact resources directly examined or assessed; a version or snapshot when the resource can change. |
+| `hasTarget` | `rfs:hasTarget` | IRI | 0..*, set | The exact resources directly examined or assessed; an exact version, or a claim set of exact versions, when the resource can change. |
 | `reliesOn` | `rfs:reliesOn` ⊑ `dcterms:references` | IRI | 0..*, set | An exact Claim or Evaluation whose asserted content or result is used in reaching the assessment, but which the evaluation does not itself assess, such as a claim stating an enrolment cutoff. |
 | `appliesRequirement` | `rfs:appliesRequirement` | IRI | 0..*, set | Exact requirement versions the evaluation applies or judges, whether or not the claimant named them. |
 | `appliesRequirementSet` | `rfs:appliesRequirementSet` | IRI | 0..*, set | Exact requirement-set versions, such as a checklist version, applied or assessed as a whole. An evaluation of one requirement names only the requirement; its set is reached through membership (WP5-01). |

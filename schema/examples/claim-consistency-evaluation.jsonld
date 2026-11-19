@@ -16,6 +16,10 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "addressesRequirementSet": {
+      "@type": "@id",
+      "@id": "addressesRequirementSet"
+    },
     "applicability": {
       "@id": "applicability",
       "@type": "@vocab",
@@ -350,6 +354,9 @@
     },
     "ProvAgent": {
       "@id": "prov:Agent"
+    },
+    "ProvCollection": {
+      "@id": "prov:Collection"
     },
     "ProvEntity": {
       "@id": "prov:Entity"

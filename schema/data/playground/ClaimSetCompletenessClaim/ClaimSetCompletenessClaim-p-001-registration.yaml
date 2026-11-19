@@ -1,0 +1,24 @@
+# Synthetic example (example.org identifiers): the developer of example
+# project P-001 states that the claim set in
+# ClaimSet-p-001-registration-package is its complete registration package.
+# The set is named by a labelled placeholder for its ClaimSetIRI, which is
+# computed from the ClaimSet record (regen-network/claims#1). The checklist
+# version it answers is invented. Whether the package meets that checklist is
+# for a reviewer's Evaluation, which would name the same ClaimSetIRI in
+# hasTarget.
+name: Example project P-001 registration package
+claimStatement: >-
+  These four claims, about the project, its 2021 cohort, site S-001 and plot
+  S-001.0007, are our complete registration package for example project
+  P-001.
+inLanguage: en
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-07-15T10:00:00+00:00"
+hasSubject:
+  id: https://example.org/placeholder/claim-set-iri/p-001-registration-package
+addressesRequirementSet:
+  - https://example.org/placeholder/requirement-set-iri/example-registration-2026-05
+governedBy:
+  - https://example.org/rule-set/credit-class-c06/1.5.2

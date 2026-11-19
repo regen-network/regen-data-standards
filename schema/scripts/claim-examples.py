@@ -113,6 +113,8 @@ MODULES = {
     "C06CohortClaim": "src/C06Claim.yaml",
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
+    "ClaimSet": "src/ClaimSet.yaml",
+    "ClaimSetCompletenessClaim": "src/ClaimSet.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
@@ -131,6 +133,8 @@ EXAMPLES = {
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
+    "data/playground/ClaimSet/ClaimSet-p-001-registration-package.yaml": "examples/claim-set.jsonld",
+    "data/playground/ClaimSetCompletenessClaim/ClaimSetCompletenessClaim-p-001-registration.yaml": "examples/claim-set-completeness-claim.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 EVIDENCE_GLOB = "data/playground/Evidence/*.ttl"

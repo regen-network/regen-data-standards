@@ -1,0 +1,126 @@
+id: https://framework.regen.network/schema/ClaimSet
+name: ClaimSet
+description: >-
+  Claim sets and the Claims made about them. A ClaimSet is a fixed set of
+  exact Claim versions, named by their ClaimIRIs, and nothing else. It has no
+  claimant, so nobody asserts or signs it: an agent who says something about
+  a set makes a Claim whose subject is the set, of a claim type that says
+  what the statement means, such as ClaimSetCompletenessClaim. A judgment of
+  a set is an Evaluation that names it in hasTarget and needs no type here.
+  See docs/claim-sets.md.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+
+imports:
+  - linkml:types
+  - core
+  - Claim
+  - ClaimSubject
+  - ClaimVocabulary
+  - ProvAlignment
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  ClaimSet:
+    class_uri: rfs:ClaimSet
+    mixins:
+      - ProvCollection
+    description: >-
+      A fixed set of exact Claim versions, such as the Claims a project
+      developer presents together for a registration review. Evaluations are
+      Claims, so they can be members. The record holds only its members: no
+      name, creator or creation time. Its IRI, the ClaimSetIRI, is computed
+      from the record (regen-network/claims#1), so the same members always
+      give the same ClaimSetIRI, whoever lists them and whenever, and
+      adding, removing or revising a member makes a different set. A set
+      asserts nothing and has no claimant: presenting a set, signing it off
+      or judging it is a Claim or an Evaluation that names it by its
+      ClaimSetIRI.
+    comments:
+      - >-
+        Implementation: the record has no IRI slot, because its IRI is
+        computed from its content. In RDF it is one blank node typed
+        rfs:ClaimSet with one rfs:hasClaim statement per member, as the
+        proposed claims ADR 0002 D11 requires.
+    slots:
+      - hasClaim
+
+  ClaimSetSubject:
+    is_a: ClaimSubject
+    class_uri: rfs:ClaimSetSubject
+    description: >-
+      A claim set as the subject of a Claim, identified by its ClaimSetIRI.
+      The members are listed in the set's own ClaimSet record, not in the
+      Claims about it.
+
+  ClaimSetCompletenessClaim:
+    is_a: Claim
+    class_uri: rfs:ClaimSetCompletenessClaim
+    description: >-
+      The claimants' statement that a claim set holds every Claim they
+      present for a stated purpose, such as a project developer's
+      registration package for one project. claimStatement states the
+      purpose. It records what the claimants present and take
+      responsibility for, not that the set meets a requirement set or is
+      accepted: a reviewer who judges the set makes an Evaluation that names
+      it in hasTarget. A later, fuller package is a new claim set and a new
+      ClaimSetCompletenessClaim, which states wasRevisionOf when it replaces
+      the earlier one.
+    comments:
+      - >-
+        Implementation: this Claim cannot be a member of the set it is
+        about, because its ClaimIRI is computed from content that contains
+        the ClaimSetIRI.
+    slots:
+      - addressesRequirementSet
+      - governedBy
+    slot_usage:
+      hasSubject:
+        range: ClaimSetSubject
+        description: >-
+          The claim set the claimants present as complete, by its
+          ClaimSetIRI.
+      addressesRequirementSet:
+        description: >-
+          Exact versions of the requirement sets, such as a registration
+          checklist version, that the claimants present the set as
+          answering. It does not mean the set meets them.
+      governedBy:
+        description: >-
+          Exact versions of the governing documents the set is presented
+          under, such as a credit class version.
+
+slots:
+  hadMember:
+    slot_uri: prov:hadMember
+    description: >-
+      PROV membership: an entity that is a member of a collection. Declared
+      here so that narrower membership relations, such as hasClaim, can
+      specialize it (rdfs:subPropertyOf). Each value is the IRI of the
+      member. Unordered set.
+    range: uriorcurie
+    multivalued: true
+    list_elements_ordered: false
+  hasClaim:
+    is_a: hadMember
+    slot_uri: rfs:hasClaim
+    description: >-
+      The members of the claim set, each by the ClaimIRI of one exact,
+      immutable Claim or Evaluation version. Order and repeats mean nothing:
+      a member listed twice is one member. A set has at least one member.
+    comments:
+      - >-
+        Implementation: each value is a bare IRI, because a Claim has no IRI
+        slot: its ClaimIRI is computed from its content. The schema checks
+        only that each value is an IRI. That it is the ClaimIRI of an
+        admitted Claim is checked by the service that records the set
+        (proposed claims ADR 0002 D10).
+    range: uriorcurie
+    required: true
+    multivalued: true
+    list_elements_ordered: false
+    minimum_cardinality: 1

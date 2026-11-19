@@ -196,7 +196,11 @@ classes:
   ```
 
   A shared `RequirementClaim`, and the requirement records themselves, belong to WP5
-  ([claims#30](https://github.com/regen-network/claims/issues/30)).
+  ([claims#30](https://github.com/regen-network/claims/issues/30)). A claim type that answers a
+  requirement set as a whole, such as a checklist version, selects `addressesRequirementSet` the
+  same way.
+- A claim about a claim set narrows `hasSubject` to `ClaimSetSubject`, with one claim type for each
+  kind of statement about a set ([`docs/claim-sets.md`](claim-sets.md)).
 
 The shape above was checked with a scratch schema: it validated and produced the expected RDF. A
 scratch claim type also passed the open `Claim` shape, and its own closed shape rejected an

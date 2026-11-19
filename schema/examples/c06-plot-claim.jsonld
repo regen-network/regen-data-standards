@@ -18,6 +18,10 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
+    "addressesRequirementSet": {
+      "@type": "@id",
+      "@id": "addressesRequirementSet"
+    },
     "adoptionDate": {
       "@type": "xsd:date",
       "@id": "adoptionDate"
@@ -521,6 +525,9 @@
     },
     "ProvAgent": {
       "@id": "prov:Agent"
+    },
+    "ProvCollection": {
+      "@id": "prov:Collection"
     },
     "ProvEntity": {
       "@id": "prov:Entity"

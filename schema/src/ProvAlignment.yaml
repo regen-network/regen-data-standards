@@ -24,6 +24,12 @@ classes:
     mixin: true
     description: >-
       PROV-O Entity: a thing with some fixed aspects, such as a Claim version.
+  ProvCollection:
+    class_uri: prov:Collection
+    mixin: true
+    description: >-
+      PROV-O Collection: an entity that has members, such as a claim set.
+      PROV-O defines it as a kind of prov:Entity.
   ProvAgent:
     class_uri: prov:Agent
     mixin: true
