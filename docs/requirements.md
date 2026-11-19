@@ -116,8 +116,14 @@ One exact version of a set of requirements, such as version 2026-05 of a registr
 
 Its IRI is computed from its content, so adding, removing or revising a requirement makes a new
 version. The versions of a set are found by following `wasRevisionOf`, not by the code, which another
-program could reuse. Whether a version is approved for use, and which version replaced it, change
-over time and are kept by the service that manages the set.
+program could reuse.
+
+A version is in use once it is submitted: drafts belong to the tools that author requirements, not
+to the records. It is retired once a later version revises it, so whether a version is retired
+follows from the records of the versions after it, never from its own record, which does not
+change. A Review names the versions it applies, so an open Review keeps them after they are retired.
+A program that wants different checklists for different cohorts publishes different requirement
+sets.
 
 ## Review
 

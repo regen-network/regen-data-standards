@@ -97,10 +97,10 @@ classes:
       the record does not contain it and never changes: adding, removing
       or revising a requirement makes a new version, which states
       wasRevisionOf. The versions of a set are found by following those
-      links. Whether a version is approved for use, and which version
-      replaced it, change over time and are kept by the service that manages
-      the set, not in the record. A Review names the versions it
-      applies with appliesRequirementSet.
+      links. A version is in use once it is submitted, and retired once a
+      later version revises it, so whether a version is retired follows from
+      the records of the versions after it, never from its own. A Review
+      names the versions it applies with appliesRequirementSet.
     slots:
       - identifier
       - version
