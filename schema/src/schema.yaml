@@ -29,6 +29,7 @@ imports:
   - ProvAlignment
   - Evaluation
   - RegistryReviewEvaluation
+  - ClaimSet
   - C06Claim
   - BT01ProjectInfo
   - C01ProjectInfo

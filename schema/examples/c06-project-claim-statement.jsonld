@@ -522,6 +522,9 @@
     "ProvAgent": {
       "@id": "prov:Agent"
     },
+    "ProvCollection": {
+      "@id": "prov:Collection"
+    },
     "ProvEntity": {
       "@id": "prov:Entity"
     },

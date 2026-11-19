@@ -1,0 +1,310 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "linkml": "https://w3id.org/linkml/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rfs": "https://framework.regen.network/schema/",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "@vocab": "https://framework.regen.network/schema/",
+    "id": "@id",
+    "addressesRequirement": {
+      "@type": "@id",
+      "@id": "addressesRequirement"
+    },
+    "appliesRequirement": {
+      "@type": "@id",
+      "@id": "appliesRequirement"
+    },
+    "appliesRequirementSet": {
+      "@type": "@id",
+      "@id": "appliesRequirementSet"
+    },
+    "assertedAt": {
+      "@type": "xsd:dateTime",
+      "@id": "assertedAt"
+    },
+    "assertedBy": {
+      "@type": "@id",
+      "@id": "assertedBy"
+    },
+    "assertedOn": {
+      "@type": "xsd:date",
+      "@id": "assertedOn"
+    },
+    "claimStatement": {
+      "@id": "claimStatement"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
+    },
+    "algorithm": {
+      "@id": "algorithm",
+      "@type": "@vocab",
+      "@context": {
+        "SHA_256": "rfs:SHA256",
+        "BLAKE2B_256": "rfs:BLAKE2b256"
+      }
+    },
+    "digestValue": {
+      "@id": "digestValue"
+    },
+    "contentHash": {
+      "@type": "@id",
+      "@id": "contentHash"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "endDate": {
+      "@type": "xsd:date",
+      "@id": "schema:endDate"
+    },
+    "type": {
+      "@id": "type",
+      "@type": "@vocab",
+      "@context": {
+        "INDIVIDUAL": "rfs:Individual",
+        "ORGANIZATION": "rfs:Organization",
+        "COMMUNITY": "rfs:Community"
+      }
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
+    },
+    "evaluationMethod": {
+      "@type": "@id",
+      "@id": "evaluationMethod"
+    },
+    "evaluationMethodDescription": {
+      "@id": "evaluationMethodDescription"
+    },
+    "exact": {
+      "@id": "oa:exact"
+    },
+    "governedBy": {
+      "@type": "@id",
+      "@id": "governedBy"
+    },
+    "hadMember": {
+      "@type": "@id",
+      "@id": "prov:hadMember"
+    },
+    "hasClaim": {
+      "@type": "@id",
+      "@id": "hasClaim"
+    },
+    "hasEvidenceCitation": {
+      "@type": "@id",
+      "@id": "hasEvidenceCitation"
+    },
+    "hasSubject": {
+      "@type": "@id",
+      "@id": "hasSubject"
+    },
+    "hasTarget": {
+      "@type": "@id",
+      "@id": "hasTarget"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image"
+    },
+    "inLanguage": {
+      "@id": "schema:inLanguage"
+    },
+    "issued": {
+      "@type": "xsd:date",
+      "@id": "dcterms:issued"
+    },
+    "licence": {
+      "@type": "@id",
+      "@id": "dcterms:license"
+    },
+    "mediaType": {
+      "@id": "dcterms:format"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "prefix": {
+      "@id": "oa:prefix"
+    },
+    "hasUnit": {
+      "@type": "@id",
+      "@id": "qudt:hasUnit"
+    },
+    "numericValue": {
+      "@type": "xsd:float",
+      "@id": "qudt:value"
+    },
+    "references": {
+      "@type": "@id",
+      "@id": "dcterms:references"
+    },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
+    "reliesOn": {
+      "@type": "@id",
+      "@id": "reliesOn"
+    },
+    "resolver": {
+      "@type": "@id",
+      "@id": "resolver"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "selectorType": {
+      "@type": "@id",
+      "@id": "rdf:type"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
+    },
+    "sourceType": {
+      "@id": "dcterms:type",
+      "@type": "@vocab",
+      "@context": {
+        "COLLECTION": "http://purl.org/dc/dcmitype/Collection",
+        "DATASET": "http://purl.org/dc/dcmitype/Dataset",
+        "EVENT": "http://purl.org/dc/dcmitype/Event",
+        "IMAGE": "http://purl.org/dc/dcmitype/Image",
+        "INTERACTIVE_RESOURCE": "http://purl.org/dc/dcmitype/InteractiveResource",
+        "MOVING_IMAGE": "http://purl.org/dc/dcmitype/MovingImage",
+        "PHYSICAL_OBJECT": "http://purl.org/dc/dcmitype/PhysicalObject",
+        "SERVICE": "http://purl.org/dc/dcmitype/Service",
+        "SOFTWARE": "http://purl.org/dc/dcmitype/Software",
+        "SOUND": "http://purl.org/dc/dcmitype/Sound",
+        "STILL_IMAGE": "http://purl.org/dc/dcmitype/StillImage",
+        "TEXT": "http://purl.org/dc/dcmitype/Text"
+      }
+    },
+    "startDate": {
+      "@type": "xsd:date",
+      "@id": "schema:startDate"
+    },
+    "suffix": {
+      "@id": "oa:suffix"
+    },
+    "url": {
+      "@type": "@id",
+      "@id": "schema:url"
+    },
+    "value": {
+      "@id": "rdf:value"
+    },
+    "version": {
+      "@id": "schema:version"
+    },
+    "wasAssociatedWith": {
+      "@type": "@id",
+      "@id": "prov:wasAssociatedWith"
+    },
+    "wasAttributedTo": {
+      "@type": "@id",
+      "@id": "prov:wasAttributedTo"
+    },
+    "wasGeneratedBy": {
+      "@type": "@id",
+      "@id": "prov:wasGeneratedBy"
+    },
+    "wasRevisionOf": {
+      "@type": "@id",
+      "@id": "prov:wasRevisionOf"
+    },
+    "Activity": {
+      "@id": "Activity"
+    },
+    "Any": {
+      "@id": "linkml:Any"
+    },
+    "Claim": {
+      "@id": "Claim"
+    },
+    "ClaimSet": {
+      "@id": "ClaimSet"
+    },
+    "ClaimSetCompletenessClaim": {
+      "@id": "ClaimSetCompletenessClaim"
+    },
+    "ClaimSetSubject": {
+      "@id": "ClaimSetSubject"
+    },
+    "ClaimSubject": {
+      "@id": "ClaimSubject"
+    },
+    "ContentDigest": {
+      "@id": "ContentDigest"
+    },
+    "Entity": {
+      "@id": "Entity"
+    },
+    "Evidence": {
+      "@id": "Evidence"
+    },
+    "EvidenceCitation": {
+      "@id": "EvidenceCitation"
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector"
+    },
+    "GenericClaim": {
+      "@id": "GenericClaim"
+    },
+    "Link": {
+      "@id": "Link"
+    },
+    "ProvActivity": {
+      "@id": "prov:Activity"
+    },
+    "ProvAgent": {
+      "@id": "prov:Agent"
+    },
+    "ProvCollection": {
+      "@id": "prov:Collection"
+    },
+    "ProvEntity": {
+      "@id": "prov:Entity"
+    },
+    "QuantityValue": {
+      "@id": "qudt:QuantityValue"
+    },
+    "Selector": {
+      "@id": "oa:Selector"
+    },
+    "TextQuoteSelector": {
+      "@id": "oa:TextQuoteSelector"
+    },
+    "VersionedLink": {
+      "@id": "VersionedLink"
+    }
+  },
+  "@type": "ClaimSetCompletenessClaim",
+  "name": "Example project P-001 registration package",
+  "claimStatement": "These four claims, about the project, its 2021 cohort, site S-001 and plot S-001.0007, are our complete registration package for example project P-001.",
+  "inLanguage": "en",
+  "assertedBy": [
+    {
+      "@type": "Entity",
+      "name": "Example Soil Carbon Developer",
+      "type": "ORGANIZATION"
+    }
+  ],
+  "assertedAt": "2026-07-15T10:00:00+00:00",
+  "hasSubject": {
+    "@type": "ClaimSetSubject",
+    "id": "https://example.org/placeholder/claim-set-iri/p-001-registration-package"
+  }
+}

@@ -1,0 +1,14 @@
+# expect: Additional properties are not allowed ('hasClaim' was unexpected)
+# class: ClaimSetCompletenessClaim
+# A completeness claim that lists the members itself instead of naming a
+# claim set. The members belong in the ClaimSet record, whose ClaimSetIRI
+# fixes them; the claim names that IRI as its subject.
+claimStatement: These claims are our complete registration package.
+assertedBy:
+  - name: Example Soil Carbon Developer
+    type: ORGANIZATION
+assertedAt: "2026-07-15T10:00:00+00:00"
+hasSubject:
+  id: https://example.org/placeholder/claim-set-iri/p-001-registration-package
+hasClaim:
+  - https://example.org/placeholder/claim-iri/c06-project-claim-mvp-001

@@ -1,0 +1,5 @@
+# expect: [] should be non-empty in /hasClaim
+# class: ClaimSet
+# A claim set without members. The proposed claims ADR 0002 D10 rejects an
+# empty set, so the schema requires at least one member.
+hasClaim: []

@@ -109,8 +109,8 @@ slots:
     description: >-
       The exact resource or resources directly examined or assessed in
       reaching the Evaluation's conclusion. When a resource can change, the
-      target identifies the particular version or snapshot that was
-      assessed. It is distinct from the Evaluation's focal subject
+      target identifies the particular version that was assessed, or a
+      ClaimSet of exact versions. It is distinct from the Evaluation's focal subject
       (hasSubject) and from the criteria it applies (appliesRequirement).
     comments:
       - >-

@@ -1,0 +1,8 @@
+# expect: Additional properties are not allowed ('name' was unexpected)
+# class: ClaimSet
+# A claim set with a name. The record holds its members only: a name, creator
+# or creation time would give the same members several ClaimSetIRIs (proposed
+# claims ADR 0002 D10). A Claim about the set can name it.
+name: P-001 registration package
+hasClaim:
+  - https://example.org/placeholder/claim-iri/c06-project-claim-mvp-001
