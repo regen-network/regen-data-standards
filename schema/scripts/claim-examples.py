@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate and check the Claim, Evaluation and C06 claim JSON-LD examples.
+"""Generate and check the Claim, Evaluation, Requirement and C06 claim JSON-LD examples.
 
     python3 scripts/claim-examples.py generate   # rewrite examples/*.jsonld, without checking
     python3 scripts/claim-examples.py check      # fail if anything is stale or wrong
@@ -42,8 +42,10 @@ The check validates every document with both validators the schema generates:
   reference, as the graph store holds them: a claim or evaluation with the
   Evidence and Activity records, an Evidence record with the Activity records.
   Activity records are typed with a kind of Activity (GenericActivity,
-  Capture), so they are merged together with the class hierarchy gen-hierarchy
-  publishes, which the store holds too. An Activity correction can reference
+  Capture, Review), so they are merged together with the class hierarchy
+  gen-hierarchy publishes, which the store holds too. An evaluation names the
+  Review it was made in (wasGeneratedBy), and a requirement cites the Evidence
+  record of its source document, so both are checked with these records too. An Activity correction can reference
   an earlier Activity with replaces, so it is checked with the other Activity
   records, excluding its own stored copy.
 
@@ -64,17 +66,20 @@ in parentheses. A document marked "# graph: with the Evidence records" is valid
 on its own ("# expect: accepted alone"), and SHACL must reject it merged with
 the Evidence records, as the graph store merges it.
 
-For each example with citations, the check also changes a selector and
-requires that the cited Evidence IRIs and the Evidence records stay the same,
-while the citing document's graph changes.
+For each example with citations, a claim's hasEvidenceCitation or a
+requirement's requirementSource, the check also changes a selector and requires
+that the cited Evidence IRIs and the Evidence records stay the same, while the
+citing document's graph changes.
 
-The generic examples are GenericClaims and GenericEvaluations, whose shapes are
-closed. The base Claim and Evaluation are abstract, so their shapes are open:
-they check the base content of every claim type or kind of evaluation and let it
-add fields. To check that, each generic example is also retyped as a class
-defined outside this schema, with a field of its own and the rdfs:subClassOf
-triple that such a schema publishes with its data. The open base shape must
-accept it, and must reject it without assertedBy.
+The generic examples are GenericClaims, GenericEvaluations and
+GenericRequirements, whose shapes are closed. The base Claim, Evaluation and
+Requirement are abstract, so their shapes are open: they check the base content
+of every claim type, kind of evaluation or kind of requirement and let it add
+fields. To check that, each generic example is also retyped as a class defined
+outside this schema, with a field of its own and the rdfs:subClassOf triple that
+such a schema publishes with its data. The open base shape must accept it, and
+must reject it without a field the base requires (assertedBy for a Claim or an
+Evaluation, requirementStatement for a Requirement).
 
 Every other example (a claim type or a kind of evaluation) is also checked as
 the graph store holds it, with the class hierarchy gen-hierarchy publishes, so
@@ -121,6 +126,9 @@ MODULES = {
     "C06CohortClaim": "src/C06Claim.yaml",
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
+    "GenericRequirement": "src/Requirement.yaml",
+    "RequirementSet": "src/Requirement.yaml",
+    "Review": "src/Requirement.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
@@ -148,18 +156,30 @@ EXAMPLES = {
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
+    "data/playground/GenericRequirement/GenericRequirement-example-crediting-period.yaml": "examples/generic-requirement.jsonld",
+    "data/playground/RequirementSet/RequirementSet-example-registration-2026-05.yaml": "examples/requirement-set.jsonld",
+    "data/playground/Review/Review-P-001-registration.yaml": "examples/review.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 # The records documents reference by IRI, as the graph store holds them.
 RECORD_GLOBS = {
     "evidence": ["data/playground/Evidence/*.ttl"],
-    "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
+    "activity": [
+        "data/playground/GenericActivity/*.ttl",
+        "data/playground/Capture/*.ttl",
+        "data/playground/Review/*.ttl",
+    ],
 }
-ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
+ACTIVITY_CLASSES = {"GenericActivity", "Capture", "Review"}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
-# The abstract base each generic class stands for: its shape is open.
-OPEN_BASES = {"GenericClaim": "Claim", "GenericEvaluation": "Evaluation"}
+# The abstract base each generic class stands for, whose shape is open, and a
+# field that base requires.
+OPEN_BASES = {
+    "GenericClaim": ("Claim", "assertedBy"),
+    "GenericEvaluation": ("Evaluation", "assertedBy"),
+    "GenericRequirement": ("Requirement", "requirementStatement"),
+}
 EXTENSION_FIELD = rdflib.URIRef("https://example.org/schema/extensionField")
 UNDECLARED_FIELD = rdflib.URIRef("https://example.org/schema/undeclaredField")
 
@@ -301,7 +321,7 @@ def class_uri(view, name):
 def as_extension(view, graph, class_name, without=None):
     """Retype the record as a class defined outside this schema, with a field of its own."""
     uri = lambda name: class_uri(view, name)
-    base = OPEN_BASES[class_name]
+    base, _ = OPEN_BASES[class_name]
     extension = rdflib.URIRef(f"https://example.org/schema/Extension{base}")
     out = rdflib.Graph()
     for triple in graph:
@@ -358,10 +378,15 @@ def with_store(graph, store, class_name=None):
     return merged
 
 
+def citations(data):
+    """Return the citations of a record: a claim's evidence, a requirement's source."""
+    return data.get("hasEvidenceCitation", []) + ([data["requirementSource"]] if "requirementSource" in data else [])
+
+
 def change_selector(data):
     """Return a copy of data whose first citation with a selector has that selector changed."""
     data = json.loads(json.dumps(data))
-    citation = next(c for c in data["hasEvidenceCitation"] if c.get("selector"))
+    citation = next(c for c in citations(data) if c.get("selector"))
     selector = citation["selector"][0]
     key = "value" if "value" in selector else "exact"
     selector[key] = selector[key] + "-changed"
@@ -472,7 +497,7 @@ def main(mode):
                 print(f"❌ {document}: SHACL violations {messages}")
                 failures += 1
         data = yaml.safe_load(Path(fixture).read_text())
-        if any(c.get("selector") for c in data.get("hasEvidenceCitation", [])):
+        if any(c.get("selector") for c in citations(data)):
             graph = rdflib.Graph().parse(data=text, format="json-ld")
             changed = rdflib.Graph().parse(data=build(module, class_name, fixture, change_selector(data)), format="json-ld")
             source = rdflib.URIRef(module["view"].get_uri(module["view"].get_slot("source"), expand=True))
@@ -484,7 +509,7 @@ def main(mode):
                 print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
                 failures += 1
         if class_name in OPEN_BASES:
-            base = OPEN_BASES[class_name]
+            base, required = OPEN_BASES[class_name]
             graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
             conforms, messages = shacl_report(as_extension(module["view"], graph, class_name), module["shapes"])
             if conforms:
@@ -492,11 +517,11 @@ def main(mode):
             else:
                 print(f"❌ {example} as an outside {base} subclass: SHACL violations {messages}")
                 failures += 1
-            conforms, _ = shacl_report(as_extension(module["view"], graph, class_name, without="assertedBy"), module["shapes"])
+            conforms, _ = shacl_report(as_extension(module["view"], graph, class_name, without=required), module["shapes"])
             if not conforms:
-                print(f"✅ {example} as an outside {base} subclass without assertedBy: the {base} shape rejects it")
+                print(f"✅ {example} as an outside {base} subclass without {required}: the {base} shape rejects it")
             else:
-                print(f"❌ {example} as an outside {base} subclass without assertedBy: SHACL accepts it")
+                print(f"❌ {example} as an outside {base} subclass without {required}: SHACL accepts it")
                 failures += 1
         elif class_name != "Evidence":
             graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes

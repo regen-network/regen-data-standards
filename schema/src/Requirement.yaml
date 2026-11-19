@@ -1,0 +1,397 @@
+id: https://framework.regen.network/schema/Requirement
+name: Requirement
+description: >-
+  Program requirements, the requirement sets that group them, and the reviews
+  that apply them. A Requirement states one thing a program requires, where
+  the program states it, what evidence a claimant is expected to cite for it
+  and, optionally, an executable check of it. A RequirementSet is
+  one version of a set of requirements, such as a version of a registration
+  checklist. A Review is the process that applies requirement set versions,
+  such as a project's registration review or a funder's vetting round. See
+  docs/requirements.md.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  prov: http://www.w3.org/ns/prov#
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - Activity
+  - ClaimVocabulary
+  - Evidence
+  - ProvAlignment
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  Requirement:
+    class_uri: rfs:Requirement
+    abstract: true
+    mixins:
+      - ProvEntity
+    description: >-
+      One thing a program requires of a claim or its subject, as one exact
+      version. Its IRI is computed from its content, as a Claim's is, so the
+      record does not contain it and never changes: a change to its
+      statement, scope, source, accepted evidence or check is a new
+      version that states wasRevisionOf. An unchanged requirement keeps its
+      IRI in every requirement set version that lists it, so a result
+      about it stays about the same requirement when another requirement of
+      the set changes. A requirement is not a Claim: it asserts nothing about
+      the world, and an Evaluation applies it with appliesRequirement.
+      Abstract: a record is a GenericRequirement or a kind of requirement a
+      program defines.
+    comments:
+      - >-
+        Implementation: abstract, like Claim and Evaluation, so its generated
+        shape is open. It checks the base content of every kind of
+        requirement, including kinds another program defines, and lets a kind
+        add fields. A requirement that uses only the shared fields is a
+        GenericRequirement. The policy for this extension point is
+        regen-network/regen-data-standards#106.
+    slots:
+      - identifier
+      - requirementStatement
+      - requirementSource
+      - assessmentScope
+      - acceptsEvidence
+      - requirementCheck
+      - wasRevisionOf
+    slot_usage:
+      identifier:
+        description: >-
+          The program's code for the requirement, such as
+          EXAMPLE-REGISTRATION-CP-1, which reviewers and findings use. It is
+          unique within each requirement set version that lists the
+          requirement, and a revised version keeps it. It is not the
+          requirement's IRI, which is computed from its content.
+        required: true
+      wasRevisionOf:
+        description: >-
+          The exact earlier version of this requirement that this version
+          revises, by its IRI. Versions of a requirement are linked
+          this way, not by their code.
+
+  GenericRequirement:
+    is_a: Requirement
+    class_uri: rfs:GenericRequirement
+    description: >-
+      A requirement that uses only the shared Requirement fields. It means no
+      more than Requirement.
+    comments:
+      - >-
+        Implementation: it exists as its own class so that such a requirement
+        is validated with a closed shape, which the open Requirement base
+        cannot give its direct instances, as GenericClaim does for Claim.
+
+  RequirementSet:
+    class_uri: rfs:RequirementSet
+    mixins:
+      - ProvEntity
+    description: >-
+      One exact version of a set of requirements, such as the 2026-11 version
+      of a registration checklist. Its IRI is computed from its content, so
+      the record does not contain it and never changes: adding, removing
+      or revising a requirement makes a new version, which states
+      wasRevisionOf. The versions of a set are found by following those
+      links. A version is in use once it is submitted, and retired once a
+      later version revises it, so whether a version is retired follows from
+      the records of the versions after it, never from its own. A Review
+      names the versions it applies with appliesRequirementSet.
+    slots:
+      - identifier
+      - version
+      - name
+      - hasRequirement
+      - governedBy
+      - wasRevisionOf
+    slot_usage:
+      identifier:
+        description: >-
+          The program's code for the set, such as EXAMPLE-REGISTRATION, shared by
+          all its versions. It helps people recognise the set; it is not
+          unique across programs, so the versions of a set are linked with
+          wasRevisionOf, not by this code.
+        required: true
+      version:
+        description: >-
+          The program's label for this version, such as 2026-11. Labels have
+          no implied order: wasRevisionOf says which version a version
+          revises.
+        required: true
+      name:
+        description: Human-readable title of the set.
+        required: true
+      governedBy:
+        description: >-
+          Exact versions of the program documents the set implements, such as
+          a credit class version.
+      wasRevisionOf:
+        description: >-
+          The exact earlier version of this set that this version revises, by
+          its IRI.
+
+  RequirementCheck:
+    class_uri: rfs:RequirementCheck
+    description: >-
+      An executable check of a requirement against one exact Claim version, as
+      queries that each answer true or false, written in the language that
+      queryLanguage names. Each query reads the exact Claim version through
+      the variable ?_claim_iri, which the evaluator binds to that version's
+      ClaimIRI. The evaluator runs the queries on a fixed set of records
+      selected for that version, not on every record it can read. The queries
+      decide the outcome in this order. If evidenceAvailableQuery is false,
+      the evidence the check needs is missing. Otherwise, if
+      needsHumanReviewQuery is given and is true, the check cannot decide and
+      a person must. Otherwise satisfiedQuery decides: true means satisfied
+      and false means not met. A query that fails, or an input record that
+      cannot be read, is an error of the evaluation, never a false answer.
+      An evaluator that does not support the queryLanguage does not run the
+      check, and reports an error.
+      The explanation for each outcome says what the check established or
+      what is missing; facts of a particular evaluation, such as which
+      evidence it read, belong to its result.
+    comments:
+      - >-
+        Implementation: the queries are strings, so they enter the
+        requirement's content, and changing one makes a new version. Whether
+        a query uses only what a reproducible check may use, such as no
+        SERVICE clause and no NOW() or RAND(), is checked by the service that
+        publishes the requirement set, not by this schema.
+    slots:
+      - queryLanguage
+      - evidenceAvailableQuery
+      - needsHumanReviewQuery
+      - satisfiedQuery
+      - missingEvidenceExplanation
+      - needsHumanReviewExplanation
+      - satisfiedExplanation
+      - unmetExplanation
+    slot_usage:
+      queryLanguage:
+        required: true
+      evidenceAvailableQuery:
+        required: true
+      satisfiedQuery:
+        required: true
+      missingEvidenceExplanation:
+        required: true
+      satisfiedExplanation:
+        required: true
+      unmetExplanation:
+        required: true
+    rules:
+      - description: >-
+          A query that can send a requirement to a person says why. Enforced
+          by the generated JSON Schema; the generated SHACL does not express
+          LinkML rules.
+        preconditions:
+          slot_conditions:
+            needsHumanReviewQuery:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            needsHumanReviewExplanation:
+              value_presence: PRESENT
+      - description: >-
+          An explanation for an outcome that no query can produce is an
+          error. Enforced by the generated JSON Schema; the generated SHACL
+          does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            needsHumanReviewQuery:
+              value_presence: ABSENT
+        postconditions:
+          slot_conditions:
+            needsHumanReviewExplanation:
+              value_presence: ABSENT
+
+  EvidenceKind:
+    class_uri: rfs:EvidenceKind
+    description: >-
+      A kind of evidence a requirement expects a claimant to cite: a source
+      type and, optionally, a media type, such as a text as PDF. It guides
+      authoring, for example a form asking for a Project Plan; evaluation
+      does not use it, since the check decides.
+    slots:
+      - sourceType
+      - mediaType
+    slot_usage:
+      sourceType:
+        description: >-
+          Genre of the expected source, from the DCMI Type Vocabulary, as for
+          Evidence.
+      mediaType:
+        description: >-
+          Media type of the expected source, for example application/pdf.
+          When absent, any media type of that source type is expected.
+
+  Review:
+    is_a: Activity
+    class_uri: rfs:Review
+    description: >-
+      The activity of reviewing claims against requirements, such as a
+      project's registration review, a funder's vetting round covering
+      several projects, or an audit. It starts when the reviewing starts,
+      which can be long after an applicant submitted, and has no end date
+      while it is open. It names the exact requirement set versions it
+      applies: for an application, the versions in force when the applicant
+      started, even if a later version has been published since. The
+      evaluations made in it name it with wasGeneratedBy as they are made. An
+      assessment made outside any process, such as a one-off screening, needs
+      no Review: its evaluations name the requirement set version they apply
+      themselves.
+    slots:
+      - appliesRequirementSet
+      - startDate
+      - endDate
+    slot_usage:
+      appliesRequirementSet:
+        description: >-
+          The exact requirement set versions the review applies, by their
+          IRIs. Unordered set.
+        required: true
+        minimum_cardinality: 1
+      startDate:
+        description: The day the reviewing started, included.
+      endDate:
+        description: Last day of the review, included. Absent while it is open.
+
+slots:
+  requirementStatement:
+    is_a: description
+    slot_uri: rfs:requirementStatement
+    description: >-
+      The requirement in plain language, as the program states it.
+      Specializes schema:description.
+    range: string
+    required: true
+  requirementSource:
+    slot_uri: rfs:requirementSource
+    description: >-
+      Where the program states the requirement: a citation of the exact
+      version of the program document, with selectors locating the passage,
+      such as a page of a credit class version. Absent when the
+      statement is itself the program's text.
+    range: EvidenceCitation
+    inlined: true
+  assessmentScope:
+    slot_uri: rfs:assessmentScope
+    description: >-
+      Exactly what checking this requirement establishes, and what it leaves
+      to another check or a person, so that a satisfied result is not read as
+      more than it is.
+    range: string
+    required: true
+  acceptsEvidence:
+    slot_uri: rfs:acceptsEvidence
+    description: >-
+      The kinds of evidence a claimant is expected to cite for this
+      requirement. Guidance for authoring: evaluation does not use it.
+      Unordered set.
+    range: EvidenceKind
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    list_elements_ordered: false
+  requirementCheck:
+    slot_uri: rfs:requirementCheck
+    description: >-
+      The executable check of this requirement. A requirement without one is
+      checked by a person, and the evaluator reports that it needs human
+      review, giving its assessmentScope as the reason.
+    range: RequirementCheck
+    inlined: true
+  hasRequirement:
+    slot_uri: rfs:hasRequirement
+    description: >-
+      The requirements in this version of the set, each by the IRI of one
+      exact requirement version. A requirement can be in several
+      versions of a set, and in several sets. Unordered set.
+    comments:
+      - >-
+        Implementation: each value is a bare IRI, because a requirement
+        record has no IRI slot: its IRI is computed from its content.
+    range: uriorcurie
+    required: true
+    multivalued: true
+    list_elements_ordered: false
+    minimum_cardinality: 1
+  queryLanguage:
+    slot_uri: rfs:queryLanguage
+    description: >-
+      The exact language every query of the check is written in, with any
+      extension it relies on, as an IRI. QueryLanguageType lists the
+      recommended values by their meaning IRIs; another IRI can name another
+      language or tool. An evaluator that does not support the language
+      does not run the check and reports an error, so a query is never run
+      by an engine that could misread it.
+    comments:
+      - >-
+        Implementation: an IRI rather than a closed list, so a check written
+        for another language needs no schema change, only a value that names
+        it precisely.
+    range: uriorcurie
+  evidenceAvailableQuery:
+    slot_uri: rfs:evidenceAvailableQuery
+    description: >-
+      Query that is true when the evidence the check needs is present. For
+      SPARQL, an ASK query.
+    range: string
+  needsHumanReviewQuery:
+    slot_uri: rfs:needsHumanReviewQuery
+    description: >-
+      Query that is true when the check cannot decide and a person must, for
+      example because a stated period may include renewal periods that need
+      a separate decision. For SPARQL, an ASK query.
+    range: string
+  satisfiedQuery:
+    slot_uri: rfs:satisfiedQuery
+    description: >-
+      Query that is true when the requirement is met. For SPARQL, an ASK
+      query.
+    range: string
+  missingEvidenceExplanation:
+    slot_uri: rfs:missingEvidenceExplanation
+    description: What is missing when evidenceAvailableQuery is false.
+    range: string
+  needsHumanReviewExplanation:
+    slot_uri: rfs:needsHumanReviewExplanation
+    description: >-
+      Why a person must decide when needsHumanReviewQuery is true.
+    range: string
+  satisfiedExplanation:
+    slot_uri: rfs:satisfiedExplanation
+    description: >-
+      What the check established when satisfiedQuery is true, within its
+      assessmentScope.
+    range: string
+  unmetExplanation:
+    slot_uri: rfs:unmetExplanation
+    description: What is not met when satisfiedQuery is false.
+    range: string
+
+enums:
+  QueryLanguageType:
+    description: >-
+      Recommended query languages for a requirement check, used as
+      queryLanguage values by their meaning IRIs.
+    permissible_values:
+      SPARQL_11_SEP_0002:
+        meaning: rfs:Sparql11Sep0002
+        description: >-
+          SPARQL 1.1 ASK queries, with the dates, times and durations of
+          SPARQL-dev SEP-0002, "Add Support Durations, Dates, and Times", as
+          SPARQL 1.1's section 17.3.1 allows. SEP-0002 adds the xsd:date,
+          xsd:time and duration datatypes with their XPath comparison and
+          arithmetic operators, such as comparing two xsd:date values or
+          adding a xsd:yearMonthDuration to a xsd:date, and functions such as
+          YEAR on a xsd:date. Neither SPARQL 1.1 nor the SPARQL 1.2 draft
+          defines them. An engine that lacks one does not fail a query that
+          uses it: the FILTER is false and the check gives a wrong outcome,
+          so an evaluator for this language supports all of SEP-0002.
+        see_also:
+          - https://github.com/w3c/sparql-dev/blob/39da1d22059e4b637aa8fa1a7142173a0d4c30cf/SEP/SEP-0002/sep-0002.md

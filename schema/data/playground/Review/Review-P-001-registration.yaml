@@ -1,0 +1,12 @@
+# Synthetic example (example.org identifiers): the registration review of
+# project P-001, which applies version 2026-05 of the example registration
+# checklist, named by a labelled placeholder for its identifier
+# (regen-network/claims#1). The review is open, so it has no end date.
+id: https://example.org/c06/project/P-001/review/registration
+name: Registration review of project P-001
+appliesRequirementSet:
+  - https://example.org/placeholder/requirement-set-iri/example-registration-2026-05
+startDate: "2026-01-15"
+wasAssociatedWith:
+  - name: Example Registry
+    type: ORGANIZATION

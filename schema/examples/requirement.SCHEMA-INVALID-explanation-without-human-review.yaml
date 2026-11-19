@@ -1,0 +1,21 @@
+# expect: is not valid under any of the given schemas in /requirementCheck
+# class: GenericRequirement
+# shacl: not enforced
+# An explanation for an outcome that no query of the check can produce is an
+# error. This is a LinkML rule, which the generated JSON Schema enforces and the
+# generated SHACL does not express.
+# requirementCheck is optional, so its JSON Schema allows either the check or
+# null, and an error inside it is reported as matching neither.
+identifier: EXAMPLE-REGISTRATION-CP-1
+requirementStatement: >-
+  A site's crediting term is ten years, with an option to renew.
+assessmentScope: >-
+  Checks only the length of the crediting period a C06SiteClaim states.
+requirementCheck:
+  queryLanguage: rfs:Sparql11Sep0002
+  evidenceAvailableQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
+  satisfiedQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
+  missingEvidenceExplanation: The Claim has no content.
+  needsHumanReviewExplanation: The Claim states two periods.
+  satisfiedExplanation: The Claim has content.
+  unmetExplanation: The Claim has no matching content.

@@ -195,8 +195,9 @@ classes:
       addressesRequirement: {required: true, minimum_cardinality: 1}
   ```
 
-  A shared `RequirementClaim`, and the requirement records themselves, belong to WP5
-  ([claims#30](https://github.com/regen-network/claims/issues/30)).
+  A shared `RequirementClaim` belongs to WP5
+  ([claims#30](https://github.com/regen-network/claims/issues/30)); the requirement records
+  themselves are in [`Requirement.yaml`](../schema/src/Requirement.yaml).
 
 The shape above was checked with a scratch schema: it validated and produced the expected RDF. A
 scratch claim type also passed the open `Claim` shape, and its own closed shape rejected an

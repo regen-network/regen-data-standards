@@ -1,0 +1,11 @@
+# Synthetic example: version 2026-05 of an invented registration checklist,
+# which implements the public C06 credit class, version 1.5.2. Its requirement
+# is named by a labelled placeholder for the requirement's IRI, which is
+# computed from its content (regen-network/claims#1).
+identifier: EXAMPLE-REGISTRATION
+version: "2026-05"
+name: Example registration checklist
+hasRequirement:
+  - https://example.org/placeholder/requirement-iri/example-registration-cp-1
+governedBy:
+  - regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf

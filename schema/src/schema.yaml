@@ -28,6 +28,7 @@ imports:
   - ClaimVocabulary
   - ProvAlignment
   - Evaluation
+  - Requirement
   - RegistryReviewEvaluation
   - C06Claim
   - BT01ProjectInfo

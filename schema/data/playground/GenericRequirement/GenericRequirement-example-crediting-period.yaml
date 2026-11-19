@@ -1,0 +1,74 @@
+# Example requirement: the crediting term of the public C06 credit class,
+# version 1.5.2 (Evidence-c06-credit-class-v1.5.2, page 7), with an executable
+# check of a C06SiteClaim's crediting period. Its code is invented. Both dates
+# are inclusive, so a ten-year period ends one day before the tenth
+# anniversary of its start; that convention is this example's, not the credit
+# class's.
+identifier: EXAMPLE-REGISTRATION-CP-1
+requirementStatement: >-
+  A site's crediting term is ten years, with an option to renew. Each renewal
+  period is ten years, with no limit on the number of renewals.
+requirementSource:
+  source: regen:113UTi1u87QLrE9cxVua6RvK9Jcku8qtr7dAD2A4VQwpiP8X2mkV.pdf
+  selector:
+    - selectorType: oa:FragmentSelector
+      value: page=7
+      conformsTo: http://tools.ietf.org/rfc/rfc3778
+assessmentScope: >-
+  Checks only the length of the crediting period a C06SiteClaim states, with
+  both dates inclusive. It does not check that the cited plan states those
+  dates, that the plan is authentic, or that a renewal was approved.
+acceptsEvidence:
+  - sourceType: TEXT
+    mediaType: application/pdf
+requirementCheck:
+  queryLanguage: rfs:Sparql11Sep0002
+  evidenceAvailableQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    PREFIX oa: <http://www.w3.org/ns/oa#>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri a rfs:C06SiteClaim ; rfs:creditingPeriod ?period ;
+          rfs:hasEvidenceCitation/oa:hasSource ?source .
+        ?period schema:startDate ?start ; schema:endDate ?end .
+        FILTER(isIRI(?source))
+        FILTER(datatype(?start) = xsd:date && datatype(?end) = xsd:date)
+      }
+    }
+  needsHumanReviewQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri rfs:creditingPeriod ?period .
+        ?period schema:startDate ?start ; schema:endDate ?end .
+      }
+      FILTER(?end >= (?start + "P20Y"^^xsd:yearMonthDuration - "P1D"^^xsd:dayTimeDuration))
+    }
+  satisfiedQuery: |-
+    PREFIX rfs: <https://framework.regen.network/schema/>
+    PREFIX schema: <http://schema.org/>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    ASK {
+      GRAPH ?_claim_iri {
+        ?_claim_iri rfs:creditingPeriod ?period .
+        ?period schema:startDate ?start ; schema:endDate ?end .
+      }
+      FILTER(?end = (?start + "P10Y"^^xsd:yearMonthDuration - "P1D"^^xsd:dayTimeDuration))
+    }
+  missingEvidenceExplanation: >-
+    The claim states no complete crediting period with typed dates, or cites
+    no source.
+  needsHumanReviewExplanation: >-
+    The stated period is at least twenty years, so it may include ten-year
+    renewal periods; a reviewer must check that a renewal decision covers
+    them.
+  satisfiedExplanation: >-
+    The claim states a ten-year crediting period. This does not establish
+    that the cited plan states it.
+  unmetExplanation: >-
+    The stated period is not ten years, and too short to include a ten-year
+    renewal period.
