@@ -28,11 +28,7 @@ environmentType:
   - TROPICAL_FOREST
 activity:
   - CONSERVATION
-hasProjectDeveloper:
-  rid: https://framework.regen.network/agent/01M728VM9W34EE1ZGP58HRTT60
-  name: Ese´Eja Infierno Native Community
-  description: Forest owners committed to work to protect and manage the forest under a REDD+ project.
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VM9W34EE1ZGP58HRTT60  # Ese´Eja Infierno Native Community
 usesMethodology:
   - name: VM0007 REDD+ Methodology Framework
     url: https://verra.org/methodology/vm0007-redd-methodology-framework-redd-mf-v1-6/

@@ -1,0 +1,13 @@
+# Synthetic example (a minted agent rid): Example Farm Operator, the agent of
+# the activity in
+# GenericActivity/GenericActivity-field-operations-S-001-2019-2021.yaml and
+# one other, describes itself.
+name: Example Farm Operator
+claimStatement: Example Farm Operator is a person.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49
+  agentKind: PERSON

@@ -1,0 +1,18 @@
+# From the projects that name Impact Ag (C07/CreditProjectInfo-C07-001.yaml
+# and one other): Impact Ag, their developer, describes itself. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Impact Ag
+description: Impact Ag Partners is a specialist agricultural investment and development
+  firm. With deep expertise and a proven track record – we lead the market in identifying,
+  optimizing, and monetizing natural capital for agriculture.
+url: https://impactagpartners.com/
+image: https://impactagpartners.com/wp-content/uploads/2024/05/AGIcon.png
+claimStatement: Impact Ag is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAG059TMSD8JG289ZEN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAG059TMSD8JG289ZEN
+  agentKind: ORGANIZATION

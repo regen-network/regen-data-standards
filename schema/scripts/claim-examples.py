@@ -43,7 +43,7 @@ The check validates every document with both validators the schema generates:
   document is checked together with the Turtle gen-rdf wrote for the records
   it can reference, as the graph store holds them. A document is merged with
   the SoftwareAgent records of the agents it names by IRI, such as the
-  sensor version a Capture inlines and the sensor that version names, but
+  sensor version a Capture names and the sensor that version names, but
   not the agent an AgentClaim describes. A claim or evaluation is also
   merged with the Evidence and Activity records, and an Evidence record with
   the Activity records. Activity records are typed with
@@ -74,9 +74,11 @@ For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
 
-A Claim names its claimants by rid (assertedBy), and each agent is described
-in AgentClaims. The check loads the AgentClaims gen-rdf wrote: every agent an
-example names in assertedBy must have one, and every AgentClaim that revises
+Every record names its agents by rid (assertedBy, wasAssociatedWith, the
+ProjectInfo role slots), and each agent is described in AgentClaims. The check
+loads the AgentClaims gen-rdf wrote: every agent an example names in
+assertedBy must have one, and so must every agent any playground record names
+in one of AGENT_SLOTS. Every AgentClaim that revises
 another (wasRevisionOf) must describe the same agent (hasSubject) as the
 AgentClaim it revises, which it names by a placeholder ClaimIRI listed in
 AGENT_CLAIM_IRIS. Neither generated validator can compare two records, so a
@@ -189,6 +191,10 @@ ASSERTED_BY = rdflib.URIRef(RFS + "assertedBy")
 HAS_SUBJECT = rdflib.URIRef(RFS + "hasSubject")
 WAS_REVISION_OF = rdflib.URIRef("http://www.w3.org/ns/prov#wasRevisionOf")
 REVISION_MARK = "# check: revision changes the subject"
+# The slots that name an agent by rid.
+AGENT_SLOTS = ["assertedBy", "wasAssociatedWith", "hasProjectDeveloper", "hasProjectMonitor",
+               "hasProjectOperator", "hasProjectOwner", "hasProjectPartner", "hasProjectVerifier",
+               "hasEnvironmentalAuthority"]
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
 ACTIVITY_TYPES = {rdflib.URIRef(RFS + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
@@ -406,17 +412,36 @@ def with_store(graph, store, class_name=None):
         merged += store["activity"]
         if class_name != "Evidence":
             merged += store["evidence"]
-    named = named_agents(merged)
-    for record in store["agent_records"]:
-        if named.intersection(record.subjects()):
-            merged += record
-    return merged
+    # A record merged in can name another agent, as a version names its
+    # software, so merge until no record adds one.
+    merged_records = set()
+    while True:
+        named = named_agents(merged)
+        new = [i for i, record in enumerate(store["agent_records"])
+               if i not in merged_records and named.intersection(record.subjects())]
+        if not new:
+            return merged
+        for i in new:
+            merged += store["agent_records"][i]
+            merged_records.add(i)
 
 
 def named_agents(graph):
     """The IRIs a document names, other than the subject of an AgentClaim."""
     described = set(graph.subjects(RDF.type, AGENT_SUBJECT))
     return {o for o in graph.objects() if isinstance(o, rdflib.URIRef)} - described
+
+
+def agents_named_in_records(view):
+    """For each agent the playground records name in AGENT_SLOTS, the records that name it."""
+    slots = {rdflib.URIRef(view.get_uri(view.all_slots()[name], expand=True)) for name in AGENT_SLOTS}
+    named = {}
+    for path in sorted(glob.glob("data/playground/*/*.ttl")):
+        graph = rdflib.Graph().parse(path, format="turtle")
+        for slot in slots:
+            for agent in graph.objects(None, slot):
+                named.setdefault(agent, []).append(path)
+    return named
 
 
 def described_agents(store):
@@ -612,6 +637,15 @@ def main(mode):
             else:
                 print(f"❌ {example} with an undeclared field: rejected by {sorted(map(str, shapes)) or 'no shape'}")
                 failures += 1
+
+    named = agents_named_in_records(SchemaView(SCHEMA))
+    missing = sorted(set(named) - described_agents(store))
+    if not missing:
+        print(f"✅ every agent the playground records name in {', '.join(AGENT_SLOTS)} has an AgentClaim ({len(named)} agents)")
+    for agent in missing:
+        print(f"❌ no AgentClaim describes {agent}, named in {named[agent][0]}"
+              + (f" and {len(named[agent]) - 1} other record(s)" if len(named[agent]) > 1 else ""))
+        failures += 1
 
     for record, path in zip(store["agent_claim_records"], store["agent_claim_paths"]):
         if not revisions(record):

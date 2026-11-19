@@ -185,13 +185,7 @@ slots:
       are asserted by the agent in AgentClaims, Claims of their own whose
       subject is the agent, so describing an agent anew changes no Claim
       that names it. Unordered set.
-    comments:
-      - >-
-        Implementation: inlined is false because wasAttributedTo, which this
-        slot specializes, inlines its agents, and LinkML 1.11.1 otherwise
-        carries that over to a slot whose range is not a class.
     range: uriorcurie
-    inlined: false
     required: true
     multivalued: true
     list_elements_ordered: false

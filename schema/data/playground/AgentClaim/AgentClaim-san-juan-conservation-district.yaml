@@ -1,0 +1,18 @@
+# From the projects that name San Juan Conservation District
+# (C05/CreditProjectInfo-C05-001.yaml): San Juan Conservation District, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: San Juan Conservation District
+description: We work with local, state and federal partners to achieve regional targets
+  for environmental sustainability.
+url: https://www.sanjuanislandscd.org/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/san_juan_conservation_district.png
+claimStatement: San Juan Conservation District is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAAPYMZRH6HNFBVXP7Y
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAAPYMZRH6HNFBVXP7Y
+  agentKind: ORGANIZATION

@@ -49,18 +49,8 @@ hasCoBenefits:
     supportsSDG:
       - SDG_14
       - SDG_15
-hasProjectDeveloper:
-  rid: https://framework.regen.network/agent/01M728VMAVVFRNM4QPWCPW44Q9
-  name: SeaTrees
-  description: SeaTrees is a program of Sustainable Surf that works to restore and protect coastal ecosystems
-  url: https://seatrees.org/
-  type: prov:Organization
-hasProjectPartner:
-  rid: https://framework.regen.network/agent/01M728VMAW5BPBPFCWJKYN4TJ6
-  name: COBEC (Community Based Environmental Conservation)
-  description: Local community organization implementing mangrove restoration in coastal Kenya
-  url: https://cobec.or.ke/
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VMAVVFRNM4QPWCPW44Q9  # SeaTrees
+hasProjectPartner: https://framework.regen.network/agent/01M728VMAW5BPBPFCWJKYN4TJ6  # COBEC (Community Based Environmental Conservation)
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

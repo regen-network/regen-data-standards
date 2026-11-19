@@ -1,0 +1,16 @@
+# From the projects that name Sharamentsa Community
+# (USS01/CreditProjectInfo-USS01-002.yaml): Fundación Pachamama, their
+# developer, describes Sharamentsa Community, their operator. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Sharamentsa Community
+description: Local Indigenous community of the Achuar Nation responsible for project
+  implementation
+claimStatement: Sharamentsa Community is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB4DYVYV5GCN36HG18K
+  agentKind: ORGANIZATION

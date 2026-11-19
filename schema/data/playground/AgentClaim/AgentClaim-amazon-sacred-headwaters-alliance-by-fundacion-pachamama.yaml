@@ -1,0 +1,17 @@
+# From the projects that name Amazon Sacred Headwaters Alliance
+# (USS01/CreditProjectInfo-USS01-002.yaml): Fundación Pachamama, their
+# developer, describes Amazon Sacred Headwaters Alliance, their partner. The
+# name, description, url and image are copied from those fixtures. The
+# AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Amazon Sacred Headwaters Alliance
+description: Alliance supporting Indigenous-led conservation in the Amazon
+url: https://cuencasagradas.org/
+image: https://regen-registry.s3.amazonaws.com/profiles/ff89fb80-d89a-11ee-88fc-0a6e1e09fcad/1709387126044/1709387126042-avatar.png
+claimStatement: Amazon Sacred Headwaters Alliance is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB6MK81J1KCP7MS86TD
+  agentKind: ORGANIZATION

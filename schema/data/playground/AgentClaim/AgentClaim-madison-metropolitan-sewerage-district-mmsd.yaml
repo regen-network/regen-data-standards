@@ -1,0 +1,17 @@
+# From the projects that name Madison Metropolitan Sewerage District (MMSD)
+# (C08/CreditProjectInfo-C08-001.yaml): Madison Metropolitan Sewerage District
+# (MMSD), their developer, describes itself. The name, description, url and
+# image are copied from those fixtures. The AgentClaim itself is synthetic,
+# with a fixed assertedAt.
+name: Madison Metropolitan Sewerage District (MMSD)
+description: Madison Metropolitan Sewerage District works to protect public health,
+  the environment and local waters through service, reliability and sustainability.
+url: https://www.madsewer.org/
+claimStatement: Madison Metropolitan Sewerage District (MMSD) is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
+  agentKind: ORGANIZATION

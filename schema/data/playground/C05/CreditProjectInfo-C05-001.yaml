@@ -32,20 +32,8 @@ hasCoBenefits:
     hasImpactType: IMPROVED_WATER_INFILTRATION
     supportsSDG:
       - SDG_15
-hasProjectDeveloper:
-  rid: https://framework.regen.network/agent/01M728VMAAPYMZRH6HNFBVXP7Y
-  name: San Juan Conservation District
-  description: We work with local, state and federal partners to achieve regional targets for environmental sustainability.
-  url: https://www.sanjuanislandscd.org/
-  image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/san_juan_conservation_district.png
-  type: prov:Organization
-hasProjectMonitor:
-  rid: https://framework.regen.network/agent/01M728VMABM60FWBSV7XE6RV3J
-  name: Kulshan Carbon Trust
-  description: We are on a mission to conserve and sequester carbon through collaborative natural climate solutions in Northwest Washington.
-  url: https://kulshancarbontrust.org/
-  image: https://regen-registry.s3.amazonaws.com/profiles/772065bc-5334-11ef-a754-0afffa81c869/1724950434335/1724950434334-avatar.jpg
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VMAAPYMZRH6HNFBVXP7Y  # San Juan Conservation District
+hasProjectMonitor: https://framework.regen.network/agent/01M728VMABM60FWBSV7XE6RV3J  # Kulshan Carbon Trust
 creditClassVersion: V1.1
 marketType:
   - VOLUNTARY_MARKET

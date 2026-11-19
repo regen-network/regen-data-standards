@@ -1,0 +1,18 @@
+# From the projects that name Instituto Homem Pantaneiro
+# (USS01/CreditProjectInfo-USS01-001.yaml): ERA Brazil, their developer,
+# describes Instituto Homem Pantaneiro, their operator. The name, description,
+# url and image are copied from those fixtures. The AgentClaim itself is
+# synthetic, with a fixed assertedAt.
+name: Instituto Homem Pantaneiro
+description: NGO dedicated to preserving the Brazilian Pantanal biome through conservation
+  activities, research, and community engagement.
+url: https://ihp.org.br
+image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ihp_logo.png
+claimStatement: Instituto Homem Pantaneiro is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAZKZX4V700HY2KN819
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB0J1BJK4JSD8SC4P8X
+  agentKind: ORGANIZATION

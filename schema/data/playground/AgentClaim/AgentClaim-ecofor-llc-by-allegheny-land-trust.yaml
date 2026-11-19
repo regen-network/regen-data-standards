@@ -1,0 +1,13 @@
+# From the projects that name Ecofor LLC (C02/C02ProjectInfo-C02-003.yaml):
+# Allegheny Land Trust, their developer, describes Ecofor LLC, their verifier.
+# The name, description, url and image are copied from those fixtures. The
+# AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Ecofor LLC
+claimStatement: Ecofor LLC is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA08Q3DBXM8A293B7WR
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD
+  agentKind: ORGANIZATION

@@ -93,69 +93,34 @@ classes:
         inlined: true
         inlined_as_list: true
       hasProjectDeveloper:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
           The person, organization or community responsible for developing
-          the project.
+          the project, named by its rid. Its description is asserted in
+          AgentClaims.
       hasProjectMonitor:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
           The person, organization or community responsible for monitoring
-          the project.
+          the project, named by its rid. Its description is asserted in
+          AgentClaims.
       hasProjectOperator:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
-          The person, organization or community responsible for operating the
-          project.
+          The person, organization or community responsible for operating
+          the project, named by its rid. Its description is asserted in
+          AgentClaims.
       hasProjectOwner:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
-          The person, organization or community that owns the project.
+          The person, organization or community that owns the project, named
+          by its rid. Its description is asserted in AgentClaims.
       hasProjectPartner:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
           The person, organization or community that is a partner for the
-          project.
+          project, named by its rid. Its description is asserted in
+          AgentClaims.
       usesMethodology:
         range: Methodology
         description: The methodology that the project uses.
@@ -174,18 +139,11 @@ classes:
         required: true
     attributes:
       hasProjectVerifier:
-        range: Agent
-        inlined: true
-        any_of:
-          - range: Person
-            inlined: true
-          - range: Organization
-            inlined: true
-          - range: Community
-            inlined: true
+        range: uriorcurie
         description: >-
           The person, organization or community responsible for verifying
-          the project.
+          the project, named by its rid. Its description is asserted in
+          AgentClaims.
       creditClassVersion:
         range: string
         description: The version of the credit class used for the project.

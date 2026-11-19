@@ -139,10 +139,6 @@
   "startDate": "2019-01-01",
   "endDate": "2021-12-31",
   "wasAssociatedWith": [
-    {
-      "@type": "Person",
-      "rid": "https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49",
-      "name": "Example Farm Operator"
-    }
+    "https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49"
   ]
 }

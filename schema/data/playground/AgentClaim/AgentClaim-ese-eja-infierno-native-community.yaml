@@ -1,0 +1,16 @@
+# From the projects that name Ese´Eja Infierno Native Community
+# (C01/C01ProjectInfo-C01-003.yaml): Ese´Eja Infierno Native Community, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Ese´Eja Infierno Native Community
+description: Forest owners committed to work to protect and manage the forest under
+  a REDD+ project.
+claimStatement: Ese´Eja Infierno Native Community is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9W34EE1ZGP58HRTT60
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9W34EE1ZGP58HRTT60
+  agentKind: ORGANIZATION

@@ -1,0 +1,17 @@
+# From the projects that name Fundación Pachamama
+# (USS01/CreditProjectInfo-USS01-002.yaml): Fundación Pachamama, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Fundación Pachamama
+description: Project developer and coordinator for community-based conservation efforts
+url: https://www.pachamama.org.ec
+image: https://regen-registry.s3.amazonaws.com/profiles/0161027a-e26b-11ef-bc67-0afffa81c869/1738613547341/1738613547340-avatar.png
+claimStatement: Fundación Pachamama is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
+  agentKind: ORGANIZATION

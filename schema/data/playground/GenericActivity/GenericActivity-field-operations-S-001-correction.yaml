@@ -6,6 +6,4 @@ replaces: https://example.org/c06/site/S-001/activity/field-operations-2019-2021
 startDate: "2019-01-01"
 endDate: "2021-12-30"
 wasAssociatedWith:
-  - rid: https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49
-    name: Example Farm Operator
-    type: prov:Person
+  - https://framework.regen.network/agent/01M728VMAS0ZEW61R9XDMRGV49  # Example Farm Operator

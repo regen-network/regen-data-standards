@@ -47,12 +47,8 @@ hasManagementAreas:
       numericValue: 246.35
       hasUnit: unit:HA
 hasEnvironmentalAuthority:
-  - rid: https://framework.regen.network/agent/01M728VM9KAJQD0AHG4YXBFJJ4
-    name: Environmental and Sustainable Development Ministry
-    type: prov:Organization
-  - rid: https://framework.regen.network/agent/01M728VM9M7VP62T2HGJ3R4JZH
-    name: Corantioquia
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VM9KAJQD0AHG4YXBFJJ4  # Environmental and Sustainable Development Ministry
+  - https://framework.regen.network/agent/01M728VM9M7VP62T2HGJ3R4JZH  # Corantioquia
 environmentType:
   - TROPICAL_FOREST
 activity:
@@ -67,39 +63,11 @@ hasCoBenefits:
     hasImpactType: IMPROVED_WILDLIFE_HABITAT
     supportsSDG:
       - SDG_15
-hasProjectDeveloper:
-  rid: https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
-  name: Terrasos
-  description: Terrasos develops biodiversity conservation and restoration projects in Colombia
-  url: https://terrasos.co/
-  image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
-  type: prov:Organization
-hasProjectOperator:
-  rid: https://framework.regen.network/agent/01M728VM9PX1A8WA0BGHEY9SM1
-  name: Reserva Natural El Globo
-  description: Natural reserve managing conservation activities at El Globo
-  url: https://www.elglobo.org/
-  image: https://regen-registry.s3.us-east-1.amazonaws.com/el-globo-stakeholder-logo.png
-  type: prov:Organization
-hasProjectOwner:
-  rid: https://framework.regen.network/agent/01M728VM9Q14WMTQBRRCVFVZWN
-  name: Serna Family
-  description: Landowner family committed to conservation
-  type: prov:Organization
-hasProjectMonitor:
-  rid: https://framework.regen.network/agent/01M728VM9R6MGWMJ056KQYVET7
-  name: EAFIT
-  description: University institution providing monitoring services for biodiversity projects
-  url: https://www.eafit.edu.co/
-  image: https://regen-registry.s3.us-east-1.amazonaws.com/eafit.png
-  type: prov:Organization
-hasProjectVerifier:
-  rid: https://framework.regen.network/agent/01M728VM9S5KCGFW0Q4WDM3VGM
-  name: KPMG Advisory
-  description: International verification body for environmental projects
-  url: https://kpmg.com/
-  image: https://regen-registry.s3.amazonaws.com/profiles/9c621ff2-c485-11ee-b3e1-0a6e1e09fcad/Unknown-2
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN  # Terrasos
+hasProjectOperator: https://framework.regen.network/agent/01M728VM9PX1A8WA0BGHEY9SM1  # Reserva Natural El Globo
+hasProjectOwner: https://framework.regen.network/agent/01M728VM9Q14WMTQBRRCVFVZWN  # Serna Family
+hasProjectMonitor: https://framework.regen.network/agent/01M728VM9R6MGWMJ056KQYVET7  # EAFIT
+hasProjectVerifier: https://framework.regen.network/agent/01M728VM9S5KCGFW0Q4WDM3VGM  # KPMG Advisory
 creditClassVersion: V3.0
 marketType:
   - COMPLIANCE_MARKET

@@ -1,0 +1,15 @@
+# From the projects that name Serna Family
+# (BT01/BT01ProjectInfo-BT01-001.yaml): Terrasos, their developer, describes
+# Serna Family, their owner. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Serna Family
+description: Landowner family committed to conservation
+claimStatement: Serna Family is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9Q14WMTQBRRCVFVZWN
+  agentKind: ORGANIZATION

@@ -1,0 +1,18 @@
+# From the projects that name Virridy Carbon LLC
+# (C08/CreditProjectInfo-C08-001.yaml): Madison Metropolitan Sewerage District
+# (MMSD), their developer, describes Virridy Carbon LLC, their partner. The
+# name, description, url and image are copied from those fixtures. The
+# AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Virridy Carbon LLC
+description: Virridy uses our proprietary technology and water and carbon markets
+  expertise to improve global water resiliency.
+url: https://virridy.com/
+image: https://regen-registry.s3.amazonaws.com/profiles/353ec5b2-94c9-11f0-ac02-0afffa81c869/1765487766606/1765487766602-avatar.png
+claimStatement: Virridy Carbon LLC is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAJVJK8C62JZCMK7XG6
+  agentKind: ORGANIZATION

@@ -1,0 +1,17 @@
+# From the projects that name Nova Cert (C06/CreditProjectInfo-C06-001.yaml
+# and 8 others): Ecometric, their developer, describes Nova Cert, their
+# verifier. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Nova Cert
+description: NOVA CERT is a Validation and Verification Body (VVB) which validates
+  and verifies projects that reduce greenhouse gases (GHG) emissions to the atmosphere.
+url: https://nova-cert.com/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/novacert.png
+claimStatement: Nova Cert is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMACZYN2GQ80GN5H6FZQ
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAD1B8QK1T05EW7FR25
+  agentKind: ORGANIZATION

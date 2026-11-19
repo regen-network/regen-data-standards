@@ -141,12 +141,6 @@
   "startedAtTime": "2026-05-02T09:14:05+00:00",
   "endedAtTime": "2026-05-02T09:14:09+00:00",
   "wasAssociatedWith": [
-    {
-      "@type": "SoftwareAgent",
-      "rid": "https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8",
-      "name": "Example Meeting Sensor 1.4.2",
-      "softwareVersion": "1.4.2",
-      "isVersionOf": "https://framework.regen.network/agent/01M728VMAYDB1VJ4EQSJ7AD4GJ"
-    }
+    "https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8"
   ]
 }

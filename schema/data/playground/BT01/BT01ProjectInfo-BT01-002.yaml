@@ -51,9 +51,7 @@ hasManagementAreas:
       numericValue: 89.29
       hasUnit: unit:HA
 hasEnvironmentalAuthority:
-  - rid: https://framework.regen.network/agent/01M728VM9KAJQD0AHG4YXBFJJ4
-    name: Environmental and Sustainable Development Ministry
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VM9KAJQD0AHG4YXBFJJ4  # Environmental and Sustainable Development Ministry
 environmentType:
   - TROPICAL_FOREST
 activity:
@@ -68,20 +66,8 @@ hasCoBenefits:
     hasImpactType: IMPROVED_WILDLIFE_HABITAT
     supportsSDG:
       - SDG_15
-hasProjectDeveloper:
-  rid: https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
-  name: Terrasos
-  description: Terrasos develops biodiversity conservation and restoration projects in Colombia
-  url: https://terrasos.co/
-  image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
-  type: prov:Organization
-hasProjectOwner:
-  rid: https://framework.regen.network/agent/01M728VM9TRZA4ZRKW6C4BJY73
-  name: ALMASTER
-  description: Landowner organization committed to conservation
-  url: https://almaster.com/
-  image: https://regen-registry.s3.us-east-1.amazonaws.com/Almaster.png
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN  # Terrasos
+hasProjectOwner: https://framework.regen.network/agent/01M728VM9TRZA4ZRKW6C4BJY73  # ALMASTER
 creditClassVersion: V4.0
 marketType:
   - COMPLIANCE_MARKET

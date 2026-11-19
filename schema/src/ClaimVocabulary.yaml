@@ -35,21 +35,11 @@ slots:
       entity. Declared here so that narrower attribution relations, such as
       assertedBy, can specialize it (rdfs:subPropertyOf) instead of
       redefining its meaning. Every value of a specializing slot therefore
-      implies this relation; the reverse does not hold.
-    range: Agent
-    any_of:
-      - range: Person
-        inlined: true
-      - range: Organization
-        inlined: true
-      - range: SoftwareAgent
-        inlined: true
-      - range: Community
-        inlined: true
+      implies this relation; the reverse does not hold. Each agent is named
+      by its rid, and its description is asserted in AgentClaims.
+    range: uriorcurie
     multivalued: true
     list_elements_ordered: false
-    inlined: true
-    inlined_as_list: true
   wasRevisionOf:
     slot_uri: prov:wasRevisionOf
     description: >-

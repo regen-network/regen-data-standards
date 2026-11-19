@@ -1,0 +1,16 @@
+# From the projects that name Allegheny Land Trust
+# (C02/C02ProjectInfo-C02-003.yaml): Allegheny Land Trust, their developer,
+# describes itself. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Allegheny Land Trust
+description: Land trust protecting natural areas in the Pittsburgh region
+url: https://alleghenylandtrust.org/
+image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-003-profile-image.png
+claimStatement: Allegheny Land Trust is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA08Q3DBXM8A293B7WR
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA08Q3DBXM8A293B7WR
+  agentKind: ORGANIZATION

@@ -7,8 +7,8 @@ description: >-
   four kinds reuse the PROV classes where PROV has one (Person, Organization,
   SoftwareAgent) and add a local Community. A capacity, such as project
   proponent or verifier, is a role in the context of a record, not a kind of
-  agent. To say "a person, organization or community", a slot keeps range
-  Agent and adds the any_of pattern described on the Agent class.
+  agent. A record names an agent by its rid, and the agent's description is
+  asserted in AgentClaims.
 prefixes:
   linkml: https://w3id.org/linkml/
   rfs: https://framework.regen.network/schema/
@@ -38,16 +38,17 @@ classes:
       typed with one of the four kinds, and its type field names that kind.
     comments:
       - >-
-        "A person, organization or community": a slot that accepts only these
-        kinds keeps range Agent and adds any_of with Person, Organization and
-        Community, in that order, as the ProjectInfo role slots do. A slot
-        that accepts any agent, such as wasAssociatedWith, lists all four
-        kinds the same way. LinkML then generates sh:or over the classes of
-        the kinds in SHACL, and JSON Schema accepts exactly those kinds. Range Agent
-        alone, or an abstract mixin class as the range, is not enough: the
-        generated SHACL checks it with sh:class, which a prov:Person fails
-        unless the data also states that prov:Person is a subclass of it,
-        and this repository states no axiom about PROV's classes.
+        A slot names an agent by its rid (range uriorcurie), as assertedBy,
+        wasAssociatedWith and the ProjectInfo role slots do, and the agent's
+        description is asserted in AgentClaims. A slot that accepts only
+        some kinds, such as "a person, organization or community" for the
+        role slots, says so in its description: the generated validators do
+        not check the kind of an agent named by rid. A slot that would
+        check it with range Agent alone, or an abstract mixin class as the
+        range, is not enough: the generated SHACL checks it with sh:class,
+        which a prov:Person fails unless the data also states that
+        prov:Person is a subclass of it, and this repository states no axiom
+        about PROV's classes.
       - >-
         Implementation: a slot that inlines agents states inlined: true on
         the slot and on each kind in its any_of. Agent has an identifier

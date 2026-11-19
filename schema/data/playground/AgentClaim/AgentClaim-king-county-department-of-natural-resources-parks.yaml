@@ -1,0 +1,18 @@
+# From the projects that name King County Department of Natural Resources &
+# Parks (C02/C02ProjectInfo-C02-001.yaml): King County Department of Natural
+# Resources & Parks, their developer, describes itself. The name, description,
+# url and image are copied from those fixtures. The AgentClaim itself is
+# synthetic, with a fixed assertedAt.
+name: King County Department of Natural Resources & Parks
+description: County government department responsible for managing natural resources
+  and parks in King County, Washington
+url: https://www.kingcounty.gov/depts/dnrp.aspx
+image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-001-profile-image.png
+claimStatement: King County Department of Natural Resources & Parks is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9XDHJJ2AJEQSW35K13
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9XDHJJ2AJEQSW35K13
+  agentKind: ORGANIZATION

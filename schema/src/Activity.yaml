@@ -118,21 +118,11 @@ slots:
       represents an activity (its PROV domain is prov:Activity); such classes
       declare the ProvActivity mixin. It is not attribution of a Claim: the
       operator and the claimant may differ, and when they coincide both
-      relations are still stated. Unordered set.
-    range: Agent
-    any_of:
-      - range: Person
-        inlined: true
-      - range: Organization
-        inlined: true
-      - range: SoftwareAgent
-        inlined: true
-      - range: Community
-        inlined: true
+      relations are still stated. Each agent is named by its rid, and its
+      description is asserted in AgentClaims. Unordered set.
+    range: uriorcurie
     multivalued: true
     list_elements_ordered: false
-    inlined: true
-    inlined_as_list: true
   startDate:
     slot_uri: schema:startDate
     description: >-

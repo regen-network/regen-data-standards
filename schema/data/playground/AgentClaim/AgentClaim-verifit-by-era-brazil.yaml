@@ -1,0 +1,17 @@
+# From the projects that name Verifit
+# (USS01/CreditProjectInfo-USS01-001.yaml): ERA Brazil, their developer,
+# describes Verifit, their verifier. The name, description, url and image are
+# copied from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Verifit
+description: Third-party verification body for environmental and biodiversity projects.
+url: https://verefit.com
+image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/verifit_logo.png
+claimStatement: Verifit is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAZKZX4V700HY2KN819
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB2001HNMXZK3YFR1RH
+  agentKind: ORGANIZATION

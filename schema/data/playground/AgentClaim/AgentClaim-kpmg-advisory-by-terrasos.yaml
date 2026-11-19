@@ -1,0 +1,17 @@
+# From the projects that name KPMG Advisory
+# (BT01/BT01ProjectInfo-BT01-001.yaml): Terrasos, their developer, describes
+# KPMG Advisory, their verifier. The name, description, url and image are
+# copied from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: KPMG Advisory
+description: International verification body for environmental projects
+url: https://kpmg.com/
+image: https://regen-registry.s3.amazonaws.com/profiles/9c621ff2-c485-11ee-b3e1-0a6e1e09fcad/Unknown-2
+claimStatement: KPMG Advisory is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9S5KCGFW0Q4WDM3VGM
+  agentKind: ORGANIZATION

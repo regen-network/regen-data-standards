@@ -1,0 +1,16 @@
+# From the projects that name City of Issaquah
+# (C02/C02ProjectInfo-C02-004.yaml): City of Issaquah, their developer,
+# describes itself. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: City of Issaquah
+description: Municipality in King County, Washington
+url: https://www.issaquahwa.gov/
+image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-004-profile-image.png
+claimStatement: City of Issaquah is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA1AKF9Z78A1CK7A5WK
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA1AKF9Z78A1CK7A5WK
+  agentKind: ORGANIZATION

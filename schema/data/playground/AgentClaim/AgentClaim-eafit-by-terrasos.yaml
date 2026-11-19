@@ -1,0 +1,17 @@
+# From the projects that name EAFIT (BT01/BT01ProjectInfo-BT01-001.yaml):
+# Terrasos, their developer, describes EAFIT, their monitor. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: EAFIT
+description: University institution providing monitoring services for biodiversity
+  projects
+url: https://www.eafit.edu.co/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/eafit.png
+claimStatement: EAFIT is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9R6MGWMJ056KQYVET7
+  agentKind: ORGANIZATION

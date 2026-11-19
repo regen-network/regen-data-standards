@@ -1,0 +1,17 @@
+# From the projects that name ERA Brazil
+# (USS01/CreditProjectInfo-USS01-001.yaml): ERA Brazil, their developer,
+# describes itself. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: ERA Brazil
+description: ERA Brazil develops and implements regenerative projects focused on biodiversity
+  conservation and ecosystem restoration in Brazil.
+url: https://erabrazil.org
+image: https://regen-registry.s3.us-east-1.amazonaws.com/stakeholder_logos/ERA_logo.png
+claimStatement: ERA Brazil is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAZKZX4V700HY2KN819
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAZKZX4V700HY2KN819
+  agentKind: ORGANIZATION
