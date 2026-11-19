@@ -2,9 +2,9 @@
 # project P-001 states that the claim set in
 # ClaimSet-p-001-registration-package is its complete registration package.
 # The set is named by a labelled placeholder for its ClaimSetIRI, which is
-# computed from the ClaimSet record (regen-network/claims#1). Which
-# requirements each member answers, and which credit class version it is made
-# under, are stated on the member. Whether the
+# computed from the ClaimSet record (regen-network/claims#1). The claim names
+# no requirements or credit class version: of the members, only the C06
+# project claim names its credit class version (governedBy). Whether the
 # package meets a checklist is for a reviewer's Evaluation, which would name
 # the same ClaimSetIRI in hasTarget.
 name: Example project P-001 registration package

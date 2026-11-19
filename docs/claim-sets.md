@@ -87,13 +87,14 @@ It adds no field of its own: it has the base Claim fields (`claimStatement`, `as
 `assertedAt` or `assertedOn`, `hasEvidenceCitation`, `reliesOn`, `wasRevisionOf` and the rest), with
 `hasSubject` narrowed to a claim set. The type says what the statement means.
 
-- **Requirements and governing documents are named on the members.** Which requirements each Claim
-  in the set answers, and which governing documents it is made under, such as a credit class
-  version, are stated on that Claim, with `addressesRequirement` and `governedBy`. The completeness
-  claim does not repeat them.
+- **It names no requirements or governing documents.** A member names them itself only if its
+  claim type selects `addressesRequirement` or `governedBy`. In the example package, only the
+  `C06ProjectClaim` can: it names its credit class version with `governedBy`. No C06 claim type
+  selects `addressesRequirement`; only the nested `DeviationRequest` does.
 - **It states what the claimants present, not that the set is enough.** A reviewer who judges
-  whether the set meets a checklist makes an Evaluation with the same ClaimSetIRI in `hasTarget`
-  and the checklist version in `appliesRequirementSet`.
+  whether the set meets a checklist makes an Evaluation with the same ClaimSetIRI in `hasTarget`,
+  and names the requirements it applies with `appliesRequirement`, or the checklist version with
+  `appliesRequirementSet`.
 - **The members stay in the ClaimSet record.** The completeness claim names the set; it cannot list
   members itself ([example](../schema/examples/claim-set-completeness-claim.SCHEMA-INVALID-member-list.yaml)).
 - **It cannot be a member of its own set.** Its ClaimIRI is computed from content that contains the
