@@ -3,7 +3,8 @@
 # ClaimSet-p-001-registration-package is its complete registration package.
 # The set is named by a labelled placeholder for its ClaimSetIRI, which is
 # computed from the ClaimSet record (regen-network/claims#1). Which
-# requirements each member answers is stated on the member. Whether the
+# requirements each member answers, and which credit class version it is made
+# under, are stated on the member. Whether the
 # package meets a checklist is for a reviewer's Evaluation, which would name
 # the same ClaimSetIRI in hasTarget.
 name: Example project P-001 registration package
@@ -18,5 +19,3 @@ assertedBy:
 assertedAt: "2026-07-15T10:00:00+00:00"
 hasSubject:
   id: https://example.org/placeholder/claim-set-iri/p-001-registration-package
-governedBy:
-  - https://example.org/rule-set/credit-class-c06/1.5.2

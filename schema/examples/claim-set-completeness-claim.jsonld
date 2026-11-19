@@ -306,8 +306,5 @@
   "hasSubject": {
     "@type": "ClaimSetSubject",
     "id": "https://example.org/placeholder/claim-set-iri/p-001-registration-package"
-  },
-  "governedBy": [
-    "https://example.org/rule-set/credit-class-c06/1.5.2"
-  ]
+  }
 }
