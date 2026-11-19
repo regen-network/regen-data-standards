@@ -16,13 +16,7 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
+    "rid": "@id",
     "applicability": {
       "@id": "applicability",
       "@type": "@vocab",
@@ -83,6 +77,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -145,6 +143,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "licence": {
       "@type": "@id",
@@ -209,10 +211,6 @@
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
-    },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
     },
@@ -266,6 +264,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -431,10 +432,7 @@
   "name": "Consistency review of the plot B restoration claim",
   "claimStatement": "The restoration claim for plot B is internally inconsistent: its statement and its area field give different restored areas.",
   "assertedBy": [
-    {
-      "@type": "Organization",
-      "name": "Example Registry"
-    }
+    "https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S"
   ],
   "assertedOn": "2026-07-01",
   "hasSubject": {

@@ -1,0 +1,17 @@
+# From the projects that name Lookout Mountain Conservancy
+# (C02/C02ProjectInfo-C02-006.yaml): Lookout Mountain Conservancy, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Lookout Mountain Conservancy
+description: Land conservancy protecting natural areas in the Chattanooga region
+url: https://lookoutmountainconservancy.org
+image: https://regen-registry.s3.amazonaws.com/projects/1f484f70-16cd-11ee-ab29-0a6e1e09fcad/1688078344082-LMC_logo.jpg
+claimStatement: Lookout Mountain Conservancy is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA3WA98F9J5FB2Y9F62
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA3WA98F9J5FB2Y9F62
+  agentKind: ORGANIZATION

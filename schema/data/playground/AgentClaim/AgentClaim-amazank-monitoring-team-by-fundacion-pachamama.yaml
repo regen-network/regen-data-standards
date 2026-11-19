@@ -1,0 +1,16 @@
+# From the projects that name Amazank Monitoring Team
+# (USS01/CreditProjectInfo-USS01-002.yaml): Fundación Pachamama, their
+# developer, describes Amazank Monitoring Team, their monitor. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Amazank Monitoring Team
+description: Community-based team conducting biodiversity and ecosystem monitoring
+url: https://www.instagram.com/sharam.conservacion/
+claimStatement: Amazank Monitoring Team is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMB3979C8H6BC9KS9Y5R
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMB5YQNQB4KMV5DRKQE8
+  agentKind: ORGANIZATION

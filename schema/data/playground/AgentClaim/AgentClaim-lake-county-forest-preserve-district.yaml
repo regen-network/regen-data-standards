@@ -1,0 +1,18 @@
+# From the projects that name Lake County Forest Preserve District
+# (C02/C02ProjectInfo-C02-011.yaml): Lake County Forest Preserve District,
+# their developer, describes itself. The name, description, url and image are
+# copied from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Lake County Forest Preserve District
+description: Public agency managing forest preserves and natural areas in Lake County,
+  Illinois
+url: https://www.lcfpd.org/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/lake_county_logo.png
+claimStatement: Lake County Forest Preserve District is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA86TK7T5G9N5C4W5FM
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA86TK7T5G9N5C4W5FM
+  agentKind: ORGANIZATION

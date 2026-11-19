@@ -1,0 +1,18 @@
+# From the projects that name Kulshan Carbon Trust
+# (C05/CreditProjectInfo-C05-001.yaml): San Juan Conservation District, their
+# developer, describes Kulshan Carbon Trust, their monitor. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Kulshan Carbon Trust
+description: We are on a mission to conserve and sequester carbon through collaborative
+  natural climate solutions in Northwest Washington.
+url: https://kulshancarbontrust.org/
+image: https://regen-registry.s3.amazonaws.com/profiles/772065bc-5334-11ef-a754-0afffa81c869/1724950434335/1724950434334-avatar.jpg
+claimStatement: Kulshan Carbon Trust is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAAPYMZRH6HNFBVXP7Y
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMABM60FWBSV7XE6RV3J
+  agentKind: ORGANIZATION

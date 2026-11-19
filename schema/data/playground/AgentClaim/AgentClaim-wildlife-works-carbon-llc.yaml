@@ -1,0 +1,16 @@
+# From the projects that name Wildlife Works Carbon LLC
+# (C01/C01ProjectInfo-C01-001.yaml and one other): Wildlife Works Carbon LLC,
+# their developer, describes itself. The name, description, url and image are
+# copied from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Wildlife Works Carbon LLC
+description: Wildlife Works is the world's leading REDD+ program development and management
+  company.
+claimStatement: Wildlife Works Carbon LLC is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9VHQ07KQ3Q7SZF4M2Q
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9VHQ07KQ3Q7SZF4M2Q
+  agentKind: ORGANIZATION

@@ -1,0 +1,17 @@
+# expect: 'assertedAt' is a required property
+# class: AgentClaim
+# An AgentClaim states a full assertedAt. With only a date, a change of
+# accounts and an on-chain attestation on the same day cannot be ordered.
+name: Hedgerow Cooperative
+claimStatement: >-
+  Hedgerow Cooperative is a community of farmers that plants native hedgerows.
+  It controls the Regen Ledger account
+  cosmos:regen-1:regen1examplehedgerowcooperativeaccounta.
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+assertedOn: "2026-04-01"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+  agentKind: COMMUNITY
+walletAddress:
+  - cosmos:regen-1:regen1examplehedgerowcooperativeaccounta

@@ -1,0 +1,16 @@
+# From the projects that name Trees Forever (C02/C02ProjectInfo-C02-007.yaml):
+# Trees Forever, their developer, describes itself. The name, description, url
+# and image are copied from those fixtures. The AgentClaim itself is
+# synthetic, with a fixed assertedAt.
+name: Trees Forever
+description: Nonprofit organization planting and caring for trees in Iowa communities
+url: https://treesforever.org/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/trees_forever_logo.gif
+claimStatement: Trees Forever is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA4E3CNM36T8WTEK7HY
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA4E3CNM36T8WTEK7HY
+  agentKind: ORGANIZATION

@@ -53,49 +53,21 @@ hasCoBenefits:
     supportsSDG:
       - ""
 
-# Stakeholder entities (all optional)
-hasProjectDeveloper:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+# Stakeholder agents (all optional), each named by its rid. Each agent is
+# described in an AgentClaim (AgentClaim/), asserted by the agent itself or
+# by the project developer.
+hasProjectDeveloper: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
-hasProjectOperator:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+hasProjectOperator: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
-hasProjectMonitor:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+hasProjectMonitor: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
-hasProjectOwner:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+hasProjectOwner: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
-hasProjectPartner:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+hasProjectPartner: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
 # Credit-specific fields (from CreditProjectInfo)
-hasProjectVerifier:
-  name: ""
-  description: ""
-  url: ""
-  image: ""
-  type: "" # prov:Person, prov:Organization or rfs:Community
+hasProjectVerifier: "" # the agent's rid, https://framework.regen.network/agent/<ulid>
 
 creditClassVersion: ""
 

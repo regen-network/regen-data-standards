@@ -41,7 +41,7 @@ ADR 0001 defines a Claim. These rules decide where one Claim ends and another be
 | `claimStatement` | `rfs:claimStatement` ⊑ `schema:description` | string | 1 | The assertion in the claimants' words. It is asserted content, not a summary. |
 | `inLanguage` | `schema:inLanguage` | BCP 47 tag with a 2- or 3-letter ISO 639 primary subtag | 0..1 | Language of `claimStatement`. A tag that is only private use, such as `x-regen`, is not accepted. The form is checked, not registration, so some deprecated grandfathered tags such as `zh-min` pass. |
 | `url` | `schema:url` | uri | 0..1 | A page for readers. It is not evidence. It is content, so changing it makes a new Claim version; when a page moves, keep a redirect from the old address instead. |
-| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | `Agent` (inlined): a `Person`, `Organization`, `SoftwareAgent` or `Community` | 1..*, set | Who takes responsibility for asserting the content. It does not establish their authority. |
+| `assertedBy` | `rfs:assertedBy` ⊑ `prov:wasAttributedTo` | IRI: each agent's `rid` | 1..*, set | Who takes responsibility for asserting the content, named by rid. It does not establish their authority. The agent's description is in its `AgentClaim`s. |
 | `assertedAt` | `rfs:assertedAt` | `xsd:dateTime`, UTC, whole seconds, `+00:00` | 0..1 | When the claimants make the assertion. |
 | `assertedOn` | `rfs:assertedOn` | `xsd:date`, `YYYY-MM-DD`, no time zone | 0..1 | The date of the assertion, when the source gives only a date. A Claim states exactly one of `assertedAt` and `assertedOn`. |
 | `hasSubject` | `rfs:hasSubject` | `ClaimSubject` (inlined, with IRI) | 1 | The one focal resource the claim is about, as a node with only its IRI and type. Its name and description live on its own resource. |
@@ -55,7 +55,18 @@ excluded ([claims#1](https://github.com/regen-network/claims/issues/1)). So chan
 unchanged. A correction names the earlier version with `wasRevisionOf`. Which version is current is
 decided outside the Claim. An `Evidence` record is its own document: a citation names it by its Raw
 IRI, derived from the cited bytes' digest and media type, so editing the record's description or moving the data
-(its `resolver`) does not change a Claim that cites it.
+(its `resolver`) does not change a Claim that cites it. A claimant is named by its `rid`, the IRI minted once
+for the agent, so claims by the same agent can be joined, and the rid is content: a Claim that names the agent
+under another rid is a different Claim.
+
+**Agents are described in AgentClaims.** A Claim holds only its claimants' rids. An agent's name,
+description, web page, image, DID and on-chain accounts (`walletAddress`), and for software its
+`softwareVersion` and `isVersionOf`, are asserted in an `AgentClaim`: a Claim whose `hasSubject` is the
+agent, as its rid and kind (`AgentSubject`, with `agentKind`), and which has one claimant, the agent itself
+or another agent that describes it. It states a full `assertedAt`. An update is a new `AgentClaim` that names
+the earlier one with `wasRevisionOf` and has the same `hasSubject`, so describing an agent anew changes no
+Claim that names it. Who may describe or revise an agent is decided by the application that uses the
+AgentClaims ([claims ADR 0003 D15](https://github.com/regen-network/claims/pull/63)).
 
 **Statement and structured fields.** A claim type may formalize the assertion, or add detail to it,
 in structured fields, such as an area and its unit. The statement and those fields are one assertion
@@ -135,10 +146,11 @@ do not own:
   `prov:Entity` and an `xsd:anyURI` value. The same default makes `rfs:reliesOn` and
   `dcterms:references` datatype properties, although their values are resources. With the flag, they
   become object properties without a range, as in PROV-O and DCMI Terms.
-- *Global narrowing, fixed by emitting only `rfs:` axioms.* An `rdfs:range` built from `rfs:Agent`
-  and its kinds on `prov:wasAttributedTo` and on `prov:wasAssociatedWith`
-  remains. It is not a contradiction, but a reasoner applies it to all PROV data: any agent anyone
-  attributes anything to becomes an `rfs:Agent`. The published OWL should therefore drop every
+- *Global narrowing, fixed by emitting only `rfs:` axioms.* An `rdfs:range` on a property we reuse,
+  such as `prov:SoftwareAgent` on `dcterms:isVersionOf`, remains. (`prov:wasAttributedTo` and
+  `prov:wasAssociatedWith` no longer get one, since they name agents by rid.) It is not a
+  contradiction, but a reasoner applies it to all data that uses the property: anything anyone
+  calls a version of something makes that something a `prov:SoftwareAgent`. The published OWL should therefore drop every
   axiom whose subject is a non-`rfs:` IRI, keeping the links from our terms, such as
   `rfs:assertedBy rdfs:subPropertyOf prov:wasAttributedTo` and `rfs:Claim rdfs:subClassOf
   prov:Entity`.
@@ -321,8 +333,6 @@ fields and their RIDs after the PR merges, and reports the result on
 
 ## Open, and where it is tracked
 
-- `Agent` has no identifier yet, so claimants remain blank nodes and cannot be joined across claims
-  ([#58](https://github.com/regen-network/regen-data-standards/pull/58)).
 - Whether a claimant is authorized to assert for another party is not recorded by the Claim:
   [#96](https://github.com/regen-network/regen-data-standards/issues/96).
 - Evaluation-method terms and references to exact governing-document and requirement-set versions, deferred from #71, are

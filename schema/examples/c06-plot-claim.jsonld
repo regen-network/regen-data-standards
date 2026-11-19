@@ -22,13 +22,7 @@
       "@type": "xsd:date",
       "@id": "adoptionDate"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
+    "rid": "@id",
     "aggregateStartDate": {
       "@type": "xsd:date",
       "@id": "aggregateStartDate"
@@ -103,6 +97,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "ecosystemTypes": {
       "@id": "ecosystemTypes",
@@ -199,6 +197,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "justification": {
       "@id": "justification"
@@ -386,10 +388,6 @@
       "@type": "xsd:date",
       "@id": "siteProjectStartDate"
     },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
-    },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
     },
@@ -458,6 +456,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -585,10 +586,7 @@
   "name": "Plot S-001.0007 area, tenure and land-use history",
   "claimStatement": "Plot S-001.0007 covers 12.75 ha within boundary feature 118, is held under a lease, and was not converted from a natural ecosystem in the ten years before its site's project start date.",
   "assertedBy": [
-    {
-      "@type": "Organization",
-      "name": "Example Soil Carbon Developer"
-    }
+    "https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK"
   ],
   "assertedOn": "2026-02-20",
   "hasSubject": {

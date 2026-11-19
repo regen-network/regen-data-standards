@@ -7,8 +7,7 @@ claimStatement: >-
   The restoration claim for plot B is internally inconsistent: its statement
   and its area field give different restored areas.
 assertedBy:
-  - name: Example Registry
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VMAQ59C7Q56CQCTCXX2S
 assertedOn: "2026-07-01"
 hasSubject:
   id: https://example.org/plot/B

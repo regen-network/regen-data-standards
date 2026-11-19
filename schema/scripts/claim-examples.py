@@ -35,17 +35,23 @@ The check validates every document with both validators the schema generates:
   without rdflib's literal normalization so that lexical forms are checked as
   written (rdflib would otherwise rewrite a Z in assertedAt, which the
   pattern rejects, as +00:00). The generated shapes are used unchanged.
-  Claims and evaluations reference Evidence records by IRI, and Evidence
-  records reference Activity records by IRI (wasGeneratedBy); the shapes
-  require each to be an rfs:Evidence or an rfs:Activity. So each document is
-  checked together with the Turtle gen-rdf wrote for the records it can
-  reference, as the graph store holds them: a claim or evaluation with the
-  Evidence and Activity records, an Evidence record with the Activity records.
-  Activity records are typed with a kind of Activity (GenericActivity,
-  Capture), so they are merged together with the class hierarchy gen-hierarchy
-  publishes, which the store holds too. An Activity correction can reference
-  an earlier Activity with replaces, so it is checked with the other Activity
-  records, excluding its own stored copy.
+  Claims and evaluations reference Evidence records by IRI, Evidence
+  records reference Activity records by IRI (wasGeneratedBy), and a
+  SoftwareAgent version record, or an AgentClaim about a version, names the
+  record for its software by rid (isVersionOf); the shapes require each to
+  be an rfs:Evidence, an rfs:Activity or a prov:SoftwareAgent. So each
+  document is checked together with the Turtle gen-rdf wrote for the records
+  it can reference, as the graph store holds them. A document is merged with
+  the SoftwareAgent records of the agents it names by IRI, such as the
+  sensor version a Capture names and the sensor that version names, but
+  not the agent an AgentClaim describes. A claim or evaluation is also
+  merged with the Evidence and Activity records, and an Evidence record with
+  the Activity records. Activity records are typed with
+  a kind of Activity (GenericActivity, Capture), so they are merged together
+  with the class hierarchy gen-hierarchy publishes, which the store holds too.
+  An Activity correction can reference an earlier Activity with replaces, so
+  it is checked with the other Activity records, excluding its own stored
+  copy, found by its Activity IRI.
 
 Each example must be current, its JSON-LD graph isomorphic to the fixture's
 published Turtle (run make gen-rdf first), and accepted by both validators. Each
@@ -67,6 +73,17 @@ the Evidence records, as the graph store merges it.
 For each example with citations, the check also changes a selector and
 requires that the cited Evidence IRIs and the Evidence records stay the same,
 while the citing document's graph changes.
+
+Every record names its agents by rid (assertedBy, wasAssociatedWith, the
+ProjectInfo role slots), and each agent is described in AgentClaims. The check
+loads the AgentClaims gen-rdf wrote: every agent an example names in
+assertedBy must have one, and so must every agent any playground record names
+in one of AGENT_SLOTS. Every AgentClaim that revises
+another (wasRevisionOf) must describe the same agent (hasSubject) as the
+AgentClaim it revises, which it names by a placeholder ClaimIRI listed in
+AGENT_CLAIM_IRIS. Neither generated validator can compare two records, so a
+schema-invalid example marked "# check: revision changes the subject" must be
+accepted by both and rejected by this check.
 
 The generic examples are GenericClaims and GenericEvaluations, whose shapes are
 closed. The base Claim and Evaluation are abstract, so their shapes are open:
@@ -122,6 +139,7 @@ MODULES = {
     "C06SiteClaim": "src/C06Claim.yaml",
     "C06PlotClaim": "src/C06Claim.yaml",
     "SoftwareAgent": "src/Agent.yaml",
+    "AgentClaim": "src/AgentClaim.yaml",
 }
 EXAMPLES = {
     "data/playground/Claim/GenericClaim-001.yaml": "examples/generic-claim.jsonld",
@@ -149,14 +167,36 @@ EXAMPLES = {
     "data/playground/C06CohortClaim/C06CohortClaim-mvp-001.yaml": "examples/c06-cohort-claim.jsonld",
     "data/playground/C06PlotClaim/C06PlotClaim-mvp-001.yaml": "examples/c06-plot-claim.jsonld",
     "data/playground/C06ProjectClaim/C06ProjectClaim-statement-001.yaml": "examples/c06-project-claim-statement.jsonld",
+    "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative.yaml": "examples/agent-claim.jsonld",
+    "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative-revision.yaml": "examples/agent-claim-revision.jsonld",
+    "data/playground/AgentClaim/AgentClaim-meeting-sensor-1.4.2.yaml": "examples/agent-claim-software-version.jsonld",
 }
 INVALID_GLOB = "examples/*.SCHEMA-INVALID-*.yaml"
 # The records documents reference by IRI, as the graph store holds them.
 RECORD_GLOBS = {
     "evidence": ["data/playground/Evidence/*.ttl"],
     "activity": ["data/playground/GenericActivity/*.ttl", "data/playground/Capture/*.ttl"],
+    "agent": ["data/playground/SoftwareAgent/*.ttl"],
+    "agent_claim": ["data/playground/AgentClaim/*.ttl"],
 }
+# The AgentClaim each placeholder ClaimIRI stands for (regen-network/claims#1).
+AGENT_CLAIM_IRIS = {
+    "https://example.org/placeholder/claim-iri/agent-claim-hedgerow-cooperative-v1":
+        "data/playground/AgentClaim/AgentClaim-hedgerow-cooperative.ttl",
+}
+RFS = "https://framework.regen.network/schema/"
+AGENT_CLAIM = rdflib.URIRef(RFS + "AgentClaim")
+AGENT_SUBJECT = rdflib.URIRef(RFS + "AgentSubject")
+ASSERTED_BY = rdflib.URIRef(RFS + "assertedBy")
+HAS_SUBJECT = rdflib.URIRef(RFS + "hasSubject")
+WAS_REVISION_OF = rdflib.URIRef("http://www.w3.org/ns/prov#wasRevisionOf")
+REVISION_MARK = "# check: revision changes the subject"
+# The slots that name an agent by rid.
+AGENT_SLOTS = ["assertedBy", "wasAssociatedWith", "hasProjectDeveloper", "hasProjectMonitor",
+               "hasProjectOperator", "hasProjectOwner", "hasProjectPartner", "hasProjectVerifier",
+               "hasEnvironmentalAuthority"]
 ACTIVITY_CLASSES = {"GenericActivity", "Capture"}
+ACTIVITY_TYPES = {rdflib.URIRef(RFS + name) for name in ACTIVITY_CLASSES}
 GRAPH_MARK = "# graph: with the Evidence records"
 HIERARCHY = "data/playground/vocabulary/hierarchy.ttl"
 # The abstract base each generic class stands for: its shape is open.
@@ -318,7 +358,7 @@ def as_extension(view, graph, class_name, without=None):
 
 
 def record_store():
-    """The Evidence and Activity records as the graph store holds them: gen-rdf's Turtle."""
+    """The Evidence, Activity, SoftwareAgent and AgentClaim records as the graph store holds them: gen-rdf's Turtle."""
     store = {}
     for kind, patterns in RECORD_GLOBS.items():
         paths = sorted(path for pattern in patterns for path in glob.glob(pattern))
@@ -326,6 +366,7 @@ def record_store():
             sys.exit(f"No {kind} record Turtle found: run make gen-rdf")
         store[kind] = rdflib.Graph()
         store[kind + "_records"] = []
+        store[kind + "_paths"] = paths
         for path in paths:
             record = lexical_graph(Path(path).read_text(), "turtle")
             store[kind + "_records"].append(record)
@@ -339,24 +380,97 @@ def record_store():
 def with_store(graph, store, class_name=None):
     """Return graph merged with the records a document of class_name can reference.
 
-    An Activity correction references an earlier Activity. Exclude its own
-    stored copy so nested blank nodes, such as its operator, are not duplicated.
-    An Evidence record references Activity
-    records, and is not merged with the Evidence records, which hold it already:
-    merged with itself, its digest (a blank node) would be duplicated."""
-    if class_name in ACTIVITY_CLASSES:
-        merged = graph + hierarchy()
-        own_iris = {s for s in graph.subjects() if isinstance(s, rdflib.URIRef)}
+    An Activity correction references an earlier Activity, so it is merged
+    with the other Activity records except its own stored copy, found by the
+    document's Activity IRI. Matching any IRI it holds would also leave out
+    the records it replaces: the agents it names are IRIs (their rids), and
+    other Activity records name the same agents. An Evidence record
+    references Activity records, and is not merged with the Evidence records,
+    which hold it already: merged with itself, its digest (a blank node)
+    would be duplicated. Other documents are merged with the Activity and
+    Evidence records.
+
+    The result is then merged with the SoftwareAgent records of the agents
+    it names by IRI: a version record, inlined in the document or in an
+    Activity record merged with it, or an AgentClaim about a version, names
+    the record for its software by rid. The agent an AgentClaim describes is
+    left out, and an AgentClaim is merged with nothing else: the agent's
+    record, or an Activity record that inlines the agent (as a Capture
+    inlines its sensor version), would add the agent's description to the
+    AgentClaim's subject node, which carries only its rid and kind."""
+    merged = rdflib.Graph()
+    merged += graph
+    if class_name == "AgentClaim":
+        pass
+    elif class_name in ACTIVITY_CLASSES:
+        merged += hierarchy()
+        own_iris = {s for s, kind in graph.subject_objects(RDF.type) if kind in ACTIVITY_TYPES}
         for record in store["activity_records"]:
             if not own_iris.intersection(record.subjects()):
                 merged += record
-        return merged
-    merged = rdflib.Graph()
-    merged += graph
-    merged += store["activity"]
-    if class_name != "Evidence":
-        merged += store["evidence"]
-    return merged
+    else:
+        merged += store["activity"]
+        if class_name != "Evidence":
+            merged += store["evidence"]
+    # A record merged in can name another agent, as a version names its
+    # software, so merge until no record adds one.
+    merged_records = set()
+    while True:
+        named = named_agents(merged)
+        new = [i for i, record in enumerate(store["agent_records"])
+               if i not in merged_records and named.intersection(record.subjects())]
+        if not new:
+            return merged
+        for i in new:
+            merged += store["agent_records"][i]
+            merged_records.add(i)
+
+
+def named_agents(graph):
+    """The IRIs a document names, other than the subject of an AgentClaim."""
+    described = set(graph.subjects(RDF.type, AGENT_SUBJECT))
+    return {o for o in graph.objects() if isinstance(o, rdflib.URIRef)} - described
+
+
+def agents_named_in_records(view):
+    """For each agent the playground records name in AGENT_SLOTS, the records that name it."""
+    slots = {rdflib.URIRef(view.get_uri(view.all_slots()[name], expand=True)) for name in AGENT_SLOTS}
+    named = {}
+    for path in sorted(glob.glob("data/playground/*/*.ttl")):
+        graph = rdflib.Graph().parse(path, format="turtle")
+        for slot in slots:
+            for agent in graph.objects(None, slot):
+                named.setdefault(agent, []).append(path)
+    return named
+
+
+def described_agents(store):
+    """The agents the AgentClaims describe: their hasSubject rids."""
+    return {o for record in store["agent_claim_records"] for o in record.objects(None, HAS_SUBJECT)}
+
+
+def revisions(graph):
+    """The AgentClaims in graph that revise another, with the ClaimIRI each names."""
+    return [(claim, revised) for claim in graph.subjects(RDF.type, AGENT_CLAIM)
+            for revised in graph.objects(claim, WAS_REVISION_OF)]
+
+
+def revision_problems(graph, store):
+    """For each AgentClaim in graph that revises another, how its subject differs
+    from the subject of the AgentClaim it revises."""
+    problems = []
+    for claim, revised in revisions(graph):
+        path = AGENT_CLAIM_IRIS.get(str(revised))
+        if path not in store["agent_claim_paths"]:
+            problems.append(f"revises {revised}, which names no AgentClaim in AGENT_CLAIM_IRIS")
+            continue
+        earlier = store["agent_claim_records"][store["agent_claim_paths"].index(path)]
+        subjects = set(graph.objects(claim, HAS_SUBJECT))
+        earlier_subjects = set(earlier.objects(None, HAS_SUBJECT))
+        if subjects != earlier_subjects:
+            problems.append(f"subject {sorted(map(str, subjects))}, revised AgentClaim's subject"
+                            f" {sorted(map(str, earlier_subjects))}")
+    return problems
 
 
 def change_selector(data):
@@ -484,6 +598,15 @@ def main(mode):
             else:
                 print(f"❌ {example}: changing a selector changed the cited Evidence, or nothing")
                 failures += 1
+        claimants = set(jsonld.objects(None, ASSERTED_BY))
+        missing = claimants - described_agents(store)
+        if not claimants:
+            pass
+        elif not missing:
+            print(f"✅ {example}: every agent it names in assertedBy has an AgentClaim")
+        else:
+            print(f"❌ {example}: no AgentClaim describes {sorted(map(str, missing))}")
+            failures += 1
         if class_name in OPEN_BASES:
             base = OPEN_BASES[class_name]
             graph = with_store(lexical_graph(text, "json-ld"), store, class_name) + classes
@@ -515,12 +638,42 @@ def main(mode):
                 print(f"❌ {example} with an undeclared field: rejected by {sorted(map(str, shapes)) or 'no shape'}")
                 failures += 1
 
+    named = agents_named_in_records(SchemaView(SCHEMA))
+    missing = sorted(set(named) - described_agents(store))
+    if not missing:
+        print(f"✅ every agent the playground records name in {', '.join(AGENT_SLOTS)} has an AgentClaim ({len(named)} agents)")
+    for agent in missing:
+        print(f"❌ no AgentClaim describes {agent}, named in {named[agent][0]}"
+              + (f" and {len(named[agent]) - 1} other record(s)" if len(named[agent]) > 1 else ""))
+        failures += 1
+
+    for record, path in zip(store["agent_claim_records"], store["agent_claim_paths"]):
+        if not revisions(record):
+            continue
+        problems = revision_problems(record, store)
+        if not problems:
+            print(f"✅ {path}: describes the same agent as the AgentClaim it revises")
+        else:
+            print(f"❌ {path}: a revision must describe the same agent as the AgentClaim it revises ({problems[0]})")
+            failures += 1
+
     for invalid in sorted(glob.glob(INVALID_GLOB)):
         content = Path(invalid).read_text()
         expected = content.splitlines()[0].removeprefix("# expect:").strip()
         class_name = invalid_class(content)
         module = module_for(class_name)
         valid, output = json_schema_check(invalid, class_name)
+        if REVISION_MARK in content:
+            graph = lexical_graph(build(module, class_name, invalid), "json-ld")
+            conforms, messages = shacl_report(with_store(graph, store, class_name), module["shapes"])
+            problems = revision_problems(graph, store)
+            if valid and conforms and problems:
+                print(f"✅ {invalid}: JSON Schema and SHACL accept it, and the revision check rejects it ({problems[0]})")
+            else:
+                print(f"❌ {invalid}: expected JSON Schema and SHACL to accept it and the revision check to reject it"
+                      f" (JSON Schema {valid}, SHACL {conforms}, revision check {problems or 'accepts it'})\n{output}")
+                failures += 1
+            continue
         if GRAPH_MARK in content:
             if valid:
                 print(f"✅ {invalid}: JSON Schema accepts it alone")

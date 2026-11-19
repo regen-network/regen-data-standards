@@ -1,0 +1,17 @@
+# From the projects that name Reserva Natural El Globo
+# (BT01/BT01ProjectInfo-BT01-001.yaml): Terrasos, their developer, describes
+# Reserva Natural El Globo, their operator. The name, description, url and
+# image are copied from those fixtures. The AgentClaim itself is synthetic,
+# with a fixed assertedAt.
+name: Reserva Natural El Globo
+description: Natural reserve managing conservation activities at El Globo
+url: https://www.elglobo.org/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/el-globo-stakeholder-logo.png
+claimStatement: Reserva Natural El Globo is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9PX1A8WA0BGHEY9SM1
+  agentKind: ORGANIZATION

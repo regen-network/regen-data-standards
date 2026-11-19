@@ -1,0 +1,14 @@
+# From the projects that name Dr. Qingfu Xiao
+# (C02/C02ProjectInfo-C02-011.yaml): Lake County Forest Preserve District,
+# their developer, describes Dr. Qingfu Xiao, their verifier. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Dr. Qingfu Xiao
+claimStatement: Dr. Qingfu Xiao is a person.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA86TK7T5G9N5C4W5FM
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA58KTAV7MP0TBT33CX
+  agentKind: PERSON

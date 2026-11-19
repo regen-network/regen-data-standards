@@ -1,0 +1,16 @@
+# From the projects that name ALMASTER (BT01/BT01ProjectInfo-BT01-002.yaml):
+# Terrasos, their developer, describes ALMASTER, their owner. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: ALMASTER
+description: Landowner organization committed to conservation
+url: https://almaster.com/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/Almaster.png
+claimStatement: ALMASTER is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9TRZA4ZRKW6C4BJY73
+  agentKind: ORGANIZATION

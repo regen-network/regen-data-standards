@@ -1,0 +1,18 @@
+# From the projects that name Treasure Valley Canopy Network
+# (C02/C02ProjectInfo-C02-008.yaml): Treasure Valley Canopy Network, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Treasure Valley Canopy Network
+description: Community organization dedicated to enhancing and protecting the urban
+  forest in Idaho's Treasure Valley
+url: https://www.tvcanopy.net/
+image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TVCN-Logo-Black-Footer%2BSmall.webp
+claimStatement: Treasure Valley Canopy Network is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA6TR8VWATM43B0T8RS
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA6TR8VWATM43B0T8RS
+  agentKind: ORGANIZATION

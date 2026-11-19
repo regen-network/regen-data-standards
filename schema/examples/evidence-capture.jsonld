@@ -13,13 +13,7 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
+    "rid": "@id",
     "conformsTo": {
       "@type": "@id",
       "@id": "dcterms:conformsTo"
@@ -41,6 +35,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -65,6 +63,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "licence": {
       "@type": "@id",
@@ -106,10 +108,6 @@
     "selectorType": {
       "@type": "@id",
       "@id": "rdf:type"
-    },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
     },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
@@ -164,6 +162,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",

@@ -48,15 +48,11 @@ classes:
         description: The social cultural index of the project.
       # Compliance Information
       hasEnvironmentalAuthority:
-        range: Agent
-        any_of:
-          - range: Person
-          - range: Organization
-          - range: Community
-        description: The environmental authority associated with the project.
+        range: uriorcurie
+        description: >-
+          The environmental authority associated with the project, named by
+          its rid. Its description is asserted in AgentClaims.
         multivalued: true
-        inlined: true
-        inlined_as_list: true
     slot_usage:
       region:
         range: BT01RegionTypes

@@ -1,0 +1,17 @@
+# From the projects that name COBEC (Community Based Environmental
+# Conservation) (MBS01/CreditProjectInfo-MBS01-001.yaml): SeaTrees, their
+# developer, describes COBEC (Community Based Environmental Conservation),
+# their partner. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: COBEC (Community Based Environmental Conservation)
+description: Local community organization implementing mangrove restoration in coastal
+  Kenya
+url: https://cobec.or.ke/
+claimStatement: COBEC (Community Based Environmental Conservation) is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAVVFRNM4QPWCPW44Q9
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAW5BPBPFCWJKYN4TJ6
+  agentKind: ORGANIZATION

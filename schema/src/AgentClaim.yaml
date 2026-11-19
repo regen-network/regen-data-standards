@@ -1,0 +1,148 @@
+id: https://framework.regen.network/schema/AgentClaim
+name: AgentClaim
+description: >-
+  The Claim that describes an agent. A Claim names its claimants only by rid
+  (assertedBy). What an agent is called, how it is described and which
+  on-chain accounts it controls is asserted in an AgentClaim, whose subject is
+  the agent, and revised by a new AgentClaim. Describing an agent anew changes
+  no Claim that names it.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rfs: https://framework.regen.network/schema/
+  rfa: https://framework.regen.network/agent/
+  prov: http://www.w3.org/ns/prov#
+  schema: http://schema.org/
+
+imports:
+  - linkml:types
+  - core
+  - Agent
+  - Claim
+  - ClaimSubject
+
+default_prefix: rfs
+default_range: string
+
+classes:
+  AgentClaim:
+    is_a: Claim
+    class_uri: rfs:AgentClaim
+    description: >-
+      A description of an agent: its name, description, web page, image, DID
+      and on-chain accounts, and, for software, its version and the software
+      it is a version of. Its subject is the agent, named by its rid with its
+      kind. It has one claimant: the agent itself, or another agent that
+      describes it, such as a project developer describing its monitor. An
+      update is a new AgentClaim, with its own ClaimIRI, that names the
+      AgentClaim it revises with wasRevisionOf and describes the same agent:
+      its hasSubject is the same rid. The rid stays the same, and neither the
+      earlier AgentClaim nor any Claim that names the agent changes. Each
+      AgentClaim states a full assertedAt: a date alone cannot order a change
+      of accounts and an on-chain act on the same day.
+    comments:
+      - >-
+        The schema records who makes the declaration. Who may describe or
+        revise an agent, whether only the first claimant may revise an
+        AgentClaim, and whether a revision replaces an earlier version for a
+        given purpose are decided by the application that uses the
+        AgentClaims, under its own policy (regen-network/claims ADR 0003
+        D15).
+      - >-
+        Implementation: the generated JSON Schema and SHACL allow one
+        claimant, and cannot compare two records. make check-claim-examples
+        checks that every AgentClaim revision has the hasSubject of the
+        AgentClaim it revises, and that every agent a Claim example names in
+        assertedBy has an AgentClaim.
+    slots:
+      - description
+      - image
+      - did
+      - walletAddress
+      - softwareVersion
+      - isVersionOf
+    slot_usage:
+      name:
+        description: The agent's name.
+        required: true
+      url:
+        description: >-
+          A web page about the agent, such as its website. It is content,
+          so a new page is a new AgentClaim version.
+      claimStatement:
+        description: >-
+          The declaration in natural language, such as "Hedgerow Cooperative
+          is a community. It controls the Regen Ledger account
+          cosmos:regen-1:regen1...". It and the structured fields are one
+          assertion and must agree.
+      assertedBy:
+        description: >-
+          The one agent that asserts the description, named by its rid: the
+          agent described, or another agent that describes it.
+        maximum_cardinality: 1
+      assertedAt:
+        required: true
+      hasSubject:
+        description: >-
+          The agent described, as its rid and its kind. A revision has the
+          same hasSubject as the AgentClaim it revises.
+        range: AgentSubject
+      isVersionOf:
+        description: >-
+          The software agent the described agent is a version of, named by
+          its rid: the software across its versions, such as the sensor as a
+          whole. Only for a version of software.
+    rules:
+      - description: >-
+          A version of software names the software it is a version of.
+          Enforced by the generated JSON Schema; the generated SHACL does
+          not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            softwareVersion:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            isVersionOf:
+              value_presence: PRESENT
+      - description: >-
+          An AgentClaim that names the software its agent is a version of
+          states which version it is. Enforced by the generated JSON Schema;
+          the generated SHACL does not express LinkML rules.
+        preconditions:
+          slot_conditions:
+            isVersionOf:
+              value_presence: PRESENT
+        postconditions:
+          slot_conditions:
+            softwareVersion:
+              value_presence: PRESENT
+
+  AgentSubject:
+    is_a: ClaimSubject
+    class_uri: rfs:AgentSubject
+    description: >-
+      The agent an AgentClaim describes: its rid, as id, and its kind,
+      nothing else. Its name and other description are the AgentClaim's
+      content, so two AgentClaims about the same agent never merge their
+      descriptions on the agent's IRI.
+    attributes:
+      agentKind:
+        slot_uri: rfs:agentKind
+        description: >-
+          The kind of agent: a person, an organization, a software agent or
+          a community, the four kinds of Agent.
+        range: AgentKind
+        required: true
+
+enums:
+  AgentKind:
+    description: The four kinds of Agent, each by its class.
+    permissible_values:
+      PERSON:
+        meaning: prov:Person
+      ORGANIZATION:
+        meaning: prov:Organization
+      SOFTWARE_AGENT:
+        meaning: prov:SoftwareAgent
+      COMMUNITY:
+        meaning: rfs:Community

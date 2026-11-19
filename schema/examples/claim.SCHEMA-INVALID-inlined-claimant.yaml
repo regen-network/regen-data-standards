@@ -1,0 +1,13 @@
+# expect: is not of type 'string'
+# shacl: not enforced (the generated SHACL checks that each claimant is an IRI, and an inlined agent has one, its rid)
+# A Claim names each claimant by rid. The agent's name and other description
+# are in its AgentClaims, not in each Claim that names it.
+name: Hedgerow planting on plot A, spring 2026
+claimStatement: Hedgerow Cooperative planted 400 m of mixed native hedgerow on plot A.
+assertedBy:
+  - rid: https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
+    name: Hedgerow Cooperative
+    type: rfs:Community
+assertedAt: "2026-05-02T07:30:00+00:00"
+hasSubject:
+  id: https://example.org/plot/A

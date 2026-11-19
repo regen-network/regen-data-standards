@@ -48,15 +48,8 @@ hasCoBenefits:
     supportsSDG:
       - SDG_3
       - SDG_11
-hasProjectDeveloper:
-  name: Allegheny Land Trust
-  description: Land trust protecting natural areas in the Pittsburgh region
-  url: https://alleghenylandtrust.org/
-  image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-003-profile-image.png
-  type: prov:Organization
-hasProjectVerifier:
-  name: Ecofor LLC
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VMA08Q3DBXM8A293B7WR  # Allegheny Land Trust
+hasProjectVerifier: https://framework.regen.network/agent/01M728VM9YRHW4DCJTBK78ASCD  # Ecofor LLC
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

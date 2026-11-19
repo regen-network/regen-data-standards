@@ -1,0 +1,14 @@
+# From the projects that name Enrichmond Foundation
+# (C02/C02ProjectInfo-C02-005.yaml): Enrichmond Foundation, their developer,
+# describes itself. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: Enrichmond Foundation
+description: Foundation supporting community development in Richmond, Virginia
+claimStatement: Enrichmond Foundation is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMA2KB393K30VT117XTF
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMA2KB393K30VT117XTF
+  agentKind: ORGANIZATION

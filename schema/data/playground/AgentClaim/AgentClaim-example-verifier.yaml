@@ -1,0 +1,12 @@
+# Synthetic example (a minted agent rid): the verifier that issues the
+# verification findings describes itself.
+name: Example Verifier
+claimStatement: >-
+  Example Verifier is an organization that verifies carbon projects.
+inLanguage: en
+assertedBy:
+  - https://framework.regen.network/agent/01M728VMAXJP02VYXHM214GRTA
+assertedAt: "2026-04-01T09:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAXJP02VYXHM214GRTA
+  agentKind: ORGANIZATION

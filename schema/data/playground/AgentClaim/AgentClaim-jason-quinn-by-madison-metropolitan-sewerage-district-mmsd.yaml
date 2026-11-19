@@ -1,0 +1,18 @@
+# From the projects that name Jason Quinn
+# (C08/CreditProjectInfo-C08-001.yaml): Madison Metropolitan Sewerage District
+# (MMSD), their developer, describes Jason Quinn, their verifier. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Jason Quinn
+description: CEO of Sustainability Science and professor in the Mechanical Engineering
+  Department Colorado State University.
+url: https://app.regen.network/profiles/f29d449c-9994-11f0-af55-0afffa81c869
+image: https://regen-registry.s3.amazonaws.com/projects/4942ea96-9994-11f0-8a46-0afffa81c869/1758752395276-avatar.jpg
+claimStatement: Jason Quinn is a person.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAHSZ84HQVC6K77D8QQ
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAKJTNN9ADTPKF0MPNN
+  agentKind: PERSON

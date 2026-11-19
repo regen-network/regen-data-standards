@@ -9,8 +9,7 @@ claimStatement: >-
   The verifier rejects example project P-001 as described in project plan v2.0.
   The project is on hold until the identified issues are addressed.
 assertedBy:
-  - name: Example Verifier
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VMAXJP02VYXHM214GRTA
 assertedOn: "2026-04-15"
 hasSubject:
   id: https://example.org/c06/project/P-001

@@ -1,0 +1,16 @@
+# From the projects that name SeaTrees
+# (MBS01/CreditProjectInfo-MBS01-001.yaml): SeaTrees, their developer,
+# describes itself. The name, description, url and image are copied from those
+# fixtures. The AgentClaim itself is synthetic, with a fixed assertedAt.
+name: SeaTrees
+description: SeaTrees is a program of Sustainable Surf that works to restore and protect
+  coastal ecosystems
+url: https://seatrees.org/
+claimStatement: SeaTrees is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VMAVVFRNM4QPWCPW44Q9
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VMAVVFRNM4QPWCPW44Q9
+  agentKind: ORGANIZATION

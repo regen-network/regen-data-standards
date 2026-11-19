@@ -1,0 +1,18 @@
+# From the projects that name Western Reserve Land Conservancy
+# (C02/C02ProjectInfo-C02-002.yaml): Western Reserve Land Conservancy, their
+# developer, describes itself. The name, description, url and image are copied
+# from those fixtures. The AgentClaim itself is synthetic, with a fixed
+# assertedAt.
+name: Western Reserve Land Conservancy
+description: Land conservation organization protecting natural areas in Northeast
+  Ohio
+url: https://www.wrlandconservancy.org/
+image: https://regen-registry.s3.amazonaws.com/ecosystem-team-uploads/C02-002-profile-image.png
+claimStatement: Western Reserve Land Conservancy is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9ZMHRAQDCCREDW4HMG
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9ZMHRAQDCCREDW4HMG
+  agentKind: ORGANIZATION

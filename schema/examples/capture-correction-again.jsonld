@@ -10,15 +10,13 @@
     "schema": "http://schema.org/",
     "@vocab": "https://framework.regen.network/schema/",
     "id": "@id",
+    "rid": "@id",
+    "description": {
+      "@id": "schema:description"
+    },
     "did": {
       "@type": "@id",
       "@id": "did"
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
-    "description": {
-      "@id": "schema:description"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -37,6 +35,10 @@
     "inLanguage": {
       "@id": "schema:inLanguage"
     },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
+    },
     "name": {
       "@id": "schema:name"
     },
@@ -51,10 +53,6 @@
     "replaces": {
       "@type": "@id",
       "@id": "dcterms:replaces"
-    },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
     },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
@@ -81,6 +79,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -140,11 +141,6 @@
   "startedAtTime": "2026-05-02T09:14:04+00:00",
   "endedAtTime": "2026-05-02T09:14:09+00:00",
   "wasAssociatedWith": [
-    {
-      "@type": "SoftwareAgent",
-      "name": "Example Meeting Sensor 1.4.2",
-      "softwareVersion": "1.4.2",
-      "isVersionOf": "https://example.org/sensors/meeting-sensor"
-    }
+    "https://framework.regen.network/agent/01M728VMAMFNHKG12A8CNH9XW8"
   ]
 }

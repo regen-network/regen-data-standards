@@ -1,0 +1,14 @@
+# From the projects that name Corantioquia
+# (BT01/BT01ProjectInfo-BT01-001.yaml): Terrasos, their developer, describes
+# Corantioquia, their environmental authority. The name, description, url and
+# image are copied from those fixtures. The AgentClaim itself is synthetic,
+# with a fixed assertedAt.
+name: Corantioquia
+claimStatement: Corantioquia is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9M7VP62T2HGJ3R4JZH
+  agentKind: ORGANIZATION

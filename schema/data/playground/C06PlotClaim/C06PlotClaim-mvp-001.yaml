@@ -8,8 +8,7 @@ claimStatement: >-
   lease, and was not converted from a natural ecosystem in the ten years before
   its site's project start date.
 assertedBy:
-  - name: Example Soil Carbon Developer
-    type: prov:Organization
+  - https://framework.regen.network/agent/01M728VMAEGYMYR3W26QKJ4KXK
 assertedOn: "2026-02-20"
 hasSubject:
   id: https://example.org/c06/plot/S-001.0007

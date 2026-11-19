@@ -49,15 +49,8 @@ hasCoBenefits:
     supportsSDG:
       - SDG_4
       - SDG_11
-hasProjectDeveloper:
-  name: Tree Folks
-  description: Nonprofit organization dedicated to planting and caring for trees in Central Texas
-  url: https://www.treefolks.org/
-  image: https://regen-registry.s3.us-east-1.amazonaws.com/ecosystem-team-uploads/TreeFolks-logo.png
-  type: prov:Organization
-hasProjectVerifier:
-  name: Dr. Qingfu Xiao
-  type: prov:Person
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VMA780XJ4Y9S5EPXZ3RT  # Tree Folks
+hasProjectVerifier: https://framework.regen.network/agent/01M728VMA58KTAV7MP0TBT33CX  # Dr. Qingfu Xiao
 creditClassVersion: V1.0
 marketType:
   - VOLUNTARY_MARKET

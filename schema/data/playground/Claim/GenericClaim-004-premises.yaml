@@ -10,8 +10,7 @@ claimStatement: >-
   March 2024 and March 2026 measurements.
 inLanguage: en
 assertedBy:
-  - name: Hedgerow Cooperative
-    type: rfs:Community
+  - https://framework.regen.network/agent/01M728VMANPST7G25R4K9XP1MK
 assertedAt: "2026-04-10T09:00:00+00:00"
 hasSubject:
   id: https://example.org/plot/A

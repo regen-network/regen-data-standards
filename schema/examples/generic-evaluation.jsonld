@@ -16,13 +16,7 @@
       "@type": "@id",
       "@id": "addressesRequirement"
     },
-    "did": {
-      "@type": "@id",
-      "@id": "did"
-    },
-    "walletAddress": {
-      "@id": "walletAddress"
-    },
+    "rid": "@id",
     "applicability": {
       "@id": "applicability",
       "@type": "@vocab",
@@ -83,6 +77,10 @@
     },
     "description": {
       "@id": "schema:description"
+    },
+    "did": {
+      "@type": "@id",
+      "@id": "did"
     },
     "endDate": {
       "@type": "xsd:date",
@@ -145,6 +143,10 @@
     "issued": {
       "@type": "xsd:date",
       "@id": "dcterms:issued"
+    },
+    "isVersionOf": {
+      "@type": "@id",
+      "@id": "dcterms:isVersionOf"
     },
     "licence": {
       "@type": "@id",
@@ -209,10 +211,6 @@
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "isVersionOf": {
-      "@type": "@id",
-      "@id": "dcterms:isVersionOf"
-    },
     "softwareVersion": {
       "@id": "schema:softwareVersion"
     },
@@ -266,6 +264,9 @@
     },
     "version": {
       "@id": "schema:version"
+    },
+    "walletAddress": {
+      "@id": "walletAddress"
     },
     "wasAssociatedWith": {
       "@type": "@id",
@@ -431,10 +432,7 @@
   "name": "Steward review of the plot A hedgerow planting",
   "claimStatement": "The planted hedgerow along the northern boundary of plot A is present along its full length, as the planting log states.",
   "assertedBy": [
-    {
-      "@type": "Community",
-      "name": "Valley Stewards Circle"
-    }
+    "https://framework.regen.network/agent/01M728VMAR6XGR414824ZATQ18"
   ],
   "assertedAt": "2026-06-10T09:00:00+00:00",
   "hasSubject": {

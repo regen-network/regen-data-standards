@@ -1,0 +1,17 @@
+# From the projects that name Terrasos (BT01/BT01ProjectInfo-BT01-001.yaml and
+# one other): Terrasos, their developer, describes itself. The name,
+# description, url and image are copied from those fixtures. The AgentClaim
+# itself is synthetic, with a fixed assertedAt.
+name: Terrasos
+description: Terrasos develops biodiversity conservation and restoration projects
+  in Colombia
+url: https://terrasos.co/
+image: https://regen-registry.s3.amazonaws.com/profiles/689a1cf6-c485-11ee-ae01-0a6e1e09fcad/images.jpeg
+claimStatement: Terrasos is an organization.
+inLanguage: en
+assertedBy:
+- https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+assertedAt: "2026-11-17T00:00:00+00:00"
+hasSubject:
+  id: https://framework.regen.network/agent/01M728VM9N2PSMXGNE3MD0QZMN
+  agentKind: ORGANIZATION

@@ -28,10 +28,7 @@ environmentType:
   - TROPICAL_FOREST
 activity:
   - CONSERVATION
-hasProjectDeveloper:
-  name: Wildlife Works Carbon LLC
-  description: Wildlife Works is the world's leading REDD+ program development and management company.
-  type: prov:Organization
+hasProjectDeveloper: https://framework.regen.network/agent/01M728VM9VHQ07KQ3Q7SZF4M2Q  # Wildlife Works Carbon LLC
 usesMethodology:
   - name: Methodology for Avoided Ecosystem Conversion
     url: https://verra.org/methodology/vm0009-methodology-for-avoided-ecosystem-conversion-v3-0/
