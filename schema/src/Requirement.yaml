@@ -380,16 +380,18 @@ enums:
       Recommended query languages for a requirement check, used as
       queryLanguage values by their meaning IRIs.
     permissible_values:
-      SPARQL_11_XPATH_DATES:
-        meaning: rfs:Sparql11XPathDates
+      SPARQL_11_SEP_0002:
+        meaning: rfs:Sparql11Sep0002
         description: >-
-          SPARQL 1.1 queries, extended as its section 17.3.1 allows with the
-          XPath operators on dates and durations that it does not define:
-          comparison of xsd:date values (op:date-equal, op:date-less-than,
-          op:date-greater-than), op:add-yearMonthDuration-to-date,
-          op:add-dayTimeDuration-to-date and
-          op:subtract-dayTimeDuration-from-date. The queries are ASK queries.
-          An engine that lacks one of these operators does not fail a query
-          that uses it: the FILTER is false and the check gives a wrong
-          outcome, so an evaluator for this language must support all of
-          them.
+          SPARQL 1.1 ASK queries, with the dates, times and durations of
+          SPARQL-dev SEP-0002, "Add Support Durations, Dates, and Times", as
+          SPARQL 1.1's section 17.3.1 allows. SEP-0002 adds the xsd:date,
+          xsd:time and duration datatypes with their XPath comparison and
+          arithmetic operators, such as comparing two xsd:date values or
+          adding a xsd:yearMonthDuration to a xsd:date, and functions such as
+          YEAR on a xsd:date. Neither SPARQL 1.1 nor the SPARQL 1.2 draft
+          defines them. An engine that lacks one does not fail a query that
+          uses it: the FILTER is false and the check gives a wrong outcome,
+          so an evaluator for this language supports all of SEP-0002.
+        see_also:
+          - https://github.com/w3c/sparql-dev/blob/39da1d22059e4b637aa8fa1a7142173a0d4c30cf/SEP/SEP-0002/sep-0002.md

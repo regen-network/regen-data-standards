@@ -81,15 +81,16 @@ check and reports an error. The value is an IRI rather than a closed list, so a 
 another language or tool needs no schema change, only an IRI that names it precisely.
 `QueryLanguageType` lists the recommended values; today there is one:
 
-- `rfs:Sparql11XPathDates`: SPARQL 1.1 ASK queries, extended as its
-  [section 17.3.1](https://www.w3.org/TR/sparql11-query/#operatorExtensibility) allows with the XPath
-  operators on dates and durations that it does not define: comparison of `xsd:date` values
-  (`op:date-equal`, `op:date-less-than`, `op:date-greater-than`), `op:add-yearMonthDuration-to-date`,
-  `op:add-dayTimeDuration-to-date` and `op:subtract-dayTimeDuration-from-date`. The example's check
-  uses them to find a ten-year period. SPARQL 1.2, still a Working Draft, does not define them either.
-  An engine that lacks one does not fail the query: the `FILTER` using it is false, and a ten-year
-  period would be reported not met. So an evaluator for this language supports all of them; Oxigraph
-  does.
+- `rfs:Sparql11Sep0002`: SPARQL 1.1 ASK queries, with the dates, times and durations of
+  [SPARQL-dev SEP-0002](https://github.com/w3c/sparql-dev/blob/39da1d22059e4b637aa8fa1a7142173a0d4c30cf/SEP/SEP-0002/sep-0002.md), "Add Support Durations, Dates, and Times", as SPARQL 1.1's
+  [section 17.3.1](https://www.w3.org/TR/sparql11-query/#operatorExtensibility) allows. SEP-0002 adds
+  the `xsd:date`, `xsd:time` and duration datatypes with their XPath comparison and arithmetic
+  operators, such as comparing two `xsd:date` values (`op:date-less-than`) or adding an
+  `xsd:yearMonthDuration` to an `xsd:date` (`op:add-yearMonthDuration-to-date`), and functions such as
+  `YEAR` on an `xsd:date`. The example's check uses them to find a ten-year period. Neither SPARQL 1.1
+  nor the SPARQL 1.2 Working Draft defines them. An engine that lacks one does not fail the query: the
+  `FILTER` using it is false, and a ten-year period would be reported not met. So an evaluator for
+  this language supports all of SEP-0002; Oxigraph does, with its `sep-0002` feature.
 
 This schema does not run the queries.
 

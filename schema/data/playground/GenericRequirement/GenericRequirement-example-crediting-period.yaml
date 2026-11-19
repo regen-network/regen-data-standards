@@ -22,7 +22,7 @@ acceptsEvidence:
   - sourceType: TEXT
     mediaType: application/pdf
 requirementCheck:
-  queryLanguage: rfs:Sparql11XPathDates
+  queryLanguage: rfs:Sparql11Sep0002
   evidenceAvailableQuery: |-
     PREFIX rfs: <https://framework.regen.network/schema/>
     PREFIX schema: <http://schema.org/>

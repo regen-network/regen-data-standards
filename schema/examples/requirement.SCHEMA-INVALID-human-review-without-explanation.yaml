@@ -12,7 +12,7 @@ requirementStatement: >-
 assessmentScope: >-
   Checks only the length of the crediting period a C06SiteClaim states.
 requirementCheck:
-  queryLanguage: rfs:Sparql11XPathDates
+  queryLanguage: rfs:Sparql11Sep0002
   evidenceAvailableQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
   needsHumanReviewQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
   satisfiedQuery: ASK { GRAPH ?_claim_iri { ?_claim_iri ?p ?o } }
